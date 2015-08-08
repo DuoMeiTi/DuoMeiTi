@@ -15,16 +15,17 @@
         <global-results>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
         </global-results>
-
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
-
+        
         <action name="hello">
             <result>
                 /hello.jsp
             </result>
         </action>
+
+        
     </package>
 
     <!-- <include file="example.xml"/> -->
