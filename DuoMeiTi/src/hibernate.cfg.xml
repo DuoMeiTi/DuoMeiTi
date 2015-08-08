@@ -7,10 +7,9 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url"> jdbc:mysql://localhost/java</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.password"></property>
 
-        <property name="connection.pool_size">2</property>
-        <property name="dialect">org.hibernate.dialect.OracleDialect</property>
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
 
         <mapping resource="model/UserModel.hbm.xml"/>
