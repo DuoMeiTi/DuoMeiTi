@@ -18,7 +18,7 @@
             <div class="row col-lg-12">
                 <div class="col-lg-3 nav-left">	                    
                     <layout:block name="menu_list">
-                    水电费水电费
+                    			水电费水电费
                     		<s:set name="age" value="61"/>
 	                    		<s:if test="#age > 60"> 
 	                    		 老年人 
@@ -36,8 +36,9 @@
 <!-- 						</div>		                     -->
                     </layout:block>	
                 </div>
-                <div class="col-lg-9">                   
-                    <layout:block name="main_content">
+                <div class="col-lg-9">  
+                                  
+                    	<layout:block name="main_content">
 <!-- 	                    asdasdffsdfsf -->
 <!-- 	                    <div class="btn-group" role="group" aria-label="..."> -->
 <!-- 						  <button type="button" class="btn btn-default">Left</button> -->
@@ -50,8 +51,7 @@
 <!-- 						  </button> -->
 <!-- 						</div> -->
                     
-                    </layout:block>
-							
+                    	</layout:block>
                 </div>
             </div>
         </div>

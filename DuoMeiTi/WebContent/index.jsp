@@ -1,6 +1,6 @@
 
  
-<%@ include file="jsp/base/user_base.jsp"%>
+<%@ include file="jsp/admin/base.jsp"%>
 
 
 

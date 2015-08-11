@@ -28,7 +28,7 @@
         
     </package>
 
-    <!-- <include file="example.xml"/> -->
+    <include file="admin.xml"/>
 
     <!-- Add packages here -->
 
