@@ -43,6 +43,8 @@ public class BlockTag extends TagSupport{
 	
 	private String getOverriedContent() {
 		String varName = Utils.getOverrideVariableName(name);
+		
+//		System.out.println("test&&&:: " + name);
 		return (String)pageContext.getRequest().getAttribute(varName);
 	}
 }
