@@ -9,26 +9,15 @@
     <constant name="struts.devMode" value="true" />
 
     <package name="default" namespace="/" extends="struts-default">
-
-        <default-action-ref name="hello" />
-
-        <global-results>
-            <result name="error">jsp/error.jsp</result>
-        </global-results>
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="error"/>
-        </global-exception-mappings>
-        
-        <action name="hello">
-            <result>
-                /hello.jsp
+            
+        <action name="register" class="homepage.UserAction" method="register">
+            <result name="success">
+                /jsp/homepage/register.jsp
             </result>
-        </action>
-
-        
+        </action>       
     </package>
 
-    <include file="homepage/homepage.xml"/>
+
 
     <!-- Add packages here -->
 
