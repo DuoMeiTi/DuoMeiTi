@@ -12,7 +12,12 @@
                 /jsp/admin/base.jsp
             </result>
        </action>
-
+       <action name="class_manage">
+            <result>
+                /jsp/admin/class_manage.jsp
+            </result>
+       </action>
+		
         
     </package>
 
