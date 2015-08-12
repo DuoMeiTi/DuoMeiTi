@@ -5,20 +5,21 @@
 
 <struts>
 
-    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="true" />
+<!--     <constant name="struts.enable.DynamicMethodInvocation" value="false" /> -->
+<!--     <constant name="struts.devMode" value="true" /> -->
 
-    <package name="default" namespace="/" extends="struts-default">
-            
+    <package name="homepage" namespace="/" extends="struts-default">            
         <action name="register" class="homepage.UserAction" method="register">
             <result name="success">
                 /jsp/homepage/register.jsp
             </result>
-        </action>       
+        </action>
     </package>
 
 
 
-    <!-- Add packages here -->
+
+
+
 
 </struts>
