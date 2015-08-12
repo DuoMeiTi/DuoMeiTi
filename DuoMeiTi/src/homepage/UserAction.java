@@ -10,21 +10,34 @@ import java.util.Map;
 
 public class UserAction
 {
-	private String userName= "sb";
+	private String username= "";
+	private String password="";
 	
-	public void setUserName(String s)
+	public String getPassword() 
 	{
-		userName = s;
+		return password;
 	}
-	public String getUserName()
+	public void setPassword(String password) 
 	{
-		return userName;
+		this.password = password;
 	}
+	
+	public String getUsername()
+	{
+		return username;
+	}
+
+	public void setUsername(String s)
+	{
+		username = s;
+	}
+	
 	public String register() throws Exception
 	{
 
 		System.out.println("DSDLFKJ:::::::");
-		System.out.println(userName);
+		System.out.println(username);
+		System.out.println(password);
 //		Map request1 = (Map)ActionContext.getContext().get("request");
 //        Map session1 = ActionContext.getContext().getSession();
 //        System.out.println(request1);
