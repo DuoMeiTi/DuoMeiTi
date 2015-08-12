@@ -9,7 +9,7 @@
 	    <a href="/admin/" class="menu-button-middle"><span class="glyphicon glyphicon-heart-empty">&nbsp;库存设备管理</span></a>
 	    <a href="/admin/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;教室设备管理</span></a>
 	    <a href="/admin/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;在职学生管理</span></a>
-	    <a href="/admin/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;用户注册请求</span></a>
+	    <a href="/admin/user_request" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;用户注册请求</span></a>
 	    <a href="/admin/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;主页修改</span></a>
 	    <a href="/admin/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;日志管理</span></a>
 	    <a href="/admin/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;远程控制</span></a>
