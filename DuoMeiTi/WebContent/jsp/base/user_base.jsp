@@ -4,7 +4,6 @@
 
 <layout:override name="base_content">
 	
-	
 	<div id="nav-container">
 	    <div id="headerpic">
 	        <ul class="nav navbar-right">

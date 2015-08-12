@@ -24,6 +24,12 @@
                 /hello.jsp
             </result>
         </action>
+        
+        <action name="admin_eg">
+            <result>
+                /jsp/admin/admin_eg.jsp
+            </result>
+        </action>
 
         
     </package>
