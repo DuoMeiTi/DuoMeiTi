@@ -16,7 +16,7 @@
 	  
 	  <div class="form-group">
 	    <label for="password">Password</label>
-	    <input type="password" class="form-control" name="password" placeholder="">
+	    <input type="password" class="form-control" name="password" value"<s:property value="password"/>" placeholder="">
 	  </div>
 	  
 	  <button type="submit" class="btn btn-default">注册</button>

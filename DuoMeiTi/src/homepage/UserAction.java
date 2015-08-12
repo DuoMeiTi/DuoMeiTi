@@ -1,12 +1,7 @@
 package homepage;
-import javax.servlet.http.HttpServletRequest;
 
-import org.apache.struts2.ServletActionContext;
 
-import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import java.util.Map;
+import model.UserModel;
 
 public class UserAction
 {
@@ -34,6 +29,27 @@ public class UserAction
 	
 	public String register() throws Exception
 	{
+		if(username.equals("")) return "success";
+
+    	
+    	UserModel um = new UserModel();
+		um.setUsername(username);
+		um.setPassword(password);
+		
+		Session session = model.Util.session;
+		session.beginTransaction();
+		
+		
+		session.save(um);
+		session.getTransaction().commit();
+//		session.close();
+
+
+		
+		
+		
+
+		
 
 		System.out.println("DSDLFKJ:::::::");
 		System.out.println(username);

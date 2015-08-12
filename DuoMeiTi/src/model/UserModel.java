@@ -1,6 +1,8 @@
 package model;
 import org.hibernate.*;
 import org.hibernate.annotations.Table;
+
+
 import org.hibernate.cfg.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
