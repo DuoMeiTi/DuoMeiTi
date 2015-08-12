@@ -9,8 +9,12 @@
 
 	<form class="form-inline" action="register">
 	  <div class="form-group">
-	    <label for="exampleInputName2">Name</label>
-	    <input type="text" class="form-control" name="user_name" placeholder="Sam">
+	    <label for="userName">Name</label>   
+	    
+	    <input type="text" class="form-control" name="userName" value="<s:property value="userName"/>" placeholder="Sam">
+<%-- 	    <s:property value="userName"/> --%>
+<!-- 	    asdfs -->
+	    
 	  </div>
 	  <div class="form-group">
 	    <label for="exampleInputEmail2">Password</label>
