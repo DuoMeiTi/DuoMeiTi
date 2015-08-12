@@ -8,23 +8,27 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Map;
 
-public class UserAction extends ActionSupport
+public class UserAction
 {
-	public String user_name= "sb";
+	private String userName= "sb";
 	
-	public void SetUser_name(String s)
+	public void setUserName(String s)
 	{
-		user_name = s;
+		userName = s;
+	}
+	public String getUserName()
+	{
+		return userName;
 	}
 	public String register() throws Exception
 	{
 
 		System.out.println("DSDLFKJ:::::::");
-		System.out.println(user_name);
-		Map request1 = (Map)ActionContext.getContext().get("request");
-        Map session1 = ActionContext.getContext().getSession();
-        System.out.println(request1);
-        System.out.println(session1);
+		System.out.println(userName);
+//		Map request1 = (Map)ActionContext.getContext().get("request");
+//        Map session1 = ActionContext.getContext().getSession();
+//        System.out.println(request1);
+//        System.out.println(session1);
         
 
 		return "success";
