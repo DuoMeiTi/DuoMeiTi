@@ -1,7 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/index.jsp=UTF-8
 encoding//WebContent/jsp/admin/base.jsp=UTF-8
-encoding//WebContent/jsp/admin/classroom.jsp=UTF-8
+encoding//WebContent/jsp/admin/classroom_manage.jsp=UTF-8
 encoding//WebContent/jsp/base/base.jsp=UTF-8
 encoding//WebContent/jsp/base/user_base.jsp=UTF-8
 encoding//WebContent/jsp/homepage/base.jsp=UTF-8
