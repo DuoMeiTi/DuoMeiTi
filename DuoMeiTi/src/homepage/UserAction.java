@@ -1,30 +1,59 @@
 package homepage;
-import javax.servlet.http.HttpServletRequest;
 
-import org.apache.struts2.ServletActionContext;
 
-import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import java.util.Map;
+import model.UserModel;
 
 public class UserAction
 {
-	private String userName= "sb";
+	private String username= "";
+	private String password="";
 	
-	public void setUserName(String s)
+	public String getPassword() 
 	{
-		userName = s;
+		return password;
 	}
-	public String getUserName()
+	public void setPassword(String password) 
 	{
-		return userName;
+		this.password = password;
 	}
+	
+	public String getUsername()
+	{
+		return username;
+	}
+
+	public void setUsername(String s)
+	{
+		username = s;
+	}
+	
 	public String register() throws Exception
 	{
+		if(username.equals("")) return "success";
+
+    	
+    	UserModel um = new UserModel();
+		um.setUsername(username);
+		um.setPassword(password);
+		
+		Session session = model.Util.session;
+		session.beginTransaction();
+		
+		
+		session.save(um);
+		session.getTransaction().commit();
+//		session.close();
+
+
+		
+		
+		
+
+		
 
 		System.out.println("DSDLFKJ:::::::");
-		System.out.println(userName);
+		System.out.println(username);
+		System.out.println(password);
 //		Map request1 = (Map)ActionContext.getContext().get("request");
 //        Map session1 = ActionContext.getContext().getSession();
 //        System.out.println(request1);

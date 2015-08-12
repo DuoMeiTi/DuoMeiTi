@@ -12,9 +12,9 @@
                 /jsp/admin/base.jsp
             </result>
        </action>
-       <action name="class_manage">
+       <action name="classroom_manage">
             <result>
-                /jsp/admin/class_manage.jsp
+                /jsp/admin/classroom_manage.jsp
             </result>
        </action>
        

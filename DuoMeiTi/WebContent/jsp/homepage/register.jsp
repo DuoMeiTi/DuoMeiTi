@@ -9,18 +9,19 @@
 
 	<form class="form-inline" action="register">
 	  <div class="form-group">
-	    <label for="userName">Name</label>   
-	    
-	    <input type="text" class="form-control" name="userName" value="<s:property value="userName"/>" placeholder="Sam">
-<%-- 	    <s:property value="userName"/> --%>
-<!-- 	    asdfs -->
-	    
+	    <label for="username">Name</label>	    
+	    <input type="text" class="form-control" name="username" value="<s:property value="username"/>" placeholder="">
 	  </div>
+	  
+	  
 	  <div class="form-group">
-	    <label for="exampleInputEmail2">Password</label>
-	    <input type="pwd" class="form-control" name="user_pwd" placeholder="******">
+	    <label for="password">Password</label>
+	    <input type="password" class="form-control" name="password" value"<s:property value="password"/>" placeholder="">
 	  </div>
+	  
 	  <button type="submit" class="btn btn-default">注册</button>
+	  
+	  
 	</form>
 
 
