@@ -27,8 +27,9 @@
 
         
     </package>
-
-    <include file="homepage/homepage.xml"/>
+    <include file="/admin/admin.xml"/>
+	
+    <include file="/homepage/homepage.xml"/>
 
     <!-- Add packages here -->
 
