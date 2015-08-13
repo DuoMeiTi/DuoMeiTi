@@ -9,13 +9,6 @@
 	margin:20px auto;
 	padding:10px;
 }
-.mycontent{
-    background-color:#FAFAFA;
-    min-height:870px;
-   /* border-bottom-left-radius:15px;
-    border-bottom-right-radius:15px;*/
-    border:1px solid white;
-}
 #search{
 	height:80px;
 }
