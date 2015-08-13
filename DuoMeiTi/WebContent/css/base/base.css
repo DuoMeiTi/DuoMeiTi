@@ -71,8 +71,14 @@ a:hover,a:focus{
     padding-top:5px;
 }
 .menu-button-middle:hover{
-    background-color:rgb(0,122,255);
+    background-color:rgb(0,114,227);
 }
+
+.highlight{
+    background-color: rgb(0,114,227);
+    color:#ffffff;
+}
+
 .main-content{
  /*border-radius:20px;*/
     border:3px solid white;
@@ -132,11 +138,6 @@ a:hover,a:focus{
 
 .nav-left{
     padding-left: 60px!important;
-}
-
-
-.highlight{
-    background-color: rgb(0,122,255);
 }
 
 .backgrd{

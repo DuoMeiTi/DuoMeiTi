@@ -261,6 +261,9 @@ $(".menu-list a").each(function(){
     var myhref=$(this).attr("href");
     if(str.indexOf(myhref)>0)
         {
+    	console.log(str);
+    	console.log(myhref);
+    	console.log(str.indexOf(myhref));
             $(this).addClass("highlight");
         }
 });

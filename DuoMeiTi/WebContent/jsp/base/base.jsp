@@ -14,11 +14,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta name="keywords" content="" />
         <meta name="author" content="" />
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" media="screen" href="css/base/table.css" >		
-		<link rel="stylesheet" type="text/css" media="screen" href="css/base/base.css"/>        
-        <script type='text/javascript' src="js/base/jquery-1.10.2.min.js"></script>
+        <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/table.css" >		
+		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/base.css"/>        
+        <script type='text/javascript' src="/js/base/jquery-1.10.2.min.js"></script>
     </head>   
 
     <body >
@@ -32,13 +32,13 @@
 		</footer>
 	
 
-        <script type='text/javascript' src="bootstrap/js/bootstrap.min.js"></script>
+        <script type='text/javascript' src="/bootstrap/js/bootstrap.min.js"></script>
 
 		<!--TinyMCE Editor-->
-		<script type='text/javascript' src="js/base/tiny_mce.js"></script>
+		<script type='text/javascript' src="/js/base/tiny_mce.js"></script>
 		<!-- JQuery Masonry-->
-		<script type='text/javascript' src="js/base/jquery.masonry.min.js"></script>
-		<script type='text/javascript' src="js/base/base.js"></script>		       
+		<script type='text/javascript' src="/js/base/jquery.masonry.min.js"></script>
+		<script type='text/javascript' src="/js/base/base.js"></script>		       
         <!-- 百度推广JS -->
         <script type="text/javascript">
             var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
