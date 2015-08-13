@@ -14,7 +14,7 @@
         		</div>
         
        			<div class="col-lg-6 nopadding" >
-           			<a href="/admin" class="navbar-button">已处理</a> 
+           			<a href="/admin/user_request/handled" class="navbar-button">已处理</a> 
         		</div>
     
     		</div>

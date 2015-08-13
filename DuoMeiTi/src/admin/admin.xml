@@ -39,6 +39,13 @@
     		</result>
     	
     	</action>
+    	
+    	<action name="handled">
+    		<result>
+    			/jsp/admin/handled.jsp
+    		</result>
+    	
+    	</action>
     
     </package>
 
