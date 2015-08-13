@@ -4,6 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+<<<<<<< HEAD
 
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="true" />
@@ -31,5 +32,40 @@
 <!--     <include file="admin.xml"/> -->
 
     <!-- Add packages here -->
+=======
+	
+	
+    <package name="admin" namespace="/admin" extends="struts-default">
+       <action name="">
+            <result>
+                /jsp/admin/base.jsp
+            </result>
+       </action>
+       <action name="classroom_manage">
+            <result>
+                /jsp/admin/classroom_manage.jsp
+            </result>
+       </action>
+       
+       <action name="user_request">
+            <result>
+                /jsp/admin/users_request.jsp
+            </result>
+       </action>
+           
+    </package>
+    
+    <package name="user_request" namespace="/admin/user_request" extends="struts-default">
+    	<action name="untreated">
+    		<result>
+    			/jsp/admin/untreated.jsp
+    		</result>
+    	
+    	</action>
+    
+    </package>
+
+
+>>>>>>> origin/master
 
 </struts>

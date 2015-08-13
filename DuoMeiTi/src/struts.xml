@@ -10,10 +10,10 @@
 
     <package name="default" namespace="/" extends="struts-default">
 
-        <default-action-ref name="index" />
+        <default-action-ref name="hello" />
 
         <global-results>
-            <result name="error">/WEB-INF/jsp/error.jsp</result>
+            <result name="error">jsp/error.jsp</result>
         </global-results>
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error"/>
@@ -24,11 +24,23 @@
                 /hello.jsp
             </result>
         </action>
+        
+        <action name="admin_eg">
+            <result>
+                /jsp/admin/admin_eg.jsp
+            </result>
+        </action>
 
         
     </package>
+<<<<<<< HEAD
 
     <include file="admin/admin.xml"/>
+=======
+    <include file="/admin/admin.xml"/>
+	
+    <include file="/homepage/homepage.xml"/>
+>>>>>>> origin/master
 
     <!-- Add packages here -->
 

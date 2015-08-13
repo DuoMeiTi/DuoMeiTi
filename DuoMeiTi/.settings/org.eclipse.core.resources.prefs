@@ -1,6 +1,19 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=origin/master
 eclipse.preferences.version=1
 encoding//WebContent/index.jsp=UTF-8
+encoding//WebContent/jsp/admin/admin_eg.jsp=UTF-8
 encoding//WebContent/jsp/admin/base.jsp=UTF-8
+<<<<<<< HEAD
 encoding//WebContent/jsp/admin/repertory.jsp=UTF-8
+=======
+encoding//WebContent/jsp/admin/classroom_detail.jsp=UTF-8
+encoding//WebContent/jsp/admin/classroom_manage.jsp=UTF-8
+encoding//WebContent/jsp/admin/users_request.jsp=UTF-8
+>>>>>>> origin/master
 encoding//WebContent/jsp/base/base.jsp=UTF-8
 encoding//WebContent/jsp/base/user_base.jsp=UTF-8
+encoding//WebContent/jsp/homepage/base.jsp=UTF-8
+encoding//WebContent/jsp/homepage/home.jsp=UTF-8
+encoding//WebContent/jsp/homepage/register.jsp=UTF-8
