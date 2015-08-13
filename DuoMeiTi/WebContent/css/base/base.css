@@ -4,6 +4,12 @@ body{
     background-repeat: no-repeat;
 /*     background-color:rgb(233,248,249); */
 }
+
+#basecontent{
+	width:80%;
+	margin:0 auto;
+}
+
 #headerpic{
     height:80px;
 }
