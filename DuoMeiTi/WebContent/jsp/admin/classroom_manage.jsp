@@ -1,13 +1,9 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 
 <layout:override name="main_content">
-<<<<<<< HEAD
+
 
   <div class="classbuilding">
-=======
-<div class="mycontent">
-  <div id="classbuilding">
->>>>>>> origin/master
     XXX教学楼
   </div>
   <hr>
