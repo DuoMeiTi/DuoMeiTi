@@ -1,7 +1,6 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 
 <layout:override name="main_content">
-	<div class="main-content">  
 		<div class="mycontent">
      		
      		
@@ -22,12 +21,19 @@
      		</thead>
      		<tbody>
      			<tr>
-     			<th></th>
+     			<td>11</td>
+     			<td>11</td>
+     			<td>11</td>
+     			<td>11</td>
+     			<td>11</td>
+     			<td>11</td>
+     			<td>11</td>
+     			<td>11</td>
+     			<td>11</td>
      			</tr>
      		</tbody>
      		</table>
     	</div>
-	</div>
 </layout:override>
 
 <%@ include file="/jsp/admin/base.jsp" %>
