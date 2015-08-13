@@ -23,6 +23,12 @@
                 /jsp/admin/users_request.jsp
             </result>
        </action>
+       
+       <action name="repertory">
+            <result>
+                /jsp/admin/repertory.jsp
+            </result>
+       </action>
            
     </package>
     
