@@ -4,35 +4,6 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-<<<<<<< HEAD
-
-    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="true" />
-
-    <package name="default" namespace="/admin" extends="struts-default">
-
-        <default-action-ref name="index" />
-
-<!--         <global-results> -->
-<!--             <result name="error">/WEB-INF/jsp/error.jsp</result> -->
-<!--         </global-results> -->
-<!--         <global-exception-mappings> -->
-<!--             <exception-mapping exception="java.lang.Exception" result="error"/> -->
-<!--         </global-exception-mappings> -->
-        
-        <action name="repertory">
-            <result>
-                /jsp/admin/repertory.jsp
-            </result>
-        </action>
-
-        
-    </package>
-
-<!--     <include file="admin.xml"/> -->
-
-    <!-- Add packages here -->
-=======
 	
 	
     <package name="admin" namespace="/admin" extends="struts-default">
@@ -66,6 +37,5 @@
     </package>
 
 
->>>>>>> origin/master
 
 </struts>

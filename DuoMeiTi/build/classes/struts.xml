@@ -33,14 +33,9 @@
 
         
     </package>
-<<<<<<< HEAD
-
-    <include file="admin/admin.xml"/>
-=======
     <include file="/admin/admin.xml"/>
 	
     <include file="/homepage/homepage.xml"/>
->>>>>>> origin/master
 
     <!-- Add packages here -->
 
