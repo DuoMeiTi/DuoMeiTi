@@ -34,7 +34,7 @@
             </result>
        </action>
        
-       <action name="repertory">
+       <action name="repertory" class="admin.RepertoryAction" method="repertory">
             <result>
                 /jsp/admin/repertory.jsp
             </result>

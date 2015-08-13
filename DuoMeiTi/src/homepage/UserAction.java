@@ -38,13 +38,13 @@ public class UserAction
 		um.setUsername(username);
 		um.setPassword(password);
 		
-		Session session = model.Util.session;
-		session.beginTransaction();
+		Session session = model.Util.sessionFactory.openSession();
 		
 		
+		session.beginTransaction();		
 		session.save(um);
 		session.getTransaction().commit();
-//		session.close();
+		session.close();
 
 
 		

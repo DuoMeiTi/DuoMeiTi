@@ -3,8 +3,10 @@
 <layout:override name="main_content">
 
 <div class="mycontent">
-  <div class="classbuilding ">
-    XXX教学楼
+  <div class="row">
+    <div class="col-lg-6 col-lg-offset-3 classbuilding ">
+      XXX教学楼
+    </div>
   </div>
   <hr>
   <div class="form-horizontal" id="search">

@@ -1,6 +1,4 @@
 package model;
-import org.hibernate.*;
-import org.hibernate.annotations.Table;
 
 
 import org.hibernate.cfg.*;

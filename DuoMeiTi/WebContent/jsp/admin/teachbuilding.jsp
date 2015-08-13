@@ -1,31 +1,35 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 
 <layout:override name="main_content">
-	<div class="classbuilding">
-		<span>教学楼管理</span>
-	</div>
-	<hr>
-	<div class="container-fluid">
-		<div class="row col-lg-12">
-			<div class="col-lg-4">
-				<a href="classroom_manage"><div class="teachbuilding-div">一馆</div></a>
-			</div>
-			<div class="col-lg-4">
-				<div class="teachbuilding-div">一馆</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="teachbuilding-div">一馆</div>
+	<div class="mycontent">
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3 classbuilding">
+				<span>教学楼管理</span>
 			</div>
 		</div>
-		<div class="row col-lg-12">
-			<div class="col-lg-4">
-				<div class="teachbuilding-div">一馆</div>
+		<hr>
+		<div class="container-fluid">
+			<div class="row col-lg-12">
+				<div class="col-lg-4">
+					<a href="classroom_manage"><div class="teachbuilding-div">一馆</div></a>
+				</div>
+				<div class="col-lg-4">
+					<div class="teachbuilding-div">一馆</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="teachbuilding-div">一馆</div>
+				</div>
 			</div>
-			<div class="col-lg-4">
-				<div class="teachbuilding-div">一馆</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="teachbuilding-div">一馆</div>
+			<div class="row col-lg-12">
+				<div class="col-lg-4">
+					<div class="teachbuilding-div">一馆</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="teachbuilding-div">一馆</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="teachbuilding-div">一馆</div>
+				</div>
 			</div>
 		</div>
 	</div>
