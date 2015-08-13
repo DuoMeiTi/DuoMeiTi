@@ -2,7 +2,7 @@
 
 <layout:override name="main_content">
 
-  <div id="classbuilding">
+  <div class="classbuilding">
     XXX教学楼
   </div>
   <hr>

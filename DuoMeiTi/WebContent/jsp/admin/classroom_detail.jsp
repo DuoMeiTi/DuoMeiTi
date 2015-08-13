@@ -22,11 +22,12 @@
 	}
 	</script>
 
-	<div class="roomname-div">
+	<div class="classbuilding">
 		<span>301</span>&nbsp;&nbsp;&nbsp;&nbsp;
 		<span>负责人:</span>
 		<span class="director-span">楼主</span>
 	</div>
+	<hr>
 
 	<!-- Modal -->
 	<div class="modal fade" id="schedule-modal" tabindex="-1" role="dialog"
@@ -121,7 +122,7 @@
 		<div class="device">
 			<ul>
 				<li>
-					<div style="margin-bottom:5px"><span>计算机&nbsp;</span><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
+					<div style="margin-bottom:5px"><label class="control-label">计算机&nbsp;</label><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
 					<table class="table device-table-bordered">
 						<thead>
 							<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
@@ -132,7 +133,7 @@
 					</table>
 				</li>
 				<li>
-					<div style="margin-bottom:5px"><span>中控&nbsp;</span><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
+					<div style="margin-bottom:5px"><label class="control-label">中央控制器&nbsp;</label><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
 					<table class="table device-table-bordered">
 						<thead>
 							<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
@@ -143,7 +144,7 @@
 					</table>
 				</li>
 				<li>
-					<div style="margin-bottom:5px"><span>投影&nbsp;</span><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
+					<div style="margin-bottom:5px"><label class="control-label">投影&nbsp;</label><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
 					<table class="table device-table-bordered">
 						<thead>
 							<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
@@ -158,7 +159,7 @@
 		<div class="record">
 			<ul>
 				<li>
-					<span>周检查记录:</span>
+					<label class="control-label">周检查记录：</label>
 					<table class="table device-table-bordered">
 						<thead>
 							<tr><td>检查人</td><td>教室状况</td><td>检查时间</td></tr>
@@ -171,7 +172,7 @@
 					</table>
 				</li>
 				<li>
-				<span>维修记录:</span>
+				<label class="control-label">维修记录：</label>
 					<table class="table device-table-bordered">
 						<thead>
 							<tr><td>维修人</td><td>维修状况</td><td>维修时间</td></tr>
@@ -200,7 +201,7 @@
 		    border: 2px solid black;
 		}
 		
-		.roomname-div {
+		/* .roomname-div {
 			margin:0 auto;
 			margin-top:30px;
 			width:40%;
@@ -209,7 +210,7 @@
 		    line-height:50px;  
 		    overflow:hidden;   
 			border:2px solid black;
-		}
+		} */
 		
 		.btn-div {
 			margin: 20px 200px 20px 60%;
