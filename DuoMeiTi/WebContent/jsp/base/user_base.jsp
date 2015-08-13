@@ -17,7 +17,7 @@
 
 <div class="container-fluid main-container">
     <div class="row col-lg-12">
-        <div class="col-lg-3 nav-left">	                    
+        <div class="col-lg-3 ">	                    
             <layout:block name="menu_list">
             </layout:block>	
         </div>
