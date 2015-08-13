@@ -19,7 +19,7 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/table.css" >		
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/base.css"/> 
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/classroom_manage.css"/>       
-        <script type='text/javascript' src="/js/base/jquery-1.10.2.min.js"></script>
+        <script type='text/javascript' src="/js/base/jquery-2.1.4.min.js"></script>
     </head>   
 
     <body >
