@@ -12,8 +12,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class Util {
 
 	public static SessionFactory sessionFactory;  
-	public static Session  session;
-	public static Transaction transaction;
+//	public static Session  session;
+//	public static Transaction transaction;
 //	public static Session session;	
     static 
     {  
@@ -25,8 +25,8 @@ public class Util {
         	StandardServiceRegistryBuilder srb = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
         	StandardServiceRegistry sr = srb.build();
         	sessionFactory = cfg.buildSessionFactory(sr);
-        	session = model.Util.sessionFactory.openSession();
-        	transaction = session.getTransaction();
+//        	session = model.Util.sessionFactory.openSession();
+//        	transaction = session.getTransaction();
         	
 //        	transaction = session.beginTransaction();
 
