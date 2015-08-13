@@ -41,7 +41,7 @@
         <td>打印机</td>
         <td>20*40</td>
         <td>张三</td>
-        <td><a href="#" class="btn btn-info active">详&nbsp;&nbsp;细</a></td>
+        <td><a href="classroom_detail" class="btn btn-info active">详&nbsp;&nbsp;细</a></td>
       </tr>
     </table>
   </div>

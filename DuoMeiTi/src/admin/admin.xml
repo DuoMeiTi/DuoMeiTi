@@ -12,9 +12,19 @@
                 /jsp/admin/base.jsp
             </result>
        </action>
+       <action name="teachbuilding">
+            <result>
+                /jsp/admin/teachbuilding.jsp
+            </result>
+       </action>
        <action name="classroom_manage">
             <result>
                 /jsp/admin/classroom_manage.jsp
+            </result>
+       </action>
+       <action name="classroom_detail">
+            <result>
+                /jsp/admin/classroom_detail.jsp
             </result>
        </action>
        

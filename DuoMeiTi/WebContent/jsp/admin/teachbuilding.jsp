@@ -8,7 +8,7 @@
 	<div class="container-fluid">
 		<div class="row col-lg-12">
 			<div class="col-lg-4">
-				<div class="teachbuilding-div">一馆</div>
+				<a href="classroom_manage"><div class="teachbuilding-div">一馆</div></a>
 			</div>
 			<div class="col-lg-4">
 				<div class="teachbuilding-div">一馆</div>
