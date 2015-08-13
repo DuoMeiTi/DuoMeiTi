@@ -2,8 +2,8 @@
 
 <layout:override name="main_content">
 
-
-  <div class="classbuilding">
+<div class="mycontent">
+  <div class="classbuilding ">
     XXX教学楼
   </div>
   <hr>
@@ -45,6 +45,8 @@
       </tr>
     </table>
   </div>
+</div>
+
 </div>
 </layout:override>
 
