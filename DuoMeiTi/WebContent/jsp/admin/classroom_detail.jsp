@@ -5,6 +5,7 @@
 
 <layout:override name="main_content">
 	<link href="/datepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="/css/admin/classroom_detail.css" rel="stylesheet" />
 	<script type='text/javascript' src="/datepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="/datepicker/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 	<script type="text/javascript">
@@ -22,11 +23,13 @@
 	}
 	</script>
 	<div class="mycontent">
-		<div class="classbuilding">
-			<span>301</span>&nbsp;&nbsp;&nbsp;&nbsp;
-			<span>负责人:</span>
-			<span class="director-span">楼主</span>
-		</div>
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3 classbuilding">
+				<span>301</span>&nbsp;&nbsp;&nbsp;&nbsp;
+				<span>负责人:</span>
+				<span class="director-span">楼主</span>
+			</div>
+			</div>
 		<hr>
 	
 		<!-- Modal -->
@@ -195,50 +198,6 @@
 				</ul>
 			</div>
 		</div>
-		<style type="text/css">
-			ul {
-				padding:10px;
-				list-style:none;
-			}
-			
-			.device-table-bordered {
-				border: 2px solid black;
-			}
-			
-			.device-table-bordered>tbody>tr>td, .device-table-bordered>tbody>tr>th, .device-table-bordered>thead>tr>td, .device-table-bordered>thead>tr>th {
-			    border: 2px solid black;
-			}
-			
-			/* .roomname-div {
-				margin:0 auto;
-				margin-top:30px;
-				width:40%;
-				text-align:center;
-				height:50px;
-			    line-height:50px;  
-			    overflow:hidden;   
-				border:2px solid black;
-			} */
-			
-			/* .btn-div {
-				margin: 20px 20% 20px 60%;
-			} */
-			
-			.detail-div {
-				margin: 0;
-			}
-			
-			.device {
-				position:relative;
-				width:60%;
-				float:left;
-			}
-			
-			.record {
-				width:40%;
-				float:right;
-			}
-		</style>
 	</div>
 </layout:override>
 

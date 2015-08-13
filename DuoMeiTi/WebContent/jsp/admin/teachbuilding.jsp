@@ -1,8 +1,10 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 
 <layout:override name="main_content">
-	<div class="classbuilding">
-		<span>教学楼管理</span>
+	<div class="row">
+		<div class="col-lg-6 col-lg-offset-3 classbuilding">
+			<span>教学楼管理</span>
+		</div>
 	</div>
 	<hr>
 	<div class="container-fluid">
