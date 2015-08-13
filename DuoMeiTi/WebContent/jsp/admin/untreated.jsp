@@ -27,7 +27,7 @@
 						</select>
 					</td>
 					<td>
-						<input type="button" value="确定">
+						<button type="button" class="btn btn-primary btn-sm">确定</button>
 					</td>
 				</tr>
 			

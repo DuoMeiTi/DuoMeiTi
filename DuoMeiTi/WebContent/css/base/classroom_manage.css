@@ -1,0 +1,21 @@
+.classbuilding{
+	width:600px;
+	height:50px;
+	background:#06B9D1;
+	border-radius:5px;
+	font-weight:bold;
+	font-size:20px;
+	text-align:center;
+	margin:20px auto;
+	padding:10px;
+}
+.mycontent{
+    background-color:#FAFAFA;
+    min-height:870px;
+   /* border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;*/
+    border:1px solid white;
+}
+#search{
+	height:80px;
+}
