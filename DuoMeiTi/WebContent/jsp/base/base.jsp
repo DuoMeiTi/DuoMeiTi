@@ -17,7 +17,8 @@
         <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/table.css" >		
-		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/base.css"/>        
+		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/base.css"/> 
+		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/classroom_manage.css"/>       
         <script type='text/javascript' src="/js/base/jquery-1.10.2.min.js"></script>
     </head>   
 
