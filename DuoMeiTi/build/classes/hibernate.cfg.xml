@@ -16,6 +16,7 @@
 		
 <!--         <mapping resource="model/UserModel.hbm.xml"/> -->
 		<mapping class="model.UserModel"/>
+		<mapping class="model.RepertoryModel"/>
 		
     </session-factory>
 </hibernate-configuration>

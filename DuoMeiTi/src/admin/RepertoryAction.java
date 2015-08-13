@@ -1,11 +1,15 @@
-package homepage;
+package admin;
 import org.hibernate.Session;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.RepertoryModel;
 
-public class ReperporyAction extends ActionSupport{
+public class RepertoryAction extends ActionSupport{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String type;
 	private String number;
@@ -33,7 +37,8 @@ public class ReperporyAction extends ActionSupport{
 		rt.setNumber(number);
 		rt.setType(type);
 		
-		Session session = model.Util.session;
+		Session session = model.Util.sessionFactory.openSession();
+		
 		session.beginTransaction();
 		session.save(rt);
 		session.getTransaction().commit();

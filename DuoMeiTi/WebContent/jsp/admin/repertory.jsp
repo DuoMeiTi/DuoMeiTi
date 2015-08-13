@@ -22,10 +22,10 @@
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-default">设备类型</button>
 									</span>
-									<select class="form-control" name="type" placeholder="请选择">
-										<option value="<s:property value="type"/>"></option>
-										<option value="<s:property value="type"/>">计算机</option>
-										<option value="<s:property value="type"/>">投影仪</option>
+									<select class="form-control" name="type" placeholder="请选择" value="<s:property value="type"/>">
+										<option value="" selected="selected"></option>
+										<option value="计算机">计算机</option>
+										<option value="投影仪">投影仪</option>
 									</select>
 								</div>
 								<div id="alert-bar" style="color: red"></div>
