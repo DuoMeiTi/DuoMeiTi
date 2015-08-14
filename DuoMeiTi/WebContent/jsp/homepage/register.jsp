@@ -7,7 +7,7 @@
 <layout:override name="main_content">
 <br/>
 
-	<form class="form-inline" action="register">
+	<form class="form-inline" action="register" method="POST">
 	  <div class="form-group">
 	    <label for="username">Name</label>	    
 	    <input type="text" class="form-control" name="username" value="<s:property value="username"/>" placeholder="">
