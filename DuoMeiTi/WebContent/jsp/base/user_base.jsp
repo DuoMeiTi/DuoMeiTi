@@ -29,6 +29,17 @@
         </div>
     </div>
 </div>
+
+<div id="envelope"></div>
+<div id="message-box" class="hide">
+	<div class="message-box-top">
+		<span class="title">消息</span>
+		<span class="glyphicon glyphicon-remove closed"></span>
+		<span class="glyphicon glyphicon-menu-left back"></span>
+	</div>
+	<div class="message-list"></div>
+	<div class="message-content"></div>
+</div>
         
  <layout:block name="nav_content">
  
