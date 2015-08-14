@@ -1,7 +1,12 @@
 package homepage;
 
 
+import java.util.Map;
+
 import org.hibernate.Session;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 
 import model.UserModel;
 
@@ -27,6 +32,24 @@ public class UserAction
 	public void setUsername(String s)
 	{
 		username = s;
+	}
+	public String login() throws Exception
+	{		
+		if(username == "")
+		{
+			return ActionSupport.SUCCESS;
+		}
+		ActionContext actionContext = ActionContext.getContext();
+		Map<String, Object> session = actionContext.getSession();
+		
+		session.put("username", username);
+		return "login_success";
+	}
+	public String logout() throws Exception
+	{		
+	    Map session = ActionContext.getContext().getSession();  
+	    session.remove("username");
+	    return "success";
 	}
 	
 	public String register() throws Exception

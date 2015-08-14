@@ -5,20 +5,67 @@
 
 <struts>
 
-<!--     <constant name="struts.enable.DynamicMethodInvocation" value="false" /> -->
-<!--     <constant name="struts.devMode" value="true" /> -->
 
-    <package name="homepage" namespace="/" extends="struts-default">            
+    <package name="homepage" namespace="/" extends="struts-default">
+    
+    	<action name="hello">
+            <result>
+                /hello.jsp
+            </result>
+        </action>
+        
+        <action name="admin_eg">
+            <result>
+                /jsp/admin/admin_eg.jsp
+            </result>
+        </action>
+        
+        
+        
+    	<action name="not_login">
+            <result> /jsp/homepage/not_login.jsp </result>
+        </action>
+        
+        <action name="logout" class="homepage.UserAction" method="logout">
+            <result type="redirect"> / </result>
+        </action>
+        
+        
+        
+    	
+    
+    
+                
         <action name="register" class="homepage.UserAction" method="register">
             <result name="success">
                 /jsp/homepage/register.jsp
             </result>
         </action>
         
+        <action name="login" class="homepage.UserAction" method="login">
+            <result name="success">
+                /jsp/homepage/login.jsp
+            </result>
+            
+            <result name="login_success" type="redirect">
+            	/login_success
+            </result>
+        </action>
+        
+        
         
     </package>
+    
+    <package name="login-interceptor-test" namespace="/" extends="login-interceptor">
+    
+        <action name="login_success">
+            <result >
+                /jsp/homepage/login_success.jsp
+            </result>
+        </action>        
+    </package>
 
-
+	
 
 
 
