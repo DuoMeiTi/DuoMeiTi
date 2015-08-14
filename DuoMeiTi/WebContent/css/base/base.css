@@ -35,7 +35,7 @@ a:hover,a:focus{
     /*background-image:url(/static/images/menubutton/middle_down.png);*/
     /*background-size:cover;*/
     /*border-radius:20px;*/
-/*     width:100%; */
+    width:205px;
     
 }
 .main-container{
@@ -50,7 +50,6 @@ a:hover,a:focus{
     border:1px solid white;
 }
 .no-nav{
-
     /*border-top-left-radius:15px;
     border-top-right-radius:15px;*/
     min-height:900px!important;
