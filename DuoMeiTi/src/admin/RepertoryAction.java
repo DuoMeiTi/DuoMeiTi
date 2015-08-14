@@ -1,52 +1,71 @@
 package admin;
+
+import javax.swing.JOptionPane;
+
 import org.hibernate.Session;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import model.RepertoryModel;
+import model.Repertory;
 
 public class RepertoryAction extends ActionSupport{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
-	private String type;
-	private String number;
-	public int getId() {
-		return id;
+	private int rtId;
+	private String rtType;
+	private String rtNumber;
+	
+	public int getRtId() {
+		return rtId;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setRtId(int rtId) {
+		this.rtId = rtId;
 	}
-	public String getType() {
-		return type;
+
+	public String getRtType() {
+		return rtType;
 	}
-	public void setType(String type) {
-		this.type = type;
+
+	public void setRtType(String rtType) {
+		this.rtType = rtType;
 	}
-	public String getNumber() {
-		return number;
+
+	public String getRtNumber() {
+		return rtNumber;
 	}
-	public void setNumber(String number) {
-		this.number = number;
+
+	public void setRtNumber(String rtNumber) {
+		this.rtNumber = rtNumber;
+	}
+
+	public String execute(){
+		return SUCCESS;
 	}
 	
-	public String repertory() throws Exception{
-		RepertoryModel rt = new RepertoryModel();
-		rt.setNumber(number);
-		rt.setType(type);
+	public String insert() throws Exception{
+		Session session = null;
 		
-		Session session = model.Util.sessionFactory.openSession();
+		try{
+			Repertory rt = new Repertory();
+			rt.setRtType(rtType);;
+			rt.setRtNumber(rtNumber);
+			session = model.Util.sessionFactory.openSession();
+			session.beginTransaction();
+			session.save(rt);
+			session.getTransaction().commit();
+			JOptionPane.showMessageDialog(null, "提交成功");  
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
 		
-		session.beginTransaction();
-		session.save(rt);
-		session.getTransaction().commit();
-		session.close();
+		System.out.println(rtNumber);
+		System.out.println(rtType);
 		
-		System.out.println(number);
-		System.out.println(type);
-		
-		return "success";
+		return SUCCESS;
 	}
 }

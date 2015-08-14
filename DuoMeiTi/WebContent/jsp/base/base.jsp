@@ -39,6 +39,7 @@
 
 		<!--TinyMCE Editor-->
 		<script type='text/javascript' src="/js/base/tiny_mce.js"></script>
+		<script type='text/javascript' src="/js/admin/repertory.js"></script>
 		<!-- JQuery Masonry-->
 		<script type='text/javascript' src="/js/base/jquery.masonry.min.js"></script>
 		<script type='text/javascript' src="/js/base/base.js"></script>		       
