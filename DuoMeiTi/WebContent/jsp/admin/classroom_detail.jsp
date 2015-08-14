@@ -1,13 +1,7 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 
-
-
-
 <layout:override name="main_content">
-	<link href="/datepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-	<link href="/css/admin/classroom_detail.css" rel="stylesheet" />
-	<script type='text/javascript' src="/datepicker/js/bootstrap-datetimepicker.min.js"></script>
-	<script type="text/javascript" src="/datepicker/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+	<link href="/css/admin/classroom_detail.css" rel="stylesheet" />	
 	<script type="text/javascript">
 	window.onload = function () {
 	    $('.form_date').datetimepicker({
