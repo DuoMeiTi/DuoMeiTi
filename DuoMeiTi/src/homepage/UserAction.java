@@ -14,7 +14,14 @@ public class UserAction
 {
 	private String username= "";
 	private String password="";
+	private String status ="";
 	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getPassword() 
 	{
 		return password;
@@ -51,23 +58,32 @@ public class UserAction
 	    session.remove("username");
 	    return "success";
 	}
-	
 	public String register() throws Exception
 	{
-		if(username.equals("")) return "success";
-
     	
+		return "success";
+	}
+
+	public String registerSave() throws Exception
+	{    	
     	UserModel um = new UserModel();
 		um.setUsername(username);
 		um.setPassword(password);
 		
 		Session session = model.Util.sessionFactory.openSession();
-		
-		
-		session.beginTransaction();		
+		session.beginTransaction();
 		session.save(um);
 		session.getTransaction().commit();
 		session.close();
+		
+		if(username.equals("lz"))
+		{
+			this.status = "lz";
+		}
+		else 
+		{
+			this.status = "not lz";
+		}
 
 
 		

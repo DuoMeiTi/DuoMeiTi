@@ -6,7 +6,7 @@
 <struts>
 
 
-    <package name="homepage" namespace="/" extends="struts-default">
+    <package name="homepage" namespace="/" extends="json-default">
     
     	<action name="hello">
             <result>
@@ -39,8 +39,19 @@
         <action name="register" class="homepage.UserAction" method="register">
             <result name="success">
                 /jsp/homepage/register.jsp
-            </result>
+            </result>            
         </action>
+        
+        <action name="registerSave" class="homepage.UserAction" method="registerSave">
+            <result name="success" type="json">                
+            </result>            
+        </action>
+        
+        
+        
+        
+        
+        
         
         <action name="login" class="homepage.UserAction" method="login">
             <result name="success">
@@ -59,7 +70,7 @@
     <package name="login-interceptor-test" namespace="/" extends="login-interceptor">
     
         <action name="login_success">
-            <result >
+            <result>
                 /jsp/homepage/login_success.jsp
             </result>
         </action>        
