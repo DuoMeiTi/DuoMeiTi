@@ -43,7 +43,8 @@
         </action>
         
         <action name="registerSave" class="homepage.UserAction" method="registerSave">
-            <result name="success" type="json">                
+            <result name="success" type="json">
+            	<param name="includeProperties">status</param>           
             </result>            
         </action>
         
