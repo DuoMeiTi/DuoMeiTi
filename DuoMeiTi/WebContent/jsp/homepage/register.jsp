@@ -20,9 +20,17 @@
 	  </div>
 	  
 	  <button type="button" class="btn btn-default">注册</button>
-	</form>
-	
+	</form>	
 	<br/>
+	
+	
+	<div class="alert alert-info" role="alert" id="alert_register_info"  style="display:none">
+	<br/>
+	</div>	
+	
+	
+	
+	
 	<table class="table table-bordered" id="user_table">
 	
 		<tr class="active">
@@ -63,28 +71,36 @@
 
     });
     
+    function animatedShow(text)
+    {
+    	$("#alert_register_info").hide();
+		$("#alert_register_info").text(text);
+		$("#alert_register_info").show(500);
+    }
     function registerCallback(data)
     {
     	$("#user_table tr:first").after(data.added_user_html);
     	
-    	var cnt = $(document).find("#added_user_tr");
-    	$(cnt).children().eq(0).text(data.username);
-    	$(cnt).children().eq(1).text(data.password);
+    	
+//     	var cnt = $(document).find("#added_user_tr").children();
+    	var cnt = $(document).find("#user_table tr").eq(1).children();
+    	$(cnt).eq(0).text(data.username);
+    	$(cnt).eq(1).text(data.password);
     	
 //     	alert($(document).find("#added_user_tr").html());
 //     	alert(data.added_user_html);
 //     	alert(data.username);
     	if(data.status == "0")
-    	{
-    		alert("注册成功");
+    	{    		
+    		animatedShow("注册成功");
     	}
     	else if(data.status == "1")
     	{
-    		alert("注册用户名为空");
+    		animatedShow("注册用户名或者密码为空");
     	}
     	else if(data.status == "2")
    		{
-    		alert("注册用户名重复");
+    		animatedShow("注册用户名重复");
    		}
     	else 
    		{
