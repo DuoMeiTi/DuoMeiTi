@@ -37,14 +37,16 @@
     
                 
         <action name="register" class="homepage.UserAction" method="register">
-            <result name="success">
+            <result name="success">                
+<!--                 <param name="includeProperties">username, password, user_list</param> -->
                 /jsp/homepage/register.jsp
             </result>            
         </action>
         
         <action name="registerSave" class="homepage.UserAction" method="registerSave">
             <result name="success" type="json">
-            	<param name="includeProperties">status</param>           
+<!--             	<param name="includeProperties">status, username, password, </param>            -->
+				<param name="excludeProperties"> user_list</param>
             </result>            
         </action>
         
