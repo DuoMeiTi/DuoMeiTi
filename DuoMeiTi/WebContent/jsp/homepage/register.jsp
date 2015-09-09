@@ -79,19 +79,19 @@
     }
     function registerCallback(data)
     {
-    	$("#user_table tr:first").after(data.added_user_html);
-    	
-    	
-//     	var cnt = $(document).find("#added_user_tr").children();
-    	var cnt = $(document).find("#user_table tr").eq(1).children();
-    	$(cnt).eq(0).text(data.username);
-    	$(cnt).eq(1).text(data.password);
     	
 //     	alert($(document).find("#added_user_tr").html());
 //     	alert(data.added_user_html);
 //     	alert(data.username);
     	if(data.status == "0")
     	{    		
+        	$("#user_table tr:first").after(data.added_user_html);
+        	
+        	
+        	var cnt = $(document).find("#user_table tr").eq(1).children();
+        	$(cnt).eq(0).text(data.username);
+        	$(cnt).eq(1).text(data.password);
+
     		animatedShow("注册成功");
     	}
     	else if(data.status == "1")
