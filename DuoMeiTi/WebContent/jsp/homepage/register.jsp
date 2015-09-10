@@ -51,6 +51,10 @@
 
 	</table>
 	
+	<s:debug> </s:debug>
+	
+	
+	
 	
 
 <script>
@@ -59,6 +63,7 @@
     
     $(document).on("click", "button", function (){
         var params = $('#register_form').serialize(); //利用jquery将表单序列化
+//         alert(params);
         //jquery发送ajax请求
 
         $.ajax({
@@ -88,7 +93,7 @@
         	$("#user_table tr:first").after(data.added_user_html);
         	
         	
-        	var cnt = $(document).find("#user_table tr").eq(1).children();
+        	var cnt = $(document).find("#user_table tr:eq(1)").children();
         	$(cnt).eq(0).text(data.username);
         	$(cnt).eq(1).text(data.password);
 
