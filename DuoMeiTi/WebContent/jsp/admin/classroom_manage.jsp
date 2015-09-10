@@ -1,11 +1,10 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 
 <layout:override name="main_content">
-
 <div class="mycontent">
   <div class="row">
     <div class="col-lg-6 col-lg-offset-3 classbuilding ">
-      XXX教学楼
+      <s:property value="build_name"/>教学楼
     </div>
   </div>
   <hr>
@@ -48,7 +47,6 @@
     </table>
   </div>
 </div>
-
 </div>
 </layout:override>
 
