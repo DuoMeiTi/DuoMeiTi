@@ -9,28 +9,13 @@
 		</div>
 		<hr>
 		<div class="container-fluid">
-			<div class="row col-lg-12">
+			<s:iterator value="builds" var="build" status="i">
 				<div class="col-lg-4">
-					<a href="classroom_manage"><div class="teachbuilding-div">一馆</div></a>
+					<a href="classroom_manage?build_id=<s:property value="#build.build_id"/>&build_name=<s:property value="#build.build_name"/>">
+						<div class="teachbuilding-div"><s:property value="#build.build_name"/></div>
+					</a>
 				</div>
-				<div class="col-lg-4">
-					<div class="teachbuilding-div">一馆</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="teachbuilding-div">一馆</div>
-				</div>
-			</div>
-			<div class="row col-lg-12">
-				<div class="col-lg-4">
-					<div class="teachbuilding-div">一馆</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="teachbuilding-div">一馆</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="teachbuilding-div">一馆</div>
-				</div>
-			</div>
+			</s:iterator>
 		</div>
 	</div>
 	<style>
