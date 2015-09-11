@@ -15,7 +15,8 @@
 		<property name="hbm2ddl.auto">update</property> 
 		
 <!--         <mapping resource="model/UserModel.hbm.xml"/> -->
-		<mapping class="model.UserModel"/>
+		<mapping class="model.User"/>
+		<mapping class="model.StudentProfile"/>
 		<mapping class="model.Repertory"/>
 		<mapping class="model.classroom.TeachBuilding"/>
 		

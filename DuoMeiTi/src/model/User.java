@@ -9,13 +9,19 @@ import javax.persistence.*;
 
 
 @Entity
-public class UserModel 
+public class User 
 {
+	
+	@Id @GeneratedValue(strategy=GenerationType.AUTO) 
 	private int id;
+	
+	@Column(length=50)
     private String username;
+	
+	@Column(length=50)
     private String password;
     
-	@Id @GeneratedValue(strategy=GenerationType.AUTO) 
+	
     public int getId() {
         return id;
     }
@@ -23,7 +29,7 @@ public class UserModel
         this.id = id;
     }
     
-    @Column(length=50)
+    
     public String getUsername() {
 		return username;
 	}
@@ -31,7 +37,7 @@ public class UserModel
 		this.username = username;
 	}
 	
-	@Column(length=50)
+	
 	public String getPassword() {
 		return password;
 	}
