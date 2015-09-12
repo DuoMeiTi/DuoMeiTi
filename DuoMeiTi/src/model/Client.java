@@ -45,7 +45,7 @@ public class Client {
 
         try{
             //准备数据
-            UserModel um = new UserModel();
+            User um = new User();
             
 //            um.setId("1");
             um.setUsername("23423847928;jkwejsadfkj");

@@ -5,29 +5,12 @@
 
 <struts>
 	
-	
     <package name="admin" namespace="/admin" extends="struts-default">
        <action name="">
             <result>
                 /jsp/admin/base.jsp
             </result>
        </action>
-       <action name="teachbuilding">
-            <result>
-                /jsp/admin/teachbuilding.jsp
-            </result>
-       </action>
-       <action name="classroom_manage">
-            <result>
-                /jsp/admin/classroom_manage.jsp
-            </result>
-       </action>
-       <action name="classroom_detail">
-            <result>
-                /jsp/admin/classroom_detail.jsp
-            </result>
-       </action>
-       
        <action name="user_request">
             <result>
                 /jsp/admin/users_request.jsp
@@ -66,6 +49,25 @@
     
     </package>
 
+	<package name="classroom" namespace="/admin/classroom" extends="struts-default">
+       <action name="teachBuildingAction" class="admin.TeachBuildingAction">
+            <result>
+                /jsp/admin/teachbuilding.jsp
+            </result>
+       </action>
+       <action name="classroom_manage" class="admin.ClassroomManageAction">
+            <result>
+                <param name="location">/jsp/admin/classroom_manage.jsp</param>
+                <param name="build_id">${build_id}</param>
+                <param name="build_name">${build_name}</param>
+            </result>
+       </action>
+       <action name="classroom_detail">
+            <result>
+                /jsp/admin/classroom_detail.jsp
+            </result>
+       </action>
+	</package>
 
 
 </struts>

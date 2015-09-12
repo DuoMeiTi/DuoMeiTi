@@ -19,7 +19,10 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import model.UserModel;
+//import model.StudentProfile;
+
+
+import model.User;
 import util.Util;
 
 public class UserAction
@@ -42,10 +45,10 @@ public class UserAction
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public List<UserModel> getUser_list() {
+	public List<User> getUser_list() {
 		return user_list;
 	}
-	public void setUser_list(List<UserModel> user_list) {
+	public void setUser_list(List<User> user_list) {
 		this.user_list = user_list;
 	}
 	public String getAdded_user_html() {
@@ -62,7 +65,7 @@ public class UserAction
 	private String username;
 	private String password;
 	private String status;
-	private List<UserModel> user_list;
+	private List<User> user_list;
 	private String added_user_html;
 
 
@@ -99,15 +102,27 @@ public class UserAction
 
 		
 		
+		
 		Session session = model.Util.sessionFactory.openSession();
 //        Query q = session.createSQLQuery("select * from usermodel").addEntity(UserModel.class);
 		
         
-		Criteria q = session.createCriteria(UserModel.class);
+		Criteria q = session.createCriteria(User.class);
 		
 		user_list = q.list();
 		Collections.reverse(user_list);
-		session.close();	
+//		session.close();	
+		
+		
+//		model.StudentProfile sp = new model.StudentProfile();
+//		sp.setUser(new User());
+//		sp.setUser(user_list.get(0));
+		
+//		session.beginTransaction();
+//		session.save(sp);
+//		session.getTransaction().commit();
+//		session.close();
+
 
 
 //		String u = util.Util.fileToString("/jsp/homepage/widgets/added_user.html");
@@ -132,7 +147,7 @@ public class UserAction
 			return ActionSupport.SUCCESS;
 		}		
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(UserModel.class).add(Restrictions.eq("username", username));
+		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username", username));
 		List ul = q.list();
 		if(!ul.isEmpty())
 		{
@@ -140,7 +155,7 @@ public class UserAction
 		}
 		else
 		{
-			UserModel um = new UserModel();
+			User um = new User();
 			um.setUsername(username);
 			um.setPassword(password);
 			
