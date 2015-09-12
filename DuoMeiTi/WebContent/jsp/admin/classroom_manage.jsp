@@ -9,9 +9,11 @@
     </div>
   </div>
   <hr>
-  <div class="form-horizontal" id="search">
+  <form class="form-horizontal" id="classroom_manage" method="POST" action="classroom_manage">
+    <div class="form-horizontal" id="search">
         <div class="form-group">
             <label class="col-lg-2 control-label">教室查询：</label>
+            
             <div class="col-lg-2 btn-group">
               <button class="btn btn-default btn-lg dropdown-toggle" style="height:40px" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 教室号
@@ -22,11 +24,17 @@
                 <li><a href="#">负责人</a></li>
               </ul>
             </div>
-            <div>
-                <button class="col-lg-1 btn btn-primary" style="margin:3px" id="sc_button">查&nbsp;&nbsp;询</button>
+
+			<div class="col-lg-3">
+				<input type="text" class="form-control" style="margin:3px;" aria-describedby="basic-addon1">
+			</div>
+
+			<div class="col-lg-1">
+                <button class="btn btn-primary" style="margin:2px;" id="sc_button">查&nbsp;&nbsp;询</button>
             </div>
         </div>
-  </div>
+    </div>
+  </form>
   <div>
     <table class="table table-bordered table-striped">
       <thead>
@@ -49,7 +57,6 @@
   </div>
 </div>
 
-</div>
 </layout:override>
 
 <%@ include file="/jsp/admin/base.jsp" %>

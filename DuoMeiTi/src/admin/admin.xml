@@ -56,6 +56,13 @@
     		</result>
     	
     	</action>
+    	
+    	<action name="classroom_manage" class="admin.classroom_manage" method="classroom_manage">
+            <result name="success">                
+<!--                 <param name="includeProperties">username, password, user_list</param> -->
+                /jsp/admin/classroom_search.jsp
+            </result>            
+        </action>
     
     </package>
 
