@@ -18,7 +18,7 @@
 		<mapping class="model.User"/>
 		<mapping class="model.StudentProfile"/>
 		<mapping class="model.Repertory"/>
-		<mapping class="model.classroom.TeachBuilding"/>
+		<mapping class="model.TeachBuilding"/>
 		
     </session-factory>
 </hibernate-configuration>

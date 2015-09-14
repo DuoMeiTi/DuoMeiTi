@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
-import model.classroom.TeachBuilding;
+import model.TeachBuilding;
 
 import com.opensymphony.xwork2.ActionSupport;
 
