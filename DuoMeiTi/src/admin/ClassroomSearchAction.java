@@ -3,7 +3,6 @@ package admin;
 import java.util.List;
 
 import model.Classroom;
-import model.User;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -64,19 +63,7 @@ public class ClassroomSearchAction {
 	
 	public String classroom_search() throws Exception
 	{
-		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(Classroom.class);
-		if(searchselect == "1"){
-			q.add(Restrictions.eq("classroom_num", search));
-		}
-		else{
-			q.add(Restrictions.eq("principal", search));
-		}
-		//System.out.println(searchselect + " " + search);
-		return "success";
 		
-	}
-	public String classroom_search_save() throws Exception{
 		if(search==null)
 		{
 			this.status = "error: search key is null";
@@ -89,16 +76,24 @@ public class ClassroomSearchAction {
 		}	
 		else
 		{
-			
+			Session session = model.Util.sessionFactory.openSession();
+			Criteria q = session.createCriteria(Classroom.class);
+			if(searchselect == "1"){
+				q.add(Restrictions.eq("classroom_num", search));
+			}
+			else{
+				q.add(Restrictions.eq("principal", search));
+			}
+			//System.out.println(searchselect + " " + search);
 			List ul = q.list();
 			session.beginTransaction();
-			session.save(cr);
+			//session.save(cr);
 			session.getTransaction().commit();
 			this.status = "0";
+			session.close();
 		}
-        //		System.out.println("SKLJFLJDF");
-		session.close();
 		return ActionSupport.SUCCESS;
+		
 	}
   
 }
