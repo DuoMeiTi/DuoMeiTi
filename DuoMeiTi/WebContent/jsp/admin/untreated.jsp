@@ -42,7 +42,6 @@
 	<script>
 	$(document).on("click", "button", function (){
 		var strValue=$("#select_id").val(); //获取Select选择的Value
-//		alert(strValue);
 		$.ajax({
 			url: 'requestSave',
 	        type: 'post',
