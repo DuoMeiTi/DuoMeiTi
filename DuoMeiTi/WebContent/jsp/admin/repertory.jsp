@@ -3,8 +3,8 @@
 <layout:override name="main_content">
 	<div class="mycontent">
 
-		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="rtInsert">添加设备信息</button>
-		<div class="modal fade" id="myModal">
+		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#rtModal" id="rtInsert">添加设备信息</button>
+		<div class="modal fade" id="rtModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -13,7 +13,7 @@
 						</button>
 						<h2 class="modal-title" id="modal-title">添加设备信息</h2>
 					</div>
-					<form class="form-inline well" id="repertory_form" action="repertory_insert">
+					<form class="form-inline well" id="repertory_form" method="post">
 						<div class="modal-body">
 						
 							<div class="row">
@@ -50,8 +50,8 @@
 						
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary" id="rtSave">保存</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn btn-primary" id="rtSave">保存</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="rtClose">关闭</button>
 						</div>
 					</form>
 				</div>
@@ -61,34 +61,64 @@
 		</div>
 		<!-- /.modal -->
 
-		<table class="table table-bordered table-hover">
-			<thead>
-				<tr>
-					<th>设备类型</th>
-					<th>资产编号</th>
-					<th>型号</th>
+		<table class="table table-bordered table-hover" id="repertory_table">
+			<tr class="active">
+				<th>设备类型</th>
+				<th>资产编号</th>
+					<!-- <th>型号</th>
 					<th>出厂日期</th>
 					<th>审批日期</th>
 					<th>出厂号</th>
 					<th>使用状态</th>
 					<th>编辑</th>
-					<th>删除</th>
+					<th>删除</th> -->
+			</tr>
+			
+			<s:iterator value="repertory_list" var="i" status="index">
+				<tr class="success">
+					<td> <s:property value="#i.rtType"/> </td>
+					<td> <s:property value="#i.rtNumber"/> </td>
 				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>11</td>
-					<td>11</td>
-					<td>11</td>
-					<td>11</td>
-					<td>11</td>
-					<td>11</td>
-					<td>11</td>
-					<td>11</td>
-					<td>11</td>
-				</tr>
-			</tbody>
+			</s:iterator>
+			
 		</table>
+		
+		
+		<script>
+		
+		$(document).on("click","#rtSave", function(){
+			var params = $("#repertory_form").serialize();//序列化表单值→ Json；
+			
+			//ajax方法通过HTTP请求加载远程数据； 
+			$.ajax({
+		          url: 'repertory_json_insert',
+		          type: 'post',
+		          dataType: 'json',
+		          data: params,
+		          success: repertoryCallback
+		        });
+			
+		})
+		
+		function repertoryCallback(data){
+			
+			if(data.status == "0"){
+				alert("输入不能为空！ ");
+			}
+			else if(data.status == "1"){
+				$("#repertory_table tr:first").after(data.add_repertory_html);
+	        	
+	        	var cnt = $(document).find("#repertory_table tr:eq(1)").children();
+	        	$(cnt).eq(0).text(data.rtType);
+	        	$(cnt).eq(1).text(data.rtNumber);
+	        	
+	        	$('#rtModal').modal('hide');
+	        	alert("保存成功！ ");
+	        	
+			}
+		}
+		
+		</script>
 	</div>
 </layout:override>
 

@@ -5,7 +5,7 @@
 
 <struts>
 	
-    <package name="admin" namespace="/admin" extends="struts-default">
+    <package name="admin" namespace="/admin" extends="json-default">
        <action name="">
             <result>
                 /jsp/admin/base.jsp
@@ -17,10 +17,17 @@
             </result>
        </action>
        
-       <action name="repertory_*" class="admin.RepertoryAction" method="{1}">
-            <result>
+       <action name="repertory" class="admin.RepertoryAction"  >
+            <result name="success">
                 /jsp/admin/repertory.jsp
             </result>
+       </action>
+       
+       <action name="repertory_json_insert" class="admin.RepertoryAction" method="insert">
+            <result name="success" type="json">
+<!--             	<param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param>            -->
+				<param name="excludeProperties"> repertory_list</param>
+            </result> 
        </action>
            
     </package>

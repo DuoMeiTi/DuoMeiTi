@@ -35,4 +35,9 @@ public class Repertory {
 	public void setRtNumber(String rtNumber) {
 		this.rtNumber = rtNumber;
 	}
+	
+	public String toString() {
+		return this.rtType + "," + this.rtNumber;
+	}
+	
 }
