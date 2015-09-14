@@ -33,7 +33,7 @@
             </div>
             
 			<div class="col-lg-3">
-				<input type="text" class="form-control" style="margin:3px;" aria-describedby="basic-addon1" id="search">
+				<input type="text" class="col-lg-3 form-control" style="margin:3px;height:34px;" aria-describedby="basic-addon1" id="search">
 			</div>
 
 			<div class="col-lg-1">

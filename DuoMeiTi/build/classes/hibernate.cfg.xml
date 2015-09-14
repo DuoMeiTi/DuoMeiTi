@@ -19,6 +19,7 @@
 		<mapping class="model.StudentProfile"/>
 		<mapping class="model.Repertory"/>
 		<mapping class="model.classroom.TeachBuilding"/>
+		<mapping class="model.classroom"/>
 		
     </session-factory>
 </hibernate-configuration>

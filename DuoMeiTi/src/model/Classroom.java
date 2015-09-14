@@ -7,7 +7,8 @@ import javax.persistence.*;
 @Entity
 public class Classroom {
 	
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
 	
 	@Column(length = 3)
