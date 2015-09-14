@@ -16,6 +16,7 @@ public class ClassroomSearchAction {
 	//private String principle;  //负责人
 	private String search;
 	private List<Classroom> classroom_list;//教室信息
+	private String searchselect;
 	private String status;
 	/*
 	 * status 0: OK
@@ -47,6 +48,13 @@ public class ClassroomSearchAction {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public String getSearchselect() {
+		return searchselect;
+	}
+	public void setSearchselect(String searchselect) {
+		this.searchselect = searchselect;
+	}
 	public List<Classroom> getClassroom_list() {
 		return classroom_list;
 	}
@@ -57,10 +65,19 @@ public class ClassroomSearchAction {
 	public String classroom_search() throws Exception
 	{
 		Session session = model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(Classroom.class);
+		if(searchselect == "1"){
+			q.add(Restrictions.eq("classroom_num", search));
+		}
+		else{
+			q.add(Restrictions.eq("principal", search));
+		}
+		//System.out.println(searchselect + " " + search);
+		return "success";
 		
-		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("classroom_num", search));
-		classroom_list= q.list();
-		if(search==null||search=="")
+	}
+	public String classroom_search_save() throws Exception{
+		if(search==null)
 		{
 			this.status = "error: search key is null";
 			return ActionSupport.SUCCESS;
@@ -72,16 +89,14 @@ public class ClassroomSearchAction {
 		}	
 		else
 		{
-			Classroom cr = new Classroom();
-			//cr.setClassroom_num(classroom_num);
-			//cr.setPassword(password);
+			
+			List ul = q.list();
 			session.beginTransaction();
 			session.save(cr);
 			session.getTransaction().commit();
 			this.status = "0";
 		}
         //		System.out.println("SKLJFLJDF");
-		
 		session.close();
 		return ActionSupport.SUCCESS;
 	}

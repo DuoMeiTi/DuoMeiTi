@@ -26,18 +26,18 @@
             </div> -->
             
             <div class="col-lg-2">
-                <select class="col-lg-2 form-control" style="margin:3px;"name="search" id="classroom_search">
+                <select class="col-lg-2 form-control" style="margin:3px;"name="searchselect" id="classroom_search">
                 <option value="1">教室号</option>
                 <option value="2">负责人</option>
             </select>
             </div>
             
 			<div class="col-lg-3">
-				<input type="text" class="col-lg-3 form-control" style="margin:3px;height:34px;" aria-describedby="basic-addon1" id="search">
+				<input type="text" class="col-lg-3 form-control" style="margin:3px;height:34px;" aria-describedby="basic-addon1" name="search" id="search">
 			</div>
 
 			<div class="col-lg-1">
-                <button class="btn btn-primary" style="margin:2px;" id="sc_button">查&nbsp;&nbsp;询</button>
+                <button type="button" class="btn btn-primary" style="margin:2px;" id="sc_button">查&nbsp;&nbsp;询</button>
             </div>
             
         </div>
@@ -83,18 +83,24 @@
 <script>
     $(document).on("click", "button", function (){
     var params = $('#classroom_search_form').serialize(); //利用jquery将表单序列化
-    //     alert(params);
+    alert(params);
+    /* var id = document.getElementById("classroom_search").selectedindex;
+    var index = {"index":id};
+    var params = $.extends({},param,index); */
+    
+    // alert(params);
     //jquery发送ajax请求
     $("#classroom_search").change(function(){
     	$.ajax({
     	      url: 'classroom_search',
     	      type: 'post',
     	      dataType: 'json',
-    	      data: params,
+    	      data:params,
     	      success: ClassroomSearchCallback
     	    });
         });
     });
+    
     
     function ClassroomSearchCallback(data)
     {
