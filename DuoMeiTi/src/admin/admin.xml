@@ -40,12 +40,7 @@
     	
     	</action>
     	
-    	<action name="classroom_manage" class="admin.classroom_manage" method="classroom_manage">
-            <result name="success">                
-<!--                 <param name="includeProperties">username, password, user_list</param> -->
-                /jsp/admin/classroom_search.jsp
-            </result>            
-        </action>
+    	
     
     </package>
 
@@ -67,6 +62,13 @@
                 /jsp/admin/classroom_detail.jsp
             </result>
        </action>
+       
+       <action name="classroom_search" class="admin.ClassroomSearchAction" method="classroom_search">
+            <result>                              
+                /jsp/admin/classroom_manage.jsp
+            </result>            
+        </action>
+        
 	</package>
 
 
