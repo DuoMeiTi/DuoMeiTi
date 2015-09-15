@@ -17,8 +17,9 @@
 					<th class="col-lg-1"></th>
 				</tr>
 				
+				<s:iterator value="user_list" var="i" status="index">
 				<tr class="row">
-					<td class="col-lg-1.5">dorothy</td>
+					<td class="col-lg-1.5"><s:property value="#i.username"/></td>
 					<td class="col-lg-0.5">女</td>
 					<td class="col-lg-1.5">21524009</td>
 					<td class="col-lg-2.5">210256196536925864</td>
@@ -34,6 +35,7 @@
 						<button type="button" class="btn btn-primary btn-sm">确定</button>
 					</td>
 				</tr>
+				</s:iterator>
 			
 			</table>
 		</div>
