@@ -2,6 +2,7 @@ package model;
 
 import javax.persistence.*;
 
+@Entity
 public class CheckRecord {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
