@@ -30,6 +30,8 @@ public class Classroom {
 	@OneToMany(mappedBy="classroom", cascade=CascadeType.ALL)
 	public Set<Repertory> repertorys;
 	
+	@OneToMany(mappedBy="classroom", cascade=CascadeType.ALL)
+	public Set<CheckRecord> checkrecords;
 	
 	
 	
@@ -38,7 +40,6 @@ public class Classroom {
 	
 	
 	
-
 	public int getId() {
 		return id;
 	}
