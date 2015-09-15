@@ -11,7 +11,7 @@
                 /jsp/admin/base.jsp
             </result>
        </action>
-       <action name="user_request">
+       <action name="user_request" >
             <result>
                 /jsp/admin/users_request.jsp
             </result>
@@ -33,7 +33,7 @@
     </package>
     
     <package name="user_request" namespace="/admin/user_request" extends="struts-default">
-    	<action name="untreated">
+    	<action name="untreated" >
     		<result>
     			/jsp/admin/untreated.jsp
     		</result>
