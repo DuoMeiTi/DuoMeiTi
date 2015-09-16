@@ -21,6 +21,8 @@
 		<mapping class="model.Repertory"/>
 		<mapping class="model.Classroom"/>
 		<mapping class="model.TeachBuilding"/>
+		<mapping class="model.RepairRecord"/>
+		<mapping class="model.CheckRecord"/>
 		
     </session-factory>
 </hibernate-configuration>
