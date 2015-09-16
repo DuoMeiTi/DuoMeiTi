@@ -91,6 +91,15 @@ public class StudentProfile {
     public String remark;
     
     
+    @Column(columnDefinition="INT default 0", nullable=false)
+    public int isPassed;
+    
+    @Column(columnDefinition="INT default 0", nullable=false)
+    public int isUpgradePrivilege;
+    
+    
+    
+    
     
     
     
