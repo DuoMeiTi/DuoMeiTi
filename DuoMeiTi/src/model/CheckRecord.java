@@ -9,11 +9,11 @@ public class CheckRecord {
 	public int id;
 		
 	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	@JoinColumn(name="classroom")
+	@JoinColumn
 	public Classroom classroom;
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	@JoinColumn(name="checkman")
+	@JoinColumn
 	public StudentProfile checkman;
 	
 	@Column(length=200)
