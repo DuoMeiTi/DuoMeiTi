@@ -44,7 +44,7 @@ public class StudentProfile {
     
     @Column
     public int college;
-    public static final String[] collegeSelect = { 
+    public static final String[]collegeSelect = { 
     		"数学科学学院",
     		"物理与光电工程学院",
     		"化工与环境生命学部",
