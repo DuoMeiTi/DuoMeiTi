@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Set;
+
 import org.hibernate.cfg.*;
 
 import javax.persistence.*;
@@ -63,10 +65,16 @@ public class StudentProfile {
     @Column
     public java.sql.Date entryTime;
     
+//<<<<<<< HEAD
+////    //负责教室
+////    @OneToOne
+////    @JoinColumn
+////    public Classroom classroom;
+//=======
 //    //负责教室
-//    @OneToOne
-//    @JoinColumn
-//    public Classroom classroom;
+//    @OneToMany(mappedBy="principal", cascade=CascadeType.ALL)
+//    public Set<Classroom> classrooms;
+//>>>>>>> origin/master
     
 
     
