@@ -20,14 +20,9 @@ public class StudentProfile {
     
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
-
  
-    @Column
-    public int sex;    
-    public static final String[] sexSelect = { 
-    		"男",
-    		"女",
-    };
+    @Column(length = 10)
+    public String sex;    
     
     @Column(length = 20)
     public String studentId;
@@ -42,6 +37,7 @@ public class StudentProfile {
     @Column(length = 50)
     public String bankCard;
     
+<<<<<<< HEAD
     @Column
     public int college;
     public static final String[]collegeSelect = { 
@@ -58,6 +54,10 @@ public class StudentProfile {
     		"管理与经济学部",
     		"创新实验学院",
     };
+=======
+    @Column(length = 50)
+    public String college;
+>>>>>>> origin/master
     
     @Column(length=20)
     public String phoneNumber;
@@ -65,30 +65,26 @@ public class StudentProfile {
     @Column
     public java.sql.Date entryTime;
     
-//<<<<<<< HEAD
-////    //负责教室
-////    @OneToOne
-////    @JoinColumn
-////    public Classroom classroom;
-//=======
-//    //负责教室
     @OneToMany(mappedBy="principal", cascade=CascadeType.ALL)
-    public Set<Classroom> classrooms;
-//>>>>>>> origin/master
-    
+    public Set<Classroom> classrooms;  
 
     
-    @Column
-    public int status;    
-    public static final String[] statusSelect = { 
-    		"在岗",
-    		"离职",
-    };
+    @Column(length = 10)
+    public String status;    
 
     
     
     @Column(length=1000)
     public String remark;
+    
+    
+    @Column(columnDefinition="INT default 0", nullable=false)
+    public int isPassed;
+    
+    @Column(columnDefinition="INT default 0", nullable=false)
+    public int isUpgradePrivilege;
+    
+    
     
     
     

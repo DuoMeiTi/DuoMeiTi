@@ -30,7 +30,7 @@
 	
     <package name="global"  extends="struts-default">	
         
-        <default-action-ref name="hello" />
+        <default-action-ref name="hello"/>
         
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error"/>

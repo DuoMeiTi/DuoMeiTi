@@ -107,7 +107,6 @@
 			else if(data.status == "1"){
 				alert("删除不可恢复！  ");
 				$(document).find("tr[rt_id=" + delete_rtId + "]").remove();
-				
 			}
 		}
 		
