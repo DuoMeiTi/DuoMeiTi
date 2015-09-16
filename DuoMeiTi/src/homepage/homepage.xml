@@ -43,10 +43,17 @@
             </result>            
         </action>
         
-        <action name="registerSave" class="homepage.UserAction" method="registerSave">
+        <action name="register_save" class="homepage.UserAction" method="save">
             <result name="success" type="json">
-<!--             	<param name="includeProperties">status, username, password, added_user_html</param>            -->
-				<param name="excludeProperties"> user_list</param>
+            	<param name="includeProperties">status, user_id, username, password, added_user_html</param>           
+<!-- 				<param name="excludeProperties"> user_list</param> -->
+            </result>            
+        </action>
+        
+        <action name="register_delete" class="homepage.UserAction" method="delete">
+            <result name="success" type="json">
+            	<param name="includeProperties">status,user_id</param>           
+				
             </result>            
         </action>
         

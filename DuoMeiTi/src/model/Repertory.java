@@ -1,10 +1,6 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Repertory {
@@ -14,7 +10,10 @@ public class Repertory {
 	//private String rtVersion;
 	//private Datetime
 	
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	public Classroom classroom;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getRtId() {
 		return rtId;
 	}
@@ -36,6 +35,14 @@ public class Repertory {
 		this.rtNumber = rtNumber;
 	}
 	
+	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@JoinColumn(name="classroom")
+	public Classroom getClassroom() {
+		return classroom;
+	}
+	public void setClassroom(Classroom classroom) {
+		this.classroom = classroom;
+	}
 	public String toString() {
 		return this.rtType + "," + this.rtNumber;
 	}

@@ -19,7 +19,7 @@
 	    <input type="password" class="form-control" name="password" value="<s:property value="password"/>" placeholder="">
 	  </div>
 	  
-	  <button type="button" class="btn btn-default">注册</button>
+	  <button type="button" class="btn btn-default register">注册</button>
 	</form>	
 	<br/>
 	
@@ -36,13 +36,16 @@
 		<tr class="active">
 			<th> Username </th>
 			<th> Password </th>
+			<th> 删除</th>
 		</tr>
 		
 		
 		<s:iterator value="user_list" var="i" status="index" >  
-			<tr class="success">
+			<tr class="success" user_id=<s:property value="#i.id"/> >
 				<td>   <s:property value="#i.username"/>    </td>
 				<td>   <s:property value="#i.password"/>   </td>
+				<td> <button type="button" class="btn btn-danger delete">删除</button> 
+				 </td>
 			</tr>
 		</s:iterator>  
 		
@@ -57,16 +60,47 @@
 	
 
 <script>
+	var deleted_user_id;
+	$(document).on("click", ".delete", function (){
+		deleted_user_id = $(this).parents("tr").attr("user_id");
+// 	    alert(deleted_user_id);
+// 	    alert(typeof user_id);
+
+	    $.ajax({
+	      url: 'register_delete',
+	      type: 'post',
+	      dataType: 'json',
+	      data: {"user_id": deleted_user_id,},
+	      success: deleteCallback
+	    });
+	
+	});
+	
+	function deleteCallback(data) {
+		
+		if(data.status == "0")
+		{
+			animatedShow("删除成功");
+			$(document).find("tr[user_id=" + deleted_user_id + "]").remove();
+		}
+		else if(data.status== "1")
+		{
+			animatedShow("删除不存在数据");
+		}
+		else 
+		{
+			alert("error");
+		}
+		
+		
+    }
+	
     
-//     alert("SB");
-    
-    $(document).on("click", "button", function (){
+    $(document).on("click", ".register", function (){
         var params = $('#register_form').serialize(); //利用jquery将表单序列化
-//         alert(params);
-        //jquery发送ajax请求
 
         $.ajax({
-          url: 'registerSave',
+          url: 'register_save',
           type: 'post',
           dataType: 'json',
           data: params,
@@ -82,19 +116,20 @@
 		$("#alert_register_info").show(500);
     }
     function registerCallback(data)
-    {
-    	
-//     	alert($(document).find("#added_user_tr").html());
-//     	alert(data.added_user_html);
-//     	alert(data.username);
+    {    	
     	if(data.status == "0")
     	{    		
         	$("#user_table tr:first").after(data.added_user_html);
         	
         	
-        	var cnt = $(document).find("#user_table tr:eq(1)").children();
-        	$(cnt).eq(0).text(data.username);
-        	$(cnt).eq(1).text(data.password);
+        	var cnt = $(document).find("#user_table tr:eq(1)");
+        	$(cnt).children().eq(0).text(data.username);
+        	$(cnt).children().eq(1).text(data.password);
+        	
+//         	alert(data.user_id);
+        	
+			
+        	$(cnt).attr("user_id", data.user_id);
 
     		animatedShow("注册成功");
     	}

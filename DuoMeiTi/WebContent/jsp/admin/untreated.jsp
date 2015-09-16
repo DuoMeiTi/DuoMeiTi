@@ -17,6 +17,7 @@
 					<th class="col-lg-1"></th>
 				</tr>
 				
+
 				<tr class="row">
 					<td class="col-lg-1.5">dorothy</td>
 					<td class="col-lg-0.5">女</td>
@@ -34,6 +35,7 @@
 						<button type="button" class="btn btn-primary btn-sm">确定</button>
 					</td>
 				</tr>
+				
 			
 			</table>
 		</div>
@@ -41,7 +43,8 @@
 	
 	<script>
 	$(document).on("click", "button", function (){
-		var strValue=$("#select_id").val(); //获取Select选择的Value
+		var strValue=$("#judge").val(); //获取Select选择的Value
+//		alert(strValue);
 		$.ajax({
 			url: 'requestSave',
 	        type: 'post',
@@ -50,6 +53,16 @@
 	        success:judgeCallBack
 		});
 	});
+	
+	
+	function judgeCallBack(data){
+		if(data==0){
+			alert("不通过");
+		}
+		else if(data==1){
+			alert("通过");
+		}
+	}
 	</script>
 	
 	

@@ -71,32 +71,57 @@
 					<th>出厂号</th>
 					<th>使用状态</th>
 					<th>编辑</th>
-					<th>删除</th> -->
+					 -->
+				<th>删除</th>
 			</tr>
 			
 			<s:iterator value="repertory_list" var="i" status="index">
-				<tr class="success">
+				<tr class="success" rt_id="<s:property value="#i.rtId"/>">
 					<td> <s:property value="#i.rtType"/> </td>
 					<td> <s:property value="#i.rtNumber"/> </td>
+					<td> <button type="button" class="btn btn-danger delete" >删除</button> </td>
 				</tr>
 			</s:iterator>
+			
 			
 		</table>
 		
 		
 		<script>
+		var delete_rtId;
+		$(document).on("click",".delete", function(){
+			delete_rtId = $(this).parents("tr").attr("rt_id");//attr所选元素属性值 
+			$.ajax({
+				url: 'repertory_delete',
+			    type: 'post',
+			    dataType: 'json',
+			    data: {"rtId": delete_rtId,},//{"后台",""}
+				success: deleteCallback
+			});
+		})
+		
+		function deleteCallback(data){
+			if(data.status == "0"){
+				alert("删除数据不存在！ ");
+			}
+			else if(data.status == "1"){
+				alert("删除不可恢复！  ");
+				$(document).find("tr[rt_id=" + delete_rtId + "]").remove();
+				
+			}
+		}
 		
 		$(document).on("click","#rtSave", function(){
 			var params = $("#repertory_form").serialize();//序列化表单值→ Json；
 			
 			//ajax方法通过HTTP请求加载远程数据； 
 			$.ajax({
-		          url: 'repertory_json_insert',
-		          type: 'post',
-		          dataType: 'json',
-		          data: params,
-		          success: repertoryCallback
-		        });
+		    	url: 'repertory_insert',
+		        type: 'post',
+		        dataType: 'json',
+		        data: params,
+		        success: repertoryCallback
+		    });
 			
 		})
 		
@@ -108,13 +133,14 @@
 			else if(data.status == "1"){
 				$("#repertory_table tr:first").after(data.add_repertory_html);
 	        	
-	        	var cnt = $(document).find("#repertory_table tr:eq(1)").children();
-	        	$(cnt).eq(0).text(data.rtType);
-	        	$(cnt).eq(1).text(data.rtNumber);
-	        	
+	        	var cnt = $(document).find("#repertory_table tr:eq(1)");
+	        	$(cnt).children().eq(0).text(data.rtType);
+	        	$(cnt).children().eq(1).text(data.rtNumber);
+	        	//alert(data.rtId+",  "+data.rtType+",  "+data.rtNumber);
+	        	$(cnt).attr("rt_id", data.rtId);
 	        	$('#rtModal').modal('hide');
 	        	alert("保存成功！ ");
-	        	
+	      
 			}
 		}
 		

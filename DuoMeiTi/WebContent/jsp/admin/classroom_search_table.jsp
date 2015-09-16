@@ -15,6 +15,8 @@
         <td>张三</td>
         <td><a href="classroom_detail" class="btn btn-info active">详&nbsp;&nbsp;细</a></td>
       </tr> -->
+      
+      
       <s:iterator value="classroom_list" var="i" status="index" >  
 			<tr class="success">
 				<td>   <s:property value="#i.classroom_num"/>    </td>

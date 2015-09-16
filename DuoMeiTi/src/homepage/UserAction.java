@@ -67,6 +67,8 @@ public class UserAction
 	private String status;
 	private List<User> user_list;
 	private String added_user_html;
+	
+	private int user_id;
 
 
 	/*
@@ -78,6 +80,12 @@ public class UserAction
 
 	
 	
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
 	public String login() throws Exception
 	{		
 		if(username == null || username == "")
@@ -101,8 +109,6 @@ public class UserAction
 		
 
 		
-		
-		
 		Session session = model.Util.sessionFactory.openSession();
 //        Query q = session.createSQLQuery("select * from usermodel").addEntity(UserModel.class);
 		
@@ -111,17 +117,12 @@ public class UserAction
 		
 		user_list = q.list();
 		Collections.reverse(user_list);
-//		session.close();	
+		session.close();	
 		
 		
-//		model.StudentProfile sp = new model.StudentProfile();
-//		sp.setUser(new User());
-//		sp.setUser(user_list.get(0));
 		
-//		session.beginTransaction();
-//		session.save(sp);
-//		session.getTransaction().commit();
-//		session.close();
+		
+		
 
 
 
@@ -133,14 +134,13 @@ public class UserAction
 		return "success";
 	}
 
-	public String registerSave() throws Exception
+	public String save() throws Exception
 	{
 		if(username == null || password == null)
 		{
 			this.status = "error: username or password is null";
 			return ActionSupport.SUCCESS;
 		}
-//		System.out.println("SKLJFLJDF");
 		if(username.equals("") || password.equals(""))
 		{
 			this.status = "1";
@@ -162,11 +162,42 @@ public class UserAction
 			
 			session.beginTransaction();
 			session.save(um);
+			
 			session.getTransaction().commit();
 			this.status = "0";
+			this.user_id = um.getId();
 			this.added_user_html = util.Util.fileToString("/jsp/homepage/widgets/added_user.html");
 		}
 		session.close();
+		return ActionSupport.SUCCESS;
+	}
+	
+	
+	public String delete() throws Exception
+	{
+		System.out.print("gogo");
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("id", user_id));
+		List ul = q.list();
+		
+		if(ul.isEmpty())
+		{
+			System.out.println("ISTMPETYLSDJKFLJSDFKLJ");
+			this.status = "1"; // error
+			
+		}
+		else 
+		{
+			System.out.println("三处：：：：：：：：：：");
+			System.out.println(user_id);
+			session.beginTransaction();
+			session.delete(ul.get(0));
+			session.getTransaction().commit();
+			this.status = "0"; // ok
+		}
+		
+		session.close();
+		
 		return ActionSupport.SUCCESS;
 	}
 }

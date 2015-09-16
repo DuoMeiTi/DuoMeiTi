@@ -1,19 +1,22 @@
 package model;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name="tbl_teachbuilding")
 public class TeachBuilding {
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int build_id;
+	public int build_id;
 	
 	@Column(length=20)
-	private String build_name;
+	public String build_name;
 	
-
+	@OneToMany(mappedBy="teachbuilding", cascade=CascadeType.ALL)
+	public Set<Classroom> classrooms;
+	
 	public int getBuild_id() {
 		return build_id;
 	}
@@ -28,6 +31,14 @@ public class TeachBuilding {
 
 	public void setBuild_name(String build_name) {
 		this.build_name = build_name;
+	}
+
+	public Set<Classroom> getClassrooms() {
+		return classrooms;
+	}
+
+	public void setClassrooms(Set<Classroom> classrooms) {
+		this.classrooms = classrooms;
 	}
 	
 }

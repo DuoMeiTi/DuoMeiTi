@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Set;
+
 import org.hibernate.cfg.*;
 
 import javax.persistence.*;
@@ -27,17 +29,17 @@ public class StudentProfile {
     		"女",
     };
     
-    @Column(length = 10)
+    @Column(length = 20)
     public String studentId;
     
     @Column(length = 100)
     public String profilePhotoPath;
     
     
-    @Column(length = 100)
+    @Column(length = 50)
     public String idCard;
     
-    @Column(length = 100)
+    @Column(length = 50)
     public String bankCard;
     
     @Column
@@ -57,14 +59,22 @@ public class StudentProfile {
     		"创新实验学院",
     };
     
-    @Column
+    @Column(length=20)
     public String phoneNumber;
     
     @Column
     public java.sql.Date entryTime;
     
-    //负责教室
-    
+//<<<<<<< HEAD
+////    //负责教室
+////    @OneToOne
+////    @JoinColumn
+////    public Classroom classroom;
+//=======
+//    //负责教室
+    @OneToMany(mappedBy="principal", cascade=CascadeType.ALL)
+    public Set<Classroom> classrooms;
+//>>>>>>> origin/master
     
 
     
@@ -92,22 +102,6 @@ public class StudentProfile {
     
 
     
-    
-    
-//    public User getUser() {
-//    	return this.user;
-//    }    
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
-//		
-//	
-//    public int getId() {
-//		return id;
-//	}
-//	public void setId(int id) {
-//		this.id = id;
-//	}
-	
+
 
 }

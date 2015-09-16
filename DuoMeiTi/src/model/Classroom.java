@@ -1,37 +1,59 @@
 package model;
 
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 
 @Entity
 public class Classroom {
 	
-	@Id 
+	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
 	
-	@Column(length = 3)
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="teachbuilding")
+	public TeachBuilding teachbuilding;
+	
+	@Column(length = 10)
 	public String classroom_num;
 	
-	@Column
-	public String principal;
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="principal")
+	public StudentProfile principal;
 	
 	@Column
-	public String size;
+	public int capacity;
+		
+	@OneToMany(mappedBy="classroom", cascade=CascadeType.ALL)
+	public Set<Repertory> repertorys;
 	
-	@Column
-	public String equipment;
+	@OneToMany(mappedBy="classroom", cascade=CascadeType.ALL)
+	public Set<CheckRecord> checkrecords;
 	
-	@Column
-	public String manage;
-
+	
+	
+	
+	
+	
+	
+	
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public TeachBuilding getTeachbuilding() {
+		return teachbuilding;
+	}
+
+	public void setTeachbuilding(TeachBuilding teachbuilding) {
+		this.teachbuilding = teachbuilding;
 	}
 
 	public String getClassroom_num() {
@@ -42,37 +64,29 @@ public class Classroom {
 		this.classroom_num = classroom_num;
 	}
 
-	public String getPrincipal() {
+	public StudentProfile getPrincipal() {
 		return principal;
 	}
 
-	public void setPrincipal(String principal) {
+	public void setPrincipal(StudentProfile principal) {
 		this.principal = principal;
 	}
 
-	public String getSize() {
-		return size;
+	public int getCapacity() {
+		return capacity;
 	}
 
-	public void setSize(String size) {
-		this.size = size;
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
 	}
 
-	public String getEquipment() {
-		return equipment;
+	public Set<Repertory> getRepertorys() {
+		return repertorys;
 	}
 
-	public void setEquipment(String equipment) {
-		this.equipment = equipment;
-	}
-
-	public String getManage() {
-		return manage;
-	}
-
-	public void setManage(String manage) {
-		this.manage = manage;
+	public void setRepertorys(Set<Repertory> repertorys) {
+		this.repertorys = repertorys;
 	}
 	
-
+	
 }
