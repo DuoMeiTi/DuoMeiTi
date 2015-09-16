@@ -23,6 +23,7 @@
 		<mapping class="model.TeachBuilding"/>
 		<mapping class="model.RepairRecord"/>
 		<mapping class="model.CheckRecord"/>
+		<mapping class="model.Message"/>
 		
     </session-factory>
 </hibernate-configuration>
