@@ -72,7 +72,14 @@
        
        <action name="classroom_search" class="admin.ClassroomSearchAction" method="classroom_search">
             <result>                              
-                /jsp/admin/classroom_manage.jsp
+                <!-- <param name="">/jsp/admin/classroom_manage.jsp</param>
+                <param name="classroon_list">${classroom_list}</param>
+                <param name="classroom_num">${classroom_num}</param>
+                <param name="equipment">${equipment}</param>
+                <param name="size">${size}</param>
+                <param name="principal">${principal}</param>
+                <param name="manage">${manage}</param> -->
+                <param name="includeProperties">classroom_list,status</param>
             </result>            
         </action>
         
