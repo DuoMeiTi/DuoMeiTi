@@ -4,7 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-<<<<<<< HEAD
+
 
 	<package name="admin" namespace="/admin" extends="json-default">
 		<action name="">
@@ -93,75 +93,110 @@
 			</result>
 		</action>
 
-=======
-	
-    <package name="admin" namespace="/admin" extends="json-default">
-       <action name="">
-            <result>
-                /jsp/admin/base.jsp
-            </result>
-       </action>
-       <action name="user_request" >
-            <result>
-                /jsp/admin/users_request.jsp
-            </result>
-       </action>
-       
-       <action name="repertory" class="admin.RepertoryAction"  >
-            <result name="success">
-                /jsp/admin/repertory.jsp
-            </result>
-       </action>
-       
-       <action name="repertory_*" class="admin.RepertoryAction" method="{1}">
-            <result name="success" type="json">
-<!--             	<param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param>            -->
-				<param name="excludeProperties"> repertory_list</param>
-            </result> 
-       </action>
-           
-    </package>
-    
-    <package name="user_request" namespace="/admin/user_request" extends="struts-default">
-    	<action name="untreated" >
-    		<result>
-    			/jsp/admin/untreated.jsp
-    		</result>
-    	
-    	</action>
-    	
-    	<action name="handled">
-    		<result>
-    			/jsp/admin/handled.jsp
-    		</result>
-    	
-    	</action>
-    	
-    	
-    
-    </package>
 
-	<package name="classroom" namespace="/admin/classroom" extends="struts-default">
-       <action name="teachBuildingAction" class="admin.TeachBuildingAction">
-            <result>
-                /jsp/admin/teachbuilding.jsp
-            </result>
-       </action>
-       <action name="classroom_manage" class="admin.ClassroomManageAction">
-            <result>
-                <param name="location">/jsp/admin/classroom_manage.jsp</param>
-                <param name="build_id">${build_id}</param>
-                <param name="build_name">${build_name}</param>
-            </result>
-       </action>
-       <action name="classroom_detail">
-            <result>
-                /jsp/admin/classroom_detail.jsp
-            </result>
-       </action>
+
+
+
+
+	
+<!--     <package name="admin" namespace="/admin" extends="json-default"> -->
+<!--        <action name=""> -->
+<!--             <result> -->
+<!--                 /jsp/admin/base.jsp -->
+<!--             </result> -->
+<!--        </action> -->
+<!--        <action name="user_request" > -->
+<!--             <result> -->
+<!--                 /jsp/admin/users_request.jsp -->
+<!--             </result> -->
+<!--        </action> -->
        
-       <action name="classroom_search" class="admin.ClassroomSearchAction" method="classroom_search">
-            <result>                              
+<!--        <action name="repertory" class="admin.RepertoryAction"  > -->
+<!--             <result name="success"> -->
+<!--                 /jsp/admin/repertory.jsp -->
+<!--             </result> -->
+<!--        </action> -->
+       
+<!--        <action name="repertory_*" class="admin.RepertoryAction" method="{1}"> -->
+<!--             <result name="success" type="json"> -->
+<!--             	<param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param>            -->
+<!-- 				<param name="excludeProperties"> repertory_list</param> -->
+
+	
+<!--     <package name="admin" namespace="/admin" extends="json-default"> -->
+<!--        <action name=""> -->
+<!--             <result> -->
+<!--                 /jsp/admin/base.jsp -->
+<!--             </result> -->
+<!--        </action> -->
+<!--        <action name="user_request"> -->
+<!--             <result> -->
+<!--                 /jsp/admin/users_request.jsp -->
+<!--             </result> -->
+<!--        </action> -->
+       
+<!--        <action name="repertory" class="admin.RepertoryAction"  > -->
+<!--             <result name="success"> -->
+<!--                 /jsp/admin/repertory.jsp -->
+<!--             </result> -->
+<!--        </action> -->
+       
+<!--        <action name="repertory_json_insert" class="admin.RepertoryAction" method="insert"> -->
+<!--             <result name="success" type="json"> -->
+<!--             	<param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param>            -->
+<!-- 				<param name="excludeProperties"> repertory_list</param> -->
+
+
+<!--             </result>  -->
+<!--        </action> -->
+           
+<!--     </package> -->
+    
+<!--     <package name="user_request" namespace="/admin/user_request" extends="struts-default"> -->
+
+<!--     	<action name="untreated" > -->
+
+<!--     	<action name="untreated"> -->
+
+<!--     		<result> -->
+<!--     			/jsp/admin/untreated.jsp -->
+<!--     		</result> -->
+    	
+<!--     	</action> -->
+    	
+<!--     	<action name="handled"> -->
+<!--     		<result> -->
+<!--     			/jsp/admin/handled.jsp -->
+<!--     		</result> -->
+    	
+<!--     	</action> -->
+    	
+    	
+    
+<!--     </package> -->
+
+<!-- 	<package name="classroom" namespace="/admin/classroom" extends="struts-default"> -->
+<!--        <action name="teachBuildingAction" class="admin.TeachBuildingAction"> -->
+<!--             <result> -->
+<!--                 /jsp/admin/teachbuilding.jsp -->
+<!--             </result> -->
+<!--        </action> -->
+<!--        <action name="classroom_manage" class="admin.ClassroomManageAction"> -->
+<!--             <result> -->
+<!--                 <param name="location">/jsp/admin/classroom_manage.jsp</param> -->
+<!--                 <param name="build_id">${build_id}</param> -->
+<!--                 <param name="build_name">${build_name}</param> -->
+<!--             </result> -->
+<!--        </action> -->
+<!--        <action name="classroom_detail"> -->
+<!--             <result> -->
+<!--                 /jsp/admin/classroom_detail.jsp -->
+<!--             </result> -->
+<!--        </action> -->
+       
+<!--        <action name="classroom_search" class="admin.ClassroomSearchAction" method="classroom_search"> -->
+<!--             <result>                               -->
+<!-- <<<<<<< HEAD -->
                 <!-- <param name="">/jsp/admin/classroom_manage.jsp</param>
                 <param name="classroon_list">${classroom_list}</param>
                 <param name="classroom_num">${classroom_num}</param>
@@ -169,11 +204,16 @@
                 <param name="size">${size}</param>
                 <param name="principal">${principal}</param>
                 <param name="manage">${manage}</param> -->
-                <param name="includeProperties">classroom_list,status</param>
-            </result>            
-        </action>
+<!--                 <param name="includeProperties">classroom_list,status</param> -->
+<!--             </result>             -->
+<!--         </action> -->
         
->>>>>>> a22cbb289f2bdd314a8850796e3d2604225a920a
+
+<!--                 /jsp/admin/classroom_manage.jsp -->
+<!--             </result>             -->
+<!--         </action> -->
+        
+
 	</package>
 
 
