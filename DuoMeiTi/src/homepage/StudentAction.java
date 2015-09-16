@@ -10,6 +10,8 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import model.StudentProfile;
 import model.User;
+import util.Const;
+
 import java.io.File;
 
 public class StudentAction {
@@ -72,9 +74,9 @@ public class StudentAction {
 	}
 	
 	public String studentRegister(){
-		collegeSelect=StudentProfile.collegeSelect;
-		sexSelect=StudentProfile.sexSelect;
-		statusSelect=StudentProfile.statusSelect;
+		collegeSelect=Const.collegeSelect;
+		sexSelect=Const.sexSelect;
+		statusSelect=Const.statusSelect;
 		return ActionSupport.SUCCESS;
 	}
 	
