@@ -72,8 +72,8 @@ public class StudentProfile {
 ////    public Classroom classroom;
 //=======
 //    //负责教室
-//    @OneToMany(mappedBy="principal", cascade=CascadeType.ALL)
-//    public Set<Classroom> classrooms;
+    @OneToMany(mappedBy="principal", cascade=CascadeType.ALL)
+    public Set<Classroom> classrooms;
 //>>>>>>> origin/master
     
 
