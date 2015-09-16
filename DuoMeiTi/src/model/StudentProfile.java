@@ -65,9 +65,16 @@ public class StudentProfile {
     @Column
     public java.sql.Date entryTime;
     
-    //负责教室
+//<<<<<<< HEAD
+////    //负责教室
+////    @OneToOne
+////    @JoinColumn
+////    public Classroom classroom;
+//=======
+//    //负责教室
     @OneToMany(mappedBy="principal", cascade=CascadeType.ALL)
     public Set<Classroom> classrooms;
+//>>>>>>> origin/master
     
 
     

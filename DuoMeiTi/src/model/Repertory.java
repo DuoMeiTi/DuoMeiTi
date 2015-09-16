@@ -36,7 +36,7 @@ public class Repertory {
 	}
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	@JoinColumn(name="classroom")
+	@JoinColumn
 	public Classroom getClassroom() {
 		return classroom;
 	}
