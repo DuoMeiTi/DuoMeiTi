@@ -35,9 +35,15 @@ public class Repertory {
 		this.rtNumber = rtNumber;
 	}
 	
+<<<<<<< HEAD
 	@ManyToOne
     @JoinColumn
     public Classroom getClassroom() {
+=======
+	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@JoinColumn
+	public Classroom getClassroom() {
+>>>>>>> origin/master
 		return classroom;
 	}
 	public void setClassroom(Classroom classroom) {

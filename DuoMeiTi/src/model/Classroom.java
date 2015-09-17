@@ -14,14 +14,14 @@ public class Classroom {
 	public int id;
 	
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="teachbuilding")
+	@JoinColumn
 	public TeachBuilding teachbuilding;
 	
 	@Column(length = 10)
 	public String classroom_num;
 	
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="principal")
+	@JoinColumn
 	public StudentProfile principal;
 	
 	@Column

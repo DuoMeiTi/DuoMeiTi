@@ -12,10 +12,21 @@ public class Util
 {
 	
 	public static final String RootPath;
+	public static final String FileUploadPath;
+	
+	public static final String ProfilePhotoPath;
+	
+	public static final int AdminRole = 0;
+	public static final int StudentRole = 1;
+	public static final int teacherRole = 2;
 	
 	static {
 		ServletContext application = ServletActionContext.getServletContext();
 		RootPath = application.getRealPath("");
+		
+		FileUploadPath = RootPath +"/FileUpload";
+		ProfilePhotoPath = FileUploadPath +"/ProfilePhoto";
+		
 //		System.out.println(AppPath);
 	}
 	

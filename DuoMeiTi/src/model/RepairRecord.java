@@ -9,15 +9,11 @@ public class RepairRecord {
 	public int id;
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	@JoinColumn(name="device")
+	@JoinColumn
 	public Repertory device;
-	
+		
 	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	@JoinColumn(name="classroom")
-	public Classroom classroom;
-	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	@JoinColumn(name="repairman")
+	@JoinColumn
 	public StudentProfile repairman;
 	
 	@Column(length=100)
