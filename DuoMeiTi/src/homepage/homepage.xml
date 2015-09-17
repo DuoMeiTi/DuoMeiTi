@@ -32,6 +32,10 @@
         
         
         
+    	
+    
+    
+                
         <action name="register" class="homepage.UserAction" method="register">
             <result name="success">                
 <!--                 <param name="includeProperties">username, password, user_list</param> -->
@@ -58,16 +62,35 @@
         
         
         
-        
+
         <action name="login" class="homepage.UserAction" method="login">
-            <result name="success">
-                /jsp/homepage/login.jsp
+        	<result> /jsp/homepage/login.jsp </result>
+        	
+            <result name="login_fail" type="redirect">
+                /login_fail
             </result>
+            
             
             <result name="login_success" type="redirect">
             	/login_success
             </result>
         </action>
+        
+        <action name="login_success">
+            <result> /jsp/homepage/login_success.jsp </result>
+        </action>
+        
+        <action name="login_fail">
+            <result> /jsp/homepage/login_fail.jsp </result>
+        </action>
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         <action name="student_register" class="homepage.StudentAction" method="studentRegister">
@@ -78,7 +101,7 @@
         
         <action name="student_register_save" class="homepage.StudentAction" method="studentRegisterSave">
             <result name="success" type="json">
-            	<param name="includeProperties">status, user_id, username, password, added_user_html</param>           
+            	<param name="includeProperties">register_status, , username, password, added_user_html</param>           
 <!-- 				<param name="excludeProperties"> user_list</param> -->
             </result>            
         </action>
@@ -86,14 +109,14 @@
         
     </package>
     
-    <package name="login-interceptor-test" namespace="/" extends="login-interceptor">
+<!--     <package name="login-interceptor-test" namespace="/" extends="login-interceptor"> -->
     
-        <action name="login_success">
-            <result>
-                /jsp/homepage/login_success.jsp
-            </result>
-        </action>        
-    </package>
+<!--         <action name="login_success"> -->
+<!--             <result> -->
+<!--                 /jsp/homepage/login_success.jsp -->
+<!--             </result> -->
+<!--         </action>         -->
+<!--     </package> -->
 
 	
 

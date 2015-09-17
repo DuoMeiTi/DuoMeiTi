@@ -9,85 +9,118 @@
 
 	<form class="form-horizontal" action="student_register" method="POST" id="student_register_form">
 	 
-	  <div class="row container-fluid">
-		  <div class="form-group">
-		    <label for="username" class="col-lg-2 control-label" >用户名</label>
-		    <div class="input-group col-lg-6">    
-		    <input type="text" class="form-control" name="username" value="<s:property value="username"/>" placeholder="">
-		  	</div>
-		  </div>
-	   	  <div class="form-group">
-		  	<label for="studentId" class="col-lg-2 control-label">学&nbsp;&nbsp;&nbsp;&nbsp;号</label>
-		  	<div class="input-group col-lg-6">
-		  	<input type="text" class="form-control" name="studentId" value="<s:property value="studentId"/>" placeholder="">
-		  	</div>
-		  </div>
+<!-- 	  <div class="row container-fluid"> -->
+	  <div class="row">
+	  	<div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon">用户名</span>
+	  			<input type="text" class="form-control" name="username" value="<s:property value="username"/>" placeholder="">	
+	  		</div>
+	  	</div>
+		  
+	   	 <div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</span>
+	  			<input type="text" class="form-control" name="studentId" value="<s:property value="studentId"/>" placeholder="">	
+	  		</div>
+	  	 </div>
+	  </div>
+	   	 
+	  <div class="row">
+	  	<div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon">密&nbsp;&nbsp;&nbsp;&nbsp;码</span>
+	  			<input type="password" class="form-control" name="password" value="<s:property value="password"/>" placeholder="">	
+	  		</div>
+	  	 </div>
+	  	 <div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon">确认密码</span>
+	  			<input type="password" class="form-control" name="passwordAgain" value="<s:property value="passwordAgain"/>" placeholder="">	
+	  		</div>
+	  	 </div>
+	  </div>
 	  
-		  <div class="form-group">
-		    <label for="password" class="col-lg-2 control-label">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-		    <div class="input-group col-lg-6">
-		    <input type="password" class="form-control" name="password" value="<s:property value="password"/>" placeholder="">
-		  	</div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="sex" class="col-lg-2 control-label">性&nbsp;&nbsp;&nbsp;&nbsp;别</label>
-		    <div class="input-group col-lg-6">
-		    	<s:select list="sexSelect"></s:select>
-		  	</div>
-		  </div>
-		  
-		  <div class="form-group">
-		  	<label for="profilePhotoPath" class="col-lg-2 control-label">上传头像</label>
-		  	<div class="input-group col-lg-6">
-		  	
-		  	</div>
-		  </div>
+	  <div class="row">
+	  	<div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon">性&nbsp;&nbsp;&nbsp;&nbsp;别</span>
+	  			<s:select list="sexSelect" class="form-control" id='sex'></s:select>
+	  		</div>
+	  	</div>
+	  	<div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon">上传头像</span>
+	  			<input type="text" class="form-control">
+	  		</div>
+	  	</div>
+	  </div>
 	  
-		  <div class="form-group">
-		    <label for="idCard" class="col-lg-2 control-label">身份证号</label>
-		    <div class="input-group col-lg-6">
-		    <input type="text" class="form-control" name="idCard" value="<s:property value="idCard"/>" placeholder="">
-		  	</div>
-		  </div>
-	  	
-	  	
-		  <div class="form-group">
-		  	<label for="bankCard" class="col-lg-2 control-label">银行卡号</label>
-		  	<div class="input-group col-lg-6">
-		  	<input type="text" class="form-control" name="bankCard" value="<s:property value="bankCard"/>" placeholder="">
-		  	</div>
-		  </div>
+	  <div class="row">
+	  	<div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon">身份证号</span>
+	  			<input type="text" class="form-control" name="idCard" value="<s:property value="idCard"/>" placeholder="">
+	  		</div>
+	  	</div>
+	  	<div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon">银行卡号</span>
+	  			<input type="text" class="form-control" name="bankCard" value="<s:property value="bankCard"/>" placeholder="">
+	  		</div>
+	  	</div>
+	  </div>
 	  
-		  <div class="form-group">
-		    <label for="college" class="col-lg-2 control-label">院系信息</label>
-		    <div class="input-group col-lg-6">
-		    	<s:select list="collegeSelect"></s:select>
-		  	</div>
-		  </div>
-		  
-		  <div class="form-group">
-		  	<label for="phoneNumber" class="col-lg-2 control-label">联系方式</label>
-		  	<div class="input-group col-lg-6">
-		  	<input type="text" class="form-control" name="phoneNumber" value="<s:property value="phoneNumber"/>" placeholder="">
-		  	</div>
-		  </div>
-		  
-		  <div class="form-group">
-		  	<label for="status" class="col-lg-2 control-label">状&nbsp;&nbsp;&nbsp;&nbsp;态</label>
-		  	<div class="input-group col-lg-6">
-		  		<s:select list="statusSelect"></s:select>
-		  	</div>
-		  </div>
-		  
-		  <div class="form-group">
-		  	<label for="remark" class="col-lg-2 control-label">备&nbsp;&nbsp;&nbsp;&nbsp;注</label>
-		  	<div class="input-group col-lg-6">
-		  	<input type="text" class="form-group" name="remark" value="<s:property value="remark"/>" placeholder="">
-		  	</div>
-		  </div>
- 		</div>
-	 <button type="button" class="btn btn-default register">注册</button>
+	  <div class="row">
+	  	<div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon">院系信息</span>
+	  			<s:select list="collegeSelect" class="form-control" id="college"></s:select>
+	  		</div>
+	  	</div>
+	  	<div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon">联系方式</span>
+	  			<input type="text" class="form-control" name="phoneNumber" value="<s:property value="phoneNumber"/>" placeholder="">
+	  		</div>
+	  	</div>
+	  </div>
+	  
+	  <div class="row">
+	  	<div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon">状&nbsp;&nbsp;&nbsp;&nbsp;态</span>
+	  			<select class="form-control">
+	  				<option value="0">在岗</option>
+	  				<option value="1">离职</option>s
+	  			</select>
+	  		</div>
+	  	</div>
+	  	<div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon">负责教室</span>
+	  			<input type="text" class="form-control" name="classrooms" value="<s:property value="classrooms"/>" placeholder="">
+	  		</div>
+	  	</div>
+	  </div>
+	  
+	  <div class="row">
+	  	<div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon" data-date-format="yyyy-mm-dd">入职时间</span>
+	  			<input type="date" class="form-control" name="entryTime" value="<s:property value="entryTime"/>" placeholder="">
+	  		</div>
+	  	</div>
+	  	<div class="col-lg-4 col-lg-offset-1">
+	  		<div class="input-group">
+	  			<span class="input-group-addon" >备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注</span>
+	  			<input type="text" class="form-control" name="remark" value="<s:property value="remark"/>" placeholder="">
+	  		</div>
+	  	</div>
+	  </div>
+	 <br/>
+	 <br/> 
+	 <button type="button" class="btn btn-default col-lg-offset-5" >注册</button>
 	</form>	
 	
 	<br/>
@@ -122,7 +155,9 @@
 
     $(document).on("click", "button", function (){
         var params = $('#student_register_form').serialize(); //利用jquery将表单序列化
-
+		var sex=$('#sex option:selected').text();
+        var college=$('#college option:selected').text();
+        var status=$('#status option:selected').text();
         $.ajax({
           url: 'student_register_save',
           type: 'post',

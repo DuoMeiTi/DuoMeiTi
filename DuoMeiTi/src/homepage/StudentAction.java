@@ -22,9 +22,99 @@ public class StudentAction {
 	private String username;
 	private String password;
 	private String register_status;
+	private String idCard;
+	private String sex;
+	private String studentId;
+	private String bankCard;
+	private String phoneNumber;
+	public java.sql.Date entryTime;
+	private String classrooms;
+	private String status;
+	private String remark;
+	private String college;
 	
 	
 	
+	public String getCollege() {
+		return college;
+	}
+
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getBankCard() {
+		return bankCard;
+	}
+
+	public void setBankCard(String bankCard) {
+		this.bankCard = bankCard;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public java.sql.Date getEntryTime() {
+		return entryTime;
+	}
+
+	public void setEntryTime(java.sql.Date entryTime) {
+		this.entryTime = entryTime;
+	}
+
+	public String getClassrooms() {
+		return classrooms;
+	}
+
+	public void setClassrooms(String classrooms) {
+		this.classrooms = classrooms;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+
 	public String getRegister_status() {
 		return register_status;
 	}
@@ -105,9 +195,21 @@ public class StudentAction {
 			um.setUsername(username);
 			um.setPassword(password);
 			
+			StudentProfile stupro=new StudentProfile();
+			stupro.setUser(um);
+			stupro.setIdCard(idCard);
+			stupro.setBankCard(bankCard);
+			stupro.setEntryTime(entryTime);
+			stupro.setPhoneNumber(phoneNumber);
+			stupro.setSex(sex);
+			stupro.setStudentId(studentId);
+			stupro.setCollege(college);
+			stupro.setRemark(remark);
+			stupro.setStatus(status);
 			
 			session.beginTransaction();
 			session.save(um);
+			session.save(stupro);
 			
 			session.getTransaction().commit();
 			this.register_status = "0";
