@@ -27,13 +27,9 @@ public class Classroom {
 	@Column
 	public int capacity;
 		
-<<<<<<< HEAD
+
 	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	public Set<Repertory> repertorys;
-=======
-//	@OneToMany(mappedBy="classroom", cascade=CascadeType.ALL)
-//	public Set<Repertory> repertorys;
->>>>>>> origin/master
 	
 	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	public Set<CheckRecord> checkrecords;
