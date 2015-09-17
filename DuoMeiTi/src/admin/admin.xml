@@ -6,7 +6,7 @@
 <struts>
 
 
-	<package name="admin" namespace="/admin" extends="json-default">
+	<package name="admin" namespace="/admin" extends="json-default, login-interceptor">
 		<action name="">
 			<result>
 				/jsp/admin/base.jsp
@@ -17,7 +17,6 @@
 				/jsp/admin/users_request.jsp
 			</result>
 		</action>
-
 		<action name="repertory" class="admin.RepertoryAction">
 			<result name="success">
 				/jsp/admin/repertory.jsp
@@ -32,7 +31,19 @@
 		</action>
 
 	</package>
-
+	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="json-default">
+		<action name="maintainRecords">
+			<result>
+				/jsp/admin/maintainRecords.jsp
+			</result>
+		</action>
+		<action name="equipmentQueryAndEdit">
+			<result>
+				/jsp/admin/equipmentQueryAndEdit.jsp
+			</result>
+		</action>
+	
+	</package>
 	<package name="user_request" namespace="/admin/user_request"
 		extends="struts-default">
 		<action name="untreated">

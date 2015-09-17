@@ -25,6 +25,12 @@ public class Const
     		"在岗",
     		"离职",
     };
+    
+    public static final String AdminRole = "admin";
+    public static final String StudentRole = "student";
+    public static final String TeacherRole = "teacher";
+    public static final String NoRole = "no";
+//    public static final String AdminRole = "admin";
 
 
 }
