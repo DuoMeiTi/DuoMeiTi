@@ -10,12 +10,12 @@ public class Message {
 	@Column
 	public String content;
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	@JoinColumn(name="from")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn
 	public User from;
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	@JoinColumn(name="to")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn
 	public User to;
 	
 	//1表示已读，0表示未读
