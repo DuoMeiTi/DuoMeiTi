@@ -6,7 +6,7 @@
 <struts>
 
 
-	<package name="admin" namespace="/admin" extends="json-default">
+	<package name="admin" namespace="/admin" extends="json-default, login-interceptor">
 		<action name="">
 			<result>
 				/jsp/admin/base.jsp

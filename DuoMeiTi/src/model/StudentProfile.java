@@ -21,8 +21,19 @@ public class StudentProfile {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
- 
-    @Column(length = 10)
+    
+    @Column(length=10)
+    public String fullName;
+    
+    public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	@Column(length = 10)
     public String sex;    
     
     @Column(length = 20)
@@ -72,22 +83,12 @@ public class StudentProfile {
 
     @OneToMany(mappedBy="principal", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     public Set<Classroom> classrooms;
-
-    
-
-
     
     @Column(length = 10)
     public String status;    
-
-    
     
     @Column(length=1000)
-    public String remark;
-
-
-
-    
+    public String remark;    
     
     @Column(columnDefinition="INT default 0", nullable=false)
     public int isPassed;
@@ -95,6 +96,10 @@ public class StudentProfile {
     @Column(columnDefinition="INT default 0", nullable=false)
     public int isUpgradePrivilege;
 
+    
+    
+    
+    
 	public User getUser() {
 		return user;
 	}

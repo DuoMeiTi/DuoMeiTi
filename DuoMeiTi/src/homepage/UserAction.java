@@ -58,6 +58,12 @@ public class UserAction
 		this.added_user_html = added_user_html;
 	}
 
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
 
 
 
@@ -80,57 +86,54 @@ public class UserAction
 
 	
 	
-	public int getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
 	public String login() throws Exception
-	{		
+	{
+		if(ServletActionContext.getRequest().getMethod().equalsIgnoreCase("get"))
+		{
+			return ActionSupport.SUCCESS; 
+		}
+		
+
+		
+		
 		if(username == null || username == "")
 		{
-			return ActionSupport.SUCCESS;
+			return "login_fail";
 		}
-		ActionContext actionContext = ActionContext.getContext();
-		Map<String, Object> session = actionContext.getSession();
+
 		
-		session.put("username", username);
+		ActionContext.getContext().getSession().put("username", username);
+		ActionContext.getContext().getSession().put("role", util.Const.AdminRole);
+		
+		Session session = model.Util.sessionFactory.openSession();		
+		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username", username));
+		List ul = q.list();
+		session.close();
+		
+		if(ul.isEmpty()) return "login_fail";
+		User u = (User)ul.get(0);
+		if(!u.getPassword().equals(password)) return "login_fail";
+		
+		
+		
+	
+	
+
 		return "login_success";
 	}
 	public String logout() throws Exception
 	{		
-	    Map session = ActionContext.getContext().getSession();  
-	    session.remove("username");
+	    ActionContext.getContext().getSession().remove("username");
+	    ActionContext.getContext().getSession().remove("role");
 	    return ActionSupport.SUCCESS;
 	}
 	public String register() throws Exception
-	{    	
-		
-
-		
+	{
 		Session session = model.Util.sessionFactory.openSession();
-//        Query q = session.createSQLQuery("select * from usermodel").addEntity(UserModel.class);
-		
-        
 		Criteria q = session.createCriteria(User.class);//把查询条件封装成一个Criteria对象
-		
 		user_list = q.list();
 		Collections.reverse(user_list);
 		session.close();	
-		
-		
-		
-		
-		
-
-
-
-//		String u = util.Util.fileToString("/jsp/homepage/widgets/added_user.html");
-//		System.out.println(u);
-		
-		
-
 		return "success";
 	}
 
