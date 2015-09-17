@@ -34,10 +34,12 @@ public class Repertory {
 	public void setRtNumber(String rtNumber) {
 		this.rtNumber = rtNumber;
 	}
+
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn
 	public Classroom getClassroom() {
+
 		return classroom;
 	}
 	public void setClassroom(Classroom classroom) {

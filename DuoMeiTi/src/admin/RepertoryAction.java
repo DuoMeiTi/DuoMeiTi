@@ -79,8 +79,8 @@ public class RepertoryAction extends ActionSupport{
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c = session.createCriteria(Repertory.class); //hibernate session创建查询
 		repertory_list = c.list();
-		Collections.reverse(repertory_list);//工具类collections用于操作集合类，如List,Set
-		session.close();
+//		Collections.reverse(repertory_list);//工具类collections用于操作集合类，如List,Set
+//		session.close();
 		//System.out.println(repertory_list);
 		return SUCCESS;
 	}
@@ -119,7 +119,6 @@ public class RepertoryAction extends ActionSupport{
 	
 	public String delete(){
 		
-		Repertory rt = new Repertory();
 		//List<Object> paramList = new ArrayList<Object>();
 		Session session = model.Util.sessionFactory.openSession();
 		//System.out.println(rtId);
@@ -140,6 +139,15 @@ public class RepertoryAction extends ActionSupport{
 		//paramList.add(rt.getRtId());
 		//session.delete(paramList);
 
+		return SUCCESS;
+	}
+	
+	public String select() {
+		
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(Repertory.class);
+		
+		
 		return SUCCESS;
 	}
 	

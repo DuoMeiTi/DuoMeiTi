@@ -8,11 +8,11 @@ public class CheckRecord {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
 		
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn
 	public Classroom classroom;
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn
 	public StudentProfile checkman;
 	

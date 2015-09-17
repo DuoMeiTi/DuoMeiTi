@@ -27,8 +27,9 @@ public class TeachBuildingAction extends ActionSupport {
 	public String execute() {
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria criteria = session.createCriteria(TeachBuilding.class);
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		builds = criteria.list();
-//		for(TeachBuilding b : builds) System.out.println(b.getBuild_name());
+		for(TeachBuilding b : builds) System.out.println(b.getBuild_name());
 		session.close();
 		return SUCCESS;
 	}
