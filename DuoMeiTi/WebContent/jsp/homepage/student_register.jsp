@@ -45,7 +45,7 @@
 	  	<div class="col-lg-4 col-lg-offset-1">
 	  		<div class="input-group">
 	  			<span class="input-group-addon">性&nbsp;&nbsp;&nbsp;&nbsp;别</span>
-	  			<s:select list="sexSelect" class="form-control"></s:select>
+	  			<s:select list="sexSelect" class="form-control" id='sex'></s:select>
 	  		</div>
 	  	</div>
 	  	<div class="col-lg-4 col-lg-offset-1">
@@ -75,7 +75,7 @@
 	  	<div class="col-lg-4 col-lg-offset-1">
 	  		<div class="input-group">
 	  			<span class="input-group-addon">院系信息</span>
-	  			<s:select list="collegeSelect" class="form-control"></s:select>
+	  			<s:select list="collegeSelect" class="form-control" id="college"></s:select>
 	  		</div>
 	  	</div>
 	  	<div class="col-lg-4 col-lg-offset-1">
@@ -155,7 +155,9 @@
 
     $(document).on("click", "button", function (){
         var params = $('#student_register_form').serialize(); //利用jquery将表单序列化
-
+		var sex=$('#sex option:selected').text();
+        var college=$('#college option:selected').text();
+        var status=$('#status option:selected').text();
         $.ajax({
           url: 'student_register_save',
           type: 'post',
