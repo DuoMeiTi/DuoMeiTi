@@ -181,19 +181,12 @@ public class StudentAction {
 		this.collegeSelect = collegeSelect;
 	}
 	
-	/*public String checkPassword(){
-		if(!(getPassword().equals(passwordAgain))){
-			alert("两次密码输入不一致，请重新输入");
-		}
-		return ActionSupport.SUCCESS;
-	}*/
-	
-	/*public String studentRegister(){
-		collegeSelect=Const.collegeSelect;
-		sexSelect=Const.sexSelect;
-		statusSelect=Const.statusSelect;
-		return ActionSupport.SUCCESS;
-	}*/
+	/*
+	 * status 0: OK
+	 * 		  1: username 或者password 为空
+	 * 		  2: username 重复
+	 * 		  3: password两次不一致
+	 */
 	
 	public String studentRegister() throws Exception
 	{
@@ -212,6 +205,7 @@ public class StudentAction {
 	
 	public String studentRegisterSave() throws Exception
 	{
+		
 		if(username == null || password == null)
 		{
 			this.register_status = "error: username or password is null";
@@ -221,7 +215,11 @@ public class StudentAction {
 		{
 			this.register_status = "1";
 			return ActionSupport.SUCCESS;
-		}		
+		}	
+		if(!(password.equals(passwordAgain))){
+			this.register_status="3";
+			return ActionSupport.SUCCESS;
+		}
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(StudentProfile.class).add(Restrictions.eq("username", username));
 		List ul = q.list();

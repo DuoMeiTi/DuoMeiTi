@@ -182,12 +182,6 @@
     	}
     }
     
-    function animatedShow(text)
-    {
-    	$("#alert_register_info").hide();
-		$("#alert_register_info").text(text);
-		$("#alert_register_info").show(500);
-    }
     function studentRegisterCallback(data)
     {    	
     	if(data.register_status == "0")
@@ -204,19 +198,23 @@
 			
         	$(cnt).attr("user_id", data.user_id);
  */
-    		alert("yeah");
+    		alert("注册成功");
     	}
     	else if(data.register_status == "1")
     	{
-    		animatedShow("注册用户名或者密码为空");
+    		alert("注册用户名或者密码为空");
     	}
     	else if(data.register_status == "2")
    		{
-    		animatedShow("注册用户名重复");
+    		alert("注册用户名重复");
    		}
+    	else if(data.register_status=="3")
+    	{
+    		alert("两次密码不一致");
+    	}
     	else 
    		{
-    		alert("error with status" + data.status);
+    		alert("error with status" + data.register_status);
    		}
 
 		
