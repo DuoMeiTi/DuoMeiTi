@@ -27,8 +27,13 @@ public class Classroom {
 	@Column
 	public int capacity;
 		
+<<<<<<< HEAD
 	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	public Set<Repertory> repertorys;
+=======
+//	@OneToMany(mappedBy="classroom", cascade=CascadeType.ALL)
+//	public Set<Repertory> repertorys;
+>>>>>>> origin/master
 	
 	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	public Set<CheckRecord> checkrecords;
@@ -80,13 +85,13 @@ public class Classroom {
 		this.capacity = capacity;
 	}
 
-	public Set<Repertory> getRepertorys() {
-		return repertorys;
-	}
-
-	public void setRepertorys(Set<Repertory> repertorys) {
-		this.repertorys = repertorys;
-	}
+//	public Set<Repertory> getRepertorys() {
+//		return repertorys;
+//	}
+//
+//	public void setRepertorys(Set<Repertory> repertorys) {
+//		this.repertorys = repertorys;
+//	}
 	
 	
 }

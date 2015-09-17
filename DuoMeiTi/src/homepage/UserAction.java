@@ -113,7 +113,7 @@ public class UserAction
 //        Query q = session.createSQLQuery("select * from usermodel").addEntity(UserModel.class);
 		
         
-		Criteria q = session.createCriteria(User.class);
+		Criteria q = session.createCriteria(User.class);//把查询条件封装成一个Criteria对象
 		
 		user_list = q.list();
 		Collections.reverse(user_list);
@@ -177,7 +177,7 @@ public class UserAction
 	{
 		System.out.print("gogo");
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("id", user_id));
+		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("id", user_id));//把具体的查询条件通过add方法加入到criteria实例中
 		List ul = q.list();
 		
 		if(ul.isEmpty())

@@ -32,10 +32,6 @@
         
         
         
-    	
-    
-    
-                
         <action name="register" class="homepage.UserAction" method="register">
             <result name="success">                
 <!--                 <param name="includeProperties">username, password, user_list</param> -->
@@ -73,6 +69,19 @@
             </result>
         </action>
         
+        
+        <action name="student_register" class="homepage.StudentAction" method="studentRegister">
+        	<result>
+        		/jsp/homepage/student_register.jsp
+        	</result>
+        </action>
+        
+        <action name="student_register_save" class="homepage.StudentAction" method="studentRegisterSave">
+            <result name="success" type="json">
+            	<param name="includeProperties">status, user_id, username, password, added_user_html</param>           
+<!-- 				<param name="excludeProperties"> user_list</param> -->
+            </result>            
+        </action>
         
         
     </package>
