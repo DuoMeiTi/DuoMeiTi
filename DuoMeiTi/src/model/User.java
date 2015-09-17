@@ -12,7 +12,8 @@ import javax.persistence.*;
 public class User 
 {
 	
-	@Id @GeneratedValue(strategy=GenerationType.AUTO) 
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO) 
 	private int id;
 	
 	@Column(length=50)

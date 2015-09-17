@@ -58,7 +58,10 @@
 			<result type="json">
 				<!-- <param name="root">classrooms</param> -->
 				<!-- <param name="includeProperties">classroominfo_html, status</param> -->
-				<param name="excludeProperties">build_id, build_name, searchselect, query_condition, </param>
+				<param name="includeProperties">
+					status, classroominfo_html, 
+					classrooms\[\d+\]\.id, classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity, classrooms\[\d+\]\.principal, classrooms\[\d+\]\.repertorys
+				</param>
 			</result>
 		</action>
 	</package>
@@ -76,9 +79,11 @@
 				<param name="build_name">${build_name}</param>
 			</result>
 		</action>
-		<action name="classroom_detail">
+		<action name="classroom_detail" class="admin.ClassroomDetailAction">
 			<result>
-				/jsp/admin/classroom_detail.jsp
+				<param name="location">/jsp/admin/classroom_detail.jsp</param>
+				<param name="build_id">${classroom_id}</param>
+				<param name="build_name">${classroom_num}</param>
 			</result>
 		</action>
 	</package>
