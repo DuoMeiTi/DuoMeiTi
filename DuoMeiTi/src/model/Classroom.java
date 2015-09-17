@@ -13,24 +13,24 @@ public class Classroom {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
 	
-	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn
 	public TeachBuilding teachbuilding;
 	
 	@Column(length = 10)
 	public String classroom_num;
 	
-	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn
 	public StudentProfile principal;
 	
 	@Column
 	public int capacity;
 		
-	@OneToMany(mappedBy="classroom", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	public Set<Repertory> repertorys;
 	
-	@OneToMany(mappedBy="classroom", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	public Set<CheckRecord> checkrecords;
 	
 	

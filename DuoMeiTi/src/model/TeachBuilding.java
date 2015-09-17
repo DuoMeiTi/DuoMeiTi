@@ -14,7 +14,7 @@ public class TeachBuilding {
 	@Column(length=20)
 	public String build_name;
 	
-	@OneToMany(mappedBy="teachbuilding", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="teachbuilding",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	public Set<Classroom> classrooms;
 	
 	public int getBuild_id() {

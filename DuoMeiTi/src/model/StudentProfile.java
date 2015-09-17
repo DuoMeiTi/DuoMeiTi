@@ -18,7 +18,8 @@ public class StudentProfile {
     @JoinColumn
     public User user;
     
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
 
  
@@ -72,7 +73,7 @@ public class StudentProfile {
 ////    public Classroom classroom;
 //=======
 //    //负责教室
-    @OneToMany(mappedBy="principal", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="principal", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     public Set<Classroom> classrooms;
 //>>>>>>> origin/master
     
@@ -89,19 +90,149 @@ public class StudentProfile {
     
     @Column(length=1000)
     public String remark;
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
 
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ 
 
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+	public int getSex() {
+		return sex;
+	}
+
+
+
+	public void setSex(int sex) {
+		this.sex = sex;
+	}
+
+
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
+
+
+	public String getProfilePhotoPath() {
+		return profilePhotoPath;
+	}
+
+
+
+	public void setProfilePhotoPath(String profilePhotoPath) {
+		this.profilePhotoPath = profilePhotoPath;
+	}
+
+
+
+	public String getIdCard() {
+		return idCard;
+	}
+
+
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+
+
+
+	public String getBankCard() {
+		return bankCard;
+	}
+
+
+
+	public void setBankCard(String bankCard) {
+		this.bankCard = bankCard;
+	}
+
+
+
+	public int getCollege() {
+		return college;
+	}
+
+
+
+	public void setCollege(int college) {
+		this.college = college;
+	}
+
+
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+
+
+	public java.sql.Date getEntryTime() {
+		return entryTime;
+	}
+
+
+
+	public void setEntryTime(java.sql.Date entryTime) {
+		this.entryTime = entryTime;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
+	public String getRemark() {
+		return remark;
+	}
+
+
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
 }
