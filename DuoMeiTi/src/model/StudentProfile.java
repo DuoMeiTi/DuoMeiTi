@@ -38,7 +38,7 @@ public class StudentProfile {
     public String bankCard;
     
 
-<<<<<<< HEAD
+
     @Column
     public int college;
     public static final String[]collegeSelect = { 
@@ -56,8 +56,7 @@ public class StudentProfile {
     		"创新实验学院",
     };
 
-=======
->>>>>>> origin/master
+
     @Column(length = 50)
     public String college;
 
