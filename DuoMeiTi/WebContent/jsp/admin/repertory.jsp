@@ -3,7 +3,7 @@
 <layout:override name="main_content">
 	<div class="mycontent">
 
-		<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#rtModal" id="rtInsert">添加设备信息</button>
+		<div><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#rtModal" id="rtInsert">添加设备信息</button></div>
 		<div class="modal fade" id="rtModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -61,6 +61,22 @@
 		</div>
 		<!-- /.modal -->
 
+		<!-- <div class="btn-group">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				全部设备<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li>主要设备</li>
+				<li>耗材设备</li>
+			</ul>
+		</div> -->
+		<div class="form-group">
+			<form id="repertory_search" method="post">
+				<input type="text" class="" name="device" id="" placeholder="设备">
+				<button type="button" class="btn btn-success" id="rtSearch">查询</button>
+			</form>
+		</div>
+
 		<table class="table table-bordered table-hover" id="repertory_table">
 			<tr class="active">
 				<th>设备类型</th>
@@ -88,6 +104,25 @@
 		
 		
 		<script>
+		
+		$(document).on("click","#rtSearch", function(){
+			var keyword = $("#repertory_form").serialize();
+			
+			//ajax方法通过HTTP请求加载远程数据； 
+			$.ajax({
+		    	url: 'repertory_search',
+		        type: 'post',
+		        dataType: 'json',
+		        data: keyword,
+		        success: searchCallback
+		    });
+			
+		})
+		
+		function searchCallback(data) {
+			
+		}
+		
 		var delete_rtId;
 		$(document).on("click",".delete", function(){
 			delete_rtId = $(this).parents("tr").attr("rt_id");//attr所选元素属性值 
