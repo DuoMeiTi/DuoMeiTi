@@ -1,5 +1,6 @@
 package homepage;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -11,8 +12,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import model.StudentProfile;
 import model.User;
 import util.Const;
-
-import java.io.File;
 
 public class StudentAction {
 	
@@ -32,9 +31,28 @@ public class StudentAction {
 	private String status;
 	private String remark;
 	private String college;
+	private String passwordAgain;
+	private List<StudentProfile>student_list;
 	
 	
 	
+	
+	public List<StudentProfile> getStudent_list() {
+		return student_list;
+	}
+
+	public void setStudent_list(List<StudentProfile> student_list) {
+		this.student_list = student_list;
+	}
+
+	public String getPasswordAgain() {
+		return passwordAgain;
+	}
+
+	public void setPasswordAgain(String passwordAgain) {
+		this.passwordAgain = passwordAgain;
+	}
+
 	public String getCollege() {
 		return college;
 	}
@@ -163,11 +181,33 @@ public class StudentAction {
 		this.collegeSelect = collegeSelect;
 	}
 	
-	public String studentRegister(){
+	/*public String checkPassword(){
+		if(!(getPassword().equals(passwordAgain))){
+			alert("两次密码输入不一致，请重新输入");
+		}
+		return ActionSupport.SUCCESS;
+	}*/
+	
+	/*public String studentRegister(){
 		collegeSelect=Const.collegeSelect;
 		sexSelect=Const.sexSelect;
 		statusSelect=Const.statusSelect;
 		return ActionSupport.SUCCESS;
+	}*/
+	
+	public String studentRegister() throws Exception
+	{
+		collegeSelect=Const.collegeSelect;
+		sexSelect=Const.sexSelect;
+		statusSelect=Const.statusSelect;
+		
+		
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(StudentProfile.class);//把查询条件封装成一个Criteria对象
+		student_list = q.list();
+		Collections.reverse(student_list);
+		session.close();	
+		return "success";
 	}
 	
 	public String studentRegisterSave() throws Exception
