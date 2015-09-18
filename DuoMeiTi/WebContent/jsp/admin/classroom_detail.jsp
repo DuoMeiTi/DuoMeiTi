@@ -19,9 +19,9 @@
 	<div class="mycontent">
 		<div class="row">
 			<div class="col-lg-6 col-lg-offset-3 classbuilding">
-				<span>301</span>&nbsp;&nbsp;&nbsp;&nbsp;
+				<span><s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
 				<span>负责人:</span>
-				<span class="director-span">楼主</span>
+				<span class="director-span"><s:property value="classroom.principal.user.username"/></span>
 			</div>
 			</div>
 		<hr>

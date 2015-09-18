@@ -18,6 +18,7 @@ import model.Classroom;
 import model.Repertory;
 import model.StudentProfile;
 import model.User;
+import cache.Cache;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -38,7 +39,10 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 	
 	public String classroominfo_html;
 	
-	private int currPage;
+	public int currPage;
+	
+	public int pageSize;
+	
 	
 	@SuppressWarnings("unchecked")
 	private Map request;
@@ -60,17 +64,19 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 System.out.println("rowcount:" + rowCount);
 		//获取分页信息
 		PageBean pageBean = PageMessage.getPageMessage(currPage, (int) rowCount);
+		pageSize = pageBean.getPageSize();
 
 		classroom_criteria.setFirstResult(pageBean.getBeginIndex());
-		classroom_criteria.setMaxResults(pageBean.getPageSize());
+		classroom_criteria.setMaxResults(pageSize);
 
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
-		List<Classroom> list= classroom_criteria.list();
-System.out.println("classroom_size:" + list.size());
+		List<Classroom> classroom_list= classroom_criteria.list();
+		Cache.classroom_list = classroom_list;
+System.out.println("classroom_size:" + classroom_list.size());
 		Classroom classroom;
 		classrooms = new ArrayList<T_Classroom>();
-		for(int i=0;i<list.size();i++){
-			classroom = list.get(i);
+		for(int i=0;i<classroom_list.size();i++){
+			classroom = classroom_list.get(i);
 			T_Classroom t_classroom = new T_Classroom();
 			t_classroom.id = classroom.id;
 			t_classroom.capacity = classroom.capacity;
@@ -95,7 +101,7 @@ System.out.println("classroom_size:" + list.size());
 		//带有参数的URL
 		sb.append("classroom_manage?build_id=").append(build_id).append("&build_name=").append(build_name).append("&");
 		path = sb.toString();
-		request.put("users", list);
+//		request.put("users", list);
 		request.put("path", path) ;
 		request.put("pageBean", pageBean);
 		
@@ -203,7 +209,6 @@ System.out.println(classroom.id + " " + classroom.capacity + " " + classroom.cla
 	
 	
 	
-	
 
 	public int getBuild_id() {
 		return build_id;
@@ -284,5 +289,12 @@ System.out.println(classroom.id + " " + classroom.capacity + " " + classroom.cla
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
 }

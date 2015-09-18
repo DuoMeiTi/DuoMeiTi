@@ -49,14 +49,15 @@
         </tr>
       </thead>
 
-      <s:iterator value="classrooms" var="classroom" >  
+      <s:iterator value="classrooms" var="classroom" status="i">  
 			<tr class="success" classroom_id=<s:property value="#classroom.id"/> >
 				<td>   <s:property value="#classroom.classroom_num"/>    </td>
 				<td width="25%">   <s:property value="#classroom.repertorys"/>    </td>
 				<%-- <td>   <s:iterator value="#classroom.repertorys" var="rt"> <s:property value="#rt.rtType"/>&nbsp;&nbsp;&nbsp;</s:iterator>   </td> --%>
 				<td>   <s:property value="#classroom.capacity"/>    </td>
 				<td>   <s:property value="#classroom.principal"/>    </td>
-				<td>   <a href="classroom_detail?classroom_id=<s:property value="#classroom.id"/>&classroom_num=<s:property value="#classroom.classroom_num"/>" class="btn btn-info active">详&nbsp;&nbsp;细</a>    </td>
+				<%-- <td>   <a href="classroom_detail?classroom_id=<s:property value="#classroom.id"/>&classroom_num=<s:property value="#classroom.classroom_num"/>" class="btn btn-info active">详&nbsp;&nbsp;细</a>    </td> --%>
+				<td> <a class="btn btn-info" onclick="mypost(<s:property value="#i.index"/>)">详&nbsp;&nbsp;细</a></td>
 			</tr>
 		</s:iterator>
       
@@ -72,7 +73,9 @@
 			pageSize="${pageBean.pageSize }"
 			totalSize="${pageBean.totalSize }" 
 		/>
+		<span style="visibility:hidden" id="pageSize"><s:property value="pageSize"/></span>
 	</div>
+	
 
 <script>
 	function GetRequest() {
@@ -159,6 +162,47 @@
 			data : params,
 			success : ClassroomSearchCallback
 		});
+	}
+	
+	
+	
+	function mypost(count) {
+		var xmlobj; //定义XMLHttpRequest对象 
+		//如果当前浏览器支持Active Xobject，则创建ActiveXObject对象  
+		if (window.ActiveXObject) {
+			//xmlobj = new ActiveXObject("Microsoft.XMLHTTP");  
+			try {
+				xmlobj = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					xmlobj = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (E) {
+					xmlobj = false;
+				}
+			}
+		}
+		//如果当前浏览器支持XMLHttp Request，则创建XMLHttpRequest对象  
+		else if (window.XMLHttpRequest) {
+			xmlobj = new XMLHttpRequest();
+		}
+		
+		var pageSize = $("#pageSize").text();
+		Request = GetRequest();
+		var currPage = Request['currPage'];
+		if(currPage == null) currPage = 1;
+		var index = (currPage - 1) * pageSize + count;
+		//return index;
+		// alert(index);
+		var param = "classroomselectIndex=" + index;
+		
+		xmlobj.open("POST", "/admin/classroom/classroom_detail", true); //调用classroom_detail.action     
+		xmlobj.setRequestHeader("cache-control", "no-cache");
+		xmlobj.setRequestHeader("contentType", "text/html;charset=uft-8"); //指定发送的编码  
+		xmlobj.setRequestHeader("Content-Type",
+				"application/x-www-form-urlencoded;"); //设置请求头信息  
+
+		xmlobj.send(param); //设置为发送给服务器数据 
+		window.location.href = "/admin/classroom/classroom_detail?classroomselectIndex=" + index;
 	}
 </script>
 
