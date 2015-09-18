@@ -6,7 +6,7 @@
 <struts>
 
 
-	<package name="admin" namespace="/admin" extends="json-default, login-interceptor">
+	<package name="admin" namespace="/admin" extends="AdminDefault">
 		<action name="">
 			<result>
 				/jsp/admin/base.jsp
@@ -31,7 +31,7 @@
 		</action>
 
 	</package>
-	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="json-default">
+	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="AdminDefault">
 		<action name="maintainRecords">
 			<result>
 				/jsp/admin/maintainRecords.jsp
@@ -45,7 +45,7 @@
 	
 	</package>
 	<package name="user_request" namespace="/admin/user_request"
-		extends="struts-default">
+		extends="AdminDefault">
 		<action name="untreated">
 			<result>
 				/jsp/admin/untreated.jsp
@@ -64,7 +64,7 @@
 
 	</package>
 
-	<package name="classroom_json" namespace="/admin/classroom_json" extends="json-default">
+	<package name="classroom_json" namespace="/admin/classroom_json" extends="AdminDefault">
 		<action name="classroom_search" class="admin.ClassroomManageAction" method="classroom_search">
 			<result type="json">
 				<!-- <param name="root">classrooms</param> -->
@@ -77,7 +77,7 @@
 		</action>
 	</package>
 	
-	<package name="classroom" namespace="/admin/classroom" extends="struts-default">
+	<package name="classroom" namespace="/admin/classroom" extends="AdminDefault">
 		<action name="teachBuildingAction" class="admin.TeachBuildingAction">
 			<result>
 				/jsp/admin/teachbuilding.jsp

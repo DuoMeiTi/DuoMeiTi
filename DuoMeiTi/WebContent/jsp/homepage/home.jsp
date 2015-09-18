@@ -8,6 +8,11 @@
 
 	<br/><br/>
 	<a href="/login" class="btn btn-primary">跳到登录</a>
+	
+	<br/><br/>
+	<a href="/login_success" class="btn btn-default">跳到登录成功界面，可以在这个界面可以退出登录</a>
+	
+	
 	<br/><br/>
 	<a href="/register" class="btn btn-default">跳到注册</a>
 	<br/><br/>
