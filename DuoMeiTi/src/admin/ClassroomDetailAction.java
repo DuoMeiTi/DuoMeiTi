@@ -1,35 +1,34 @@
 package admin;
 
-import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import model.CheckRecord;
 import model.Classroom;
 import model.Repertory;
-import cache.Cache;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ClassroomDetailAction extends ActionSupport {
 	public String build_name;
 	
-	public int classroomselectIndex;
-	
-	public List<Repertory> repertorys;
-	
-	public List<CheckRecord> checkrecords;
+	public int classroomId;
 	
 	public Classroom classroom;
 	
 	public String execute() {
-		System.out.println("detail");
-		System.out.println("size:"+Cache.classroom_list.size());
-		classroom = Cache.classroom_list.get(classroomselectIndex);
-//		System.out.println("classroom" + Cache.classroom_list.get(classroomselectIndex).getClassroom_num());
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria classroom_criteria = session.createCriteria(Classroom.class);
+		classroom_criteria.add(Restrictions.eq("id", classroomId));
+		classroom = (Classroom) classroom_criteria.uniqueResult();
+		System.out.println("rt_size:" + classroom.repertorys.size());
 		return SUCCESS;
 	}
+
+	
 	
 	
 	
@@ -49,29 +48,20 @@ public class ClassroomDetailAction extends ActionSupport {
 	
 
 	
-	public int getClassroomselectIndex() {
-		return classroomselectIndex;
+	public String getBuild_name() {
+		return build_name;
 	}
 
-	public void setClassroomselectIndex(int classroomselectIndex) {
-		this.classroomselectIndex = classroomselectIndex;
+	public void setBuild_name(String build_name) {
+		this.build_name = build_name;
 	}
 
-	public List<Repertory> getRepertorys() {
-		return repertorys;
+	public int getClassroomId() {
+		return classroomId;
 	}
 
-	public void setRepertorys(List<Repertory> repertorys) {
-		this.repertorys = repertorys;
+	public void setClassroomId(int classroomId) {
+		this.classroomId = classroomId;
 	}
 
-	public List<CheckRecord> getCheckrecords() {
-		return checkrecords;
-	}
-
-	public void setCheckrecords(List<CheckRecord> checkrecords) {
-		this.checkrecords = checkrecords;
-	}
-	
-	
 }

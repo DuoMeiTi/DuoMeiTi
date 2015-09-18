@@ -126,39 +126,19 @@
 		<div class="detail-div">
 			<div class="device">
 				<ul>
-					<li>
-						<div style="margin-bottom:5px"><label class="control-label">计算机&nbsp;</label><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
-						<table class="table device-table-bordered">
-							<thead>
-								<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
-							</thead>
-							<tbody>
-								<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
-							</tbody>
-						</table>
-					</li>
-					<li>
-						<div style="margin-bottom:5px"><label class="control-label">中央控制器&nbsp;</label><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
-						<table class="table device-table-bordered">
-							<thead>
-								<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
-							</thead>
-							<tbody>
-								<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
-							</tbody>
-						</table>
-					</li>
-					<li>
-						<div style="margin-bottom:5px"><label class="control-label">投影&nbsp;</label><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
-						<table class="table device-table-bordered">
-							<thead>
-								<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
-							</thead>
-							<tbody>
-								<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
-							</tbody>
-						</table>
-					</li>
+					<s:iterator value="classroom.repertorys" var="device" status="i">
+						<li>
+							<div style="margin-bottom:5px"><label class="control-label"><s:property value="#device.rtType"/>&nbsp;</label><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
+							<table class="table device-table-bordered">
+								<thead>
+									<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
+								</thead>
+								<tbody>
+									<tr><td><s:property value="#device.rtNumber"/></td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
+								</tbody>
+							</table>
+						</li>
+					</s:iterator>
 				</ul>
 			</div>
 			<div class="record">
@@ -170,9 +150,13 @@
 								<tr><td>检查人</td><td>教室状况</td><td>检查时间</td></tr>
 							</thead>
 							<tbody>
-								<tr><td>检查人</td><td>教室状况</td><td>检查时间</td></tr>
-								<tr><td>检查人</td><td>教室状况</td><td>检查时间</td></tr>
-								<tr><td>检查人</td><td>教室状况</td><td>检查时间</td></tr>
+								<s:iterator value="classroom.checkrecords" var="checkrecord" status="i">
+									<tr>
+										<td width="20%"><s:property value="#checkrecord.checkman.user.username"/></td>
+										<td><s:property value="#checkrecord.checkdetail"/></td>
+										<td><s:property value="#checkrecord.checkdate"/></td>
+									</tr>
+								</s:iterator>
 							</tbody>
 						</table>
 					</li>
@@ -180,12 +164,12 @@
 					<label class="control-label">维修记录：</label>
 						<table class="table device-table-bordered">
 							<thead>
-								<tr><td>维修人</td><td>维修状况</td><td>维修时间</td></tr>
+								<tr><td>维修人</td><td>维修设备</td><td>维修时间</td></tr>
 							</thead>
 							<tbody>
-								<tr><td>维修人</td><td>维修状况</td><td>维修时间</td></tr>
-								<tr><td>维修人</td><td>维修状况</td><td>维修时间</td></tr>
-								<tr><td>维修人</td><td>维修状况</td><td>维修时间</td></tr>
+								<tr><td>维修人</td><td>维修设备</td><td>维修时间</td></tr>
+								<tr><td>维修人</td><td>维修设备</td><td>维修时间</td></tr>
+								<tr><td>维修人</td><td>维修设备</td><td>维修时间</td></tr>
 							</tbody>
 						</table>
 					</li>

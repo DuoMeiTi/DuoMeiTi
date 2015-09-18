@@ -18,7 +18,6 @@ import model.Classroom;
 import model.Repertory;
 import model.StudentProfile;
 import model.User;
-import cache.Cache;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -58,10 +57,10 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 		}
 		
 		long rowCount = (Long) classroom_criteria.setProjection(  
-                Projections.rowCount()).uniqueResult();  
+                Projections.rowCount()).uniqueResult();
 		classroom_criteria.setProjection(null);
 		 
-System.out.println("rowcount:" + rowCount);
+//System.out.println("rowcount:" + rowCount);
 		//获取分页信息
 		PageBean pageBean = PageMessage.getPageMessage(currPage, (int) rowCount);
 
@@ -70,8 +69,7 @@ System.out.println("rowcount:" + rowCount);
 
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
 		List<Classroom> classroom_list= classroom_criteria.list();
-		Cache.classroom_list = classroom_list;
-System.out.println("classroom_size:" + classroom_list.size());
+//System.out.println("classroom_size:" + classroom_list.size());
 		Classroom classroom;
 		classrooms = new ArrayList<T_Classroom>();
 		for(int i=0;i<classroom_list.size();i++){
@@ -157,7 +155,6 @@ System.out.println("rowcount:" + rowCount);
 		}
 		
 		List<Classroom> classroom_list= classroom_criteria.list();
-		Cache.classroom_list = classroom_list;
 		Classroom classroom;
 		classrooms = new ArrayList<T_Classroom>();
 		StringBuilder htmlsb = new StringBuilder();
