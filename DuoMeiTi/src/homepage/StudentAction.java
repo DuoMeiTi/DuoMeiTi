@@ -1,5 +1,6 @@
 package homepage;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -11,8 +12,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import model.StudentProfile;
 import model.User;
 import util.Const;
-
-import java.io.File;
 
 public class StudentAction {
 	
@@ -32,9 +31,28 @@ public class StudentAction {
 	private String status;
 	private String remark;
 	private String college;
+	private String passwordAgain;
+	private List<StudentProfile>student_list;
 	
 	
 	
+	
+	public List<StudentProfile> getStudent_list() {
+		return student_list;
+	}
+
+	public void setStudent_list(List<StudentProfile> student_list) {
+		this.student_list = student_list;
+	}
+
+	public String getPasswordAgain() {
+		return passwordAgain;
+	}
+
+	public void setPasswordAgain(String passwordAgain) {
+		this.passwordAgain = passwordAgain;
+	}
+
 	public String getCollege() {
 		return college;
 	}
@@ -163,15 +181,31 @@ public class StudentAction {
 		this.collegeSelect = collegeSelect;
 	}
 	
-	public String studentRegister(){
+	/*
+	 * status 0: OK
+	 * 		  1: username 或者password 为空
+	 * 		  2: username 重复
+	 * 		  3: password两次不一致
+	 */
+	
+	public String studentRegister() throws Exception
+	{
 		collegeSelect=Const.collegeSelect;
 		sexSelect=Const.sexSelect;
 		statusSelect=Const.statusSelect;
-		return ActionSupport.SUCCESS;
+		
+		
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(StudentProfile.class);//把查询条件封装成一个Criteria对象
+		student_list = q.list();
+		Collections.reverse(student_list);
+		session.close();	
+		return "success";
 	}
 	
 	public String studentRegisterSave() throws Exception
 	{
+		
 		if(username == null || password == null)
 		{
 			this.register_status = "error: username or password is null";
@@ -181,7 +215,11 @@ public class StudentAction {
 		{
 			this.register_status = "1";
 			return ActionSupport.SUCCESS;
-		}		
+		}	
+		if(!(password.equals(passwordAgain))){
+			this.register_status="3";
+			return ActionSupport.SUCCESS;
+		}
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(StudentProfile.class).add(Restrictions.eq("username", username));
 		List ul = q.list();

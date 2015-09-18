@@ -7,18 +7,7 @@
 
 
     <package name="homepage" namespace="/" extends="json-default">
-    
-    	<action name="hello">
-            <result>
-                /hello.jsp
-            </result>
-        </action>
-        
-        <action name="admin_eg">
-            <result>
-                /jsp/admin/admin_eg.jsp
-            </result>
-        </action>
+    	
         
         
         
@@ -30,12 +19,7 @@
             <result type="redirect"> / </result>
         </action>
         
-        
-        
-    	
-    
-    
-                
+                        
         <action name="register" class="homepage.UserAction" method="register">
             <result name="success">                
 <!--                 <param name="includeProperties">username, password, user_list</param> -->
@@ -85,14 +69,6 @@
         </action>
         
         
-        
-        
-        
-        
-        
-        
-        
-        
         <action name="student_register" class="homepage.StudentAction" method="studentRegister">
         	<result>
         		/jsp/homepage/student_register.jsp
@@ -101,7 +77,7 @@
         
         <action name="student_register_save" class="homepage.StudentAction" method="studentRegisterSave">
             <result name="success" type="json">
-            	<param name="includeProperties">register_status, , username, password, added_user_html</param>           
+            	<param name="includeProperties">register_status,  username, password, fullName,passwordAgain,studentId,sex,status,classrooms,college,phoneNumber,bankNumber,idCard,entryTime</param>           
 <!-- 				<param name="excludeProperties"> user_list</param> -->
             </result>            
         </action>

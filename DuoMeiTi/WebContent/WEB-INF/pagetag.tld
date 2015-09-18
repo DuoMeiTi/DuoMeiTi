@@ -4,11 +4,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
 	version="2.1">
 	<tlib-version>1.1</tlib-version>
-	<short-name>pageTag</short-name>
+	<short-name>pageInfo</short-name>
 	<uri>/WEB-INF/pagetag.tld</uri>
 	<tag>
 		<name>pageInfo</name>
-		<tag-class>com.cx.tag.PageTag</tag-class>
+		<tag-class>tags.PageTag</tag-class>
 		<body-content>empty</body-content>
 		
 		<attribute>

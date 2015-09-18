@@ -41,6 +41,12 @@ public class Classroom {
 	
 	
 	
+	
+	
+	
+	
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -81,13 +87,21 @@ public class Classroom {
 		this.capacity = capacity;
 	}
 
-//	public Set<Repertory> getRepertorys() {
-//		return repertorys;
-//	}
-//
-//	public void setRepertorys(Set<Repertory> repertorys) {
-//		this.repertorys = repertorys;
-//	}
+	public Set<Repertory> getRepertorys() {
+		return repertorys;
+	}
+
+	public void setRepertorys(Set<Repertory> repertorys) {
+		this.repertorys = repertorys;
+	}
+
+	public Set<CheckRecord> getCheckrecords() {
+		return checkrecords;
+	}
+
+	public void setCheckrecords(Set<CheckRecord> checkrecords) {
+		this.checkrecords = checkrecords;
+	}
 	
 	
 }

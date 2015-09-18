@@ -147,7 +147,7 @@
 		
 		$(document).on("click","#rtSave", function(){
 			var params = $("#repertory_form").serialize();//序列化表单值→ Json；
-			
+			alert(params.rtNumber);
 			//ajax方法通过HTTP请求加载远程数据； 
 			$.ajax({
 		    	url: 'repertory_insert',

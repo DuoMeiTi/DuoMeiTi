@@ -3,6 +3,7 @@ package admin;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
 
 import model.TeachBuilding;
@@ -26,8 +27,7 @@ public class TeachBuildingAction extends ActionSupport {
 
 	public String execute() {
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(TeachBuilding.class);
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		Criteria criteria = session.createCriteria(TeachBuilding.class).setFetchMode("classrooms", FetchMode.SELECT);
 		builds = criteria.list();
 		for(TeachBuilding b : builds) System.out.println(b.getBuild_name());
 		session.close();
