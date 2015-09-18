@@ -7,9 +7,12 @@
 
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="true" />
-    
-	<package name="AdminLoginInterceptor" abstract="true" extends="struts-default">
-	
+    <constant name="struts.multipart.saveDir " value="d:/tmp" />
+      
+      
+      
+      
+	<package name="AdminLoginInterceptor" abstract="true" extends="struts-default">	
 		<!-- 定义一个拦截器 -->  
         <interceptors>  
             <interceptor name="AdminLoginInterceptor" class="homepage.AdminLoginInterceptor">  
@@ -42,18 +45,35 @@
 	
 	
 	
+	<package name="HomepageDefault" extends="json-default">
+	
+    	<default-action-ref name="hello"/>
+    	
+    	<action name="hello">
+            <result>
+                /hello.jsp
+            </result>
+        </action>
+        
+        <action name="admin_eg">
+            <result>
+                /jsp/admin/admin_eg.jsp
+            </result>
+        </action>
+		
+	
+	</package>
 	
 	
-	
-    <package name="global"  extends="struts-default">	
+<!--     <package name="global"  extends="struts-default">	 -->
         
-        <default-action-ref name="hello"/>
+<!--         <default-action-ref name="hello"/> -->
         
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="error"/>
-        </global-exception-mappings>
+<!--         <global-exception-mappings> -->
+<!--             <exception-mapping exception="java.lang.Exception" result="error"/> -->
+<!--         </global-exception-mappings> -->
         
-    </package>
+<!--     </package> -->
     
     <include file="/admin/admin.xml"/>	
     <include file="/homepage/homepage.xml"/>

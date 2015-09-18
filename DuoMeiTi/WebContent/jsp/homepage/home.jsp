@@ -22,6 +22,13 @@
 	
 	<br/><br/>
 	<a href="/admin_eg" class="btn btn-default">跳到系统管理员带上边框的形式</a>
+	
+	
+	<br/><br/>
+	<form method="post" action="" enctype="multipart/form-data">
+		<input type="file" id="f2">
+		<input type="submit" name="submit">
+	</form>
 
 </layout:override>
 
