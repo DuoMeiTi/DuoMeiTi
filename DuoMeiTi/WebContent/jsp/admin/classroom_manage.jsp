@@ -5,7 +5,7 @@
 <div class="mycontent">
   <div class="row">
     <div class="col-lg-6 col-lg-offset-3 classbuilding ">
-      <s:property value="build_name"/>教学楼
+      <span id="build_name"><s:property value="build_name"/></span>教学楼
     </div>
   </div>
   <hr>
@@ -56,8 +56,8 @@
 				<%-- <td>   <s:iterator value="#classroom.repertorys" var="rt"> <s:property value="#rt.rtType"/>&nbsp;&nbsp;&nbsp;</s:iterator>   </td> --%>
 				<td>   <s:property value="#classroom.capacity"/>    </td>
 				<td>   <s:property value="#classroom.principal"/>    </td>
-				<%-- <td>   <a href="classroom_detail?classroom_id=<s:property value="#classroom.id"/>&classroom_num=<s:property value="#classroom.classroom_num"/>" class="btn btn-info active">详&nbsp;&nbsp;细</a>    </td> --%>
-				<td> <a class="btn btn-info" onclick="mypost(<s:property value="#i.index"/>)">详&nbsp;&nbsp;细</a></td>
+				<td>   <a href="classroom_detail?classroomselectIndex=<s:property value="#i.index"/>&build_name=<s:property value="build_name"/>" class="btn btn-info">详&nbsp;&nbsp;细</a>    </td>
+				<%-- <td> <a class="btn btn-info" onclick="mypost(<s:property value="#i.index"/>)">详&nbsp;&nbsp;细</a></td> --%>
 			</tr>
 		</s:iterator>
       
@@ -73,7 +73,7 @@
 			pageSize="${pageBean.pageSize }"
 			totalSize="${pageBean.totalSize }" 
 		/>
-		<span style="visibility:hidden" id="pageSize"><s:property value="pageSize"/></span>
+		<%-- <span style="visibility:hidden" id="pageSize"><s:property value="pageSize"/></span> --%>
 	</div>
 	
 
@@ -166,7 +166,7 @@
 	
 	
 	
-	function mypost(count) {
+	/* function mypost(count) {
 		var xmlobj; //定义XMLHttpRequest对象 
 		//如果当前浏览器支持Active Xobject，则创建ActiveXObject对象  
 		if (window.ActiveXObject) {
@@ -193,7 +193,8 @@
 		var index = (currPage - 1) * pageSize + count;
 		//return index;
 		// alert(index);
-		var param = "classroomselectIndex=" + index;
+		var build_name = $("#build_name").text();
+		var param = "classroomselectIndex=" + index + "&build_name=" + build_name;
 		
 		xmlobj.open("POST", "/admin/classroom/classroom_detail", true); //调用classroom_detail.action     
 		xmlobj.setRequestHeader("cache-control", "no-cache");
@@ -202,8 +203,8 @@
 				"application/x-www-form-urlencoded;"); //设置请求头信息  
 
 		xmlobj.send(param); //设置为发送给服务器数据 
-		window.location.href = "/admin/classroom/classroom_detail?classroomselectIndex=" + index;
-	}
+		window.location.href = "/admin/classroom/classroom_detail?classroomselectIndex=" + index + "&build_name=" + build_name;
+	} */
 </script>
 
 </layout:override>

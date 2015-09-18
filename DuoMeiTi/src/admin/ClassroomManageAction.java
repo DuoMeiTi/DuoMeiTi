@@ -41,7 +41,7 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 	
 	public int currPage;
 	
-	public int pageSize;
+//	public int pageSize;
 	
 	
 	@SuppressWarnings("unchecked")
@@ -64,10 +64,9 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 System.out.println("rowcount:" + rowCount);
 		//获取分页信息
 		PageBean pageBean = PageMessage.getPageMessage(currPage, (int) rowCount);
-		pageSize = pageBean.getPageSize();
 
 		classroom_criteria.setFirstResult(pageBean.getBeginIndex());
-		classroom_criteria.setMaxResults(pageSize);
+		classroom_criteria.setMaxResults(pageBean.getPageSize());
 
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
 		List<Classroom> classroom_list= classroom_criteria.list();
@@ -157,12 +156,13 @@ System.out.println("rowcount:" + rowCount);
 			}
 		}
 		
-		List<Classroom> list= classroom_criteria.list();
+		List<Classroom> classroom_list= classroom_criteria.list();
+		Cache.classroom_list = classroom_list;
 		Classroom classroom;
 		classrooms = new ArrayList<T_Classroom>();
 		StringBuilder htmlsb = new StringBuilder();
-		for(int i=0;i<list.size();i++){
-			classroom = list.get(i);
+		for(int i=0;i<classroom_list.size();i++){
+			classroom = classroom_list.get(i);
 			T_Classroom t_classroom = new T_Classroom();
 			t_classroom.id = classroom.id;
 			t_classroom.capacity = classroom.capacity;
@@ -290,11 +290,11 @@ System.out.println(classroom.id + " " + classroom.capacity + " " + classroom.cla
 		this.path = path;
 	}
 
-	public int getPageSize() {
+	/*public int getPageSize() {
 		return pageSize;
 	}
 
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
-	}
+	}*/
 }

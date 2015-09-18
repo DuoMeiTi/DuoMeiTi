@@ -102,7 +102,7 @@
 				<!-- <param name="build_id">${classroom_id}</param>
 				<param name="build_name">${classroom_num}</param> -->
 				<param name="classroomselectIndex">${classroomselectIndex}</param>
-				
+				<param name="build_name">${build_name}</param>
 			</result>
 		</action>
 	</package>

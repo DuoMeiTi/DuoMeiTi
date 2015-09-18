@@ -13,6 +13,7 @@ import cache.Cache;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ClassroomDetailAction extends ActionSupport {
+	public String build_name;
 	
 	public int classroomselectIndex;
 	
@@ -24,8 +25,9 @@ public class ClassroomDetailAction extends ActionSupport {
 	
 	public String execute() {
 		System.out.println("detail");
+		System.out.println("size:"+Cache.classroom_list.size());
 		classroom = Cache.classroom_list.get(classroomselectIndex);
-		System.out.println("classroom" + Cache.classroom_list.get(classroomselectIndex).getClassroom_num());
+//		System.out.println("classroom" + Cache.classroom_list.get(classroomselectIndex).getClassroom_num());
 		return SUCCESS;
 	}
 	
