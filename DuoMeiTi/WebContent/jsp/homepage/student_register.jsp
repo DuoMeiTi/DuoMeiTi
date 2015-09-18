@@ -107,7 +107,7 @@
 	  <div class="row">
 	  	<div class="col-lg-4 col-lg-offset-1">
 	  		<div class="input-group">
-	  			<span class="input-group-addon">备注</span>
+	  			<span class="input-group-addon">备&nbsp;&nbsp;&nbsp;&nbsp;注</span>
 	  			<input type="text" class="form-control" name="remark" value="<s:property value="remark"/>" placeholder="">
 	  		</div>
 	  	</div>
