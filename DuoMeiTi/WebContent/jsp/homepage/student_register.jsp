@@ -18,6 +18,9 @@
 	  	<label for="college">院系信息</label>
 	  	<s:select list="collegeSelect" class="form-control" name="college"></s:select>
 	  </div>
+	  <div class="form-group">
+	  	<span style="color:red">*</span>
+	  </div>
 	  
 	  <br>
 	  <br>
@@ -108,12 +111,8 @@
 	  <br>
 	  <br>
 	  <br>
-	  
-	  <div class="form-group col-lg-offset-1">
-	  	<label for="profilePhotoPath">上传头像</label>
-	  	<input type="text" class="form-control">
-	  </div>
-	  <div class="form-group col-lg-offset-1">
+	 
+	  <div class="form-group col-lg-offset-5">
 	  	<button type="button" class="btn btn-primary">注册</button>
 	  </div>
 	  <div class="form-group col-lg-offset-1">
