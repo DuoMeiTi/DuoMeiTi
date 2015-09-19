@@ -89,7 +89,12 @@
             </result>            
         </action>
         
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
         <action name="admin_register" class="homepage.AdminAction" method="adminRegister">
+        
         	<result>
         		/jsp/homepage/admin_register.jsp
         	</result>

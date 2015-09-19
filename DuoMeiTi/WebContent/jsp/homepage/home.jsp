@@ -30,11 +30,15 @@
 	<br/><br/>
 	<a href="/admin_register" class="btn btn-default">跳到系统管理员注册</a>
 	<br/><br/>
+<<<<<<< HEAD
 
 	
 	
 
 
+=======
+
+>>>>>>> origin/master
 
 </layout:override>
 

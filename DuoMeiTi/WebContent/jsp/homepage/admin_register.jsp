@@ -18,6 +18,17 @@
 		id="admin_register_form">
 
 		<div class="form-group col-lg-offset-1">
+			<label for="username">用户名</label> <input type="text"
+				class="form-control" name="username" id="usernameId"
+				onblur=checkUsername() value="<s:property value="username"/>"
+				placeholder="">
+		</div>
+		
+		<div class="form-group">
+			<span style="color: red" id=fullname_msg>*</span>
+		</div>
+		
+		<div class="form-group col-lg-offset-1">
 			<label for="fullName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
 			<input type="text" class="form-control" name="fullName"
 				id="fullNameId" onblur=checkFullname()
@@ -26,22 +37,9 @@
 
 
 
-		<div class="form-group">
-			<span style="color: red" id=fullname_msg>*</span>
-		</div>
 
 
 
-		<div class="form-group col-lg-offset-1">
-			<label for="username">用户名</label> <input type="text"
-				class="form-control" name="username" id="usernameId"
-				onblur=checkUsername() value="<s:property value="username"/>"
-				placeholder="">
-		</div>
-
-		<div class="form-group">
-			<span style="color: red" id=username_msg>*</span>
-		</div>
 		<br> <br> <br>
 
 		<div class="form-group col-lg-offset-1">
@@ -189,10 +187,10 @@
     }
     
     //输入验证
-    function checkUsername(){
-    	var val = $("#usernameId").val(); 
+    function checkFullname(){
+    	var val = $("#fullnameId").val(); 
     	 if(val=="")
-    		$("#username_msg").text("非空"); 
+    		$("#fullname_msg").text("非空"); 
     		alert(val);
     }
 </script>

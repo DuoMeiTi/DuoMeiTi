@@ -22,17 +22,17 @@ public class Classroom {
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn
-	public StudentProfile principal;
+	public User principal;
 	
-	@Column
-	public int capacity;
+//	@Column
+//	public int capacity;
 		
 
 	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	public Set<Repertory> repertorys;
 	
-	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	public Set<CheckRecord> checkrecords;
+//	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+//	public Set<CheckRecord> checkrecords;
 	
 	
 	
@@ -71,21 +71,21 @@ public class Classroom {
 		this.classroom_num = classroom_num;
 	}
 
-	public StudentProfile getPrincipal() {
+	public User getPrincipal() {
 		return principal;
 	}
 
-	public void setPrincipal(StudentProfile principal) {
+	public void setPrincipal(User principal) {
 		this.principal = principal;
 	}
 
-	public int getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
-	}
+//	public int getCapacity() {
+//		return capacity;
+//	}
+//
+//	public void setCapacity(int capacity) {
+//		this.capacity = capacity;
+//	}
 
 	public Set<Repertory> getRepertorys() {
 		return repertorys;
@@ -95,13 +95,13 @@ public class Classroom {
 		this.repertorys = repertorys;
 	}
 
-	public Set<CheckRecord> getCheckrecords() {
+	/*public Set<CheckRecord> getCheckrecords() {
 		return checkrecords;
 	}
 
 	public void setCheckrecords(Set<CheckRecord> checkrecords) {
 		this.checkrecords = checkrecords;
-	}
+	}*/
 	
 	
 }
