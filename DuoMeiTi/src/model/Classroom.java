@@ -24,8 +24,8 @@ public class Classroom {
 	@JoinColumn
 	public User principal;
 	
-	@Column
-	public int capacity;
+//	@Column
+//	public int capacity;
 		
 
 	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
@@ -79,13 +79,13 @@ public class Classroom {
 		this.principal = principal;
 	}
 
-	public int getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
-	}
+//	public int getCapacity() {
+//		return capacity;
+//	}
+//
+//	public void setCapacity(int capacity) {
+//		this.capacity = capacity;
+//	}
 
 	public Set<Repertory> getRepertorys() {
 		return repertorys;

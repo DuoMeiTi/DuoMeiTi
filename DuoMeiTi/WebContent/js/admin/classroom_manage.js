@@ -55,9 +55,9 @@ function ClassroomSearchCallback(data) {
 			row = $(table).find("tr:eq(" + (i + 1) + ")");
 			$(row).find("td:eq(0)").text(classrooms[i].classroom_num);
 			$(row).find("td:eq(1)").text(classrooms[i].repertorys);
-			$(row).find("td:eq(2)").text(classrooms[i].capacity);
-			$(row).find("td:eq(3)").text(classrooms[i].principal);
-			$(row).find("td:eq(4)").children().eq(0).attr("href", "classroom_detail?classroom_id=" + classrooms[i].id +"&classroom_num=" +classrooms[i].classroom_num);
+//			$(row).find("td:eq(2)").text(classrooms[i].capacity);
+			$(row).find("td:eq(2)").text(classrooms[i].principal);
+			$(row).find("td:eq(3)").children().eq(0).attr("href", "classroom_detail?classroom_id=" + classrooms[i].id +"&classroom_num=" +classrooms[i].classroom_num);
 		});
 	} else if (data.status == "1") {
 		animatedShow("查询关键字为空");

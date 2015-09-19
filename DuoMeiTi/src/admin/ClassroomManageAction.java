@@ -74,7 +74,7 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 			classroom = classroom_list.get(i);
 			T_Classroom t_classroom = new T_Classroom();
 			t_classroom.id = classroom.id;
-			t_classroom.capacity = classroom.capacity;
+//			t_classroom.capacity = classroom.capacity;
 			t_classroom.classroom_num = classroom.classroom_num;
 			t_classroom.principal = classroom.principal.getUsername();
 			StringBuilder rsb = new StringBuilder();
@@ -160,7 +160,7 @@ System.out.println("rowcount:" + rowCount);
 			classroom = classroom_list.get(i);
 			T_Classroom t_classroom = new T_Classroom();
 			t_classroom.id = classroom.id;
-			t_classroom.capacity = classroom.capacity;
+//			t_classroom.capacity = classroom.capacity;
 			t_classroom.classroom_num = classroom.classroom_num;
 			t_classroom.principal = classroom.principal.getUsername();
 			StringBuilder sb = new StringBuilder();
@@ -168,7 +168,7 @@ System.out.println("rowcount:" + rowCount);
 				sb.append(r.getRtType() + "  ");
 			}
 			t_classroom.repertorys = sb.toString();
-System.out.println(classroom.id + " " + classroom.capacity + " " + classroom.classroom_num + " " + classroom.principal.getUsername() + " " + sb.toString());
+System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroom.principal.getUsername() + " " + sb.toString());
 			classrooms.add(t_classroom);
 			htmlsb.append(util.Util.fileToString("/jsp/admin/widgets/classroominfo.html"));
 		}
