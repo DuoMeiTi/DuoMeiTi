@@ -60,7 +60,6 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
                 Projections.rowCount()).uniqueResult();
 		classroom_criteria.setProjection(null);
 		 
-//System.out.println("rowcount:" + rowCount);
 		//获取分页信息
 		PageBean pageBean = PageMessage.getPageMessage(currPage, (int) rowCount);
 
@@ -69,7 +68,6 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
 		List<Classroom> classroom_list= classroom_criteria.list();
-//System.out.println("classroom_size:" + classroom_list.size());
 		Classroom classroom;
 		classrooms = new ArrayList<T_Classroom>();
 		for(int i=0;i<classroom_list.size();i++){
@@ -78,7 +76,7 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 			t_classroom.id = classroom.id;
 			t_classroom.capacity = classroom.capacity;
 			t_classroom.classroom_num = classroom.classroom_num;
-			t_classroom.principal = classroom.principal.user.getUsername();
+			t_classroom.principal = classroom.principal.getUsername();
 			StringBuilder rsb = new StringBuilder();
 			for(Repertory r : classroom.repertorys) {
 				rsb.append(r.getRtType() + "  ");
@@ -164,13 +162,13 @@ System.out.println("rowcount:" + rowCount);
 			t_classroom.id = classroom.id;
 			t_classroom.capacity = classroom.capacity;
 			t_classroom.classroom_num = classroom.classroom_num;
-			t_classroom.principal = classroom.principal.user.getUsername();
+			t_classroom.principal = classroom.principal.getUsername();
 			StringBuilder sb = new StringBuilder();
 			for(Repertory r : classroom.repertorys) {
 				sb.append(r.getRtType() + "  ");
 			}
 			t_classroom.repertorys = sb.toString();
-System.out.println(classroom.id + " " + classroom.capacity + " " + classroom.classroom_num + " " + classroom.principal.user.getUsername() + " " + sb.toString());
+System.out.println(classroom.id + " " + classroom.capacity + " " + classroom.classroom_num + " " + classroom.principal.getUsername() + " " + sb.toString());
 			classrooms.add(t_classroom);
 			htmlsb.append(util.Util.fileToString("/jsp/admin/widgets/classroominfo.html"));
 		}
