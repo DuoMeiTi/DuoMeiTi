@@ -25,6 +25,8 @@
 		<mapping class="model.RepairRecord"/>
 		<mapping class="model.CheckRecord"/>
 		<mapping class="model.Message"/>
+		<mapping class="model.EgFilePathSave"/>
+		
 		
     </session-factory>
 </hibernate-configuration>

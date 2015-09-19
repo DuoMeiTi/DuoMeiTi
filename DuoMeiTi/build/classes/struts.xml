@@ -7,38 +7,74 @@
 
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="true" />
+    <constant name="struts.multipart.saveDir " value="d:/tmp" />
+      
+    <constant name="struts.multipart.maxSize" value="1000000000" />
     
-	<package name="login-interceptor" abstract="true" extends="struts-default">
-	
+      
+      
+	<package name="AdminLoginInterceptor" abstract="true" extends="struts-default">	
 		<!-- 定义一个拦截器 -->  
         <interceptors>  
-            <interceptor name="login-interceptor" class="homepage.LoginInterceptor">  
+            <interceptor name="AdminLoginInterceptor" class="homepage.AdminLoginInterceptor">  
             </interceptor>  
             <!-- 拦截器栈 -->  
-            <interceptor-stack name="login-interceptor-stack">
+            <interceptor-stack name="AdminLoginInterceptorStack">
                 <interceptor-ref name="defaultStack" />  
-                <interceptor-ref name="login-interceptor" />  
+                <interceptor-ref name="AdminLoginInterceptor" />  
             </interceptor-stack>  
         </interceptors>  
         
-		<default-interceptor-ref name="login-interceptor-stack" />
+		<default-interceptor-ref name="AdminLoginInterceptorStack" />
 		
        	<global-results>
             <result name="not_login" type="redirect"> /not_login</result>
-        </global-results>
-        
-		
+        </global-results>	
 	</package>
 	
-    <package name="global"  extends="struts-default">	
+	
+	
+	<package name="AdminDefault" extends="json-default, AdminLoginInterceptor">
+	</package>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<package name="HomepageDefault" extends="json-default">
+	
+    	<default-action-ref name="hello"/>
+    	
+    	<action name="hello">
+            <result>
+                /hello.jsp
+            </result>
+        </action>
         
-        <default-action-ref name="hello"/>
+        <action name="admin_eg">
+            <result>
+                /jsp/admin/admin_eg.jsp
+            </result>
+        </action>
+		
+	
+	</package>
+	
+	
+<!--     <package name="global"  extends="struts-default">	 -->
         
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="error"/>
-        </global-exception-mappings>
+<!--         <default-action-ref name="hello"/> -->
         
-    </package>
+<!--         <global-exception-mappings> -->
+<!--             <exception-mapping exception="java.lang.Exception" result="error"/> -->
+<!--         </global-exception-mappings> -->
+        
+<!--     </package> -->
     
     <include file="/admin/admin.xml"/>	
     <include file="/homepage/homepage.xml"/>

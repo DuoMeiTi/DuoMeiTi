@@ -115,6 +115,8 @@ public class UserAction
 		if(!u.getPassword().equals(password)) return "login_fail";
 		
 		
+		ActionContext.getContext().getSession().put("user_id", u.getId());
+		
 		
 	
 	

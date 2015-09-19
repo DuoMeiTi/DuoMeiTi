@@ -290,10 +290,28 @@ $(".mynavbar a").each(function(){
 });
 
 $("#envelope").click(function(){
-	$("#message-box").removeClass("hide");
+	var list_box=$("#message-list-box");
+	//var content_box=$("#message-content-box");
+	//if(content_box.hasClass("hide")==false)content_box.addClass("hide");
+	if(list_box.hasClass("hide"))list_box.removeClass("hide");
+	else list_box.addClass("hide");
 })
 
-$("#message-box .closed").click(function(){
-	$("#message-box").addClass("hide");
+
+$("#message-list-box .closed").click(function(){
+	$("#message-list-box").addClass("hide");
 })
 
+$("#write-message").click(function(){
+	$("#message-content-box").removeClass("hide");
+	$("#message-list-box").addClass("hide");
+})
+
+$("#message-content-box .closed").click(function(){
+	$("#message-content-box").addClass("hide");
+})
+
+$("#message-content-box .back").click(function(){
+	$("#message-content-box").addClass("hide");
+	$("#message-list-box").removeClass("hide");
+})
