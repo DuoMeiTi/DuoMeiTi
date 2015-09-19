@@ -9,7 +9,8 @@
     <constant name="struts.devMode" value="true" />
     <constant name="struts.multipart.saveDir " value="d:/tmp" />
       
-      
+    <constant name="struts.multipart.maxSize" value="1000000000" />
+    
       
       
 	<package name="AdminLoginInterceptor" abstract="true" extends="struts-default">	

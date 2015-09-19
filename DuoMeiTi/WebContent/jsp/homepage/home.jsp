@@ -25,9 +25,13 @@
 	
 	
 	<br/><br/>
-	<form method="post" action="" enctype="multipart/form-data">
-		<input type="file" id="f2">
-		<input type="submit" name="submit">
+	<form method="post" action="/file_upload" enctype="multipart/form-data">
+	
+	
+		<input type="file" name="image">
+		
+		
+		<button type="submit" > 提交</button>
 	</form>
 
 </layout:override>

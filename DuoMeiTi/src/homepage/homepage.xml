@@ -6,8 +6,15 @@
 <struts>
 
 
-    <package name="homepage" namespace="/" extends="json-default">
+    <package name="homepage" namespace="/" extends="HomepageDefault">
     	
+        
+        <action name="file_upload" class="homepage.FileUploadAction">
+        	<result>/jsp/homepage/home.jsp</result>
+        </action>
+        
+        
+        
         
         
         
@@ -83,21 +90,9 @@
         </action>
         
         
+        
     </package>
     
-<!--     <package name="login-interceptor-test" namespace="/" extends="login-interceptor"> -->
-    
-<!--         <action name="login_success"> -->
-<!--             <result> -->
-<!--                 /jsp/homepage/login_success.jsp -->
-<!--             </result> -->
-<!--         </action>         -->
-<!--     </package> -->
-
-	
-
-
-
 
 
 </struts>
