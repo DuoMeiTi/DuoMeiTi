@@ -106,7 +106,25 @@
             </result>            
         </action>
         
-        
+        <action name="admin_register" class="homepage.AdminAction" method="adminRegister">
+        	<result>
+        		/jsp/homepage/admin_register.jsp
+        	</result>
+        </action>
+        <!--  -->
+        <action name="admin_register_save" class="homepage.AdminAction" method="adminRegisterSave">
+            <result name="success" type="json">
+            	<param name="includeProperties">register_status</param>           
+<!-- 				<param name="excludeProperties"> user_list</param> -->
+            </result>            
+        </action>
+        <!-- 验证用户名是否注册过了  not OK-->
+        <action name="user_verification" class="homepage.AdminAction" method="userVerification">
+            <result name="success" type="json">
+            	<param name="includeProperties">register_status</param>           
+<!-- 				<param name="excludeProperties"> user_list</param> -->
+            </result>            
+        </action>
     </package>
     
 <!--     <package name="login-interceptor-test" namespace="/" extends="login-interceptor"> -->

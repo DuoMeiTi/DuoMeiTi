@@ -18,7 +18,7 @@
 <!--         <mapping resource="model/UserModel.hbm.xml"/> -->
 		<mapping class="model.User"/>
 		<mapping class="model.StudentProfile"/>
-		
+		<mapping class="model.AdminProfile"/>
 		<mapping class="model.Classroom"/>
 		<mapping class="model.Repertory"/>
 		<mapping class="model.TeachBuilding"/>
