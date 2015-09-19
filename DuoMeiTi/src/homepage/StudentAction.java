@@ -17,7 +17,7 @@ public class StudentAction {
 	
 	private String collegeSelect[];
 	private String sexSelect[];
-	private String statusSelect[];
+//	private String statusSelect[];
 	private String username;
 	private String password;
 	private String register_status;
@@ -28,8 +28,8 @@ public class StudentAction {
 	private String phoneNumber;
 	public java.sql.Date entryTime;
 	private String classrooms;
-	private String status;
-	private String remark;
+//	private String status;
+//	private String remark;
 	private String college;
 	private String passwordAgain;
 	private List<StudentProfile>student_list;
@@ -109,22 +109,6 @@ public class StudentAction {
 		this.classrooms = classrooms;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
 	public String getIdCard() {
 		return idCard;
 	}
@@ -157,14 +141,6 @@ public class StudentAction {
 		this.username = username;
 	}
 
-	public String[] getStatusSelect() {
-		return statusSelect;
-	}
-
-	public void setStatusSelect(String[] statusSelect) {
-		this.statusSelect = statusSelect;
-	}
-
 	public String[] getSexSelect() {
 		return sexSelect;
 	}
@@ -192,12 +168,12 @@ public class StudentAction {
 	{
 		collegeSelect=Const.collegeSelect;
 		sexSelect=Const.sexSelect;
-		statusSelect=Const.statusSelect;
+//		statusSelect=Const.statusSelect;
 		
 		
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(StudentProfile.class);//把查询条件封装成一个Criteria对象
-		student_list = q.list();
+		Criteria stu = session.createCriteria(StudentProfile.class);//把查询条件封装成一个Criteria对象
+		student_list = stu.list();
 		Collections.reverse(student_list);
 		session.close();	
 		return "success";
@@ -205,7 +181,6 @@ public class StudentAction {
 	
 	public String studentRegisterSave() throws Exception
 	{
-		
 		if(username == null || password == null)
 		{
 			this.register_status = "error: username or password is null";
@@ -221,8 +196,8 @@ public class StudentAction {
 			return ActionSupport.SUCCESS;
 		}
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(StudentProfile.class).add(Restrictions.eq("username", username));
-		List ul = q.list();
+		Criteria stu= session.createCriteria(User.class).add(Restrictions.eq("username", username));
+		List ul = stu.list();
 		if(!ul.isEmpty())
 		{
 			this.register_status = "2";
@@ -232,6 +207,7 @@ public class StudentAction {
 			User um = new User();
 			um.setUsername(username);
 			um.setPassword(password);
+			session.save(um);//因为user是外键，所以commit StudentProfile之前需要先save user；
 			
 			StudentProfile stupro=new StudentProfile();
 			stupro.setUser(um);
@@ -242,11 +218,8 @@ public class StudentAction {
 			stupro.setSex(sex);
 			stupro.setStudentId(studentId);
 			stupro.setCollege(college);
-			stupro.setRemark(remark);
-			stupro.setStatus(status);
 			
 			session.beginTransaction();
-			session.save(um);
 			session.save(stupro);
 			
 			session.getTransaction().commit();
