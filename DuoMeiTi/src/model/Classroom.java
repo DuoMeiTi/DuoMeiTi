@@ -31,8 +31,8 @@ public class Classroom {
 	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	public Set<Repertory> repertorys;
 	
-	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	public Set<CheckRecord> checkrecords;
+//	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+//	public Set<CheckRecord> checkrecords;
 	
 	
 	
@@ -95,13 +95,13 @@ public class Classroom {
 		this.repertorys = repertorys;
 	}
 
-	public Set<CheckRecord> getCheckrecords() {
+	/*public Set<CheckRecord> getCheckrecords() {
 		return checkrecords;
 	}
 
 	public void setCheckrecords(Set<CheckRecord> checkrecords) {
 		this.checkrecords = checkrecords;
-	}
+	}*/
 	
 	
 }

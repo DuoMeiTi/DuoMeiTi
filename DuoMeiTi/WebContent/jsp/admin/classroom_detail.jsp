@@ -1,7 +1,8 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 
 <layout:override name="main_content">
-	<link href="/css/admin/classroom_detail.css" rel="stylesheet" />	
+	<link href="/css/admin/classroom_detail.css" rel="stylesheet" />
+	<script type='text/javascript' src="/js/admin/classroom_detail.js"></script>
 	<script type="text/javascript">
 	window.onload = function () {
 	    $('.form_date').datetimepicker({
@@ -80,15 +81,13 @@
 						</button>
 						<h4 class="modal-title">填写周检查记录</h4>
 					</div>
-					<form action="" method="POST">
-						<div class="modal-body">
-							<textarea class="form-control" rows="3" name="checkdetail"></textarea>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary" data-dismiss="modal">提交</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-						</div>
-					</form>
+					<div class="modal-body">
+						<textarea class="form-control" rows="3" id="checkdetail"></textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="checkrecord_submit()">提交</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -147,12 +146,12 @@
 				<ul>
 					<li>
 						<label class="control-label">周检查记录：</label>
-						<table class="table device-table-bordered">
+						<table class="table device-table-bordered" id="checkrecord_table">
 							<thead>
 								<tr><td>检查人</td><td>教室状况</td><td>检查时间</td></tr>
 							</thead>
 							<tbody>
-								<s:iterator value="classroom.checkrecords" var="checkrecord" status="i">
+								<s:iterator value="checkrecords" var="checkrecord" status="i">
 									<tr>
 										<td width="20%"><s:property value="#checkrecord.checkman.user.username"/></td>
 										<td><s:property value="#checkrecord.checkdetail"/></td>

@@ -90,10 +90,8 @@
         </action>
         
 
-
-        
-
         <action name="admin_register" class="homepage.AdminAction" method="adminRegister">
+        
         	<result>
         		/jsp/homepage/admin_register.jsp
         	</result>
@@ -112,6 +110,8 @@
 <!-- 				<param name="excludeProperties"> user_list</param> -->
             </result>            
         </action>
+
+
 
 
 

@@ -9,7 +9,7 @@
 
         <ul class="nav navbar-right">
             <li id="welcome_word">
-            	欢迎您: <s:property value="#session.username"/> 
+            	欢迎您: <span id="login_user_name"><s:property value="#session.username"/></span>
             </li>
         </ul>
     </div>
