@@ -144,7 +144,11 @@
 		})
 		$(document).on("click","#rtSave", function(){
 			var params = $("#repertory_form").serialize();//序列化表单值→ Json；
+<<<<<<< HEAD
 			//alert(params);
+=======
+			alert(params.rtNumber);
+>>>>>>> origin/master
 			//ajax方法通过HTTP请求加载远程数据； 
 			$.ajax({
 		    	url: 'repertory_insert',

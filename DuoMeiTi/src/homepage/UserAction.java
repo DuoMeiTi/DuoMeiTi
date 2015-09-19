@@ -27,47 +27,6 @@ import util.Util;
 
 public class UserAction
 {
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public List<User> getUser_list() {
-		return user_list;
-	}
-	public void setUser_list(List<User> user_list) {
-		this.user_list = user_list;
-	}
-	public String getAdded_user_html() {
-		return added_user_html;
-	}
-	public void setAdded_user_html(String added_user_html) {
-		this.added_user_html = added_user_html;
-	}
-
-	public int getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
-
-
-
-
 	private String username;
 	private String password;
 	private String status;
@@ -102,8 +61,7 @@ public class UserAction
 		}
 
 		
-		ActionContext.getContext().getSession().put("username", username);
-		ActionContext.getContext().getSession().put("role", util.Const.AdminRole);
+		
 		
 		Session session = model.Util.sessionFactory.openSession();		
 		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username", username));
@@ -114,6 +72,9 @@ public class UserAction
 		User u = (User)ul.get(0);
 		if(!u.getPassword().equals(password)) return "login_fail";
 		
+		ActionContext.getContext().getSession().put("username", username);
+		ActionContext.getContext().getSession().put("role", util.Const.AdminRole);
+		ActionContext.getContext().getSession().put("user_id", u.getId());
 		
 		
 	
@@ -125,6 +86,7 @@ public class UserAction
 	{		
 	    ActionContext.getContext().getSession().remove("username");
 	    ActionContext.getContext().getSession().remove("role");
+	    ActionContext.getContext().getSession().remove("user_id");
 	    return ActionSupport.SUCCESS;
 	}
 	public String register()
@@ -215,4 +177,78 @@ public class UserAction
 		
 		return ActionSupport.SUCCESS;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public List<User> getUser_list() {
+		return user_list;
+	}
+	public void setUser_list(List<User> user_list) {
+		this.user_list = user_list;
+	}
+	public String getAdded_user_html() {
+		return added_user_html;
+	}
+	public void setAdded_user_html(String added_user_html) {
+		this.added_user_html = added_user_html;
+	}
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

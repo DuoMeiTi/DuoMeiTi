@@ -20,4 +20,61 @@ public class RepairRecord {
 	public String repairdetail;
 	
 	public java.sql.Date repairdate;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Repertory getDevice() {
+		return device;
+	}
+
+	public void setDevice(Repertory device) {
+		this.device = device;
+	}
+
+	public StudentProfile getRepairman() {
+		return repairman;
+	}
+
+	public void setRepairman(StudentProfile repairman) {
+		this.repairman = repairman;
+	}
+
+	public String getRepairdetail() {
+		return repairdetail;
+	}
+
+	public void setRepairdetail(String repairdetail) {
+		this.repairdetail = repairdetail;
+	}
+
+	public java.sql.Date getRepairdate() {
+		return repairdate;
+	}
+
+	public void setRepairdate(java.sql.Date repairdate) {
+		this.repairdate = repairdate;
+	}
 }

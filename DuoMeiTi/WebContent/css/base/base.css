@@ -163,7 +163,7 @@ a:hover,a:focus{
 	cursor:pointer;
 }
 
-#message-box{
+#message-list-box{
 	height:400px;
 	width:500px;
 	position:fixed;
@@ -174,31 +174,140 @@ a:hover,a:focus{
 	border-radius:3px;
 }
 
-.message-box-top{
+#message-content-box{
+    height:400px;
+    width:500px;
+    position:fixed;
+    right:50px;
+    bottom:110px;
+    background-color:rgb(255,255,255);
+    border:1px solid #ccc;
+    border-radius:3px;
+}
+
+.message-list-top,.message-list-bottom,.message-content-top{
 	height:30px;
 	background-color:rgb(80, 187, 233);
 }
 
-.message-box-top span{
+.message-list-bottom{
+    width: 100%;
+    position: absolute;
+    bottom:0;
+}
+
+.message-list-bottom span{
+    text-align:center;
+    display:block;
+    line-height:30px;
+    font-size:14px;
+    color:#fff;
+}
+
+
+.message-list-top span{
 	display:inline-block;
 	line-height:30px;
 	font-size:14px;
 	color:#fff;
 }
 
-.message-box-top .title{
+.message-content-top span{
+    display:inline-block;
+    line-height:30px;
+    font-size:14px;
+    color:#fff;
+}
+
+.message-list-top .title{
 	float:left;
 	margin-left:20px;
 }
 
-.message-box-top .closed,.back{
+.message-content-top .title{
+    float:left;
+    margin-left:20px;
+}
+
+.message-list-top .closed{
 	float:right;
 	margin:0 5px;
 }
 
-.message-box-top .closed:hover,.back:hover{
+.message-content-top .closed,.back{
+    float: right;
+    margin:0 5px;
+}
+
+.message-list-top .closed:hover{
 	cursor:pointer;
+}
+.message-list-bottom span:hover{
+    cursor: pointer;
+}
+.list-group li{
+    cursor:pointer;
 }
 .hide{
 	display:none;
+}
+
+.message-content{ 
+    margin:0px auto; 
+    height:250px;
+    width:480px;
+    overflow:auto;
+}
+
+.message {
+    margin-top:20px;
+    padding-left:50px;
+    position:relative;
+}
+ 
+.triangle {
+    position:absolute;
+    top:50%;
+    margin-top:-8px;
+    left:42px;
+    display:block;
+    width:0;
+    height:0;
+    overflow:hidden;
+    line-height:0;
+    font-size:0;
+    border-bottom:8px solid #FFF;
+    border-top:8px solid #FFF;
+    border-left:none;
+    border-right:8px solid #3079ED;
+}
+ 
+.message .article {
+    float:left;
+    color:#FFF;
+    display:inline-block;
+    *display:inline; zoom:1;
+    padding:5px 10px;
+    border:1px solid #3079ED;
+    border-radius:5px;
+    background-color: #eee;
+    background-image:-webkit-gradient(linear,left top,left bottom,from(#4D90FE),to(#4787ED));
+    background-image:-webkit-linear-gradient(top,#4D90FE,#4787ED);
+    background-image:-moz-linear-gradient(center top , #4D90FE, #4787ED);
+    background-image:linear-gradient(top,#4D90FE,#4787ED);
+}
+ 
+.fr { padding-left:0px; padding-right:50px; }
+ 
+.fr .triangle {
+    left:auto;
+    right:42px;
+    border-bottom:8px solid #FFF;
+    border-top:8px solid #FFF;
+    border-right:none;
+    border-left:8px solid #3079ED;
+}
+ 
+.fr .article {
+    float:right;
 }
