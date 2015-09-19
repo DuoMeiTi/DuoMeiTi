@@ -30,8 +30,6 @@ public class RepertoryAction extends ActionSupport{
 	private String rtMainDevice;
 	private List<Repertory> rtSearch_list;
 	
-	/*status 1: OK
-			0:  save fail*/
 
 	public int getRtId() {
 		return rtId;
@@ -131,36 +129,22 @@ public class RepertoryAction extends ActionSupport{
 	}
 	
 	public String insert(){
+			
+		Repertory rt = new Repertory();
+		rt.setRtType(rtType);
+		rt.setRtNumber(rtNumber);
+		rt.setRtVersion(rtVersion);
+		rt.setRtFactorynum(rtFactorynum);
+		Session session = model.Util.sessionFactory.openSession();
+		session.beginTransaction();
+		session.save(rt);
+		session.getTransaction().commit();
+		session.close();
+		this.status = "1";
+		this.rtId = rt.getRtId();
+		this.add_repertory_html = util.Util.fileToString("/jsp/admin/widgets/add_repertory.html");
 		
-		if(rtNumber.equals("")||rtNumber.equals("")){
-			 this.status = "0";
-		}
-		else{
-			
-			Repertory rt = new Repertory();
-			rt.setRtType(rtType);
-			rt.setRtNumber(rtNumber);
-			rt.setRtVersion(rtVersion);
-			rt.setRtFactorynum(rtFactorynum);
-			
-			try
-			{
-				Session session = model.Util.sessionFactory.openSession();
-				session.beginTransaction();
-				session.save(rt);
-				session.getTransaction().commit();
-				session.close();
-				
-				this.status = "1";
-				this.rtId = rt.getRtId();
-				this.add_repertory_html = util.Util.fileToString("/jsp/admin/widgets/add_repertory.html");
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
 			//JOptionPane.showMessageDialog(null, "提交成功");
-		}
 		return SUCCESS;
 	}
 	

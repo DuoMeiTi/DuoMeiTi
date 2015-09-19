@@ -22,7 +22,7 @@
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-default">设备类型</button>
 									</span>
-									<select class="form-control" name="rtType" placeholder="请选择" value="<s:property value="rtType"/>">
+									<select class="form-control" name="rtType" id="rtType" placeholder="请选择" value="<s:property value="rtType"/>">
 										<option value="" selected="selected"></option>
 										<option value="中控">中控</option>
 										<option value="功放">功放</option>
@@ -143,9 +143,12 @@
 			$("[name=rtFactorynum]").val("");
 		})
 		$(document).on("click","#rtSave", function(){
+			if($("#rtType").val() == ""){
+				alert("输入不能为空！");
+				return ;
+			}
+			
 			var params = $("#repertory_form").serialize();//序列化表单值→ Json；
-			alert(params.rtNumber);
-
 			//ajax方法通过HTTP请求加载远程数据； 
 			$.ajax({
 		    	url: 'repertory_insert',
@@ -158,11 +161,7 @@
 		})
 		
 		function repertoryCallback(data){
-			
-			if(data.status == "0"){
-				alert("输入不能为空！ ");
-			}
-			else if(data.status == "1"){
+			if(data.status == "1"){
 				$("#repertory_table tr:first").after(data.add_repertory_html);
 	        	
 	        	var cnt = $(document).find("#repertory_table tr:eq(1)");
@@ -207,7 +206,7 @@
 		
 		$(document).on("click","#rtSearch", function()
 		{
-			alert($("#rtDevice option:selected").attr("value"));
+			//alert($("#rtDevice option:selected").attr("value"));
 			if($("#rtDevice option:selected").attr("value") == ""){
 				return;
 			}
