@@ -170,7 +170,7 @@ public class StudentAction {
 		sexSelect=Const.sexSelect;
 //		statusSelect=Const.statusSelect;
 		
-		
+		System.out.println("jkjk");
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria stu = session.createCriteria(StudentProfile.class);//把查询条件封装成一个Criteria对象
 		student_list = stu.list();
