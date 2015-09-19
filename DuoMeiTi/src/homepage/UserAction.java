@@ -127,13 +127,25 @@ public class UserAction
 	    ActionContext.getContext().getSession().remove("role");
 	    return ActionSupport.SUCCESS;
 	}
-	public String register() throws Exception
+	public String register()
+//			throws Exception
 	{
-		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(User.class);//把查询条件封装成一个Criteria对象
-		user_list = q.list();
-		Collections.reverse(user_list);
-		session.close();	
+		System.out.println("SDFSFSFAS");
+		try{
+			Session session = model.Util.sessionFactory.openSession();
+			System.out.println("SDFSFSFAS**1");
+			Criteria q = session.createCriteria(User.class);//把查询条件封装成一个Criteria对象
+			System.out.println("SDFSFSFAS**2");
+			user_list = q.list();
+			System.out.println("SDFSFSFAS**3");
+			Collections.reverse(user_list);
+			session.close();	
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		return "success";
 	}
 
