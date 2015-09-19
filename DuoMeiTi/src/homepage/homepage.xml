@@ -89,11 +89,10 @@
             </result>            
         </action>
         
-<<<<<<< HEAD
+
 
         
-=======
->>>>>>> 20e9fc41fa3e2fed5bb412b48c16b7a7b3b36437
+
         <action name="admin_register" class="homepage.AdminAction" method="adminRegister">
         	<result>
         		/jsp/homepage/admin_register.jsp
@@ -113,10 +112,9 @@
 <!-- 				<param name="excludeProperties"> user_list</param> -->
             </result>            
         </action>
-<<<<<<< HEAD
 
-=======
->>>>>>> 20e9fc41fa3e2fed5bb412b48c16b7a7b3b36437
+
+
     </package>
     
 

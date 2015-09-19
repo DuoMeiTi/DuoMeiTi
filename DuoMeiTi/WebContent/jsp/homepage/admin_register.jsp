@@ -25,13 +25,13 @@
 		</div>
 		
 		<div class="form-group">
-			<span style="color: red" id=fullname_msg>*</span>
+			<span style="color: red" id=username_msg>*</span>
 		</div>
 		
 		<div class="form-group col-lg-offset-1">
 			<label for="fullName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
 			<input type="text" class="form-control" name="fullName"
-				id="fullNameId" onblur=checkFullname()
+				id="fullNameId" 
 				value="<s:property value="fullName"/>" placeholder="">
 		</div>
 
@@ -45,18 +45,20 @@
 		<div class="form-group col-lg-offset-1">
 			<label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
 			<input type="password" class="form-control" name="password"
+				onblur=checkPassword()
 				value="<s:property value="password"/>" placeholder="">
 		</div>
 		<div class="form-group">
-			<span style="color: red">*</span>
+			<span style="color: red" id=password_msg>*</span>
 		</div>
 		<div class="form-group col-lg-offset-1">
 			<label for="passwordAgain">确认密码</label> <input type="password"
 				class="form-control" name="passwordAgain"
+				onblur=checkPassAgain()
 				value="<s:property value="passwordAgain"/>" placeholder="">
 		</div>
 		<div class="form-group">
-			<span style="color: red">*</span>
+			<span style="color: red" id=passAgin_msg>*</span>
 		</div>
 		<br> <br> <br>
 
@@ -66,17 +68,13 @@
 			<input type="password" class="form-control" name="unitInfo"
 				value="<s:property value="unitInfo"/>" placeholder="">
 		</div>
-		<div class="form-group">
-			<span style="color: red">*</span>
-		</div>
+		
 		<div class="form-group col-lg-offset-1">
 			<label for="profilePhotoPath">上传头像</label> <input type="password"
 				class="form-control" name="profilePhotoPath"
 				value="<s:property value="profilePhotoPath"/>" placeholder="">
 		</div>
-		<div class="form-group">
-			<span style="color: red">*</span>
-		</div>
+		
 		<br> <br> <br>
 
 
@@ -87,18 +85,14 @@
 				class="form-control" name="unitInfo"
 				value="<s:property value="unitInfo"/>" placeholder="">
 		</div>
-		<div class="form-group">
-			<span style="color: red">*</span>
-		</div>
+		
 
 		<div class="form-group col-lg-offset-1">
 			<label for="phoneNumber">联系方式</label> <input type="password"
 				class="form-control" name="phoneNumber"
 				value="<s:property value="phoneNumber"/>" placeholder="">
 		</div>
-		<div class="form-group">
-			<span style="color: red">*</span>
-		</div>
+		
 		<br> <br> <br>
 
 		<div class="form-group col-lg-offset-1">
@@ -106,9 +100,7 @@
 			<input type="password" class="form-control" name="remark"
 				value="<s:property value="remark"/>" placeholder="">
 		</div>
-		<div class="form-group">
-			<span style="color: red">*</span>
-		</div>
+		
 
 
 		<br /> <br />
