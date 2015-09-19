@@ -10,7 +10,7 @@
     	
         
         <action name="file_upload" class="homepage.FileUploadAction">
-        	<result>/jsp/homepage/home.jsp</result>
+        	<result>/jsp/homepage/file_upload.jsp</result>
         </action>
         
         
