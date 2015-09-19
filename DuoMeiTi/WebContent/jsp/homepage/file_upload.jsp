@@ -43,6 +43,8 @@
 		var fd = new FormData();
 
      	fd.append("image", document.getElementById('file_upload').files[0]); 
+     	
+     	fd.append("test", "YESYESYES");
  
 	    $.ajax({  
 	          url: "" ,  

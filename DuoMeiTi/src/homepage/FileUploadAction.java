@@ -26,14 +26,17 @@ public class FileUploadAction extends ActionSupport{
     private String imageFileName; //文件名称
     private String imageContentType; //文件类型
     
-    private List  file_path_list;
+    private String test; 
+	private List  file_path_list;
     
     @Inject(value="struts.multipart.maxSize")
     private String maxSize="空值";
 
 
     public String execute() throws Exception 
-    {    	
+    {
+    	System.out.println("test::::" + test);
+    	
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(model.EgFilePathSave.class);		
 		file_path_list = q.list();
@@ -102,12 +105,22 @@ public class FileUploadAction extends ActionSupport{
 	}
 
 
-	public List<String> getFile_path_list() {
+	public String getTest() {
+		return test;
+	}
+
+
+	public void setTest(String test) {
+		this.test = test;
+	}
+
+
+	public List getFile_path_list() {
 		return file_path_list;
 	}
 
 
-	public void setFile_path_list(List<String> file_path_list) {
+	public void setFile_path_list(List file_path_list) {
 		this.file_path_list = file_path_list;
 	}
 
@@ -120,6 +133,8 @@ public class FileUploadAction extends ActionSupport{
 	public void setMaxSize(String maxSize) {
 		this.maxSize = maxSize;
 	}
+
+
 
     
     
