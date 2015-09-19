@@ -297,21 +297,63 @@ $("#envelope").click(function(){
 	else list_box.addClass("hide");
 })
 
+function message_list_box_show(){
+	$("#message-list-box").removeClass("hide");
+}
+function message_list_box_hide(){
+	$("#message-list-box").addClass("hide");
+}
+function message_contacts_box_show(){
+	$("#message-contacts-box").removeClass("hide");
+}
+function message_contacts_box_hide(){
+	$("#message-contacts-box").addClass("hide");
+}
+function message_content_box_show(){
+	$("#message-content-box").removeClass("hide");
+}
+function message_content_box_hide(){
+	$("#message-content-box").addClass("hide");
+}
 
 $("#message-list-box .closed").click(function(){
-	$("#message-list-box").addClass("hide");
+	message_list_box_hide();
+	message_contacts_box_hide();
 })
 
 $("#write-message").click(function(){
-	$("#message-content-box").removeClass("hide");
-	$("#message-list-box").addClass("hide");
+	message_content_box_show();
+	message_list_box_hide();
+	message_contacts_box_show();
 })
 
 $("#message-content-box .closed").click(function(){
-	$("#message-content-box").addClass("hide");
+	message_content_box_hide();
+	message_contacts_box_hide();
 })
 
 $("#message-content-box .back").click(function(){
-	$("#message-content-box").addClass("hide");
-	$("#message-list-box").removeClass("hide");
+	message_content_box_hide();
+	message_list_box_show();
+})
+
+$("#message-contacts-box .closed").click(function(){
+	message_contacts_box_hide();
+})
+
+$(".users").click(function(){
+	message_contacts_box_show();
+})
+
+$(".contacts-expand").click(function(){
+	var s=$(this).children("span");
+	if(s.hasClass("glyphicon-plus")){
+		s.removeClass("glyphicon-plus");
+		s.addClass("glyphicon-minus");
+	}
+	else{
+		s.removeClass("glyphicon-minus");
+		s.addClass("glyphicon-plus");
+	}
+	
 })
