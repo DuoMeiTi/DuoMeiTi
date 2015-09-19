@@ -80,13 +80,15 @@
 						</button>
 						<h4 class="modal-title">填写周检查记录</h4>
 					</div>
-					<div class="modal-body">
-						<textarea class="form-control" rows="3"></textarea>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">提交</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					</div>
+					<form action="" method="POST">
+						<div class="modal-body">
+							<textarea class="form-control" rows="3" name="checkdetail"></textarea>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary" data-dismiss="modal">提交</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

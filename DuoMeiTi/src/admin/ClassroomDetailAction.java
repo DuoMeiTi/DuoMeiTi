@@ -19,6 +19,8 @@ public class ClassroomDetailAction extends ActionSupport {
 	
 	public Classroom classroom;
 	
+	public String checkdetail;
+	
 	public String execute() {
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria classroom_criteria = session.createCriteria(Classroom.class);
@@ -28,7 +30,9 @@ public class ClassroomDetailAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	
+	public String checkrecordsave() {
+		return SUCCESS;
+	}
 	
 	
 	
