@@ -38,15 +38,37 @@
 <script> 
 	
 	
-	$(document).on("click", "#file_upload_button", function(){
+	$(document).on("click", "#file_upload_button", function() {
 		
-		xmlhttp=new XMLHttpRequest();
-		alert("DOUBI");
-		xmlhttp.open("POST","",true);
 		var fd = new FormData();
 
-        fd.append("image", document.getElementById('file_upload').files[0]); 
-		xmlhttp.send(fd);
+     	fd.append("image", document.getElementById('file_upload').files[0]); 
+ 
+	    $.ajax({  
+	          url: "" ,  
+	          type: "POST",  
+	          data: fd,  
+	          async: true,  
+	          cache: false,  
+	          contentType: false,  
+	          processData: false,  
+// 	          success: function (returndata) {  
+// 	              alert(returndata);  
+// 	          },  
+// 	          error: function (returndata) {  
+// 	              alert(returndata);  
+// 	          }  
+	     });  
+
+		
+		
+// 		xmlhttp=new XMLHttpRequest();
+// 		alert("DOUBI");
+// 		xmlhttp.open("POST","",true);
+// 		var fd = new FormData();
+
+//         fd.append("image", document.getElementById('file_upload').files[0]); 
+// 		xmlhttp.send(fd);
 
 		
 	})
