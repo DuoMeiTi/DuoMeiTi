@@ -21,7 +21,7 @@
 	<a href="/admin/" class="btn btn-default">跳到系统管理员</a>
 	
 	<br/><br/>
-	<a href="/file_upload" class="btn btn-default">跳到文件上传示例</a>
+	<a href="/file_upload" class="btn btn-success">跳到文件上传示例</a>
 	
 	
 	<br/><br/>
