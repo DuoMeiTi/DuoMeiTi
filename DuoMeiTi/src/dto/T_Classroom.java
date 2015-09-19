@@ -5,7 +5,7 @@ public class T_Classroom {
 	
 	public String classroom_num;
 	
-	public int capacity;
+//	public int capacity;
 	
 	public String principal;
 	
@@ -27,13 +27,13 @@ public class T_Classroom {
 		this.classroom_num = classroom_num;
 	}
 
-	public int getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
-	}
+//	public int getCapacity() {
+//		return capacity;
+//	}
+//
+//	public void setCapacity(int capacity) {
+//		this.capacity = capacity;
+//	}
 
 	public String getPrincipal() {
 		return principal;

@@ -21,18 +21,15 @@
 	<a href="/admin/" class="btn btn-default">跳到系统管理员</a>
 	
 	<br/><br/>
-	<a href="/admin_eg" class="btn btn-default">跳到系统管理员带上边框的形式</a>
+	<a href="/file_upload" class="btn btn-success">跳到文件上传示例</a>
 	
 	
 	<br/><br/>
-	<form method="post" action="/file_upload" enctype="multipart/form-data">
-	
-	
-		<input type="file" name="image">
-		
-		
-		<button type="submit" > 提交</button>
-	</form>
+	<a href="/admin_eg" class="btn btn-default">跳到系统管理员带上边框的形式</a>
+
+	<br/><br/>
+	<a href="/admin_register" class="btn btn-default">跳到系统管理员注册</a>
+	<br/><br/>
 
 </layout:override>
 

@@ -20,4 +20,62 @@ public class CheckRecord {
 	public String checkdetail;
 	
 	public java.sql.Date checkdate;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Classroom getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(Classroom classroom) {
+		this.classroom = classroom;
+	}
+
+	public StudentProfile getCheckman() {
+		return checkman;
+	}
+
+	public void setCheckman(StudentProfile checkman) {
+		this.checkman = checkman;
+	}
+
+	public String getCheckdetail() {
+		return checkdetail;
+	}
+
+	public void setCheckdetail(String checkdetail) {
+		this.checkdetail = checkdetail;
+	}
+
+	public java.sql.Date getCheckdate() {
+		return checkdate;
+	}
+
+	public void setCheckdate(java.sql.Date checkdate) {
+		this.checkdate = checkdate;
+	}
+	
 }

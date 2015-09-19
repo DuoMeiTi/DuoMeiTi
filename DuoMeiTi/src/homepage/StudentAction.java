@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -17,7 +18,7 @@ public class StudentAction {
 	
 	private String collegeSelect[];
 	private String sexSelect[];
-	private String statusSelect[];
+//	private String statusSelect[];
 	private String username;
 	private String password;
 	private String register_status;
@@ -27,22 +28,22 @@ public class StudentAction {
 	private String bankCard;
 	private String phoneNumber;
 	public java.sql.Date entryTime;
-	private String classrooms;
-	private String status;
-	private String remark;
+//	private String classrooms;
+//	private String status;
+//	private String remark;
+	private String fullName;
 	private String college;
 	private String passwordAgain;
-	private List<StudentProfile>student_list;
 	
 	
 	
 	
-	public List<StudentProfile> getStudent_list() {
-		return student_list;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setStudent_list(List<StudentProfile> student_list) {
-		this.student_list = student_list;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getPasswordAgain() {
@@ -101,29 +102,13 @@ public class StudentAction {
 		this.entryTime = entryTime;
 	}
 
-	public String getClassrooms() {
+	/*public String getClassrooms() {
 		return classrooms;
 	}
 
 	public void setClassrooms(String classrooms) {
 		this.classrooms = classrooms;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+	}*/
 
 	public String getIdCard() {
 		return idCard;
@@ -157,14 +142,6 @@ public class StudentAction {
 		this.username = username;
 	}
 
-	public String[] getStatusSelect() {
-		return statusSelect;
-	}
-
-	public void setStatusSelect(String[] statusSelect) {
-		this.statusSelect = statusSelect;
-	}
-
 	public String[] getSexSelect() {
 		return sexSelect;
 	}
@@ -192,46 +169,43 @@ public class StudentAction {
 	{
 		collegeSelect=Const.collegeSelect;
 		sexSelect=Const.sexSelect;
-		statusSelect=Const.statusSelect;
+		return ActionSupport.SUCCESS;
+//		statusSelect=Const.statusSelect;
 		
-		
+		/*System.out.println("jkjk");
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(StudentProfile.class);//把查询条件封装成一个Criteria对象
-		student_list = q.list();
-		Collections.reverse(student_list);
+		Criteria q = session.createCriteria(User.class);//把查询条件封装成一个Criteria对象
+		List ul = q.list();
+		Collections.reverse(ul);
 		session.close();	
-		return "success";
+		return "success";*/
 	}
 	
 	public String studentRegisterSave() throws Exception
 	{
+		System.out.println("AdminAction.adminRegisterSave()");
 		
-		if(username == null || password == null)
-		{
-			this.register_status = "error: username or password is null";
-			return ActionSupport.SUCCESS;
-		}
 		if(username.equals("") || password.equals(""))
 		{
 			this.register_status = "1";
 			return ActionSupport.SUCCESS;
 		}	
-		if(!(password.equals(passwordAgain))){
-			this.register_status="3";
-			return ActionSupport.SUCCESS;
-		}
+		
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(StudentProfile.class).add(Restrictions.eq("username", username));
+		Criteria q= session.createCriteria(User.class).add(Restrictions.eq("username", username));
 		List ul = q.list();
 		if(!ul.isEmpty())
 		{
+			System.out.println("err");
 			this.register_status = "2";
+			return ActionSupport.SUCCESS;
 		}
 		else
 		{
 			User um = new User();
 			um.setUsername(username);
 			um.setPassword(password);
+			session.save(um);//因为user是外键，所以commit StudentProfile之前需要先save user；
 			
 			StudentProfile stupro=new StudentProfile();
 			stupro.setUser(um);
@@ -242,14 +216,12 @@ public class StudentAction {
 			stupro.setSex(sex);
 			stupro.setStudentId(studentId);
 			stupro.setCollege(college);
-			stupro.setRemark(remark);
-			stupro.setStatus(status);
 			
 			session.beginTransaction();
-			session.save(um);
 			session.save(stupro);
 			
-			session.getTransaction().commit();
+			Transaction t = session.getTransaction();
+			t.commit();
 			this.register_status = "0";
 	//		this.user_id = um.getId();
 	//		this.added_user_html = util.Util.fileToString("/jsp/homepage/widgets/added_user.html");
