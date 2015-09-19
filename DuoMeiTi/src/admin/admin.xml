@@ -17,6 +17,11 @@
 				/jsp/admin/users_request.jsp
 			</result>
 		</action>
+		<action name="user_info">
+			<result>
+				/jsp/admin/usrinf.jsp
+			</result>
+		</action>
 		<action name="repertory" class="admin.RepertoryAction">
 			<result name="success">
 				/jsp/admin/repertory.jsp
