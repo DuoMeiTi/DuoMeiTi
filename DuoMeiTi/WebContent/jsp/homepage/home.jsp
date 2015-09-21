@@ -101,6 +101,36 @@
 	
 	
 	
+<!-- <div class="jumbotron"> -->
+<!--   <div class="container"> -->
+    <table class="jumbotron container table table-bordered" id="user_table">
+	
+		<tr class="active">
+			<th> 文件列表 </th>
+		</tr>
+		
+		
+		<s:iterator value="file_path_list" var="i" status="index" >  
+			<tr class="success" >
+				<td>   
+					<a href="<s:property value="#i.filePath"/> "> 
+						
+						<s:property value="#i.filePath.split('/')[#i.filePath.split('/').length - 1]"/>
+
+					</a>   
+				</td>
+
+			</tr>
+		</s:iterator>  
+		
+		
+		
+
+	</table>
+<!--   </div> -->
+<!-- </div>	 -->
+	
+	
 	
 	
 	

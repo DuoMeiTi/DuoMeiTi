@@ -7,7 +7,11 @@
 
 
     <package name="homepage" namespace="/" extends="HomepageDefault">
-    	
+    
+    
+    	<action name="" class="homepage.HomeAction">
+        	<result>/jsp/homepage/home.jsp</result>
+        </action>
         
         <action name="file_upload" class="homepage.FileUploadAction">
         	<result>/jsp/homepage/file_upload.jsp</result>

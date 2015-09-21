@@ -11,12 +11,12 @@
 	
 	  <div class="form-group">
 	    <label for="username">用户名</label>	    
-	    <input style="width:40%" type="text" class="form-control" name="username" value="<s:property value="username"/>" placeholder="">
+	    <input style="width:30%" type="text" class="form-control" name="username" value="<s:property value="username"/>" placeholder="">
 	  </div>	  
 	  
 	  <div class="form-group">
 	    <label for="password">密码</label>
-	    <input style="width:40%" type="password" class="form-control" name="password" value="<s:property value="password"/>" placeholder="">
+	    <input style="width:30%" type="password" class="form-control" name="password" value="<s:property value="password"/>" placeholder="">
 	  </div>
 	  
 	  
