@@ -34,7 +34,7 @@
 		
 		</layout:block>
     	</div>
-		<footer class="container">
+		<footer class="container" style="text-align:center">
 		  <p>Copyright © 1986 - 2016 All rights reserved | <a href="http://chuangxin.dlut.edu.cn">大连理工大学创新实验学院版权所有</a> | GPLv3 <a href="http://gplv3.fsf.org/">Terms</a></p>
 		</footer>
 	
@@ -43,7 +43,6 @@
 
 		<!--TinyMCE Editor-->
 		<script type='text/javascript' src="/js/base/tiny_mce.js"></script>
-		<script type='text/javascript' src="/js/admin/repertory.js"></script>
 		<!-- JQuery Masonry-->
 		<script type='text/javascript' src="/js/base/jquery.masonry.min.js"></script>
 		<script type='text/javascript' src="/js/base/base.js"></script>		       

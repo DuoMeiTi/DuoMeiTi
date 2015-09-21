@@ -1,6 +1,5 @@
 package admin;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.Repertory;
+import util.Const;
 
 public class RepertoryAction extends ActionSupport{
 	/**
@@ -29,6 +29,10 @@ public class RepertoryAction extends ActionSupport{
 	private String rtDevice;
 	private String rtMainDevice;
 	private List<Repertory> rtSearch_list;
+	//private String device[];
+	private String mainDevice[];
+	private String costDevice[];
+	private String deviceStatus[];
 	
 
 	public int getRtId() {
@@ -112,11 +116,41 @@ public class RepertoryAction extends ActionSupport{
 	public void setRtSearch_list(List<Repertory> rtSearch_list) {
 		this.rtSearch_list = rtSearch_list;
 	}
+	/*public String[] getDevice() {
+		return device;
+	}
+	public void setDevice(String[] device) {
+		this.device = device;
+	}*/
+	public String[] getMainDevice() {
+		return mainDevice;
+	}
+	public void setMainDevice(String[] mainDevice) {
+		this.mainDevice = mainDevice;
+	}
+	public String[] getCostDevice() {
+		return costDevice;
+	}
+	public void setCostDevice(String[] costDevice) {
+		this.costDevice = costDevice;
+	}
+	public String[] getDeviceStatus() {
+		return deviceStatus;
+	}
+	public void setDeviceStatus(String[] deviceStatus) {
+		this.deviceStatus = deviceStatus;
+	}
 	public String toString() {
 		return this.rtType + ", " + this.rtDevice + "," + this.rtMainDevice;
 	}
 
+	
 	public String execute() throws Exception{
+		
+		//device = Const.device;
+		mainDevice = Const.mainDevice;
+		costDevice = Const.costDevice;
+		deviceStatus = Const.deviceStatus;
 		
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c = session.createCriteria(Repertory.class); //hibernate session创建查询
@@ -131,6 +165,7 @@ public class RepertoryAction extends ActionSupport{
 	public String insert(){
 			
 		Repertory rt = new Repertory();
+		rt.setRtDevice(rtDevice);
 		rt.setRtType(rtType);
 		rt.setRtNumber(rtNumber);
 		rt.setRtVersion(rtVersion);
@@ -173,7 +208,6 @@ public class RepertoryAction extends ActionSupport{
 	public String search() {
 		/*status  0: empty select
 				1: keyword select*/
-		System.out.println("~~~"+rtDevice);
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c = session.createCriteria(Repertory.class);
 		if(rtDevice.equals("main")) {
