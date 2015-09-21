@@ -1,15 +1,4 @@
 <%@ include file="/jsp/base/taglib.jsp"%>
-<style>
-<!--
-.STYLE1 {
-	font-size: 12px;
-	color: #FF0000;
-}
--->
-</style>
-
-
-
 
 <layout:override name="main_content">
 	<br />
@@ -18,89 +7,94 @@
 		id="admin_register_form">
 
 		<div class="form-group col-lg-offset-1">
-			<label for="username">用户名</label> <input type="text"
+			<label for="username">&nbsp;用户名&nbsp;</label> <input type="text"
 				class="form-control" name="username" id="usernameId"
 				onblur=checkUsername() value="<s:property value="username"/>"
 				placeholder="">
 		</div>
-		
+
 		<div class="form-group">
 			<span style="color: red" id=username_msg>*</span>
 		</div>
-		
-		<div class="form-group col-lg-offset-1">
-			<label for="fullName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
-			<input type="text" class="form-control" name="fullName"
-				id="fullNameId" 
-				value="<s:property value="fullName"/>" placeholder="">
-		</div>
-
-
-
-
-
-
-		<br> <br> <br>
-
-		<div class="form-group col-lg-offset-1">
+<div class="form-group col-lg-offset-1">
 			<label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
 			<input type="password" class="form-control" name="password"
-				onblur=checkPassword()
+				onblur=checkPassword() id="passwordId"
 				value="<s:property value="password"/>" placeholder="">
 		</div>
+		
 		<div class="form-group">
 			<span style="color: red" id=password_msg>*</span>
 		</div>
+
+
+
+
+
+
+		<br> <br> <br>
+
+		
 		<div class="form-group col-lg-offset-1">
 			<label for="passwordAgain">确认密码</label> <input type="password"
-				class="form-control" name="passwordAgain"
-				onblur=checkPassAgain()
-				value="<s:property value="passwordAgain"/>" placeholder="">
+				class="form-control" name="passwordAgain" id="passwordAgainId"
+				onblur=checkPasswordAgain() value="<s:property value="passwordAgain"/>"
+				placeholder="">
 		</div>
 		<div class="form-group">
-			<span style="color: red" id=passAgin_msg>*</span>
+			<span style="color: red" id=passwordAgain_msg>*</span>
+		</div>
+		<div class="form-group col-lg-offset-1">
+			<label for="fullName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
+			<input type="text" class="form-control" name="fullName"
+				value="<s:property value="fullName"/>" placeholder="">
 		</div>
 		<br> <br> <br>
 
 
-		<div class="form-group col-lg-offset-1">
-			<label for="unitInfo">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
-			<input type="password" class="form-control" name="unitInfo"
+		<%-- <div class="form-group col-lg-offset-1">
+			<label for="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
+			<input type="text" class="form-control" name="sexSelect"
 				value="<s:property value="unitInfo"/>" placeholder="">
-		</div>
+		</div> --%>
 		
 		<div class="form-group col-lg-offset-1">
-			<label for="profilePhotoPath">上传头像</label> <input type="password"
+	  	<label for="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
+	  	<s:select list="sexSelect"  class="form-control" name="sex" style="width:180px"></s:select>
+	  </div>
+
+		<div class="form-group col-lg-offset-1">
+			<label for="profilePhotoPath">上传头像</label> <input type="text"
 				class="form-control" name="profilePhotoPath"
 				value="<s:property value="profilePhotoPath"/>" placeholder="">
 		</div>
-		
+
 		<br> <br> <br>
 
 
 
 
 		<div class="form-group col-lg-offset-1">
-			<label for="unitInfo">工作单位</label> <input type="password"
+			<label for="unitInfo">工作单位</label> <input type="text"
 				class="form-control" name="unitInfo"
 				value="<s:property value="unitInfo"/>" placeholder="">
 		</div>
-		
+
 
 		<div class="form-group col-lg-offset-1">
-			<label for="phoneNumber">联系方式</label> <input type="password"
+			<label for="phoneNumber">联系方式</label> <input type="text"
 				class="form-control" name="phoneNumber"
 				value="<s:property value="phoneNumber"/>" placeholder="">
 		</div>
-		
+
 		<br> <br> <br>
 
 		<div class="form-group col-lg-offset-1">
 			<label for="remark">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注</label>
-			<input type="password" class="form-control" name="remark"
+			<input type="" text"" class="form-control" name="remark"
 				value="<s:property value="remark"/>" placeholder="">
 		</div>
-		
+
 
 
 		<br /> <br />
@@ -162,10 +156,10 @@
  */
     		alert("yeah");
     	}
-    	else if(data.register_status == "1")
+    	/* else if(data.register_status == "1")
     	{
     		animatedShow("注册用户名或者密码为空");
-    	}
+    	} */
     	else if(data.register_status == "2")
    		{
     		animatedShow("注册用户名重复");
@@ -179,11 +173,41 @@
     }
     
     //输入验证
-    function checkFullname(){
-    	var val = $("#fullnameId").val(); 
+    function checkUsername(){
+    	var val = $("#usernameId").val(); 
     	 if(val=="")
-    		$("#fullname_msg").text("非空"); 
-    		alert(val);
+    		{
+    		 $("#username_msg").text("非空");
+    		 $("#usernameId").focus();
+    		} 
+    	 else
+    		 $("#username_msg").text("");
+    }
+    
+    function checkPassword(){
+    	var val = $("#passwordId").val(); 
+   	 if(val=="")
+   		{
+   		 $("#password_msg").text("非空");
+   	     $("#passwordId").focus(); 
+   		} 
+   	 else
+   		$("#password_msg").text("");
+    }
+    
+    function checkPasswordAgain(){
+    	var val = $("#passwordId").val(); 
+      	var val2 = $("#passwordAgainId").val(); 
+           	
+      	if(val!=val2)
+      		{
+      		 $("#passwordAgain_msg").text("密码不一致");
+      	     $("#passwordAgainId").focus(); 
+      		} 
+      	 else
+      		 {
+      		$("#passwordAgain_msg").text("");
+      		 }
     }
 </script>
 

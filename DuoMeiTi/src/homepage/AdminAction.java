@@ -111,20 +111,20 @@ public class AdminAction {
 	}
 
 	public String adminRegister() {
+		
 		sexSelect = Const.sexSelect;
 		return ActionSupport.SUCCESS;
 	}
 
 	public String adminRegisterSave() throws Exception {
-		System.out.println("AdminAction.adminRegisterSave()");
 //		if (username == null || password == null) {
 //			this.register_status = "1";
 //			return ActionSupport.SUCCESS;
 //		}
-		if (username.equals("") || password.equals("")) {
-			this.register_status = "1";
-			return ActionSupport.SUCCESS;
-		}
+//		if (username.equals("") || password.equals("")) {
+//			this.register_status = "1";
+//			return ActionSupport.SUCCESS;
+//		}
 		 Session session = model.Util.sessionFactory.openSession();
 
 		 		 Criteria q =
@@ -152,7 +152,7 @@ public class AdminAction {
 //			 System.out.println("AdminAction.adminRegisterSave()1");
 //		 this.register_status = "2";//用户名注册重复
 //		 }
-//		 else
+		 else
 		{
 			System.out.println("AdminAction.adminRegisterSave()2");
 			User um = new User();
