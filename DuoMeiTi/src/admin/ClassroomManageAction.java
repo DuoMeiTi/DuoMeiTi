@@ -215,7 +215,7 @@ System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroo
 		Criteria classroom_criteria = session.createCriteria(Classroom.class).setFetchMode("repertorys", FetchMode.SELECT).setFetchMode("checkrecords", FetchMode.SELECT);
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
 		classroom_criteria.add(Restrictions.eq("classroom_num", add_classroom_num));
-		List<Classroom> classroom_list= classroom_criteria.list();
+		List<Classroom> classroom_list = classroom_criteria.list();
 //System.out.println("size:" + classroom_list.size());
 		if(classroom_list.size() > 0 && submit_type.equals("add")) {
 			add_status = "exist";

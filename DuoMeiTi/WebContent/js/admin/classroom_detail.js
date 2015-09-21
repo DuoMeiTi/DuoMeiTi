@@ -27,15 +27,19 @@ function checkrecord_save_callback(data) {
 		var today = new Date().format("yy-MM-dd");
 		var table = $("#checkrecord_table");
 		var rowcount = $(table).find("tr").length;
-		if(rowcount >= 5) {
-			$(table).find("tr:eq(1)").remove();
-		}
-		$(table).find("tr:first").after("<td width=\"25%\"></td><td></td><td></td>");
+//		alert(rowcount);
+		$(table).find("tr:last").after("<tr><td width=\"25%\"></td><td></td><td></td></tr>");
 		var row = $(table).find("tr:last");
 		$(row).find("td:eq(0)").text(login_username);
 		$(row).find("td:eq(1)").text(checkrecord_detail);
 		$(row).find("td:eq(2)").text(today);
-		alert("success!");
+		if(rowcount >= 6) {
+			$(table).find("tr:eq(1)").remove();
+//			var v = $(table).find("tr:eq(1)").find("td:eq(1)").text();
+//			var last = $(table).find("tr:last").find("td:eq(1)").text();
+//			alert(v+" "+last);
+		}
+//		alert("success!");
 	}
 	$('#check-record-modal').modal('hide');
 }

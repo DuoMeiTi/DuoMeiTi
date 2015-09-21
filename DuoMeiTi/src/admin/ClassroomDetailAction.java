@@ -8,6 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import model.CheckRecord;
@@ -35,8 +36,15 @@ public class ClassroomDetailAction extends ActionSupport {
 //System.out.println("rt_size:" + classroom.repertorys.size());
 		
 		Criteria checkrecord_criteria = session.createCriteria(CheckRecord.class).setFetchMode("classroom", FetchMode.SELECT).setFetchMode("checkman", FetchMode.SELECT);
+		
+		
 		checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
-		checkrecord_criteria.addOrder(Order.desc("checkdate"));
+		checkrecord_criteria.addOrder(Order.asc("checkdate"));
+		long rowCount = (Long) checkrecord_criteria.setProjection(  
+                Projections.rowCount()).uniqueResult();
+		int start = ((int) rowCount) > 5 ? ((int) rowCount) - 5 : 0;
+		checkrecord_criteria.setProjection(null);
+		checkrecord_criteria.setFirstResult(start);
 		checkrecord_criteria.setMaxResults(5);
 		checkrecords = checkrecord_criteria.list();
 System.out.println("checksize:"+checkrecords.size());
