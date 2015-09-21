@@ -17,6 +17,17 @@
 				/jsp/admin/users_request.jsp
 			</result>
 		</action>
+		
+		
+		
+		<action name="user_information" class="admin.InformationAction" method="userInformation">
+			<result name="success">
+				/jsp/admin/users_information.jsp
+			</result>
+		</action>
+		
+		
+		
 		<action name="repertory" class="admin.RepertoryAction">
 			<result name="success">
 				/jsp/admin/repertory.jsp
