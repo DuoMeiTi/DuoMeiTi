@@ -27,13 +27,19 @@ import util.Util;
 
 public class UserAction
 {
-	private String username;
-	private String password;
-	private String status;
-	private List<User> user_list;
-	private String added_user_html;
+	public String username;
+	public String password;
+	public String status;
+	public List<User> user_list;
+	public String added_user_html;
+	public String role;
 	
-	private int user_id;
+	public int user_id;
+	
+	public String AdminRole = util.Const.AdminRole;
+	public String StudentRole = util.Const.StudentRole;
+	public String TeacherRole = util.Const.TeacherRole;
+	
 
 
 	/*
@@ -45,32 +51,41 @@ public class UserAction
 
 	
 	
+	
 	public String login() throws Exception
 	{
+		final String login_fail = "login_fail";
 		if(ServletActionContext.getRequest().getMethod().equalsIgnoreCase("get"))
 		{
-			return ActionSupport.SUCCESS; 
+			return ActionSupport.SUCCESS;
 		}
-		
-
-		
-		
 		if(username == null || username == "")
 		{
-			return "login_fail";
+			return login_fail;
 		}
+		System.out.println("ROLE::::::::" + role);
+		System.out.println("COMPAEROLE::" + util.Const.AdminRole);
+		
+//		util.Const.AdminRole.equals(role);
+		System.out.println("UIUIUIUI");
+		if(!role.equals(util.Const.AdminRole))  return login_fail;
+		System.out.println("UIUIUIUI");
 
-		
-		
-		
-		Session session = model.Util.sessionFactory.openSession();		
+		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username", username));
 		List ul = q.list();
+		if(ul.isEmpty())
+		{
+			session.close();
+			return login_fail;
+		}
+		User u = (User)ul.get(0);
+		q = session.createCriteria(model.AdminProfile.class).add(Restrictions.eq("user.id", u.getId()));
+		
+		if(q.list().isEmpty()) return login_fail;
 		session.close();
 		
-		if(ul.isEmpty()) return "login_fail";
-		User u = (User)ul.get(0);
-		if(!u.getPassword().equals(password)) return "login_fail";
+		if(!u.getPassword().equals(password)) return login_fail;
 		
 		ActionContext.getContext().getSession().put("username", username);
 		ActionContext.getContext().getSession().put("role", util.Const.AdminRole);
@@ -236,7 +251,13 @@ public class UserAction
 	
 	
 	
-	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	
 	
 	
