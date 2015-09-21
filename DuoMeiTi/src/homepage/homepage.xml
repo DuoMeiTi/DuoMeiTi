@@ -108,13 +108,13 @@
 <!-- 				<param name="excludeProperties"> user_list</param> -->
             </result>            
         </action>
-        <!-- 验证用户名是否注册过了  not OK-->
+       <!--  验证用户名是否注册过了  not OK
         <action name="user_verification" class="homepage.AdminAction" method="userVerification">
             <result name="success" type="json">
             	<param name="includeProperties">register_status</param>           
-<!-- 				<param name="excludeProperties"> user_list</param> -->
+				<param name="excludeProperties"> user_list</param>
             </result>            
-        </action>
+        </action> -->
 
 
 

@@ -7,7 +7,7 @@
 		id="admin_register_form">
 
 		<div class="form-group col-lg-offset-1">
-			<label for="username">&nbsp;用户名&nbsp;</label> <input type="text"
+			<label for="username">用&nbsp;户&nbsp;名&nbsp;</label> <input type="text"
 				class="form-control" name="username" id="usernameId"
 				onblur=checkUsername() value="<s:property value="username"/>"
 				placeholder="">
@@ -59,7 +59,7 @@
 		</div> --%>
 		
 		<div class="form-group col-lg-offset-1">
-	  	<label for="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
+	  	<label for="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
 	  	<s:select list="sexSelect"  class="form-control" name="sex" style="width:180px"></s:select>
 	  </div>
 
