@@ -5,7 +5,7 @@
 <script type='text/javascript' src="/js/admin/classroom_manage.js"></script>
 <script type="text/javascript">
 	/*$(function () { 
-		$('#add-classroom-modal').modal({
+		$('#classroom-modal').modal({
 			backdrop: 'static', 
 			keyboard: false
 	 	})
@@ -43,14 +43,14 @@
             	<button type="button" class="btn btn-primary" style="margin:2px;" id="all_button" onclick="queryAll()">所&nbsp;有&nbsp;教&nbsp;室</button>
             </div>
             <div class="col-lg-1">
-            	<button type="button" class="btn btn-danger" style="margin:2px;" id="add_button" data-toggle="modal" data-target="#add-classroom-modal"">新&nbsp;增&nbsp;教&nbsp;室</button>
+            	<button type="button" class="btn btn-danger" style="margin:2px;" id="add_button" onclick="add_classroom()">新&nbsp;增&nbsp;教&nbsp;室</button>
             </div>
         </div>
     </div>
   </form>
   
     <!-- Modal -->
-	<div class="modal fade" id="add-classroom-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="classroom-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -59,6 +59,7 @@
 	      </div>
 	      <div class="modal-body">
 			<form class="form-horizontal">
+				<input style="visibility:hidden" id="submit_type" value="add" />
 				<div class="form-group">
 					<label class="control-label col-sm-3" for="input_classroom_num">教室号</label>
 					<div class="col-sm-5">
@@ -86,11 +87,13 @@
 	      <div class="modal-footer">
 	        <button class="btn btn-success" onclick="query_stu_name()">查询负责人姓名</button>
 	        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-	        <button type="button" class="btn btn-primary" id="add_classroom_btn" onclick="add_classroom()">确定添加</button>
+	        <button type="button" class="btn btn-primary" id="add_classroom_btn" onclick="classroom_submit()">确定添加</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
+	
+	
   
   <div id="classroom_search_table">
     <table class="table table-bordered table-striped" id="classroom_table">
@@ -100,7 +103,8 @@
             <th>设备</th>
             <!-- <th>教室大小</th> -->
             <th>负责人</th>
-            <th>管理</th>
+            <th>管理教室</th>
+            <th>编辑</th>
         </tr>
       </thead>
 
@@ -110,9 +114,10 @@
 				<td width="40%">   <s:property value="#classroom.repertorys"/>    </td>
 				<%-- <td>   <s:iterator value="#classroom.repertorys" var="rt"> <s:property value="#rt.rtType"/>&nbsp;&nbsp;&nbsp;</s:iterator>   </td> --%>
 				<%-- <td>   <s:property value="#classroom.capacity"/>    </td> --%>
-				<td>   <s:property value="#classroom.principal"/>    </td>
+				<td studId="<s:property value="#classroom.principal_stuId"/>">   <s:property value="#classroom.principal_name"/>    </td>
 				<td>   <a href="classroom_detail?classroomId=<s:property value="#classroom.id"/>&build_name=<s:property value="build_name"/>" class="btn btn-info">详&nbsp;&nbsp;细</a>    </td>
 				<%-- <td> <a class="btn btn-info" onclick="mypost(<s:property value="#i.index"/>)">详&nbsp;&nbsp;细</a></td> --%>
+				<td>   <a class="btn btn-info" onclick="edit_classroom(<s:property value="#i.index"/>)">编&nbsp;&nbsp;辑</a></td>
 			</tr>
 		</s:iterator>
       

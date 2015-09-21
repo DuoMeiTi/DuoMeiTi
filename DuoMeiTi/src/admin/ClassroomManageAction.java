@@ -53,6 +53,8 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 	public String add_classroom_num;
 	
 	public String add_status;
+	
+	public String submit_type;
 
 	@SuppressWarnings("unchecked")
 	private Map request;
@@ -88,7 +90,8 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 			t_classroom.id = classroom.id;
 //			t_classroom.capacity = classroom.capacity;
 			t_classroom.classroom_num = classroom.classroom_num;
-			t_classroom.principal = classroom.principal == null ? "" : classroom.principal.user.getUsername();
+			t_classroom.principal_name = classroom.principal == null ? "" : classroom.principal.user.getUsername();
+			t_classroom.principal_stuId = classroom.principal == null ? "" : classroom.principal.getStudentId();
 			StringBuilder rsb = new StringBuilder();
 			for(Repertory r : classroom.repertorys) {
 				rsb.append(r.getRtType() + "  ");
@@ -174,7 +177,8 @@ System.out.println("rowcount:" + rowCount);
 			t_classroom.id = classroom.id;
 //			t_classroom.capacity = classroom.capacity;
 			t_classroom.classroom_num = classroom.classroom_num;
-			t_classroom.principal = classroom.principal.user.getUsername();
+			t_classroom.principal_name = classroom.principal == null ? "" : classroom.principal.user.getUsername();
+			t_classroom.principal_stuId = classroom.principal == null ? "" : classroom.principal.getStudentId();
 			StringBuilder sb = new StringBuilder();
 			for(Repertory r : classroom.repertorys) {
 				sb.append(r.getRtType() + "  ");
@@ -208,11 +212,12 @@ System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroo
 	
 	public String addClassroom() {
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria classroom_criteria = session.createCriteria(Classroom.class);
+		Criteria classroom_criteria = session.createCriteria(Classroom.class).setFetchMode("repertorys", FetchMode.SELECT).setFetchMode("checkrecords", FetchMode.SELECT);
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
 		classroom_criteria.add(Restrictions.eq("classroom_num", add_classroom_num));
 		List<Classroom> classroom_list= classroom_criteria.list();
-		if(classroom_list.size() > 0) {
+//System.out.println("size:" + classroom_list.size());
+		if(classroom_list.size() > 0 && submit_type.equals("add")) {
 			add_status = "exist";
 		}
 		else {
@@ -224,15 +229,23 @@ System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroo
 			stu_criteria.add(Restrictions.eq("studentId", stuId));
 			StudentProfile stu = (StudentProfile)stu_criteria.uniqueResult();
 
-System.out.println("stuId:" + stuId + "add_classroom_num:" + add_classroom_num +"build_id:" +build_id+ "build_name:"+build_name);
+//System.out.println("stuId:" + stuId + "add_classroom_num:" + add_classroom_num +"build_id:" +build_id+ "build_name:"+build_name);
 			
-			Classroom classroom = new Classroom();
+			Classroom classroom = null;
+			if(submit_type.equals("add"))
+				classroom = new Classroom();
+			else if(submit_type.equals("update")) 
+				classroom = (Classroom) classroom_criteria.uniqueResult();
+			
 			classroom.setTeachbuilding(build);
 			classroom.setPrincipal(stu);
 			classroom.setClassroom_num(add_classroom_num);
 			
 			session.beginTransaction();
-			session.save(classroom);
+			if(submit_type.equals("add"))
+				session.save(classroom);
+			else if(submit_type.equals("update"))
+				session.update(classroom);
 			session.getTransaction().commit();
 			
 			add_status = "ok";
@@ -376,6 +389,14 @@ System.out.println("stuId:" + stuId + "add_classroom_num:" + add_classroom_num +
 
 	public void setAdd_classroom_num(String add_classroom_num) {
 		this.add_classroom_num = add_classroom_num;
+	}
+
+	public String getSubmit_type() {
+		return submit_type;
+	}
+
+	public void setSubmit_type(String submit_type) {
+		this.submit_type = submit_type;
 	}
 
 	/*public int getPageSize() {
