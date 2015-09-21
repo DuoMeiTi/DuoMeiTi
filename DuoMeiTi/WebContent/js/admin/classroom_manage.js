@@ -88,6 +88,83 @@ function queryAll() {
 }
 
 
+function disable_add_btn() {
+	$("#add_classroom_btn").attr("disabled", "disabled");
+}
+
+
+
+function query_stu_name() {
+	$('#add-classroom-modal').modal({
+		backdrop: 'static', 
+		keyboard: false
+ 	});
+	var input_principal_student_id = $("#input_principal_student_id").val();
+	if(input_principal_student_id == "" || !/^\d+$/.test(input_principal_student_id)) {
+		$("#input_principal_student_name").text("请输入数字!");
+		return;
+	}
+	
+	$.ajax({
+		url : '/admin/classroom_json/queryStuNameByStuId',
+		type : 'post',
+		dataType : 'json',
+		data : {
+			"stuId" : input_principal_student_id
+		},
+		success : queryStuNameCallback
+	});
+}
+function queryStuNameCallback(data) {
+	if(data.queryResult==null || data.queryResult == "") {
+		$("#input_principal_student_name").text("无此学号!");
+		$("#add_classroom_btn").attr("disabled", "disabled");
+	}
+	else {
+		$("#input_principal_student_name").text(data.queryResult);
+		$("#add_classroom_btn").removeAttr("disabled");
+	}
+}
+
+
+
+
+
+function add_classroom() {
+	var stuId = $("#input_principal_student_id").val();
+	var classroom_num = $("#input_classroom_num").val();
+	Request = GetRequest();
+	var build_id = Request['build_id'];
+//	alert(stuId + " " +classroom_num + " " + build_id);
+	$.ajax({
+		url : '/admin/classroom_json/addClassroom',
+		type : 'post',
+		dataType : 'json',
+		data : {
+			"stuId" : stuId,
+			"add_classroom_num" : classroom_num,
+			"build_id" : build_id
+		},
+		success : addClassroomCallback
+	});
+}
+function addClassroomCallback(data) {
+	if(data.add_status == "exist") {
+		$("#exist").text("教室号已存在");
+	}
+	else if(data.add_status == "ok") {
+		$('#add-classroom-modal').modal('hide');
+		window.location.href=window.location.href;  
+		window.location.reload;
+	}
+}
+
+function dismiss() {
+	$('#add-classroom-modal').on('hidden.bs.modal', function (e) {
+		$("#exist").text("");
+	});
+}
+
 
 /* function mypost(count) {
 	var xmlobj; //定义XMLHttpRequest对象 

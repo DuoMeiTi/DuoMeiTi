@@ -22,7 +22,7 @@ public class Classroom {
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn
-	public User principal;
+	public StudentProfile principal;
 	
 //	@Column
 //	public int capacity;
@@ -71,11 +71,11 @@ public class Classroom {
 		this.classroom_num = classroom_num;
 	}
 
-	public User getPrincipal() {
+	public StudentProfile getPrincipal() {
 		return principal;
 	}
 
-	public void setPrincipal(User principal) {
+	public void setPrincipal(StudentProfile principal) {
 		this.principal = principal;
 	}
 
