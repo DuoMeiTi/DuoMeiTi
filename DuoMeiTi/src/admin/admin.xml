@@ -17,6 +17,11 @@
 				/jsp/admin/users_request.jsp
 			</result>
 		</action>
+		<action name="user_info">
+			<result>
+				/jsp/admin/usrinf.jsp
+			</result>
+		</action>
 		<action name="repertory" class="admin.RepertoryAction">
 			<result name="success">
 				/jsp/admin/repertory.jsp
@@ -75,10 +80,19 @@
 				</param>
 			</result>
 		</action>
-		
 		<action name="checkrecord_save" class="admin.CheckRecordAction" method="checkrecordsave">
 			<result type="json">
 				<param name="includeProperties">savestatus</param>
+			</result>
+		</action>
+		<action name="queryStuNameByStuId" class="admin.ClassroomManageAction" method="queryStuNameByStuId">
+			<result type="json">
+				<param name="includeProperties">queryResult</param>
+			</result>
+		</action>
+		<action name="addClassroom" class="admin.ClassroomManageAction" method="addClassroom">
+			<result type="json">
+				<param name="includeProperties">add_status</param>
 			</result>
 		</action>
 	</package>

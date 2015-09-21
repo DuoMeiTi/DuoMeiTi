@@ -3,7 +3,7 @@
 <layout:override name="main_content">
 	<div class="mycontent">
 
-		<div><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#rtModal" id="rtInsert">添加设备信息</button></div>
+		<div><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#rtModal" id="rtInsert" name="rtInsert">添加设备信息</button></div>
 		<div class="modal fade" id="rtModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -22,7 +22,7 @@
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-default">设备类型</button>
 									</span>
-									<select class="form-control" name="rtType" placeholder="请选择" value="<s:property value="rtType"/>">
+									<select class="form-control" name="rtType" id="rtType" placeholder="请选择" value="<s:property value="rtType"/>">
 										<option value="" selected="selected"></option>
 										<option value="中控">中控</option>
 										<option value="功放">功放</option>
@@ -43,6 +43,27 @@
 										<button type="button" class="btn btn-default">资产编号</button>
 									</span>
 									<input type="text" class="form-control" name="rtNumber" value="<s:property value="rtNumber"/>">
+								</div>
+								<div id="alert-bar" style="color: red"></div>
+							</div>
+							</div>
+							
+							<div class="row">
+							<div class="col-lg-6">
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default">型号</button>
+									</span>
+									<input type="text" class="form-control" name="rtVersion" value="<s:property value="rtVersion"/>">
+								</div>
+								<div id="alert-bar" style="color: red"></div>
+							</div>
+							<div class="col-lg-6">
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default">出厂号</button>
+									</span>
+									<input type="text" class="form-control" name="rtFactorynum" value="<s:property value="rtFactorynum"/>">
 								</div>
 								<div id="alert-bar" style="color: red"></div>
 							</div>
@@ -71,8 +92,15 @@
 			</ul>
 		</div> -->
 		<div class="form-group">
-			<form id="repertory_search" method="post">
-				<input type="text" class="" name="device" id="" placeholder="设备">
+			<form id="repertory_search" name="repertory_search" method="post">
+				<div class="col-lg-3">
+					<select class="form-control" name="rtDevice" id="rtDevice">
+						<option value="">全部设备</option>
+						<option value="main">主要设备</option>
+						<option value="cost">耗材设备</option>
+					</select>
+				</div>
+				<input type="text" class="" name="rtMainDevice" id="rtMainDevice" placeholder="设备">
 				<button type="button" class="btn btn-success" id="rtSearch">查询</button>
 			</form>
 		</div>
@@ -81,6 +109,8 @@
 			<tr class="active">
 				<th>设备类型</th>
 				<th>资产编号</th>
+				<th>型号</th>
+				<th>出厂号</th>
 					<!-- <th>型号</th>
 					<th>出厂日期</th>
 					<th>审批日期</th>
@@ -95,6 +125,8 @@
 				<tr class="success" rt_id="<s:property value="#i.rtId"/>">
 					<td> <s:property value="#i.rtType"/> </td>
 					<td> <s:property value="#i.rtNumber"/> </td>
+					<td> <s:property value="#i.rtVersion"/> </td>
+					<td> <s:property value="#i.rtFactorynum"/> </td>
 					<td> <button type="button" class="btn btn-danger delete" >删除</button> </td>
 				</tr>
 			</s:iterator>
@@ -104,50 +136,19 @@
 		
 		
 		<script>
-		
-		$(document).on("click","#rtSearch", function(){
-			var keyword = $("#repertory_form").serialize();
-			
-			//ajax方法通过HTTP请求加载远程数据； 
-			$.ajax({
-		    	url: 'repertory_search',
-		        type: 'post',
-		        dataType: 'json',
-		        data: keyword,
-		        success: searchCallback
-		    });
-			
+		$(document).on("click","#rtInsert",function() {
+			$("[name=rtType]").val("");
+			$("[name=rtNumber]").val("");
+			$("[name=rtVersion]").val("");
+			$("[name=rtFactorynum]").val("");
 		})
-		
-		function searchCallback(data) {
-			
-		}
-		
-		var delete_rtId;
-		$(document).on("click",".delete", function(){
-			delete_rtId = $(this).parents("tr").attr("rt_id");//attr所选元素属性值 
-			$.ajax({
-				url: 'repertory_delete',
-			    type: 'post',
-			    dataType: 'json',
-			    data: {"rtId": delete_rtId,},//{"后台",""}
-				success: deleteCallback
-			});
-		})
-		
-		function deleteCallback(data){
-			if(data.status == "0"){
-				alert("删除数据不存在！ ");
-			}
-			else if(data.status == "1"){
-				alert("删除不可恢复！  ");
-				$(document).find("tr[rt_id=" + delete_rtId + "]").remove();
-			}
-		}
-		
 		$(document).on("click","#rtSave", function(){
+			if($("#rtType").val() == ""){
+				alert("输入不能为空！");
+				return ;
+			}
+			
 			var params = $("#repertory_form").serialize();//序列化表单值→ Json；
-			alert(params.rtNumber);
 			//ajax方法通过HTTP请求加载远程数据； 
 			$.ajax({
 		    	url: 'repertory_insert',
@@ -160,16 +161,14 @@
 		})
 		
 		function repertoryCallback(data){
-			
-			if(data.status == "0"){
-				alert("输入不能为空！ ");
-			}
-			else if(data.status == "1"){
+			if(data.status == "1"){
 				$("#repertory_table tr:first").after(data.add_repertory_html);
 	        	
 	        	var cnt = $(document).find("#repertory_table tr:eq(1)");
 	        	$(cnt).children().eq(0).text(data.rtType);
 	        	$(cnt).children().eq(1).text(data.rtNumber);
+	        	$(cnt).children().eq(2).text(data.rtVersion);
+	        	$(cnt).children().eq(3).text(data.rtFactorynum);
 	        	//alert(data.rtId+",  "+data.rtType+",  "+data.rtNumber);
 	        	$(cnt).attr("rt_id", data.rtId);
 	        	$('#rtModal').modal('hide');
@@ -178,7 +177,78 @@
 			}
 		}
 		
+		var delete_rtId;
+		$(document).on("click",".delete", function(){
+			var temp = confirm("删除不可恢复！");
+			if(temp == true) {
+				delete_rtId = $(this).parents("tr").attr("rt_id");//attr所选元素属性值 
+				$.ajax({
+					url: 'repertory_delete',
+				    type: 'post',
+				    dataType: 'json',
+				    data: {"rtId": delete_rtId,},//{"后台",""}
+					success: deleteCallback
+				});
+			}
+		})
+		
+		function deleteCallback(data)
+		{
+			if(data.status == "0")
+			{
+				alert("删除数据不存在！ ");
+			}
+			else if(data.status == "1")
+			{
+				$(document).find("tr[rt_id=" + delete_rtId + "]").remove();
+			}
+		}
+		
+		$(document).on("click","#rtSearch", function()
+		{
+			//alert($("#rtDevice option:selected").attr("value"));
+			if($("#rtDevice option:selected").attr("value") == ""){
+				return;
+			}
+			var keyword = $("#repertory_search").serialize();
+			$.ajax({
+			    url: 'repertory_search',
+			    type: 'post',
+			    dataType: 'json',
+			    data: keyword,
+			    success: searchCallback
+			});
+		})
+		
+		function searchCallback(data) {
+			if(data.status == "1"){
+				$("#repertory_table tr:not(:first)").remove();
+				//$("#repertory_table tr:first").after(data.add_repertory_html);
+				var everylist = data.rtSearch_list;
+				$(everylist).each(function(i) {
+					$("#repertory_table").append(data.add_repertory_html);
+					var row = $(document).find("#repertory_table tr:eq("+ (i + 1) +")");
+					//alert(everylist[i].rtType + "," + everylist[i].rtVersion);
+		        	$(row).find("td:eq(0)").text(everylist[i].rtType);
+		        	$(row).find("td:eq(1)").text(everylist[i].rtNumber);
+		        	$(row).find("td:eq(2)").text(everylist[i].rtVersion);
+		        	$(row).find("td:eq(3)").text(everylist[i].rtFactorynum);
+		        	$(row).attr("rt_id", everylist[i].rtId);
+				})
+				
+			}else if(data.status == "0") {
+				$("#repertory_table tr:not(:first)").remove();
+				$("#repertory_table tr:first").after("无查询结果");
+			}
+		}
+		
+		/* $("#repertory_table tr:not(:first)").dblclick(alert("Hello!")) */
+		
+		
+		
+		
 		</script>
+		<s:debug></s:debug>
 	</div>
 </layout:override>
 

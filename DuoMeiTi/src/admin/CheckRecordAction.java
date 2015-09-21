@@ -27,6 +27,7 @@ public class CheckRecordAction extends ActionSupport {
 			Criteria stu_criteria = session.createCriteria(StudentProfile.class);
 			stu_criteria.add(Restrictions.eq("user.id", user_id));
 			StudentProfile stu = (StudentProfile) stu_criteria.uniqueResult();
+//System.out.println(stu.getUser().getUsername());
 			
 			Date checkdate = new Date(new java.util.Date().getTime());
 			

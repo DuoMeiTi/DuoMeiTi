@@ -24,14 +24,14 @@
 	  <div class="form-group">
 
 			<label class="radio-inline">
-			  <input type="radio" name="role" value="AdminRole" checked> 系统管理员
+			  <input type="radio" name="role" value="<s:property value="AdminRole"/>" checked> 系统管理员
 			</label>
 			
 			<label class="radio-inline">
-			  <input type="radio" name="role" value="StudentRole" > 在职学生
+			  <input type="radio" name="role" value="<s:property value="StudentRole"/>" > 在职学生
 			</label>
 			<label class="radio-inline">
-			  <input type="radio" name="role" value="TeacherRole" > 授课教师
+			  <input type="radio" name="role" value="<s:property value="TeacherRole"/>" > 授课教师
 			  
 			</label>
 

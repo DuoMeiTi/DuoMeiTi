@@ -14,7 +14,7 @@ public class RepairRecord {
 		
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn
-	public StudentProfile repairman;
+	public User repairman;
 	
 	@Column(length=100)
 	public String repairdetail;
@@ -54,11 +54,11 @@ public class RepairRecord {
 		this.device = device;
 	}
 
-	public StudentProfile getRepairman() {
+	public User getRepairman() {
 		return repairman;
 	}
 
-	public void setRepairman(StudentProfile repairman) {
+	public void setRepairman(User repairman) {
 		this.repairman = repairman;
 	}
 

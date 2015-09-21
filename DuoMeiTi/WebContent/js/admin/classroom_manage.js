@@ -55,9 +55,9 @@ function ClassroomSearchCallback(data) {
 			row = $(table).find("tr:eq(" + (i + 1) + ")");
 			$(row).find("td:eq(0)").text(classrooms[i].classroom_num);
 			$(row).find("td:eq(1)").text(classrooms[i].repertorys);
-			$(row).find("td:eq(2)").text(classrooms[i].capacity);
-			$(row).find("td:eq(3)").text(classrooms[i].principal);
-			$(row).find("td:eq(4)").children().eq(0).attr("href", "classroom_detail?classroom_id=" + classrooms[i].id +"&classroom_num=" +classrooms[i].classroom_num);
+//			$(row).find("td:eq(2)").text(classrooms[i].capacity);
+			$(row).find("td:eq(2)").text(classrooms[i].principal);
+			$(row).find("td:eq(3)").children().eq(0).attr("href", "classroom_detail?classroom_id=" + classrooms[i].id +"&classroom_num=" +classrooms[i].classroom_num);
 		});
 	} else if (data.status == "1") {
 		animatedShow("查询关键字为空");
@@ -87,6 +87,120 @@ function queryAll() {
 	});
 }
 
+
+function disable_add_btn() {
+	$("#add_classroom_btn").attr("disabled", "disabled");
+}
+
+
+
+function query_stu_name() {
+	$('#classroom-modal').modal({
+		backdrop: 'static', 
+		keyboard: false
+ 	});
+	var input_principal_student_id = $("#input_principal_student_id").val();
+	if(input_principal_student_id == "" || !/^\d+$/.test(input_principal_student_id)) {
+		$("#input_principal_student_name").text("请输入数字!");
+		return;
+	}
+	
+	$.ajax({
+		url : '/admin/classroom_json/queryStuNameByStuId',
+		type : 'post',
+		dataType : 'json',
+		data : {
+			"stuId" : input_principal_student_id
+		},
+		success : queryStuNameCallback
+	});
+}
+function queryStuNameCallback(data) {
+	if(data.queryResult==null || data.queryResult == "") {
+		$("#input_principal_student_name").text("无此学号!");
+		$("#add_classroom_btn").attr("disabled", "disabled");
+	}
+	else {
+		$("#input_principal_student_name").text(data.queryResult);
+		$("#add_classroom_btn").removeAttr("disabled");
+	}
+}
+
+
+
+
+
+function classroom_submit() {
+	var submit_type = $("#submit_type").attr("value");
+//	alert(submit_type);
+	var stuId = $("#input_principal_student_id").val();
+	var classroom_num = $("#input_classroom_num").val();
+		
+	Request = GetRequest();
+	var build_id = Request['build_id'];
+//	alert(stuId + " " +classroom_num + " " + build_id);
+	$.ajax({
+		url : '/admin/classroom_json/addClassroom',
+		type : 'post',
+		dataType : 'json',
+		data : {
+			"stuId" : stuId,
+			"add_classroom_num" : classroom_num,
+			"build_id" : build_id,
+			"submit_type" : submit_type
+		},
+		success : addClassroomCallback
+	});
+}
+function addClassroomCallback(data) {
+	if(data.add_status == "exist") {
+		$("#exist").text("教室号已存在");
+	}
+	else if(data.add_status == "ok") {
+		$('#classroom-modal').modal('hide');
+		window.location.href=window.location.href;  
+		window.location.reload;
+	}
+}
+
+function dismiss() {
+	$('#classroom-modal').on('hidden.bs.modal', function (e) {
+		$("#exist").text("");
+	});
+}
+
+function add_classroom() {
+	$("#input_principal_student_id").val("");
+	$("#input_principal_student_name").text("");
+	$("#input_classroom_num").val("");
+	
+	$("#submit_type").attr("value", "add");
+	$("#add_classroom_btn").text("确定添加");
+	$('#classroom-modal').modal('show');
+	
+	dismiss();
+}
+
+function edit_classroom(index) {
+	var select_classroom_num = $("#classroom_search_table").find("tr:eq(" + (index + 1) + ") td:eq(0)").text();
+	var select_stu_td = $("#classroom_search_table").find("tr:eq(" + (index + 1) + ") td:eq(2)");
+	var select_studId = $(select_stu_td).attr("studId");
+	var select_stuName = $(select_stu_td).text();
+//	alert(select_classroom_num +" "+select_studId+" "+select_stuName);
+	
+	select_classroom_num = select_classroom_num.trim();
+	select_studId = select_studId.trim();
+	
+	$("#input_principal_student_id").val(select_studId);
+	$("#input_principal_student_name").text(select_stuName);
+	$("#input_classroom_num").val(select_classroom_num);
+	
+	$("#submit_type").attr("value", "update");
+	$("#add_classroom_btn").text("确定更新");
+	$('#classroom-modal').modal('show');
+	
+	dismiss();
+}
 
 
 /* function mypost(count) {

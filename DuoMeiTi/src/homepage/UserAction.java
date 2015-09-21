@@ -27,54 +27,19 @@ import util.Util;
 
 public class UserAction
 {
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public List<User> getUser_list() {
-		return user_list;
-	}
-	public void setUser_list(List<User> user_list) {
-		this.user_list = user_list;
-	}
-	public String getAdded_user_html() {
-		return added_user_html;
-	}
-	public void setAdded_user_html(String added_user_html) {
-		this.added_user_html = added_user_html;
-	}
-
-	public int getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
-
-
-
-
-	private String username;
-	private String password;
-	private String status;
-	private List<User> user_list;
-	private String added_user_html;
+	public String username;
+	public String password;
+	public String status;
+	public List<User> user_list;
+	public String added_user_html;
+	public String role;
 	
-	private int user_id;
+	public int user_id;
+	
+	public String AdminRole = util.Const.AdminRole;
+	public String StudentRole = util.Const.StudentRole;
+	public String TeacherRole = util.Const.TeacherRole;
+	
 
 
 	/*
@@ -86,35 +51,44 @@ public class UserAction
 
 	
 	
+	
 	public String login() throws Exception
 	{
+		final String login_fail = "login_fail";
 		if(ServletActionContext.getRequest().getMethod().equalsIgnoreCase("get"))
 		{
-			return ActionSupport.SUCCESS; 
+			return ActionSupport.SUCCESS;
 		}
-		
-
-		
-		
 		if(username == null || username == "")
 		{
-			return "login_fail";
+			return login_fail;
 		}
+		System.out.println("ROLE::::::::" + role);
+		System.out.println("COMPAEROLE::" + util.Const.AdminRole);
+		
+//		util.Const.AdminRole.equals(role);
+		System.out.println("UIUIUIUI");
+		if(!role.equals(util.Const.AdminRole))  return login_fail;
+		System.out.println("UIUIUIUI");
 
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username", username));
+		List ul = q.list();
+		if(ul.isEmpty())
+		{
+			session.close();
+			return login_fail;
+		}
+		User u = (User)ul.get(0);
+		q = session.createCriteria(model.AdminProfile.class).add(Restrictions.eq("user.id", u.getId()));
+		
+		if(q.list().isEmpty()) return login_fail;
+		session.close();
+		
+		if(!u.getPassword().equals(password)) return login_fail;
 		
 		ActionContext.getContext().getSession().put("username", username);
 		ActionContext.getContext().getSession().put("role", util.Const.AdminRole);
-		
-		Session session = model.Util.sessionFactory.openSession();		
-		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username", username));
-		List ul = q.list();
-		session.close();
-		
-		if(ul.isEmpty()) return "login_fail";
-		User u = (User)ul.get(0);
-		if(!u.getPassword().equals(password)) return "login_fail";
-		
-		
 		ActionContext.getContext().getSession().put("user_id", u.getId());
 		
 		
@@ -127,15 +101,28 @@ public class UserAction
 	{		
 	    ActionContext.getContext().getSession().remove("username");
 	    ActionContext.getContext().getSession().remove("role");
+	    ActionContext.getContext().getSession().remove("user_id");
 	    return ActionSupport.SUCCESS;
 	}
-	public String register() throws Exception
+	public String register()
+//			throws Exception
 	{
-		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(User.class);//把查询条件封装成一个Criteria对象
-		user_list = q.list();
-		Collections.reverse(user_list);
-		session.close();	
+		System.out.println("SDFSFSFAS");
+		try{
+			Session session = model.Util.sessionFactory.openSession();
+			System.out.println("SDFSFSFAS**1");
+			Criteria q = session.createCriteria(User.class);//把查询条件封装成一个Criteria对象
+			System.out.println("SDFSFSFAS**2");
+			user_list = q.list();
+			System.out.println("SDFSFSFAS**3");
+			Collections.reverse(user_list);
+			session.close();	
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		return "success";
 	}
 
@@ -205,4 +192,84 @@ public class UserAction
 		
 		return ActionSupport.SUCCESS;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public List<User> getUser_list() {
+		return user_list;
+	}
+	public void setUser_list(List<User> user_list) {
+		this.user_list = user_list;
+	}
+	public String getAdded_user_html() {
+		return added_user_html;
+	}
+	public void setAdded_user_html(String added_user_html) {
+		this.added_user_html = added_user_html;
+	}
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -63,7 +63,7 @@
             
             
             <result name="login_success" type="redirect">
-            	/login_success
+            	/admin/
             </result>
         </action>
         
@@ -89,6 +89,7 @@
             </result>            
         </action>
         
+
 
         <action name="admin_register" class="homepage.AdminAction" method="adminRegister">
         
