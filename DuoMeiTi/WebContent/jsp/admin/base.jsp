@@ -15,7 +15,7 @@
 	    <a href="/admin/asdf" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;远程控制</span></a>
 	    <a href="/admin/user_info" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;个人信息</span></a>
 	    <a href="/admin/232323" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;修改密码</span></a>
-	    <a href="/admin/3242134234" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;安全退出</span></a>
+	    <a href="/logout" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;安全退出</span></a>
 
 	    
 
