@@ -8,31 +8,40 @@
 
 <html lang="en">
     <head>
+    	
+    	<layout:block name="head_begin">
+    	</layout:block>
         <meta charset="utf-8"/>
         <meta name="renderer" content="webkit"/>
         <title>多媒体管理系统</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta name="keywords" content="" />
         <meta name="author" content="" />
-        <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/table.css" >		
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/base.css"/> 
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/admin/classroom_manage.css"/>
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/admin/repertory.css"/>
+		<script type='text/javascript' src="/js/base/myutil.js"></script>
+		
+		
+        <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />		
 		<link href="/datepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
         <script type='text/javascript' src="/js/base/jquery-2.1.4.min.js"></script>
         <script type='text/javascript' src="/datepicker/js/bootstrap-datetimepicker.min.js"></script>
 		<script type="text/javascript" src="/datepicker/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-		<script type='text/javascript' src="/js/base/myutil.js"></script>
-
+		
+		
+		<layout:block name="head_end">
+			
+		</layout:block>
     </head>   
 
     <body >
 		<div id="basecontent">	
-		<layout:block name="base_content">
-		
-		</layout:block>
+			<layout:block name="base_content">
+			
+			</layout:block>
     	</div>
 		<footer class="container" style="text-align:center">
 		  <p>Copyright © 1986 - 2016 All rights reserved | <a href="http://chuangxin.dlut.edu.cn">大连理工大学创新实验学院版权所有</a> | GPLv3 <a href="http://gplv3.fsf.org/">Terms</a></p>
