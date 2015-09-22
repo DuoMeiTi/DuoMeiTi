@@ -6,7 +6,6 @@
 	
 <a href="/">
     <div id="headerpic" >
-
         <ul class="nav navbar-right">
             <li id="welcome_word">
             	欢迎您: <span id="login_user_name"><s:property value="#session.username"/></span>
@@ -62,12 +61,7 @@
         	</a>
       	</h4>
     	<div id="admin-contacts" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-      		<ul class="contacts-list-group list-group">
-      			<li class="list-group-item">管理员1</li>
-      			<li class="list-group-item">管理员2</li>
-      			<li class="list-group-item">管理员3</li>
-      			<li class="list-group-item">管理员4</li>
-      		</ul>
+      		<ul class="contacts-list-group list-group"></ul>
     	</div>
 	    <h4>
 	        <a class="contacts-expand collapsed" data-toggle="collapse" href="#teacher-contacts" aria-expanded="false" aria-controls="teacher-contacts">
@@ -75,12 +69,7 @@
 	        </a>
 	    </h4>
 	    <div id="teacher-contacts" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-	      	<ul class="contacts-list-group list-group">
-	      		<li class="list-group-item">教师1</li>
-	      		<li class="list-group-item">教师2</li>
-	      		<li class="list-group-item">教师3</li>
-	      		<li class="list-group-item">教师4</li>
-	      	</ul>
+	      	<ul class="contacts-list-group list-group"></ul>
 	    </div>
 	    <h4>
 	        <a class="contacts-expand collapsed" data-toggle="collapse" href="#student-contacts" aria-expanded="false" aria-controls="student-contacts">
@@ -88,14 +77,7 @@
 	        </a>
 	    </h4>
 	    <div id="student-contacts" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-	      	<ul class="contacts-list-group list-group">
-	      		<li class="list-group-item">学生1</li>
-	      		<li class="list-group-item">学生2</li>
-	      		<li class="list-group-item">学生3</li>
-	      		<li class="list-group-item">学生4</li>
-	      		<li class="list-group-item">学生5</li>
-	      		<li class="list-group-item">学生6</li>
-	      	</ul>
+	      	<ul class="contacts-list-group list-group"></ul>
 	    </div>
 	</div>
 </div>
@@ -116,26 +98,6 @@
             <span class="triangle right"></span>
             <div class="article">我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了</div>
         </div>
-    	<div class="message clearfix">
-    		<span class="triangle right"></span>
-    		<div class="article">我发信息给你了我发信息给你了我发信息给你了我发信息给你了</div>
-    	</div>
-        <div class="message clearfix">
-            <span class="triangle right"></span>
-            <div class="article">我发信息给你了我发信息给你了我发信息给你了我发信息给你了</div>
-        </div>
-        <div class="message clearfix fr">
-            <span class="triangle"></span>
-            <div class="article">我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了</div>
-    	</div>
-    	<div class="message clearfix">
-            <span class="triangle right"></span>
-            <div class="article">我发信息给你了我发信息给你了我发信息给你了我发信息给你了</div>
-        </div>
-        <div class="message clearfix fr">
-            <span class="triangle"></span>
-            <div class="article">我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了</div>
-    	</div>
 	</div>
 	<div class="message-tool"></div>
 	<div class="message-writeboard">

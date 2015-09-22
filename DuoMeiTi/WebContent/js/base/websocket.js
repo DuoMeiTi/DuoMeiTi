@@ -2,112 +2,154 @@
  * 
  */
 
-window.onload = init;
-var socket = new WebSocket("ws://localhost:8080/websocket");
-socket.onmessage = onMessage;
 
-function onMessage(event) {
-    var device = JSON.parse(event.data);
-    if (device.action === "add") {
-        printDeviceElement(device);
-    }
-    if (device.action === "remove") {
-        document.getElementById(device.id).remove();
-        //device.parentNode.removeChild(device);
-    }
-    if (device.action === "toggle") {
-        var node = document.getElementById(device.id);
-        var statusText = node.children[2];
-        if (device.status === "On") {
-            statusText.innerHTML = "Status: " + device.status + " (<a href=\"#\" OnClick=toggleDevice(" + device.id + ")>Turn off</a>)";
-        } else if (device.status === "Off") {
-            statusText.innerHTML = "Status: " + device.status + " (<a href=\"#\" OnClick=toggleDevice(" + device.id + ")>Turn on</a>)";
-        }
-    }
+
+$("#envelope").click(function(){
+	var list_box=$("#message-list-box");
+	var content_box=$("#message-content-box");
+	var contacts_box=$("#message-contacts-box");
+	if(list_box.hasClass("hide")&&content_box.hasClass("hide")&&contacts_box.hasClass("hide")){
+		list_box.removeClass("hide");
+		start();
+	}
+	else{
+		message_contacts_box_hide();
+		message_list_box_hide();
+		message_content_box_hide();
+	}
+})
+
+$(".contacts-list-group").on("click","li",function(){
+	message_list_box_hide();
+	message_content_box_show();
+	var contentBox=$("#message-content-box");
+	contentBox.attr("iid",$(this).attr("id"));
+	$(".message-content-top .title").html($(this).html());
+});
+	
+
+
+function userlistCallback(data){
+	var adminList=data.adminList;
+	var studentList=data.studentList;
+	var adminListBox=$("#admin-contacts ul");
+	var teacherListBox=$("#teacher-contacts ul");
+	var studentListBox=$("#student-contacts ul");
+	$(adminList).each(function(i){
+		adminListBox.append('<li class="list-group-item" id="'+adminList[i].id+'">'+adminList[i].username+'</li>');
+	})
+	$(studentList).each(function(i){
+		studentListBox.append('<li class="list-group-item" id="'+studentList[i].id+'">'+studentList[i].username+'</li>');
+	})
 }
 
-function addDevice(name, type, description) {
-    var DeviceAction = {
-        action: "add",
-        name: name,
-        type: type,
-        description: description
-    };
-    socket.send(JSON.stringify(DeviceAction));
+function message_list_box_show(){
+	$("#message-list-box").removeClass("hide");
+}
+function message_list_box_hide(){
+	$("#message-list-box").addClass("hide");
+}
+function message_contacts_box_show(){
+	var box=$("#message-contacts-box");
+	if(box.hasClass("hide")){
+		box.removeClass("hide");
+		$.ajax({
+			url : '/message/userlist',
+			type : 'post',
+			dataType : 'json',
+			data : {},
+			success : userlistCallback
+		});
+	}
+}
+function message_contacts_box_hide(){
+	$("#message-contacts-box").addClass("hide");
+	$("#admin-contacts ul").html("");
+	$("#teacher-contacts ul").html("");
+	$("#student-contacts ul").html("");
+}
+function message_content_box_show(){
+	$("#message-content-box").removeClass("hide");
+}
+function message_content_box_hide(){
+	$("#message-content-box").addClass("hide");
 }
 
-function removeDevice(element) {
-    var id = element;
-    var DeviceAction = {
-        action: "remove",
-        id: id
-    };
-    socket.send(JSON.stringify(DeviceAction));
+$("#message-list-box .closed").click(function(){
+	message_list_box_hide();
+	message_contacts_box_hide();
+})
+
+$("#write-message").click(function(){
+	message_content_box_show();
+	message_list_box_hide();
+	message_contacts_box_show();
+})
+
+$("#message-content-box .closed").click(function(){
+	message_content_box_hide();
+	message_contacts_box_hide();
+})
+
+$("#message-content-box .back").click(function(){
+	message_content_box_hide();
+	message_list_box_show();
+})
+
+$("#message-contacts-box .closed").click(function(){
+	message_contacts_box_hide();
+})
+
+$(".users").click(function(){ 
+	message_contacts_box_show();
+})
+
+$(".contacts-expand").click(function(){
+	var s=$(this).children("span");
+	if(s.hasClass("glyphicon-plus")){
+		s.removeClass("glyphicon-plus");
+		s.addClass("glyphicon-minus");
+	}
+	else{
+		s.removeClass("glyphicon-minus");
+		s.addClass("glyphicon-plus");
+	}
+	
+})
+
+//////////////////////////////////////////////////////////////////
+var socket = null;
+
+function init(){
+	if("WebSocket" in window){
+		socket = new WebSocket("ws://localhost:8080/websocket");
+	}
+	else{
+		alert("该浏览器不支持WebSocket");
+	}
+	socket.onerror = function(event){
+		handleError(event);
+	}
+	socket.onopen = function(event){
+		handleOpen(event);
+	}
+	socket.onmessage = function(event){
+		handleMessage(event);
+	}
 }
 
-function toggleDevice(element) {
-    var id = element;
-    var DeviceAction = {
-        action: "toggle",
-        id: id
-    };
-    socket.send(JSON.stringify(DeviceAction));
+function handleError(event){
+	//alert(event.data);
 }
 
-function printDeviceElement(device) {
-    var content = document.getElementById("content");
-    
-    var deviceDiv = document.createElement("div");
-    deviceDiv.setAttribute("id", device.id);
-    deviceDiv.setAttribute("class", "device " + device.type);
-    content.appendChild(deviceDiv);
-
-    var deviceName = document.createElement("span");
-    deviceName.setAttribute("class", "deviceName");
-    deviceName.innerHTML = device.name;
-    deviceDiv.appendChild(deviceName);
-
-    var deviceType = document.createElement("span");
-    deviceType.innerHTML = "<b>Type:</b> " + device.type;
-    deviceDiv.appendChild(deviceType);
-
-    var deviceStatus = document.createElement("span");
-    if (device.status === "On") {
-        deviceStatus.innerHTML = "<b>Status:</b> " + device.status + " (<a href=\"#\" OnClick=toggleDevice(" + device.id + ")>Turn off</a>)";
-    } else if (device.status === "Off") {
-        deviceStatus.innerHTML = "<b>Status:</b> " + device.status + " (<a href=\"#\" OnClick=toggleDevice(" + device.id + ")>Turn on</a>)";
-        //deviceDiv.setAttribute("class", "device off");
-    }
-    deviceDiv.appendChild(deviceStatus);
-
-    var deviceDescription = document.createElement("span");
-    deviceDescription.innerHTML = "<b>Comments:</b> " + device.description;
-    deviceDiv.appendChild(deviceDescription);
-
-    var removeDevice = document.createElement("span");
-    removeDevice.setAttribute("class", "removeDevice");
-    removeDevice.innerHTML = "<a href=\"#\" OnClick=removeDevice(" + device.id + ")>Remove device</a>";
-    deviceDiv.appendChild(removeDevice);
+function handleOpen(event){
+	//alert("ok");
 }
 
-function showForm() {
-    document.getElementById("addDeviceForm").style.display = '';
+function handleMessage(event){
+	//alert(event.data);
 }
 
-function hideForm() {
-    document.getElementById("addDeviceForm").style.display = "none";
-}
-
-function formSubmit() {
-    var form = document.getElementById("addDeviceForm");
-    var name = form.elements["device_name"].value;
-    var type = form.elements["device_type"].value;
-    var description = form.elements["device_description"].value;
-    hideForm();
-    document.getElementById("addDeviceForm").reset();
-    addDevice(name, type, description);
-}
-
-function init() {
-    hideForm();
+function start(){
+	init();
 }

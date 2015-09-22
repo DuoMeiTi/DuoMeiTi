@@ -51,9 +51,6 @@
         
         
         
-        
-        
-
         <action name="login" class="homepage.UserAction" method="login">
         	<result> /jsp/homepage/login.jsp </result>
         	

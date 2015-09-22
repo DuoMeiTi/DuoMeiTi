@@ -1,23 +1,18 @@
 package Message;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/websocket")
+@ServerEndpoint(value="/websocket")
 public class WebSocketServer {
-	
-	//当前连接数
-	private static int onlineCount = 0;
-	private static Map<Integer, Integer>  connectionSet = new HashMap<Integer, Integer>(); 
-	private Session session;
 	
 	@OnOpen
 	public void onOpen(Session session){
-		this.session = session;
-		
 	}
 	
 	@OnClose

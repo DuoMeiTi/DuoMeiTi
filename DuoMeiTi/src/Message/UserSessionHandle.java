@@ -1,9 +1,14 @@
 package Message;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.websocket.Session;
+
+import com.mysql.fabric.xmlrpc.base.Array;
+
 import model.User;
 
 public class UserSessionHandle {
@@ -15,6 +20,9 @@ public class UserSessionHandle {
 	}
 	public void removeSession(Session session){
 		sessions.remove(session);
+	}
+	public List getUsers(){
+		return new ArrayList<>(users);
 	}
 	public void addUser(User u){
 		users.add(u);
