@@ -29,15 +29,10 @@ $(document).on("click", "#rtSave", function() {
 		return;
 	}
 	var params = $("#repertory_form").serialize();// 序列化表单值→ Json；
-//	alert(typeof  params);
-//	alert(params);
-//	alert(decodeURIComponent(params,true));
+
 	var fd = new FormData();
 	var cnt = $("#repertory_form");
-// 	alert($(cnt).find("#rtDevice").val());
-// 	alert($(cnt).find("[name=rtType]").val());
 
-// 	fd.append("test", "YESYESYES");
  	fd.append("rtDevice", $(cnt).find("#rtDevice").val());
  	fd.append("rtType",$(cnt).find("[name=rtType]").val());
  	fd.append("rtNumber", $(cnt).find("[name=rtNumber]").val());
@@ -45,9 +40,7 @@ $(document).on("click", "#rtSave", function() {
  	fd.append("rtFactorynum", $(cnt).find("[name=rtFactorynum]").val());
  	
  	
-// 	fd.append("rtDevice", $(cnt).find("#rtDevice").val());
-// 	fd.append("rtDevice", $(cnt).find("#rtDevice").val());
- 	
+
 
 	// ajax方法通过HTTP请求加载远程数据；
     $.ajax({  
@@ -58,17 +51,15 @@ $(document).on("click", "#rtSave", function() {
         cache: false,  
         contentType: false,  
         processData: false,  
-         success: repertoryCallback,
-//         error: function (returndata) {  
-//             alert(returndata);  
-//         }  
+        success: repertoryCallback,
+
    });  
 
 //	$.ajax({
 //		url : '/admin/repertory_insert',
 //		type : 'post',
 //		dataType : 'json',
-//		data : fd,
+//		data : params,
 //		success : repertoryCallback
 //	});
 
