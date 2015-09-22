@@ -29,18 +29,13 @@ $(document).on("click", "#rtSave", function() {
 		return;
 	}
 	var params = $("#repertory_form").serialize();// 序列化表单值→ Json；
-<<<<<<< HEAD
-	//alert(typeof  params);
-	//alert(params);
-	//alert(decodeURIComponent(params,true));
-=======
 //	alert(typeof  params);
 //	alert(params);
 //	alert(decodeURIComponent(params,true));
 	var fd = new FormData();
 	var cnt = $("#repertory_form");
- 	alert($(cnt).find("#rtDevice").val());
- 	alert($(cnt).find("[name=rtType]").val());
+// 	alert($(cnt).find("#rtDevice").val());
+// 	alert($(cnt).find("[name=rtType]").val());
 
 // 	fd.append("test", "YESYESYES");
  	fd.append("rtDevice", $(cnt).find("#rtDevice").val());
@@ -54,7 +49,6 @@ $(document).on("click", "#rtSave", function() {
 // 	fd.append("rtDevice", $(cnt).find("#rtDevice").val());
  	
 
->>>>>>> origin/master
 	// ajax方法通过HTTP请求加载远程数据；
     $.ajax({  
         url:'/admin/repertory_insert' ,  
