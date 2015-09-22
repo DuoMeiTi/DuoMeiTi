@@ -13,6 +13,7 @@
 						</button>
 						<h2 class="modal-title" id="modal-title">添加设备信息</h2>
 					</div>
+					<div class="modal-body">
 					<form class="form-inline well" id="repertory_form" method="post">
 						<div class="modal-body">
 							<div class="row">
@@ -22,6 +23,18 @@
 										<button type="button" class="btn btn-default">设备类别</button>
 									</span>
 									<s:select list="device" class="form-control" name="rtDevice" id="rtDevice"></s:select>
+								</div>
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default">资产编号</button>
+									</span>
+									<input type="text" class="form-control" name="rtNumber" value="<s:property value="rtNumber"/>">
+								</div>
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default">出厂号</button>
+									</span>
+									<input type="text" class="form-control" name="rtFactorynum" value="<s:property value="rtFactorynum"/>">
 								</div>
 							</div>
 							<div class="col-lg-6">
@@ -44,47 +57,22 @@
 									<s:select list="mainDevice" class="form-control" name="rtType" id="rtType1" style="display:none"></s:select>
 									<s:select list="costDevice" class="form-control" name="rtType" id="rtType2" style="display:none"></s:select>
 								</div>
-							</div>
-							
-							</div>
-							
-							<div class="row">
-							<div class="col-lg-6">
-								<div class="input-group">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">资产编号</button>
-									</span>
-									<input type="text" class="form-control" name="rtNumber" value="<s:property value="rtNumber"/>">
-								</div>
-							</div>
-							<div class="col-lg-6">
 								<div class="input-group">
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-default">型号</button>
 									</span>
 									<input type="text" class="form-control" name="rtVersion" value="<s:property value="rtVersion"/>">
 								</div>
-								<div id="alert-bar" style="color: red"></div>
-							</div>
 							</div>
 							
-							<div class="row">
-							<div class="col-lg-6">
-								<div class="input-group">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">出厂号</button>
-									</span>
-									<input type="text" class="form-control" name="rtFactorynum" value="<s:property value="rtFactorynum"/>">
-								</div>
 							</div>
-							</div>
-						
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="rtSave">保存</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal" id="rtClose">关闭</button>
 						</div>
 					</form>
+					</div>
+					<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="rtSave">保存</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="rtClose">关闭</button>
+					</div>
 				</div>
 				<!-- /.modal-content -->
 			</div>

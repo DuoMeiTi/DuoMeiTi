@@ -29,9 +29,9 @@ $(document).on("click", "#rtSave", function() {
 		return;
 	}
 	var params = $("#repertory_form").serialize();// 序列化表单值→ Json；
-	alert(typeof  params);
-	alert(params);
-	alert(decodeURIComponent(params,true));
+	//alert(typeof  params);
+	//alert(params);
+	//alert(decodeURIComponent(params,true));
 	// ajax方法通过HTTP请求加载远程数据；
 	$.ajax({
 		url : '/admin/repertory_insert',
@@ -153,4 +153,4 @@ function searchCallback(data) {
 	}
 }
 
-/*$(document).find("#repertory_table tr:not").dblclick()*/
+$(document).find("#repertory_table tr:not(:first)").click()

@@ -45,8 +45,8 @@ public class RepertoryAction extends ActionSupport{
 		
 		device = Const.device;
 		mainDevice = Const.mainDevice;
-		for(int i = 0; i < mainDevice.length; i++)
-			System.out.println(mainDevice[i]);
+		/*for(int i = 0; i < mainDevice.length; i++)
+			System.out.println(mainDevice[i]);*/
 		costDevice = Const.costDevice;
 		deviceStatus = Const.deviceStatus;
 		
@@ -101,18 +101,9 @@ public class RepertoryAction extends ActionSupport{
 	
 	public String insert(){
 			
-		
-		
-		System.out.println("DOUBNI::: " + rtType);
-		
-		System.out.println("DOUBNI:::++++++++++++++++++++++++++++++++++" );
 		Repertory rt = new Repertory();
 		rt.setRtDevice(rtDevice);
 		rt.setRtType(rtType);
-		System.out.println("DOUBNI::: " + rtType);
-		
-		System.out.println("DOUBNI:::++++++++++++++++++++++++++++++++++" );
-		
 		rt.setRtNumber(rtNumber);
 		rt.setRtVersion(rtVersion);
 		rt.setRtFactorynum(rtFactorynum);
@@ -122,8 +113,6 @@ public class RepertoryAction extends ActionSupport{
 		session.getTransaction().commit();
 		session.close();
 		
-		System.out.println("DOUBNI::: " + rtType);
-		System.out.println("DOUBNI:::++++++++++++++++++++++++++++++++++" );
 		this.status = "1";
 		this.rtId = rt.getRtId();
 		this.add_repertory_html = util.Util.fileToString("/jsp/admin/widgets/add_repertory.html");
