@@ -99,6 +99,10 @@
 	
 	
 	
+
+	
+	<br/>
+	
 	
 	
 <!-- <div class="jumbotron"> -->
@@ -116,15 +120,13 @@
 					<a href="<s:property value="#i.filePath"/> "> 
 						
 						<s:property value="#i.filePath.split('/')[#i.filePath.split('/').length - 1]"/>
+						<s:property value="#i.filePath."/>
 
 					</a>   
 				</td>
 
 			</tr>
-		</s:iterator>  
-		
-		
-		
+		</s:iterator> 	
 
 	</table>
 <!--   </div> -->
@@ -135,10 +137,36 @@
 	
 	
 
+<!-- <form class="form-inline"> -->
+<!--   <div class="form-group" id="one"> -->
+<!--     one -->
+<!--   </div> -->
+<!--   <div class="form-group" id ="two"> -->
+<!--     two -->
+<!--   </div>     -->
+<!-- </form> -->
+
+<!-- <button id="con" class="btn btn-primary"> doubi -->
+<!-- </button> -->
+
+<!-- <script> -->
+
+<!-- // $(document).find("#one").hide(); -->
+<!-- // $(document).find("#two").hide(); -->
+<!-- // var cnt = 0; -->
+<!-- // $(document).on("click", "#con", function(){ -->
+<!-- // 	cnt ++; -->
+<!-- // 	$(document).find("#one").hide(); -->
+<!-- // 	$(document).find("#two").hide(); -->
+<!-- // 	if(cnt % 2 == 1) $(document).find("#one").show(); -->
+<!-- // 	else $(document).find("#two").show(); -->
+	
+	
+<!-- // }) -->
+	
 
 
-
-
+<!-- </script> -->
 
 	
 	
@@ -161,4 +189,5 @@
 
 
 <%@ include file="/jsp/homepage/base.jsp" %>
+
 
