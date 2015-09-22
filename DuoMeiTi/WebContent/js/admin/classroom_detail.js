@@ -81,15 +81,17 @@ function repairrecord_save_callback(data) {
 	else if(data.savestatus == "success") {
 		var login_username = $("#login_user_name").text();
 		var type = $("#device-" + selectIndex + " .device-type-label:first").text();
+		var repairdetail = $("#repairdetail").val();
 		var today = new Date().format("yy-MM-dd");
 		var table = $("#repairrecord_table");
 		var rowcount = $(table).find("tr").length;
 //		alert(rowcount);
-		$(table).find("tr:last").after("<tr><td width=\"25%\"></td><td></td><td></td></tr>");
+		$(table).find("tr:last").after("<tr><td width=\"25%\"></td><td></td><td></td><td></td></tr>");
 		var row = $(table).find("tr:last");
 		$(row).find("td:eq(0)").text(login_username);
 		$(row).find("td:eq(1)").text(type);
-		$(row).find("td:eq(2)").text(today);
+		$(row).find("td:eq(2)").text(repairdetail);
+		$(row).find("td:eq(3)").text(today);
 		if(rowcount >= 6) {
 			$(table).find("tr:eq(1)").remove();
 //			var v = $(table).find("tr:eq(1)").find("td:eq(1)").text();
