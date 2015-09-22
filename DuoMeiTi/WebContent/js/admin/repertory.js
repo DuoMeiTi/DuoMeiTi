@@ -1,17 +1,24 @@
 $(document).on("click", "#rtInsert", function() {
 	$("[name=rtDevice]").val("");
+	$("#rtType1").hide();
+	$("#rtType2").hide();
 	$("[name=rtType]").val("");
 	$("[name=rtNumber]").val("");
 	$("[name=rtVersion]").val("");
 	$("[name=rtFactorynum]").val("");
 })
 
-$(document).find("[list=device]").change(function() {
+$(document).find("#rtDevice").change(function() {
 	var selectvalue = $("#rtDevice option:selected").attr("value");
-	if (selectvalue == "主要设备") {
-		$("[list=mainDevice]").show();
+	if(selectvalue == ""){
+		$("#rtType1").hide();
+		$("#rtType2").hide();
+	} else if (selectvalue == "主要设备") {
+		$("#rtType1").show();
+		$("#rtType2").hide();
 	} else if (selectvalue == "耗材设备") {
-		$("[list=costDevice]").show();
+		$("#rtType2").show();
+		$("#rtType1").hide();
 	}
 	
 })
@@ -22,9 +29,12 @@ $(document).on("click", "#rtSave", function() {
 		return;
 	}
 	var params = $("#repertory_form").serialize();// 序列化表单值→ Json；
+	alert(typeof  params);
+	alert(params);
+	alert(decodeURIComponent(params,true));
 	// ajax方法通过HTTP请求加载远程数据；
 	$.ajax({
-		url : 'repertory_insert',
+		url : '/admin/repertory_insert',
 		type : 'post',
 		dataType : 'json',
 		data : params,
@@ -73,15 +83,22 @@ function deleteCallback(data) {
 	}
 }
 
-$(document).find("#rtDevice").change(function() {
-	var selectvalue = $("#rtDevice option:selected").attr("value");
-	if (selectvalue == "all") {
+$(document).find("#sDevice").change(function() {
+	var selectvalue = $("#sDevice option:selected").attr("value");
+	alert("SBSBSBSBSB");
+	if (selectvalue == "") {
 		$("#main").hide();
+		$("#cost").hide();
 		selectDevice();
-	} else if (selectvalue == "main") {
+	} else if (selectvalue == "主要设备") {
+		alert("!@#$");
 		$("#main").show();
+		$("#cost").hide();
 		//alert($(document).find("#rtMainDevice").html());
-		$(document).find("#rtMainDevice option:first").attr("selected","selected");
+		$(document).find("#sMainDevice option:first").attr("selected","selected");
+	} else if(selectvalue == "耗材设备") {
+		$("#main").hide();
+		$("#cost").show();	
 	}
 	
 })
@@ -91,6 +108,7 @@ $(document).find("#rtMainDevice").change(function() {
 })
 function selectDevice() {
 	var keyword = $("#repertory_search").serialize();
+	//alert(keyword);
 	$.ajax({
 		url : 'repertory_search',
 		type : 'post',

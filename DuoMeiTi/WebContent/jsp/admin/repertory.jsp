@@ -19,7 +19,7 @@
 							<div class="col-lg-6">
 								<div class="input-group">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">设备信息</button>
+										<button type="button" class="btn btn-default">设备类别</button>
 									</span>
 									<s:select list="device" class="form-control" name="rtDevice" id="rtDevice"></s:select>
 								</div>
@@ -27,7 +27,7 @@
 							<div class="col-lg-6">
 								<div class="input-group">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">设备类型</button>
+										<button type="button" class="btn btn-default">设备名称</button>
 									</span>
 									<%-- <select class="form-control" name="rtType" id="rtType" placeholder="请选择" value="<s:property value="rtType"/>">
 										<option value="" selected="selected"></option>
@@ -41,8 +41,8 @@
 										<option value="麦克">麦克</option>
 										<option value="数字处理器">数字处理器</option>
 									</select> --%>
-									<s:select list="mainDevice" class="form-control" name="rtType" id="rtType" style="display:none"></s:select>
-									<s:select list="costDevice" class="form-control" name="rtType" id="rtType" style="display:none"></s:select>
+									<s:select list="mainDevice" class="form-control" name="rtType" id="rtType1" style="display:none"></s:select>
+									<s:select list="costDevice" class="form-control" name="rtType" id="rtType2" style="display:none"></s:select>
 								</div>
 							</div>
 							
@@ -97,18 +97,17 @@
 		<form class="form-inline" id="repertory_search" name="repertory_search" method="post">
 			
 			<div class="form-group">
-				<label for="rtDevice">设备信息</label>
-				<select class="form-control" name="rtDevice" id="rtDevice">
-					<option value="all">全部设备</option>
-					<option value="main">主要设备</option>
-					<option value="cost">耗材设备</option>
-				</select>
-				<%-- <s:select list="Device" class="form-control" name="rtDevice" id="rtDevice"></s:select> --%>
+				<label for="sDevice">设备类别</label>
+				<s:select list="Device" class="form-control" name="sDevice" id="sDevice"></s:select>
 			</div>
 			<!-- <input type="text" class="" name="rtMainDevice" id="rtMainDevice" placeholder="设备"> -->
 			<div class="form-group" style="display:none" id="main">
-				<label for="rtMainDevice">设备类型</label>
-				<s:select list="mainDevice" class="form-control" name="rtMainDevice" id="rtMainDevice"></s:select>
+				<label for="sMainDevice">设备名称</label>
+				<s:select list="mainDevice" class="form-control" name="sMainDevice" id="sMainDevice"></s:select>
+			</div>
+			<div class="form-group" style="display:none" id="cost">
+				<label for="sCostDevice">设备名称</label>
+				<s:select list="costDevice" class="form-control" name="sCostDevice" id="sCostDevice"></s:select>
 			</div>
 		</form>
 		<br/>
@@ -145,7 +144,6 @@
 		
 		<script type='text/javascript' src="/js/admin/repertory.js"></script>
 		
-		<s:debug></s:debug>
 	</div>
 </layout:override>
 
