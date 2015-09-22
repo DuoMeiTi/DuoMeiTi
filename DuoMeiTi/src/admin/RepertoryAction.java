@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -31,7 +32,7 @@ public class RepertoryAction extends ActionSupport{
 	//search tag's name
 	private String sDevice;
 	private String sMainDevice;
-	private String sCoseDevice;
+	private String sCostDevice;
 	private List<Repertory> rtSearch_list;
 	
 	//tag select func
@@ -65,7 +66,7 @@ public class RepertoryAction extends ActionSupport{
 				1: keyword select*/
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c = session.createCriteria(Repertory.class);
-		
+		//System.out.println(sDevice + "," + sMainDevice + "," + sCostDevice);
 		if(sDevice.equals("")) {
 			
 		}else {
@@ -77,10 +78,10 @@ public class RepertoryAction extends ActionSupport{
 					c.add(Restrictions.eq("rtType", this.sMainDevice));
 				}
 			}else if(sDevice.equals("耗材设备")) {
-				if(sCoseDevice.equals("")) {
+				if(sCostDevice.equals("")) {
 					
 				}else {
-					c.add(Restrictions.eq("rtType", this.sCoseDevice));
+					c.add(Restrictions.eq("rtType", this.sCostDevice));
 				}
 			}
 		}
@@ -96,6 +97,53 @@ public class RepertoryAction extends ActionSupport{
 		}
 		session.close();
 		
+		return SUCCESS;
+	}
+	
+	public String update(){
+		System.out.println(rtId + "," + rtDevice + "," + rtType);
+		
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria c = session.createCriteria(Repertory.class).setFetchMode("classroom", FetchMode.SELECT).add(Restrictions.eq("rtId", rtId));//eq("字段名","变量名")Integer.parseInt
+//		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		Repertory rt = (Repertory) c.uniqueResult();
+//System.out.println(rtDevice + " " + rtType + " " + rtNumber + " " + rtVersion + " " + rtFactorynum);
+System.out.println("id:" + rtId);
+		rt.setRtDevice(rtDevice);
+System.out.println("===============1");
+		rt.setRtType(rtType);
+System.out.println("===============2");
+		rt.setRtNumber(rtNumber);
+System.out.println("===============3");
+		rt.setRtVersion(rtVersion);
+System.out.println("===============4");
+		rt.setRtFactorynum(rtFactorynum);
+System.out.println("begin update");
+		
+		session.beginTransaction();
+		session.update(rt);
+		session.getTransaction().commit();
+		session.close();
+		System.out.println(rtDevice + ",+++" + rtType);
+		this.status = "1";
+		return SUCCESS;
+	}
+	
+	public String fetch(){
+		Session session = model.Util.sessionFactory.openSession();
+		System.out.println(rtId);
+		Criteria c = session.createCriteria(Repertory.class).add(Restrictions.eq("rtId", rtId));//eq("字段名","变量名")Integer.parseInt
+		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		rtSearch_list = c.list();
+		System.out.println(rtSearch_list);
+		if(rtSearch_list.isEmpty()){
+			this.status = "0";//error;
+		}else{
+			Collections.reverse(rtSearch_list);
+			this.status = "1";//ok
+		}
+		session.close();
 		return SUCCESS;
 	}
 	
@@ -217,28 +265,28 @@ public class RepertoryAction extends ActionSupport{
 		this.rtDevice = rtDevice;
 	}
 
-	public String getsDevice() {
+	public String getSDevice() {
 		return sDevice;
 	}
 
-	public void setsDevice(String sDevice) {
+	public void setSDevice(String sDevice) {
 		this.sDevice = sDevice;
 	}
 
-	public String getsMainDevice() {
+	public String getSMainDevice() {
 		return sMainDevice;
 	}
 
-	public void setsMainDevice(String sMainDevice) {
+	public void setSMainDevice(String sMainDevice) {
 		this.sMainDevice = sMainDevice;
 	}
 
-	public String getsCoseDevice() {
-		return sCoseDevice;
+	public String getSCostDevice() {
+		return sCostDevice;
 	}
 
-	public void setsCoseDevice(String sCoseDevice) {
-		this.sCoseDevice = sCoseDevice;
+	public void setSCostDevice(String sCostDevice) {
+		this.sCostDevice = sCostDevice;
 	}
 
 	public List<Repertory> getRtSearch_list() {

@@ -72,6 +72,7 @@ public class Repertory {
 	}
 
 	public void setRtDevice(String rtDevice) {
+System.out.println("set");
 		this.rtDevice = rtDevice;
 	}
 
