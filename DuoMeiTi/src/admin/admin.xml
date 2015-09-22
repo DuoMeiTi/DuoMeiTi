@@ -91,6 +91,11 @@
 				<param name="includeProperties">savestatus</param>
 			</result>
 		</action>
+		<action name="repairrecord_save" class="admin.RepairRecordAction" method="repairrecordsave">
+			<result type="json">
+				<param name="includeProperties">savestatus</param>
+			</result>
+		</action>
 		<action name="queryStuNameByStuId" class="admin.ClassroomManageAction" method="queryStuNameByStuId">
 			<result type="json">
 				<param name="includeProperties">queryResult</param>
