@@ -8,6 +8,18 @@
 
     <package name="homepage" namespace="/" extends="HomepageDefault">
     	
+    	<action name="home2">
+    		<result> /jsp/homepage/home2.jsp</result>
+    	</action>
+    	
+    	<action name="new_home">
+    		<result> /jsp/homepage/new_home.jsp</result>
+    	</action>
+    	
+    
+    	<action name="" class="homepage.HomeAction">
+        	<result>/jsp/homepage/home.jsp</result>
+        </action>
         
         <action name="file_upload" class="homepage.FileUploadAction">
         	<result>/jsp/homepage/file_upload.jsp</result>
@@ -60,7 +72,7 @@
             
             
             <result name="login_success" type="redirect">
-            	/login_success
+            	/admin/
             </result>
         </action>
         
@@ -101,13 +113,17 @@
 <!-- 				<param name="excludeProperties"> user_list</param> -->
             </result>            
         </action>
-        <!-- 验证用户名是否注册过了  not OK-->
+       <!--  验证用户名是否注册过了  not OK
         <action name="user_verification" class="homepage.AdminAction" method="userVerification">
             <result name="success" type="json">
             	<param name="includeProperties">register_status</param>           
-<!-- 				<param name="excludeProperties"> user_list</param> -->
+				<param name="excludeProperties"> user_list</param>
             </result>            
-        </action>
+        </action> -->
+
+
+
+
 
     </package>
     

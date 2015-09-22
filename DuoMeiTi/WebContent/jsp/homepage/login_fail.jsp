@@ -12,6 +12,8 @@
 
 <br/><br/>
 
+<a class="btn btn-danger" href="/login">继续登录</a>
+
 
 	
 	

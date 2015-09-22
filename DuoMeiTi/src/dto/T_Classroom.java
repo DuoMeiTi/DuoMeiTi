@@ -7,8 +7,26 @@ public class T_Classroom {
 	
 //	public int capacity;
 	
-	public String principal;
+	public String principal_name;
 	
+	public String principal_stuId;
+	
+	public String getPrincipal_name() {
+		return principal_name;
+	}
+
+	public void setPrincipal_name(String principal_name) {
+		this.principal_name = principal_name;
+	}
+
+	public String getPrincipal_stuId() {
+		return principal_stuId;
+	}
+
+	public void setPrincipal_stuId(String principal_stuId) {
+		this.principal_stuId = principal_stuId;
+	}
+
 	public String repertorys;
 
 	public int getId() {
@@ -35,13 +53,7 @@ public class T_Classroom {
 //		this.capacity = capacity;
 //	}
 
-	public String getPrincipal() {
-		return principal;
-	}
-
-	public void setPrincipal(String principal) {
-		this.principal = principal;
-	}
+	
 
 	public String getRepertorys() {
 		return repertorys;

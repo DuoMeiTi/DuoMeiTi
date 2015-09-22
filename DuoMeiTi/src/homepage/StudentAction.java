@@ -216,6 +216,7 @@ public class StudentAction {
 			stupro.setSex(sex);
 			stupro.setStudentId(studentId);
 			stupro.setCollege(college);
+			stupro.setFullName(fullName);
 			
 			session.beginTransaction();
 			session.save(stupro);

@@ -11,12 +11,12 @@
 	
 	  <div class="form-group">
 	    <label for="username">用户名</label>	    
-	    <input style="width:40%" type="text" class="form-control" name="username" value="<s:property value="username"/>" placeholder="">
+	    <input style="width:30%" type="text" class="form-control" name="username" value="<s:property value="username"/>" placeholder="">
 	  </div>	  
 	  
 	  <div class="form-group">
 	    <label for="password">密码</label>
-	    <input style="width:40%" type="password" class="form-control" name="password" value="<s:property value="password"/>" placeholder="">
+	    <input style="width:30%" type="password" class="form-control" name="password" value="<s:property value="password"/>" placeholder="">
 	  </div>
 	  
 	  
@@ -24,14 +24,14 @@
 	  <div class="form-group">
 
 			<label class="radio-inline">
-			  <input type="radio" name="role" value="AdminRole" checked> 系统管理员
+			  <input type="radio" name="role" value="<s:property value="AdminRole"/>" checked> 系统管理员
 			</label>
 			
 			<label class="radio-inline">
-			  <input type="radio" name="role" value="StudentRole" > 在职学生
+			  <input type="radio" name="role" value="<s:property value="StudentRole"/>" > 在职学生
 			</label>
 			<label class="radio-inline">
-			  <input type="radio" name="role" value="TeacherRole" > 授课教师
+			  <input type="radio" name="role" value="<s:property value="TeacherRole"/>" > 授课教师
 			  
 			</label>
 

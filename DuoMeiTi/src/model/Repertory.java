@@ -20,6 +20,9 @@ public class Repertory {
 	@Column(length=200)
 	public String rtFactorynum;
 	
+	@Column(length=200)
+	public String rtDevice;
+	
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn
 	public Classroom classroom;
@@ -62,6 +65,14 @@ public class Repertory {
 
 	public void setRtFactorynum(String rtFactorynum) {
 		this.rtFactorynum = rtFactorynum;
+	}
+	
+	public String getRtDevice() {
+		return rtDevice;
+	}
+
+	public void setRtDevice(String rtDevice) {
+		this.rtDevice = rtDevice;
 	}
 
 	public Classroom getClassroom() {
