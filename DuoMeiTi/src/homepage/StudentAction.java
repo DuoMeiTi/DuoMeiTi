@@ -261,11 +261,11 @@ public class StudentAction {
 			stupro.setIdCard(idCard);
 			stupro.setBankCard(bankCard);
 			stupro.setEntryTime(entryTime);
-			stupro.setPhoneNumber(phoneNumber);
-			stupro.setSex(sex);
+			um.setPhoneNumber(phoneNumber);
+			um.setSex(sex);
 			stupro.setStudentId(studentId);
 			stupro.setCollege(college);
-			stupro.setFullName(fullName);
+			um.setFullName(fullName);
 			
 			session.beginTransaction();
 			session.save(stupro);
