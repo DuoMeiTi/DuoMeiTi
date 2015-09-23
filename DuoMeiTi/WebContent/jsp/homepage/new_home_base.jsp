@@ -45,12 +45,13 @@
 <style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
 
   <body>
-    <div class="container" id="nav-container">
-<!--        <br/> -->
-	       <a href="/">
-				<div id="headerpic" style="height:40px;">
+  <a href="/">
+				<div id="headerpic" style="height:80px;">
 				</div>
 			</a>
+    <div class="container" id="nav-container">
+<!--        <br/> -->
+	       
 	       
        <!--head content-->
        <div class="masthead">
@@ -64,22 +65,25 @@
 			       <div class="collapse navbar-collapse">
 			         <ul class="nav navbar-nav">
 			           <li class=""><a href="/">首页</a></li>
+			           <li class=""><a href="">教室视频</a></li>
+			           <li class=""><a href="">通讯录</a></li>
+			           <li class=""><a href="">常见问题</a></li>
 			           
 			           
+			           
+			           <li class=""><a href="/login">登录</a></li>
 			           <li class="dropdown">
-			             <a href="#" class="dropdown-toggle" data-toggle="dropdown">登录入口
+			             <a href="#" class="dropdown-toggle" data-toggle="dropdown">注册
 			               <b class="caret"></b>
 			             </a>
 			             <ul class="dropdown-menu home_menu" role="menu">
-			               <li><a href="/accounts/adminlogin">管理员</a></li>
-			               <li><a href="/accounts/collegelogin">学院秘书</a></li>
-			               <li><a href="/accounts/expertlogin">专家</a></li>
-			               <li><a href="/accounts/teacherlogin">教师</a></li>
+			               <li><a href="/admin_register">系统管理员</a></li>
+			               <li><a href="/student_register">在职学生</a></li>
+			               <li><a href="/accounts/expertlogin">授课教师</a></li>			               
 			             </ul>
 			           </li>
 			           
-			           <li class=""><a href="">平台指南</a></li>
-			           <li class=""><a href="/home/news/news_cate=documents">资料下载 </a> </li>
+			           
 			         </ul>
 			       </div>
 			     </nav>
@@ -91,27 +95,27 @@
     
    <!--different page content-->
    
-<div class="homepage-picture">
-  <div id="myCarousel" class="carousel slide" style="width:100%; height:300px">
-  <div class="carousel-inner" style="height:100%">
+<!-- <div class="homepage-picture"> -->
+<!--   <div id="myCarousel" class="carousel slide" style="width:100%; height:300px"> -->
+<!--   <div class="carousel-inner" style="height:100%"> -->
     
-      <div class="item  active ">
-        <img src="/new_homepage/homepage_pic/2.jpg" alt="">
-        <div class="carousel-caption">
-        </div>
-      </div>
+<!--       <div class="item  active "> -->
+<!--         <img src="/new_homepage/homepage_pic/2.jpg" alt=""> -->
+<!--         <div class="carousel-caption"> -->
+<!--         </div> -->
+<!--       </div> -->
     
-  </div>
-  <div class="left my-carousel-control">
-    <a class="" href="/#myCarousel" data-slide="prev">‹</a>
-  </div>
-  <div class="right my-carousel-control">
-    <a class="" href="/#myCarousel" data-slide="next">›</a>
-  </div>
-</div>
-<!-- /.carousel -->
+<!--   </div> -->
+<!--   <div class="left my-carousel-control"> -->
+<!--     <a class="" href="/#myCarousel" data-slide="prev">‹</a> -->
+<!--   </div> -->
+<!--   <div class="right my-carousel-control"> -->
+<!--     <a class="" href="/#myCarousel" data-slide="next">›</a> -->
+<!--   </div> -->
+<!-- </div> -->
+<!-- <!-- /.carousel --> -->
 
-</div>
+<!-- </div> -->
 
 <div class="container home-content-container">
      

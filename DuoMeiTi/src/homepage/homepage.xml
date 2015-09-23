@@ -15,11 +15,17 @@
     	<action name="new_home">
     		<result> /jsp/homepage/new_home.jsp</result>
     	</action>
-    	
-    
-    	<action name="" class="homepage.HomeAction">
+      	<action name="old_home" >
         	<result>/jsp/homepage/home.jsp</result>
         </action>
+    	
+       	<action name="" >
+        	<result>/jsp/homepage/new_home.jsp</result>
+        </action>
+    
+<!--     	<action name="" class="homepage.HomeAction"> -->
+<!--         	<result>/jsp/homepage/home.jsp</result> -->
+<!--         </action> -->
         
         <action name="file_upload" class="homepage.FileUploadAction">
         	<result>/jsp/homepage/file_upload.jsp</result>
