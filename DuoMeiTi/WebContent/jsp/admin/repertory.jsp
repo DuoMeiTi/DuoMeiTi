@@ -20,7 +20,7 @@
 							<div class="col-lg-6">
 								<div class="input-group">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">设备类别</button>
+										<button type="button" class="btn btn-default">设备类别<span style="color:red">*</span></button>
 									</span>
 									<s:select list="device" class="form-control" name="rtDevice" id="rtDevice"></s:select>
 								</div>
@@ -28,19 +28,19 @@
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-default">资产编号</button>
 									</span>
-									<input type="text" class="form-control" name="rtNumber" value="<s:property value="rtNumber"/>">
+									<input type="text" class="form-control" name="rtNumber" id="rtNumber" value="<s:property value="rtNumber"/>">
 								</div>
 								<div class="input-group">
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-default">出厂号</button>
 									</span>
-									<input type="text" class="form-control" name="rtFactorynum" value="<s:property value="rtFactorynum"/>">
+									<input type="text" class="form-control" name="rtFactorynum" id="rtFactorynum" value="<s:property value="rtFactorynum"/>">
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="input-group">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">设备名称</button>
+										<button type="button" class="btn btn-default">设备名称<span style="color:red">*</span></button>
 									</span>
 									<%-- <select class="form-control" name="rtType" id="rtType" placeholder="请选择" value="<s:property value="rtType"/>">
 										<option value="" selected="selected"></option>
@@ -61,7 +61,7 @@
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-default">型号</button>
 									</span>
-									<input type="text" class="form-control" name="rtVersion" value="<s:property value="rtVersion"/>">
+									<input type="text" class="form-control" name="rtVersion" id="rtVersion" value="<s:property value="rtVersion"/>">
 								</div>
 							</div>
 							
@@ -70,7 +70,7 @@
 					</form>
 					</div>
 					<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="rtSave">保存</button>
+							<button type="button" class="btn btn-primary" id="rtSave" mark="">保存</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal" id="rtClose">关闭</button>
 					</div>
 				</div>
@@ -97,6 +97,11 @@
 				<label for="sCostDevice">设备名称</label>
 				<s:select list="costDevice" class="form-control" name="sCostDevice" id="sCostDevice"></s:select>
 			</div>
+			
+			<div class="form-group">
+				<label for="sStatus">使用状态(暂时不可用)</label>
+				<s:select list="deviceStatus" class="form-control" name="sStatus" id="sStatus"></s:select>
+			</div>
 		</form>
 		<br/>
 
@@ -117,11 +122,11 @@
 			</tr>
 			
 			<s:iterator value="repertory_list" var="i" status="index">
-				<tr class="success" rt_id="<s:property value="#i.rtId"/>">
-					<td> <s:property value="#i.rtType"/> </td>
-					<td> <s:property value="#i.rtNumber"/> </td>
-					<td> <s:property value="#i.rtVersion"/> </td>
-					<td> <s:property value="#i.rtFactorynum"/> </td>
+				<tr class="success" rt_id="<s:property value="#i.rtId"/>" rt_device="<s:property value="#i.rtDevice"/>">
+					<td class="click_me"> <s:property value="#i.rtType"/> </td>
+					<td class="click_me"> <s:property value="#i.rtNumber"/> </td>
+					<td class="click_me"> <s:property value="#i.rtVersion"/> </td>
+					<td class="click_me"> <s:property value="#i.rtFactorynum"/> </td>
 					<td> <button type="button" class="btn btn-danger delete" >删除</button> </td>
 				</tr>
 			</s:iterator>

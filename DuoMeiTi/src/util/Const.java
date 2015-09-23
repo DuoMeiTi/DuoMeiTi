@@ -64,6 +64,7 @@ public class Const
     		"网卡",
     };
     public static final String[] deviceStatus = {
+    		"",
     		"备用",
     		"教室中",
     		"维修中",

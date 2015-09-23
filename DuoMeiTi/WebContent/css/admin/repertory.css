@@ -9,6 +9,6 @@
 .modal-header h2{
 	text-align:center;
 }
-#repertory_form select{
+#repertory_form select input{
 	width:140px;
 }
