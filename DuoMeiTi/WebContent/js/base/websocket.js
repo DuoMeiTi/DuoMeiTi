@@ -136,18 +136,25 @@ function init(){
 	socket.onmessage = function(event){
 		handleMessage(event);
 	}
+	socket.onclose =function(event){
+		handleClose(event);
+	}
 }
 
 function handleError(event){
-	//alert(event.data);
+	alert("error");
 }
 
 function handleOpen(event){
-	//alert("ok");
+	alert("open");
 }
 
 function handleMessage(event){
-	//alert(event.data);
+	alert("message");
+}
+
+function handleClose(event){
+	alert("close");
 }
 
 function start(){

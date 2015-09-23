@@ -21,16 +21,10 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/base.css"/> 
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/admin/classroom_manage.css"/>
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/admin/repertory.css"/>
-
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/websocket.css">
-
-
 		<script type='text/javascript' src="/js/base/myutil.js"></script>
-		
-		
         <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />		
-
 		<link href="/datepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
         <script type='text/javascript' src="/js/base/jquery-2.1.4.min.js"></script>
         <script type='text/javascript' src="/datepicker/js/bootstrap-datetimepicker.min.js"></script>
