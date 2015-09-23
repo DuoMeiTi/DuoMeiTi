@@ -159,15 +159,15 @@ public class AdminAction {
 			User um = new User();
 			um.setUsername(username);
 			um.setPassword(password);
+			um.setFullName(fullName);
+			um.setPhoneNumber(phoneNumber);
+			um.setProfilePhotoPath(profilePhotoPath);
+			um.setRemark(remark);
+			um.setSex(sex);
 			session.save(um);//因为user是外键，所以在commit aProfile之前需要先save user；
 
 			AdminProfile aProfile = new AdminProfile();
 			aProfile.setUser(um);
-			aProfile.setFullName(fullName);
-			aProfile.setPhoneNumber(phoneNumber);
-			aProfile.setProfilePhotoPath(profilePhotoPath);
-			aProfile.setRemark(remark);
-			aProfile.setSex(sex);
 			aProfile.setUnitInfo(unitInfo);
 
 			session.beginTransaction();
