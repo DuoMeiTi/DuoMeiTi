@@ -9,15 +9,15 @@ import db.MyHibernateSessionFactory;
 import model.*;
 
 public class RepairDAOImpl implements RepairDAO{
-	public List queryRepair() {
+	public List<Repair> queryRepair() {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
-		List list = null;
+		List<Repair> list = null;
 		String hql = "";
 		try {
 			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
 			tx = session.beginTransaction();
-			hql = "SELECT new List(rR, "
+			hql = "SELECT new model.Repair( "
 							+ "sP.studentId, "
 							+ "sP.fullName, "
 							+ "rR.device.rtType, "

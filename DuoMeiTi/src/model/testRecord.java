@@ -1,22 +1,24 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class testRecord {
-	public String repairdetail;
+	public Date repairdate;;
 	
 	public testRecord() {
 		
 	}
 
-	public testRecord(String repairdetail) {
+	public testRecord(Date repairdate) {
 		super();
-		this.repairdetail = repairdetail;
+		this.repairdate = repairdate;
 	}
 
 	@Override
 	public String toString() {
-		return "testRecord [repairdetail=" + repairdetail + "]";
+		return "testRecord [repairdate=" + repairdate + "]";
 	}
+	
+	
 	
 }
