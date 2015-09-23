@@ -4,10 +4,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import com.mysql.fabric.xmlrpc.base.Data;
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.StudentProfile;
@@ -34,10 +36,44 @@ public class StudentAction {
 	private String fullName;
 	private String college;
 	private String passwordAgain;
+	private List<StudentProfile> student_list;
+	private String strValue;
+	private int isPassed;
+	private String status;
 	
 	
-	
-	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public int getIsPassed() {
+		return isPassed;
+	}
+
+	public void setIsPassed(int isPassed) {
+		this.isPassed = isPassed;
+	}
+
+	public String getStrValue() {
+		return strValue;
+	}
+
+	public void setStrValue(String strValue) {
+		this.strValue = strValue;
+	}
+
+	public List<StudentProfile> getStudent_list() {
+		return student_list;
+	}
+
+	public void setStudent_list(List<StudentProfile> student_list) {
+		this.student_list = student_list;
+	}
+
 	public String getFullName() {
 		return fullName;
 	}
@@ -169,6 +205,19 @@ public class StudentAction {
 	{
 		collegeSelect=Const.collegeSelect;
 		sexSelect=Const.sexSelect;
+		
+		try{
+			Session session=model.Util.sessionFactory.openSession();
+			Criteria q=session.createCriteria(StudentProfile.class);
+			student_list=q.list();
+			Collections.reverse(student_list);
+			session.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		return ActionSupport.SUCCESS;
 //		statusSelect=Const.statusSelect;
 		
@@ -230,6 +279,40 @@ public class StudentAction {
 		session.close();
 		return ActionSupport.SUCCESS;
 	}
+	
+	public String studentRequest() throws Exception{
+		try{
+			Session session=model.Util.sessionFactory.openSession();
+			Criteria q=session.createCriteria(StudentProfile.class);
+			student_list=q.list();
+			Collections.reverse(student_list);
+			session.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return ActionSupport.SUCCESS;
+	}
+	
+	public String studentJudgesSave() throws Exception{
+		if(strValue=="不通过"){
+			this.isPassed=0;
+		}
+		else if(strValue=="通过"){
+			this.isPassed=1;
+		}
+		Session session=model.Util.sessionFactory.getCurrentSession();
+		StudentProfile stu=new StudentProfile();
+		stu.setIsPassed(isPassed);
+		
+		session.beginTransaction();
+		session.save(isPassed);
+		session.getTransaction().commit();
+		
+		return ActionSupport.SUCCESS;	
+			
+	} 
 	
 
 }

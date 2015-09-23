@@ -64,11 +64,17 @@
 	</package>
 	<package name="user_request" namespace="/admin/user_request"
 		extends="AdminDefault">
-		<action name="untreated">
+		<action name="untreated" class="homepage.StudentAction" method="studentRequest">
 			<result>
 				/jsp/admin/untreated.jsp
 			</result>
 
+		</action>
+		
+		<action name="request_save" class="homepage.StudentAction" method="studentJudgesSave">
+			<result name="success" type="json">
+				<param name="includeProperties">strValue</param>
+			</result>
 		</action>
 
 		<action name="handled">
