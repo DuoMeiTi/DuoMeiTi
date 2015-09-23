@@ -29,6 +29,7 @@ public class HomeAction
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(model.EgFilePathSave.class);		
 		file_path_list = q.list();
+		session.close();
 		return ActionSupport.SUCCESS;
 	}
 

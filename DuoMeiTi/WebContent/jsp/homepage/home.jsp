@@ -104,9 +104,7 @@
 	<br/>
 	
 	
-	
-<!-- <div class="jumbotron"> -->
-<!--   <div class="container"> -->
+
     <table class="jumbotron container table table-bordered" id="user_table">
 	
 		<tr class="active">
@@ -129,6 +127,35 @@
 		</s:iterator> 	
 
 	</table>
+	
+
+<div class="row" style="height:300px">
+  <div class="col-md-5 well" style="height:400px;margin:10px">.col-md-6sdfsf</div>
+  
+  <div class="col-md-offset-1 col-md-5 well" style="height:400px;margin:10px">.col-md-6</div>
+</div>
+  
+  
+  
+  
+  
+  
+  
+  
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 <!--   </div> -->
 <!-- </div>	 -->
 	

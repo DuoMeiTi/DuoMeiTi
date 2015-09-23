@@ -7,11 +7,25 @@
 
 
     <package name="homepage" namespace="/" extends="HomepageDefault">
-    
-    
-    	<action name="" class="homepage.HomeAction">
+    	
+    	<action name="home2">
+    		<result> /jsp/homepage/home2.jsp</result>
+    	</action>
+    	
+    	<action name="new_home">
+    		<result> /jsp/homepage/new_home.jsp</result>
+    	</action>
+      	<action name="old_home" >
         	<result>/jsp/homepage/home.jsp</result>
         </action>
+    	
+       	<action name="" >
+        	<result>/jsp/homepage/new_home.jsp</result>
+        </action>
+    
+<!--     	<action name="" class="homepage.HomeAction"> -->
+<!--         	<result>/jsp/homepage/home.jsp</result> -->
+<!--         </action> -->
         
         <action name="file_upload" class="homepage.FileUploadAction">
         	<result>/jsp/homepage/file_upload.jsp</result>
@@ -55,10 +69,13 @@
         
         
         
+<<<<<<< HEAD
         
         
         
 
+=======
+>>>>>>> origin/master
         <action name="login" class="homepage.UserAction" method="login">
         	<result> /jsp/homepage/login.jsp </result>
         	

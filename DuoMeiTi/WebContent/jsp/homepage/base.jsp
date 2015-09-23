@@ -5,7 +5,7 @@
 
  
 <a href="/">
-	<div id="headerpic">
+	<div id="headerpic" >
 	</div>
 </a>
    

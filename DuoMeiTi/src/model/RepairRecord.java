@@ -77,4 +77,11 @@ public class RepairRecord {
 	public void setRepairdate(java.sql.Date repairdate) {
 		this.repairdate = repairdate;
 	}
+
+	@Override
+	public String toString() {
+		return "RepairRecord [id=" + id + ", device=" + device + ", repairman=" + repairman + ", repairdetail="
+				+ repairdetail + ", repairdate=" + repairdate + "]";
+	}
+	
 }
