@@ -108,8 +108,9 @@ public class AdminProfile {
 		this.remark = remark;
 	}
 
-
-
+	public String toString() {
+		return this.sex + this.fullName + this.phoneNumber;
+	}
 
 
     

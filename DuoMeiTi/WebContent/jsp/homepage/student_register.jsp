@@ -193,10 +193,6 @@
    		{
     		alert("注册用户名重复");
    		}
-    	else if(data.register_status=="3")
-    	{
-    		alert("两次密码不一致");
-    	}
     	else 
    		{
     		alert("error with status" + data.register_status);

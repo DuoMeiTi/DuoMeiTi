@@ -3,6 +3,7 @@
 >>>>>>>=origin/master
 eclipse.preferences.version=1
 encoding//WebContent/jsp/admin/admin_eg.jsp=UTF-8
+encoding//WebContent/jsp/admin/admin_information.jsp=UTF-8
 encoding//WebContent/jsp/admin/base.jsp=UTF-8
 encoding//WebContent/jsp/admin/classroom_detail.jsp=UTF-8
 encoding//WebContent/jsp/admin/classroom_manage.jsp=UTF-8

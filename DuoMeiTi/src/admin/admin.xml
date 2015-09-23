@@ -20,12 +20,22 @@
 		
 		
 		
-		<action name="user_information" class="admin.InformationAction" method="userInformation">
+		
+		<action name="user_information" class="admin.InformationAction" method="adminInformation">
 			<result name="success">
-				/jsp/admin/users_information.jsp
+				/jsp/admin/admin_information.jsp
 			</result>
 		</action>
 		
+		<action name="admin_information_change" class="admin.InformationAction" method="adminInformationChange">
+           <result name="success" type="json">
+            	<param name="includeProperties">username,fullName,phoneNumber,sex,unitInfo,remark</param>           
+            </result>           
+        </action>
+        
+        
+    
+        
 		
 		
 		<action name="repertory" class="admin.RepertoryAction">
@@ -64,11 +74,17 @@
 	</package>
 	<package name="user_request" namespace="/admin/user_request"
 		extends="AdminDefault">
-		<action name="untreated">
+		<action name="untreated" class="homepage.StudentAction" method="studentRequest">
 			<result>
 				/jsp/admin/untreated.jsp
 			</result>
 
+		</action>
+		
+		<action name="request_save" class="homepage.StudentAction" method="studentJudgesSave">
+			<result name="success" type="json">
+				<param name="includeProperties">strValue</param>
+			</result>
 		</action>
 
 		<action name="handled">
