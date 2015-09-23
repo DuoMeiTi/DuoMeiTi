@@ -16,6 +16,7 @@
         <property name="show_sql">true</property>
 <!--         <property name="hbm2ddl.auto">create-drop</property> -->
 		<property name="hbm2ddl.auto">update</property>
+		<property name="hibernate.current_session_context_class">thread</property>
 		
 <!--         <mapping resource="model/UserModel.hbm.xml"/> -->
 		<mapping class="model.User"/>
