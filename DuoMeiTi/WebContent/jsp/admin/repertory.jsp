@@ -122,7 +122,7 @@
 			</tr>
 			
 			<s:iterator value="repertory_list" var="i" status="index">
-				<tr class="success" rt_id="<s:property value="#i.rtId"/>" rt_Device="<s:property value="#i.rtDevice"/>">
+				<tr class="success" rt_id="<s:property value="#i.rtId"/>" rt_device="<s:property value="#i.rtDevice"/>">
 					<td class="click_me"> <s:property value="#i.rtType"/> </td>
 					<td class="click_me"> <s:property value="#i.rtNumber"/> </td>
 					<td class="click_me"> <s:property value="#i.rtVersion"/> </td>
