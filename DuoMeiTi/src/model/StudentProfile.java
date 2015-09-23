@@ -48,6 +48,96 @@ public class StudentProfile {
     
     @Column(columnDefinition="INT default 0", nullable=false)
     public int isUpgradePrivilege;
+    
+    
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+
+	public String getBankCard() {
+		return bankCard;
+	}
+
+	public void setBankCard(String bankCard) {
+		this.bankCard = bankCard;
+	}
+
+	public String getCollege() {
+		return college;
+	}
+
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
+	public java.sql.Date getEntryTime() {
+		return entryTime;
+	}
+
+	public void setEntryTime(java.sql.Date entryTime) {
+		this.entryTime = entryTime;
+	}
+
+	public Set<Classroom> getClassrooms() {
+		return classrooms;
+	}
+
+	public void setClassrooms(Set<Classroom> classrooms) {
+		this.classrooms = classrooms;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public int getIsPassed() {
+		return isPassed;
+	}
+
+	public void setIsPassed(int isPassed) {
+		this.isPassed = isPassed;
+	}
+
+	public int getIsUpgradePrivilege() {
+		return isUpgradePrivilege;
+	}
+
+	public void setIsUpgradePrivilege(int isUpgradePrivilege) {
+		this.isUpgradePrivilege = isUpgradePrivilege;
+	}
 
     
     

@@ -3,6 +3,7 @@
 >>>>>>>=origin/master
 eclipse.preferences.version=1
 encoding//WebContent/jsp/admin/admin_eg.jsp=UTF-8
+encoding//WebContent/jsp/admin/admin_information.jsp=UTF-8
 encoding//WebContent/jsp/admin/base.jsp=UTF-8
 encoding//WebContent/jsp/admin/classroom_detail.jsp=UTF-8
 encoding//WebContent/jsp/admin/classroom_manage.jsp=UTF-8
@@ -27,6 +28,7 @@ encoding//WebContent/jsp/homepage/login_success.jsp=UTF-8
 encoding//WebContent/jsp/homepage/new_home.jsp=UTF-8
 encoding//WebContent/jsp/homepage/new_home_base.jsp=UTF-8
 encoding//WebContent/jsp/homepage/not_login.jsp=UTF-8
+encoding//WebContent/jsp/homepage/notice.jsp=UTF-8
 encoding//WebContent/jsp/homepage/register.jsp=UTF-8
 encoding//WebContent/jsp/homepage/student_register.jsp=UTF-8
 encoding/<project>=UTF-8

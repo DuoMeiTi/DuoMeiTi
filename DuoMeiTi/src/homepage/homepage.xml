@@ -69,6 +69,7 @@
         
         
         
+
         <action name="login" class="homepage.UserAction" method="login">
         	<result> /jsp/homepage/login.jsp </result>
         	
@@ -119,15 +120,15 @@
 <!-- 				<param name="excludeProperties"> user_list</param> -->
             </result>            
         </action>
-       <!--  验证用户名是否注册过了  not OK
-        <action name="user_verification" class="homepage.AdminAction" method="userVerification">
-            <result name="success" type="json">
-            	<param name="includeProperties">register_status</param>           
-				<param name="excludeProperties"> user_list</param>
-            </result>            
-        </action> -->
+      
 
-
+   <!--公告的action设置  -->
+        <action name="notice_*" class="homepage.NoticeAction" method="{1}">
+        <result name="success" type="json">
+            	<param name="includeProperties">status,notice_id</param>           
+				
+            </result> 
+        </action>
 
 
 

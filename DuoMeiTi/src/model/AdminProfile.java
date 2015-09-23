@@ -43,5 +43,4 @@ public class AdminProfile {
 	public void setUnitInfo(String unitInfo) {
 		this.unitInfo = unitInfo;
 	}
-	
 }

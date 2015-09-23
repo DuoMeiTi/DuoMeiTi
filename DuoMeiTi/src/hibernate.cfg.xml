@@ -29,6 +29,7 @@
 		<mapping class="model.CheckRecord"/>
 		<mapping class="model.Message"/>
 		<mapping class="model.EgFilePathSave"/>
+		<mapping class="model.Notice"/>
 		
 		
     </session-factory>
