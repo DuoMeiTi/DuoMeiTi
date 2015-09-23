@@ -1,53 +1,29 @@
 package model;
 
-
 import java.util.Set;
 
 import org.hibernate.cfg.*;
 
 import javax.persistence.*;
 
-
-
-
-
-
 @Entity
 public class AdminProfile {
-	
-    @OneToOne
-    @JoinColumn
-    public User user;
-    
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+
+	@OneToOne
+	@JoinColumn
+	public User user;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
-    
-    @Column(length=10)
-    public String fullName;
 
-	@Column(length=10)
-    public String sex;    
-
-    @Column(length = 100)
-    public String profilePhotoPath;
-    
-    @Column(length = 50)
-    public String unitInfo;
-    
-    @Column(length=20)
-    public String phoneNumber;
-    
-    @Column(length=1000)
-    public String remark;
+	@Column(length = 50)
+	public String unitInfo;
 
 	public User getUser() {
 		return user;
 	}
 
-	
-	
-	
-	
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -60,30 +36,6 @@ public class AdminProfile {
 		this.id = id;
 	}
 
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-
-	public String getProfilePhotoPath() {
-		return profilePhotoPath;
-	}
-
-	public void setProfilePhotoPath(String profilePhotoPath) {
-		this.profilePhotoPath = profilePhotoPath;
-	}
-
 	public String getUnitInfo() {
 		return unitInfo;
 	}
@@ -91,31 +43,5 @@ public class AdminProfile {
 	public void setUnitInfo(String unitInfo) {
 		this.unitInfo = unitInfo;
 	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-
-
-
-
-    
-    
-
-    
-
-
+	
 }
