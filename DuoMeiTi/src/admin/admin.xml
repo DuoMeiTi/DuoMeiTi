@@ -48,6 +48,13 @@
 				/jsp/admin/maintainRecords.jsp
 			</result>
 		</action>
+		
+		<action name="*_action" class="action.RepairAction" method="{1}">
+			<result name="query_repair">
+				/jsp/admin/record_query.jsp
+			</result>
+		</action>
+		
 		<action name="equipmentQueryAndEdit">
 			<result>
 				/jsp/admin/equipmentQueryAndEdit.jsp

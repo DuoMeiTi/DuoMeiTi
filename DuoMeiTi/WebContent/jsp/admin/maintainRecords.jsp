@@ -1,6 +1,9 @@
 <%@page import="java.util.ArrayList,model.Classroom"%>
 <%@ include file="/jsp/base/taglib.jsp"%>
-
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <layout:override name="main_content">
 <style>
 td,tr,th{
@@ -12,7 +15,7 @@ td,tr,th{
 	<div class="mycontent">
 		<div class="row">
 			<a type="button" class="btn btn-primary"
-				style="width: 49%; float: left" href="/admin/classroomDevice/maintainRecords">设备维修记录</a>
+				style="width: 49%; float: left" href="/admin/classroomDevice/query_repair">设备维修记录</a>
 			<a type="button" class="btn btn-primary"
 				style="width: 49%; float: right" href="/admin/classroomDevice/equipmentQueryAndEdit">设备信息查询及批量修改</a>
 		</div>
@@ -33,7 +36,7 @@ td,tr,th{
 				onclick="return showdiv('#timeCondition')"> 按时间
 			</label>
 			<button type="button" class="btn btn-default" style="float:right;margin-right:5%" onclick="search()">检索维修记录</button>
-			<button type="button" class="btn btn-default" style="float:right;margin-right:5%">导出检索记录</button>
+			<a href="<%=path%>/admin/classroomDevice/query_action>" type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%">导出检索记录</a>
 		</div>
 		<br />
 		<div class="searchCondition" id="conditions">

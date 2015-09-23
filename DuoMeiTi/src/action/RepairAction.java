@@ -11,10 +11,11 @@ public class RepairAction extends SuperAction {
 	private static final long serialVersionUID = 1L;
 	public String query() {
 		 RepairDAO rdao = new RepairDAOImpl();
-		 List list = rdao.queryRepair();
+		 List<Repair> list = rdao.queryRepair();
 		 //放进session中
+		 System.out.println(list);
 			if (list != null && list.size() > 0) {
-				session.setAttribute("repair_list",  list);
+				session.setAttribute("maintainRecords_list",  list);
 			}
 		return "query_repair";
 	}

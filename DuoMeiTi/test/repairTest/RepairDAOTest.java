@@ -15,7 +15,7 @@ public class RepairDAOTest {
 		List<Repair> list = rdao.queryRepair();
 		System.out.println("Lise size： "+list.size());
 		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i).fullName);
+			System.out.println(list.get(i));
 		}
 		/*Date date = new Date(new java.util.Date().getTime());
 		testRecord t = new testRecord("d", date);

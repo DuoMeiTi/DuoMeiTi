@@ -39,24 +39,28 @@
 				id="Records_table">
 				<thead>
 					<tr>
-						<th>维修人</th>
-						<th>教室</th>
-						<th>时间</th>
-						<th>设备名称</th>
+						<th>学号</th>
+						<th>姓名</th>
+						<th>设备</th>
 						<th>维修情况</th>
+						<th>日期</th>
+						<th>教室</th>
+						<th>教学楼</th>
 					</tr>
 				</thead>
 				
-				<%-- <s:iterator value="maintainRecords_list" var="item">
+				<s:iterator value="#session.maintainRecords_list" var="item">
 					<tr class="success" id='<s:property value="#item.id"/>'>
-						<td><s:property value="#item.person" /></td>
-						<td><s:property value="#item.classroom" /></td>
-						<td><s:property value="#item.time" /></td>
-						<td><s:property value="#item.equipmentName" /></td>
-						<td><s:property value="#item.detail" /></td>
+						<td><s:property value="#item.studentId" /></td>
+						<td><s:property value="#item.fullName" /></td>
+						<td><s:property value="#item.rtType" /></td>
+						<td><s:property value="#item.repairDetail" /></td>
+						<td><s:property value="#item.classRoom" /></td>
+						<td><s:property value="#item.teachBuilding" /></td>
+						<td><s:property value="#item.repairDate" /></td>
 						</td>
 					</tr>
-				</s:iterator> --%>
+				</s:iterator>
 
 
 			</table>
