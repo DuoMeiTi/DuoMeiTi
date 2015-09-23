@@ -130,6 +130,7 @@ public class AdminAction {
 		 		 Criteria q =
 		 session.createCriteria(User.class).add(Restrictions.eq("username",
 		 username));
+		 		 //user.id
 		 List ul = q.list();
 		 if(!ul.isEmpty())
 		 {
