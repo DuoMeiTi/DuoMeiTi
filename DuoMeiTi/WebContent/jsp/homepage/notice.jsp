@@ -46,7 +46,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				<button type="button" class="btn btn-primary">提交</button>
+				<button type="button" class="btn btn-primary" id="notice_add_btn" onclick="notice_add_submit()">提交</button>
 			</div>
 		</div>
 	</div>
@@ -84,12 +84,12 @@
 		</tr>
 
 
-		<s:iterator value="notice_list" var="i" status="index">
+		<s:iterator value="notice" var="i" status="index">
 			<tr class="success" notice_id=<s:property value="#i.id"/>>
 				<td><s:property value="#i.title" /></td>
 				<td><s:property value="#i.time" /></td>
 				<td>
-					<button type="button" class="btn btn_primary " id="edit">查看/编辑</button>
+					<button type="button" class="btn btn_primary " id="edit">编辑</button>
 				</td>
 				<td>
 					<button type="button" class="btn btn_danger delete">删除</button>
