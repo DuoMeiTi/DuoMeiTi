@@ -28,8 +28,10 @@ $(document).find("#rtDevice").change(function() {
 
 //update
 var rtId;
-$(document).find("#repertory_table").on("click", "tr:not(:first)", function() {
-	rtId = $(this).attr("rt_id");
+//$(document).find("#repertory_table").on("click"," tr:not(:first) .click_me", function() {
+$(document).on("click",".click_me", function() {
+	
+	rtId = $(this).parent().attr("rt_id");
 //	$(this).attr("data-toggle","modal");
 //	$(this).attr("data-target","#rtModal");
 	$("#rtSave").attr("mark","update");
@@ -45,7 +47,10 @@ $(document).find("#repertory_table").on("click", "tr:not(:first)", function() {
 })
 function fetchCallback(data) {
 	//alert(data.status + "," + data.rtSearch_list[0].rtType);
-	if(data.status == "0") alert("error");
+	if(data.status == "0") {
+		alert("error");
+		return;
+	}
 	else if(data.status == "1") {
 		var temp = data.rtSearch_list[0];
 		$(document).find("#rtDevice").val(temp.rtDevice);
@@ -85,7 +90,7 @@ $(document).on("click", "#rtSave", function() {
 		return;
 	}
 	
-	var params = $("#repertory_form").serialize();// 序列化表单值→ Json；
+	var params = $("#repertory_form").serialize();
 	//alert(decodeURIComponent(params,true));
 	var fd = new FormData();
 	var cnt = $("#repertory_form");
@@ -96,9 +101,6 @@ $(document).on("click", "#rtSave", function() {
  	fd.append("rtFactorynum", $(cnt).find("[name=rtFactorynum]").val());
 	
 	if($(this).attr("mark") == "insert"){
-		
-		
-		// ajax方法通过HTTP请求加载远程数据；
 	    $.ajax({  
 	        url:'/admin/repertory_insert' ,  
 	        type: "POST",  
@@ -112,15 +114,6 @@ $(document).on("click", "#rtSave", function() {
 	   });  
 	}
 	else if($(this).attr("mark") == "update") {
-//		$.ajax({
-//			url : 'repertory_update',
-//			type : 'post',
-//			dataType : 'json',
-//			data : keyword,
-//			success : updateCallback
-//		});
-		
-		//alert("===="+ rtId);
 		fd.append("rtId", rtId);
 		$.ajax({  
 	        url:'/admin/repertory_update' ,  
@@ -148,7 +141,8 @@ function repertoryCallback(data) {
 		$(cnt).children().eq(2).text(data.rtVersion);
 		$(cnt).children().eq(3).text(data.rtFactorynum);
 		// alert(data.rtId+", "+data.rtType+", "+data.rtNumber);
-		//$(cnt).attr("rt_id", data.rtId);
+		$(cnt).attr("rt_id", data.rtId);
+		$(cnt).attr("rt_device", data.rtDevice);
 		$('#rtModal').modal('hide');
 		alert("保存成功！ ");
 
