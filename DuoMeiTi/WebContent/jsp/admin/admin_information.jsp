@@ -61,7 +61,6 @@
 		
 		$(document).on('click',"#change",function(){
 			var params = $('#admin_information_form').serialize(); //利用jquery将表单序列化 
-			alert(params);
 	        $.ajax({
 	          url: 'admin_information_change',
 	          type: 'post',
