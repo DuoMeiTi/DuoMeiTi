@@ -28,8 +28,9 @@ $(document).find("#rtDevice").change(function() {
 
 //update
 var rtId;
-$(document).find("#repertory_table").on("click", "tr:not(:first)", function() {
-	rtId = $(this).attr("rt_id");
+//$(document).find("#repertory_table").on("click"," tr:not(:first) .click_me", function() {
+$(document).on("click",".click_me", function() {
+	rtId = $(this).parent().attr("rt_id");
 //	$(this).attr("data-toggle","modal");
 //	$(this).attr("data-target","#rtModal");
 	$("#rtSave").attr("mark","update");
@@ -45,7 +46,10 @@ $(document).find("#repertory_table").on("click", "tr:not(:first)", function() {
 })
 function fetchCallback(data) {
 	//alert(data.status + "," + data.rtSearch_list[0].rtType);
-	if(data.status == "0") alert("error");
+	if(data.status == "0") {
+		alert("error");
+		return;
+	}
 	else if(data.status == "1") {
 		var temp = data.rtSearch_list[0];
 		$(document).find("#rtDevice").val(temp.rtDevice);
@@ -170,6 +174,7 @@ function updateCallback(data) {
 
 function fetchupCallback(data) {
 	if(data.status == "1") {
+		alert("@#$%$");
 		var row = data.rtSearch_list[0];
 		var line = $(document).find("#repertory_table tr[rt_id = " + row.rtId +"]");
 		//alert($(line).html());

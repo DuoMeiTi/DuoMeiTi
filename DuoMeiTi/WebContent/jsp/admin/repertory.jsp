@@ -123,10 +123,10 @@
 			
 			<s:iterator value="repertory_list" var="i" status="index">
 				<tr class="success" rt_id="<s:property value="#i.rtId"/>" rt_Device="<s:property value="#i.rtDevice"/>">
-					<td> <s:property value="#i.rtType"/> </td>
-					<td> <s:property value="#i.rtNumber"/> </td>
-					<td> <s:property value="#i.rtVersion"/> </td>
-					<td> <s:property value="#i.rtFactorynum"/> </td>
+					<td class="click_me"> <s:property value="#i.rtType"/> </td>
+					<td class="click_me"> <s:property value="#i.rtNumber"/> </td>
+					<td class="click_me"> <s:property value="#i.rtVersion"/> </td>
+					<td class="click_me"> <s:property value="#i.rtFactorynum"/> </td>
 					<td> <button type="button" class="btn btn-danger delete" >删除</button> </td>
 				</tr>
 			</s:iterator>
