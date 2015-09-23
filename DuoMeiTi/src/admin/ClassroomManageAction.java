@@ -204,7 +204,8 @@ System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroo
 		}
 		else {
 			StudentProfile stu = (StudentProfile) obj;
-			queryResult = stu.user.getUsername();
+//			queryResult = stu.user.getUsername();
+			queryResult = stu.user.fullName;
 		}
 		session.close();
 		return SUCCESS;
