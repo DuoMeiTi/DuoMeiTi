@@ -13,6 +13,7 @@ public class WebSocketServer {
 	
 	@OnOpen
 	public void onOpen(Session session){
+		System.out.println("Client connected");
 	}
 	
 	@OnClose
