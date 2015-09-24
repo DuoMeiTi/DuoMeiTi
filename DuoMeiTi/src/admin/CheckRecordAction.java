@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import model.CheckRecord;
 import model.Classroom;
 import model.StudentProfile;
+import model.User;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -24,9 +25,9 @@ public class CheckRecordAction extends ActionSupport {
 		try	{
 			int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 			session = model.Util.sessionFactory.openSession();
-			Criteria stu_criteria = session.createCriteria(StudentProfile.class);
-			stu_criteria.add(Restrictions.eq("user.id", user_id));
-			StudentProfile stu = (StudentProfile) stu_criteria.uniqueResult();
+			Criteria user_criteria = session.createCriteria(User.class);
+			user_criteria.add(Restrictions.eq("id", user_id));
+			User user = (User) user_criteria.uniqueResult();
 //System.out.println(stu.getUser().getUsername());
 			
 			Date checkdate = new Date(new java.util.Date().getTime());
@@ -39,7 +40,7 @@ public class CheckRecordAction extends ActionSupport {
 			CheckRecord checkrecord = new CheckRecord();
 			checkrecord.setCheckdate(checkdate);
 			checkrecord.setCheckdetail(checkdetail);
-			checkrecord.setCheckman(stu);
+			checkrecord.setCheckman(user);
 			checkrecord.setClassroom(classroom);
 			
 			session.beginTransaction();

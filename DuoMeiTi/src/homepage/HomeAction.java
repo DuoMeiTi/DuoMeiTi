@@ -30,14 +30,14 @@ public class HomeAction
 //	 Criteria q =
 //session.createCriteria(User.class).add(Restrictions.eq("username",
 //username));
-		Session session = model.Util.sessionFactory.openSession();
+//		Session session = model.Util.sessionFactory.openSession();
 		
-		check_list = session.createCriteria(model.CheckRecord.class).list();
-		model.CheckRecord cr = (model.CheckRecord)check_list.get(0);
+//		check_list = session.createCriteria(model.CheckRecord.class).list();
+//		model.CheckRecord cr = (model.CheckRecord)check_list.get(0);
 		
 		
 		System.out.println("&&&&&&&&&&");
-		System.out.println(cr.classroom.classroom_num);
+//		System.out.println(cr.classroom.classroom_num);
 //		System.out.println(cr.checkman.user.username);
 		
 		
