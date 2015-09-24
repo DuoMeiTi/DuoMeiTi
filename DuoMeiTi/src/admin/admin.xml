@@ -23,6 +23,12 @@
 				/jsp/admin/repertory.jsp
 			</result>
 		</action>
+		
+		<action name="modifypassword" class="admin.ModifyPasswordAction">
+			<result name="success">
+				/jsp/admin/modifypassword.jsp
+			</result>
+		</action>
 
 		<action name="repertory_*" class="admin.RepertoryAction" method="{1}">
 			<result name="success" type="json">
