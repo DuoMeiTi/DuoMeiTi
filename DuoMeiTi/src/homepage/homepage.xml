@@ -19,7 +19,7 @@
         	<result>/jsp/homepage/home.jsp</result>
         </action>
     	
-       	<action name="" >
+       	<action name="" class="homepage.HomeAction">
         	<result>/jsp/homepage/new_home.jsp</result>
         </action>
     

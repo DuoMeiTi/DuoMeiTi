@@ -65,6 +65,32 @@
 			      <div class="news-list">
 			        <div class="news-documents documents-list ">
 							
+							
+							
+							
+							
+						<s:iterator value="check_list" var="i" status="index" >   
+						
+						   <div class="usoft-listview-basic">
+							  <ul>
+							    <li>
+							      <span class="usoft-listview-item-date">01-08</span>
+							      <span><a href="" title="">
+							      		<s:property value="#i.classroom.classroom_num"/>
+							      		检查
+							      		<s:property value="#i.checkman.user.username"/>
+							      		</a>
+							      </span>
+							    </li>
+							  </ul>
+							</div>
+							
+						</s:iterator>
+							
+							
+							
+							
+							
 						  <div class="usoft-listview-basic">
 							  <ul>
 							    <li>
@@ -74,6 +100,8 @@
 							  </ul>
 							</div>
 							
+							
+						  
 							
 							
 							<div class="usoft-listview-basic">
