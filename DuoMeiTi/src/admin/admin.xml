@@ -86,6 +86,12 @@
 				<param name="includeProperties">strValue</param>
 			</result>
 		</action>
+		
+		<action name="request_ensure" class="homepage.StudentAction" method="studentRequestEnsure">
+			<result name="success" type="json">
+				<param name="includeProperties">strValue,userid</param>
+			</result>
+		</action>
 
 		<action name="handled">
 			<result>

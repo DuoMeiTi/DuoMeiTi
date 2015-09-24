@@ -43,6 +43,7 @@ public class StudentProfile {
     @Column(length = 10)
     public String status;
     
+    //isPassed=0 未处理 =1 不通过  =2 通过
     @Column(columnDefinition="INT default 0", nullable=false)
     public int isPassed;
     

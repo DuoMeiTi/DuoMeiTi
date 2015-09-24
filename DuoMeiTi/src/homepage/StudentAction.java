@@ -3,8 +3,10 @@ package homepage;
 import java.util.Collections;
 import java.util.List;
 
+
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -39,6 +41,7 @@ public class StudentAction {
 	private List<StudentProfile> student_list;
 	private String strValue;
 	private int isPassed;
+	private int userid;
 	private String status;
 	
 	
@@ -137,7 +140,8 @@ public class StudentAction {
 	public void setEntryTime(java.sql.Date entryTime) {
 		this.entryTime = entryTime;
 	}
-
+	
+	
 	/*public String getClassrooms() {
 		return classrooms;
 	}
@@ -145,6 +149,14 @@ public class StudentAction {
 	public void setClassrooms(String classrooms) {
 		this.classrooms = classrooms;
 	}*/
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
 
 	public String getIdCard() {
 		return idCard;
@@ -313,6 +325,21 @@ public class StudentAction {
 		return ActionSupport.SUCCESS;	
 			
 	} 
+	
+	public String studentRequestEnsure() throws Exception{
+		Session session = model.Util.sessionFactory.openSession();
+		Transaction trans=session.beginTransaction();
+		String hql="update StudentProfile s set isPassed="+
+					String.valueOf(isPassed)+" where s.user.id="+String.valueOf(userid);
+		Query q=session.createQuery(hql);
+		int ret = q.executeUpdate();
+		trans.commit();
+		if(ret>0){
+			strValue=ActionSupport.SUCCESS;
+			return ActionSupport.SUCCESS;
+		}
+		else return ActionSupport.ERROR;
+	}
 	
 
 }
