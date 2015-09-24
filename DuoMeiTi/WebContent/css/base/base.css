@@ -6,7 +6,7 @@ body{
 }
 
 #basecontent{
-	width:80%;
+	width:100%;
 	margin:0 auto;
 }
 
@@ -150,55 +150,4 @@ a:hover,a:focus{
     background-size:cover;
 }
 
-#envelope{
-	height:50px;
-	width:50px;
-	position:fixed;
-	right:50px;
-	bottom:50px;
-	background-image:url(/img/chat.png);
-}
 
-#envelope:hover{
-	cursor:pointer;
-}
-
-#message-box{
-	height:400px;
-	width:500px;
-	position:fixed;
-	right:50px;
-	bottom:110px;
-	background-color:rgb(255,255,255);
-	border:1px solid #ccc;
-	border-radius:3px;
-}
-
-.message-box-top{
-	height:30px;
-	background-color:rgb(80, 187, 233);
-}
-
-.message-box-top span{
-	display:inline-block;
-	line-height:30px;
-	font-size:14px;
-	color:#fff;
-}
-
-.message-box-top .title{
-	float:left;
-	margin-left:20px;
-}
-
-.message-box-top .closed,.back{
-	float:right;
-	margin:0 5px;
-}
-
-.message-box-top .closed:hover,.back:hover{
-	cursor:pointer;
-}
-.hide{
-	display:none;
-}

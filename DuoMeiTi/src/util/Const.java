@@ -25,6 +25,51 @@ public class Const
     		"在岗",
     		"离职",
     };
+    
+    public static final String AdminRole = "admin";
+    public static final String StudentRole = "student";
+    public static final String TeacherRole = "teacher";
+    public static final String NoRole = "no";
+//    public static final String AdminRole = "admin";
 
-
+    public static final String[] device = {
+    		"",
+    		"主要设备",
+    		"耗材设备",
+    };
+    public static final String[] mainDevice = {
+    		"",
+    		"中控",
+    		"功放",
+    		"投影机",
+    		"计算机主机",
+    		"显示器",
+    		"机柜",
+    		"幕布",
+    		"麦克",
+    		"数字处理器",
+    };
+    public static final String[] costDevice = {
+    		"",
+    		"灯泡",
+    		"翻页器",
+    		"鼠标",
+    		"键盘",
+    		"电池",
+    		"USB延长线",
+    		"光驱",
+    		"音频线",
+    		"视频线",
+    		"电源线",
+    		"网卡",
+    };
+    public static final String[] deviceStatus = {
+    		"",
+    		"备用",
+    		"教室中",
+    		"维修中",
+    		"报废",
+    };
+    
+    
 }

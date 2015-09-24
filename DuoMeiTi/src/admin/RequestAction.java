@@ -2,7 +2,14 @@ package admin;
 import java.io.File;
 
 public class RequestAction {
-	private String username;
+	
+	public int isPassed;
+	
+	public void requestSave()
+	{
+		
+	}
+	/*	private String username;
 	private int sex;
 	private String studentId;
 	private String idCard;
@@ -51,7 +58,7 @@ public class RequestAction {
 	public void setStrValue(String strValue) {
 		this.strValue = strValue;
 	}
-	
+	*/
 	
 	
 	

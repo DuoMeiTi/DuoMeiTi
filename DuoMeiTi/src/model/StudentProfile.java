@@ -18,55 +18,39 @@ public class StudentProfile {
     @JoinColumn
     public User user;
     
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
- 
-    @Column(length = 10)
-    public String sex;    
     
     @Column(length = 20)
     public String studentId;
-    
-    @Column(length = 100)
-    public String profilePhotoPath;
-    
     
     @Column(length = 50)
     public String idCard;
     
     @Column(length = 50)
     public String bankCard;
-    
-
 
     @Column(length = 50)
-    public String college;
-
-    
-    @Column(length=20)
-    public String phoneNumber;
+    public String college;    
     
     @Column
-    public java.sql.Date entryTime;
-    
-    @OneToMany(mappedBy="principal", cascade=CascadeType.ALL)
-    public Set<Classroom> classrooms;  
+    public java.sql.Date entryTime;    
 
+    @OneToMany(mappedBy="principal", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    public Set<Classroom> classrooms;
     
     @Column(length = 10)
-    public String status;    
-
+    public String status;
     
-    
-    @Column(length=1000)
-    public String remark;
-    
-    
+    //isPassed=0 未处理 =1 不通过  =2 通过
     @Column(columnDefinition="INT default 0", nullable=false)
     public int isPassed;
     
     @Column(columnDefinition="INT default 0", nullable=false)
     public int isUpgradePrivilege;
+    
+    
 
 	public User getUser() {
 		return user;
@@ -84,28 +68,12 @@ public class StudentProfile {
 		this.id = id;
 	}
 
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-
 	public String getStudentId() {
 		return studentId;
 	}
 
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
-	}
-
-	public String getProfilePhotoPath() {
-		return profilePhotoPath;
-	}
-
-	public void setProfilePhotoPath(String profilePhotoPath) {
-		this.profilePhotoPath = profilePhotoPath;
 	}
 
 	public String getIdCard() {
@@ -132,14 +100,6 @@ public class StudentProfile {
 		this.college = college;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
 	public java.sql.Date getEntryTime() {
 		return entryTime;
 	}
@@ -164,14 +124,6 @@ public class StudentProfile {
 		this.status = status;
 	}
 
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
 	public int getIsPassed() {
 		return isPassed;
 	}
@@ -187,21 +139,12 @@ public class StudentProfile {
 	public void setIsUpgradePrivilege(int isUpgradePrivilege) {
 		this.isUpgradePrivilege = isUpgradePrivilege;
 	}
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     
     
     
 
-    
 
 
 }

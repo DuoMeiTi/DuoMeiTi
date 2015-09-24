@@ -17,51 +17,77 @@
 					<th class="col-lg-1"></th>
 				</tr>
 				
-
-				<tr class="row">
-					<td class="col-lg-1.5">dorothy</td>
-					<td class="col-lg-0.5">女</td>
-					<td class="col-lg-1.5">21524009</td>
-					<td class="col-lg-2.5">210256196536925864</td>
-					<td class="col-lg-2.5">创新创业学院</td>
-					<td class="col-lg-1.5">18042563456</td>
-					<td class="col-lg-1">
-						<select id="judge" name="judge">
-							<option value="1">通过</option>
-							<option value="0">不通过</option>
+			<s:iterator value="student_list" var="i" status="index">
+				<tr class="row" id=<s:property value="#i.id"/> >
+					<td class="col-lg-1.5"> <s:property value="#i.fullName"/> </td>
+					<td class="col-lg-0.5"> <s:property value="#i.sex"/> </td>
+					<td class="col-lg-1.5"> <s:property value="#i.studentId"/> </td>
+					<td class="col-lg-2.5"> <s:property value="#i.idCard"/> </td>
+					<td class="col-lg-2.5"> <s:property value="#i.college"/> </td>
+					<td class="col-lg-1.5"> <s:property value="#i.phoneNumber"/> </td>
+					<form class="form-inline" action="untreated" method="POST" id="request_form">
+					<td class="col-lg-1"> 
+					<%-- <s:select list="{'不通过','通过'}" name="strValue"></s:select>  --%>
+						<select id="judge" name="strValue">
+							<option value="1">不通过</option>
+							<option value="2">通过</option>
 						</select>
 					</td>
-					<td class="col-lg-1">
-						<button type="button" class="btn btn-primary btn-sm">确定</button>
+					</form>
+					<td class="col-lg-1 ">
+						<button type="button" class="btn btn-primary btn-sm" id="ensure-button">确定</button>
 					</td>
 				</tr>
-				
-			
+					
+			</s:iterator>
 			</table>
 		</div>
 	</div>
 	
 	<script>
+	/*
 	$(document).on("click", "button", function (){
-		var strValue=$("#judge").val(); //获取Select选择的Value
-//		alert(strValue);
+		var params=$('#request_form').serialize(); //获取Select选择的Value
+		var strValue=$('#judge').find("option:selected").text();
+		alert(strValue);  
 		$.ajax({
-			url: 'requestSave',
+			url: 'request_save',
 	        type: 'post',
 	        dataType: 'json',
-	        data:strValue,
+	        data:params,
 	        success:judgeCallBack
 		});
 	});
 	
 	
-	function judgeCallBack(data){
-		if(data==0){
+	 function judgeCallBack(data){
+		if(data.status=="0"){
 			alert("不通过");
 		}
-		else if(data==1){
+		else if(data.status=="1"){
 			alert("通过");
 		}
+	}
+	 */
+	 
+	$("#ensure-button").click(function(){
+		var id=$(this).closest("tr").attr("id");
+		var isPass=$('#judge').find("option:selected").val();
+		$.ajax({
+			url: 'request_ensure',
+	        type: 'post',
+	        dataType: 'json',
+	        data:{userid:id,isPassed:isPass},
+	        success:ensureCallBack
+		});
+	})
+	
+	function ensureCallBack(data){
+		if(data.strValue=="success"){
+			var t=$("#"+data.userid);
+			$("#"+data.userid).remove();
+		}
+		else alert("something wrong!!");
 	}
 	</script>
 	

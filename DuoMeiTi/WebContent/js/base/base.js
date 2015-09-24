@@ -289,11 +289,3 @@ $(".mynavbar a").each(function(){
         }
 });
 
-$("#envelope").click(function(){
-	$("#message-box").removeClass("hide");
-})
-
-$("#message-box .closed").click(function(){
-	$("#message-box").addClass("hide");
-})
-

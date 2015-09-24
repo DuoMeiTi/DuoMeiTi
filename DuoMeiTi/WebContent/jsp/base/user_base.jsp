@@ -6,10 +6,9 @@
 	
 <a href="/">
     <div id="headerpic" >
-
         <ul class="nav navbar-right">
             <li id="welcome_word">
-            	欢迎您：{{}} 
+            	欢迎您: <span id="login_user_name"><s:property value="#session.username"/></span>
             </li>
         </ul>
     </div>
@@ -31,15 +30,85 @@
 </div>
 
 <div id="envelope"></div>
-<div id="message-box" class="hide">
-	<div class="message-box-top">
+<div id="message-list-box" class="hide">
+	<div class="message-list-top">
 		<span class="title">消息</span>
 		<span class="glyphicon glyphicon-remove closed"></span>
+		<span class="glyphicon glyphicon-user users"></span>
+	</div>
+	<div class="message-list">
+		<ul class="message-list-group list-group">
+			<li class="list-group-item">消息1</li>
+			<li class="list-group-item">消息2</li>
+			<li class="list-group-item">消息3</li>
+			<li class="list-group-item">更多消息..</li>
+		</ul>
+	</div>
+	<div class="message-list-bottom" id="write-message">
+		<span>发信息</span>
+	</div>
+</div>
+
+<div id="message-contacts-box" class="hide">
+	<div class="message-contacts-top">
+		<span class="title">联系人</span>
+		<span class="glyphicon glyphicon-remove closed"></span>
+	</div>
+	<div class="message-contacts">
+    	<h4>
+        	<a class="contacts-expand collapsed" data-toggle="collapse" href="#admin-contacts" aria-expanded="false" aria-controls="admin-contacts">
+          		<span class="glyphicon glyphicon-plus"></span>  管理员
+        	</a>
+      	</h4>
+    	<div id="admin-contacts" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      		<ul class="contacts-list-group list-group"></ul>
+    	</div>
+	    <h4>
+	        <a class="contacts-expand collapsed" data-toggle="collapse" href="#teacher-contacts" aria-expanded="false" aria-controls="teacher-contacts">
+	          	<span class="glyphicon glyphicon-plus"></span>  教师
+	        </a>
+	    </h4>
+	    <div id="teacher-contacts" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+	      	<ul class="contacts-list-group list-group"></ul>
+	    </div>
+	    <h4>
+	        <a class="contacts-expand collapsed" data-toggle="collapse" href="#student-contacts" aria-expanded="false" aria-controls="student-contacts">
+	          	<span class="glyphicon glyphicon-plus"></span>  学生
+	        </a>
+	    </h4>
+	    <div id="student-contacts" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+	      	<ul class="contacts-list-group list-group"></ul>
+	    </div>
+	</div>
+</div>
+
+<div id="message-content-box" class="hide">
+	<div class="message-content-top">
+		<span class="title">某某某</span>
+		<span class="glyphicon glyphicon-remove closed"></span>
+		<span class="glyphicon glyphicon-user users"></span>
 		<span class="glyphicon glyphicon-menu-left back"></span>
 	</div>
-	<div class="message-list"></div>
-	<div class="message-content"></div>
+	<div class="message-content">
+		<div class="message clearfix">
+            <span class="triangle"></span>
+            <div class="article">我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了</div>
+        </div>
+        <div class="message clearfix fr">
+            <span class="triangle right"></span>
+            <div class="article">我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了</div>
+        </div>
+	</div>
+	<div class="message-tool"></div>
+	<div class="message-writeboard">
+		<textarea class="form-control" rows="4"></textarea>
+		<div class="send-bottom">
+			<button type="button" class="btn btn-sm">发送</button>
+		</div>
+	</div>
 </div>
+
+<script type="text/javascript" src="/js/base/websocket.js"></script>
         
  <layout:block name="nav_content">
  

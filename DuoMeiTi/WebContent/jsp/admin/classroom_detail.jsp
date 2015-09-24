@@ -1,7 +1,8 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 
 <layout:override name="main_content">
-	<link href="/css/admin/classroom_detail.css" rel="stylesheet" />	
+	<link href="/css/admin/classroom_detail.css" rel="stylesheet" />
+	<script type='text/javascript' src="/js/admin/classroom_detail.js"></script>
 	<script type="text/javascript">
 	window.onload = function () {
 	    $('.form_date').datetimepicker({
@@ -19,9 +20,9 @@
 	<div class="mycontent">
 		<div class="row">
 			<div class="col-lg-6 col-lg-offset-3 classbuilding">
-				<span>301</span>&nbsp;&nbsp;&nbsp;&nbsp;
+				<span><s:property value="build_name"/>&nbsp;&nbsp;<s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
 				<span>负责人:</span>
-				<span class="director-span">楼主</span>
+				<span class="director-span"><s:property value="classroom.principal.user.username"/></span>
 			</div>
 			</div>
 		<hr>
@@ -81,10 +82,10 @@
 						<h4 class="modal-title">填写周检查记录</h4>
 					</div>
 					<div class="modal-body">
-						<textarea class="form-control" rows="3"></textarea>
+						<textarea class="form-control" rows="3" id="checkdetail"></textarea>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">提交</button>
+						<button type="button" class="btn btn-primary" onclick="checkrecord_submit()">提交</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 					</div>
 				</div>
@@ -102,10 +103,11 @@
 						<h4 class="modal-title">填写维修记录</h4>
 					</div>
 					<div class="modal-body">
-						<textarea class="form-control" rows="3"></textarea>
+						<div>设备：<span class="control-label" id="selectType"></span>&nbsp;&nbsp;&nbsp;&nbsp;资产编号：<span class="control-label" id="selectNum"></span></div>
+						<textarea class="form-control" rows="3" id="repairdetail"></textarea>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">提交</button>
+						<button type="button" class="btn btn-primary" onclick="repairrecord_submit()">提交</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 					</div>
 				</div>
@@ -126,66 +128,63 @@
 		<div class="detail-div">
 			<div class="device">
 				<ul>
-					<li>
-						<div style="margin-bottom:5px"><label class="control-label">计算机&nbsp;</label><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
-						<table class="table device-table-bordered">
-							<thead>
-								<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
-							</thead>
-							<tbody>
-								<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
-							</tbody>
-						</table>
-					</li>
-					<li>
-						<div style="margin-bottom:5px"><label class="control-label">中央控制器&nbsp;</label><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
-						<table class="table device-table-bordered">
-							<thead>
-								<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
-							</thead>
-							<tbody>
-								<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
-							</tbody>
-						</table>
-					</li>
-					<li>
-						<div style="margin-bottom:5px"><label class="control-label">投影&nbsp;</label><span><button type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#repair-record-modal">维修</button></span></div>
-						<table class="table device-table-bordered">
-							<thead>
-								<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
-							</thead>
-							<tbody>
-								<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
-							</tbody>
-						</table>
-					</li>
+					<s:iterator value="classroom.repertorys" var="device" status="i">
+						<li id="device-<s:property value="#i.index"/>" />
+							<div style="margin-bottom:5px">
+								<label class="control-label device-type-label"><s:property value="#device.rtType"/>&nbsp;</label>
+								<span>
+									<button type="button" class="btn btn-primary btn-sm"  
+									onclick="openRepairMoadl(<s:property value="#i.index"/>)">维修</button>
+								</span>
+								<span style="visibility:hidden" class="device-id-span"><s:property value="#device.rtId"/></span>
+								<span style="visibility:hidden" class="device-num-span"><s:property value="#device.rtNumber"/></span>
+							</div>
+							<table class="table device-table-bordered">
+								<thead>
+									<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
+								</thead>
+								<tbody>
+									<tr><td><s:property value="#device.rtNumber"/></td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
+								</tbody>
+							</table>
+						</li>
+					</s:iterator>
 				</ul>
 			</div>
 			<div class="record">
 				<ul>
 					<li>
 						<label class="control-label">周检查记录：</label>
-						<table class="table device-table-bordered">
+						<table class="table device-table-bordered" id="checkrecord_table">
 							<thead>
 								<tr><td>检查人</td><td>教室状况</td><td>检查时间</td></tr>
 							</thead>
 							<tbody>
-								<tr><td>检查人</td><td>教室状况</td><td>检查时间</td></tr>
-								<tr><td>检查人</td><td>教室状况</td><td>检查时间</td></tr>
-								<tr><td>检查人</td><td>教室状况</td><td>检查时间</td></tr>
+								<s:iterator value="checkrecords" var="checkrecord" status="i">
+									<tr>
+										<td width="20%"><s:property value="#checkrecord.checkman.user.fullName"/></td>
+										<td><s:property value="#checkrecord.checkdetail"/></td>
+										<td><s:property value="#checkrecord.checkdate"/></td>
+									</tr>
+								</s:iterator>
 							</tbody>
 						</table>
 					</li>
 					<li>
 					<label class="control-label">维修记录：</label>
-						<table class="table device-table-bordered">
+						<table class="table device-table-bordered" id="repairrecord_table">
 							<thead>
-								<tr><td>维修人</td><td>维修状况</td><td>维修时间</td></tr>
+								<tr><td>维修人</td><td>维修设备</td><td>维修情况</td><td>维修时间</td></tr>
 							</thead>
 							<tbody>
-								<tr><td>维修人</td><td>维修状况</td><td>维修时间</td></tr>
-								<tr><td>维修人</td><td>维修状况</td><td>维修时间</td></tr>
-								<tr><td>维修人</td><td>维修状况</td><td>维修时间</td></tr>
+								<s:iterator value="repairrecords" var="repairrecord" status="i">
+									<tr>
+										<td width="20%"><s:property value="#repairrecord.repairman.fullName"/></td>
+										<td><s:property value="#repairrecord.device.rtType"/></td>
+										<td><s:property value="#repairrecord.repairdetail"/></td>
+										<td><s:property value="#repairrecord.repairdate"/></td>
+									</tr>
+								</s:iterator>
 							</tbody>
 						</table>
 					</li>

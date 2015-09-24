@@ -1,6 +1,7 @@
 package util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -8,26 +9,19 @@ import javax.servlet.ServletContext;
 
 import org.apache.struts2.ServletActionContext;
 
-public class Util 
+public class Util
 {
 	
 	public static final String RootPath;
-	public static final String FileUploadPath;
+	public static final String FileUploadRelativePath = "/FileUpload/"; //相对于Rootpath
+	public static final String ProfilePhotoRelativePath = FileUploadRelativePath + "ProfilePhoto/";//相对于Rootpath
 	
-	public static final String ProfilePhotoPath;
-	
-	public static final int AdminRole = 0;
-	public static final int StudentRole = 1;
-	public static final int teacherRole = 2;
-	
-	static {
+
+	static 
+	{
+		
 		ServletContext application = ServletActionContext.getServletContext();
 		RootPath = application.getRealPath("");
-		
-		FileUploadPath = RootPath +"/FileUpload";
-		ProfilePhotoPath = FileUploadPath +"/ProfilePhoto";
-		
-//		System.out.println(AppPath);
 	}
 	
 	static public String fileToString(String fileName) 

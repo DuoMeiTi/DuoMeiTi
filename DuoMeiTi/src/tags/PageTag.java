@@ -62,7 +62,7 @@ public class PageTag extends SimpleTagSupport {
 		JspWriter out = this.getJspContext().getOut();
 		StringBuffer sb = new StringBuffer();
 		
-		sb.append("<div><ul class=\"pagination pagination-right\">") ;
+		sb.append("<div id=\"pagediv\"><ul class=\"pagination pagination-right\">") ;
 
 		if (currPage == 1) {
 			sb.append("<li><span>首页</span></li><li><span>上一页</span></li>");
