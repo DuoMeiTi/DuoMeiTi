@@ -90,7 +90,7 @@ td,tr,th{
 		<%-- <form class="form-horizontal" action="classroom_search"--%>
 
 		<div id="maintainRecords_table">
-			<iframe name="myFrame" frameborder="0" scrolling="no" width="800px" height="200px" src="/jsp/admin/record_query.jsp"></iframe>
+			<iframe name="myFrame" frameborder="0" scrolling="no" style="width:100%;" height="200px" src="/jsp/admin/record_query.jsp"></iframe>
 		</div>
 	</div>
 
