@@ -19,7 +19,7 @@ public class RepairDAOImpl implements RepairDAO{
 			tx = session.beginTransaction();
 			hql = "SELECT new model.Repair( "
 							+ "sP.studentId, "
-							+ "sP.fullName, "
+							+ "u.fullName, "
 							+ "rR.device.rtType, "
 							+ "rR.repairdetail, "
 							+ "rR.device.classroom.classroom_num, "
@@ -27,9 +27,9 @@ public class RepairDAOImpl implements RepairDAO{
 							+ "rR.repairdate"
 							+ ") "
 				+ "FROM "
-							+ "RepairRecord rR, StudentProfile sP "
+							+ "RepairRecord rR, StudentProfile sP, User u "
 				+ "WHERE "
-							+ "rR.repairman = sP.user";
+							+ "rR.repairman = sP.user and rR.repairman = u";
 			Query query = session.createQuery(hql);
 			
 			list = query.list();
