@@ -60,8 +60,7 @@
 			        <span class="usoft-listview-more">
 						<strong><a href="home/news/news_cate=documents">更多»</a></strong>
 			        </span>
-			      </div>
-			      
+			      </div>			      
 			      <div class="news-list">
 			        <div class="news-documents documents-list ">
 							
@@ -75,17 +74,17 @@
 							  <ul>
 							    <li>
 							      <span class="usoft-listview-item-date">01-08</span>
-							      <span><a href="" title="">
-							      		<s:property value="#i.classroom.classroom_num"/>
-							      		检查
-							      		<s:property value="#i.checkman.user.username"/>
-							      		</a>
+							      <span>
+							      	<a href="#" title="">
+							      		<s:property value="#i.checkman.fullName"/>检查<s:property value="#i.classroom.teachbuilding.build_name"/><s:property value="#i.classroom.classroom_num"/>
+							      		:
+							      		<s:property value="#i.checkdetail"/>
+							      	</a>
 							      </span>
 							    </li>
 							  </ul>
 							</div>
-							
-						</s:iterator>
+						 </s:iterator>
 							
 							
 							
