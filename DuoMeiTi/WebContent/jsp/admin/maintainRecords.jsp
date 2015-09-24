@@ -80,7 +80,6 @@ td,tr,th{
 		</div>
 		
 		<br />
-		<p>Hello<p/>
 		<p>
 			 <!-- <script language="javascript" type="text/javascript">
 				//var items=$(":radio:checked"); //获取选中的项 
