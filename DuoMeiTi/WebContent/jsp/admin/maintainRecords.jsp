@@ -15,7 +15,7 @@ td,tr,th{
 	<div class="mycontent">
 		<div class="row">
 			<a type="button" class="btn btn-primary"
-				style="width: 49%; float: left" href="/admin/classroomDevice/query_repair">设备维修记录</a>
+				style="width: 49%; float: left" href="/admin/classroomDevice/maintainRecords">设备维修记录</a>
 			<a type="button" class="btn btn-primary"
 				style="width: 49%; float: right" href="/admin/classroomDevice/equipmentQueryAndEdit">设备信息查询及批量修改</a>
 		</div>
