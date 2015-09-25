@@ -6,18 +6,20 @@
 	<form class="form-inline" action="student_register" method="POST"
 		id="admin_register_form">
 
-		<div class="form-group col-lg-offset-1">
-			<label for="username">用&nbsp;户&nbsp;名&nbsp;</label> <input type="text"
+		<div class="form-group col-lg-offset-4">
+			<label for="username">用&nbsp;&nbsp;户&nbsp;&nbsp;名</label> <input type="text"
 				class="form-control" name="username" id="usernameId"
 				onblur=checkUsername() value="<s:property value="username"/>"
-				placeholder="">
+				placeholder="用作登录的用户名">
 		</div>
 
 		<div class="form-group">
 			<span style="color: red" id=username_msg>*</span>
 		</div>
-<div class="form-group col-lg-offset-1">
-			<label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+		  <br><br>
+		  
+		<div class="form-group col-lg-offset-4">
+			<label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
 			<input type="password" class="form-control" name="password"
 				onblur=checkPassword() id="passwordId"
 				value="<s:property value="password"/>" placeholder="">
@@ -26,16 +28,10 @@
 		<div class="form-group">
 			<span style="color: red" id=password_msg>*</span>
 		</div>
-
-
-
-
-
-
-		<br> <br> <br>
+  <br><br>
 
 		
-		<div class="form-group col-lg-offset-1">
+		<div class="form-group col-lg-offset-4">
 			<label for="passwordAgain">确认密码</label> <input type="password"
 				class="form-control" name="passwordAgain" id="passwordAgainId"
 				onblur=checkPasswordAgain() value="<s:property value="passwordAgain"/>"
@@ -44,12 +40,13 @@
 		<div class="form-group">
 			<span style="color: red" id=passwordAgain_msg>*</span>
 		</div>
-		<div class="form-group col-lg-offset-1">
-			<label for="fullName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
+		  <br><br>
+		<div class="form-group col-lg-offset-4">
+			<label for="fullName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
 			<input type="text" class="form-control" name="fullName"
 				value="<s:property value="fullName"/>" placeholder="">
 		</div>
-		<br> <br> <br>
+		<br> <br> 
 
 
 		<%-- <div class="form-group col-lg-offset-1">
@@ -58,39 +55,39 @@
 				value="<s:property value="unitInfo"/>" placeholder="">
 		</div> --%>
 		
-		<div class="form-group col-lg-offset-1">
-	  	<label for="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
+		<div class="form-group col-lg-offset-4">
+	  	<label for="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
 	  	<s:select list="sexSelect"  class="form-control" name="sex" style="width:180px"></s:select>
 	  </div>
-
-		<div class="form-group col-lg-offset-1">
+  	<br><br>
+		<div class="form-group col-lg-offset-4">
 			<label for="profilePhotoPath">上传头像</label> <input type="text"
 				class="form-control" name="profilePhotoPath"
 				value="<s:property value="profilePhotoPath"/>" placeholder="">
 		</div>
 
-		<br> <br> <br>
+		<br> <br> 
 
 
 
 
-		<div class="form-group col-lg-offset-1">
+		<div class="form-group col-lg-offset-4">
 			<label for="unitInfo">工作单位</label> <input type="text"
 				class="form-control" name="unitInfo"
 				value="<s:property value="unitInfo"/>" placeholder="">
 		</div>
+  <br><br>
 
-
-		<div class="form-group col-lg-offset-1">
+		<div class="form-group col-lg-offset-4">
 			<label for="phoneNumber">联系方式</label> <input type="text"
 				class="form-control" name="phoneNumber"
 				value="<s:property value="phoneNumber"/>" placeholder="">
 		</div>
 
-		<br> <br> <br>
+		<br> <br> 
 
-		<div class="form-group col-lg-offset-1">
-			<label for="remark">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注</label>
+		<div class="form-group col-lg-offset-4">
+			<label for="remark">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注</label>
 			<input type="" text"" class="form-control" name="remark"
 				value="<s:property value="remark"/>" placeholder="">
 		</div>
@@ -98,7 +95,7 @@
 
 
 		<br /> <br />
-		<button type="button" class="btn btn-default col-lg-offset-5">注&nbsp;&nbsp;&nbsp;&nbsp;册</button>
+		<button type="button" class="btn btn-primary col-lg-offset-5">注册</button>
 	</form>
 
 	<br />

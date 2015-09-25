@@ -50,7 +50,20 @@
 				<param name="excludeProperties"> repertory_list</param>
 			</result>
 		</action>
-
+		
+		<!--公告的action设置  -->
+		<action name="notice" class="homepage.NoticeAction">
+			<result name="success">
+				/jsp/admin/notice.jsp
+			</result>
+		</action>
+        <action name="notice_*" class="homepage.NoticeAction" method="{1}">
+        <result name="success" type="json">
+<!--             	<param name="includeProperties">status,notice_id</param>            -->
+				
+            </result> 
+        </action>
+        
 	</package>
 	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="AdminDefault">
 		<action name="maintainRecords">
@@ -166,5 +179,18 @@
 		</action>
 		
 	</package>
-
+	<package name="notice" namespace="/admin/notice" extends="AdminDefault">
+<!--公告的action设置  -->
+		<action name="notice" class="homepage.NoticeAction">
+			<result name="success">
+				/jsp/admin/notice.jsp
+			</result>
+		</action>
+        <action name="notice_*" class="homepage.NoticeAction" method="{1}">
+        <result name="success" type="json">
+<!--             	<param name="includeProperties">status,notice_id</param>            -->
+				
+            </result> 
+        </action>
+    </package>
 </struts>

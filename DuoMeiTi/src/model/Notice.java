@@ -1,20 +1,22 @@
 package model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
 public class Notice {
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public int id;
 @Column(length=50)
 public String title;
-@Column(length=1000)
+@Column(length=500)
 public String content;
-@Column(length=10)
-public String time;
+@Column(length=100)
+public java.sql.Date time;
 public int getId() {
 	return id;
 }
@@ -33,11 +35,12 @@ public String getContent() {
 public void setContent(String content) {
 	this.content = content;
 }
-public String getTime() {
+public java.sql.Date getTime() {
 	return time;
 }
-public void setTime(String time) {
+public void setTime(java.sql.Date time) {
 	this.time = time;
 }
+
 
 }
