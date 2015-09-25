@@ -14,7 +14,7 @@ public class CheckRecord {
 	
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn
-	public StudentProfile checkman;
+	public User checkman;
 	
 	@Column(length=200)
 	public String checkdetail;
@@ -54,11 +54,11 @@ public class CheckRecord {
 		this.classroom = classroom;
 	}
 
-	public StudentProfile getCheckman() {
+	public User getCheckman() {
 		return checkman;
 	}
 
-	public void setCheckman(StudentProfile checkman) {
+	public void setCheckman(User checkman) {
 		this.checkman = checkman;
 	}
 

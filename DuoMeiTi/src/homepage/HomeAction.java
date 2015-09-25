@@ -17,29 +17,36 @@ import org.hibernate.criterion.Restrictions;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
+import model.User;
 public class HomeAction 
 {
-	
-	public List file_path_list;
+	public List check_list;
 	
 	public String execute() throws Exception
-	{
-		System.out.println("home page");
+	{ 
 		
+//
+//	 Criteria q =
+//session.createCriteria(User.class).add(Restrictions.eq("username",
+//username));
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(model.EgFilePathSave.class);		
-		file_path_list = q.list();
-		session.close();
+		
+		check_list = session.createCriteria(model.CheckRecord.class).list();
+		model.CheckRecord cr = (model.CheckRecord)check_list.get(0);
+		
+		
+		System.out.println("&&&&&&&&&&");
+//		System.out.println(cr.classroom.classroom_num);
+//		System.out.println(cr.checkman.user.username);
+		
+		
+		
+		
 		return ActionSupport.SUCCESS;
 	}
 
-	public List getFile_path_list() {
-		return file_path_list;
-	}
 
-	public void setFile_path_list(List file_path_list) {
-		this.file_path_list = file_path_list;
-	}
 	
 	
 }

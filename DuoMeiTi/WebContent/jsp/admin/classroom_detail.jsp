@@ -162,7 +162,7 @@
 							<tbody>
 								<s:iterator value="checkrecords" var="checkrecord" status="i">
 									<tr>
-										<td width="20%"><s:property value="#checkrecord.checkman.user.fullName"/></td>
+										<td width="20%"><s:property value="#checkrecord.user.fullName"/></td>
 										<td><s:property value="#checkrecord.checkdetail"/></td>
 										<td><s:property value="#checkrecord.checkdate"/></td>
 									</tr>

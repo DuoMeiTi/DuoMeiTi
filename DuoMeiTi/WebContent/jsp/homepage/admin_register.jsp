@@ -219,5 +219,5 @@
 
 
 
-<%@ include file="/jsp/homepage/base.jsp"%>
+<%@ include file="/jsp/homepage/new_home_base.jsp"%>
 

@@ -90,7 +90,7 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 			t_classroom.id = classroom.id;
 //			t_classroom.capacity = classroom.capacity;
 			t_classroom.classroom_num = classroom.classroom_num;
-			t_classroom.principal_name = classroom.principal == null ? "" : classroom.principal.user.getUsername();
+			t_classroom.principal_name = classroom.principal == null ? "" : classroom.principal.user.getFullName();
 			t_classroom.principal_stuId = classroom.principal == null ? "" : classroom.principal.getStudentId();
 			StringBuilder rsb = new StringBuilder();
 			for(Repertory r : classroom.repertorys) {
@@ -148,7 +148,7 @@ System.out.println("rowcount:" + rowCount);
 			}
 			else{
 				Criteria user_criteria = session.createCriteria(User.class);
-				user_criteria.add(Restrictions.eq("username", query_condition));
+				user_criteria.add(Restrictions.eq("user.fullName", query_condition));
 				List<User> userlist = user_criteria.list();
 				
 				Criteria stu_criteria = session.createCriteria(StudentProfile.class);
@@ -177,7 +177,7 @@ System.out.println("rowcount:" + rowCount);
 			t_classroom.id = classroom.id;
 //			t_classroom.capacity = classroom.capacity;
 			t_classroom.classroom_num = classroom.classroom_num;
-			t_classroom.principal_name = classroom.principal == null ? "" : classroom.principal.user.getUsername();
+			t_classroom.principal_name = classroom.principal == null ? "" : classroom.principal.user.getFullName();
 			t_classroom.principal_stuId = classroom.principal == null ? "" : classroom.principal.getStudentId();
 			StringBuilder sb = new StringBuilder();
 			for(Repertory r : classroom.repertorys) {

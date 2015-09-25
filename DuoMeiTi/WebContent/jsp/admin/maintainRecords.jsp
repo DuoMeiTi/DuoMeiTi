@@ -15,7 +15,7 @@ td,tr,th{
 	<div class="mycontent">
 		<div class="row">
 			<a type="button" class="btn btn-primary"
-				style="width: 49%; float: left" href="/admin/classroomDevice/query_repair">设备维修记录</a>
+				style="width: 49%; float: left" href="/admin/classroomDevice/maintainRecords">设备维修记录</a>
 			<a type="button" class="btn btn-primary"
 				style="width: 49%; float: right" href="/admin/classroomDevice/equipmentQueryAndEdit">设备信息查询及批量修改</a>
 		</div>
@@ -23,20 +23,20 @@ td,tr,th{
 
 		<div class="radios">
 			<label class="radio-inline" style="margin-left:5%" > <input type="radio"
-				name="radio-select" value=0
+				name="radio-select" value="0"
 				onclick="return showdiv('#personCondition')" checked> 按负责人
 			</label> <label class="radio-inline" style="margin-left:5%" > <input type="radio"
-				name="radio-select" value=1
+				name="radio-select" value="1"
 				onclick="return showdiv('#buildingCondition')"> 按教学楼
 			</label> <label class="radio-inline" style="margin-left:5%" > <input type="radio"
-				name="radio-select" value=2
+				name="radio-select" value="2"
 				onclick="return showdiv('#equipmentCondition')"> 按设备
 			</label> <label class="radio-inline" style="margin-left:5%" > <input type="radio"
-				name="radio-select" value=3
+				name="radio-select" value="3"
 				onclick="return showdiv('#timeCondition')"> 按时间
 			</label>
-			<button type="button" class="btn btn-default" style="float:right;margin-right:5%" onclick="search()">检索维修记录</button>
-			<a href="<%=path%>/admin/classroomDevice/query_action>" type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%">导出检索记录</a>
+			<a id="commitSearch" href="<%=path%>/admin/classroomDevice/query_action" type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%" onclick="startSearch()">检索维修记录</a>
+			<a id="commitExport" href="<%=path%>/admin/classroomDevice/query_action" type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%">导出检索记录</a>
 		</div>
 		<br />
 		<div class="searchCondition" id="conditions">
@@ -60,7 +60,7 @@ td,tr,th{
 			</div>
 			
 			<div class="searchCondition-equipment" id="equipmentCondition">
-				<select id="device" class="form-control" style="width: 30%">
+				<select id="deviceid" class="form-control" style="width: 30%">
 					<option value="0">计算机</option>
 					<option value="1">投影</option>
 					<option value="2">中央控制器</option>
@@ -80,7 +80,6 @@ td,tr,th{
 		</div>
 		
 		<br />
-		<p>Hello<p/>
 		<p>
 			 <!-- <script language="javascript" type="text/javascript">
 				//var items=$(":radio:checked"); //获取选中的项 
@@ -91,7 +90,7 @@ td,tr,th{
 		<%-- <form class="form-horizontal" action="classroom_search"--%>
 
 		<div id="maintainRecords_table">
-			<iframe name="myFrame" frameborder="0" scrolling="no" width="800px" height="200px" src="/jsp/admin/record_query.jsp"></iframe>
+			<iframe name="myFrame" frameborder="0" scrolling="no" style="width:100%;" height="200px" src="/jsp/admin/record_query.jsp"></iframe>
 		</div>
 	</div>
 
@@ -103,10 +102,18 @@ td,tr,th{
 
 
 	<script>
+	
+		function sc_condition(type,val)
+		{
+			var href="<%=path%>/admin/classroomDevice/query_action";
+			href=href+"?Type="+type+"&Value="+val;
+			document.getElementById("commitSearch").href=href;
+		}
 		function sc_principal() {
 			
-			var options = $("#principal option:selected");
-			alert("this is 0: " + options.val());
+			var optionval = $("#principal option:selected").val();
+			var personval=$("#personVal").val();
+			sc_condition('0'+optionval,personval);
 		}
 		
 		function sc_building() {
@@ -117,16 +124,16 @@ td,tr,th{
 		}
 		
 		function sc_device() {
-			var options = $("#device option:selected");
-			alert("this is 2: " + options.val());
+			var optionval = $("#deviceid option:selected").val();
+			sc_condition('2',optionval);
 		}
 		
 		function sc_time() {
-			var options = $("#time option:selected");
-			alert("this is 3: " + options.val());
+			var optionval = $("#time option:selected").val();
+			sc_condition('3',optionval);
 		}
 		
-		function search() {
+		function startSearch() {
 			var items=$(":radio:checked"); //获取选中的项;
 			switch (parseInt(items.val())) {
 				case 0:
@@ -136,11 +143,17 @@ td,tr,th{
 					sc_building();
 					break;
 				case 2:
+					
 					sc_device();
 					break;
-				default:
+				case 3:
 					sc_time();
+					break;
+				default:
+					alert("ERROR:Wrong val.");
+					return false;
 			} 
+			return true;
 		}
 	
 		function showdiv(objId) {

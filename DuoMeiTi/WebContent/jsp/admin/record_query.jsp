@@ -39,13 +39,13 @@
 				id="Records_table">
 				<thead>
 					<tr>
-						<th>学号</th>
-						<th>姓名</th>
-						<th>设备</th>
-						<th>维修情况</th>
-						<th>日期</th>
-						<th>教室</th>
-						<th>教学楼</th>
+						<th style="width:10%;">学号</th>
+						<th style="width:10%;">姓名</th>
+						<th style="width:10%;">设备</th>
+						<th style="width:40%;">维修情况</th>
+						<th style="width:10%;">日期</th>
+						<th style="width:10%;">教室</th>
+						<th style="width:10%;">教学楼</th>
 					</tr>
 				</thead>
 				
@@ -55,9 +55,10 @@
 						<td><s:property value="#item.fullName" /></td>
 						<td><s:property value="#item.rtType" /></td>
 						<td><s:property value="#item.repairDetail" /></td>
+						<td><s:property value="#item.repairDate" /></td>
 						<td><s:property value="#item.classRoom" /></td>
 						<td><s:property value="#item.teachBuilding" /></td>
-						<td><s:property value="#item.repairDate" /></td>
+
 						</td>
 					</tr>
 				</s:iterator>

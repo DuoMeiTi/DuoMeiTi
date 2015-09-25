@@ -12,7 +12,20 @@
     <constant name="struts.multipart.maxSize" value="1000000000" />
     <constant name="struts.aciton.excludePattern" value="ws://*"></constant>
     
-      
+
+     
+    <package name="Default" namespace="" extends="json-default">
+    
+    	<default-action-ref name="hello"/>
+  	    <global-results>
+            <result name="not_login" type="redirect"> /not_login</result>
+        </global-results>    	
+        
+        <action name="hello">
+        	<result> /hello.jsp</result>
+        </action>
+    </package>
+    
       
 	<package name="AdminLoginInterceptor" abstract="true" extends="struts-default">	
 		<!-- 定义一个拦截器 -->  
@@ -28,14 +41,11 @@
         
 		<default-interceptor-ref name="AdminLoginInterceptorStack" />
 		
-       	<global-results>
-            <result name="not_login" type="redirect"> /not_login</result>
-        </global-results>	
 	</package>
 	
 	
 	
-	<package name="AdminDefault" extends="json-default, AdminLoginInterceptor">
+	<package name="AdminDefault" extends="Default, AdminLoginInterceptor">
 	</package>
 	
 	
@@ -47,23 +57,7 @@
 	
 	
 	
-	<package name="HomepageDefault" extends="json-default">
-	
-    	<default-action-ref name="hello"/>
-    	
-    	<action name="hello">
-            <result>
-                /hello.jsp
-            </result>
-        </action>
-        
-        <action name="admin_eg">
-            <result>
-                /jsp/admin/admin_eg.jsp
-            </result>
-        </action>
-		
-	
+	<package name="HomepageDefault" extends="Default">	
 	</package>
 	
 	

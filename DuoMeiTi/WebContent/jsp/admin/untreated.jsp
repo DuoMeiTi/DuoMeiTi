@@ -18,7 +18,7 @@
 				</tr>
 				
 			<s:iterator value="student_list" var="i" status="index">
-				<tr class="row" user_id=<s:property value="#i.id"/> >
+				<tr class="row" id=<s:property value="#i.id"/> >
 					<td class="col-lg-1.5"> <s:property value="#i.fullName"/> </td>
 					<td class="col-lg-0.5"> <s:property value="#i.sex"/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.studentId"/> </td>
@@ -29,42 +29,23 @@
 					<td class="col-lg-1"> 
 					<%-- <s:select list="{'不通过','通过'}" name="strValue"></s:select>  --%>
 						<select id="judge" name="strValue">
-							<option value="0">不通过</option>
-							<option value="1">通过</option>
+							<option value="1">不通过</option>
+							<option value="2">通过</option>
 						</select>
 					</td>
 					</form>
-					<td class="col-lg-1">
-						<button type="button" class="btn btn-primary btn-sm">确定</button>
+					<td class="col-lg-1 ">
+						<button type="button" class="btn btn-primary btn-sm" id="ensure-button">确定</button>
 					</td>
 				</tr>
 					
 			</s:iterator>
-
-				<!-- <tr class="row">
-					<td class="col-lg-1.5">dorothy</td>
-					<td class="col-lg-0.5">女</td>
-					<td class="col-lg-1.5">21524009</td>
-					<td class="col-lg-2.5">210256196536925864</td>
-					<td class="col-lg-2.5">创新创业学院</td>
-					<td class="col-lg-1.5">18042563456</td>
-					<td class="col-lg-1">
-						<select id="judge" name="judge">
-							<option value="1">通过</option>
-							<option value="0">不通过</option>
-						</select>
-					</td>
-					<td class="col-lg-1">
-						<button type="button" class="btn btn-primary btn-sm">确定</button>
-					</td>
-				</tr> -->
-				
-			
 			</table>
 		</div>
 	</div>
 	
 	<script>
+	/*
 	$(document).on("click", "button", function (){
 		var params=$('#request_form').serialize(); //获取Select选择的Value
 		var strValue=$('#judge').find("option:selected").text();
@@ -86,7 +67,28 @@
 		else if(data.status=="1"){
 			alert("通过");
 		}
-	} 
+	}
+	 */
+	 
+	$("#ensure-button").click(function(){
+		var id=$(this).closest("tr").attr("id");
+		var isPass=$('#judge').find("option:selected").val();
+		$.ajax({
+			url: 'request_ensure',
+	        type: 'post',
+	        dataType: 'json',
+	        data:{userid:id,isPassed:isPass},
+	        success:ensureCallBack
+		});
+	})
+	
+	function ensureCallBack(data){
+		if(data.strValue=="success"){
+			var t=$("#"+data.userid);
+			$("#"+data.userid).remove();
+		}
+		else alert("something wrong!!");
+	}
 	</script>
 	
 	

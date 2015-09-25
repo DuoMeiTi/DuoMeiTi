@@ -1,6 +1,4 @@
 =\=\=\=\=\=\=
-<<<<<<<=HEAD
->>>>>>>=origin/master
 eclipse.preferences.version=1
 encoding//WebContent/jsp/admin/admin_eg.jsp=UTF-8
 encoding//WebContent/jsp/admin/admin_information.jsp=UTF-8
@@ -9,6 +7,7 @@ encoding//WebContent/jsp/admin/classroom_detail.jsp=UTF-8
 encoding//WebContent/jsp/admin/classroom_manage.jsp=UTF-8
 encoding//WebContent/jsp/admin/equipmentQueryAndEdit.jsp=UTF-8
 encoding//WebContent/jsp/admin/handled.jsp=UTF-8
+encoding//WebContent/jsp/admin/modify_password.jsp=UTF-8
 encoding//WebContent/jsp/admin/maintainRecords.jsp=UTF-8
 encoding//WebContent/jsp/admin/notice.jsp=UTF-8
 encoding//WebContent/jsp/admin/repertory.jsp=UTF-8
@@ -26,6 +25,7 @@ encoding//WebContent/jsp/homepage/home2.jsp=UTF-8
 encoding//WebContent/jsp/homepage/login.jsp=UTF-8
 encoding//WebContent/jsp/homepage/login_fail.jsp=UTF-8
 encoding//WebContent/jsp/homepage/login_success.jsp=UTF-8
+encoding//WebContent/jsp/homepage/modify_password.jsp=UTF-8
 encoding//WebContent/jsp/homepage/new_home.jsp=UTF-8
 encoding//WebContent/jsp/homepage/new_home_base.jsp=UTF-8
 encoding//WebContent/jsp/homepage/not_login.jsp=UTF-8

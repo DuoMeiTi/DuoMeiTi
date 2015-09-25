@@ -37,7 +37,7 @@ public class InformationAction extends ActionSupport{
 		
 	
 	public List<AdminProfile>admin_list;
-	private AdminProfile now_admin;
+	private static AdminProfile now_admin;
 	private String unitInfo;
 
 	
@@ -175,7 +175,7 @@ public class InformationAction extends ActionSupport{
 
 		user_list = c1.list();
 		now_user = user_list.get(0);
-		System.out.println("userlist" + now_user);
+//		System.out.println("user_id" + now_user.getId());
 		
 		user_id = now_user.getId();
 		
@@ -195,13 +195,7 @@ public class InformationAction extends ActionSupport{
 		username = now_user.getUsername();
 		unitInfo = now_admin.getUnitInfo();
 		
-		
-//		System.out.println(fullName);
-//		System.out.println(phoneNumber);
-//		System.out.println(sex);
-//		System.out.println(unitInfo);
-//		System.out.println(remark);
-//		System.out.println("id:"+id);
+
 		return SUCCESS;
 
 	}
@@ -209,47 +203,32 @@ public class InformationAction extends ActionSupport{
 	public String adminInformationChange() throws Exception
 	{
 		
-		System.out.println("AdminAction.adminInformationChange():");
-		System.out.println(username);
-		System.out.println(fullName);
-		System.out.println(phoneNumber);
-		System.out.println(sex);
-		System.out.println(unitInfo);
-		System.out.println(remark);
+//		System.out.println("AdminAction.adminInformationChange():");
+//		System.out.println(username);
+//		System.out.println(fullName);
+//		System.out.println(phoneNumber);
+//		System.out.println(sex);
+//		System.out.println(unitInfo);
+//		System.out.println(remark);
 		
-//		Session session = model.Util.sessionFactory.openSession();
-//		Criteria c1 = session.createCriteria(User.class).add(Restrictions.eq("username",ActionContext.getContext().getSession().get("username"))); //hibernate session创建查询
-//		//c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-//		user_list = c1.list();
-//		
-//
-//		User now_user = user_list.get(0);
-//		user_id = now_user.getId();
-//		
-//		Criteria c2 = session.createCriteria(AdminProfile.class).add(Restrictions.eq("user.id",user_id)); //hibernate session创建查询
-//		admin_list = c2.list();	
-//		
-//		AdminProfile aProfile = admin_list.get(0);
-//		id = aProfile.getId();
-//		
-//		System.out.println("id:"+id);
-//		
-//		
-//		aProfile.setUser(now_user);
-////		aProfile.setFullName("123");
-////		aProfile.setPhoneNumber(phoneNumber);
-////		aProfile.setProfilePhotoPath("profilePhotoPath");
-////		aProfile.setRemark(remark);
-////		aProfile.setSex(sex);
-//		aProfile.setUnitInfo(unitInfo);
-//
-//		session.beginTransaction();
-//		session.save(aProfile);
-//		session.update(aProfile);
-//		Transaction t = session.getTransaction();
-//		t.commit();
-//		
-//		session.close();
+//		System.out.println("user_id" + now_user.getId());
+		
+		now_user.setFullName(fullName);
+		now_user.setPhoneNumber(phoneNumber);
+		now_user.setProfilePhotoPath(profilePhotoPath);
+		now_user.setRemark(remark);
+		now_user.setSex(sex);
+		now_admin.setUnitInfo(unitInfo);
+		
+		Session session = model.Util.sessionFactory.openSession();
+		session.beginTransaction();
+		session.update(now_user);
+		session.update(now_admin);
+		Transaction t = session.getTransaction();
+		t.commit();
+		session.close();
+		
+		
 		return ActionSupport.SUCCESS;
 
 	}
