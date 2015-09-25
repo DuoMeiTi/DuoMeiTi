@@ -15,16 +15,25 @@
 					<th class="col-lg-2">联系方式</th>
 					<th class="col-lg-2">审核状态</th>
 				</tr>
-				<tr class="row">
-					<td class="col-lg-1.5">dorothy</td>
-					<td class="col-lg-0.5">女</td>
-					<td class="col-lg-1.5">21524009</td>
-					<td class="col-lg-2.5">210245658945632568</td>
-					<td class="col-lg-2">创新创业学院</td>
-					<td class="col-lg-2">18045695368</td>
+				
+		<s:iterator value="student_list" var="i" status="index">
+			<s:if test="%{#i.isPassed>0}">		
+				<tr class="row" id=<s:property value="#i.id"/> > 
+					<td class="col-lg-1.5"><s:property value="#i.user.fullName"/></td>
+					<td class="col-lg-0.5"><s:property value="#i.user.sex"/></td>
+					<td class="col-lg-1.5"><s:property value="#i.studentId"/></td>
+					<td class="col-lg-2.5"><s:property value="#i.idCard"/></td>
+					<td class="col-lg-2"><s:property value="#i.college"/></td>
+					<td class="col-lg-2"><s:property value="#i.user.phoneNumber"/></td>
+				<s:if test="%{#i.isPassed==1}">
+					<td class="col-lg-2">审核不通过</td>
+				</s:if>
+				<s:else >
 					<td class="col-lg-2">审核通过</td>
-					
+				</s:else>	
 				</tr>
+			</s:if>
+		</s:iterator>
 			</table>
 		</div>
 	</div>
