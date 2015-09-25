@@ -1,0 +1,14 @@
+.input-group{
+	padding-top:10px;
+	padding-bottom:10px;
+	width: 200px!important;
+}
+.input-group span button{
+	width:82px;
+}
+.modal-header h2{
+	text-align:center;
+}
+#repertory_form select input{
+	width:140px;
+}
