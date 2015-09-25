@@ -2,7 +2,7 @@
 
 
 <layout:override name="main_content">
-
+<h3>吓尿了！！！！！</h3>
 <div class="row news_frame">
   <div class="col-lg-6">
     <!--news base template-->
