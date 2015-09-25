@@ -8,12 +8,19 @@
 
 	<package name="admin" namespace="/admin" extends="AdminDefault">
 	
-		<action name="homepage_modify">
+		<action name="HomepageModify">
 			<result>
-				/jsp/admin/homepage_modify/base.jsp
-			</result>
-			
+				/jsp/admin/HomepageModify/Base.jsp
+			</result>			
 		</action>
+		
+		<action name="HomepageModify_FileUpload">
+			<result>
+				/jsp/admin/HomepageModify/FileUpload.jsp
+			</result>			
+		</action>
+		
+		
 		
 		<action name="">
 			<result>
