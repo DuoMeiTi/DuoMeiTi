@@ -7,6 +7,14 @@
 
 
 	<package name="admin" namespace="/admin" extends="AdminDefault">
+	
+		<action name="homepage_modify">
+			<result>
+				/jsp/admin/homepage_modify/base.jsp
+			</result>
+			
+		</action>
+		
 		<action name="">
 			<result>
 				/jsp/admin/base.jsp

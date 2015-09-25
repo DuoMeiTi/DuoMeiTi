@@ -23,6 +23,9 @@ public class Repertory {
 	@Column(length=200)
 	public String rtDevice;
 	
+	@Column(length=10)
+	public String rtDeviceStatus;
+	
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn
 	public Classroom classroom;
@@ -84,6 +87,15 @@ System.out.println("set");
 		this.classroom = classroom;
 	}
 	
+	
+	public String getRtDeviceStatus() {
+		return rtDeviceStatus;
+	}
+
+	public void setRtDeviceStatus(String rtDeviceStatus) {
+		this.rtDeviceStatus = rtDeviceStatus;
+	}
+
 	public String toString() {
 		return this.rtType + "," + this.rtNumber;
 	}
