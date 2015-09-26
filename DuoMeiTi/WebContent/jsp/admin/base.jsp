@@ -13,7 +13,7 @@
 	    <a href="/admin/HomepageModify" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;主页修改</span></a>
 	    <a href="/admin/adf" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;日志管理</span></a>
 	    <a href="/admin/asdf" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;远程控制</span></a>
-	    <a href="/admin/ModifyPaawordAction" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;修改密码</span></a>
+	    <a href="/admin/modifypassword" class="menu-button-middle"><span class="glyphicon glyphicon-lock">&nbsp;修改密码</span></a>
 	    <a href="/admin/user_information" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;个人信息</span></a>
 	    <a href="/logout" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;安全退出</span></a>
 
