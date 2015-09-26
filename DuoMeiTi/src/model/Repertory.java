@@ -26,6 +26,15 @@ public class Repertory {
 	@Column(length=10)
 	public String rtDeviceStatus;
 	
+	@Column
+	public java.sql.Date rtProdDate;
+	
+	@Column
+	public java.sql.Date rtApprDate;
+	
+	
+	
+	
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn
 	public Classroom classroom;
@@ -94,6 +103,22 @@ System.out.println("set");
 
 	public void setRtDeviceStatus(String rtDeviceStatus) {
 		this.rtDeviceStatus = rtDeviceStatus;
+	}
+	
+	public java.sql.Date getRtProdDate() {
+		return rtProdDate;
+	}
+
+	public void setRtProdDate(java.sql.Date rtProdDate) {
+		this.rtProdDate = rtProdDate;
+	}
+
+	public java.sql.Date getRtApprDate() {
+		return rtApprDate;
+	}
+
+	public void setRtApprDate(java.sql.Date rtApprDate) {
+		this.rtApprDate = rtApprDate;
 	}
 
 	public String toString() {
