@@ -10,13 +10,12 @@
 	    <a href="/admin/classroomDevice/maintainRecords" class="menu-button-middle"><span class="glyphicon glyphicon-th">&nbsp;教室设备管理</span></a>
 	    <a href="/admin/2342" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;在职学生管理</span></a>
 	    <a href="/admin/user_request" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;用户注册请求</span></a>
-<<<<<<< HEAD
+
 	    <a href="/admin/wer" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;主页修改</span></a>
-	    <a href="/admin/notice" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;日志管理</span></a>
-=======
+	    <a href="/admin/notice" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;公告管理</span></a>
+
 	    <a href="/admin/HomepageModify" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;主页修改</span></a>
 	    <a href="/admin/adf" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;日志管理</span></a>
->>>>>>> origin/master
 	    <a href="/admin/asdf" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;远程控制</span></a>
 	    <a href="/admin/modifypassword" class="menu-button-middle"><span class="glyphicon glyphicon-lock">&nbsp;修改密码</span></a>
 	    <a href="/admin/user_information" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;个人信息</span></a>
