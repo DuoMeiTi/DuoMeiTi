@@ -282,7 +282,10 @@ function judgesuffix(str1,str2){
     return true;
 }
 $(".mynavbar a").each(function(){
+	
     var myhref=$(this).attr("href");
+//    alert(str);
+//    alert(myhref);
     if(judgesuffix(str,myhref))
         {
             $(this).addClass("highlight");

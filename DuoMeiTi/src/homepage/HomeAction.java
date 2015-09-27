@@ -33,7 +33,7 @@ public class HomeAction
 		Session session = model.Util.sessionFactory.openSession();
 		
 		check_list = session.createCriteria(model.CheckRecord.class).list();
-		model.CheckRecord cr = (model.CheckRecord)check_list.get(0);
+//		model.CheckRecord cr = (model.CheckRecord)check_list.get(0);
 		
 		
 		System.out.println("&&&&&&&&&&");

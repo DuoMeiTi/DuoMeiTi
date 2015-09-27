@@ -39,7 +39,7 @@ public class StudentAction {
 	private String college;
 	private String passwordAgain;
 	private List<StudentProfile> student_list;
-	private String strValue;
+	
 	private int isPassed;
 	private int userid;
 	private String status;
@@ -59,14 +59,6 @@ public class StudentAction {
 
 	public void setIsPassed(int isPassed) {
 		this.isPassed = isPassed;
-	}
-
-	public String getStrValue() {
-		return strValue;
-	}
-
-	public void setStrValue(String strValue) {
-		this.strValue = strValue;
 	}
 
 	public List<StudentProfile> getStudent_list() {
@@ -292,54 +284,4 @@ public class StudentAction {
 		return ActionSupport.SUCCESS;
 	}
 	
-	public String studentRequest() throws Exception{
-		try{
-			Session session=model.Util.sessionFactory.openSession();
-			Criteria q=session.createCriteria(StudentProfile.class);
-			student_list=q.list();
-			Collections.reverse(student_list);
-			session.close();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return ActionSupport.SUCCESS;
-	}
-	
-	public String studentJudgesSave() throws Exception{
-		if(strValue=="不通过"){
-			this.isPassed=0;
-		}
-		else if(strValue=="通过"){
-			this.isPassed=1;
-		}
-		Session session=model.Util.sessionFactory.getCurrentSession();
-		StudentProfile stu=new StudentProfile();
-		stu.setIsPassed(isPassed);
-		
-		session.beginTransaction();
-		session.save(isPassed);
-		session.getTransaction().commit();
-		
-		return ActionSupport.SUCCESS;	
-			
-	} 
-	
-	public String studentRequestEnsure() throws Exception{
-		Session session = model.Util.sessionFactory.openSession();
-		Transaction trans=session.beginTransaction();
-		String hql="update StudentProfile s set isPassed="+
-					String.valueOf(isPassed)+" where s.user.id="+String.valueOf(userid);
-		Query q=session.createQuery(hql);
-		int ret = q.executeUpdate();
-		trans.commit();
-		if(ret>0){
-			strValue=ActionSupport.SUCCESS;
-			return ActionSupport.SUCCESS;
-		}
-		else return ActionSupport.ERROR;
-	}
-	
-
 }

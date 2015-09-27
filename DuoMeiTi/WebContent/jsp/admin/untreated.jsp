@@ -16,15 +16,17 @@
 					<th class="col-lg-1">待审核</th>
 					<th class="col-lg-1"></th>
 				</tr>
-				
-			<s:iterator value="student_list" var="i" status="index">
-				<tr class="row" id=<s:property value="#i.id"/> >
-					<td class="col-lg-1.5"> <s:property value="#i.fullName"/> </td>
-					<td class="col-lg-0.5"> <s:property value="#i.sex"/> </td>
+			
+			
+		<s:iterator value="student_list" var="i" status="index">
+			<s:if test="%{#i.isPassed==0}">
+				<tr class="row" id=<s:property value="#i.user_id"/> >
+					<td class="col-lg-1.5"> <s:property value="#i.user.fullName"/> </td>
+					<td class="col-lg-0.5"> <s:property value="#i.user.sex"/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.studentId"/> </td>
 					<td class="col-lg-2.5"> <s:property value="#i.idCard"/> </td>
 					<td class="col-lg-2.5"> <s:property value="#i.college"/> </td>
-					<td class="col-lg-1.5"> <s:property value="#i.phoneNumber"/> </td>
+					<td class="col-lg-1.5"> <s:property value="#i.user.phoneNumber"/> </td>
 					<form class="form-inline" action="untreated" method="POST" id="request_form">
 					<td class="col-lg-1"> 
 					<%-- <s:select list="{'不通过','通过'}" name="strValue"></s:select>  --%>
@@ -38,8 +40,8 @@
 						<button type="button" class="btn btn-primary btn-sm" id="ensure-button">确定</button>
 					</td>
 				</tr>
-					
-			</s:iterator>
+			</s:if>		
+		</s:iterator>
 			</table>
 		</div>
 	</div>

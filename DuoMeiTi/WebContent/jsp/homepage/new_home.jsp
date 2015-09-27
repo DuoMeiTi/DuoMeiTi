@@ -2,7 +2,8 @@
 
 
 <layout:override name="main_content">
-
+<!-- <h3>吓尿了！！！！！</h3> -->
+<!-- <h3>吓尿了2222222222222！！！！！</h3> -->
 <div class="row news_frame">
   <div class="col-lg-6">
     <!--news base template-->
@@ -73,7 +74,9 @@
 						   <div class="usoft-listview-basic">
 							  <ul>
 							    <li>
-							      <span class="usoft-listview-item-date">01-08</span>
+							      <span class="usoft-listview-item-date">
+							      	<s:property value="#i.checkdate"/>
+								  </span>
 							      <span>
 							      	<a href="#" title="">
 							      		<s:property value="#i.checkman.fullName"/>检查<s:property value="#i.classroom.teachbuilding.build_name"/><s:property value="#i.classroom.classroom_num"/>

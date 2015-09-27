@@ -7,6 +7,21 @@
 
 
 	<package name="admin" namespace="/admin" extends="AdminDefault">
+	
+		<action name="HomepageModify">
+			<result>
+				/jsp/admin/HomepageModify/Base.jsp
+			</result>			
+		</action>
+		
+		<action name="HomepageModify_FileUpload">
+			<result>
+				/jsp/admin/HomepageModify/FileUpload.jsp
+			</result>			
+		</action>
+		
+		
+		
 		<action name="">
 			<result>
 				/jsp/admin/base.jsp
@@ -44,9 +59,9 @@
 			</result>
 		</action>
 		
-		<action name="modifypassword" class="admin.ModifyPasswordAction">
+		<action name="modifypassword" class="admin.ModifyPasswordAction" method="modifyPassword">
 			<result name="success">
-				/jsp/admin/modifypassword.jsp
+				/jsp/admin/modify_password.jsp
 			</result>
 		</action>
 
@@ -93,26 +108,21 @@
 	</package>
 	<package name="user_request" namespace="/admin/user_request"
 		extends="AdminDefault">
-		<action name="untreated" class="homepage.StudentAction" method="studentRequest">
+		<action name="untreated" class="admin.RequestAction" method="studentRequest">
 			<result>
 				/jsp/admin/untreated.jsp
 			</result>
 
 		</action>
 		
-		<action name="request_save" class="homepage.StudentAction" method="studentJudgesSave">
-			<result name="success" type="json">
-				<param name="includeProperties">strValue</param>
-			</result>
-		</action>
 		
-		<action name="request_ensure" class="homepage.StudentAction" method="studentRequestEnsure">
+		<action name="request_ensure" class="admin.RequestAction" method="studentRequestEnsure">
 			<result name="success" type="json">
 				<param name="includeProperties">strValue,userid</param>
 			</result>
 		</action>
 
-		<action name="handled">
+		<action name="handled" class="admin.RequestAction" method="studentRequestResult">
 			<result>
 				/jsp/admin/handled.jsp
 			</result>
