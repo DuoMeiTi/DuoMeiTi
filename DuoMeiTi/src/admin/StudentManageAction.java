@@ -20,7 +20,7 @@ import util.Const;
 public class StudentManageAction extends ActionSupport{
 	
 	private String collegeSelect[];
-	private String sexSelect[];
+	private static String sexSelect[];
 
 	
 	private String username;
@@ -42,6 +42,7 @@ public class StudentManageAction extends ActionSupport{
 	private String strValue;
 	private int isPassed;
 	private int userid;
+	private int isUpgradePrivilege;
 	private String status;
 	
 
@@ -49,6 +50,7 @@ public class StudentManageAction extends ActionSupport{
 	private static List<User> user_list;
 	private static StudentProfile edit_student;
 	private static User edit_user;
+	private String isUpgradePrivilegelist[];
 	
 	
 	
@@ -61,11 +63,13 @@ public class StudentManageAction extends ActionSupport{
 //		System.out.println(studentId);
 //		System.out.println(college);
 //		System.out.println(phoneNumber);
+//		System.out.println(isUpgradePrivilege);
 		
 		edit_user.setFullName(fullName);
 		edit_user.setPhoneNumber(phoneNumber);
 		edit_student.setStudentId(studentId);
 		edit_student.setCollege(college);
+		edit_student.setIsUpgradePrivilege(isUpgradePrivilege);
 		
 		
 		
@@ -111,12 +115,13 @@ public class StudentManageAction extends ActionSupport{
 		phoneNumber = edit_user.getPhoneNumber();
 		college = edit_student.getCollege();
 		studentId = edit_student.getStudentId();
-		
+		isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
 		
 		System.out.println(fullName);
 		System.out.println(studentId);
 		System.out.println(college);
 		System.out.println(phoneNumber);
+		System.out.println(isUpgradePrivilege);
 
 		return SUCCESS;
 	}
@@ -165,8 +170,6 @@ public class StudentManageAction extends ActionSupport{
 		
 		System.out.println("studentInformationEdit():");
 		System.out.println(rtID);
-
-	
 		return SUCCESS;
 
 	}
@@ -199,6 +202,66 @@ public class StudentManageAction extends ActionSupport{
 	
 	
 	
+	public String[] getIsUpgradePrivilegelist() {
+		return isUpgradePrivilegelist;
+	}
+
+
+
+	public void setIsUpgradePrivilegelist(String[] isUpgradePrivilegelist) {
+		this.isUpgradePrivilegelist = isUpgradePrivilegelist;
+	}
+
+
+
+	public int getIsUpgradePrivilege() {
+		return isUpgradePrivilege;
+	}
+
+
+
+	public void setIsUpgradePrivilege(int isUpgradePrivilege) {
+		this.isUpgradePrivilege = isUpgradePrivilege;
+	}
+
+
+
+	public static List<User> getUser_list() {
+		return user_list;
+	}
+
+
+
+	public static void setUser_list(List<User> user_list) {
+		StudentManageAction.user_list = user_list;
+	}
+
+
+
+	public static StudentProfile getEdit_student() {
+		return edit_student;
+	}
+
+
+
+	public static void setEdit_student(StudentProfile edit_student) {
+		StudentManageAction.edit_student = edit_student;
+	}
+
+
+
+	public static User getEdit_user() {
+		return edit_user;
+	}
+
+
+
+	public static void setEdit_user(User edit_user) {
+		StudentManageAction.edit_user = edit_user;
+	}
+
+
+
 	public String[] getCollegeSelect() {
 		return collegeSelect;
 	}

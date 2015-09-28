@@ -44,17 +44,20 @@ $(document).on("click", ".edit", function() {
 
 function getInformationCallback(data) {
 
+	/*alert(data.fullName);
+	alert(data.isUpgradePrivilege);*/
 	$("#fullName").val(""+data.fullName);
 	$("#studentId").val(""+data.studentId);
 	$("#college").val(""+data.college);
 	$("#phoneNumber").val(""+data.phoneNumber);
+	$("#isUpgradePrivilege").val(""+data.isUpgradePrivilege);
 	
 }
 
 
-
 //save
 $(document).on("click", "#editSave", function() {
+	/*alert("save");*/
 	var params = $('#edit_student_form').serialize(); //利用jquery将表单序列化 
 	
 	$.ajax({

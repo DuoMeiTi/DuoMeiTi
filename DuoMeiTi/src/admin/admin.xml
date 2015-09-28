@@ -143,13 +143,12 @@
 				/jsp/admin/student_information.jsp
 			</result>
 		</action>
-		
-		
+	
 		
 		<!-- 获取学生信息 -->
 		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">
            <result name="success" type="json">
-            	<param name="includeProperties">fullName,studentId,college,phoneNumber</param>           
+            	<param name="includeProperties">fullName,studentId,college,phoneNumber,isUpgradePrivilege</param>           
            </result>           
         </action>
 		
@@ -170,43 +169,6 @@
         
         
 	</package>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	<package name="classroom_json" namespace="/admin/classroom_json" extends="AdminDefault">
