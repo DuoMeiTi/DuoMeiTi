@@ -82,7 +82,7 @@
 	</div>
 </div>
 
-<div id="message-content-box" class="hide">
+<div id="message-content-box" class="hide" from=<s:property value="#session.user_id"/>>
 	<div class="message-content-top">
 		<span class="title">某某某</span>
 		<span class="glyphicon glyphicon-remove closed"></span>
@@ -103,7 +103,7 @@
 	<div class="message-writeboard">
 		<textarea class="form-control" rows="4"></textarea>
 		<div class="send-bottom">
-			<button type="button" class="btn btn-sm">发送</button>
+			<button type="button" class="btn btn-sm" onclick="sendMessage()">发送</button>
 		</div>
 	</div>
 </div>
