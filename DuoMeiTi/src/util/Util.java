@@ -6,16 +6,22 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
 public class Util
 {
 	
 	public static final String RootPath;
-	public static final String FileUploadRelativePath = "/FileUpload/"; //相对于Rootpath
-	public static final String ProfilePhotoRelativePath = FileUploadRelativePath + "ProfilePhoto/";//相对于Rootpath
 	
+	public static final String FileUploadPath = "/FileUpload/"; //相对于Rootpath
+	public static final String ProfilePhotoPath = 
+			FileUploadPath + "ProfilePhoto/";//相对于Rootpath
+	public static final String ClassroomFilePath = 
+			FileUploadPath + "ClassroomFile/";//相对于Rootpath
 
 	static 
 	{
@@ -47,5 +53,61 @@ public class Util
 		
 		return "";
 	}
+	
+	
+	/*
+	 *把文件file，其文件名称为fileName， 将这个文件存到targetFilePath路径下
+	 */
+	static public void saveFile(File file, String fileName, String targetFilePath)	
+	{
+		File savefile = new File(new File(targetFilePath), fileName);
+        if (!savefile.getParentFile().exists())
+            savefile.getParentFile().mkdirs();
+        try
+        {
+        	FileUtils.copyFile(file, savefile);
+        }
+        catch(Exception e)
+        {
+        	e.printStackTrace();
+        }
+	}
+	
+	static public String getFileNameFromPath(String path)
+	{
+		String []  list = path.split("/");
+//		System.out.println("LIST");
+		
+		
+		int n = list.length;
+//		System.out.println(list[n - 1]);
+		return list[n - 1];
+	}
+	
+	
+	static public  String getJspOutput(String jsppath, HttpServletRequest request, HttpServletResponse response)
+	throws Exception
+	{
+		WrapperResponse wrapperResponse = new WrapperResponse(response);
+		request.getRequestDispatcher(jsppath).include(request, wrapperResponse);
+		return wrapperResponse.getContent();
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

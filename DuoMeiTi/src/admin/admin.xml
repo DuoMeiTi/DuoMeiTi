@@ -14,11 +14,19 @@
 			</result>			
 		</action>
 		
-		<action name="HomepageModify_FileUpload">
+		<action name="HomepageModify_FileUpload"  class="admin.FileUploadAction">
 			<result>
 				/jsp/admin/HomepageModify/FileUpload.jsp
 			</result>			
 		</action>
+		<action name="HomepageModify_FileUploadInsert"  class="admin.FileUploadAction" method ="insert">
+			<result type="json">
+				
+			</result>			
+		</action>
+		
+		
+		
 		
 		
 		

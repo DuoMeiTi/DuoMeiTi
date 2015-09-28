@@ -10,26 +10,11 @@
 		<br/>
 		<button class="btn btn-primary" id="file_upload_button" type="button" > 上传</button>
 	</form>
-
-	<table class="table table-bordered" id="user_table">
 	
-		<tr class="active">
-			<th> 文件列表 </th>
-		</tr>
-		
-		
-		<s:iterator value="file_path_list" var="i" status="index" >  
-			<tr class="success" >
-				<td>   <a href="<s:property value="#i.filePath"/> "> <s:property value="#i.filePath"/></a>   </td>
-
-			</tr>
-		</s:iterator>  
-		
-		
-		
-
-	</table>
-
+	<div id="ClassroomFileTableDiv">
+		<%@ include file="/jsp/admin/HomepageModify/ClassroomFileTable.jsp" %>
+	</div>
+	
 
 <script> 
 	
@@ -38,20 +23,22 @@
 		
 		var fd = new FormData();
 
-     	fd.append("image", document.getElementById('file_upload').files[0]); 
+     	fd.append("file", document.getElementById('file_upload').files[0]); 
      	
-     	fd.append("test", "YESYESYES");
+//      	fd.append("test", "YESYESYES");
  
 	    $.ajax({  
-	          url: "" ,  
+	          url: "HomepageModify_FileUploadInsert" ,  
 	          type: "POST",  
 	          data: fd,  
 	          async: true,  
 	          cache: false,  
 	          contentType: false,  
 	          processData: false,  
-// 	          success: function (returndata) {  
-// 	              alert(returndata);  
+	          success: insertCallBack,
+// 	          {
+// 	        	  alert("GOOD");
+// 	        	  window.location.reload() 
 // 	          },  
 // 	          error: function (returndata) {  
 // 	              alert(returndata);  
@@ -70,6 +57,18 @@
 
 		
 	})
+	
+	function insertCallBack(data)
+	{
+// 		alert("GOGO");
+// 		alert(data.classroom_file_table);
+		$(document).find("#ClassroomFileTableDiv").html(data.classroom_file_table)
+// 		window.location.reload() 
+// 		$(document).find("#file_list_table tr:first").after("<td>" + data. "  </td")
+// 		$("#file_list_table").tr.
+// 		alert("BACK");
+	}
+	
 
 
 </script>

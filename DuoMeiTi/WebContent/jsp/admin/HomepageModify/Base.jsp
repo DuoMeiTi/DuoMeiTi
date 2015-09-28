@@ -9,7 +9,7 @@
         <div class="container-fluid nopadding">
 		    <div class="row nomargin">
 		        <div class="col-lg-3 nopadding">
-		           <a href="/admin/HomepageModify_FileUpload" class="navbar-button navbar-button-left">文件上传</a> 
+		           <a href="/admin/HomepageModify_FileUpload" class="navbar-button navbar-button-left">教室文件上传</a> 
 		        </div>
 		        <div class="col-lg-3 nopadding">
 		           <a href="/admin/file_upload" class="navbar-button">课程成绩查询</a> 
