@@ -116,7 +116,14 @@
 
 		<div class="container-fluid">
 			<div class="row col-lg-12">
-				<div class="col-lg-7"></div>
+				<div class="col-lg-7">
+				<form action="#" method="post">
+					<p style="float:left;vertical-align:bottom;">添加设备:</p>
+					<input type="text" class="form-control" id="personVal" style="width:30%;float:left;margin-left:5%;" placeholder="请输入资产编号">
+					<button type="submit" class="btn btn-info btn-sm" style="margin-left:5%">查询</button>
+					<button type="button" class="btn btn-primary btn-sm" style="margin-left:5%">提交</button>
+				</form>
+				</div>
 				<div class="col-lg-2">
 					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#schedule-modal">查看课表</button>
 					</div>
