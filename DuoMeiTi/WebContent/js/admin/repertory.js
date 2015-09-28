@@ -6,7 +6,10 @@ $(document).on("click", "#rtInsert", function() {
 	$("[name=rtType]").val("");
 	$("[name=rtNumber]").val("");
 	$("[name=rtVersion]").val("");
+	$("[name=rtProdDate]").val("");
+	$("[name=rtApprDate]").val("");
 	$("[name=rtFactorynum]").val("");
+	$("[name=rtDeviceStatus]").val("");
 	$("#rtSave").attr("mark","insert");
 })
 
@@ -66,13 +69,15 @@ function fetchCallback(data) {
 		}
 		$(document).find("#rtNumber").val(temp.rtNumber);
 		$(document).find("#rtVersion").val(temp.rtVersion);
+		$(document).find("#rtProdDate").val(temp.rtProdDateString);
+		$(document).find("#rtApprDate").val(temp.rtApprDateString);
 		$(document).find("#rtFactorynum").val(temp.rtFactorynum);
+		$(document).find("#rtDeviceStatus").val(temp.rtDeviceStatus);
 	}
 	
 }
 //insert update
 $(document).on("click", "#rtSave", function() {
-
 	var d_type = $("#rtDevice").val();
 	var d_name;
 	if (d_type == "") {
@@ -89,6 +94,10 @@ $(document).on("click", "#rtSave", function() {
 		alert("输入不能为空！");
 		return;
 	}
+	if($("#rtDeviceStatus").val() == "") {
+		alert("输入不能为空！");
+		return;
+	}
 	
 	var params = $("#repertory_form").serialize();
 	//alert(decodeURIComponent(params,true));
@@ -98,7 +107,10 @@ $(document).on("click", "#rtSave", function() {
  	fd.append("rtType",d_name);
  	fd.append("rtNumber", $(cnt).find("[name=rtNumber]").val());
  	fd.append("rtVersion", $(cnt).find("[name=rtVersion]").val());
+ 	fd.append("rtProdDate", $(cnt).find("[name=rtProdDate]").val());
+ 	fd.append("rtApprDate", $(cnt).find("[name=rtApprDate]").val());
  	fd.append("rtFactorynum", $(cnt).find("[name=rtFactorynum]").val());
+ 	fd.append("rtDeviceStatus", $(cnt).find("[name=rtDeviceStatus]").val());
 	
 	if($(this).attr("mark") == "insert"){
 	    $.ajax({  
@@ -134,13 +146,16 @@ $(document).on("click", "#rtSave", function() {
 function repertoryCallback(data) {
 	if (data.status == "1") {
 		$("#repertory_table tr:first").after(data.add_repertory_html);
-
 		var cnt = $(document).find("#repertory_table tr:eq(1)");
 		$(cnt).children().eq(0).text(data.rtType);
 		$(cnt).children().eq(1).text(data.rtNumber);
 		$(cnt).children().eq(2).text(data.rtVersion);
-		$(cnt).children().eq(3).text(data.rtFactorynum);
-		// alert(data.rtId+", "+data.rtType+", "+data.rtNumber);
+		$(cnt).children().eq(3).text(data.rtProdDateString);
+		//$(cnt).children().eq(3).text(data.rtProdDate.substring(0,10));
+		$(cnt).children().eq(4).text(data.rtApprDateString);
+		$(cnt).children().eq(5).text(data.rtFactorynum);
+		$(cnt).children().eq(6).text(data.rtDeviceStatus);
+		
 		$(cnt).attr("rt_id", data.rtId);
 		$(cnt).attr("rt_device", data.rtDevice);
 		$('#rtModal').modal('hide');
@@ -151,32 +166,19 @@ function repertoryCallback(data) {
 
 function updateCallback(data) {
 	if(data.status == "1") {
-		var rtId = data.rtId;
-		$.ajax({
-			url : 'repertory_fetch',
-			type : 'post',
-			dataType : 'json',
-			data : {"rtId" : rtId,},// {"后台",""}
-			success : fetchupCallback
-		});
-	}
-}
-
-function fetchupCallback(data) {
-	if(data.status == "1") {
-		var row = data.rtSearch_list[0];
-		var line = $(document).find("#repertory_table tr[rt_id = " + row.rtId +"]");
-		//alert($(line).html());
-		$(line).children().eq(0).text(row.rtType);
-		$(line).children().eq(1).text(row.rtNumber);
-		$(line).children().eq(2).text(row.rtVersion);
-		$(line).children().eq(3).text(row.rtFactorynum);
-		// alert(data.rtId+", "+data.rtType+", "+data.rtNumber);
+		var line = $(document).find("#repertory_table tr[rt_id = " + data.rtId +"]");
+		$(line).children().eq(0).text(data.rtType);
+		$(line).children().eq(1).text(data.rtNumber);
+		$(line).children().eq(2).text(data.rtVersion);
+		$(line).children().eq(3).text(data.rtProdDateString);
+		$(line).children().eq(4).text(data.rtApprDateString);
+		$(line).children().eq(5).text(data.rtFactorynum);
+		$(line).children().eq(6).text(data.rtDeviceStatus);
 		$('#rtModal').modal('hide');
 		alert("修改成功！ ");
 	}
-	
 }
+
 
 //delete
 var delete_rtId;
@@ -229,6 +231,10 @@ $(document).find("#sMainDevice").change(function() {
 $(document).find("#sCostDevice").change(function() {
 	selectDevice();
 })
+$(document).find("#sDeviceStatus").change(function() {
+	selectDevice();
+})
+
 function selectDevice() {
 	var keyword = $("#repertory_search").serialize();
 	//alert(decodeURIComponent(keyword,true));
@@ -265,7 +271,10 @@ function searchCallback(data) {
 			$(row).find("td:eq(0)").text(everylist[i].rtType);
 			$(row).find("td:eq(1)").text(everylist[i].rtNumber);
 			$(row).find("td:eq(2)").text(everylist[i].rtVersion);
-			$(row).find("td:eq(3)").text(everylist[i].rtFactorynum);
+			$(row).find("td:eq(3)").text(everylist[i].rtProdDateString);
+			$(row).find("td:eq(4)").text(everylist[i].rtApprDateString);
+			$(row).find("td:eq(5)").text(everylist[i].rtFactorynum);
+			$(row).find("td:eq(6)").text(everylist[i].rtDeviceStatus);
 			$(row).attr("rt_id", everylist[i].rtId);
 		})
 

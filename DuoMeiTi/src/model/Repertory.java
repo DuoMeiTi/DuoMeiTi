@@ -27,7 +27,7 @@ public class Repertory {
 	public String rtDeviceStatus;
 	
 	@Column
-	public java.sql.Date rtProdDate;
+	public java.sql.Date rtProdDate;	
 	
 	@Column
 	public java.sql.Date rtApprDate;

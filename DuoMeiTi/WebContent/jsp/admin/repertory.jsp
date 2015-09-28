@@ -32,6 +32,12 @@
 								</div>
 								<div class="input-group">
 									<span class="input-group-btn">
+										<button type="button" class="btn btn-default">出厂日期</button>
+									</span>
+									<input type="date" class="form-control" name="rtProdDate" id="rtProdDate" value="<s:property value="rtProdDate"/>">
+								</div>
+								<div class="input-group">
+									<span class="input-group-btn">
 										<button type="button" class="btn btn-default">出厂号</button>
 									</span>
 									<input type="text" class="form-control" name="rtFactorynum" id="rtFactorynum" value="<s:property value="rtFactorynum"/>">
@@ -42,18 +48,6 @@
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-default">设备名称<span style="color:red">*</span></button>
 									</span>
-									<%-- <select class="form-control" name="rtType" id="rtType" placeholder="请选择" value="<s:property value="rtType"/>">
-										<option value="" selected="selected"></option>
-										<option value="中控">中控</option>
-										<option value="功放">功放</option>
-										<option value="计算机主机">计算机主机</option>
-										<option value="投影机">投影机</option>
-										<option value="显示器">显示器</option>
-										<option value="机柜">机柜</option>
-										<option value="幕布">幕布</option>
-										<option value="麦克">麦克</option>
-										<option value="数字处理器">数字处理器</option>
-									</select> --%>
 									<s:select list="mainDevice" class="form-control" name="rtType" id="rtType1" style="display:none"></s:select>
 									<s:select list="costDevice" class="form-control" name="rtType" id="rtType2" style="display:none"></s:select>
 								</div>
@@ -62,6 +56,18 @@
 										<button type="button" class="btn btn-default">型号</button>
 									</span>
 									<input type="text" class="form-control" name="rtVersion" id="rtVersion" value="<s:property value="rtVersion"/>">
+								</div>
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default">审批日期</button>
+									</span>
+									<input type="date" class="form-control" name="rtApprDate" id="rtApprDate" value="<s:property value="rtApprDate"/>">
+								</div>
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default">使用状态<span style="color:red">*</span></button>
+									</span>
+									<s:select list="deviceStatus" class="form-control" name="rtDeviceStatus" id="rtDeviceStatus"></s:select>
 								</div>
 							</div>
 							
@@ -99,8 +105,8 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="sStatus">使用状态(暂时不可用)</label>
-				<s:select list="deviceStatus" class="form-control" name="sStatus" id="sStatus"></s:select>
+				<label for="sDeviceStatus">使用状态</label>
+				<s:select list="deviceStatus" class="form-control" name="sDeviceStatus" id="sDeviceStatus"></s:select>
 			</div>
 		</form>
 		<br/>
@@ -110,14 +116,10 @@
 				<th>设备类型</th>
 				<th>资产编号</th>
 				<th>型号</th>
+				<th>出厂日期</th>
+				<th>审批日期</th>
 				<th>出厂号</th>
-					<!-- <th>型号</th>
-					<th>出厂日期</th>
-					<th>审批日期</th>
-					<th>出厂号</th>
-					<th>使用状态</th>
-					<th>编辑</th>
-					 -->
+				<th>使用状态</th>
 				<th>删除</th>
 			</tr>
 			
@@ -126,7 +128,10 @@
 					<td class="click_me"> <s:property value="#i.rtType"/> </td>
 					<td class="click_me"> <s:property value="#i.rtNumber"/> </td>
 					<td class="click_me"> <s:property value="#i.rtVersion"/> </td>
+					<td class="click_me"> <s:property value="#i.rtProdDate.toString()"/> </td>
+					<td class="click_me"> <s:property value="#i.rtApprDate.toString()"/> </td>
 					<td class="click_me"> <s:property value="#i.rtFactorynum"/> </td>
+					<td class="click_me"> <s:property value="#i.rtDeviceStatus"/> </td>
 					<td> <button type="button" class="btn btn-danger delete" >删除</button> </td>
 				</tr>
 			</s:iterator>
