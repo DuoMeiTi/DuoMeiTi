@@ -20,24 +20,34 @@
 		      <div class="news-list">
 		      
 		      
-		        <div class="news-documents documents-list "> 
-					<div class="usoft-listview-basic">
-					  <ul>
-					    <li>
-					      <span class="usoft-listview-item-date">12-30</span>
-					      <span><a href="home/news/4" title="关于用户名的说明">关于用户名的说明</a></span>
-					    </li>
-					  </ul>
-					</div>
-					
-					<div class="usoft-listview-basic">
-					  <ul>
-					    <li>
-					      <span class="usoft-listview-item-date">12-10</span>
-					      <span><a href="home/news/3" title="专项项目申报的通知">关于表扬李四同学</a></span>
-					    </li>
-					  </ul>
-					</div>
+		        <div class="news-documents documents-list ">
+		         	
+		         	<s:iterator value="notice_list" var="i" status="index" >
+		         	 	
+	         	 		<div class="usoft-listview-basic">
+						  <ul>
+						    <li>
+						      <span class="usoft-listview-item-date">
+						      		<s:property value="#i.time.toString()"/> 
+							  </span>
+						      <span>
+						      	<a href="/" > 
+						      		<s:property value="#i.title"/> 
+						      	</a>
+						      </span>
+						    </li>
+						  </ul>
+						</div>
+		         	</s:iterator>	        	
+		        
+<!-- 					<div class="usoft-listview-basic"> -->
+<!-- 					  <ul> -->
+<!-- 					    <li> -->
+<!-- 					      <span class="usoft-listview-item-date">12-30</span> -->
+<!-- 					      <span><a href="home/news/4" title="关于用户名的说明">关于用户名的说明</a></span> -->
+<!-- 					    </li> -->
+<!-- 					  </ul> -->
+<!-- 					</div> -->				
 		
 		
 		        </div><!--end news-documents-->
@@ -90,39 +100,15 @@
 						 </s:iterator>
 							
 							
-							
-							
-							
-						  <div class="usoft-listview-basic">
-							  <ul>
-							    <li>
-							      <span class="usoft-listview-item-date">01-08</span>
-							      <span><a href="" title="">张三检查一馆301:&nbsp;教室无问题</a></span>
-							    </li>
-							  </ul>
-							</div>
-							
-							
-						  
-							
-							
-							<div class="usoft-listview-basic">
-							  <ul>
-							    <li>
-							      <span class="usoft-listview-item-date">01-08</span>
-							      <span><a href="" title="">张三检查一馆301:&nbsp;教室无问题</a></span>
-							    </li>
-							  </ul>
-							</div>
-							
-							<div class="usoft-listview-basic">
-							  <ul>
-							    <li>
-							      <span class="usoft-listview-item-date">12-10</span>
-							      <span><a href="A5.zip" title="2015p">王二检查212:&nbsp;教室电脑坏掉</a></span>
-							    </li>
-							  </ul>
-							</div>
+													
+<!-- 							<div class="usoft-listview-basic"> -->
+<!-- 							  <ul> -->
+<!-- 							    <li> -->
+<!-- 							      <span class="usoft-listview-item-date">12-10</span> -->
+<!-- 							      <span><a href="A5.zip" title="2015p">王二检查212:&nbsp;教室电脑坏掉</a></span> -->
+<!-- 							    </li> -->
+<!-- 							  </ul> -->
+<!-- 							</div> -->
 			
 			
 			        </div><!--end news-documents-->
@@ -161,29 +147,56 @@
 		  <div class="front-wrap">
 		    <div class="home-news">
 		      <div class="usoft-listview-header">
-		        <h3>设备维修记录          <small>Equipment- maintenance -records </small> </h3>
+		        <h3>设备维修记录          <small>Equipment - maintenance - records </small> </h3>
 		        <span class="usoft-listview-more">					          
 				<strong><a href="home/news/news_cate=announcement">更多»</a></strong>						
 		        </span>
 		      </div>						      
 		      <div class="news-list">
 		        <div class="news-documents documents-list "> 
-					<div class="usoft-listview-basic">
-					  <ul>
-					    <li>
-					      <span class="usoft-listview-item-date">12-30</span>
-					      <span><a href="home/news/4" title="关于用户名的说明">张三维修一馆301教室主机:&nbsp;已经修好</a></span>
-					    </li>
-					  </ul>
-					</div>									
-					<div class="usoft-listview-basic">
-					  <ul>
-					    <li>
-					      <span class="usoft-listview-item-date">12-10</span>
-					      <span><a href="home/news/3" title="专项项目申报的通知">田七维修二馆777教室USB线:&nbsp;已经替换为新的</a></span>
-					    </li>
-					  </ul>
-					</div>					
+		        
+		        	<s:iterator value="repair_list" var="i" status="index" >
+		        		<div class="usoft-listview-basic">
+						  <ul>
+						    <li>
+						      <span class="usoft-listview-item-date">
+						      		<s:property value="#i.repairdate.toString()"/>
+						      </span>
+						      <span>
+						      	<a href="/">
+						      		<s:property value="#i.repairman.fullName"/>
+						      		维修
+						      		<s:property value="#i.device.classroom.teachbuilding.build_name"/>
+						      		教室
+						      		<s:property value="#i.device.classroom.classroom_num"/>
+						      		<s:property value="#i.device.rtType"/>
+						      		:
+						      		<s:property value="#i.repairdetail"/>
+						      		
+								</a>
+							  </span>
+						    </li>
+						  </ul>
+						</div>
+		        	</s:iterator>
+		        
+<!-- 					<div class="usoft-listview-basic"> -->
+<!-- 					  <ul> -->
+<!-- 					    <li> -->
+<!-- 					      <span class="usoft-listview-item-date">12-30</span> -->
+<!-- 					      <span><a href="home/news/4" title="关于用户名的说明">张三维修一馆301教室主机:&nbsp;已经修好</a></span> -->
+<!-- 					    </li> -->
+<!-- 					  </ul> -->
+<!-- 					</div> -->
+					
+<!-- 					<div class="usoft-listview-basic"> -->
+<!-- 					  <ul> -->
+<!-- 					    <li> -->
+<!-- 					      <span class="usoft-listview-item-date">12-10</span> -->
+<!-- 					      <span><a href="home/news/3" title="专项项目申报的通知">田七维修二馆777教室USB线:&nbsp;已经替换为新的</a></span> -->
+<!-- 					    </li> -->
+<!-- 					  </ul> -->
+<!-- 					</div>					 -->
 		        </div><!--end news-documents-->
 		      </div><!--end news-list-->
 		      
