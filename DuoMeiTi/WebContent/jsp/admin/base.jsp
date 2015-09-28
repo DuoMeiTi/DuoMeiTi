@@ -8,7 +8,7 @@
 	    <a href="/admin/classroom/teachBuildingAction" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;教室管理</span></a>
 	    <a href="/admin/repertory" class="menu-button-middle"><span class="glyphicon glyphicon-th-large">&nbsp;库存设备管理</span></a>
 	    <a href="/admin/classroomDevice/maintainRecords" class="menu-button-middle"><span class="glyphicon glyphicon-th">&nbsp;教室设备管理</span></a>
-	    <a href="/admin/2342" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;在职学生管理</span></a>
+	    <a href="/admin/student_manage" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;在职学生管理</span></a>
 	    <a href="/admin/user_request" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;用户注册请求</span></a>
 
 	    <a href="/admin/wer" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;主页修改</span></a>

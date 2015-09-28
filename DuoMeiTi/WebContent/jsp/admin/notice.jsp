@@ -34,6 +34,7 @@
 						<textarea class="form-control"  id="notice_content" rows="3" cols="1" ></textarea>
 						<!-- <input type="" class="form-control" id="input_principal_student_id" oninput="disable_add_btn()"> -->
 					</div>
+					<span  hidden="true" id="hidden_id"></span>
 					<!-- <div style="text-align:center" class="col-sm-4 control-label">
 						<span id="input_principal_student_name">lz</span>
 					</div> -->
@@ -75,7 +76,7 @@
 
 
 
-
+<div id="notice_search_table">
 	<table class="table table-bordered" id="notice_table">
 
 		<tr class="active">
@@ -86,15 +87,16 @@
 		</tr>
 
 
-		<s:iterator value="notice" var="i" status="index">
-			<tr class="success" notice_id=<s:property value="#i.id"/>>
-				<td><s:property value="#i.title" /></td>
-				<td><s:property value="#i.time" /></td>
+		<s:iterator value="notice" var="n" status="i">
+			<tr class="success" notice_id=<s:property value="#n.id"/> notice_content=<s:property value="#n.content"/> notice_title=<s:property value="#n.title"/> notice_time=<s:property value="#n.time"/>>
+				<td><s:property value="#n.title" /></td>
+				<td><s:property value="#n.time" /></td>
 				<td>
-					<button type="button" class="btn btn_primary " id="edit" onclick="edit_notice(<s:property value="#i.index"/>)">编辑</button>
+					<button type="button" class="btn btn-primary " id="edit" onclick="edit_notice(<s:property value="#i.index"/>)">编辑</button>
 				</td>
 				<td>
-					<button type="button" class="btn btn_danger delete">删除</button>
+				<button type="button" class="btn btn-danger delete" onclick="delete_notice(<s:property value="#i.index"/>)" >删除</button>
+					
 				</td>
 			</tr>
 		</s:iterator>
@@ -103,7 +105,7 @@
 
 
 	</table>
-
+</div>
 
 
 
@@ -127,7 +129,9 @@
 //		alert(submit_type);
 		var title = $("#notice_title").val();
 		var content = $("#notice_content").val();
-		
+		var id =  $("#hidden_id").val();
+		alert("id"+title+"   "+"  "+content +"  "+id+"  "+submit_type);
+		//var id =$("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_id");
 //		Request = GetRequest();
 //		var build_id = Request['build_id'];
 	//	alert(submit_type + " " +title + " " + content);
@@ -140,8 +144,8 @@
 				//"notice_id" : noticeId,
 				"title" : title,
 				"content" : content,
-				"submit_type" : submit_type
-				//"notice_time" : notice_time
+				"submit_type" : submit_type,
+				"id" : id
 			},
 			success : addNoticeCallback
 		});
@@ -152,36 +156,55 @@
 		
 		if(data.status == "ok") {
 			alert("ok");
-			$('#classroom-modal').modal('hide');
+			$('#notice-modal').modal('hide');
 			window.location.href=window.location.href;  
 			window.location.reload;
 		}
 	}
-	
+	//编辑
 	function edit_notice(index) {
-		var select_classroom_num = $("#classroom_search_table").find("tr:eq(" + (index + 1) + ") td:eq(0)").text();
-		var select_stu_td = $("#classroom_search_table").find("tr:eq(" + (index + 1) + ") td:eq(2)");
-		var select_studId = $(select_stu_td).attr("studId");
-		var select_stuName = $(select_stu_td).text();
-//		alert(select_classroom_num +" "+select_studId+" "+select_stuName);
+		//alert(index);
+		var select_notice_title = $("#notice_search_table").find("tr:eq(" + (index + 1) + ") td:eq(0)").text();
+//		var select_notice_time = $("#notice_search_table").find("tr:eq(" + (index + 1) + ") td:eq(1)");
+		var select_notice_time = $("#notice_search_table").find("tr:eq(" + (index + 1) + ")").attr("notice_time");
+		var select_notice_content = $("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_content");
+		var select_notice_id = $("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_id");
+		//alert(select_notice_title +" "+select_notice_time+" "+select_notice_content+"  "+select_notice_id );
 		
-		select_classroom_num = select_classroom_num.trim();
-		select_studId = select_studId.trim();
 		
-		$("#input_principal_student_id").val(select_studId);
-		$("#input_principal_student_name").text(select_stuName);
-		$("#input_classroom_num").val(select_classroom_num);
+		
+		$("#notice_title").val(select_notice_title);
+		$("#notice_content").val(select_notice_content);
+		
+		$("#hidden_id").val(select_notice_id);
 		
 		$("#submit_type").attr("value", "update");
-		$("#add_classroom_btn").text("确定更新");
-		$('#classroom-modal').modal('show');
+		$("#notice_add_btn").text("确定更新");
+		$('#notice-modal').modal('show');
 		
 		dismiss();
 	}
 	
+	//删除
+	function delete_notice(index){
+		var notice_id;
+		var select_notice_id = $("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_id");
+		//notice_id = $(this).parents("tr").attr("notice_id");
+			    alert(select_notice_id);
+		// 	    alert(typeof user_id);
+
+		$.ajax({
+			url : 'notice_delete',
+			type : 'post',
+			dataType : 'json',
+			data : {
+				"id" : select_notice_id
+			},
+			success : deleteCallback
+		});
+	}
 	
-	var notice_id;
-		//处理删除操作
+		/* //处理删除操作
 		$(document).on("click", ".delete", function() {
 			notice_id = $(this).parents("tr").attr("notice_id");
 			// 	    alert(deleted_user_id);
@@ -197,13 +220,17 @@
 				success : deleteCallback
 			});
 
-		});
+		}); */
 
 		function deleteCallback(data) {
 
 			if (data.status == "0") {
-				animatedShow("删除成功");
-				$(document).find("tr[notice_id=" + notice_id + "]").remove();
+				alert("ok");
+				$('#notice-modal').modal('hide');
+				window.location.href=window.location.href;  
+				window.location.reload;
+				/* animatedShow("删除成功");
+				$(document).find("tr[notice_id=" + notice_id + "]").remove(); */
 			} else if (data.status == "1") {
 				animatedShow("你所删除的数据可能不存在");
 			} else {
@@ -211,7 +238,7 @@
 			}
 
 		}
-		//处理查看编辑操作
+		/* //处理查看编辑操作
 		$(document).on("click", "#edit", function() {
 			notice_id = $(this).parents("tr").attr("notice_id");
 			// 	    alert(deleted_user_id);
@@ -280,7 +307,7 @@
 				alert("error with status" + data.status);
 			}
 
-		}
+		} */
 
 		/* $('#myModal').on('shown.bs.modal', function() {
 			$('#myInput').focus()

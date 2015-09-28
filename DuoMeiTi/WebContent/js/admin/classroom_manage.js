@@ -187,7 +187,7 @@ function edit_classroom(index) {
 	var select_stu_td = $("#classroom_search_table").find("tr:eq(" + (index + 1) + ") td:eq(2)");
 	var select_studId = $(select_stu_td).attr("studId");
 	var select_stuName = $(select_stu_td).text();
-//	alert(select_classroom_num +" "+select_studId+" "+select_stuName);
+//	alert(index +" "+"  "+select_classroom_num +" "+select_studId+" "+select_stuName);
 	
 	select_classroom_num = select_classroom_num.trim();
 	select_studId = select_studId.trim();

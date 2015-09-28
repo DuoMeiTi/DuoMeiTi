@@ -1,5 +1,6 @@
 package admin;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import dto.T_Repertory;
 import model.Repertory;
 import util.Const;
 
@@ -28,12 +30,18 @@ public class RepertoryAction extends ActionSupport{
 	private String status;
 	private String add_repertory_html;
 	private String rtDevice;
+	private java.sql.Date rtProdDate;
+	private String rtProdDateString;
+	private java.sql.Date rtApprDate;
+	private String rtApprDateString;
+	private String rtDeviceStatus;
 	
 	//search tag's name
 	private String sDevice;
 	private String sMainDevice;
 	private String sCostDevice;
-	private List<Repertory> rtSearch_list;
+	private String sDeviceStatus;
+	private List<T_Repertory> rtSearch_list = new ArrayList<T_Repertory>();
 	
 	//tag select func
 	private String device[];
@@ -85,9 +93,21 @@ public class RepertoryAction extends ActionSupport{
 				}
 			}
 		}
+		if(sDeviceStatus.equals("")) {
+			
+		}else {
+			c.add(Restrictions.eq("rtDeviceStatus", this.sDeviceStatus));
+		}
 		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		rtSearch_list = c.list();
-		System.out.println("list:: "+ rtSearch_list);
+		
+		List tmp_rtSearch_list = c.list();
+		rtSearch_list = new ArrayList<T_Repertory>();
+		for(int i = 0; i < tmp_rtSearch_list.size(); ++ i)
+		{
+			Repertory r = (Repertory)tmp_rtSearch_list.get(i);
+			
+			rtSearch_list.add(new T_Repertory(r));
+		}
 		if(rtSearch_list.isEmpty()) {
 			this.status = "0";
 		}else {
@@ -108,18 +128,16 @@ public class RepertoryAction extends ActionSupport{
 //		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
 		Repertory rt = (Repertory) c.uniqueResult();
-//System.out.println(rtDevice + " " + rtType + " " + rtNumber + " " + rtVersion + " " + rtFactorynum);
-System.out.println("id:" + rtId);
 		rt.setRtDevice(rtDevice);
-System.out.println("===============1");
 		rt.setRtType(rtType);
-System.out.println("===============2");
 		rt.setRtNumber(rtNumber);
-System.out.println("===============3");
 		rt.setRtVersion(rtVersion);
-System.out.println("===============4");
+		rtProdDateString = rtProdDate.toString();
+		rt.setRtProdDate(rtProdDate);
+		rtApprDateString = rtApprDate.toString();
+		rt.setRtApprDate(rtApprDate);
 		rt.setRtFactorynum(rtFactorynum);
-System.out.println("begin update");
+		rt.setRtDeviceStatus(rtDeviceStatus);
 		
 		session.beginTransaction();
 		session.update(rt);
@@ -135,7 +153,14 @@ System.out.println("begin update");
 		System.out.println(rtId);
 		Criteria c = session.createCriteria(Repertory.class).add(Restrictions.eq("rtId", rtId));//eq("字段名","变量名")Integer.parseInt
 		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		rtSearch_list = c.list();
+		List tmp_rtSearch_list = c.list();
+		rtSearch_list = new ArrayList<T_Repertory>();
+		for(int i = 0; i < tmp_rtSearch_list.size(); ++ i)
+		{
+			Repertory r = (Repertory)tmp_rtSearch_list.get(i);
+			
+			rtSearch_list.add(new T_Repertory(r));
+		}
 		System.out.println(rtSearch_list);
 		if(rtSearch_list.isEmpty()){
 			this.status = "0";//error;
@@ -147,14 +172,26 @@ System.out.println("begin update");
 		return SUCCESS;
 	}
 	
-	public String insert(){
-			
+	public String insert()
+	{
+		/*if(true)
+		{
+			System.out.println("!@#!!!" + rtProdDate.toString());
+			return SUCCESS;
+		}*/
+		
 		Repertory rt = new Repertory();
 		rt.setRtDevice(rtDevice);
 		rt.setRtType(rtType);
 		rt.setRtNumber(rtNumber);
 		rt.setRtVersion(rtVersion);
+		rtProdDateString = rtProdDate.toString();
+		rt.setRtProdDate(rtProdDate);
+		//System.out.println("!!!!!!" + rtProdDate + ", " + rtProdDateString);
+		rtApprDateString = rtApprDate.toString();
+		rt.setRtApprDate(rtApprDate);
 		rt.setRtFactorynum(rtFactorynum);
+		rt.setRtDeviceStatus(rtDeviceStatus);
 		Session session = model.Util.sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(rt);
@@ -289,11 +326,11 @@ System.out.println("begin update");
 		this.sCostDevice = sCostDevice;
 	}
 
-	public List<Repertory> getRtSearch_list() {
+	public List getRtSearch_list() {
 		return rtSearch_list;
 	}
 
-	public void setRtSearch_list(List<Repertory> rtSearch_list) {
+	public void setRtSearch_list(List rtSearch_list) {
 		this.rtSearch_list = rtSearch_list;
 	}
 
@@ -328,9 +365,57 @@ System.out.println("begin update");
 	public void setDeviceStatus(String[] deviceStatus) {
 		this.deviceStatus = deviceStatus;
 	}
-	
-	
 
+	public java.sql.Date getRtProdDate() {
+		return rtProdDate;
+	}
+
+	public void setRtProdDate(java.sql.Date rtProdDate) {
+		this.rtProdDate = rtProdDate;
+	}
+
+	public java.sql.Date getRtApprDate() {
+		return rtApprDate;
+	}
+
+	public void setRtApprDate(java.sql.Date rtApprDate) {
+		this.rtApprDate = rtApprDate;
+	}
+
+	public String getRtDeviceStatus() {
+		return rtDeviceStatus;
+	}
+
+	public void setRtDeviceStatus(String rtDeviceStatus) {
+		this.rtDeviceStatus = rtDeviceStatus;
+	}
+
+	public String getSDeviceStatus() {
+		return sDeviceStatus;
+	}
+
+	public void setSDeviceStatus(String sDeviceStatus) {
+		this.sDeviceStatus = sDeviceStatus;
+	}
+
+	public String getRtProdDateString() {
+		return rtProdDateString;
+	}
+
+	public void setRtProdDateString(String rtProdDateString) {
+		this.rtProdDateString = rtProdDateString;
+	}
+
+	public String getRtApprDateString() {
+		return rtApprDateString;
+	}
+
+	public void setRtApprDateString(String rtApprDateString) {
+		this.rtApprDateString = rtApprDateString;
+	}
+	
+	
+	
 	
 	
 	

@@ -64,7 +64,8 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 	public String classroomList() throws Exception {
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria classroom_criteria = session.createCriteria(Classroom.class).setFetchMode("repertorys", FetchMode.SELECT).setFetchMode("checkrecords", FetchMode.SELECT);
-		
+
+		////////////////////////
 		if (currPage == 0) {
 			currPage = 1;
 		}
@@ -78,6 +79,20 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 
 		classroom_criteria.setFirstResult(pageBean.getBeginIndex());
 		classroom_criteria.setMaxResults(pageBean.getPageSize());
+		/*
+		 * 
+		 *获取结果集,这里是和hibernate结合使用，所以参数需要传一个beginIndex
+		 * pageSize写在配置文件里面，所以这里就不用当做参数传递了
+		 */
+		StringBuilder sb = new StringBuilder();
+		
+		//带有参数的URL
+		sb.append("classroom_manage?build_id=").append(build_id).append("&build_name=").append(build_name).append("&");
+		path = sb.toString();
+//		request.put("users", list);
+		request.put("path", path) ;
+		request.put("pageBean", pageBean);
+		/////////////////////////
 
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
 		classroom_criteria.addOrder(Order.asc("classroom_num"));
@@ -101,19 +116,6 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 		}
 		session.close();
 		
-		/*
-		 * 
-		 *获取结果集,这里是和hibernate结合使用，所以参数需要传一个beginIndex
-		 * pageSize写在配置文件里面，所以这里就不用当做参数传递了
-		 */
-		StringBuilder sb = new StringBuilder();
-		
-		//带有参数的URL
-		sb.append("classroom_manage?build_id=").append(build_id).append("&build_name=").append(build_name).append("&");
-		path = sb.toString();
-//		request.put("users", list);
-		request.put("path", path) ;
-		request.put("pageBean", pageBean);
 		
 		return SUCCESS;
 	}
