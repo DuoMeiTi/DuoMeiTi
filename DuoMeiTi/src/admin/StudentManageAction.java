@@ -24,8 +24,6 @@ public class StudentManageAction extends ActionSupport{
 
 	
 	private String username;
-	private String password;
-	private String register_status;
 	private String idCard;
 	private String sex;
 	private String rtID;
@@ -106,7 +104,7 @@ public class StudentManageAction extends ActionSupport{
 		Session session=model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username",edit_student.getUser().getUsername())); //hibernate session创建查询
 		user_list=q.list();
-		Collections.reverse(student_list);
+		Collections.reverse(user_list);
 		session.close();
 		
 		edit_user = user_list.get(0);
@@ -145,25 +143,23 @@ public class StudentManageAction extends ActionSupport{
 			}
 		}
 		
-		System.out.println(edit_student.getId());
-		
-		Session session = model.Util.sessionFactory.openSession();			
+		Session session = model.Util.sessionFactory.openSession();		
+		//查找student对应的user
+		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username",edit_student.getUser().getUsername())); //hibernate session创建查询
+		user_list=q.list();
+		Collections.reverse(user_list);
+		//要删除的user
+		edit_user = user_list.get(0);
+		//必须同时删除student和user
 		session.beginTransaction();
-		
-//		session.delete(edit_student);
+		session.delete(edit_student);
+		session.delete(edit_user);
 		Transaction t = session.getTransaction();
 		t.commit();
 		session.close();
-		
-		
-		
-		
 		return SUCCESS;
 	}
 	
-	
-	
-
 	
 	public String studentInformationEdit() throws Exception
 	{
@@ -294,30 +290,6 @@ public class StudentManageAction extends ActionSupport{
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-
-
-	public String getPassword() {
-		return password;
-	}
-
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-
-	public String getRegister_status() {
-		return register_status;
-	}
-
-
-
-	public void setRegister_status(String register_status) {
-		this.register_status = register_status;
 	}
 
 

@@ -22,7 +22,7 @@
 			<tr class="row">
 				<th class="col-lg-1.5">姓名</th>
 				<th class="col-lg-1.5">学号</th>
-				<th class="col-lg-1.5">班级</th>
+				<th class="col-lg-1.5">学院</th>
 				<th class="col-lg-1.5">电话</th>
 				<th class="col-lg-1">权限</th>
 				<th class="col-lg-1">编辑</th>
@@ -33,7 +33,7 @@
 			
 			<s:iterator value="student_list" var="i" status="index">
 				<tr class="row" id=<s:property value="#i.id"/> >
-					<td class="col-lg-1"> <s:property value="#i.user.fullName"/> </td>
+					<td class="col-lg-1.5"> <s:property value="#i.user.fullName"/> </td>
 					<td class="col-lg-1"> <s:property value="#i.studentId"/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.college "/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.user.phoneNumber"/> </td>

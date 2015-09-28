@@ -8,7 +8,7 @@ $(document).on("click", ".delete", function() {
 	var temp = confirm("删除不可恢复！");
 	if (temp == true) {
 		delete_Id = $(this).parents("tr").attr("id");// attr所选元素属性值
-		alert(delete_Id);
+		/*alert(delete_Id);*/
 		
 		$.ajax({
 			url : 'student_manage_delete',
