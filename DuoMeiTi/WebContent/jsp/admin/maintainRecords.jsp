@@ -70,12 +70,31 @@ td,tr,th{
 			</div>
 			
 			<div class="searchCondition-time" id="timeCondition">
-				<select id="time" class="form-control" style="width: 30%">
+				<!-- <select id="time" class="form-control" style="width: 30%">
 					<option value="0">2015年9月</option>
 					<option value="1">2015年8月</option>
 					<option value="2">2015年7月</option>
 					<option value="3">2015年6月</option>
-				</select>
+				</select> -->
+				<script type="text/javascript" src="../../js/admin/Calendar3.js"></script>
+					<tr>
+						<td>
+							开始时间：
+						</td>
+						<td>
+							<input type="text" size="20" maxlength="10" id="startTime" style="width: 15%" 
+									onclick="new Calendar().show(this);" readonly="readonly">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							结束时间：
+						</td>
+						<td>
+							<input type="text" size="20" maxlength="10" id="endTime" style="width: 15%" 
+								onclick="new Calendar().show(this);" readonly="readonly">
+						</td>
+					</tr>
 			</div>
 		</div>
 		

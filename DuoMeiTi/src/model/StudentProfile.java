@@ -142,7 +142,10 @@ public class StudentProfile {
 
     
     
-    
+	public String toString()
+	{
+		return this.id + ", " + this.studentId;
+	}
     
 
 

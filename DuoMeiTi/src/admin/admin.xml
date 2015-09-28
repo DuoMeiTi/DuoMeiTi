@@ -6,35 +6,32 @@
 <struts>
 
 
-	<package name="admin" namespace="/admin" extends="AdminDefault">
-	
-		<action name="HomepageModify">
-			<result>
-				/jsp/admin/HomepageModify/Base.jsp
-			</result>			
-		</action>
-		
-		<action name="HomepageModify_FileUpload">
-			<result>
-				/jsp/admin/HomepageModify/FileUpload.jsp
-			</result>			
-		</action>
+	<package name="admin" namespace="/admin" extends="AdminDefault">	
 		
 		
-		
-		<action name="">
-			<result>
-				/jsp/admin/base.jsp
+		<action name="" >
+			<result name="success" type="redirect">
+				/admin/classroom/teachBuildingAction 
 			</result>
 		</action>
+		
+		
+<!-- 		<action name=""> -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/base.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		<action name="user_request">
 			<result>
 				/jsp/admin/users_request.jsp
 			</result>
 		</action>
 		
-		
-		
+		<action name="student_manage">
+			<result>
+				/jsp/admin/student_manage.jsp
+			</result>
+		</action>
 		
 		<action name="user_information" class="admin.InformationAction" method="adminInformation">
 			<result name="success">
@@ -47,11 +44,6 @@
             	<param name="includeProperties">username,fullName,phoneNumber,sex,unitInfo,remark</param>           
             </result>           
         </action>
-        
-        
-    
-        
-		
 		
 		<action name="repertory" class="admin.RepertoryAction">
 			<result name="success">
@@ -95,6 +87,9 @@
 		</action>
 	
 	</package>
+	
+	
+	
 	<package name="user_request" namespace="/admin/user_request"
 		extends="AdminDefault">
 		<action name="untreated" class="admin.RequestAction" method="studentRequest">
@@ -103,7 +98,6 @@
 			</result>
 
 		</action>
-		
 		
 		<action name="request_ensure" class="admin.RequestAction" method="studentRequestEnsure">
 			<result name="success" type="json">
@@ -118,9 +112,57 @@
 
 		</action>
 
-
-
 	</package>
+
+
+
+
+
+
+	<package name="student_manage" namespace="/admin/student_manage"
+		extends="AdminDefault">
+		
+		<action name="untreated" class="homepage.StudentAction" method="studentRequest">
+			<result>
+				/jsp/admin/untreated.jsp
+			</result>
+
+		</action>
+		
+		
+		<!-- 学生信息 -->
+		<action name="student_information" class="admin.StudentManageAction" method="studentInformation">
+			<result>
+				/jsp/admin/student_information.jsp
+			</result>
+		</action>
+	
+		
+		<!-- 获取学生信息 -->
+		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">
+           <result name="success" type="json">
+            	<param name="includeProperties">fullName,studentId,college,phoneNumber,isUpgradePrivilege</param>           
+           </result>           
+        </action>
+		
+        
+        <!-- 删除学生信息 -->
+		<action name="student_manage_delete" class="admin.StudentManageAction" method="studentInformationDelete">
+			<result name="success" type="json">
+            	<param name="includeProperties">fullName,studentId,college,phoneNumber</param>           
+           </result>       
+        </action>
+        
+        <!-- 保存学生信息 -->
+		<action name="student_information_save" class="admin.StudentManageAction" method="saveStudentInformation">
+            <result name="success" type="json">
+            <param name="includeProperties">fullName,studentId,college,phoneNumber</param>
+			</result>        
+        </action>
+        
+        
+	</package>
+
 
 	<package name="classroom_json" namespace="/admin/classroom_json" extends="AdminDefault">
 		<action name="classroom_search" class="admin.ClassroomManageAction" method="classroom_search">
@@ -190,11 +232,32 @@
 		</action>
 		
 	</package>
-	<package name="notice" namespace="/admin" extends="AdminDefault">
+	
+	
+	
+	
+	
+	<package name="HomepageModify" namespace="/admin/HomepageModify" extends="AdminDefault">
+	
+		<action name="" >
+			<result name="success" type="redirect"> /admin/HomepageModify/notice</result>
+		</action>
+		
+		<action name="FileUpload"  class="admin.FileUploadAction">
+			<result>
+				/jsp/admin/HomepageModify/FileUpload.jsp
+			</result>			
+		</action>
+		<action name="FileUploadInsert"  class="admin.FileUploadAction" method ="insert">
+			<result type="json">				
+			</result>			
+		</action>
+	
 <!--公告的action设置  -->
 		<action name="notice" class="admin.NoticeAction">
 			<result name="success">
-				/jsp/admin/notice.jsp
+			/jsp/admin/HomepageModify/notice.jsp
+<!-- 				/jsp/admin/notice.jsp -->
 			</result>
 		</action>
         <action name="notice_*" class="admin.NoticeAction" method="{1}">
@@ -205,3 +268,12 @@
         </action>
     </package>
 </struts>
+
+
+
+
+
+
+
+
+

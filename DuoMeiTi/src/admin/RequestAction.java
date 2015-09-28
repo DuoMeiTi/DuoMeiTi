@@ -80,14 +80,19 @@ public class RequestAction {
 		return ActionSupport.SUCCESS;
 	}
 	
-	public String studentRequestEnsure() throws Exception{
+	public String studentRequestEnsure() throws Exception
+	{
+		System.out.println("sddd");
+		
 		Session session = model.Util.sessionFactory.openSession();
 		Transaction trans=session.beginTransaction();
-		String hql="update StudentProfile s set isPassed="+
-					String.valueOf(isPassed)+" where s.user.id="+String.valueOf(userid);
+		String hql="update StudentProfile s set s.isPassed="+
+					String.valueOf(isPassed)+" where s.id="+String.valueOf(userid);
 		Query q=session.createQuery(hql);
 		int ret = q.executeUpdate();
+		System.out.println(ret);
 		trans.commit();
+		
 		if(ret>0){
 			strValue=ActionSupport.SUCCESS;
 			return ActionSupport.SUCCESS;

@@ -6,7 +6,7 @@
 <struts>
 
 
-    <package name="homepage" namespace="/" extends="HomepageDefault">
+    <package name="homepage" namespace="/" extends="HomepageDefault">    	
     	
     	<action name="home2">
     		<result> /jsp/homepage/home2.jsp</result>
@@ -22,6 +22,11 @@
        	<action name="" class="homepage.HomeAction">
         	<result>/jsp/homepage/new_home.jsp</result>
         </action>
+        
+        <action name="ClassroomFile" class="homepage.HomeAction" method="classroomFile">
+			<result>/jsp/homepage/ClassroomFile.jsp</result>
+    	</action>
+        
     
 <!--     	<action name="" class="homepage.HomeAction"> -->
 <!--         	<result>/jsp/homepage/home.jsp</result> -->

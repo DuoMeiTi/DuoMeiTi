@@ -6,11 +6,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.FlushModeType;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
+import org.hibernate.FlushMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
@@ -111,6 +113,8 @@ public class UserAction
 		try{
 			Session session = model.Util.sessionFactory.openSession();
 			System.out.println("SDFSFSFAS**1");
+//			session.clear();
+//			session.setFlushMode(FlushMode.AUTO);
 			Criteria q = session.createCriteria(User.class);//把查询条件封装成一个Criteria对象
 			System.out.println("SDFSFSFAS**2");
 			user_list = q.list();
