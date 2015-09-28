@@ -24,6 +24,7 @@ public class HomeAction
 	public List check_list;
 	public List notice_list;
 	public List repair_list;
+	public List file_path_list;
 	
 	public String execute() throws Exception
 	{ 
@@ -47,7 +48,14 @@ public class HomeAction
 		session.close();
 		return ActionSupport.SUCCESS;
 	}
-
+	
+	public String classroomFile() throws Exception
+	{
+		Session session = model.Util.sessionFactory.openSession();
+		file_path_list = session.createCriteria(model.ClassroomFilePath.class).list();
+		session.close();
+		return ActionSupport.SUCCESS;
+	}
 
 	
 	
