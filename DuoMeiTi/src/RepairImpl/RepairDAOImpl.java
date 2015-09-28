@@ -9,11 +9,22 @@ import db.MyHibernateSessionFactory;
 import model.*;
 
 public class RepairDAOImpl implements RepairDAO{
-	public List<Repair> queryRepair() {
+	public List<Repair> queryRepair(String type, String val) {
 		// TODO Auto-generated method stub
+		
 		Transaction tx = null;
 		List<Repair> list = null;
 		String hql = "";
+		String cond = " and ";
+		if ("0".equals(type))
+			cond += ("u.fullName = \'" + val + "\'");
+		else if ("1".equals(type))
+			cond += ("sP.studentId = \'" + val + "\'");
+		else if ("2".equals(type))
+			cond += ("rR.device.rtType = \'" + val + "\'");
+		else if ("3".equals(type))
+			cond += ("rR.repairdate > \'" + val.substring(0, 10) + "\'"+ " and " + 
+					"rR.repairdate < \'" + val.substring(10) + "\'");
 		try {
 			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
 			tx = session.beginTransaction();
@@ -30,6 +41,8 @@ public class RepairDAOImpl implements RepairDAO{
 							+ "RepairRecord rR, StudentProfile sP, User u "
 				+ "WHERE "
 							+ "rR.repairman = sP.user and rR.repairman = u";
+			hql += cond;
+			System.out.println(hql);
 			Query query = session.createQuery(hql);
 			
 			list = query.list();
@@ -50,20 +63,26 @@ public class RepairDAOImpl implements RepairDAO{
 	}
 	
 	@Override
-	public boolean update_rtstate(Repertory rt) {
+	public int add_rt(String id, String bh) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
+		String hql ="";
 		try {
 			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
 			tx = session.beginTransaction();
-			session.update(rt);
+			hql = "UPDATE Repertory repertory SET repertory.classroom = " + id + 
+					" where repertory.rtNumber = \'" + bh + "\'" + " and repertory.rtDeviceStatus = '备用'";
+			System.out.println(hql);
+			Query queryupdate=session.createQuery(hql);
+			int ret=queryupdate.executeUpdate();
 			tx.commit();
-			return true;
+			System.out.println("这是"+ret);
+			return ret;
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
 			tx.commit();
-			return false;
+			return 0;
 		}
 		finally {
 			if (tx != null) {

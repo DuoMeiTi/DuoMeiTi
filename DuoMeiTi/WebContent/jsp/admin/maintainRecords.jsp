@@ -25,18 +25,18 @@ td,tr,th{
 			<label class="radio-inline" style="margin-left:5%" > <input type="radio"
 				name="radio-select" value="0"
 				onclick="return showdiv('#personCondition')" checked> 按负责人
-			</label> <label class="radio-inline" style="margin-left:5%" > <input type="radio"
+			</label> <!-- <label class="radio-inline" style="margin-left:5%" > <input type="radio"
 				name="radio-select" value="1"
 				onclick="return showdiv('#buildingCondition')"> 按教学楼
-			</label> <label class="radio-inline" style="margin-left:5%" > <input type="radio"
+			</label>  --><label class="radio-inline" style="margin-left:5%" > <input type="radio"
 				name="radio-select" value="2"
 				onclick="return showdiv('#equipmentCondition')"> 按设备
 			</label> <label class="radio-inline" style="margin-left:5%" > <input type="radio"
 				name="radio-select" value="3"
 				onclick="return showdiv('#timeCondition')"> 按时间
 			</label>
-			<a id="commitSearch" href="<%=path%>/admin/classroomDevice/query_action" type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%" onclick="startSearch()">检索维修记录</a>
-			<a id="commitExport" href="<%=path%>/admin/classroomDevice/query_action" type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%">导出检索记录</a>
+			<a id="commitSearch" <%-- href="<%=path%>/admin/classroomDevice/query_action" --%> type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%" onclick="startSearch()">检索维修记录</a>
+			<%-- <a id="commitExport" href="<%=path%>/admin/classroomDevice/query_action" type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%">导出检索记录</a> --%>
 		</div>
 		<br />
 		<div class="searchCondition" id="conditions">
@@ -61,10 +61,10 @@ td,tr,th{
 			
 			<div class="searchCondition-equipment" id="equipmentCondition">
 				<select id="deviceid" class="form-control" style="width: 30%">
-					<option value="0">计算机</option>
-					<option value="1">投影</option>
-					<option value="2">中央控制器</option>
-					<option value="3">外围设备</option>
+					<option value="计算机">计算机</option>
+					<option value="投影">投影</option>
+					<option value="中央控制器">中央控制器</option>
+					<option value="外围设备">外围设备</option>
 				</select>
 
 			</div>
@@ -127,12 +127,13 @@ td,tr,th{
 			var href="<%=path%>/admin/classroomDevice/query_action";
 			href=href+"?Type="+type+"&Value="+val;
 			document.getElementById("commitSearch").href=href;
+			alert(type + ":" +val);
 		}
 		function sc_principal() {
 			
 			var optionval = $("#principal option:selected").val();
 			var personval=$("#personVal").val();
-			sc_condition('0'+optionval,personval);
+			sc_condition(optionval,personval);
 		}
 		
 		function sc_building() {
@@ -148,7 +149,10 @@ td,tr,th{
 		}
 		
 		function sc_time() {
-			var optionval = $("#time option:selected").val();
+			/* var optionval = $("#time option:selected").val() */
+			var str = $("#startTime").val();
+			var end = $("#endTime").val();
+			optionval = str + end;
 			sc_condition('3',optionval);
 		}
 		
