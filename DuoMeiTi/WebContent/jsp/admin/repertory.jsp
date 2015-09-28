@@ -104,10 +104,10 @@
 					<form class="form-inline well" id="import_repertory" enctype="multipart/form-data" method="post">
 						<div class="row">
 							<div class="form-group">
-								<input type="file" name="">
+								<input type="file" name="excelFile" id="excelFile">
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary" id=""><span class="glyphicon glyphicon-upload">上传</span></button>
+								<button type="submit" class="btn btn-primary" id="rtUpload"><span class="glyphicon glyphicon-upload">上传</span></button>
 							</div>
 						</div>
 					</form>
