@@ -153,7 +153,8 @@ function sendMessage(){
 	
 	$.ajax({
 		type:"POST",
-		url:"message/reciveMes",
+		url:"/message/receiveMes",
+		dataType : 'json',
 		data:param,
 		success:sendMessageCallBack,
 	})

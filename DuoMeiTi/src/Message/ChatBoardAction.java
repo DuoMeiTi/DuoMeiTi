@@ -110,7 +110,7 @@ public class ChatBoardAction extends ActionSupport{
 	}
 	
 	
-	public String reciveMes(){
+	public String receiveMes(){
 		System.out.println("hell");
 		try{
 			Session session = model.Util.sessionFactory.openSession();
