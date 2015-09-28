@@ -6,19 +6,21 @@
 <struts>
 
 
-	<package name="admin" namespace="/admin" extends="AdminDefault">
-	
+	<package name="admin" namespace="/admin" extends="AdminDefault">	
 		
 		
-		
-		
-		
-		
-		<action name="">
-			<result>
-				/jsp/admin/base.jsp
+		<action name="" >
+			<result name="success" type="redirect">
+				/admin/classroom/teachBuildingAction 
 			</result>
 		</action>
+		
+		
+<!-- 		<action name=""> -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/base.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		<action name="user_request">
 			<result>
 				/jsp/admin/users_request.jsp
@@ -96,7 +98,6 @@
 			</result>
 
 		</action>
-		
 		
 		<action name="request_ensure" class="admin.RequestAction" method="studentRequestEnsure">
 			<result name="success" type="json">
@@ -240,8 +241,6 @@
 	
 		<action name="" >
 			<result name="success" type="redirect"> /admin/HomepageModify/notice</result>
-
-			
 		</action>
 		
 		<action name="FileUpload"  class="admin.FileUploadAction">

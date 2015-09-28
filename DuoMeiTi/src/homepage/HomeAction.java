@@ -22,6 +22,9 @@ import model.User;
 public class HomeAction 
 {
 	public List check_list;
+	public List notice_list;
+	public List repair_list;
+	public List file_path_list;
 	
 	public String execute() throws Exception
 	{ 
@@ -30,16 +33,29 @@ public class HomeAction
 		Session session = model.Util.sessionFactory.openSession();
 		
 		check_list = session.createCriteria(model.CheckRecord.class).list();
-		session.close();
+		notice_list = session.createCriteria(model.Notice.class).list();
+		
 
+		repair_list = session.createCriteria(model.RepairRecord.class).list();
+		
+		Collections.reverse(check_list);
+		Collections.reverse(notice_list);
+		Collections.reverse(repair_list);
 		
 		
 		System.out.println("&&&&&&&&&&");
 
-		
+		session.close();
 		return ActionSupport.SUCCESS;
 	}
-
+	
+	public String classroomFile() throws Exception
+	{
+		Session session = model.Util.sessionFactory.openSession();
+		file_path_list = session.createCriteria(model.ClassroomFilePath.class).list();
+		session.close();
+		return ActionSupport.SUCCESS;
+	}
 
 	
 	
