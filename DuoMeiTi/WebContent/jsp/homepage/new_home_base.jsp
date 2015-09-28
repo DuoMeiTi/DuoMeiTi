@@ -25,34 +25,22 @@
         <script type='text/javascript' src="/js/base/jquery-2.1.4.min.js"></script>
         <script type='text/javascript' src="/datepicker/js/bootstrap-datetimepicker.min.js"></script>
 		<script type="text/javascript" src="/datepicker/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
- 
-<!-- <link href="/new_homepage/bootstrap/assets/css/bootstrap.min.css" rel="stylesheet"> -->
-<!-- <link href="/new_homepage/bootstrap/assets/css/bootstrap-theme.min.css" rel="stylesheet"> -->
 
 <link rel="stylesheet" type="text/css" media="screen" href="/new_homepage/style/common/base.css">
 <link rel="stylesheet" type="text/css" media="screen" href="/new_homepage/style/common/content.css">
 <link rel="stylesheet" type="text/css" media="screen" href="/new_homepage/style/home/content.css">
-<!-- <script type="text/javascript" src="/new_homepage/bootstrap/assets/js/jquery-1.10.2.min.js"></script><style type="text/css" adt="123"></style> -->
-<!-- ajax_csrf-->
-<!-- <script type="text/javascript" src="/new_homepage/js/ajax_csrf.js"></script> -->
-
-
-
- 
-    
-
-
-
-
 
 
 <style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
 
-  <body>
+
+
+<body>
   <a href="/">
-				<div id="headerpic" style="height:80px;">
-				</div>
-			</a>
+  	<div id="headerpic" style="height:80px;">
+	</div>
+  </a>
+    
     <div class="container" id="nav-container">
 
 	       
@@ -69,11 +57,9 @@
 			       <div class="collapse navbar-collapse">
 			         <ul class="nav navbar-nav">
 			           <li class=""><a href="/">首页</a></li>
-			           <li class=""><a href="">教室视频</a></li>
+			           <li class=""><a href="">教室信息</a></li>
 			           <li class=""><a href="">通讯录</a></li>
 			           <li class=""><a href="">常见问题</a></li>
-			           
-			           
 			           
 			           <li class=""><a href="/login">登录</a></li>
 			           <li class="dropdown">

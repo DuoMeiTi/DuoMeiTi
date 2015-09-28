@@ -2,8 +2,7 @@
 
 
 <layout:override name="main_content">
-<!-- <h3>吓尿了！！！！！</h3> -->
-<!-- <h3>吓尿了2222222222222！！！！！</h3> -->
+
 <div class="row news_frame">
   <div class="col-lg-6">
     <!--news base template-->
@@ -33,6 +32,8 @@
 						      <span>
 						      	<a href="/" > 
 						      		<s:property value="#i.title"/> 
+						      		:
+						      		<s:property value="#i.content"/>
 						      	</a>
 						      </span>
 						    </li>
@@ -98,18 +99,7 @@
 							  </ul>
 							</div>
 						 </s:iterator>
-							
-							
-													
-<!-- 							<div class="usoft-listview-basic"> -->
-<!-- 							  <ul> -->
-<!-- 							    <li> -->
-<!-- 							      <span class="usoft-listview-item-date">12-10</span> -->
-<!-- 							      <span><a href="A5.zip" title="2015p">王二检查212:&nbsp;教室电脑坏掉</a></span> -->
-<!-- 							    </li> -->
-<!-- 							  </ul> -->
-<!-- 							</div> -->
-			
+
 			
 			        </div><!--end news-documents-->
 			      </div><!--end news-list-->
@@ -180,23 +170,6 @@
 						</div>
 		        	</s:iterator>
 		        
-<!-- 					<div class="usoft-listview-basic"> -->
-<!-- 					  <ul> -->
-<!-- 					    <li> -->
-<!-- 					      <span class="usoft-listview-item-date">12-30</span> -->
-<!-- 					      <span><a href="home/news/4" title="关于用户名的说明">张三维修一馆301教室主机:&nbsp;已经修好</a></span> -->
-<!-- 					    </li> -->
-<!-- 					  </ul> -->
-<!-- 					</div> -->
-					
-<!-- 					<div class="usoft-listview-basic"> -->
-<!-- 					  <ul> -->
-<!-- 					    <li> -->
-<!-- 					      <span class="usoft-listview-item-date">12-10</span> -->
-<!-- 					      <span><a href="home/news/3" title="专项项目申报的通知">田七维修二馆777教室USB线:&nbsp;已经替换为新的</a></span> -->
-<!-- 					    </li> -->
-<!-- 					  </ul> -->
-<!-- 					</div>					 -->
 		        </div><!--end news-documents-->
 		      </div><!--end news-list-->
 		      
