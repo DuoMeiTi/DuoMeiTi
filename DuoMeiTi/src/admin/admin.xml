@@ -78,6 +78,9 @@
 			<result name="query_repair">
 				/jsp/admin/record_query.jsp
 			</result>
+			<result type="json" name="adddevice">
+				<param name="includeProperties">ret</param>
+			</result>
 		</action>
 		
 		<action name="equipmentQueryAndEdit">

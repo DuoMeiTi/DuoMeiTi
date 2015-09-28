@@ -15,7 +15,7 @@ import dto.T_Repertory;
 import model.Repertory;
 import util.Const;
 
-public class RepertoryAction extends ActionSupport{
+public class RepertoryAction extends util.FileUploadBaseAction{
 	/**
 	 * 
 	 */

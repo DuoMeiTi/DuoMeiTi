@@ -28,7 +28,7 @@
 //      	fd.append("test", "YESYESYES");
  
 	    $.ajax({  
-	          url: "HomepageModify_FileUploadInsert" ,  
+	          url: "HomepageModify/FileUploadInsert" ,  
 	          type: "POST",  
 	          data: fd,  
 	          async: true,  
