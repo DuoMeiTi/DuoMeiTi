@@ -20,7 +20,7 @@
 			
 		<s:iterator value="student_list" var="i" status="index">
 			<s:if test="%{#i.isPassed==0}">
-				<tr class="row" id=<s:property value="#i.user_id"/> >
+				<tr class="row" id=<s:property value="#i.id"/> >
 					<td class="col-lg-1.5"> <s:property value="#i.user.fullName"/> </td>
 					<td class="col-lg-0.5"> <s:property value="#i.user.sex"/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.studentId"/> </td>
@@ -75,6 +75,7 @@
 	$("#ensure-button").click(function(){
 		var id=$(this).closest("tr").attr("id");
 		var isPass=$('#judge').find("option:selected").val();
+		
 		$.ajax({
 			url: 'request_ensure',
 	        type: 'post',

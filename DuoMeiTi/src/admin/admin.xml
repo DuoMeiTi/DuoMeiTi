@@ -99,7 +99,6 @@
 
 		</action>
 		
-		
 		<action name="request_ensure" class="admin.RequestAction" method="studentRequestEnsure">
 			<result name="success" type="json">
 				<param name="includeProperties">strValue,userid</param>
