@@ -49,4 +49,29 @@ public class RepairDAOImpl implements RepairDAO{
 		}
 	}
 	
+	@Override
+	public boolean update_rtstate(Repertory rt) {
+		// TODO Auto-generated method stub
+		Transaction tx = null;
+		try {
+			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+			tx = session.beginTransaction();
+			session.update(rt);
+			tx.commit();
+			return true;
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			tx.commit();
+			return false;
+		}
+		finally {
+			if (tx != null) {
+				if (tx != null) {
+					tx = null;
+				}
+			}
+		}
+	}
+	
 }

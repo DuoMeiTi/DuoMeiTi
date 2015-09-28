@@ -1,9 +1,8 @@
 package action;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
-import model.Repair;
-import model.RepairRecord;
-import model.testRecord;
+import model.*;
 import Repair.RepairDAO;
 import RepairImpl.RepairDAOImpl;
 
@@ -19,4 +18,5 @@ public class RepairAction extends SuperAction {
 			}
 		return "query_repair";
 	}
+
 }
