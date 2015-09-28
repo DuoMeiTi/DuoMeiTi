@@ -3,7 +3,10 @@
 <layout:override name="main_content">
 	<div class="mycontent">
 
-		<div><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#rtModal" id="rtInsert" name="rtInsert">添加设备信息</button></div>
+		<div>
+			<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#rtModal" id="rtInsert" name="rtInsert">添加设备信息</button>
+			<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#rtModalImport" id="rtImport" name="rtImport">导入设备xls表</button>
+		</div>
 		<div class="modal fade" id="rtModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -85,6 +88,42 @@
 			<!-- /.modal-dialog -->
 		</div>
 		<!-- /.modal -->
+		
+		
+		
+		<div class="modal fade" id="rtModalImport">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h2 class="modal-title" id="modal-title">设备信息导入</h2>
+					</div>
+					<div class="modal-body">
+					<form class="form-inline well" id="import_repertory" enctype="multipart/form-data" method="post">
+						<div class="row">
+							<div class="form-group">
+								<input type="file" name="excelFile" id="excelFile">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary" id="rtUpload"><span class="glyphicon glyphicon-upload">上传</span></button>
+							</div>
+						</div>
+					</form>
+					</div>
+					<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="rtClose">关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+		
+		
+		
 		<br/>
 		
 		

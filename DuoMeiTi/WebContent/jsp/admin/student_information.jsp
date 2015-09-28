@@ -37,7 +37,10 @@
 					<td class="col-lg-1"> <s:property value="#i.studentId"/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.college "/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.user.phoneNumber"/> </td>
-					<td class="col-lg-1.5"> 通过 </td>
+					<td class="col-lg-1.5"> 
+						<s:if test="#i.isUpgradePrivilege == 0">在职学生</s:if>
+						<s:else>管理教师</s:else>
+					</td>
 						
 					<td class="col-lg-1 ">
 						<button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#student_edit" id="edit-button" name="edit-button" >编辑</button>
@@ -95,6 +98,15 @@
 																<button type="button" class="btn btn-default">电话</button>
 															</span>
 															<input type="text" class="form-control" id="phoneNumber"  name="phoneNumber" value="">
+														</div>
+													</div>
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-default">权限</button>
+															</span>
+															<!-- <input type="text" class="form-control" id="isUpgradePrivilege"  name="isUpgradePrivilege" value=""> -->
+															<s:select list="#{'0':'在职学生','1':'管理教师'}" class="form-control" name="isUpgradePrivilege" id="isUpgradePrivilege"></s:select>
 														</div>
 													</div>
 												</div>

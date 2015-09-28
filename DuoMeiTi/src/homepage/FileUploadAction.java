@@ -53,7 +53,7 @@ public class FileUploadAction extends ActionSupport{
 
         if (image != null) 
         {
-            File savefile = new File(new File(util.Util.RootPath + util.Util.FileUploadRelativePath), imageFileName);
+            File savefile = new File(new File(util.Util.RootPath + util.Util.FileUploadPath), imageFileName);
             if (!savefile.getParentFile().exists())
                 savefile.getParentFile().mkdirs();
             
@@ -62,7 +62,7 @@ public class FileUploadAction extends ActionSupport{
             
             EgFilePathSave file_path = new EgFilePathSave();
             
-            file_path.setFilePath(util.Util.FileUploadRelativePath + imageFileName);
+            file_path.setFilePath(util.Util.FileUploadPath + imageFileName);
             session.beginTransaction();
             session.save(file_path);
             session.getTransaction().commit();

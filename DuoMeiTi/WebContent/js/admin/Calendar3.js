@@ -261,8 +261,9 @@ Calendar.prototype.show = function (dateControl, popuControl) {
 	this.bindData();
 
 	var xy = this.getAbsPoint(popuControl);
-	this.panel.style.left = xy.x + "px";
-	this.panel.style.top = (xy.y + dateControl.offsetHeight) + "px";
+	this.panel.style.left = (xy.x - 350) + "px";
+	this.panel.style.top = (xy.y + dateControl.offsetHeight
+			 -70) + "px";
 	this.panel.style.visibility = "visible";
 };
 
