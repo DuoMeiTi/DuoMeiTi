@@ -8,22 +8,6 @@
 
 	<package name="admin" namespace="/admin" extends="AdminDefault">
 	
-		<action name="HomepageModify">
-			<result>
-				/jsp/admin/HomepageModify/Base.jsp
-			</result>			
-		</action>
-		
-		<action name="HomepageModify_FileUpload"  class="admin.FileUploadAction">
-			<result>
-				/jsp/admin/HomepageModify/FileUpload.jsp
-			</result>			
-		</action>
-		<action name="HomepageModify_FileUploadInsert"  class="admin.FileUploadAction" method ="insert">
-			<result type="json">
-				
-			</result>			
-		</action>
 		
 		
 		
@@ -247,11 +231,34 @@
 		</action>
 		
 	</package>
-	<package name="notice" namespace="/admin" extends="AdminDefault">
+	
+	
+	
+	
+	
+	<package name="HomepageModify" namespace="/admin/HomepageModify" extends="AdminDefault">
+	
+		<action name="" >
+			<result name="success" type="redirect"> /admin/HomepageModify/notice</result>
+
+			
+		</action>
+		
+		<action name="FileUpload"  class="admin.FileUploadAction">
+			<result>
+				/jsp/admin/HomepageModify/FileUpload.jsp
+			</result>			
+		</action>
+		<action name="FileUploadInsert"  class="admin.FileUploadAction" method ="insert">
+			<result type="json">				
+			</result>			
+		</action>
+	
 <!--公告的action设置  -->
 		<action name="notice" class="admin.NoticeAction">
 			<result name="success">
-				/jsp/admin/notice.jsp
+			/jsp/admin/HomepageModify/notice.jsp
+<!-- 				/jsp/admin/notice.jsp -->
 			</result>
 		</action>
         <action name="notice_*" class="admin.NoticeAction" method="{1}">
@@ -262,3 +269,12 @@
         </action>
     </package>
 </struts>
+
+
+
+
+
+
+
+
+

@@ -1,7 +1,10 @@
 =\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=origin/master
 eclipse.preferences.version=1
 encoding//WebContent/jsp/admin/HomepageModify/Base.jsp=UTF-8
 encoding//WebContent/jsp/admin/HomepageModify/FileUpload.jsp=UTF-8
+encoding//WebContent/jsp/admin/HomepageModify/notice.jsp=UTF-8
 encoding//WebContent/jsp/admin/admin_eg.jsp=UTF-8
 encoding//WebContent/jsp/admin/admin_information.jsp=UTF-8
 encoding//WebContent/jsp/admin/base.jsp=UTF-8
@@ -10,11 +13,8 @@ encoding//WebContent/jsp/admin/classroom_manage.jsp=UTF-8
 encoding//WebContent/jsp/admin/equipmentQueryAndEdit.jsp=UTF-8
 encoding//WebContent/jsp/admin/handled.jsp=UTF-8
 encoding//WebContent/jsp/admin/maintainRecords.jsp=UTF-8
-<<<<<<< HEAD
-encoding//WebContent/jsp/admin/notice.jsp=UTF-8
-=======
 encoding//WebContent/jsp/admin/modify_password.jsp=UTF-8
->>>>>>> origin/master
+encoding//WebContent/jsp/admin/notice.jsp=UTF-8
 encoding//WebContent/jsp/admin/repertory.jsp=UTF-8
 encoding//WebContent/jsp/admin/student_information.jsp=UTF-8
 encoding//WebContent/jsp/admin/student_manage.jsp=UTF-8

@@ -26,23 +26,16 @@ public class HomeAction
 	public String execute() throws Exception
 	{ 
 		
-//
-//	 Criteria q =
-//session.createCriteria(User.class).add(Restrictions.eq("username",
-//username));
+
 		Session session = model.Util.sessionFactory.openSession();
 		
 		check_list = session.createCriteria(model.CheckRecord.class).list();
 		session.close();
-//		model.CheckRecord cr = (model.CheckRecord)check_list.get(0);
+
 		
 		
 		System.out.println("&&&&&&&&&&");
-//		System.out.println(cr.classroom.classroom_num);
-//		System.out.println(cr.checkman.user.username);
-		
-		
-		
+
 		
 		return ActionSupport.SUCCESS;
 	}
