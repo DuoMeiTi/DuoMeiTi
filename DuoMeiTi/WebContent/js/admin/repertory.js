@@ -308,7 +308,11 @@ $(document).on("click","#rtUpload",function() {
 
 function importCallback(data) {
 	
-	if(data.status == "1") window.location.reload();
+	if(data.status == "1") 
+	{
+		alert("导入成功！");
+		window.location.reload();
+	}
 	else alert("导入失败！ ");
 }
 
