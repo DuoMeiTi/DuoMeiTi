@@ -46,20 +46,14 @@
         </action>
 		
 		<action name="repertory" class="admin.RepertoryAction">
-			<result name="success" type="json">
+			<result name="success">
 				/jsp/admin/repertory.jsp
 			</result>
-		</action>		
+		</action>
 		
 		<action name="modifypassword" class="admin.ModifyPasswordAction" method="modifyPassword">
 			<result name="success">
 				/jsp/admin/modify_password.jsp
-			</result>
-		</action>
-		
-		<action name="modify_password" class="admin.ModifyPasswordAction" method="modifyPassword">
-			<result name="success" type="json">
-				<param name="includeProperties">input_initial_password,input_new_paasword</param>
 			</result>
 		</action>
 
