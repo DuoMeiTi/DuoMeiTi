@@ -1,6 +1,11 @@
 package admin;
 import java.util.*;
-
+import java.io.IOException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ModifyPasswordAction extends ActionSupport {
