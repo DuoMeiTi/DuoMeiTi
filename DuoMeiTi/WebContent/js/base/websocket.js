@@ -118,45 +118,47 @@ $(".contacts-expand").click(function(){
 })
 
 //////////////////////////////////////////////////////////////////
-var socket = null;
 
-function init(){
-	if("WebSocket" in window){
-		socket = new WebSocket("ws://localhost:8080/websocket");
-	}
-	else{
-		alert("该浏览器不支持WebSocket");
-	}
-	socket.onerror = function(event){
-		handleError(event);
-	}
-	socket.onopen = function(event){
-		handleOpen(event);
-	}
-	socket.onmessage = function(event){
-		handleMessage(event);
-	}
-	socket.onclose =function(event){
-		handleClose(event);
-	}
+function longPolling(){
+	$.ajax({
+		type:"POST",
+		url:"/message/longpolling",
+		data:"",
+		success:reciveData,
+		error:errorProcess,
+	})
 }
 
-function handleError(event){
-	alert("error");
+function reciveData(data){
+	
 }
 
-function handleOpen(event){
-	alert("open");
+function errorProcess(data){
+	
 }
 
-function handleMessage(event){
-	alert("message");
+function sendMessage(){
+	var contentBox=$("#message-content-box");
+	var to=contentBox.attr("iid");
+	var from=contentBox.attr("from");
+	var mesContent=$(".message-writeboard textarea").val();
+	$("#message-content-box .message-content").append('<div class="message clearfix"><span class="triangle"></span>\
+            <div class="article">'+mesContent+'</div></div>');
+	
+	var param={
+		"from":from,
+		"to":to,
+		"content":mesContent
+	}
+	
+	$.ajax({
+		type:"POST",
+		url:"message/reciveMes",
+		data:param,
+		success:sendMessageCallBack,
+	})
 }
 
-function handleClose(event){
-	alert("close");
-}
-
-function start(){
-	init();
+function sendMessageCallBack(data){
+	if(data.error!="")alert(data.error);
 }
