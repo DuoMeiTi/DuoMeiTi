@@ -73,7 +73,7 @@
 									<s:select list="deviceStatus" class="form-control" name="rtDeviceStatus" id="rtDeviceStatus"></s:select>
 								</div>
 							</div>
-							
+							<div class="text-right" style="color:red">(*为必填项)</div>
 							</div>
 						</div>
 					</form>
