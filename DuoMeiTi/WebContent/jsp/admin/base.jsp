@@ -5,7 +5,7 @@
 <layout:override name="menu_list">
 
 	<div class="menu-list">
-	    <a href="/admin/classroom/teachBuildingAction" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;教室管理</span></a>
+	    <a href="/admin/classroom/" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;教室管理</span></a>
 	    <a href="/admin/repertory" class="menu-button-middle"><span class="glyphicon glyphicon-th-large">&nbsp;库存设备管理</span></a>
 	    <a href="/admin/classroomDevice/maintainRecords" class="menu-button-middle"><span class="glyphicon glyphicon-th">&nbsp;教室设备管理</span></a>
 	    <a href="/admin/student_manage" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;在职学生管理</span></a>

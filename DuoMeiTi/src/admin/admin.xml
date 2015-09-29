@@ -206,6 +206,10 @@
 	</package>
 	
 	<package name="classroom" namespace="/admin/classroom" extends="AdminDefault">
+		<action name="">
+			<result type="redirect">teachBuildingAction</result>
+		</action>
+		
 		<action name="teachBuildingAction" class="admin.TeachBuildingAction">
 			<result>
 				/jsp/admin/teachbuilding.jsp
