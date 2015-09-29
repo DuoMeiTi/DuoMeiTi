@@ -9,8 +9,7 @@ $("#envelope").click(function(){
 	var content_box=$("#message-content-box");
 	var contacts_box=$("#message-contacts-box");
 	if(list_box.hasClass("hide")&&content_box.hasClass("hide")&&contacts_box.hasClass("hide")){
-		list_box.removeClass("hide");
-		start();
+		message_list_box_show();
 	}
 	else{
 		message_contacts_box_hide();
@@ -20,14 +19,21 @@ $("#envelope").click(function(){
 })
 
 $(".contacts-list-group").on("click","li",function(){
-	message_list_box_hide();
-	message_content_box_show();
 	var contentBox=$("#message-content-box");
 	contentBox.attr("iid",$(this).attr("id"));
 	$(".message-content-top .title").html($(this).html());
+	message_list_box_hide();
+	message_content_box_show();
 });
-	
 
+$(".message-list").on("click","li",function(){
+	var contentBox=$("#message-content-box");
+	contentBox.attr("iid",$(this).attr("fid"));
+	$(".message-content-top .title").html($(this).attr("fname"));
+	message_list_box_hide();
+	message_content_box_show();
+})
+	
 
 function userlistCallback(data){
 	var adminList=data.adminList;
@@ -45,7 +51,23 @@ function userlistCallback(data){
 
 function message_list_box_show(){
 	$("#message-list-box").removeClass("hide");
+	var contentBox=$("#message-content-box");
+	var from=contentBox.attr("from");
+	$.ajax({
+		url:"/message/getNewMessage",
+		type : 'post',
+		dataType : 'json',
+		data : {"currentUser":from},
+		success : getNewMessageCallBack
+	})
 }
+
+function getNewMessageCallBack(data){
+	var messageList=data.newMes;
+	var messageListBox=$(".message-list");
+	messageListBox.html(data.messageListHtml);
+}
+
 function message_list_box_hide(){
 	$("#message-list-box").addClass("hide");
 }
@@ -69,8 +91,23 @@ function message_contacts_box_hide(){
 	$("#student-contacts ul").html("");
 }
 function message_content_box_show(){
-	$("#message-content-box").removeClass("hide");
+	var contentBox=$("#message-content-box");
+	var id=contentBox.attr("iid");
+	$.ajax({
+		url:"/message/getMessage",
+		type:"post",
+		dataType:"json",
+		data:{"another":id},
+		success:getMessageCallback
+	});
+	contentBox.removeClass("hide");
 }
+
+function getMessageCallback(data){
+	var contentBox=$(".message-content");
+	contentBox.html(data.historyMesHtml);
+}
+
 function message_content_box_hide(){
 	$("#message-content-box").addClass("hide");
 }
@@ -121,8 +158,9 @@ $(".contacts-expand").click(function(){
 
 function longPolling(){
 	$.ajax({
-		type:"POST",
 		url:"/message/longpolling",
+		type:"POST",
+		datatype:"json",
 		data:"",
 		success:reciveData,
 		error:errorProcess,
@@ -141,7 +179,9 @@ function sendMessage(){
 	var contentBox=$("#message-content-box");
 	var to=contentBox.attr("iid");
 	var from=contentBox.attr("from");
-	var mesContent=$(".message-writeboard textarea").val();
+	var textBoard=$(".message-writeboard textarea");
+	var mesContent=textBoard.val();
+	textBoard.val("");
 	$("#message-content-box .message-content").append('<div class="message clearfix"><span class="triangle"></span>\
             <div class="article">'+mesContent+'</div></div>');
 	
@@ -152,8 +192,8 @@ function sendMessage(){
 	}
 	
 	$.ajax({
-		type:"POST",
 		url:"/message/receiveMes",
+		type:"POST",
 		dataType : 'json',
 		data:param,
 		success:sendMessageCallBack,
@@ -161,5 +201,5 @@ function sendMessage(){
 }
 
 function sendMessageCallBack(data){
-	if(data.error!="")alert(data.error);
+//	if(data.error!="")alert(data.error);
 }

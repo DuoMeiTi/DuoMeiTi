@@ -17,8 +17,26 @@
     	</action>
     	
     	<action name="receiveMes" class="Message.ChatBoardAction" method="receiveMes">
-    		<result name="success" type="json">
+    		<result type="json">
     		</result>
     	</action>
+    	
+    	<action name="getNewMessage" class="Message.ChatBoardAction" method="getNewMessage">
+    		<result type="json">
+    			<param name="includeProperties">
+    				messageListHtml
+    			</param>
+    		</result>
+    	</action>
+    	
+    	
+    	<action name="getMessage" class="Message.ChatBoardAction" method="getMessage">
+    		<result type="json">
+    			<param name="includeProperties">
+    				historyMesHtml
+    			</param>
+    		</result>
+    	</action>
+    	
     </package>
 </struts>

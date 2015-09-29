@@ -36,14 +36,7 @@
 		<span class="glyphicon glyphicon-remove closed"></span>
 		<span class="glyphicon glyphicon-user users"></span>
 	</div>
-	<div class="message-list">
-		<ul class="message-list-group list-group">
-			<li class="list-group-item">消息1</li>
-			<li class="list-group-item">消息2</li>
-			<li class="list-group-item">消息3</li>
-			<li class="list-group-item">更多消息..</li>
-		</ul>
-	</div>
+	<div class="message-list"></div>
 	<div class="message-list-bottom" id="write-message">
 		<span>发信息</span>
 	</div>
@@ -89,16 +82,7 @@
 		<span class="glyphicon glyphicon-user users"></span>
 		<span class="glyphicon glyphicon-menu-left back"></span>
 	</div>
-	<div class="message-content">
-		<div class="message clearfix">
-            <span class="triangle"></span>
-            <div class="article">我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了</div>
-        </div>
-        <div class="message clearfix fr">
-            <span class="triangle right"></span>
-            <div class="article">我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了我发信息给你了</div>
-        </div>
-	</div>
+	<div class="message-content"></div>
 	<div class="message-tool"></div>
 	<div class="message-writeboard">
 		<textarea class="form-control" rows="4"></textarea>
