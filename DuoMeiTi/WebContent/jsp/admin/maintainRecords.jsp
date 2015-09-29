@@ -127,7 +127,7 @@ td,tr,th{
 			var href="<%=path%>/admin/classroomDevice/query_action";
 			href=href+"?Type="+type+"&Value="+val;
 			document.getElementById("commitSearch").href=href;
-			alert(type + ":" +val);
+			/* alert(type + ":" +val); */
 		}
 		function sc_principal() {
 			
