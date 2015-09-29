@@ -7,7 +7,7 @@
 <layout:override name="mycontent">
 	<div class="modal fade" id="notice-modal" tabindex="-1" role="dialog"
 	aria-labelledby="noticeAddModalLabel"><!--aria-labelledby什么意思？？？？？  -->
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog" role="document" style="width: 60%; height:400px" >
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
@@ -24,7 +24,7 @@
 				<div class="form-group">
 					<label class="control-label col-sm-3" for="notice_title">标题</label>
 					<div class="col-sm-5">
-						<input type="text" class="form-control" id="notice_title" >
+						<input type="text" class="form-control" id="notice_title" style="width: 400px">
 						<!-- <p class="help-block">字母，数字，汉字皆可</p> -->
 					</div>
 					<!-- <div style="text-align:center" class="col-sm-4 control-label">
@@ -34,7 +34,7 @@
 				<div class="form-group">
 					<label class="control-label col-sm-3" for="notice_content">内容</label>
 					<div class="col-sm-5">
-						<textarea class="form-control"  id="notice_content" rows="3" cols="1" ></textarea>
+						<textarea class="form-control"  id="notice_content" rows="9" cols="2" style="width: 400px"></textarea>
 						<!-- <input type="" class="form-control" id="input_principal_student_id" oninput="disable_add_btn()"> -->
 					</div>
 					<span  hidden="true" id="hidden_id"></span>
@@ -114,6 +114,7 @@
 
 	<script>
 	function notice_add(){
+		
 		$("#notice_title").val("");
 		//$("#input_principal_student_name").text("");
 		$("#notice_content").val("");
@@ -121,6 +122,7 @@
 		$("#submit_type").attr("value", "add");
 		$("#notice_add_btn").text("确定添加");
 		$('#notice-modal').modal('show');
+		
 		
 	}	
 	
@@ -138,7 +140,7 @@
 	//	alert(submit_type + " " +title + " " + content);
 		
 		$.ajax({
-			url : '/admin/notice/notice_add',
+			url : '/admin/HomepageModify/notice/notice_add',
 			type : 'post',
 			dataType : 'json',
 			data : {//发送到服务器的数据

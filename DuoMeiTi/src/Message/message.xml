@@ -15,5 +15,12 @@
     			</param>
     		</result>
     	</action>
+    	<action name="reciveMes" class="Message.ChatBoardAction" method="reciveMes">
+    		<result name="success" type="json">
+    			<param name="includeProperties">
+    				error
+    			</param>
+    		</result>
+    	</action>
     </package>
 </struts>

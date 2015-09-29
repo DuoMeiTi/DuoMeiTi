@@ -1,4 +1,8 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 
 <layout:override name="main_content">
 	<link href="/css/admin/classroom_detail.css" rel="stylesheet" />
@@ -22,6 +26,7 @@
 			<div class="col-lg-6 col-lg-offset-3 classbuilding">
 				<span><s:property value="build_name"/>&nbsp;&nbsp;<s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
 				<span>负责人:</span>
+				<span id="classroomid" style="visibility:hidden"><s:property value="classroom.id"/></span>
 				<span class="director-span"><s:property value="classroom.principal.user.username"/></span>
 			</div>
 			</div>
@@ -117,12 +122,37 @@
 		<div class="container-fluid">
 			<div class="row col-lg-12">
 				<div class="col-lg-7">
-				<form action="#" method="post">
+				<!-- <form action="#" method="post" id="addclassroomdevice"> -->
 					<p style="float:left;vertical-align:bottom;">添加设备:</p>
-					<input type="text" class="form-control" id="personVal" style="width:30%;float:left;margin-left:5%;" placeholder="请输入资产编号">
-					<button type="submit" class="btn btn-info btn-sm" style="margin-left:5%">查询</button>
-					<button type="button" class="btn btn-primary btn-sm" style="margin-left:5%">提交</button>
-				</form>
+					<input type="text" class="form-control" id="zichanhao" style="width:30%;float:left;margin-left:5%;" placeholder="请输入资产编号">
+					<!-- <button type="submit" class="btn btn-info btn-sm" style="margin-left:5%">查询</button> -->
+					<button type="button" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="add_classroomrt(<s:property value="#session.ret"/>)">添加</button>
+				<!-- </form> -->
+				<script>
+					function add_classroomrt() {
+						var classroomid = $("#classroomid").text();
+						var bh = $("#zichanhao").val();
+						var href="<%=path%>/admin/classroomDevice/add_action";
+						
+						$.ajax({
+							url : href,
+							type : 'post',
+							dataType : 'json',
+							data : {
+								"id" : classroomid,
+								"bh" : bh
+							}, 
+							success : addcallback
+						});
+					}
+					
+					function addcallback(data) {
+						if (parseInt(data.ret))
+							alert("Ok，添加成功");
+						else
+							alert("Sorry，添加失败");
+					}
+				</script>
 				</div>
 				<div class="col-lg-2">
 					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#schedule-modal">查看课表</button>
@@ -151,7 +181,13 @@
 									<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
 								</thead>
 								<tbody>
-									<tr><td><s:property value="#device.rtNumber"/></td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
+									<tr><td><s:property value="#device.rtNumber"/></td>
+										<td><s:property value="#device.rtVersion"/></td>
+										<td><s:property value="#device.rtType"/></td>
+										<td><s:property value="#device.rtFactorynum"/></td>
+										<td><s:property value="#device.rtProdDate"/></td>
+										<td><s:property value="#device.rtApprDate"/></td>
+									</tr>
 								</tbody>
 							</table>
 						</li>
@@ -199,6 +235,7 @@
 			</div>
 		</div>
 	</div>
+	
 </layout:override>
 
 <%@ include file="base.jsp" %>
