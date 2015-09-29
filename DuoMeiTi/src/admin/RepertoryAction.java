@@ -1,5 +1,6 @@
 package admin;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +13,8 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dto.T_Repertory;
+
+import jxl.*;
 import model.Repertory;
 import util.Const;
 
@@ -31,9 +34,9 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	private String add_repertory_html;
 	private String rtDevice;
 	private java.sql.Date rtProdDate;
-	private String rtProdDateString;
+	private String rtProdDateString = "";
 	private java.sql.Date rtApprDate;
-	private String rtApprDateString;
+	private String rtApprDateString = "";
 	private String rtDeviceStatus;
 	
 	//search tag's name
@@ -68,6 +71,99 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		//System.out.println(repertory_list);
 		return SUCCESS;
 	}
+	
+	private String judgeDevice(String rtType)
+	{
+		boolean markde = false;
+		for(int i = 1; i < Const.mainDevice.length; i++)
+		{
+			if(rtType.equals(Const.mainDevice[i]))
+			{
+				rtDevice = Const.device[1];
+				markde = true;
+				break;
+			}
+		}
+		if(markde == false)
+		{
+			for(int j = 1; j < Const.costDevice.length; j++)
+			{
+				if(rtType.equals(Const.costDevice[j]))
+				{
+					rtDevice = Const.device[2];
+					markde = true;
+					break;
+				}
+			}
+		}
+		if(markde == false) return null;
+		return rtDevice;
+	}
+	
+	public String importExcel() throws Exception 
+	{
+		if(this.file == null)
+		{
+			this.status = "0";
+			return this.SUCCESS;
+		}
+		
+		Workbook rwb= Workbook.getWorkbook(this.file);
+		Sheet rs=rwb.getSheet(0);
+		int clos=rs.getColumns();
+        int rows=rs.getRows();
+        
+        System.out.println(clos+" rows:"+rows);
+        
+        Session session = model.Util.sessionFactory.openSession();
+		session.beginTransaction();
+        for (int i = 1; i < rows; i++) 
+        {
+        	rtType = rs.getCell(0, i).getContents();
+        	rtDevice = this.judgeDevice(rtType);
+        	rtNumber = rs.getCell(1, i).getContents();
+        	rtVersion = rs.getCell(2, i).getContents();
+        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        	String col3 = rs.getCell(3, i).getContents();
+        	System.out.println("col3:" + col3 + "|");
+        	if(col3 != "") rtProdDate = new java.sql.Date(sdf.parse(col3).getTime());
+        	else rtProdDate = null;
+        	String col4 = rs.getCell(4, i).getContents();
+        	if(col4 != "") rtApprDate = new java.sql.Date(sdf.parse(col4).getTime());
+        	else rtApprDate = null;
+        	rtFactorynum = rs.getCell(5, i).getContents();
+        	
+        	System.out.println("|"+ rtType + "|"+rtNumber+"|"+rtVersion+"|"
+        			+ rtProdDate + "|" + rtApprDate + "|" + rtFactorynum);
+        	
+        	if(rtType == "" && rtNumber == "" && rtNumber == "" && rtVersion == "" 
+        			&& rtProdDate == null && rtApprDate == null && rtFactorynum == "")
+        	{
+        		break;
+        	}
+        	
+        	
+        	Repertory rt = new Repertory();
+    		rt.setRtDevice(rtDevice);
+    		rt.setRtType(rtType);
+    		rt.setRtNumber(rtNumber);
+    		rt.setRtVersion(rtVersion);
+//    		rtProdDateString = rtProdDate.toString();
+    		rt.setRtProdDate(rtProdDate);
+//    		rtApprDateString = rtApprDate.toString();
+    		rt.setRtApprDate(rtApprDate);
+    		rt.setRtFactorynum(rtFactorynum);
+    		rt.setRtDeviceStatus("备用");
+    		
+    		session.save(rt);
+        }
+        session.getTransaction().commit();
+		session.close();
+		
+		this.status = "1";		
+		return SUCCESS;
+	}
+	
 	
 	public String search() {
 		/*status  0: empty select
@@ -132,9 +228,9 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		rt.setRtType(rtType);
 		rt.setRtNumber(rtNumber);
 		rt.setRtVersion(rtVersion);
-		rtProdDateString = rtProdDate.toString();
+		if(rtProdDate != null) rtProdDateString = rtProdDate.toString();
 		rt.setRtProdDate(rtProdDate);
-		rtApprDateString = rtApprDate.toString();
+		if(rtApprDate != null) rtApprDateString = rtApprDate.toString();
 		rt.setRtApprDate(rtApprDate);
 		rt.setRtFactorynum(rtFactorynum);
 		rt.setRtDeviceStatus(rtDeviceStatus);
@@ -174,21 +270,14 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	
 	public String insert()
 	{
-		/*if(true)
-		{
-			System.out.println("!@#!!!" + rtProdDate.toString());
-			return SUCCESS;
-		}*/
-		
 		Repertory rt = new Repertory();
 		rt.setRtDevice(rtDevice);
 		rt.setRtType(rtType);
 		rt.setRtNumber(rtNumber);
 		rt.setRtVersion(rtVersion);
-		rtProdDateString = rtProdDate.toString();
+		if(rtProdDate != null) rtProdDateString = rtProdDate.toString();
 		rt.setRtProdDate(rtProdDate);
-		//System.out.println("!!!!!!" + rtProdDate + ", " + rtProdDateString);
-		rtApprDateString = rtApprDate.toString();
+		if(rtApprDate != null) rtApprDateString = rtApprDate.toString();
 		rt.setRtApprDate(rtApprDate);
 		rt.setRtFactorynum(rtFactorynum);
 		rt.setRtDeviceStatus(rtDeviceStatus);
@@ -201,7 +290,6 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		this.status = "1";
 		this.rtId = rt.getRtId();
 		this.add_repertory_html = util.Util.fileToString("/jsp/admin/widgets/add_repertory.html");
-		
 			//JOptionPane.showMessageDialog(null, "提交成功");
 		return SUCCESS;
 	}

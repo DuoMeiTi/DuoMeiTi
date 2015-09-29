@@ -1,5 +1,6 @@
 //insert
 $(document).on("click", "#rtInsert", function() {
+	
 	$("[name=rtDevice]").val("");
 	$("#rtType1").hide();
 	$("#rtType2").hide();
@@ -78,6 +79,7 @@ function fetchCallback(data) {
 }
 //insert update
 $(document).on("click", "#rtSave", function() {
+	
 	var d_type = $("#rtDevice").val();
 	var d_name;
 	if (d_type == "") {
@@ -98,7 +100,6 @@ $(document).on("click", "#rtSave", function() {
 		alert("输入不能为空！");
 		return;
 	}
-	
 	var params = $("#repertory_form").serialize();
 	//alert(decodeURIComponent(params,true));
 	var fd = new FormData();
@@ -112,7 +113,8 @@ $(document).on("click", "#rtSave", function() {
  	fd.append("rtFactorynum", $(cnt).find("[name=rtFactorynum]").val());
  	fd.append("rtDeviceStatus", $(cnt).find("[name=rtDeviceStatus]").val());
 	
-	if($(this).attr("mark") == "insert"){
+	if($(this).attr("mark") == "insert")
+	{
 	    $.ajax({  
 	        url:'/admin/repertory_insert' ,  
 	        type: "POST",  
@@ -265,6 +267,7 @@ function searchCallback(data) {
 		$(document).find("#noResult").text("");
 		// $("#repertory_table tr:first").after(data.add_repertory_html);
 		var everylist = data.rtSearch_list;
+		$(document).find("#rtSearchLen").text(everylist.length);
 		$(everylist).each(function(i) {
 			$("#repertory_table").append(data.add_repertory_html);
 			var row = $(document).find("#repertory_table tr:eq(" + (i + 1) + ")");
@@ -289,10 +292,9 @@ function searchCallback(data) {
 //import excel
 $(document).on("click","#rtUpload",function() {
 	var params = new FormData();
-	params.append("file",document.getElementById("excelFile").files[0]);
-	
+	params.append("file", document.getElementById("excelFile").files[0]);
 	$.ajax({
-		url: '/admin/repertory_import',
+		url: '/admin/repertory_importExcel',
 		type: "POST",  
         data: params,  
         async: true,  
@@ -306,5 +308,11 @@ $(document).on("click","#rtUpload",function() {
 
 function importCallback(data) {
 	
+	if(data.status == "1") 
+	{
+		alert("导入成功！");
+		window.location.reload();
+	}
+	else alert("导入失败！ ");
 }
 

@@ -73,7 +73,7 @@
 									<s:select list="deviceStatus" class="form-control" name="rtDeviceStatus" id="rtDeviceStatus"></s:select>
 								</div>
 							</div>
-							
+							<div class="text-right" style="color:red">(*为必填项)</div>
 							</div>
 						</div>
 					</form>
@@ -101,13 +101,15 @@
 						<h2 class="modal-title" id="modal-title">设备信息导入</h2>
 					</div>
 					<div class="modal-body">
+					<div class="alert alert-danger" role="alert">导入Excel表格要求：<br> &nbsp;&nbsp; 从第一列开始每列设备字段分别为:设备名称（必须与约定设备名称一致）、资产编号、型号、出厂日期（日期格式yyyy-mm-dd）、审批日期、出厂号。第一行为字段名，第二行开始为数据内容。
+						<br>&nbsp;&nbsp;所有数据必须为文本格式，尤其是日期。 <br>&nbsp;&nbsp;若表中有空行，则空行之后的数据会被舍弃。</div>
 					<form class="form-inline well" id="import_repertory" enctype="multipart/form-data" method="post">
 						<div class="row">
 							<div class="form-group">
 								<input type="file" name="excelFile" id="excelFile">
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary" id="rtUpload"><span class="glyphicon glyphicon-upload">上传</span></button>
+								<button type="button" class="btn btn-primary" id="rtUpload"><span class="glyphicon glyphicon-upload"></span>上传</button>
 							</div>
 						</div>
 					</form>
@@ -126,7 +128,7 @@
 		
 		<br/>
 		
-		
+
 		<form class="form-inline" id="repertory_search" name="repertory_search" method="post">
 			
 			<div class="form-group">
@@ -147,8 +149,8 @@
 				<label for="sDeviceStatus">使用状态</label>
 				<s:select list="deviceStatus" class="form-control" name="sDeviceStatus" id="sDeviceStatus"></s:select>
 			</div>
+			<div class="text-right">查询记录共&nbsp;<strong style="color:red" id="rtSearchLen"></strong>&nbsp;条</div>
 		</form>
-		<br/>
 
 		<table class="table table-bordered table-hover" id="repertory_table">
 			<tr class="active">

@@ -17,11 +17,11 @@
 		        </div>
 		        
 		        <div class="col-lg-3 nopadding">
-		           <a href="" class="navbar-button"></a> 
+		           <a href="sdfsdf" class="navbar-button"></a> 
 		        </div>
 		
 		        <div class="col-lg-3 nopadding">
-		           <a href="" class="navbar-button navbar-button-right">学生成绩搜索</a> 
+		           <a href="sdfsdf" class="navbar-button navbar-button-right">学生成绩搜索</a> 
 		        </div>
 		    </div>
 		</div>

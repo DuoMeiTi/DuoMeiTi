@@ -56,6 +56,12 @@
 				/jsp/admin/modify_password.jsp
 			</result>
 		</action>
+		
+		<action name="modify_password" class="admin.ModifyPasswordAction" method="modifyPassword">
+			<result name="success" type="json">
+				<param name="includeProperties">input_initial_password,input_new_paasword</param>
+			</result>
+		</action>
 
 		<action name="repertory_*" class="admin.RepertoryAction" method="{1}">
 			<result name="success" type="json">
@@ -206,6 +212,10 @@
 	</package>
 	
 	<package name="classroom" namespace="/admin/classroom" extends="AdminDefault">
+		<action name="">
+			<result type="redirect">teachBuildingAction</result>
+		</action>
+		
 		<action name="teachBuildingAction" class="admin.TeachBuildingAction">
 			<result>
 				/jsp/admin/teachbuilding.jsp

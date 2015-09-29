@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/jsp/base/taglib.jsp" %>
 
+
+
+
+
 	<table class="table table-bordered" id="file_list_table">
 	
 		<tr class="active">
