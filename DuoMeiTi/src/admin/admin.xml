@@ -113,6 +113,8 @@
 				<param name="includeProperties">strValue,userid</param>
 			</result>
 		</action>
+		
+		<action name="request_change" class="admin.RequestAction" method="studentRequestChange"></action>
 
 		<action name="handled" class="admin.RequestAction" method="studentRequestResult">
 			<result>

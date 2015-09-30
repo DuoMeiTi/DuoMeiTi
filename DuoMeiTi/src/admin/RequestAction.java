@@ -117,4 +117,22 @@ public class RequestAction {
 		}
 		return ActionSupport.SUCCESS;
 	}
+	
+	public String studentRequestChange() throws Exception{
+		Session session = model.Util.sessionFactory.openSession();
+		Transaction trans=session.beginTransaction();
+		String hql="update StudentProfile s set s.isPassed=0"+
+				" where s.id="+String.valueOf(userid);
+		Query q=session.createQuery(hql);
+		int ret = q.executeUpdate();
+		System.out.println(ret);
+		trans.commit();
+		
+		if(ret==0){
+			strValue=ActionSupport.SUCCESS;
+			return ActionSupport.SUCCESS;
+		}
+		else return ActionSupport.ERROR;
+		
+	}
 }
