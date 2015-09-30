@@ -76,6 +76,13 @@ td,tr,th{
 					<option value="2">2015年7月</option>
 					<option value="3">2015年6月</option>
 				</select> -->
+				<div class="form-group">
+	    			<label for="startTime">开始时间</label>
+					<input id="startTime" type="date" value="2015-09-30"></input>
+					<label for="endTime">结束时间</label>
+					<input id="endTime" type="date" value="2015-10-01"></input>
+				</div>
+				<!--
 				<script type="text/javascript" src="../../js/admin/Calendar3.js"></script>
 					<tr>
 						<td>
@@ -95,6 +102,7 @@ td,tr,th{
 								onclick="new Calendar().show(this);" readonly="readonly">
 						</td>
 					</tr>
+					  -->
 			</div>
 		</div>
 		

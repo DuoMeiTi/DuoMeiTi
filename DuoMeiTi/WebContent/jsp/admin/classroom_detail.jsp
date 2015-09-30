@@ -123,10 +123,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="row col-lg-12">
 				<div class="col-lg-7">
 				<!-- <form action="#" method="post" id="addclassroomdevice"> -->
-					<p style="float:left;vertical-align:bottom;">添加设备:</p>
-					<input type="text" class="form-control" id="zichanhao" style="width:30%;float:left;margin-left:5%;" placeholder="请输入资产编号">
-					<!-- <button type="submit" class="btn btn-info btn-sm" style="margin-left:5%">查询</button> -->
-					<button type="button" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="add_classroomrt(<s:property value="#session.ret"/>)">添加</button>
+					<div class="form-group">
+						<label for="zichanhao" style="float:left;vertical-align:middle;">添加设备:</label>						
+						<input type="text" class="form-control" id="zichanhao" style="width:30%;float:left;margin-left:5%;" placeholder="请输入资产编号"></input>
+						<!-- <button type="submit" class="btn btn-info btn-sm" style="margin-left:5%">查询</button> -->
+						<button type="button" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="add_classroomrt(<s:property value="#session.ret"/>)">添加</button>
+					</div>
 				<!-- </form> -->
 				<script>
 					function add_classroomrt() {
