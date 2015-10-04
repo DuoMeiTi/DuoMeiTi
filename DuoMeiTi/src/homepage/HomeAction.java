@@ -28,8 +28,6 @@ public class HomeAction
 	
 	public String execute() throws Exception
 	{ 
-		
-
 		Session session = model.Util.sessionFactory.openSession();
 		
 		check_list = session.createCriteria(model.CheckRecord.class).list();
