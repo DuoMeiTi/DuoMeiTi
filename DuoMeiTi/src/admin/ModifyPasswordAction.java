@@ -1,7 +1,6 @@
 package admin;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -11,9 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import model.AdminProfile;
 import model.Repertory;
-import model.StudentProfile;
 import model.User;
 import util.Const;
 
@@ -27,8 +24,16 @@ public class ModifyPasswordAction extends ActionSupport {
 	private static User now_user;
 	private int user_id;
 	private String username;
+	private String cmpResult;
 	
 	
+	
+	public String getCmpResult() {
+		return cmpResult;
+	}
+	public void setCmpResult(String cmpResult) {
+		this.cmpResult = cmpResult;
+	}
 	public void setUser_password(String user_password) {
 		this.user_password = user_password;
 	}
@@ -100,26 +105,35 @@ public class ModifyPasswordAction extends ActionSupport {
 		user_list = c1.list();
 		now_user = user_list.get(0);
 //		System.out.println("user_id" + now_user.getId());
+		session.close();
 		user_password = now_user.getPassword();
 		return SUCCESS;
 	}
 	public String modifyPassword() throws Exception {
 		getoldPassword();
-//		if(oldPsw == user_password){
-//			now_user.setPassword(newPsw);
-//		}
-//		else{
-//			System.out.println("你输入的原密码不正确");
-//		}
-		now_user.setPassword(newPsw);
+//		System.out.println(newPsw);
+//		System.out.println(now_user.username);
+		if(user_password.equals(oldPsw)){
+			now_user.setPassword(newPsw);
+			cmpResult="原密码输入正确";
+		}
+		else{
+			cmpResult="原密码输入错误";
+			return ActionSupport.SUCCESS;
+		}
 		Session session = model.Util.sessionFactory.openSession();
 		session.beginTransaction();
 		session.update(now_user);
 		Transaction t = session.getTransaction();
 		t.commit();
 		session.close();
+		cmpResult="修改成功";
 		return ActionSupport.SUCCESS;
 	}
+	
+//	public String execute() throws Exception{
+//		return SUCCESS;
+//	}
 	
 }
 	

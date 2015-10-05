@@ -86,7 +86,8 @@ public class UserAction
 		
 		if(q.list().isEmpty()) return login_fail;
 		session.close();
-		
+//		System.out.println(u.getPassword());
+//		System.out.println(u.username);
 		if(!u.getPassword().equals(password)) return login_fail;
 		
 		ActionContext.getContext().getSession().put("username", username);
