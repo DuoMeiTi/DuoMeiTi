@@ -147,8 +147,23 @@
 				/jsp/admin/student_information.jsp
 			</result>
 		</action>
-	
 		
+		<!-- 规章制度 -->
+		<action name="rules" class="admin.StudentManageAction" method="studentInformation">
+			<result>
+				/jsp/admin/student_manage_rules.jsp
+			</result>
+		</action>
+		
+		<!-- 技术培训 -->
+		<action name="techteach" class="admin.StudentManageAction" method="studentInformation">
+			<result>
+				/jsp/admin/student_manage_techteach.jsp
+			</result>
+		</action>
+	
+	
+	
 		<!-- 获取学生信息 -->
 		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">
            <result name="success" type="json">
@@ -171,6 +186,12 @@
 			</result>        
         </action>
         
+        <!-- 检索学生信息 -->
+        <action name="student_information_search" class="admin.StudentManageAction" method="searchStudentInformation">
+            <result name="success" type="json">
+            <param name="includeProperties">isEmpty,student_profile_id,fullName,studentId,college,phoneNumber,isUpgradePrivilege</param>
+			</result>        
+        </action>
         
 	</package>
 

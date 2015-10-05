@@ -31,15 +31,16 @@ public class StudentManageAction extends ActionSupport{
 	private String bankCard;
 	private String phoneNumber;
 	public java.sql.Date entryTime;
-//	private String classrooms;
-//	private String status;
-//	private String remark;
 	private String fullName;
 	private String college;
 	private String passwordAgain;
 	private String strValue;
+	private String name_id;
+	private String isEmpty;
+	private String test1;
 	private int isPassed;
 	private int userid;
+	private int student_profile_id;
 	private int isUpgradePrivilege;
 	private String status;
 	
@@ -52,7 +53,67 @@ public class StudentManageAction extends ActionSupport{
 	
 	
 	
-	public String saveStudentInformation() throws Exception
+	
+	
+	public String searchStudentInformation() throws Exception
+	{
+		
+		System.out.println("searchStudentInformation():");
+		System.out.println("id:"+name_id);
+	
+		Session session=model.Util.sessionFactory.openSession();
+		Criteria q1 = session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", name_id));
+		student_list=q1.list();
+		if(student_list.isEmpty()){
+			System.out.println("empty");
+			isEmpty = "0";
+			session.close();
+		}
+		else{
+			isEmpty = "1";
+			Collections.reverse(student_list);
+			edit_student = student_list.get(0);
+			//查找student对应的user
+			Criteria q2 = session.createCriteria(User.class).add(Restrictions.eq("username",edit_student.getUser().getUsername())); //hibernate session创建查询
+			user_list=q2.list();
+			Collections.reverse(user_list);
+			edit_user = user_list.get(0);
+			session.close();
+			
+			System.out.println("list:"+student_list);
+			System.out.println("studentid:"+student_list.get(0).studentId);
+		
+			
+			student_profile_id = edit_student.getId();
+			fullName = edit_user.getFullName();
+			phoneNumber = edit_user.getPhoneNumber();
+			college = edit_student.getCollege();
+			studentId = edit_student.getStudentId();
+			isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
+			
+			System.out.println(student_profile_id);
+			System.out.println(fullName);
+			System.out.println(studentId);
+			System.out.println(college);
+			System.out.println(phoneNumber);
+			System.out.println(isUpgradePrivilege);
+		}
+		
+		return SUCCESS;
+	}
+	
+	
+ public int getStudent_profile_id() {
+		return student_profile_id;
+	}
+
+
+	public void setStudent_profile_id(int student_profile_id) {
+		this.student_profile_id = student_profile_id;
+	}
+
+
+public String saveStudentInformation() throws Exception
 	{
 		
 		System.out.println("saveStudentInformation():");
@@ -181,8 +242,8 @@ public class StudentManageAction extends ActionSupport{
 		student_list=q.list();
 		Collections.reverse(student_list);
 		session.close();
-//		System.out.println("student_list:");
-//		System.out.println(student_list);
+		System.out.println("student_list:");
+		System.out.println(student_list);
 		return SUCCESS;
 
 	}
@@ -198,6 +259,69 @@ public class StudentManageAction extends ActionSupport{
 	
 	
 	
+	public String getName_id() {
+		return name_id;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public String getIsEmpty() {
+		return isEmpty;
+	}
+
+
+	public void setIsEmpty(String isEmpty) {
+		this.isEmpty = isEmpty;
+	}
+
+
+	public void setName_id(String name_id) {
+		this.name_id = name_id;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public String getTest1() {
+		return test1;
+	}
+
+
+
+
+
+	public void setTest1(String test1) {
+		this.test1 = test1;
+	}
+
+
+
+
+
 	public String[] getIsUpgradePrivilegelist() {
 		return isUpgradePrivilegelist;
 	}
