@@ -13,8 +13,8 @@ $(document).on("click", "#student_search", function() {
         data : {"name_id" : name_id,},// {"后台",""}
         success: searchCallback
       });
-	
 })
+
 var search_student;
 function searchCallback(data) {
 	var student_list = data.student_list;
@@ -43,12 +43,8 @@ function searchCallback(data) {
 		}
 	}	
 	else{
-		for (i=0; i<rowNum; i++)
-	    {
-	        tb.deleteRow(i);
-	        rowNum=rowNum-1;
-	        i=i-1;
-	    }
+		alert("查找的学生不存在！");
+		location.reload();
 	}
 	/*alert("OK!");*/
 	
@@ -63,14 +59,25 @@ $(document).on("click", ".delete", function() {
 	if (temp == true) {
 		delete_Id = $(this).parents("tr").attr("id");// attr所选元素属性值
 		/*alert(delete_Id);*/
-		
-		$.ajax({
-			url : 'student_manage_delete',
-			type : 'post',
-			dataType : 'json',
-			data : {"rtID" : delete_Id,},// {"后台",""}
-			success : deleteCallback
-		});
+		if(delete_Id == "search_information"){
+			alert(search_student);
+			$.ajax({
+				url : 'student_manage_delete',
+				type : 'post',
+				dataType : 'json',
+				data : {"rtID" : search_student,},// {"后台",""}
+				success : deleteCallback
+			});
+		}
+		else{
+			$.ajax({
+				url : 'student_manage_delete',
+				type : 'post',
+				dataType : 'json',
+				data : {"rtID" : delete_Id,},// {"后台",""}
+				success : deleteCallback
+			});
+		}
 	}
 })
 
@@ -128,7 +135,7 @@ function getInformationCallback(data) {
 $(document).on("click", "#editSave", function() {
 	alert("save");
 	var params = $('#edit_student_form').serialize(); //利用jquery将表单序列化 
-	alert(params);
+	/*alert(params);*/
 	$.ajax({
         url: 'student_information_save',
         type: 'post',
