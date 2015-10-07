@@ -8,7 +8,7 @@
 
 	<package name="admin" namespace="/admin" extends="AdminDefault">	
 		
-		
+	
 		<action name="" >
 			<result name="success" type="redirect">
 				/admin/classroom/teachBuildingAction 
