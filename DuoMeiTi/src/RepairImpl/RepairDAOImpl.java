@@ -19,16 +19,14 @@ public class RepairDAOImpl implements RepairDAO{
 		List<Repair> list = null;
 		String hql = "";
 		String cond = " and ";
-		if ("0".equals(type))
-			cond += ("u.fullName = \'" + val + "\'");
-		else if ("1".equals(type))
-			cond += ("sP.studentId = \'" + val + "\'");
-		else if ("2".equals(type))
+		if ("1".equals(type))		//教学楼
+			cond += ("rR.device.classroom.teachbuilding.build_id = \'" + val + "\'");
+		else if ("2".equals(type))		//设备
 			cond += ("rR.device.rtType = \'" + val + "\'");
-		else if ("3".equals(type)) {
-			cond += ("rR.repairdate >= \'" + val.substring(0, 10) + "\' and " + 
-					"rR.repairdate <= \'" + val.substring(11) + "\'");
-		}
+		else if ("3".equals(type))		//时间
+			cond += ("rR.repairdate >= \'" + val.substring(0,val.indexOf(':')) + "\' and "+
+					"rR.repairdate <= \'" + val.substring(val.indexOf(':')+1) + "\'");
+		System.out.println(cond);
 		try {
 			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
 			tx = session.beginTransaction();
