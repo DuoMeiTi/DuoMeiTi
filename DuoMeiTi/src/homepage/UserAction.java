@@ -34,7 +34,7 @@ public class UserAction
 	public String status;
 	public List<User> user_list;
 	public String added_user_html;
-	public String role;
+//	public String role;
 	
 	public int user_id;
 	
@@ -65,39 +65,68 @@ public class UserAction
 		{
 			return login_fail;
 		}
-		System.out.println("ROLE::::::::" + role);
-		System.out.println("COMPAEROLE::" + util.Const.AdminRole);
-		
-//		util.Const.AdminRole.equals(role);
-		System.out.println("UIUIUIUI");
-		if(!role.equals(util.Const.AdminRole))  return login_fail;
-		System.out.println("UIUIUIUI");
 
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username", username));
-		List ul = q.list();
+		List ul = q.list();		
+		
 		if(ul.isEmpty())
 		{
 			session.close();
 			return login_fail;
 		}
-		User u = (User)ul.get(0);
-		q = session.createCriteria(model.AdminProfile.class).add(Restrictions.eq("user.id", u.getId()));
+		User u = (User)ul.get(0);		
+		if(!u.getPassword().equals(password)) 
+		{
+			session.close();
+			return login_fail;
+		}
 		
-		if(q.list().isEmpty()) return login_fail;
+		String role = "";
+		ul = session.createCriteria(model.AdminProfile.class).add(Restrictions.eq("user.id", u.getId())).list();
+		if(!ul.isEmpty())
+		{
+			role = util.Const.AdminRole;
+		}
+		else 
+		{
+			ul = session.createCriteria(model.StudentProfile.class).add(Restrictions.eq("user.id", u.getId())).list();
+			if(!ul.isEmpty())
+			{
+				role = util.Const.StudentRole;
+			}
+			else 
+			{
+				session.close();
+				return login_fail;
+			}
+		}
+		
+		
 		session.close();
 		
-		if(!u.getPassword().equals(password)) return login_fail;
+		
 		
 		ActionContext.getContext().getSession().put("username", username);
-		ActionContext.getContext().getSession().put("role", util.Const.AdminRole);
+		ActionContext.getContext().getSession().put("role", role);
 		ActionContext.getContext().getSession().put("user_id", u.getId());
 		
+		if(role.equals(util.Const.AdminRole))
+		{
+			return "admin_login_success";
+		}
+		else if(role.equals(util.Const.StudentRole))
+		{
+			return "student_login_success";
+		}
+		System.out.println("ERROR");
+		return "SB";
+	
 		
 	
 	
 
-		return "login_success";
+		
 	}
 	public String logout() throws Exception
 	{		
@@ -255,12 +284,12 @@ public class UserAction
 	
 	
 	
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
+//	public String getRole() {
+//		return role;
+//	}
+//	public void setRole(String role) {
+//		this.role = role;
+//	}
 
 	
 	

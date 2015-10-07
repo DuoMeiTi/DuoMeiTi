@@ -9,10 +9,21 @@
         <ul class="nav navbar-right">
             <li id="welcome_word">
             	欢迎您: <span id="login_user_name"><s:property value="#session.username"/></span>
+
+            	
+            	<s:if test="#session.role.equals(@util.Const@AdminRole)">
+            	</s:if>
+            	<s:else>
+            	</s:else>
+            	
+            	
             </li>
         </ul>
     </div>
 </a>
+
+
+
 
 <div class="container-fluid main-container">
     <div class="row col-lg-12">
@@ -29,6 +40,54 @@
     </div>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div id="envelope"></div>
 <div id="message-list-box" class="hide">
 	<div class="message-list-top">
@@ -41,6 +100,21 @@
 		<span>发信息</span>
 	</div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div id="message-contacts-box" class="hide">
 	<div class="message-contacts-top">
