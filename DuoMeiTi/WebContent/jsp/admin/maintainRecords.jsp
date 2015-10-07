@@ -41,13 +41,13 @@ td,tr,th{
 			<div class="searchCondition-building" id="buildingCondition">
 				<select id="building" class="form-control" style="width: 30%;">
 					<option value="0">综合教学一号楼</option>
-					<option value="1">综合教学二号楼</option>
+					<option value="6">综合教学二号楼</option>
 					<option value="3">一馆</option>
 					<option value="4">二馆</option>
 					<option value="5">建馆</option>
-					<option value="6">研教楼</option>
+					<option value="1">研教楼</option>
 					<option value="7">机械馆</option>
-					<option value="7">材料馆</option>
+					<option value="8">材料馆</option>
 				</select>
 				<!--<input type="text" class="form-control" id="personVal" style="width: 30%">-->
 			</div>

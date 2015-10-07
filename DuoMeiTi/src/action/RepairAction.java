@@ -66,6 +66,10 @@ public class RepairAction extends SuperAction {
 			if (list != null && list.size() > 0) {
 				session.setAttribute("maintainRecords_list",  list);
 			}
+			else
+			{
+				session.setAttribute("maintainRecords_list", null);
+			}
 		return "query_repair";
 	}
 	
