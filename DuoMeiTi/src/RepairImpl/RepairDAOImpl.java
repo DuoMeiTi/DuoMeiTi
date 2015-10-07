@@ -1,5 +1,8 @@
 package RepairImpl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -22,9 +25,10 @@ public class RepairDAOImpl implements RepairDAO{
 			cond += ("sP.studentId = \'" + val + "\'");
 		else if ("2".equals(type))
 			cond += ("rR.device.rtType = \'" + val + "\'");
-		else if ("3".equals(type))
-			cond += ("rR.repairdate > \'" + val.substring(0, 10) + "\'"+ " and " + 
-					"rR.repairdate < \'" + val.substring(10) + "\'");
+		else if ("3".equals(type)) {
+			cond += ("rR.repairdate >= \'" + val.substring(0, 10) + "\' and " + 
+					"rR.repairdate <= \'" + val.substring(11) + "\'");
+		}
 		try {
 			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
 			tx = session.beginTransaction();
@@ -48,6 +52,7 @@ public class RepairDAOImpl implements RepairDAO{
 			list = query.list();
 			tx.commit();
 			System.out.println(hql);
+			System.out.println("长度" + list.size());
 			return list;
 		}
 		catch (Exception ex) {
@@ -70,7 +75,7 @@ public class RepairDAOImpl implements RepairDAO{
 		try {
 			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
 			tx = session.beginTransaction();
-			hql = "UPDATE Repertory repertory SET repertory.classroom = " + id + 
+			hql = "UPDATE Repertory repertory SET repertory.classroom = " + id + ", repertory.rtDeviceStatus = '教室中'" +
 					" where repertory.rtNumber = \'" + bh + "\'" + " and repertory.rtDeviceStatus = '备用'";
 			System.out.println(hql);
 			Query queryupdate=session.createQuery(hql);
