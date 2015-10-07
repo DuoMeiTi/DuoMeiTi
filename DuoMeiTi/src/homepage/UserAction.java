@@ -104,14 +104,10 @@ public class UserAction
 		
 		
 		session.close();
-<<<<<<< HEAD
-		
-		
-=======
 //		System.out.println(u.getPassword());
 //		System.out.println(u.username);
 		if(!u.getPassword().equals(password)) return login_fail;
->>>>>>> origin/master
+
 		
 		ActionContext.getContext().getSession().put("username", username);
 		ActionContext.getContext().getSession().put("role", role);
