@@ -136,7 +136,7 @@
         <!--  -->
         <action name="admin_register_save" class="homepage.AdminAction" method="adminRegisterSave">
             <result name="success" type="json">
-            	<param name="includeProperties">register_status</param>           
+            	<!-- <param name="includeProperties">register_status,profilePhotoPath</param> -->           
 <!-- 				<param name="excludeProperties"> user_list</param> -->
             </result>            
         </action>

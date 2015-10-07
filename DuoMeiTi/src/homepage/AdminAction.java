@@ -1,7 +1,9 @@
 package homepage;
 
+import java.io.File;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,13 +16,19 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.AdminProfile;
+import model.EgFilePathSave;
 import model.User;
 import util.Const;
+import util.FileUploadBaseAction;
 
-public class AdminAction {
+public class AdminAction extends FileUploadBaseAction {
 	private String sexSelect[];// 性别
 	private String sex;
-
+	
+//	private File image;
+//	private String imageFileName; //文件名称
+//    private String imageContentType; //文件类型
+    
 	private String username;
 	private String password;
 	private String fullName;
@@ -110,6 +118,7 @@ public class AdminAction {
 		this.sex = sex;
 	}
 
+	
 	public String adminRegister() {
 		
 		sexSelect = Const.sexSelect;
@@ -125,6 +134,7 @@ public class AdminAction {
 //			this.register_status = "1";
 //			return ActionSupport.SUCCESS;
 //		}
+//		System.out.println("AdminAction.adminRegisterSave()333");
 		 Session session = model.Util.sessionFactory.openSession();
 
 		 		 Criteria q =
@@ -161,9 +171,33 @@ public class AdminAction {
 			um.setPassword(password);
 			um.setFullName(fullName);
 			um.setPhoneNumber(phoneNumber);
-			um.setProfilePhotoPath(profilePhotoPath);
+//			um.setProfilePhotoPath(profilePhotoPath);
 			um.setRemark(remark);
 			um.setSex(sex);
+			
+			if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
+	        {
+				util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
+				String inserted_file_path = util.Util.ProfilePhotoPath + fileFileName;
+				um.setProfilePhotoPath(inserted_file_path);
+//				System.out.println("***"+imageFileName+imageContentType);
+//	            File savefile = new File(new File(util.Util.RootPath + util.Util.FileUploadPath), imageFileName);
+//	            if (!savefile.getParentFile().exists())
+//	                savefile.getParentFile().mkdirs();
+//	            
+//	            System.out.println("saved****::" + savefile.getAbsolutePath());
+//	            FileUtils.copyFile(image, savefile);//将image复制到目标文件夹savefile
+//	            
+//	            EgFilePathSave file_path = new EgFilePathSave();
+//	            
+//	            file_path.setFilePath(util.Util.FileUploadPath + imageFileName);
+////	            session.beginTransaction();
+////	            session.save(file_path);
+////	            session.getTransaction().commit();
+//	            um.setProfilePhotoPath(util.Util.FileUploadPath + imageFileName);
+	        
+	        }
+			
 			session.save(um);//因为user是外键，所以在commit aProfile之前需要先save user；
 
 			AdminProfile aProfile = new AdminProfile();
