@@ -134,7 +134,7 @@ public class RequestAction {
 		System.out.println(ret);
 		trans.commit();
 		
-		if(ret==0){
+		if(ret>0){
 			strValue=ActionSupport.SUCCESS;
 			return ActionSupport.SUCCESS;
 		}
