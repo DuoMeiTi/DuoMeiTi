@@ -55,17 +55,18 @@
 				value="<s:property value="unitInfo"/>" placeholder="">
 		</div> --%>
 		
-		<div class="form-group col-lg-offset-4">
+		 <div class="form-group col-lg-offset-4">
 	  	<label for="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
-	  	<s:select list="sexSelect"  class="form-control" id="sex" name="sex" style="width:180px"></s:select>
-	  </div>
+	  	<s:select list="{'男','女'}"  class="form-control" id="sex" name="sex" style="width:180px"></s:select>
+	  </div>   
   	<br><br>
 		<div class="form-group col-lg-offset-4">
 			
 			<label for="profilePhotoPath">上传头像</label> 
 			 <input type="file" class ="pull-right "name="profilePhotoPath" id="file_upload"  placeholder="图片地址"> 
-			 
+			
 			 <br>
+			 <s:fielderror/>
 			 <%-- <input type="text"
 				class="form-control" name="profilePhotoPath"
 				value="<s:property value="profilePhotoPath"/>" placeholder="">  --%>
@@ -102,7 +103,7 @@
 		<br /> <br />
 		<button type="button" class="btn btn-primary col-lg-offset-5">注册</button>
 	</form>
-
+	<s:fielderror></s:fielderror>
 	<br />
 
 
@@ -110,7 +111,7 @@
 		style="display: none">
 		<br />
 	</div>
-
+<s:debug></s:debug>
 
 
 
@@ -120,7 +121,8 @@
 	<script>
 
     $(document).on("click", "button", function (){
-    	
+    	checkUsername();
+    	checkPassword();
     	var fd = new FormData();
         fd.append("file", document.getElementById('file_upload').files[0]);
         fd.append("username",$("#usernameId").val());
@@ -131,6 +133,7 @@
         fd.append("phoneNumber",$("#phoneNumber").val());
         fd.append("remark",$("#remark").val());
         //var params = $('#admin_register_form').serialize(); //利用jquery将表单序列化
+       
         $.ajax({
           url: 'admin_register_save',
           type: 'post',
@@ -172,9 +175,10 @@
 			
         	$(cnt).attr("user_id", data.user_id);
  */			
-    		alert("yeah");
+    		alert("ok");
  			animatesHide();
- 			$("#img").attr("src",data.profilePhotoPath);//但是不能显示啊
+ 			 
+ 			window.location.href = "${pageContext.request.contextPath}/login";
     	}
     	/* else if(data.register_status == "1")
     	{
