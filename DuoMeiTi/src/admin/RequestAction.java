@@ -74,6 +74,7 @@ public class RequestAction {
 			/*Criteria u=session.createCriteria(User.class);*/
 			/*user_list=u.list();*/
 			student_list=q.list();
+			System.out.println(student_list);
 			Collections.reverse(student_list);
 			/*Collections.reverse(user_list);*/
 			session.close();
