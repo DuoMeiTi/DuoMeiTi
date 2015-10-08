@@ -32,7 +32,14 @@ public class Repertory {
 	@Column
 	public java.sql.Date rtApprDate;
 	
+	@Column
+	public java.sql.Date rtFilterCleanDate;
 	
+	@Column
+	public java.sql.Date rtLampReplaceDate;
+	
+	@Column(length=10)
+	public java.sql.Date rtFreqPoint;
 	
 	
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
@@ -119,8 +126,34 @@ public class Repertory {
 	public void setRtApprDate(java.sql.Date rtApprDate) {
 		this.rtApprDate = rtApprDate;
 	}
+	
+
+	public java.sql.Date getRtFilterCleanDate() {
+		return rtFilterCleanDate;
+	}
+
+	public void setRtFilterCleanDate(java.sql.Date rtFilterCleanDate) {
+		this.rtFilterCleanDate = rtFilterCleanDate;
+	}
+
+	public java.sql.Date getRtLampReplaceDate() {
+		return rtLampReplaceDate;
+	}
+
+	public void setRtLampReplaceDate(java.sql.Date rtLampReplaceDate) {
+		this.rtLampReplaceDate = rtLampReplaceDate;
+	}
+
+	public java.sql.Date getRtFreqPoint() {
+		return rtFreqPoint;
+	}
+
+	public void setRtFreqPoint(java.sql.Date rtFreqPoint) {
+		this.rtFreqPoint = rtFreqPoint;
+	}
 
 	public String toString() {
 		return this.rtType + "," + this.rtNumber;
 	}
+	
 }
