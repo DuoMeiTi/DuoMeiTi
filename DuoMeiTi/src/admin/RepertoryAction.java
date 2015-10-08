@@ -99,7 +99,6 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		if(markde == false) return null;
 		return rtDevice;
 	}
-	
 	public String importExcel() throws Exception 
 	{
 		if(this.file == null)
@@ -132,12 +131,13 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         	if(col4 != "") rtApprDate = new java.sql.Date(sdf.parse(col4).getTime());
         	else rtApprDate = null;
         	rtFactorynum = rs.getCell(5, i).getContents();
+        	rtDeviceStatus = rs.getCell(6, i).getContents();
         	
         	System.out.println("|"+ rtType + "|"+rtNumber+"|"+rtVersion+"|"
-        			+ rtProdDate + "|" + rtApprDate + "|" + rtFactorynum);
+        			+ rtProdDate + "|" + rtApprDate + "|" + rtFactorynum + "|" + rtDeviceStatus + "|");
         	
         	if(rtType == "" && rtNumber == "" && rtNumber == "" && rtVersion == "" 
-        			&& rtProdDate == null && rtApprDate == null && rtFactorynum == "")
+        			&& rtProdDate == null && rtApprDate == null && rtFactorynum == "" && rtDeviceStatus == "")
         	{
         		break;
         	}
@@ -153,8 +153,24 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 //    		rtApprDateString = rtApprDate.toString();
     		rt.setRtApprDate(rtApprDate);
     		rt.setRtFactorynum(rtFactorynum);
-    		rt.setRtDeviceStatus("备用");
+    		rt.setRtDeviceStatus(rtDeviceStatus);
     		
+    		if(rtDeviceStatus.equals("教室"))
+        	{
+        		String rtClassroom = rs.getCell(7, i).getContents();
+        		System.out.println(rtClassroom);
+        		List q = session.createCriteria(model.Classroom.class).add(Restrictions.eq("classroom_num", rtClassroom)).list();
+        		if(q.isEmpty())
+        		{
+        			this.status = "2";//数据有误
+        			return this.SUCCESS;
+        		}
+        		else
+        		{
+        			model.Classroom classroom = (model.Classroom)q.get(0);
+        			rt.setClassroom(classroom);
+        		}
+        	}
     		session.save(rt);
         }
         session.getTransaction().commit();

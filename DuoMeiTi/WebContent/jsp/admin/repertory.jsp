@@ -101,8 +101,9 @@
 						<h2 class="modal-title" id="modal-title">设备信息导入</h2>
 					</div>
 					<div class="modal-body">
-					<div class="alert alert-danger" role="alert">导入Excel表格要求：<br> &nbsp;&nbsp; 从第一列开始每列设备字段分别为:设备名称（必须与约定设备名称一致）、资产编号、型号、出厂日期（日期格式yyyy-mm-dd）、审批日期、出厂号。第一行为字段名，第二行开始为数据内容。
-						<br>&nbsp;&nbsp;所有数据必须为文本格式，尤其是日期。 <br>&nbsp;&nbsp;若表中有空行，则空行之后的数据会被舍弃。</div>
+					<div class="alert alert-danger" role="alert">导入Excel表格要求：
+						<br> &nbsp;&nbsp;&nbsp; 从第一列开始每列设备字段分别为:设备名称（必须与约定设备名称一致）、资产编号、型号、出厂日期（日期格式yyyy-mm-dd）、审批日期、出厂号、使用状态（备用、教室、维修、报废）、教室号。第一行为字段名，第二行开始为数据内容。
+						<br>&nbsp;&nbsp;&nbsp;所有数据必须为文本格式，尤其是日期。 <br>&nbsp;&nbsp;&nbsp;若表中有空行，则空行之后的数据会被舍弃。</div>
 					<form class="form-inline well" id="import_repertory" enctype="multipart/form-data" method="post">
 						<div class="row">
 							<div class="form-group">

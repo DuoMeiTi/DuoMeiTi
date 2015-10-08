@@ -19,6 +19,8 @@ public class RepairRecord {
 	@Column(length=100)
 	public String repairdetail;
 	
+	
+	@Column
 	public java.sql.Date repairdate;
 	
 	

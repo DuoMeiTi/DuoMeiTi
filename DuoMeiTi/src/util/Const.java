@@ -66,8 +66,8 @@ public class Const
     public static final String[] deviceStatus = {
     		"",
     		"备用",
-    		"教室中",
-    		"维修中",
+    		"教室",
+    		"维修",
     		"报废",
     };
     

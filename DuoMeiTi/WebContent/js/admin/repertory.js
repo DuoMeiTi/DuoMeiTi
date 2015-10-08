@@ -313,6 +313,13 @@ function importCallback(data) {
 		alert("导入成功！");
 		window.location.reload();
 	}
-	else alert("导入失败！ ");
+	else if(data.status == "0")
+	{
+		alert("导入失败！可能文件格式有误！");
+	}
+	else if(data.status == "2")
+	{
+		alert("导入数据有误！");
+	}
 }
 
