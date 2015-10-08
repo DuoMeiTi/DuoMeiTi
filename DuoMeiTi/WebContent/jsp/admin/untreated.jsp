@@ -76,9 +76,7 @@
 	 
 	$(".ensure-button").click(function(){
 		var id=$(this).closest("tr").attr("id");
-		alert(id);
 		var isPass=$(this).closest("td").prev().children("select").val();
-		alert(isPass);
 		//var isPass=$('#judge').find("option:selected").val();
 		
 		$.ajax({
