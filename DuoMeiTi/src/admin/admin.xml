@@ -101,6 +101,11 @@
 	
 	<package name="user_request" namespace="/admin/user_request"
 		extends="AdminDefault">
+		
+		<action name="" >
+			<result name="success" type="redirect">untreated</result>
+		</action>
+		
 		<action name="untreated" class="admin.RequestAction" method="studentRequest">
 			<result>
 				/jsp/admin/untreated.jsp
@@ -137,12 +142,16 @@
 	<package name="student_manage" namespace="/admin/student_manage"
 		extends="AdminDefault">
 		
-		<action name="untreated" class="homepage.StudentAction" method="studentRequest">
-			<result>
-				/jsp/admin/untreated.jsp
-			</result>
-
+		<action name="" >
+			<result name="success" type="redirect">student_information</result>
 		</action>
+		
+<!-- 		<action name="untreated" class="homepage.StudentAction" method="studentRequest"> -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/untreated.jsp -->
+<!-- 			</result> -->
+
+<!-- 		</action> -->
 		
 		
 		<!-- 学生信息 -->
