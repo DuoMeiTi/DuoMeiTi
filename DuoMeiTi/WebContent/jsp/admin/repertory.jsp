@@ -45,6 +45,12 @@
 									</span>
 									<input type="text" class="form-control" name="rtFactorynum" id="rtFactorynum" value="<s:property value="rtFactorynum"/>">
 								</div>
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default">更换时间</button>
+									</span>
+									<input type="text" class="form-control" name="rtReplacePeriod" id="rtReplacePeriod" value="<s:property value="rtReplacePeriod"/>">
+								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="input-group">
@@ -71,6 +77,12 @@
 										<button type="button" class="btn btn-default">使用状态<span style="color:red">*</span></button>
 									</span>
 									<s:select list="deviceStatus" class="form-control" name="rtDeviceStatus" id="rtDeviceStatus"></s:select>
+								</div>
+								<div class="input-group" style="display:none" id="freq">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default" >频点</button>
+									</span>
+									<input type="text" class="form-control" name="rtFreqPoint" id="rtFreqPoint" value="<s:property value="rtFreqPoint"/>">
 								</div>
 							</div>
 							<div class="text-right" style="color:red">(*为必填项)</div>

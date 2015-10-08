@@ -26,7 +26,6 @@ $(document).find("#rtDevice").change(function() {
 		$("#rtType2").show();
 		$("#rtType1").hide();
 	}
-	
 })
 
 
@@ -282,6 +281,7 @@ function searchCallback(data) {
 		})
 
 	} else if (data.status == "0") {
+		$(document).find("#rtSearchLen").text(0);
 		$(document).find("#repertory_table tr:not(:first)").remove();
 //		$("#repertory_table tr:not(:first)").remove();
 		$(document).find("#noResult").text("无查询结果");
