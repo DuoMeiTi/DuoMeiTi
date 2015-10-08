@@ -1,0 +1,1 @@
+create database duomeiti  default  character set utf8;

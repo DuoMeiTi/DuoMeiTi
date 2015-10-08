@@ -2,6 +2,9 @@ package model;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class Repertory {
 	@Id
@@ -33,17 +36,18 @@ public class Repertory {
 	public java.sql.Date rtApprDate;
 	
 	@Column
-	public java.sql.Date rtFilterCleanDate;
+	public int rtFilterCleanPeriod;
 	
 	@Column
-	public java.sql.Date rtReplaceDate;
+	public int rtReplacePeriod;
 	
 	@Column(length=10)
 	public String rtFreqPoint;
 	
 	
-	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn
+	@Fetch(FetchMode.SELECT)
 	public Classroom classroom;
 
 	public int getRtId() {
@@ -128,29 +132,30 @@ public class Repertory {
 	}
 	
 
-	public java.sql.Date getRtFilterCleanDate() {
-		return rtFilterCleanDate;
+
+
+
+
+	
+	
+	
+	
+	public int getRtFilterCleanPeriod() {
+		return rtFilterCleanPeriod;
 	}
 
-	public void setRtFilterCleanDate(java.sql.Date rtFilterCleanDate) {
-		this.rtFilterCleanDate = rtFilterCleanDate;
-	}
-	
-
-	public java.sql.Date getRtReplaceDate() {
-		return rtReplaceDate;
+	public void setRtFilterCleanPeriod(int rtFilterCleanPeriod) {
+		this.rtFilterCleanPeriod = rtFilterCleanPeriod;
 	}
 
-	public void setRtReplaceDate(java.sql.Date rtReplaceDate) {
-		this.rtReplaceDate = rtReplaceDate;
+	public int getRtReplacePeriod() {
+		return rtReplacePeriod;
 	}
 
+	public void setRtReplacePeriod(int rtReplacePeriod) {
+		this.rtReplacePeriod = rtReplacePeriod;
+	}
 
-
-	
-	
-	
-	
 	public String getRtFreqPoint() {
 		return rtFreqPoint;
 	}

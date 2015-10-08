@@ -15,8 +15,9 @@ public class Classroom {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn
+	@Fetch(FetchMode.SELECT)
 	public TeachBuilding teachbuilding;
 	
 	@Column(length = 10)

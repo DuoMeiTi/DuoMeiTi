@@ -73,7 +73,7 @@ public class RepairDAOImpl implements RepairDAO{
 		try {
 			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
 			tx = session.beginTransaction();
-			hql = "UPDATE Repertory repertory SET repertory.classroom = " + id + ", repertory.rtDeviceStatus = '教室中'" +
+			hql = "UPDATE Repertory repertory SET repertory.classroom = " + id + ", repertory.rtDeviceStatus = '教室'" +
 					" where repertory.rtNumber = \'" + bh + "\'" + " and repertory.rtDeviceStatus = '备用'";
 			System.out.println(hql);
 			Query queryupdate=session.createQuery(hql);
