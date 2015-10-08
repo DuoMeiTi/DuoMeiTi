@@ -8,6 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -20,7 +21,9 @@ import model.Repertory;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class ClassroomDetailAction extends ActionSupport {
+import db.MyHibernateSessionFactory;
+
+public class ClassroomDetailAction extends ActionSupport{
 	public String build_name;
 	
 	public int classroomId;
@@ -31,7 +34,7 @@ public class ClassroomDetailAction extends ActionSupport {
 	
 	public List<RepairRecord> repairrecords;
 	
-	/*public List<Repertory> rtClass;*/
+	public List<Repertory> rtClass;
 	
 	public String execute() {
 		Session session = model.Util.sessionFactory.openSession();
@@ -41,7 +44,7 @@ public class ClassroomDetailAction extends ActionSupport {
 		classroom = (Classroom) classroom_criteria.uniqueResult();
 		ActionContext.getContext().getSession().remove("classroom_id");
 		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
-//System.out.println("rt_size:" + classroom.repertorys.size());
+		//System.out.println("++++++++++++++++++++++rt_size:" + classroom.repertorys.size());
 		
 		/*String hql = "SELECT rt FROM Repertory rt WHERE rt.classroom = " + classroomId;
 		Query query = session.createQuery(hql);
@@ -50,6 +53,33 @@ public class ClassroomDetailAction extends ActionSupport {
 			System.out.println("输出++++++++++++++++++++++++++++++++");
 			System.out.println(rtClass.get(i));
 		}*/
+		
+		Transaction tx = null;
+		String hql ="";
+		try {
+			Session session1 = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+			tx = session1.beginTransaction();
+			hql = "SELECT rt FROM Repertory rt WHERE rt.classroom = " + classroomId;
+			System.out.println(hql);
+			Query query = session1.createQuery(hql);
+			rtClass = query.list();
+			for (int i = 0; i < rtClass.size(); i++) {
+				System.out.println("输出++++++++++++++++++++++++++++++++");
+				System.out.println(rtClass.get(i));
+			}
+			tx.commit();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			tx.commit();
+		}
+		finally {
+			if (tx != null) {
+				if (tx != null) {
+					tx = null;
+				}
+			}
+		}
 
 		//query at most 5 checkrecord
 		Criteria checkrecord_criteria = session.createCriteria(CheckRecord.class).setFetchMode("classroom", FetchMode.SELECT).setFetchMode("checkman", FetchMode.SELECT);

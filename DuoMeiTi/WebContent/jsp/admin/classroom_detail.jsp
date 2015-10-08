@@ -150,10 +150,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 					
 					function addcallback(data) {
-						if (parseInt(data.ret))
-							alert("Ok，添加成功");
+						if (parseInt(data.ret)) {
+							alert("Ok, 添加成功");
+							location.reload();	
+						}
+							
 						else
-							alert("Sorry，添加失败");
+							alert("Sorry, 添加失败");
 					}
 				</script>
 				</div>
@@ -169,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="detail-div">
 			<div class="device">
 				<ul>
-					<s:iterator value="classroom.repertorys" var="device" status="i">
+					<s:iterator value="rtClass" var="device" status="i">
 						<li id="device-<s:property value="#i.index"/>" />
 							<div style="margin-bottom:5px">
 								<label class="control-label device-type-label"><s:property value="#device.rtType"/>&nbsp;</label>

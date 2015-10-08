@@ -75,6 +75,7 @@ public class RepairAction extends SuperAction {
 	
 	public String add() {
 		RepairDAO rdao = new RepairDAOImpl();
+		System.out.println(id + "============" + bh);
 		ret = Integer.toString(rdao.add_rt(id, bh));
 		System.out.println("顶层"+ret);
 		return "adddevice";
