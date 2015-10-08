@@ -153,7 +153,7 @@ public class Repertory {
 	}
 
 	public String toString() {
-		return this.rtType + "," + this.rtNumber;
+		return this.rtType + "," + this.rtNumber + "|";
 	}
 	
 }

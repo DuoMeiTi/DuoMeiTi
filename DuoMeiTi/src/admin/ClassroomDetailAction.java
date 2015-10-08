@@ -30,6 +30,7 @@ public class ClassroomDetailAction extends ActionSupport {
 	public List<CheckRecord> checkrecords;
 	
 	public List<RepairRecord> repairrecords;
+	public List classroom_repertory_list;
 	
 	/*public List<Repertory> rtClass;*/
 	
@@ -41,6 +42,8 @@ public class ClassroomDetailAction extends ActionSupport {
 		classroom = (Classroom) classroom_criteria.uniqueResult();
 		ActionContext.getContext().getSession().remove("classroom_id");
 		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
+		
+		
 //System.out.println("rt_size:" + classroom.repertorys.size());
 		
 		/*String hql = "SELECT rt FROM Repertory rt WHERE rt.classroom = " + classroomId;
@@ -81,9 +84,22 @@ public class ClassroomDetailAction extends ActionSupport {
 //			System.out.println(r.repairman);
 //		}
 		
+		
+		
+		
+//		List classroom_repertory_list;
+		
+		classroom_repertory_list = session.createCriteria(model.Repertory.class).add(Restrictions.eq("classroom.id", classroomId)).list();
+		
+		System.out.println("JJ");
+//		System.out.println(classroom.repertorys);
+		System.out.println(classroom_repertory_list);
+		
 		session.close();
 		return SUCCESS;
 	}
+	
+	
 	
 	
 	
