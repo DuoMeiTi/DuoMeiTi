@@ -36,7 +36,7 @@ public class Repertory {
 	public java.sql.Date rtFilterCleanDate;
 	
 	@Column
-	public java.sql.Date rtLampReplaceDate;
+	public java.sql.Date rtReplaceDate;
 	
 	@Column(length=10)
 	public java.sql.Date rtFreqPoint;
@@ -135,13 +135,14 @@ public class Repertory {
 	public void setRtFilterCleanDate(java.sql.Date rtFilterCleanDate) {
 		this.rtFilterCleanDate = rtFilterCleanDate;
 	}
+	
 
-	public java.sql.Date getRtLampReplaceDate() {
-		return rtLampReplaceDate;
+	public java.sql.Date getRtReplaceDate() {
+		return rtReplaceDate;
 	}
 
-	public void setRtLampReplaceDate(java.sql.Date rtLampReplaceDate) {
-		this.rtLampReplaceDate = rtLampReplaceDate;
+	public void setRtReplaceDate(java.sql.Date rtReplaceDate) {
+		this.rtReplaceDate = rtReplaceDate;
 	}
 
 	public java.sql.Date getRtFreqPoint() {
