@@ -2,18 +2,23 @@ package model;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class RepairRecord {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
 	
-	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn
+	@Fetch(FetchMode.SELECT)
 	public Repertory device;
 		
-	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn
+	@Fetch(FetchMode.SELECT)
 	public User repairman;
 	
 	@Column(length=100)
