@@ -14,13 +14,16 @@
 	<br>
 	<label for="name_id">姓名或学号：</label>
 	<input type="text" class="col-lg-1.5" name="name_id" id="name_id" value="">
-	<button type="button" class="btn btn-primary btn-sm" id="search">检索lalala</button>	
+	<button type="button" class="btn btn-primary btn-sm" id=student_search>检索</button>
 	<br>
 	<br>
 	
+	<div class="student_table">
+	
 		<table class="table table-bordered table-hover" id="student_information_table">
-			<tr class="row">
-				<th class="col-lg-1.5" id="search_studentId">姓名</th>
+			
+			<tr class="row" id="search_infor">
+				<th class="col-lg-1.5">姓名</th>
 				<th class="col-lg-1.5">学号</th>
 				<th class="col-lg-1.5">学院</th>
 				<th class="col-lg-1.5">电话</th>
@@ -28,30 +31,45 @@
 				<th class="col-lg-1">编辑</th>
 				<th class="col-lg-1">删除</th>
 			</tr>
-			
-
-			<tr class="row" id=<s:property value="#studentId"/> >
-				<td class="col-lg-1.5" id="search_studentId" >  </td>
-				<td class="col-lg-1" id="search_studentid" >  </td>
-				<td class="col-lg-1.5" id="search_college" >  </td>
-				<td class="col-lg-1.5" id="search_number" >  </td>
-				<td class="col-lg-1.5" > 
-					<s:if test="#i.isUpgradePrivilege == 0">在职学生</s:if>
-					<s:else>管理教师</s:else>
-				</td>
-					
+		
+			<tr class="row" id="search_information" style="display: none;">
+				<td class="col-lg-1.5" id="search_name"></td>
+				<td class="col-lg-1.5" id="search_studentid"></td>
+				<td class="col-lg-1.5" id="search_college"></td>
+				<td class="col-lg-1.5" id="search_number"></td>
+				<td class="col-lg-1" id="search_isUpgradePrivilege"></td>
 				<td class="col-lg-1 ">
-					<button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#student_edit" id="edit-button" name="edit-button" >编辑</button>
-				</td>
-				<td class="col-lg-1 ">
-					<button type="button" class="btn btn-primary btn-sm delete" id="delede-button">删除</button>	
-				</td>
+						<button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#student_edit" id="edit-button" name="edit-button" >编辑</button>
+					</td>
+					<td class="col-lg-1 ">
+						<button type="button" class="btn btn-primary btn-sm delete" id="delede-button">删除</button>	
+					</td>
 			</tr>
+			
+			
+			<s:iterator value="student_list" var="i" status="index">
+				<tr class="row" id=<s:property value="#i.id"/>>
+					<td class="col-lg-1.5"> <s:property value="#i.user.fullName"/> </td>
+					<td class="col-lg-1"> <s:property value="#i.studentId"/> </td>
+					<td class="col-lg-1.5"> <s:property value="#i.college "/> </td>
+					<td class="col-lg-1.5"> <s:property value="#i.user.phoneNumber"/> </td>
+					<td class="col-lg-1.5"> 
+						<s:if test="#i.isUpgradePrivilege == 0">在职学生</s:if>
+						<s:else>管理教师</s:else>
+					</td>
+						
+					<td class="col-lg-1 ">
+						<button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#student_edit" id="edit-button" name="edit-button" >编辑</button>
+					</td>
+					<td class="col-lg-1 ">
+						<button type="button" class="btn btn-primary btn-sm delete" id="delede-button">删除</button>	
+					</td>
+				</tr>
 					
-
+			</s:iterator>
 		</table>
 		
-		
+	</div>	
 		
 		<div class="modal fade" id="student_edit">
 							<div class="modal-dialog">
@@ -71,7 +89,7 @@
 															<span class="input-group-btn">
 																<button type="button" class="btn btn-default">姓名</button>
 															</span>
-															<input type="text" class="form-control" id="fullName"  name="fullName" value="tets">
+															<input type="text" class="form-control" id="fullName"  name="fullName" value="">
 														</div>
 													</div>
 													<div class="col-lg-6">
@@ -121,12 +139,7 @@
 							<!-- /.modal-dialog -->
 						</div>
 		
-		<script>
-		
-		search_studentId.innerText = fullName; 
-		
-		
-		</script>
+		<script type='text/javascript' src="/js/admin/student_information.js"></script>
 		
 		
 		
@@ -136,4 +149,4 @@
 </layout:override>
 
 
-<%@ include file="/jsp/admin/student_manage.jsp" %>
+<%@ include file="base.jsp" %>

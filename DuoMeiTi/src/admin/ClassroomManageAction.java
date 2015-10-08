@@ -108,9 +108,9 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 			t_classroom.principal_name = classroom.principal == null ? "" : classroom.principal.user.getFullName();
 			t_classroom.principal_stuId = classroom.principal == null ? "" : classroom.principal.getStudentId();
 			StringBuilder rsb = new StringBuilder();
-			for(Repertory r : classroom.repertorys) {
-				rsb.append(r.getRtType() + "  ");
-			}
+//			for(Repertory r : classroom.repertorys) {
+//				rsb.append(r.getRtType() + "  ");
+//			}
 			t_classroom.repertorys = rsb.toString();
 			classrooms.add(t_classroom);
 		}
@@ -182,9 +182,9 @@ System.out.println("rowcount:" + rowCount);
 			t_classroom.principal_name = classroom.principal == null ? "" : classroom.principal.user.getFullName();
 			t_classroom.principal_stuId = classroom.principal == null ? "" : classroom.principal.getStudentId();
 			StringBuilder sb = new StringBuilder();
-			for(Repertory r : classroom.repertorys) {
-				sb.append(r.getRtType() + "  ");
-			}
+//			for(Repertory r : classroom.repertorys) {
+//				sb.append(r.getRtType() + "  ");
+//			}
 			t_classroom.repertorys = sb.toString();
 System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroom.principal.user.getUsername() + " " + sb.toString());
 			classrooms.add(t_classroom);

@@ -172,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="detail-div">
 			<div class="device">
 				<ul>
-					<s:iterator value="rtClass" var="device" status="i">
+				<s:iterator value="rtClass" var="device" status="i">
 						<li id="device-<s:property value="#i.index"/>" />
 							<div style="margin-bottom:5px">
 								<label class="control-label device-type-label"><s:property value="#device.rtType"/>&nbsp;</label>

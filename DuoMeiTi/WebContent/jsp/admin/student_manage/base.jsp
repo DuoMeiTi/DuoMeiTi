@@ -25,7 +25,7 @@
 		</div>
 	</div>
 	
-
+<div class="mycontent">
 
 <layout:block name="mycontent">
 
@@ -33,7 +33,7 @@
 
 </layout:block>
 
-<div class="mycontent">
+
 
 </div>	
 	

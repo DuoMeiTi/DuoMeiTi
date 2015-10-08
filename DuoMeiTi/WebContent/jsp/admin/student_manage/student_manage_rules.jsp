@@ -28,4 +28,4 @@
 </layout:override>
 
 
-<%@ include file="/jsp/admin/student_manage.jsp" %>
+<%@ include file="base.jsp" %>
