@@ -9,15 +9,21 @@
 		<div class="container-fluid nopadding">
     		<div class="row nomargin">
         
-        		<div class="col-lg-4 nopadding">
+        		<div class="col-lg-3 nopadding">
            			<a href="/admin/student_manage/student_information" class="navbar-button navbar-button-left">学生信息</a> 
         		</div>
-        
-       			<div class="col-lg-4 nopadding" >
+        		
+        		<div class="col-lg-3 nopadding" >
+           			<a href="/admin/student_manage/dfsdfsdf" class="navbar-button">设置管理</a> 
+        		</div>
+        		
+       			<div class="col-lg-3 nopadding" >
            			<a href="/admin/student_manage/rules" class="navbar-button">规章制度</a> 
         		</div>
         		
-        		<div class="col-lg-4 nopadding">
+        		
+        		
+        		<div class="col-lg-3 nopadding">
            			<a href="/admin/student_manage/techteach" class="navbar-button navbar-button-left">技术培训</a> 
         		</div>
     

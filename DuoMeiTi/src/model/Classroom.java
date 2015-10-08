@@ -4,7 +4,9 @@ package model;
 import java.util.Set;
 
 import javax.persistence.*;
-
+//import org.hibernate.FetchMode;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Classroom {
@@ -20,8 +22,9 @@ public class Classroom {
 	@Column(length = 10)
 	public String classroom_num;
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn
+	@Fetch(FetchMode.SELECT)
 	public StudentProfile principal;
 	
 //	@Column

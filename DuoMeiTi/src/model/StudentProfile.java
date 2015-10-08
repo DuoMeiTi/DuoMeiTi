@@ -37,8 +37,8 @@ public class StudentProfile {
     @Column
     public java.sql.Date entryTime;    
 
-    @OneToMany(mappedBy="principal", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-    public Set<Classroom> classrooms;
+//    @OneToMany(mappedBy="principal", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+//    public Set<Classroom> classrooms;
     
     @Column(length = 10)
     public String status;
@@ -108,13 +108,13 @@ public class StudentProfile {
 		this.entryTime = entryTime;
 	}
 
-	public Set<Classroom> getClassrooms() {
-		return classrooms;
-	}
-
-	public void setClassrooms(Set<Classroom> classrooms) {
-		this.classrooms = classrooms;
-	}
+//	public Set<Classroom> getClassrooms() {
+//		return classrooms;
+//	}
+//
+//	public void setClassrooms(Set<Classroom> classrooms) {
+//		this.classrooms = classrooms;
+//	}
 
 	public String getStatus() {
 		return status;

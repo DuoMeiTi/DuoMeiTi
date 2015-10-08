@@ -23,7 +23,9 @@ public class TeachBuildingAction extends ActionSupport {
 
 	public String execute() {
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(TeachBuilding.class).setFetchMode("classrooms", FetchMode.SELECT);
+		Criteria criteria = session.createCriteria(TeachBuilding.class)
+				.setFetchMode("classrooms", FetchMode.SELECT)
+				;
 		builds = criteria.list();
 		for(TeachBuilding b : builds) System.out.println(b.getBuild_name());
 		session.close();

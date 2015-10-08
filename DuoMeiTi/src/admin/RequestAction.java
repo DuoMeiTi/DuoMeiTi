@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -65,7 +66,11 @@ public class RequestAction {
 	public String studentRequest() throws Exception{
 		try{
 			Session session=model.Util.sessionFactory.openSession();
-			Criteria q=session.createCriteria(StudentProfile.class);
+			Criteria q=session.createCriteria(StudentProfile.class)
+//					.setFetchMode("classrooms", FetchMode.SELECT)
+					
+					
+					;
 			/*Criteria u=session.createCriteria(User.class);*/
 			/*user_list=u.list();*/
 			student_list=q.list();
