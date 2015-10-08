@@ -12,11 +12,29 @@
 	
 	<br>
 	<br>
-	<label for="name_id">姓名或学号：</label>
-	<input type="text" class="col-lg-1.5" name="name_id" id="name_id" value="">
-	<button type="button" class="btn btn-primary btn-sm" id=student_search>检索</button>
-	<br>
-	<br>
+	<form class="form-horizontal" id="student_search_form">
+	<div class="form-horizontal">
+        <div class="form-group">
+        
+            <label class="col-lg-2 control-label" style="margin:2px">学生查询：</label>
+            <div class="col-lg-2">
+                <select class="col-lg-2 form-control" style="margin:3px;"name="search_select" id="search_select">
+                <option value="1">姓名</option>
+                <option value="2">学号</option>
+            </select>
+            </div>
+            
+			<div class="col-lg-2">
+				<input type="text" class="col-lg-3 form-control" style="margin:3px;height:34px;" aria-describedby="basic-addon1" name="name_id" id="name_id">
+			</div>
+
+			<div class="col-lg-1">
+                <button type="button" class="btn btn-primary" style="margin:2px;" id="student_search" >查&nbsp;&nbsp;询</button>
+            </div>
+        </div>
+    </div>
+    </form>
+	
 	
 	<div class="student_table">
 	

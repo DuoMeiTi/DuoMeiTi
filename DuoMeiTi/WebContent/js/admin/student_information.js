@@ -4,13 +4,18 @@
 var name_id;
 $(document).on("click", "#student_search", function() {
 	name_id = $("#name_id").val();
-	/*alert("检索2:"+name_id);*/
+	search_select = $("#search_select").val();
+/*	alert("检索2:" + name_id + search_select);*/
+	var params = {
+			"search_select" : search_select,
+			"name_id" : name_id,
+		};
 	
 	$.ajax({
         url: 'student_information_search',
         type: 'post',
         dataType: 'json',
-        data : {"name_id" : name_id,},// {"后台",""}
+        data : params,
         success: searchCallback
       });
 })
@@ -32,6 +37,7 @@ function searchCallback(data) {
 	    }
 		document.getElementById('search_information').style.display='';
 		search_name.innerText = data.fullName; 
+		search_studentid.innerText = data.studentId;
 		search_college.innerText = data.college;
 		search_number.innerText = data.phoneNumber;
 		if(data.isUpgradePrivilege == 1)
@@ -133,7 +139,7 @@ function getInformationCallback(data) {
 
 //save
 $(document).on("click", "#editSave", function() {
-	alert("save");
+	/*alert("save");*/
 	var params = $('#edit_student_form').serialize(); //利用jquery将表单序列化 
 	/*alert(params);*/
 	$.ajax({

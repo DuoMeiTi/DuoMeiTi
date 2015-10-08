@@ -38,7 +38,7 @@ public class User
     
 	public String toString()
 	{
-		return this.username + ", " + this.password;
+		return this.username + ", " + this.password + "," + this.id;
 	}
 	
 	
