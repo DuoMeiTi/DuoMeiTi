@@ -39,7 +39,7 @@ public class Repertory {
 	public java.sql.Date rtReplaceDate;
 	
 	@Column(length=10)
-	public java.sql.Date rtFreqPoint;
+	public String rtFreqPoint;
 	
 	
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
@@ -145,11 +145,17 @@ public class Repertory {
 		this.rtReplaceDate = rtReplaceDate;
 	}
 
-	public java.sql.Date getRtFreqPoint() {
+
+
+	
+	
+	
+	
+	public String getRtFreqPoint() {
 		return rtFreqPoint;
 	}
 
-	public void setRtFreqPoint(java.sql.Date rtFreqPoint) {
+	public void setRtFreqPoint(String rtFreqPoint) {
 		this.rtFreqPoint = rtFreqPoint;
 	}
 
