@@ -155,7 +155,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
     		rt.setRtFactorynum(rtFactorynum);
     		rt.setRtDeviceStatus(rtDeviceStatus);
     		
-    		if(rtDeviceStatus.equals("教室中"))
+    		if(rtDeviceStatus.equals("教室"))
         	{
         		String rtClassroom = rs.getCell(7, i).getContents();
         		System.out.println(rtClassroom);
