@@ -68,11 +68,10 @@
 				<!-- <param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param> -->
 				<param name="excludeProperties"> repertory_list</param>
 			</result>
-		</action>
-		
-		
-        
+		</action>        
 	</package>
+	
+	
 	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="AdminDefault">
 		<action name="maintainRecords">
 			<result>
@@ -157,21 +156,21 @@
 		<!-- 学生信息 -->
 		<action name="student_information" class="admin.StudentManageAction" method="studentInformation">
 			<result>
-				/jsp/admin/student_information.jsp
+				/jsp/admin/student_manage/student_information.jsp
 			</result>
 		</action>
 		
 		<!-- 规章制度 -->
 		<action name="rules" class="admin.StudentManageAction" method="studentInformation">
 			<result>
-				/jsp/admin/student_manage_rules.jsp
+				/jsp/admin/student_manage/student_manage_rules.jsp
 			</result>
 		</action>
 		
 		<!-- 技术培训 -->
 		<action name="techteach" class="admin.StudentManageAction" method="studentInformation">
 			<result>
-				/jsp/admin/student_manage_techteach.jsp
+				/jsp/admin/student_manage/student_manage_techteach.jsp
 			</result>
 		</action>
 	
@@ -206,8 +205,15 @@
 			</result>        
         </action>
         
-	</package>
-
+	</package>  
+	<!-- student_manage package end-->
+	
+	
+	
+	
+	
+	
+	
 
 	<package name="classroom_json" namespace="/admin/classroom_json" extends="AdminDefault">
 		<action name="classroom_search" class="admin.ClassroomManageAction" method="classroom_search">
