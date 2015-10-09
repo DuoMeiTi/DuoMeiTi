@@ -120,8 +120,8 @@
 					</div>
 					<div class="modal-body">
 					<div class="alert alert-danger" role="alert">导入Excel表格要求：
-						<br> &nbsp;&nbsp;&nbsp; 从第一列开始每列设备字段分别为:设备名称（必须与约定设备名称一致）、资产编号、型号、出厂日期（日期格式yyyy-mm-dd）、审批日期、出厂号、使用状态（备用、教室、维修、报废）、教室号。第一行为字段名，第二行开始为数据内容。
-						<br>&nbsp;&nbsp;&nbsp;所有数据必须为文本格式，尤其是日期。 <br>&nbsp;&nbsp;&nbsp;若表中有空行，则空行之后的数据会被舍弃。</div>
+						<br> &nbsp;&nbsp;1.&nbsp; 从第一列开始每列设备字段分别为:<br>设备名称（必须与约定设备名称一致）、<br>资产编号、<br>型号、<br>出厂日期（日期格式yyyy-mm-dd）、<br>审批日期、<br>出厂号、<br>使用状态（备用、教室、维修、报废）、<br>教室号、<br>更换时间、<br>频点、<br>过滤网更换时间。
+						<br>&nbsp;&nbsp;2.&nbsp;只读取Excel表格中第一个工作簿。第一行为字段名，第二行开始为数据内容。所有数据必须为文本格式，尤其是日期。 <br>&nbsp;&nbsp;3.&nbsp;若表中有空行，则空行之后的数据会被舍弃。</div>
 					<form class="form-inline well" id="import_repertory" enctype="multipart/form-data" method="post">
 						<div class="row">
 							<div class="form-group">
