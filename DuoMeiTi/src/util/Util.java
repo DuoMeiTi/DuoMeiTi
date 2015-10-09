@@ -94,7 +94,17 @@ public class Util
 	}
 
 	
-	
+	static public  String getJspOutput(String jsppath)
+	throws Exception
+	{
+      HttpServletRequest request = ServletActionContext.getRequest();        
+      HttpServletResponse response = ServletActionContext.getResponse();
+
+		WrapperResponse wrapperResponse = new WrapperResponse(response);
+		request.getRequestDispatcher(jsppath).include(request, wrapperResponse);
+		return wrapperResponse.getContent();
+	}
+
 	
 	
 	

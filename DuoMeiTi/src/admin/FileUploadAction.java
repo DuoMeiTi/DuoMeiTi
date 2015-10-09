@@ -135,14 +135,14 @@ public class FileUploadAction extends util.FileUploadBaseAction
         
     	List classroomFilePath = session.createCriteria(model.ClassroomFilePath.class).list();
         
-        HttpServletRequest request = ServletActionContext.getRequest();        
-        HttpServletResponse response = ServletActionContext.getResponse();
+//        HttpServletRequest request = ServletActionContext.getRequest();        
+//        HttpServletResponse response = ServletActionContext.getResponse();
         
 
         file_path_list = classroomFilePath;
         
 
-        classroom_file_table = util.Util.getJspOutput("/jsp/admin/HomepageModify/ClassroomFileTable.jsp", request, response);
+        classroom_file_table = util.Util.getJspOutput("/jsp/admin/HomepageModify/ClassroomFileTable.jsp");
 
         System.out.println("wrapperResponsse.toString()::" + classroom_file_table);
         System.out.println("LIST::" + classroomFilePath);
