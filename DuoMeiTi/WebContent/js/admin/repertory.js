@@ -20,6 +20,7 @@ function cleanValue() {
 $(document).on("click", "#rtInsert", function() {
 	cleanValue();
 	$("#rtSave").attr("mark","insert");
+	$("#modal-title").html("添加设备信息");
 })
 
 $(document).find("#rtDevice").change(function() {
@@ -60,6 +61,7 @@ $(document).on("click",".click_me", function() {
 //	$(this).attr("data-toggle","modal");
 //	$(this).attr("data-target","#rtModal");
 	$("#rtSave").attr("mark","update");
+	$("#modal-title").html("修改设备信息");
 	$(document).find('#rtModal').modal('toggle');
 	$.ajax({
 		url : 'repertory_fetch',

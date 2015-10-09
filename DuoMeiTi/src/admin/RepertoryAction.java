@@ -241,9 +241,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		{
 			Collections.reverse(repertory_list);
 			this.status = "1";
-			HttpServletRequest request = ServletActionContext.getRequest();        
-	        HttpServletResponse response = ServletActionContext.getResponse();
-	        repertory_table = util.Util.getJspOutput("/jsp/admin/widgets/repertoryTable.jsp", request, response);
+	        repertory_table = util.Util.getJspOutput("/jsp/admin/widgets/repertoryTable.jsp");
 	        //System.out.println(repertory_table);
 		}
 		session.close();
