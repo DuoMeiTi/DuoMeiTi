@@ -2,18 +2,23 @@ package model;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class CheckRecord {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
 		
-	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn
+	@Fetch(FetchMode.SELECT)
 	public Classroom classroom;
 	
-	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn
+	@Fetch(FetchMode.SELECT)
 	public User checkman;
 	
 	@Column(length=200)

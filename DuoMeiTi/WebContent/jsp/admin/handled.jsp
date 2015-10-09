@@ -48,7 +48,6 @@
 	$(".change").click(function(){
 		var id=$(this).closest("tr").attr("id");
 		/* var isPass=$('#judge').find("option:selected").val(); */
-		
 		$.ajax({
 			url: 'request_change',
 	        type: 'post',
@@ -60,7 +59,7 @@
 	
 	function changeCallBack(data){
 		if(data.strValue=="success"){
-			var t=$("#"+data.userid);
+			var p=$("#"+data.userid);
 			$("#"+data.userid).remove();
 		}
 		else alert("something wrong!!");
