@@ -5,16 +5,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import com.opensymphony.xwork2.ActionSupport;
-
 import dto.T_Repertory;
-
-import jxl.*;
+import jxl.Sheet;
+import jxl.Workbook;
 import model.Repertory;
 import util.Const;
 
@@ -38,6 +40,9 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	private java.sql.Date rtApprDate;
 	private String rtApprDateString = "";
 	private String rtDeviceStatus;
+	private int rtReplacePeriod;
+	private int rtFilterCleanPeriod;
+	private String rtFreqPoint;
 	
 	//search tag's name
 	private String sDevice;
@@ -45,6 +50,8 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	private String sCostDevice;
 	private String sDeviceStatus;
 	private List<T_Repertory> rtSearch_list = new ArrayList<T_Repertory>();
+	
+	private String repertory_table;
 	
 	//tag select func
 	private String device[];
@@ -63,12 +70,11 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		deviceStatus = Const.deviceStatus;
 		
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria c = session.createCriteria(Repertory.class); //hibernate session创建查询
-		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		Criteria c = session.createCriteria(Repertory.class);
 		repertory_list = c.list();
-		Collections.reverse(repertory_list);//工具类collections用于操作集合类，如List,Set
-		session.close();
 		//System.out.println(repertory_list);
+		Collections.reverse(repertory_list);
+		session.close();
 		return SUCCESS;
 	}
 	
@@ -112,8 +118,6 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		int clos=rs.getColumns();
         int rows=rs.getRows();
         
-        System.out.println(clos+" rows:"+rows);
-        
         Session session = model.Util.sessionFactory.openSession();
 		session.beginTransaction();
         for (int i = 1; i < rows; i++) 
@@ -122,26 +126,27 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         	rtDevice = this.judgeDevice(rtType);
         	rtNumber = rs.getCell(1, i).getContents();
         	rtVersion = rs.getCell(2, i).getContents();
+        	
         	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         	String col3 = rs.getCell(3, i).getContents();
-        	System.out.println("col3:" + col3 + "|");
         	if(col3 != "") rtProdDate = new java.sql.Date(sdf.parse(col3).getTime());
         	else rtProdDate = null;
         	String col4 = rs.getCell(4, i).getContents();
         	if(col4 != "") rtApprDate = new java.sql.Date(sdf.parse(col4).getTime());
         	else rtApprDate = null;
+        	
         	rtFactorynum = rs.getCell(5, i).getContents();
         	rtDeviceStatus = rs.getCell(6, i).getContents();
         	
-        	System.out.println("|"+ rtType + "|"+rtNumber+"|"+rtVersion+"|"
-        			+ rtProdDate + "|" + rtApprDate + "|" + rtFactorynum + "|" + rtDeviceStatus + "|");
+        	String col8 = rs.getCell(8, i).getContents();
+        	if(col8.equals(""))  rtReplacePeriod = 0;
+        	else rtReplacePeriod = Integer.parseInt(col8);
         	
         	if(rtType == "" && rtNumber == "" && rtNumber == "" && rtVersion == "" 
         			&& rtProdDate == null && rtApprDate == null && rtFactorynum == "" && rtDeviceStatus == "")
         	{
         		break;
         	}
-        	
         	
         	Repertory rt = new Repertory();
     		rt.setRtDevice(rtDevice);
@@ -154,11 +159,10 @@ public class RepertoryAction extends util.FileUploadBaseAction{
     		rt.setRtApprDate(rtApprDate);
     		rt.setRtFactorynum(rtFactorynum);
     		rt.setRtDeviceStatus(rtDeviceStatus);
-    		
+    		rt.setRtReplacePeriod(rtReplacePeriod);
     		if(rtDeviceStatus.equals("教室"))
         	{
         		String rtClassroom = rs.getCell(7, i).getContents();
-        		System.out.println(rtClassroom);
         		List q = session.createCriteria(model.Classroom.class).add(Restrictions.eq("classroom_num", rtClassroom)).list();
         		if(q.isEmpty())
         		{
@@ -171,6 +175,18 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         			rt.setClassroom(classroom);
         		}
         	}
+    		if(rtType.equals("麦克"))
+    		{
+    			rtFreqPoint = rs.getCell(9, i).getContents();
+    			rt.setRtFreqPoint(rtFreqPoint);
+    		}
+    		else if(rtType.equals("投影机"))
+    		{
+    			String col10 = rs.getCell(10, i).getContents();
+    			if(col10.equals("")) rtFilterCleanPeriod = 0;
+    			else rtFilterCleanPeriod = Integer.parseInt(col10);
+    			rt.setRtFilterCleanPeriod(rtFilterCleanPeriod);
+    		}
     		session.save(rt);
         }
         session.getTransaction().commit();
@@ -181,7 +197,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	}
 	
 	
-	public String search() {
+	public String search() throws Exception{
 		/*status  0: empty select
 				1: keyword select*/
 		Session session = model.Util.sessionFactory.openSession();
@@ -189,18 +205,22 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		//System.out.println(sDevice + "," + sMainDevice + "," + sCostDevice);
 		if(sDevice.equals("")) {
 			
-		}else {
+		}
+		else {
 			c.add(Restrictions.eq("rtDevice", this.sDevice));
 			if(sDevice.equals("主要设备")) {
 				if(sMainDevice.equals("")) {
 					
-				}else {
+				}
+				else {
 					c.add(Restrictions.eq("rtType", this.sMainDevice));
 				}
-			}else if(sDevice.equals("耗材设备")) {
+			}
+			else if(sDevice.equals("耗材设备")) {
 				if(sCostDevice.equals("")) {
 					
-				}else {
+				}
+				else {
 					c.add(Restrictions.eq("rtType", this.sCostDevice));
 				}
 			}
@@ -212,20 +232,19 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		}
 		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
-		List tmp_rtSearch_list = c.list();
-		rtSearch_list = new ArrayList<T_Repertory>();
-		for(int i = 0; i < tmp_rtSearch_list.size(); ++ i)
+		repertory_list = c.list();
+		if(repertory_list.isEmpty())
 		{
-			Repertory r = (Repertory)tmp_rtSearch_list.get(i);
-			
-			rtSearch_list.add(new T_Repertory(r));
-		}
-		if(rtSearch_list.isEmpty()) {
 			this.status = "0";
-		}else {
-			Collections.reverse(rtSearch_list);
+		}
+		else 
+		{
+			Collections.reverse(repertory_list);
 			this.status = "1";
-			this.add_repertory_html = util.Util.fileToString("/jsp/admin/widgets/add_repertory.html");
+			HttpServletRequest request = ServletActionContext.getRequest();        
+	        HttpServletResponse response = ServletActionContext.getResponse();
+	        repertory_table = util.Util.getJspOutput("/jsp/admin/widgets/repertoryTable.jsp", request, response);
+	        //System.out.println(repertory_table);
 		}
 		session.close();
 		
@@ -233,8 +252,6 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	}
 	
 	public String update(){
-		System.out.println(rtId + "," + rtDevice + "," + rtType);
-		
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c = session.createCriteria(Repertory.class).setFetchMode("classroom", FetchMode.SELECT).add(Restrictions.eq("rtId", rtId));//eq("字段名","变量名")Integer.parseInt
 //		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -250,12 +267,14 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		rt.setRtApprDate(rtApprDate);
 		rt.setRtFactorynum(rtFactorynum);
 		rt.setRtDeviceStatus(rtDeviceStatus);
+		rt.setRtReplacePeriod(rtReplacePeriod);
+		rt.setRtFilterCleanPeriod(rtFilterCleanPeriod);
+		rt.setRtFreqPoint(rtFreqPoint);
 		
 		session.beginTransaction();
 		session.update(rt);
 		session.getTransaction().commit();
 		session.close();
-		System.out.println(rtDevice + ",+++" + rtType);
 		this.status = "1";
 		return SUCCESS;
 	}
@@ -265,6 +284,18 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		System.out.println(rtId);
 		Criteria c = session.createCriteria(Repertory.class).add(Restrictions.eq("rtId", rtId));//eq("字段名","变量名")Integer.parseInt
 		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//		repertory_list = c.list();
+//		System.out.println(repertory_list);
+//
+//		if(repertory_list.isEmpty())
+//		{
+//			this.status = "0";
+//		}
+//		else
+//		{
+//			Collections.reverse(repertory_list);
+//			this.status = "1";
+//		}
 		List tmp_rtSearch_list = c.list();
 		rtSearch_list = new ArrayList<T_Repertory>();
 		for(int i = 0; i < tmp_rtSearch_list.size(); ++ i)
@@ -297,6 +328,9 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		rt.setRtApprDate(rtApprDate);
 		rt.setRtFactorynum(rtFactorynum);
 		rt.setRtDeviceStatus(rtDeviceStatus);
+		rt.setRtReplacePeriod(rtReplacePeriod);
+		rt.setRtFilterCleanPeriod(rtFilterCleanPeriod);
+		rt.setRtFreqPoint(rtFreqPoint);
 		Session session = model.Util.sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(rt);
@@ -516,6 +550,38 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 
 	public void setRtApprDateString(String rtApprDateString) {
 		this.rtApprDateString = rtApprDateString;
+	}
+
+	public String getRepertory_table() {
+		return repertory_table;
+	}
+
+	public void setRepertory_table(String repertory_table) {
+		this.repertory_table = repertory_table;
+	}
+
+	public int getRtReplacePeriod() {
+		return rtReplacePeriod;
+	}
+
+	public void setRtReplacePeriod(int rtReplacePeriod) {
+		this.rtReplacePeriod = rtReplacePeriod;
+	}
+
+	public int getRtFilterCleanPeriod() {
+		return rtFilterCleanPeriod;
+	}
+
+	public void setRtFilterCleanPeriod(int rtFilterCleanPeriod) {
+		this.rtFilterCleanPeriod = rtFilterCleanPeriod;
+	}
+
+	public String getRtFreqPoint() {
+		return rtFreqPoint;
+	}
+
+	public void setRtFreqPoint(String rtFreqPoint) {
+		this.rtFreqPoint = rtFreqPoint;
 	}
 	
 	
