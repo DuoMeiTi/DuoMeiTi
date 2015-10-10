@@ -71,11 +71,11 @@ import javax.servlet.http.HttpServletResponseWrapper;
 
 
 
-public class FileUploadAction extends util.FileUploadBaseAction 
+public class ResourceFileUploadAction extends util.FileUploadBaseAction 
 {
 	public List file_path_list;
 //	public String inserted_file_path;
-	public String classroom_file_table;
+	public String resource_file_table;
 	
     public List getFile_path_list() {
 		return file_path_list;
@@ -84,16 +84,16 @@ public class FileUploadAction extends util.FileUploadBaseAction
 		this.file_path_list = file_path_list;
 	}
 	public String getClassroom_file_table() {
-		return classroom_file_table;
+		return resource_file_table;
 	}
 	public void setClassroom_file_table(String classroom_file_table) {
-		this.classroom_file_table = classroom_file_table;
+		this.resource_file_table = classroom_file_table;
 	}
 	public String execute() throws Exception 
     {
     	
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(model.ClassroomFilePath.class);		
+		Criteria q = session.createCriteria(model.ResourceFilePath.class);		
 		file_path_list = q.list();
 //    	if(ServletActionContext.getRequest().getMethod().equalsIgnoreCase("get"))
 //		{
@@ -123,29 +123,29 @@ public class FileUploadAction extends util.FileUploadBaseAction
     	Session session = model.Util.sessionFactory.openSession();
     	if (file != null) 
         {
-        	util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ClassroomFilePath);
-        	model.ClassroomFilePath file_path= new model.ClassroomFilePath();
+        	util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ResourceFilePath);
+        	model.ResourceFilePath file_path= new model.ResourceFilePath();
         	
-        	String inserted_file_path = util.Util.ClassroomFilePath + fileFileName;
+        	String inserted_file_path = util.Util.ResourceFilePath + fileFileName;
             file_path.setFilePath(inserted_file_path);
             session.beginTransaction();
             session.save(file_path);
             session.getTransaction().commit();
         }        
         
-    	List classroomFilePath = session.createCriteria(model.ClassroomFilePath.class).list();
+    	file_path_list = session.createCriteria(model.ResourceFilePath.class).list();
         
 //        HttpServletRequest request = ServletActionContext.getRequest();        
 //        HttpServletResponse response = ServletActionContext.getResponse();
         
 
-        file_path_list = classroomFilePath;
+//        file_path_list = classroomFilePath;
         
 
-        classroom_file_table = util.Util.getJspOutput("/jsp/admin/HomepageModify/ClassroomFileTable.jsp");
+        resource_file_table = util.Util.getJspOutput("/jsp/admin/HomepageModify/ResourceFileTable.jsp");
 
-        System.out.println("wrapperResponsse.toString()::" + classroom_file_table);
-        System.out.println("LIST::" + classroomFilePath);
+//        System.out.println("wrapperResponsse.toString()::" + resource_file_table);
+//        System.out.println("LIST::" + classroomFilePath);
         session.close();
         return "success";
     }

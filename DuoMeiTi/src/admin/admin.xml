@@ -320,12 +320,12 @@
 			<result name="success" type="redirect"> /admin/HomepageModify/notice</result>
 		</action>
 		
-		<action name="FileUpload"  class="admin.FileUploadAction">
+		<action name="FileUpload"  class="admin.ResourceFileUploadAction">
 			<result>
 				/jsp/admin/HomepageModify/FileUpload.jsp
 			</result>			
 		</action>
-		<action name="FileUploadInsert"  class="admin.FileUploadAction" method ="insert">
+		<action name="FileUploadInsert"  class="admin.ResourceFileUploadAction" method ="insert">
 			<result type="json">				
 			</result>			
 		</action>
