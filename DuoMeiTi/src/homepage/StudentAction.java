@@ -203,6 +203,8 @@ public class StudentAction {
 	 * 		  1: username 或者password 为空
 	 * 		  2: username 重复
 	 * 		  3: password两次不一致
+	 * 		  4:姓名为空
+	 * 		  5：学号为空
 	 */
 	
 	public String studentRegister() throws Exception
@@ -242,7 +244,17 @@ public class StudentAction {
 		{
 			this.register_status = "1";
 			return ActionSupport.SUCCESS;
-		}	
+		}
+		if(studentId.equals(""))
+		{
+			this.register_status="5";
+			return ActionSupport.SUCCESS;
+		}
+		if(fullName.equals(""))
+		{
+			this.register_status="4";
+			return ActionSupport.SUCCESS;
+		}
 		
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q= session.createCriteria(User.class).add(Restrictions.eq("username", username));
