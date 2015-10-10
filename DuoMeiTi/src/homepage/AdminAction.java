@@ -126,6 +126,7 @@ public class AdminAction extends FileUploadBaseAction {
 	}
 
 	public String adminRegisterSave() throws Exception {
+//		System.out.println("SDLKFJLSDJFSKDJFK*&&&&&&&&&&&&&&&&&&");
 //		if (username == null || password == null) {
 //			this.register_status = "1";
 //			return ActionSupport.SUCCESS;
