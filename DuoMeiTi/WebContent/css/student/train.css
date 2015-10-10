@@ -1,0 +1,15 @@
+.trTitle{
+	margin-top:50px;
+	font-weight:bold;
+}
+.trBody{
+	border-top: 1px solid #e5e5e5;
+	padding:15px;
+	word-break:break-all;
+	margin-top:25px;
+	margin-left:150px;
+	margin-right:150px;
+	font-weight:bold;
+	font-size:18px;
+	line-height:30px;
+}

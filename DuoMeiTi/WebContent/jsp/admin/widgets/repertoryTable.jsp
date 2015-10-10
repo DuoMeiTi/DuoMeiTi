@@ -15,7 +15,7 @@
  			<th>删除</th>
 		</tr>
 		<s:iterator value="repertory_list" var="i" status="index">
-			<tr class="success" rt_id="<s:property value="#i.rtId"/>">
+			<tr class="warning" rt_id="<s:property value="#i.rtId"/>">
 				<td class="click_me"> <s:property value="#i.rtType"/> </td>
 				<td class="click_me"> <s:property value="#i.rtNumber"/> </td>
 				<td class="click_me"> <s:property value="#i.rtVersion"/> </td>
