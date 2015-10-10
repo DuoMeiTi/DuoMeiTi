@@ -179,7 +179,7 @@
 		<!-- 获取学生信息 -->
 		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">
            <result name="success" type="json">
-            	<param name="includeProperties">fullName,studentId,college,phoneNumber,isUpgradePrivilege</param>           
+            	<param name="includeProperties">fullName,sex,studentId,college,phoneNumber,isUpgradePrivilege,bankCard,idCard</param>           
            </result>           
         </action>
 		
@@ -201,7 +201,7 @@
         <!-- 检索学生信息 -->
         <action name="student_information_search" class="admin.StudentManageAction" method="searchStudentInformation">
             <result name="success" type="json">
-            <param name="includeProperties">isEmpty,student_profile_id,fullName,studentId,college,phoneNumber,isUpgradePrivilege</param>
+            <param name="includeProperties">isEmpty,student_profile_id,fullName,studentId,sex,college,phoneNumber,isUpgradePrivilege,bankCard,idCard</param>
 			</result>        
         </action>
         
