@@ -240,12 +240,12 @@ public class StudentAction {
 	{
 		System.out.println("AdminAction.adminRegisterSave()");
 		
-		if(username.equals("") || password.equals(""))
+		if(username.equals("") || password.equals("") || fullName.equals("") || studentId.equals(""))
 		{
 			this.register_status = "1";
 			return ActionSupport.SUCCESS;
 		}
-		if(studentId.equals(""))
+		/*if(studentId.equals(""))
 		{
 			this.register_status="5";
 			return ActionSupport.SUCCESS;
@@ -253,6 +253,14 @@ public class StudentAction {
 		if(fullName.equals(""))
 		{
 			this.register_status="4";
+			return ActionSupport.SUCCESS;
+		}*/
+		if(!password.equals(passwordAgain))
+		{
+			System.out.println(!password.equals(passwordAgain));
+			System.out.println(password);
+			System.out.println(passwordAgain);
+			this.register_status="3";
 			return ActionSupport.SUCCESS;
 		}
 		
