@@ -24,7 +24,7 @@
         		
         		
         		<div class="col-lg-3 nopadding">
-           			<a href="/admin/student_manage/techteach" class="navbar-button navbar-button-left">技术培训</a> 
+           			<a href="/admin/student_manage/training" class="navbar-button">技术培训</a> 
         		</div>
     
     		</div>

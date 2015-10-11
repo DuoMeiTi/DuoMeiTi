@@ -20,8 +20,10 @@ public class Util
 	public static final String FileUploadPath = "/FileUpload/"; //相对于Rootpath
 	public static final String ProfilePhotoPath = 
 			FileUploadPath + "ProfilePhoto/";//相对于Rootpath
-	public static final String ClassroomFilePath = 
-			FileUploadPath + "ClassroomFile/";//相对于Rootpath
+	
+	
+	public static final String ResourceFilePath = 
+			FileUploadPath + "ResourceFile/";//相对于Rootpath
 
 	static 
 	{

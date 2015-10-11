@@ -93,12 +93,17 @@ public class StudentManageAction extends ActionSupport{
 				System.out.println("studentid:"+student_list.get(0).studentId);
 			
 				
-				student_profile_id = edit_student.getId();
+				
 				fullName = edit_user.getFullName();
+				sex = edit_user.getSex();
 				phoneNumber = edit_user.getPhoneNumber();
 				college = edit_student.getCollege();
 				studentId = edit_student.getStudentId();
 				isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
+				bankCard = edit_student.getBankCard();
+				idCard = edit_student.getIdCard();
+				
+				
 				
 				System.out.println(student_profile_id);
 				System.out.println(fullName);
@@ -134,12 +139,15 @@ public class StudentManageAction extends ActionSupport{
 				edit_student = student_list.get(0);
 				System.out.println("list:"+student_list);
 				
-				student_profile_id = edit_student.getId();
 				fullName = edit_user.getFullName();
+				sex = edit_user.getSex();
 				phoneNumber = edit_user.getPhoneNumber();
 				college = edit_student.getCollege();
 				studentId = edit_student.getStudentId();
 				isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
+				bankCard = edit_student.getBankCard();
+				idCard = edit_student.getIdCard();
+				
 				
 				System.out.println(student_profile_id);
 				System.out.println(fullName);
@@ -177,11 +185,13 @@ public String saveStudentInformation() throws Exception
 //		System.out.println(isUpgradePrivilege);
 		
 		edit_user.setFullName(fullName);
+		edit_user.setSex(sex);
 		edit_user.setPhoneNumber(phoneNumber);
 		edit_student.setStudentId(studentId);
 		edit_student.setCollege(college);
 		edit_student.setIsUpgradePrivilege(isUpgradePrivilege);
-		
+		edit_student.setBankCard(bankCard);
+		edit_student.setIdCard(idCard);
 		
 		
 		//更新学生数据
@@ -223,17 +233,23 @@ public String saveStudentInformation() throws Exception
 		edit_user = user_list.get(0);
 		
 		fullName = edit_user.getFullName();
+		sex = edit_user.getSex();
 		phoneNumber = edit_user.getPhoneNumber();
 		college = edit_student.getCollege();
 		studentId = edit_student.getStudentId();
 		isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
+		bankCard = edit_student.getBankCard();
+		idCard = edit_student.getIdCard();
 		
-		System.out.println(fullName);
-		System.out.println(studentId);
-		System.out.println(college);
-		System.out.println(phoneNumber);
-		System.out.println(isUpgradePrivilege);
-
+		
+//		System.out.println(fullName);
+//		System.out.println(sex);
+//		System.out.println(studentId);
+//		System.out.println(college);
+//		System.out.println(phoneNumber);
+//		System.out.println(isUpgradePrivilege);
+//		System.out.println(bankCard);
+//		System.out.println(idCard);
 		return SUCCESS;
 	}
 	
@@ -288,6 +304,8 @@ public String saveStudentInformation() throws Exception
 	public String studentInformation() throws Exception
 	{
 		System.out.println("studentInformation():");
+		collegeSelect=Const.collegeSelect;
+		sexSelect=Const.sexSelect;
 		
 		Session session=model.Util.sessionFactory.openSession();
 		Criteria q=session.createCriteria(StudentProfile.class);

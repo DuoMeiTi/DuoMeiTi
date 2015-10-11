@@ -26,14 +26,19 @@
 		<mapping class="model.AdminProfile"/>
 		<mapping class="model.Classroom"/>
 		<mapping class="model.Repertory"/>
+		<mapping class="model.Training"/>
 		<mapping class="model.TeachBuilding"/>
 		<mapping class="model.RepairRecord"/>
 		<mapping class="model.CheckRecord"/>
 		<mapping class="model.Message"/>
 		<mapping class="model.EgFilePathSave"/>
 		<mapping class="model.Notice"/>
+<<<<<<< HEAD
 		<mapping class="model.ClassroomFilePath"/>
 		<mapping class="model.Rules"/>
+=======
+		<mapping class="model.ResourceFilePath"/>
+>>>>>>> origin/master
 		
     </session-factory>
 </hibernate-configuration>
