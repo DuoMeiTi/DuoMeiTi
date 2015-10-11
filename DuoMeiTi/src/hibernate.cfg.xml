@@ -33,6 +33,7 @@
 		<mapping class="model.EgFilePathSave"/>
 		<mapping class="model.Notice"/>
 		<mapping class="model.ClassroomFilePath"/>
+		<mapping class="model.Rules"/>
 		
     </session-factory>
 </hibernate-configuration>
