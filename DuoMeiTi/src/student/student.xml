@@ -15,8 +15,16 @@
 		<action name="train" class="student.TrainAction">
 			<result>/jsp/student/train.jsp</result>
 		</action>
+		
+		<action name="student_information" class="student.InformationAction" method="studentInformation">
+			<result>/jsp/student/student_information.jsp</result>
+		</action>
    
-
+		<action name="student_information_change" class="student.InformationAction" method="studentInformationChange">
+			 <result name="success" type="json">
+			 	<param name="includeProperties">username,fullName,phoneNumber,sex,studentId,idCard,bankCard,college,entryTime,remark</param>
+			 </result>
+		</action>
 
 
     </package>
