@@ -1,46 +1,51 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
-<script src="/js/admin/tabIndent.js"></script>
 
 <layout:override name="mycontent">
-	<div class="mycontent">
-	<form class="form-horizontal traincss" id="train_form">
-		<div class="row">
-			<label for="trainContent" class="col-sm-3 control-label">培训内容</label>
-			<textarea class="tabIndent col-sm-6" id="trainContent" rows="20" cols="20" value=""><s:property value="trContent"/></textarea>
-			<script>tabIndent.renderAll();</script>
-		</div>
-		<div class="row">
-			<label class="col-sm-3"></label>
-			<div class="col-sm-6 trainbtn"><button type="button" class="btn btn-success" id="trUpdate">提交</button></div>
-		</div>
-	</form>
 	
-	<script>
-	$(document).on("click","#trUpdate", function() {
-		var trTextarea = $("#trainContent").val();
-		var params = {
-				"trContent" : trTextarea
-		};
-		//alert(trTextarea)
-		$.ajax({
-			url : 'training_update',
-			type : 'post',
-			dataType : 'json',
-			data : params,
-			success : trUpdateCallback
-		});
-	})
-	function trUpdateCallback(data){
-		if(data.trStatus == "1"){
-			alert("保存成功！ ");
-		}
-		else {
-			alert("保存失败！ ");
-		}
-	}
-	</script>
-	
-	</div>
+
+<div>
+
+
+
+  <ul class="nav  nav-pills"  style="position:relative;left:800px;">
+    <li role="presentation" >
+    	<a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a>
+    </li>
+    <li role="presentation" class="active">
+    	<a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a>
+    </li>
+<!--     <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li> -->
+<!--     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
+  </ul>
+  
+  
+  
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane " id="home">
+    	<%@ include file="trainingInfo.jsp" %>
+    </div>
+    
+    <div role="tabpanel" class="tab-pane active" id="profile">
+		<%@ include file="exam.jsp" %>
+    </div>
+<!--     <div role="tabpanel" class="tab-pane" id="messages">.rwerqwerzczsdfsd.</div> -->
+<!--     <div role="tabpanel" class="tab-pane" id="settings">..rrr.</div> -->
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
 </layout:override>
 
 <%@ include file="base.jsp" %>

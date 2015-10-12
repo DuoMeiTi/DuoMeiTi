@@ -6,7 +6,14 @@
 <struts>
 
 
-    <package name="homepage" namespace="/" extends="HomepageDefault">    	
+    <package name="homepage" namespace="/" extends="HomepageDefault">
+    
+        	
+<!--   		<action name="resourceFileGetPage" class="homepage.HomeAction" method="getPage"> -->
+<!--         	<result name="success" type="json"> </result> -->
+<!--         </action> -->
+    	
+    	
     	
     	<action name="home2">
     		<result> /jsp/homepage/home2.jsp</result>
@@ -25,7 +32,18 @@
         
         <action name="ResourceFile" class="homepage.HomeAction" method="resourceFile">
 			<result>/jsp/homepage/ResourceFile.jsp</result>
+			
     	</action>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
     
 <!--     	<action name="" class="homepage.HomeAction"> -->

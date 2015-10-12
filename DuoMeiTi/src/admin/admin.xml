@@ -14,8 +14,7 @@
 				/admin/classroom/teachBuildingAction 
 			</result>
 		</action>
-		
-		
+
 <!-- 		<action name=""> -->
 <!-- 			<result> -->
 <!-- 				/jsp/admin/base.jsp -->
@@ -178,23 +177,42 @@
 		</action>
 		
 		<!-- 规章制度 -->
-		<action name="rules" class="admin.StudentManageAction" method="studentInformation">
-			<result>
+		<!-- <action name=rules class="admin."></action> -->
+		<action name="rule_show" class="admin.StudentManageAction" method="showRules">
+			<result name="success" >
 				/jsp/admin/student_manage/student_manage_rules.jsp
+			</result>
+		</action>
+		<action name="rule_edit" class="admin.StudentManageAction" method="editRules">
+			<result name="success" type="json">
+			
 			</result>
 		</action>
 		
 		<!-- 技术培训 -->
 		<action name="training" class="admin.TrainingAction">
-			<result>
+			<result name="success">
 				/jsp/admin/student_manage/training.jsp
 			</result>
 		</action>
+		
 		<action name="training_*" class="admin.TrainingAction" method="{1}">
 			<result name="success" type="json"></result>
 		</action> 
+		
+		<!-- 考试管理 -->
+<!-- 		<action name="exam" > -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/student_manage/exam.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
+		
 	
-	
+<!-- 		<action name="exam" class="admin.ExamAction"> -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/student_manage/exam.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 	
 		<!-- 获取学生信息 -->
 		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">
@@ -361,7 +379,7 @@
         <result name="success" type="json">
 <!--             	<param name="includeProperties">status,notice_id</param>            -->
 				
-            </result> 
+          </result> 
         </action>
     </package>
 </struts>
