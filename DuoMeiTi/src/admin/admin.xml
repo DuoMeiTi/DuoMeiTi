@@ -184,7 +184,11 @@
 			<result name="success" type="json"></result>
 		</action> 
 	
-	
+		<action name="exam" class="admin.ExamAction">
+			<result>
+				/jsp/admin/student_manage/exam.jsp
+			</result>
+		</action>
 	
 		<!-- 获取学生信息 -->
 		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">
