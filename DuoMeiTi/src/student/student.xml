@@ -5,21 +5,16 @@
 
 <struts>
 
-
     <package name="student" namespace="/student" extends="Default">    	
     	
     	<action name="">
     		<result>/jsp/student/base.jsp</result>
-    		
     	</action>
-
-
-   
-
-
+		
+		<action name="chooseclass" class="student.StudentAction" method="chooseClass">
+			<result>/jsp/student/chooseClass.jsp</result>
+		</action>
 
     </package>
-    
-
 
 </struts>
