@@ -177,6 +177,14 @@
 		<action name="training_*" class="admin.TrainingAction" method="{1}">
 			<result name="success" type="json"></result>
 		</action> 
+		
+		<!-- 考试管理 -->
+		<action name="exam" >
+			<result>
+				/jsp/admin/student_manage/exam.jsp
+			</result>
+		</action>
+		
 	
 	
 	
@@ -345,7 +353,7 @@
         <result name="success" type="json">
 <!--             	<param name="includeProperties">status,notice_id</param>            -->
 				
-            </result> 
+          </result> 
         </action>
     </package>
 </struts>
