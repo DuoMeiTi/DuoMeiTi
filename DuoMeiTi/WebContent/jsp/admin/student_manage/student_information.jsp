@@ -42,9 +42,12 @@
 			
 			<tr class="row" id="search_infor">
 				<th class="col-lg-1.5">姓名</th>
+				<th class="col-lg-1.5">性别</th>
 				<th class="col-lg-1.5">学号</th>
 				<th class="col-lg-1.5">学院</th>
 				<th class="col-lg-1.5">电话</th>
+				<th class="col-lg-1.5">银行卡号</th>
+				<th class="col-lg-1.5">身份证号</th>
 				<th class="col-lg-1">权限</th>
 				<th class="col-lg-1">编辑</th>
 				<th class="col-lg-1">删除</th>
@@ -52,10 +55,14 @@
 		
 			<tr class="row" id="search_information" style="display: none;">
 				<td class="col-lg-1.5" id="search_name"></td>
+				<td class="col-lg-1.5" id="search_sex"></td>
 				<td class="col-lg-1.5" id="search_studentid"></td>
 				<td class="col-lg-1.5" id="search_college"></td>
 				<td class="col-lg-1.5" id="search_number"></td>
+				<td class="col-lg-1.5" id="search_bankCard"></td>
+				<td class="col-lg-1.5" id="search_idCard"></td>
 				<td class="col-lg-1" id="search_isUpgradePrivilege"></td>
+				
 				<td class="col-lg-1 ">
 						<button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#student_edit" id="edit-button" name="edit-button" >编辑</button>
 					</td>
@@ -68,9 +75,12 @@
 			<s:iterator value="student_list" var="i" status="index">
 				<tr class="row" id=<s:property value="#i.id"/>>
 					<td class="col-lg-1.5"> <s:property value="#i.user.fullName"/> </td>
+					<td class="col-lg-1.5"> <s:property value="#i.user.sex"/>  </td>
 					<td class="col-lg-1"> <s:property value="#i.studentId"/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.college "/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.user.phoneNumber"/> </td>
+					<td class="col-lg-1.5"> <s:property value="#i.bankCard"/> </td>
+					<td class="col-lg-1.5"> <s:property value="#i.idCard"/> </td>
 					<td class="col-lg-1.5"> 
 						<s:if test="#i.isUpgradePrivilege == 0">在职学生</s:if>
 						<s:else>管理教师</s:else>
@@ -110,6 +120,16 @@
 															<input type="text" class="form-control" id="fullName"  name="fullName" value="">
 														</div>
 													</div>
+													
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-default">性别</button>
+															</span>											
+															<s:select list="sexSelect" class="form-control" name="sex"></s:select>
+														</div>
+													</div>
+													
 													<div class="col-lg-6">
 														<div class="input-group">
 															<span class="input-group-btn">
@@ -118,14 +138,7 @@
 															<input type="text" class="form-control" id="studentId"  name="studentId" value="">
 														</div>
 													</div>
-													<div class="col-lg-6">
-														<div class="input-group">
-															<span class="input-group-btn">
-																<button type="button" class="btn btn-default">班级</button>
-															</span>
-															<input type="text" class="form-control" id="college"  name="college" value="">
-														</div>
-													</div>
+												
 													<div class="col-lg-6">
 														<div class="input-group">
 															<span class="input-group-btn">
@@ -134,6 +147,16 @@
 															<input type="text" class="form-control" id="phoneNumber"  name="phoneNumber" value="">
 														</div>
 													</div>
+													
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-default">学院</button>
+															</span>							
+															<s:select list="collegeSelect" class="form-control" name="college"></s:select>
+														</div>
+													</div>
+													
 													<div class="col-lg-6">
 														<div class="input-group">
 															<span class="input-group-btn">
@@ -143,6 +166,25 @@
 															<s:select list="#{'0':'在职学生','1':'管理教师'}" class="form-control" name="isUpgradePrivilege" id="isUpgradePrivilege"></s:select>
 														</div>
 													</div>
+													
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-default">银行卡号</button>
+															</span>
+															<input type="text" class="form-control" id="bankCard"  name="bankCard" value="">
+														</div>
+													</div>							
+													
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-default">身份证号</button>
+															</span>
+															<input type="text" class="form-control" id="idCard"  name="idCard" value="">
+														</div>
+													</div>
+									
 												</div>
 											</div>
 										</form>

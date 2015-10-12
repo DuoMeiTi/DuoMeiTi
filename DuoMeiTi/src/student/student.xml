@@ -5,7 +5,6 @@
 
 <struts>
 
-
     <package name="student" namespace="/student" extends="Default">    	
     	
     	<action name="">
@@ -48,7 +47,14 @@
 				<param name="includeProperties">savestatus</param>
 			</result>
 		</action>
-	</package>
+		
+		<action name="chooseclass" class="student.StudentAction" method="chooseClass">
+			<result>/jsp/student/chooseClass.jsp</result>
+		</action>
 
-
+		<action name="train" class="student.TrainAction">
+			<result>/jsp/student/train.jsp</result>
+		</action>
+   
+    </package>
 </struts>
