@@ -73,7 +73,7 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 	
 		int user_id=(int)ActionContext.getContext().getSession().get("user_id");
 		
-		String hql = "SELECT c.id,c.classroom_num,r.rtType,u.id,u.fullName,t.id from Repertory r,Classroom c,User u,TeachBuilding t where c.teachbuilding=t and r.classroom=c and c.principal=u and u.id="+user_id;
+		String hql = "SELECT c.id,c.classroom_num,u.id,u.fullName,t.id from Classroom c,User u,TeachBuilding t,StudentProfile s where c.teachbuilding=t and c.principal=s and s.user=u and u.id="+user_id;
 
 		Query query = session.createQuery(hql);	
 		List result= query.list();
@@ -84,11 +84,11 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 			Object[] tuple = (Object[])result.get(i);
 			T_Classroom t_classroom = new T_Classroom();
 			t_classroom.id = (int)tuple[0];
-			t_classroom.teachbuilding_id=(int)tuple[5];
+			t_classroom.teachbuilding_id=(int)tuple[4];
 			t_classroom.classroom_num = (String)tuple[1];
-			t_classroom.principal_name = (String)tuple[4];
-			t_classroom.principal_stuId = String.valueOf((int)tuple[3]);
-			t_classroom.repertorys =(String)tuple[2];
+			t_classroom.principal_name = (String)tuple[3];
+			t_classroom.principal_stuId = String.valueOf((int)tuple[2]);
+			t_classroom.repertorys =null;
 			classrooms.add(t_classroom);
 		}
 		

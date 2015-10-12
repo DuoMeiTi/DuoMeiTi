@@ -26,6 +26,18 @@
 		</action>
     </package>
     
+    <package name="StudentclassroomDevice" namespace="/student/classroomDevice" extends="Default">
+		
+		<action name="*_action" class="action.RepairAction" method="{1}">
+			<result name="query_repair">
+				/jsp/admin/record_query.jsp
+			</result>
+			<result type="json" name="adddevice">
+				<param name="includeProperties">ret</param>
+			</result>
+		</action>	
+	</package>
+	
     <package name="student_classroom_json" namespace="/student/classroom_json" extends="Default">
 		<action name="classroom_search" class="student.ClassroomManageAction" method="classroom_search">
 			<result type="json">
@@ -37,7 +49,7 @@
 				</param>
 			</result>
 		</action>
-		<action name="checkrecord_save" class="student.CheckRecordAction" method="checkrecordsave">
+		<action name="checkrecord_save" class="admin.CheckRecordAction" method="checkrecordsave">
 			<result type="json">
 				<param name="includeProperties">savestatus</param>
 			</result>

@@ -40,39 +40,12 @@ public class ClassroomDetailAction extends ActionSupport{
 	public String execute() {
 		Session session = model.Util.sessionFactory.openSession();
 		//query current select classroom
-		String repertory_hql="select r from Repertory r where r.classroom.id="+classroom_id;
+		String repertory_hql="select r from Repertory r where r.classroom="+classroom_id;
 		repertory=session.createQuery(repertory_hql).list();
 		ActionContext.getContext().getSession().remove("classroom_id");
 		ActionContext.getContext().getSession().put("classroom_id", classroom_id);
 
 		
-		Transaction tx = null;
-		String hql ="";
-		try {
-			Session session1 = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
-			tx = session1.beginTransaction();
-			hql = "SELECT rt FROM Repertory rt WHERE rt.classroom = " + classroom_id;
-			//System.out.println(hql);
-			Query query = session1.createQuery(hql);
-			rtClass = query.list();
-			for (int i = 0; i < rtClass.size(); i++) {
-				System.out.println("输出++++++++++++++++++++++++++++++++");
-				System.out.println(rtClass.get(i));
-			}
-			tx.commit();
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-			tx.commit();
-		}
-		finally {
-			if (tx != null) {
-				if (tx != null) {
-					tx = null;
-				}
-			}
-		}
-
 		//query at most 5 checkrecord
 		Criteria checkrecord_criteria = session.createCriteria(CheckRecord.class).setFetchMode("classroom", FetchMode.SELECT).setFetchMode("checkman", FetchMode.SELECT);
 		

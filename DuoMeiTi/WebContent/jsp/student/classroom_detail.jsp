@@ -133,10 +133,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<!-- </form> -->
 				<script>
 					function add_classroomrt() {
-						var classroomid = $("#classroomid").text();
+						var classroomid = <s:property value="classroom_id" />;
 						var bh = $("#zichanhao").val();
-						var href="<%=path%>/admin/classroomDevice/add_action";
-						
+						var href="<%=path%>/student/classroomDevice/add_action";
 						$.ajax({
 							url : href,
 							type : 'post',
