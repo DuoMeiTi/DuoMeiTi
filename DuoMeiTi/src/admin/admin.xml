@@ -88,6 +88,21 @@
 			<result type="json" name="adddevice">
 				<param name="includeProperties">ret</param>
 			</result>
+			<result name="alternative">
+				/jsp/admin/alternative.jsp
+			</result>
+			<result name="move2alter" type="chain">
+				<param name="actionName">maintainRecords</param>  
+            	<param name="namespace">/admin/classroomDevice</param>
+			</result>
+			<result name="addalter" type="chain">
+				<param name="actionName">maintainRecords</param>  
+            	<param name="namespace">/admin/classroomDevice</param>
+			</result>
+			<result name="delalter" type="chain">
+				<param name="actionName">maintainRecords</param>  
+            	<param name="namespace">/admin/classroomDevice</param>
+			</result>
 		</action>
 		
 		<action name="equipmentQueryAndEdit">

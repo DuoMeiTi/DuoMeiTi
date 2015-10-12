@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label for="zichanhao" style="float:left;vertical-align:middle;">添加设备:</label>						
 						<input type="text" class="form-control" id="zichanhao" style="width:30%;float:left;margin-left:5%;" placeholder="请输入资产编号"></input>
 						<!-- <button type="submit" class="btn btn-info btn-sm" style="margin-left:5%">查询</button> -->
-						<button type="button" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="add_classroomrt(<s:property value="#session.ret"/>)">添加</button>
+						<button type="button" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="add_classroomrt()">添加</button>
 					</div>
 				<!-- </form> -->
 				<script>
@@ -178,14 +178,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label class="control-label device-type-label"><s:property value="#device.rtType"/>&nbsp;</label>
 								<span>
 									<button type="button" class="btn btn-primary btn-sm"  
-									onclick="openRepairMoadl(<s:property value="#i.index"/>)">维修</button>
+									onclick="openRepairMoadl(<s:property value="#i.index"/>)">维修记录</button>
+									<a href="<%=path%>/admin/classroomDevice/move2alter_action?m2alter=<s:property value="#device.rtId"/>" id="mtoalter" type="button" class="btn btn-primary btn-sm"  
+									>移入备用</a>
 								</span>
+								
 								<span style="visibility:hidden" class="device-id-span"><s:property value="#device.rtId"/></span>
 								<span style="visibility:hidden" class="device-num-span"><s:property value="#device.rtNumber"/></span>
 							</div>
 							<table class="table device-table-bordered">
 								<thead>
-									<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>审批日期</td></tr>
+									<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>更换日期</td></tr>
 								</thead>
 								<tbody>
 									<tr><td><s:property value="#device.rtNumber"/></td>
@@ -200,6 +203,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</li>
 					</s:iterator>
 				</ul>
+				<!-- <button type="button" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">教室备用设备</button> -->
+				
 			</div>
 			<div class="record">
 				<ul>
@@ -241,6 +246,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</ul>
 			</div>
 		</div>
+		
+		<div id="alter_table">
+			<a id="alterSearch" target="myFrame1" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">教室备用设备</a>
+
+			<iframe name="myFrame1" frameborder="0" scrolling="no" style="width:100%;" height="200px" src="/jsp/admin/alternative.jsp"></iframe>
+		</div>
+		<script>
+			function alter_device() {
+				var classroomid = $("#classroomid").text();
+				var href="<%=path%>/admin/classroomDevice/alter_action?classroomid="+classroomid;
+				document.getElementById("alterSearch").href=href;
+			}
+		</script>
 	</div>
 	
 </layout:override>
