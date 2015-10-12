@@ -44,5 +44,10 @@ encoding//WebContent/jsp/homepage/not_login.jsp=UTF-8
 encoding//WebContent/jsp/homepage/register.jsp=UTF-8
 encoding//WebContent/jsp/homepage/student_register.jsp=UTF-8
 encoding//WebContent/jsp/student/base.jsp=UTF-8
+<<<<<<< HEAD
+encoding//WebContent/jsp/student/classroom_detail.jsp=UTF-8
+encoding//WebContent/jsp/student/classroom_manage.jsp=UTF-8
+=======
 encoding//WebContent/jsp/student/train.jsp=UTF-8
+>>>>>>> 7e7896133eecd8359790470c3592d5e929026e23
 encoding/<project>=UTF-8
