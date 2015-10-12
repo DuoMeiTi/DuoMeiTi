@@ -176,27 +176,28 @@
 		
 		<!-- 技术培训 -->
 		<action name="training" class="admin.TrainingAction">
-			<result>
+			<result name="success">
 				/jsp/admin/student_manage/training.jsp
 			</result>
 		</action>
+		
 		<action name="training_*" class="admin.TrainingAction" method="{1}">
 			<result name="success" type="json"></result>
 		</action> 
 		
 		<!-- 考试管理 -->
-		<action name="exam" >
-			<result>
-				/jsp/admin/student_manage/exam.jsp
-			</result>
-		</action>
+<!-- 		<action name="exam" > -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/student_manage/exam.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		
 	
-		<action name="exam" class="admin.ExamAction">
-			<result>
-				/jsp/admin/student_manage/exam.jsp
-			</result>
-		</action>
+<!-- 		<action name="exam" class="admin.ExamAction"> -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/student_manage/exam.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 	
 		<!-- 获取学生信息 -->
 		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">

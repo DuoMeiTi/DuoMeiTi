@@ -5,7 +5,7 @@
 
 <div>
 
-  <!-- Nav tabs -->
+
 
   <ul class="nav  nav-pills"  style="position:relative;left:800px;">
     <li role="presentation" >
@@ -17,8 +17,10 @@
 <!--     <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li> -->
 <!--     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
   </ul>
+  
+  
+  
 
-  <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane " id="home">
     	<%@ include file="trainingInfo.jsp" %>
@@ -31,13 +33,18 @@
 <!--     <div role="tabpanel" class="tab-pane" id="settings">..rrr.</div> -->
   </div>
 
+
 </div>
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
 
 </layout:override>
 
