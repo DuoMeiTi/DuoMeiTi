@@ -47,10 +47,10 @@ public class HomeAction
 		return ActionSupport.SUCCESS;
 	}
 	
-	public String classroomFile() throws Exception
+	public String resourceFile() throws Exception
 	{
 		Session session = model.Util.sessionFactory.openSession();
-		file_path_list = session.createCriteria(model.ClassroomFilePath.class).list();
+		file_path_list = session.createCriteria(model.ResourceFilePath.class).list();
 		session.close();
 		return ActionSupport.SUCCESS;
 	}

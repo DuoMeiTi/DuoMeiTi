@@ -20,8 +20,10 @@ public class Util
 	public static final String FileUploadPath = "/FileUpload/"; //相对于Rootpath
 	public static final String ProfilePhotoPath = 
 			FileUploadPath + "ProfilePhoto/";//相对于Rootpath
-	public static final String ClassroomFilePath = 
-			FileUploadPath + "ClassroomFile/";//相对于Rootpath
+	
+	
+	public static final String ResourceFilePath = 
+			FileUploadPath + "ResourceFile/";//相对于Rootpath
 
 	static 
 	{
@@ -94,7 +96,17 @@ public class Util
 	}
 
 	
-	
+	static public  String getJspOutput(String jsppath)
+	throws Exception
+	{
+      HttpServletRequest request = ServletActionContext.getRequest();        
+      HttpServletResponse response = ServletActionContext.getResponse();
+
+		WrapperResponse wrapperResponse = new WrapperResponse(response);
+		request.getRequestDispatcher(jsppath).include(request, wrapperResponse);
+		return wrapperResponse.getContent();
+	}
+
 	
 	
 	

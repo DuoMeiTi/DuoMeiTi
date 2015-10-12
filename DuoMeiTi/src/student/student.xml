@@ -15,6 +15,10 @@
 			<result>/jsp/student/chooseClass.jsp</result>
 		</action>
 
+		<action name="train" class="student.TrainAction">
+			<result>/jsp/student/train.jsp</result>
+		</action>
+   
     </package>
 
 </struts>

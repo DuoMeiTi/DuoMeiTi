@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 
 @Entity
-public class ClassroomFilePath 
+public class ResourceFilePath 
 {
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO) 

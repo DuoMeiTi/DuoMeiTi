@@ -3,8 +3,8 @@
 
 <layout:override name="main_content">
 
-<h2> 教室信息文件</h2>
-<%@ include file="/jsp/admin/HomepageModify/ClassroomFileTable.jsp" %>
+<h2> 资源文件</h2>
+<%@ include file="/jsp/admin/HomepageModify/ResourceFileTable.jsp" %>
 
 
 

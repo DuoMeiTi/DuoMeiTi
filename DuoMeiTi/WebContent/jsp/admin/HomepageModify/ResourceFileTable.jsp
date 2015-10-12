@@ -18,7 +18,7 @@
 
 
 			<tr class="success" >
-				<td>  
+				<td style="text-align:left;">  
 					 <a href="<s:property value="#i.filePath"/> "> 
 <%-- 						<s:property value="#i.filePath.split('/')"/> --%>
 						<s:property value="@util.Util@getFileNameFromPath(#i.filePath)"/>
