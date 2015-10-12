@@ -4,7 +4,36 @@
 <layout:override name="main_content">
 
 <h2> 资源文件</h2>
-<%@ include file="/jsp/admin/HomepageModify/ResourceFileTable.jsp" %>
+<div id="ResourceFileTableDiv">
+	<%@ include file="/jsp/admin/HomepageModify/ResourceFileTable.jsp" %>
+</div>
+
+
+
+<div id="paginationDiv">
+	<%@ include file="/jsp/base/widgets/pagination.jsp" %>
+</div>
+
+
+
+<script type='text/javascript' src="/js/base/pagination.js"></script>
+
+
+
+
+<script> 
+
+function requestPageNumCallback(data) 
+{
+	$("#ResourceFileTableDiv").html(data.file_path_html);
+
+	
+	
+}
+
+
+</script>
+
 
 
 

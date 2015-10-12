@@ -171,7 +171,7 @@ public class ChatBoardAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
-	//取出在塞进去，呵呵哒～
+	//取出再塞进去～
 	private void traverseUserInfoList(Iterator iter,List<UserInfo> list){
 		while(iter.hasNext()){
 			Object[] temp=(Object[])iter.next();

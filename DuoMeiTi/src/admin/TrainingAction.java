@@ -14,7 +14,7 @@ public class TrainingAction extends ActionSupport{
 	
 	public String execute() throws Exception
 	{
-		
+		System.out.println("SBSBSBJSFJSKDJFJ********");
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c = session.createCriteria(Training.class);
 //		String temp = ((Training)c.list().get(0)).getTrContent();
