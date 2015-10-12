@@ -103,7 +103,7 @@
 <!--     <a class="" href="/#myCarousel" data-slide="next">›</a> -->
 <!--   </div> -->
 <!-- </div> -->
-<!-- <!-- /.carousel --> -->
+<!-- /.carousel -->
 
 <!-- </div> -->
 
