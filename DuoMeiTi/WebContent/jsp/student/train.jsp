@@ -3,7 +3,7 @@
 <layout:override name="main_content">
 	<div class="mycontent">
 		<h2 class="trTitle">培训通知</h2>
-		<div class="trBody" id="trainBody">
+		<div class="trBody well" id="trainBody">
 			<s:property escape="false" value="trContent"/>		
 		</div>
 		

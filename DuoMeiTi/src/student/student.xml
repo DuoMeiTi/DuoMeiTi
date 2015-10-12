@@ -10,6 +10,11 @@
     	<action name="">
     		<result>/jsp/student/base.jsp</result>
     	</action>
+  		<action name="train" class="student.TrainAction">
+			<result>/jsp/student/train.jsp</result>
+		</action>
+    	
+    	
     	<action name="classroom_manage" class="student.ClassroomManageAction" method="classroomList">
 			<result>
 			/jsp/student/classroom_manage.jsp
@@ -64,9 +69,6 @@
 			<result>/jsp/student/chooseClass.jsp</result>
 		</action>
 
-		<action name="train" class="student.TrainAction">
-			<result>/jsp/student/train.jsp</result>
-		</action>
    
     </package>
 </struts>

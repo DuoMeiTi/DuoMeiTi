@@ -162,9 +162,15 @@
 		</action>
 		
 		<!-- 规章制度 -->
-		<action name="rules" class="admin.StudentManageAction" method="studentInformation">
-			<result>
+		<!-- <action name=rules class="admin."></action> -->
+		<action name="rule_show" class="admin.StudentManageAction" method="showRules">
+			<result name="success" >
 				/jsp/admin/student_manage/student_manage_rules.jsp
+			</result>
+		</action>
+		<action name="rule_edit" class="admin.StudentManageAction" method="editRules">
+			<result name="success" type="json">
+			
 			</result>
 		</action>
 		

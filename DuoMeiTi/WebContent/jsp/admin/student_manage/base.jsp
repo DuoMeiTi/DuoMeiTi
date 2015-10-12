@@ -18,7 +18,7 @@
         		</div>
         		
        			<div class="col-lg-3 nopadding" >
-           			<a href="/admin/student_manage/rules" class="navbar-button">规章制度</a> 
+           			<a href="/admin/student_manage/rule_show" class="navbar-button">规章制度</a> 
         		</div>
         		
         		
