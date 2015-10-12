@@ -11,6 +11,16 @@ public class T_Classroom {
 	
 	public String principal_stuId;
 	
+	public int teachbuilding_id;
+	
+	public int getTeachbuilding_id(){
+		return teachbuilding_id;
+	}
+	public void setTeachbuilding_id(int teachbuilding_id)
+	{
+		this.teachbuilding_id=teachbuilding_id;
+	}
+	
 	public String getPrincipal_name() {
 		return principal_name;
 	}
