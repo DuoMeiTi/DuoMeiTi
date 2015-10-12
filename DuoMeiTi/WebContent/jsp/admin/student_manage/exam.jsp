@@ -83,10 +83,14 @@
 
 
 <script>
-	var id='a';
+	var id='A';
 	$(document).on("click", "#addOption", function(){
-		alert("add");
-		alert(id);
+		
+		code = id.charCodeAt();
+		
+		id = String.fromCharCode(++code);
+
+// 		alert(id);
 		$(".modal-body").append($(".option").html());
 	})
 	
