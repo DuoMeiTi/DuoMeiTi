@@ -2,6 +2,9 @@ package action;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import com.opensymphony.xwork2.ActionContext;
+
 import model.*;
 import Repair.RepairDAO;
 import RepairImpl.RepairDAOImpl;
@@ -102,24 +105,29 @@ public class RepairAction extends SuperAction {
 	}
 	
 	public String move2alter() {
+		classroom_id = request.getParameter("classroomId");
 		RepairDAO rdao = new RepairDAOImpl();
-		System.out.println(id + "============");
+		System.out.println("============");
 		ret = Integer.toString(rdao.m2alter(request.getParameter("m2alter")));
-		System.out.println("顶层"+ret);
+		System.out.println("怎么可能"+classroom_id);
 		return "move2alter";
 	}
 	public String addalter() {
+		int id = (int) (ActionContext.getContext().getSession().get("classroom_id"));
+		classroom_id = Integer.toString(id);
 		RepairDAO rdao = new RepairDAOImpl();
-		System.out.println(id + "============");
+		System.out.println("============");
 		ret = Integer.toString(rdao.addalterIm(request.getParameter("rtid")));
-		System.out.println("顶层"+ret);
+		System.out.println("怎么可能"+classroom_id);
 		return "addalter";
 	}
 	public String delalter() {
+		int id = (int) (ActionContext.getContext().getSession().get("classroom_id"));
+		classroom_id = Integer.toString(id);
 		RepairDAO rdao = new RepairDAOImpl();
-		System.out.println(id + "============");
+		System.out.println("============");
 		ret = Integer.toString(rdao.delalterIm(request.getParameter("rtid")));
-		System.out.println("顶层"+ret);
+		System.out.println("怎么可能"+classroom_id);
 		return "delalter";
 	}
 }

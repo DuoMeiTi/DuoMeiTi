@@ -10,6 +10,7 @@
     	<action name="">
     		<result>/jsp/student/base.jsp</result>
     	</action>
+    	
   		<action name="train" class="student.TrainAction">
 			<result>/jsp/student/train.jsp</result>
 		</action>
