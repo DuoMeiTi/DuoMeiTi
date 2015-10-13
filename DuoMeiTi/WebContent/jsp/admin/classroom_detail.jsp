@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="mycontent">
 		<div class="row">
 			<div class="col-lg-6 col-lg-offset-3 classbuilding">
-				<span><s:property value="build_name"/>&nbsp;&nbsp;<s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
+				<span><s:property value="building.build_name"/>&nbsp;&nbsp;<s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
 				<span>负责人:</span>
 				<span id="classroomid" style="visibility:hidden"><s:property value="classroom.id"/></span>
 				<span class="director-span"><s:property value="classroom.principal.user.username"/></span>
@@ -179,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<span>
 									<button type="button" class="btn btn-primary btn-sm"  
 									onclick="openRepairMoadl(<s:property value="#i.index"/>)">维修记录</button>
-									<a href="<%=path%>/admin/classroomDevice/move2alter_action?m2alter=<s:property value="#device.rtId"/>" id="mtoalter" type="button" class="btn btn-primary btn-sm"  
+									<a href="<%=path%>/admin/classroomDevice/move2alter_action?m2alter=<s:property value="#device.rtId"/>&classroomId=<s:property value="classroom.id"/>" id="mtoalter" type="button" class="btn btn-primary btn-sm"  
 									>移入备用</a>
 								</span>
 								
@@ -250,7 +250,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="alter_table">
 			<a id="alterSearch" target="myFrame1" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">教室备用设备</a>
 
-			<iframe name="myFrame1" frameborder="0" scrolling="no" style="width:100%;" height="200px" src="/jsp/admin/alternative.jsp"></iframe>
+			<iframe name="myFrame1" frameborder="0" scrolling="no" style="width:100%;" height="200px" ></iframe>
 		</div>
 		<script>
 			function alter_device() {

@@ -72,7 +72,7 @@
 		       
 	</package>
 	
-	
+	<!-- 教室设备管理 -->
 	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="AdminDefault">
 		<action name="maintainRecords">
 			<result>
@@ -90,17 +90,14 @@
 			<result name="alternative">
 				/jsp/admin/alternative.jsp
 			</result>
-			<result name="move2alter" type="chain">
-				<param name="actionName">maintainRecords</param>  
-            	<param name="namespace">/admin/classroomDevice</param>
+			<result name="move2alter" type="redirect">
+				../classroom/classroom_detail.action?classroomId=${classroom_id}
 			</result>
-			<result name="addalter" type="chain">
-				<param name="actionName">maintainRecords</param>  
-            	<param name="namespace">/admin/classroomDevice</param>
+			<result name="addalter" type="redirectAction">
+				alter_action?classroomid=${classroom_id}
 			</result>
-			<result name="delalter" type="chain">
-				<param name="actionName">maintainRecords</param>  
-            	<param name="namespace">/admin/classroomDevice</param>
+			<result name="delalter" type="redirectAction">
+				alter_action?classroomid=${classroom_id}
 			</result>
 		</action>
 		
@@ -297,6 +294,7 @@
 		</action>
 	</package>
 	
+	<!-- 教室管理 -->
 	<package name="classroom" namespace="/admin/classroom" extends="AdminDefault">
 		<action name="">
 			<result type="redirect">teachBuildingAction</result>
