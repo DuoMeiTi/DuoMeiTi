@@ -13,7 +13,6 @@
   		<action name="train" class="student.TrainAction">
 			<result>/jsp/student/train.jsp</result>
 		</action>
-<<<<<<< HEAD
 		
 		<action name="student_information" class="student.InformationAction" method="studentInformation">
 			<result>/jsp/student/student_information.jsp</result>
@@ -25,9 +24,6 @@
 			 </result>
 		</action>
 
-
-=======
-    	
     	
     	<action name="classroom_manage" class="student.ClassroomManageAction" method="classroomList">
 			<result>
@@ -43,7 +39,6 @@
 				<param name="build_id">${build_id}</param>
 			</result>
 		</action>
->>>>>>> origin/master
     </package>
     
     <package name="StudentclassroomDevice" namespace="/student/classroomDevice" extends="Default">
