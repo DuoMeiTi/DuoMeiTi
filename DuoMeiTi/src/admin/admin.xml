@@ -87,6 +87,21 @@
 			<result type="json" name="adddevice">
 				<param name="includeProperties">ret</param>
 			</result>
+			<result name="alternative">
+				/jsp/admin/alternative.jsp
+			</result>
+			<result name="move2alter" type="chain">
+				<param name="actionName">maintainRecords</param>  
+            	<param name="namespace">/admin/classroomDevice</param>
+			</result>
+			<result name="addalter" type="chain">
+				<param name="actionName">maintainRecords</param>  
+            	<param name="namespace">/admin/classroomDevice</param>
+			</result>
+			<result name="delalter" type="chain">
+				<param name="actionName">maintainRecords</param>  
+            	<param name="namespace">/admin/classroomDevice</param>
+			</result>
 		</action>
 		
 		<action name="equipmentQueryAndEdit">
@@ -176,15 +191,28 @@
 		
 		<!-- 技术培训 -->
 		<action name="training" class="admin.TrainingAction">
-			<result>
+			<result name="success">
 				/jsp/admin/student_manage/training.jsp
 			</result>
 		</action>
+		
 		<action name="training_*" class="admin.TrainingAction" method="{1}">
 			<result name="success" type="json"></result>
 		</action> 
+		
+		<!-- 考试管理 -->
+<!-- 		<action name="exam" > -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/student_manage/exam.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
+		
 	
-	
+<!-- 		<action name="exam" class="admin.ExamAction"> -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/student_manage/exam.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 	
 		<!-- 获取学生信息 -->
 		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">
@@ -351,7 +379,7 @@
         <result name="success" type="json">
 <!--             	<param name="includeProperties">status,notice_id</param>            -->
 				
-            </result> 
+          </result> 
         </action>
     </package>
 </struts>

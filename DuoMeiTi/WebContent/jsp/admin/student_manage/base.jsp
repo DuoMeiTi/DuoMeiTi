@@ -33,11 +33,11 @@
 	
 <div class="mycontent">
 
-<layout:block name="mycontent">
-
-
-
-</layout:block>
+	<layout:block name="mycontent">
+	
+	
+	
+	</layout:block>
 
 
 

@@ -10,7 +10,7 @@
 	    <a href="/student/adf" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;查看规章制度</span></a>
 	    <a href="/student/train" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;技术培训</span></a>
 	    <a href="/student/a" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;考勤记录</span></a>
-	    <a href="/student/fadsf" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;个人信息</span></a>
+	    <a href="/student/student_information" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;个人信息</span></a>
 	    <a href="/student/sssfdf" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;修改密码</span></a>
 	    <a href="/logout" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;安全退出</span></a>
 	    

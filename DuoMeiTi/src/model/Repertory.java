@@ -49,6 +49,22 @@ public class Repertory {
 	@JoinColumn
 	@Fetch(FetchMode.SELECT)
 	public Classroom classroom;
+	
+	
+	@Column
+	public java.sql.Date rtDeadlineData;
+	
+	
+	
+	
+	
+	public java.sql.Date getRtDeadlineData() {
+		return rtDeadlineData;
+	}
+
+	public void setRtDeadlineData(java.sql.Date rtDeadlineData) {
+		this.rtDeadlineData = rtDeadlineData;
+	}
 
 	public int getRtId() {
 		return rtId;
