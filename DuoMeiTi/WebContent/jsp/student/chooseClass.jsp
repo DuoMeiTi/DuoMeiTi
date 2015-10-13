@@ -4,6 +4,7 @@
 
 <div class="mycontent">
 	<h1>选择值班时间地点</h1>
+	<br/>
 	<div class="dropdown">
 		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     		选择教学楼
@@ -15,6 +16,8 @@
   			</s:iterator>
 		</ul>
 	</div>
+	<h2>时间列表</h2>
+	
 </div>
 
 </layout:override>

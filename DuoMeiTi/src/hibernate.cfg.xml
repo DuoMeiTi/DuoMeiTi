@@ -33,6 +33,7 @@
 		<mapping class="model.Message"/>
 		<mapping class="model.EgFilePathSave"/>
 		<mapping class="model.Notice"/>
+		<mapping class="model.DutyTime"/>
 
 		<mapping class="model.Rules"/>
 
