@@ -24,7 +24,7 @@
 			 	<param name="includeProperties">username,fullName,phoneNumber,sex,studentId,idCard,bankCard,college,entryTime,remark</param>
 			 </result>
 		</action>
-    	
+
     	
     	<action name="classroom_manage" class="student.ClassroomManageAction" method="classroomList">
 			<result>
