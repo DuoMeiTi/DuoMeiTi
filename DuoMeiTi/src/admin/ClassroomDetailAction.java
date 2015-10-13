@@ -60,7 +60,7 @@ public class ClassroomDetailAction extends ActionSupport{
 		try {
 			Session session1 = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
 			tx = session1.beginTransaction();
-			hql = "SELECT rt FROM Repertory rt WHERE rt.classroom = " + classroomId;
+			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + classroomId;
 			System.out.println(hql);
 			Query query = session1.createQuery(hql);
 			rtClass = query.list();

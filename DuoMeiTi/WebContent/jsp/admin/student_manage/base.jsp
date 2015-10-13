@@ -18,13 +18,13 @@
         		</div>
         		
        			<div class="col-lg-3 nopadding" >
-           			<a href="/admin/student_manage/rules" class="navbar-button">规章制度</a> 
+           			<a href="/admin/student_manage/rule_show" class="navbar-button">规章制度</a> 
         		</div>
         		
         		
         		
         		<div class="col-lg-3 nopadding">
-           			<a href="/admin/student_manage/techteach" class="navbar-button navbar-button-left">技术培训</a> 
+           			<a href="/admin/student_manage/training" class="navbar-button">技术培训</a> 
         		</div>
     
     		</div>
@@ -33,11 +33,11 @@
 	
 <div class="mycontent">
 
-<layout:block name="mycontent">
-
-
-
-</layout:block>
+	<layout:block name="mycontent">
+	
+	
+	
+	</layout:block>
 
 
 

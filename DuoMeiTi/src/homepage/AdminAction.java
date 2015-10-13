@@ -126,6 +126,7 @@ public class AdminAction extends FileUploadBaseAction {
 	}
 
 	public String adminRegisterSave() throws Exception {
+//		System.out.println("SDLKFJLSDJFSKDJFK*&&&&&&&&&&&&&&&&&&");
 //		if (username == null || password == null) {
 //			this.register_status = "1";
 //			return ActionSupport.SUCCESS;
@@ -178,7 +179,7 @@ public class AdminAction extends FileUploadBaseAction {
 			if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
 	        {
 				util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
-				String inserted_file_path = util.Util.ProfilePhotoPath + fileFileName;
+				String inserted_file_path = util.Util.ProfilePhotoPath + username+fileFileName;
 				um.setProfilePhotoPath(inserted_file_path);
 //				System.out.println("***"+imageFileName+imageContentType);
 //	            File savefile = new File(new File(util.Util.RootPath + util.Util.FileUploadPath), imageFileName);

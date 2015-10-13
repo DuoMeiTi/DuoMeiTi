@@ -16,8 +16,9 @@ import model.Repertory;
 import model.StudentProfile;
 import model.User;
 import util.Const;
+import util.FileUploadBaseAction;
 
-public class InformationAction extends ActionSupport{
+public class InformationAction extends FileUploadBaseAction {
 	
 
 	private String collegeSelect[];
@@ -167,7 +168,7 @@ public class InformationAction extends ActionSupport{
 	{
 		
 		
-//		System.out.println("adminInformation");
+		System.out.println("adminInformation");
 		
 		sexSelect=Const.sexSelect;
 		Session session = model.Util.sessionFactory.openSession();
@@ -194,28 +195,33 @@ public class InformationAction extends ActionSupport{
 		sex = now_user.getSex();
 		username = now_user.getUsername();
 		unitInfo = now_admin.getUnitInfo();
-		
-
-		return SUCCESS;
-
-	}
-	
-	public String adminInformationChange() throws Exception
-	{
-		
-//		System.out.println("AdminAction.adminInformationChange():");
+		System.out.println(profilePhotoPath);
 //		System.out.println(username);
 //		System.out.println(fullName);
 //		System.out.println(phoneNumber);
 //		System.out.println(sex);
 //		System.out.println(unitInfo);
 //		System.out.println(remark);
+
+		return ActionSupport.SUCCESS;
+
+	}
+	
+	public String adminInformationChange() throws Exception
+	{
+		
+		System.out.println("AdminAction.adminInformationChange():");
 		
 //		System.out.println("user_id" + now_user.getId());
+		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
+        {
+			util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
+			String inserted_file_path = util.Util.ProfilePhotoPath + fileFileName;
+            now_user.setProfilePhotoPath(inserted_file_path);
+        }
 		
 		now_user.setFullName(fullName);
 		now_user.setPhoneNumber(phoneNumber);
-		now_user.setProfilePhotoPath(profilePhotoPath);
 		now_user.setRemark(remark);
 		now_user.setSex(sex);
 		now_admin.setUnitInfo(unitInfo);

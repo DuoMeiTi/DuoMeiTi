@@ -57,7 +57,7 @@
 			       <div class="collapse navbar-collapse">
 			         <ul class="nav navbar-nav">
 			           <li class=""><a href="/">首页</a></li>
-			           <li class=""><a href="/ClassroomFile">教室信息</a></li>
+			           <li class=""><a href="/ResourceFile">资源文件</a></li>
 			           <li class=""><a href="">通讯录</a></li>
 			           <li class=""><a href="/CommonProRecord">常见问题</a></li>
 			           
@@ -103,7 +103,7 @@
 <!--     <a class="" href="/#myCarousel" data-slide="next">›</a> -->
 <!--   </div> -->
 <!-- </div> -->
-<!-- <!-- /.carousel --> -->
+<!-- /.carousel -->
 
 <!-- </div> -->
 

@@ -14,11 +14,10 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.inject.Inject;
 
-import model.EgFilePathSave;
 import model.User;
 
 
-public class FileUploadBaseAction extends ActionSupport{
+public class FileUploadBaseAction extends PageGetBaseAction{
     
     public File file; //上传的文件
     public String fileFileName; //文件名称
