@@ -14,6 +14,7 @@ import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -24,9 +25,6 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import model.User;
 import util.PageGetBaseAction;
-
-import model.TeachBuilding;
-import model.DutyTime;
 
 
 public class HomeAction extends PageGetBaseAction
@@ -44,24 +42,6 @@ public class HomeAction extends PageGetBaseAction
 		
 		check_list = session.createCriteria(model.CheckRecord.class).list();
 		notice_list = session.createCriteria(model.Notice.class).list();
-		
-		
-//		List<TeachBuilding> building_list=session.createCriteria(model.TeachBuilding.class).list();
-//		for(TeachBuilding tb:building_list){
-//			for(int i=1;i<=5;i++){
-//				for(int j=1;j<=5;j++){
-//					List temp=session.createCriteria(model.DutyTime.class).add(Restrictions.eq("teachBuilding",tb)).list();
-//					if(temp.size()==0){
-//						DutyTime a=new DutyTime();
-//						a.teachBuilding=tb;
-//						a.time=i*10+j;
-//						a.cnt=4;
-//						session.save(a);
-//					}
-//				}
-//			}
-//		}
-
 		repair_list = session.createCriteria(model.RepairRecord.class).list();
 		
 		Collections.reverse(check_list);
@@ -147,9 +127,6 @@ public class HomeAction extends PageGetBaseAction
 	public void setFile_path_html(String file_path_html) {
 		this.file_path_html = file_path_html;
 	}
-
-	
-	
 }
 
 

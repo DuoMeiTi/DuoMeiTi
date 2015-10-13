@@ -11,18 +11,36 @@ import model.TeachBuilding;
 @Entity
 public class DutyTime {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public int id;
+	
 	//教学楼
 	@ManyToOne
     @JoinColumn
     public TeachBuilding teachBuilding;
 	
 	//时间段
-	@JoinColumn
+	@Column
 	public int time;
 	
 	//值班人数
-	@JoinColumn
-	public int cnt;
+	@Column
+	public int numberOfDuty;
+	
+	//剩余
+	@Column
+	public int dutyLeft;
+	
+	
+
+	public int getDutyLeft() {
+		return dutyLeft;
+	}
+
+	public void setDutyLeft(int dutyLeft) {
+		this.dutyLeft = dutyLeft;
+	}
 
 	public TeachBuilding getTeachBuilding() {
 		return teachBuilding;
@@ -40,13 +58,20 @@ public class DutyTime {
 		this.time = time;
 	}
 
-	public int getCnt() {
-		return cnt;
+	public int getNumberOfDuty() {
+		return numberOfDuty;
 	}
 
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
+	public void setNumberOfDuty(int numberOfDuty) {
+		this.numberOfDuty = numberOfDuty;
 	}
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 }

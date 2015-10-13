@@ -36,7 +36,6 @@
 		<mapping class="model.DutyTime"/>
 
 		<mapping class="model.Rules"/>
-
 		<mapping class="model.ResourceFilePath"/>
 
 		

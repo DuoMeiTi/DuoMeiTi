@@ -21,6 +21,8 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import common.ChooseClass;
+
 //import model.StudentProfile;
 
 
@@ -116,10 +118,12 @@ public class UserAction
 		
 		if(role.equals(util.Const.AdminRole))
 		{
+			ChooseClass.insertDataToDutyTimeTable();
 			return "admin_login_success";
 		}
 		else if(role.equals(util.Const.StudentRole))
-		{
+		{	
+			ChooseClass.insertDataToDutyTimeTable();
 			return "student_login_success";
 		}
 		System.out.println("ERROR");
