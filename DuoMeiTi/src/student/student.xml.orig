@@ -13,7 +13,6 @@
   		<action name="train" class="student.TrainAction">
 			<result>/jsp/student/train.jsp</result>
 		</action>
-<<<<<<< HEAD
 		
 		<action name="student_information" class="student.InformationAction" method="studentInformation">
 			<result>/jsp/student/student_information.jsp</result>
@@ -24,11 +23,11 @@
 			 	<param name="includeProperties">username,fullName,phoneNumber,sex,studentId,idCard,bankCard,college,entryTime,remark</param>
 			 </result>
 		</action>
-
-
+<<<<<<< HEAD
 =======
+
     	
-    	
+>>>>>>> df61f885f989e21ae73362b7e5de556b7695647d
     	<action name="classroom_manage" class="student.ClassroomManageAction" method="classroomList">
 			<result>
 			/jsp/student/classroom_manage.jsp
@@ -48,8 +47,7 @@
 			<result>/jsp/student/chooseClass.jsp</result>
 		</action>
 =======
->>>>>>> origin/master
->>>>>>> e26fd0e6cc3857926b11f738c4b9a2595fbbb66f
+>>>>>>> df61f885f989e21ae73362b7e5de556b7695647d
     </package>
     
     <package name="StudentclassroomDevice" namespace="/student/classroomDevice" extends="Default">
@@ -85,7 +83,6 @@
 				<param name="includeProperties">savestatus</param>
 			</result>
 		</action>
-		
 		
 
    
