@@ -62,7 +62,7 @@
 				<param name="includeProperties">oldPsw,newPsw,rePsw,id,cmpResult</param>
 			</result>
 		</action>
-
+		
 		<action name="repertory_*" class="admin.RepertoryAction" method="{1}">
 			<result name="success" type="json">
 				<!-- <param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param> -->
@@ -328,6 +328,13 @@
 		<action name="FileUploadInsert"  class="admin.FileUploadAction" method ="insert">
 			<result type="json">				
 			</result>			
+		</action>
+		
+		
+        <action name="CommonProblem" class = "admin.CommonProblemAction" method = "commonPro">
+			<result name="success">
+				/jsp/admin/HomepageModify/CommonProblem.jsp
+			</result>
 		</action>
 	
 <!--公告的action设置  -->

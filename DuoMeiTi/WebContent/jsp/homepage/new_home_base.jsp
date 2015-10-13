@@ -59,7 +59,7 @@
 			           <li class=""><a href="/">首页</a></li>
 			           <li class=""><a href="/ClassroomFile">教室信息</a></li>
 			           <li class=""><a href="">通讯录</a></li>
-			           <li class=""><a href="">常见问题</a></li>
+			           <li class=""><a href="/CommonProRecord">常见问题</a></li>
 			           
 			           <li class=""><a href="/login">登录</a></li>
 			           <li class="dropdown">

@@ -1,9 +1,5 @@
 <%@ include file="/jsp/base/taglib.jsp"%>
 
-
-
-
-
 <layout:override name="mycontent">
 	<div class="modal fade" id="notice-modal" tabindex="-1" role="dialog"
 	aria-labelledby="noticeAddModalLabel"><!--aria-labelledby什么意思？？？？？  -->

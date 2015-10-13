@@ -43,8 +43,7 @@
             </result>
         </action>
         
-        
-        
+      
         
         
         
@@ -81,7 +80,9 @@
             </result>            
         </action>
         
-        
+        <action name="CommonProRecord" class="homepage.CommonProRecord" method="showRecord">
+        	<result> /jsp/homepage/CommonProRecord.jsp</result>
+        </action>
         
         
 
