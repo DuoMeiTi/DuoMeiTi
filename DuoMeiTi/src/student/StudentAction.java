@@ -24,14 +24,6 @@ public class StudentAction extends ActionSupport{
 		}
 	}
 	
-	public List getTeahBuildings() {
-		return teahBuildings;
-	}
-
-	public void setTeahBuildings(List teahBuildings) {
-		this.teahBuildings = teahBuildings;
-	}
-
 	public String chooseClass() throws Exception{
 		
 		List fields = new ArrayList<String>();
@@ -48,6 +40,14 @@ public class StudentAction extends ActionSupport{
 			teahBuildings.add(new BuildingsInfo(name,id));
 		}
 		return ActionSupport.SUCCESS;
+	}
+	
+	public List getTeahBuildings() {
+		return teahBuildings;
+	}
+
+	public void setTeahBuildings(List teahBuildings) {
+		this.teahBuildings = teahBuildings;
 	}
 	
 }
