@@ -8,11 +8,11 @@
 
 
   <ul class="nav  nav-pills"  style="position:relative;left:800px;">
-    <li role="presentation" >
-    	<a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a>
-    </li>
     <li role="presentation" class="active">
-    	<a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a>
+    	<a href="#info" aria-controls="info" role="tab" data-toggle="tab">培训通知</a>
+    </li>
+    <li role="presentation">
+    	<a href="#exam" aria-controls="exam" role="tab" data-toggle="tab">考试系统</a>
     </li>
 <!--     <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li> -->
 <!--     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
@@ -22,11 +22,11 @@
   
 
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane " id="home">
+    <div role="tabpanel" class="tab-pane active" id="info">
     	<%@ include file="trainingInfo.jsp" %>
     </div>
     
-    <div role="tabpanel" class="tab-pane active" id="profile">
+    <div role="tabpanel" class="tab-pane" id="exam">
 		<%@ include file="exam.jsp" %>
     </div>
 <!--     <div role="tabpanel" class="tab-pane" id="messages">.rwerqwerzczsdfsd.</div> -->

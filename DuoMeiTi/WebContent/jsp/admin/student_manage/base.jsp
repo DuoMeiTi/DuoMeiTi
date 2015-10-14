@@ -25,6 +25,11 @@
         		
         		<div class="col-lg-3 nopadding">
            			<a href="/admin/student_manage/training" class="navbar-button">技术培训</a> 
+<!--         			<a class="dropdown-toggle navbar-button" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">技术培训<span class="caret"></span></a> -->
+<!--         			<ul class="dropdown-menu"> -->
+<!--         				<li><a href="/admin/student_manage/training">培训通知</a> -->
+<!--         				<li><a href="/admin/student_manage/exam">考试系统</a> -->
+<!--         			</ul> -->
         		</div>
     
     		</div>
