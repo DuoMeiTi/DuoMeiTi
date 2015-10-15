@@ -1,6 +1,6 @@
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
->>>>>>>=7e7896133eecd8359790470c3592d5e929026e23
+>>>>>>>=origin/master
 eclipse.preferences.version=1
 encoding//WebContent/jsp/admin/HomepageModify/Base.jsp=UTF-8
 encoding//WebContent/jsp/admin/HomepageModify/FileUpload.jsp=UTF-8
@@ -9,7 +9,9 @@ encoding//WebContent/jsp/admin/admin_eg.jsp=UTF-8
 encoding//WebContent/jsp/admin/admin_information.jsp=UTF-8
 encoding//WebContent/jsp/admin/base.jsp=UTF-8
 encoding//WebContent/jsp/admin/classroom_detail.jsp=UTF-8
+encoding//WebContent/jsp/admin/classroom_information.jsp=UTF-8
 encoding//WebContent/jsp/admin/classroom_manage.jsp=UTF-8
+encoding//WebContent/jsp/admin/classroom_picture.jsp=UTF-8
 encoding//WebContent/jsp/admin/equipmentQueryAndEdit.jsp=UTF-8
 encoding//WebContent/jsp/admin/handled.jsp=UTF-8
 encoding//WebContent/jsp/admin/maintainRecords.jsp=UTF-8
@@ -47,15 +49,9 @@ encoding//WebContent/jsp/homepage/not_login.jsp=UTF-8
 encoding//WebContent/jsp/homepage/register.jsp=UTF-8
 encoding//WebContent/jsp/homepage/student_register.jsp=UTF-8
 encoding//WebContent/jsp/student/base.jsp=UTF-8
-<<<<<<< HEAD
-encoding//WebContent/jsp/student/student_information.jsp=UTF-8
-=======
-<<<<<<< HEAD
-=======
 encoding//WebContent/jsp/student/chooseClass.jsp=UTF-8
->>>>>>> origin/master
 encoding//WebContent/jsp/student/classroom_detail.jsp=UTF-8
 encoding//WebContent/jsp/student/classroom_manage.jsp=UTF-8
->>>>>>> origin/master
+encoding//WebContent/jsp/student/student_information.jsp=UTF-8
 encoding//WebContent/jsp/student/train.jsp=UTF-8
 encoding/<project>=UTF-8

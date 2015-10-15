@@ -328,6 +328,27 @@
 			</result>
 		</action>
 		
+		
+		<!-- 上传照片 -->
+        <action name="picture_upload" class="admin.ClassroomDetailAction" method="PictureUpload">
+            <result name="success" type="json">
+            <param name="includeProperties"></param>
+			</result>        
+        </action>
+        
+        <!-- 删除照片 -->
+        <action name="picture_delete" class="admin.ClassroomDetailAction" method="PictureDelete">
+            <result name="success" type="json">
+            <param name="includeProperties"></param>
+			</result>        
+        </action>
+		
+		
+		
+		
+		
+		
+		
 	</package>
 	
 	
