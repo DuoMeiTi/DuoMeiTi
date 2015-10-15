@@ -165,43 +165,51 @@ public class UserAction
 		
 		return "success";
 	}
-
+	public static int G = 0;
 	public String save() throws Exception
 	{
-		if(username == null || password == null)
+		G++;
+//		if(G % 100 == 0)
 		{
-			this.status = "error: username or password is null";
-			return ActionSupport.SUCCESS;
+			System.out.println("SB*******UI" + G);
 		}
-		if(username.equals("") || password.equals(""))
-		{
-			this.status = "1";
-			return ActionSupport.SUCCESS;
-		}		
-		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username", username));
-		List ul = q.list();
-		if(!ul.isEmpty())
-		{
-			this.status = "2";
-		}
-		else
-		{
-			User um = new User();
-			um.setUsername(username);
-			um.setPassword(password);
-			
-			
-			session.beginTransaction();
-			session.save(um);
-			
-			session.getTransaction().commit();
-			this.status = "0";
-			this.user_id = um.getId();
-			this.added_user_html = util.Util.fileToString("/jsp/homepage/widgets/added_user.html");
-		}
-		session.close();
 		return ActionSupport.SUCCESS;
+		
+		
+//		if(username == null || password == null)
+//		{
+//			this.status = "error: username or password is null";
+//			return ActionSupport.SUCCESS;
+//		}
+//		if(username.equals("") || password.equals(""))
+//		{
+//			this.status = "1";
+//			return ActionSupport.SUCCESS;
+//		}		
+//		Session session = model.Util.sessionFactory.openSession();
+//		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username", username));
+//		List ul = q.list();
+//		if(!ul.isEmpty())
+//		{
+//			this.status = "2";
+//		}
+//		else
+//		{
+//			User um = new User();
+//			um.setUsername(username);
+//			um.setPassword(password);
+//			
+//			
+//			session.beginTransaction();
+//			session.save(um);
+//			
+//			session.getTransaction().commit();
+//			this.status = "0";
+//			this.user_id = um.getId();
+//			this.added_user_html = util.Util.fileToString("/jsp/homepage/widgets/added_user.html");
+//		}
+//		session.close();
+//		return ActionSupport.SUCCESS;
 	}
 	
 	

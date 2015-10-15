@@ -8,9 +8,8 @@ function checkrecord_submit() {
 	var params = {
 		"checkdetail": checkrecord_detail,
 	};
-	alert("FFF");
 	$.ajax({
-		url : 'checkrecord_save',
+		url : '/student/student_classroom_json/checkrecord_save',
 		type : 'post',
 		dataType : 'json',
 		data : params,
@@ -68,7 +67,7 @@ function repairrecord_submit() {
 		};
 		
 		$.ajax({
-			url : '/student/classroom_json/repairrecord_save',
+			url : '/student/student_classroom_json/repairrecord_save',
 			type : 'post',
 			dataType : 'json',
 			data : params,
