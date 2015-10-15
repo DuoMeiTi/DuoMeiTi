@@ -378,11 +378,15 @@
 			</result>			
 		</action>
 		
-		
-        <action name="CommonProblem" class = "admin.CommonProblemAction" method = "commonPro">
+<!--常见问题的action设置  -->		
+        <action name="CommonProblem" class = "admin.CommonProblemAction">
 			<result name="success">
 				/jsp/admin/HomepageModify/CommonProblem.jsp
 			</result>
+		</action>
+		<action name="CommonProblem_*"  class="admin.CommonProblemAction" method ="{1}">
+			<result type="json">				
+			</result>			
 		</action>
 	
 <!--公告的action设置  -->

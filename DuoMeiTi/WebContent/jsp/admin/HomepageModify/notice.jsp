@@ -54,8 +54,7 @@
 	
 	<br />
 
-	<form class="form-inline" action="notice_add" method="POST "
-		id="notice_form">
+	<form class="form-inline" action="notice_add" method="POST " id="notice_form">
 <!-- 
 		<button type="button" class="btn btn-primary " data-toggle="modal"
 			data-target="notice-modal" id="notice_add" onclick="notice_add()">增加新公告</button> -->
@@ -127,6 +126,7 @@
 		var submit_type = $("#submit_type").attr("value");//新增教室的时候是add
 //		alert(submit_type);
 		var title = $("#notice_title").val();
+		alert(title);
 		var content = $("#notice_content").val();
 		var id =  $("#hidden_id").val();
 		//alert("id"+title+"   "+"  "+content +"  "+id+"  "+submit_type);
@@ -154,7 +154,7 @@
 	function addNoticeCallback(data) {
 		
 		if(data.status == "ok") {
-			alert("ok");
+			alert("添加成功");
 			$('#notice-modal').modal('hide');
 			window.location.href=window.location.href;  
 			window.location.reload;
@@ -224,7 +224,7 @@
 		function deleteCallback(data) {
 
 			if (data.status == "0") {
-				alert("ok");
+				alert("删除成功");
 				$('#notice-modal').modal('hide');
 				window.location.href=window.location.href;  
 				window.location.reload;

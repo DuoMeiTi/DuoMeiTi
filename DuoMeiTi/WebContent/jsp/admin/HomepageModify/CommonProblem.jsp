@@ -129,18 +129,14 @@
 	function notice_add_submit(){
 		
 		var submit_type = $("#submit_type").attr("value");//新增教室的时候是add
-//		alert(submit_type);
+// 		alert(submit_type);
 		var title = $("#notice_title").val();
+// 		alert(title);
 		var content = $("#notice_content").val();
 		var id =  $("#hidden_id").val();
-		//alert("id"+title+"   "+"  "+content +"  "+id+"  "+submit_type);
-		//var id =$("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_id");
-//		Request = GetRequest();
-//		var build_id = Request['build_id'];
-	//	alert(submit_type + " " +title + " " + content);
 		
 		$.ajax({
-			url : '/admin/HomepageModify/notice/notice_add',
+			url : '/admin/HomepageModify/CommonProblem_add',
 			type : 'post',
 			dataType : 'json',
 			data : {//发送到服务器的数据
@@ -151,14 +147,14 @@
 				"id" : id
 			},
 			success : addNoticeCallback
-		});
+		}); 
 		
 	}
 	
 	function addNoticeCallback(data) {
 		
 		if(data.status == "ok") {
-			alert("ok");
+			alert("添加成功");
 			$('#notice-modal').modal('hide');
 			window.location.href=window.location.href;  
 			window.location.reload;
@@ -197,7 +193,7 @@
 		// 	    alert(typeof user_id);
 
 		$.ajax({
-			url : 'notice_delete',
+			url : 'CommonProblem_delete',
 			type : 'post',
 			dataType : 'json',
 			data : {
@@ -207,28 +203,11 @@
 		});
 	}
 	
-		/* //处理删除操作
-		$(document).on("click", ".delete", function() {
-			notice_id = $(this).parents("tr").attr("notice_id");
-			// 	    alert(deleted_user_id);
-			// 	    alert(typeof user_id);
-
-			$.ajax({
-				url : 'notice_delete',
-				type : 'post',
-				dataType : 'json',
-				data : {
-					"notice_id" : notice_id,
-				},
-				success : deleteCallback
-			});
-
-		}); */
 
 		function deleteCallback(data) {
 
 			if (data.status == "0") {
-				alert("添加成功");
+				alert("删除成功");
 				$('#notice-modal').modal('hide');
 				window.location.href=window.location.href;  
 				window.location.reload;

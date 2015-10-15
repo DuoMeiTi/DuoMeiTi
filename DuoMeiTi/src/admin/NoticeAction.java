@@ -31,7 +31,7 @@ public class NoticeAction {
 	public String status;
 	
 	public String submit_type;
-public int getId() {
+    public int getId() {
 		return id;
 	}
 	public void setId(int id) {

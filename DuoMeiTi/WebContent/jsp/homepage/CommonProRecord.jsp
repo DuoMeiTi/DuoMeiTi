@@ -6,10 +6,29 @@
 	margin-left:20px;
 	"border:red solid;
 	border-width:1 1 1 1;
-	max-width:1250px;
+	max-width:1120px;
 }
 </style>
-<textarea name="cmpr" cols="178" rows="38" id="cmpr" ></textarea>
+<textarea name="cmpr" cols="178" rows="30" id="cmpr" ></textarea>
+                    <s:iterator value="notice_list" var="i" status="index" >
+		         	 	
+	         	 		<div class="usoft-listview-basic">
+						  <ul>
+						    <li>
+						      <span class="usoft-listview-item-date">
+						      		<s:property value="#i.time.toString()"/> 
+							  </span>
+						      <span>
+						      	<a href="/" > 
+						      		<s:property value="#i.title"/> 
+						      		:
+						      		<s:property value="#i.content"/>
+						      	</a>
+						      </span>
+						    </li>
+						  </ul>
+						</div>
+		         	</s:iterator>	        	
 
 
 
