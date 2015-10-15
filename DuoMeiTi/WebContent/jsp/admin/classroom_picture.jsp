@@ -4,19 +4,30 @@
 <!-- 	<div class="mycontent"> -->
 	
 		<div class="form-group col-lg-offset-1">
-		    <label for="username">上传照片:</label>
-		 	<input type="file" name="profilePhotoPath" id="picture_upload"  placeholder="图片地址"> 
-		 	
-		 	
-				<label for="remark">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:</label>
-		 	<input type="text" class="form-control" id="remark" name="remark" >
-		 
-		 	
+		
+		    <label for="username" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上传照片:</label>
+		    <br/>
+		    <br/>
+		    <div class="col-lg-1">
+		 		<input type="file" name="profilePhotoPath" id="picture_upload"  placeholder="图片地址">
+		 	</div> 
+			<br/>
+			<br/>
+		
+			<label class="col-lg-2 control-label">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:</label>
+			<div class="col-lg-2">
+		 		<input type="text" class="form-control" id="remark" name="remark" >
+		 	</div>
+		 	<div class="col-lg-1">
 		 	<button type="button" class="btn btn-success col-lg-offset-4" id="picture_up">上传</button> 
+		 	</div>
 		</div>
-		
-		
-			
+
+		<br/>
+			<br/>
+			<br/>
+			<br/>
+
 		<table class="table device-table-bordered" id="roompicture_table">
 			<tbody>
 				<s:iterator value="picture_list" var="picture" status="i">
@@ -26,7 +37,7 @@
 					<div class="form-group col-lg-offset-3">
 						<img src="<s:property value="#picture.path"/>"  width="100" height="100" />   
 					</div>
-					<div id = "<s:property value="#picture.id"/>">
+					<div id = "<s:property value="#picture.id"/>" class="form-group col-lg-offset-3">
 					<button type="button" class="btn btn-primary btn-sm delete" id="delede-button">删除</button>	
 					</div>
 					<br/>
@@ -74,16 +85,13 @@
 
 	    }	
 		
-		
-		
-
 		//delete
 		var delete_Id;
 		$(document).on("click", ".delete", function() {
 			var temp = confirm("删除不可恢复！");
 			if (temp == true) {
 				delete_Id = $(this).parents("div").attr("id");// attr所选元素属性值 
-				alert(delete_Id);
+				/* alert(delete_Id); */
 				$.ajax({
 					url : 'picture_delete',
 					type : 'post',
@@ -91,7 +99,6 @@
 					data : {"picID" : delete_Id,},// {"后台",""}
 					success : deleteCallback
 				});
-				
 			}
 		})
 
@@ -100,26 +107,6 @@
 			alert("删除成功！");
 		}
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		</script>
