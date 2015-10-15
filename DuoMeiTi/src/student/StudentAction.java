@@ -30,6 +30,7 @@ public class StudentAction extends ActionSupport{
 		}
 	}
 	
+
 	public List getTeahBuildings() {
 		return teahBuildings;
 	}
@@ -45,6 +46,7 @@ public class StudentAction extends ActionSupport{
 	public void setTextShow(String textShow) {
 		this.textShow = textShow;
 	}
+
 
 	public String chooseClass() throws Exception{
 		
@@ -80,5 +82,7 @@ public class StudentAction extends ActionSupport{
 		session.close();
 		return SUCCESS;
 	}
+	
+	
 	
 }
