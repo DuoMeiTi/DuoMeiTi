@@ -138,9 +138,9 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         	rtFactorynum = rs.getCell(5, i).getContents();
         	rtDeviceStatus = rs.getCell(6, i).getContents();
         	
-        	String col8 = rs.getCell(8, i).getContents();
-        	if(col8.equals(""))  rtReplacePeriod = 0;
-        	else rtReplacePeriod = Integer.parseInt(col8);
+        	String col9 = rs.getCell(9, i).getContents();
+        	if(col9.equals(""))  rtReplacePeriod = 0;
+        	else rtReplacePeriod = Integer.parseInt(col9);
         	
         	if(rtType == "" && rtNumber == "" && rtNumber == "" && rtVersion == "" 
         			&& rtProdDate == null && rtApprDate == null && rtFactorynum == "" && rtDeviceStatus == "")
@@ -162,8 +162,24 @@ public class RepertoryAction extends util.FileUploadBaseAction{
     		rt.setRtReplacePeriod(rtReplacePeriod);
     		if(rtDeviceStatus.equals("教室"))
         	{
-        		String rtClassroom = rs.getCell(7, i).getContents();
-        		List q = session.createCriteria(model.Classroom.class).add(Restrictions.eq("classroom_num", rtClassroom)).list();
+    			String build_name = rs.getCell(7, i).getContents();
+    			
+    			List build_list = session.createCriteria(model.TeachBuilding.class)
+    					.add(Restrictions.eq("build_name",   build_name )).list();
+    			
+    			if(build_list.isEmpty())
+    			{
+    				this.status = "2";//数据有误
+        			return this.SUCCESS;
+    			}
+    			
+    			
+    			model.TeachBuilding build = (model.TeachBuilding)build_list.get(0);
+        		String rtClassroom = rs.getCell(8, i).getContents();
+        		List q = session.createCriteria(model.Classroom.class)
+        						.add(Restrictions.eq("teachbuilding.id", build.getBuild_id()))
+        						.add(Restrictions.eq("classroom_num", rtClassroom))        						
+        						.list();
         		if(q.isEmpty())
         		{
         			this.status = "2";//数据有误
@@ -177,14 +193,14 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         	}
     		if(rtType.equals("麦克"))
     		{
-    			rtFreqPoint = rs.getCell(9, i).getContents();
+    			rtFreqPoint = rs.getCell(10, i).getContents();
     			rt.setRtFreqPoint(rtFreqPoint);
     		}
     		else if(rtType.equals("投影机"))
     		{
-    			String col10 = rs.getCell(10, i).getContents();
-    			if(col10.equals("")) rtFilterCleanPeriod = 0;
-    			else rtFilterCleanPeriod = Integer.parseInt(col10);
+    			String col11 = rs.getCell(11, i).getContents();
+    			if(col11.equals("")) rtFilterCleanPeriod = 0;
+    			else rtFilterCleanPeriod = Integer.parseInt(col11);
     			rt.setRtFilterCleanPeriod(rtFilterCleanPeriod);
     		}
     		session.save(rt);

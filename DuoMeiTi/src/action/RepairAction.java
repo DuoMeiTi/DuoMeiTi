@@ -2,6 +2,9 @@ package action;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import com.opensymphony.xwork2.ActionContext;
+
 import model.*;
 import Repair.RepairDAO;
 import RepairImpl.RepairDAOImpl;
@@ -10,6 +13,8 @@ public class RepairAction extends SuperAction {
 	public String ret;
 	public String id;
 	public String bh;
+	
+	public String classroom_id;
 	
 	
 	
@@ -79,5 +84,50 @@ public class RepairAction extends SuperAction {
 		ret = Integer.toString(rdao.add_rt(id, bh));
 		System.out.println("顶层"+ret);
 		return "adddevice";
+	}
+	
+	public String alter() {
+		List<Repertory> list;
+		RepairDAO rdao = new RepairDAOImpl();
+		list = rdao.alterDevice(request.getParameter("classroomid"));
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println("输出++++++++++++++++++++++++++++++++");
+			System.out.println(list.get(i));
+		}
+		if (list != null && list.size() > 0) {
+			session.setAttribute("alter_list",  list);
+		}
+		else
+		{
+			session.setAttribute("alter_list", null);
+		}
+		return "alternative";
+	}
+	
+	public String move2alter() {
+		classroom_id = request.getParameter("classroomId");
+		RepairDAO rdao = new RepairDAOImpl();
+		System.out.println("============");
+		ret = Integer.toString(rdao.m2alter(request.getParameter("m2alter")));
+		System.out.println("怎么可能"+classroom_id);
+		return "move2alter";
+	}
+	public String addalter() {
+		int id = (int) (ActionContext.getContext().getSession().get("classroom_id"));
+		classroom_id = Integer.toString(id);
+		RepairDAO rdao = new RepairDAOImpl();
+		System.out.println("============");
+		ret = Integer.toString(rdao.addalterIm(request.getParameter("rtid")));
+		System.out.println("怎么可能"+classroom_id);
+		return "addalter";
+	}
+	public String delalter() {
+		int id = (int) (ActionContext.getContext().getSession().get("classroom_id"));
+		classroom_id = Integer.toString(id);
+		RepairDAO rdao = new RepairDAOImpl();
+		System.out.println("============");
+		ret = Integer.toString(rdao.delalterIm(request.getParameter("rtid")));
+		System.out.println("怎么可能"+classroom_id);
+		return "delalter";
 	}
 }

@@ -72,7 +72,7 @@
 		       
 	</package>
 	
-	
+	<!-- 教室设备管理 -->
 	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="AdminDefault">
 		<action name="maintainRecords">
 			<result>
@@ -86,6 +86,18 @@
 			</result>
 			<result type="json" name="adddevice">
 				<param name="includeProperties">ret</param>
+			</result>
+			<result name="alternative">
+				/jsp/admin/alternative.jsp
+			</result>
+			<result name="move2alter" type="redirect">
+				../classroom/classroom_detail.action?classroomId=${classroom_id}
+			</result>
+			<result name="addalter" type="redirectAction">
+				alter_action?classroomid=${classroom_id}
+			</result>
+			<result name="delalter" type="redirectAction">
+				alter_action?classroomid=${classroom_id}
 			</result>
 		</action>
 		
@@ -176,15 +188,28 @@
 		
 		<!-- 技术培训 -->
 		<action name="training" class="admin.TrainingAction">
-			<result>
+			<result name="success">
 				/jsp/admin/student_manage/training.jsp
 			</result>
 		</action>
+		
 		<action name="training_*" class="admin.TrainingAction" method="{1}">
 			<result name="success" type="json"></result>
 		</action> 
+		
+		<!-- 考试管理 -->
+<!-- 		<action name="exam" > -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/student_manage/exam.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
+		
 	
-	
+<!-- 		<action name="exam" class="admin.ExamAction"> -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/student_manage/exam.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 	
 		<!-- 获取学生信息 -->
 		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">
@@ -269,6 +294,7 @@
 		</action>
 	</package>
 	
+	<!-- 教室管理 -->
 	<package name="classroom" namespace="/admin/classroom" extends="AdminDefault">
 		<action name="">
 			<result type="redirect">teachBuildingAction</result>
@@ -351,7 +377,7 @@
         <result name="success" type="json">
 <!--             	<param name="includeProperties">status,notice_id</param>            -->
 				
-            </result> 
+          </result> 
         </action>
     </package>
 </struts>

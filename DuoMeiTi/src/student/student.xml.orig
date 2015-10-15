@@ -5,22 +5,11 @@
 
 <struts>
 
-
-	<package name="student" namespace="/student" extends="Default">
-
-		<action name="">
-			<result>/jsp/student/base.jsp</result>
-		</action>
-		<action name="classroom_manage" class="student.ClassroomManageAction"
-			method="classroomList">
-</action>
-</package>
     <package name="student" namespace="/student" extends="Default">    	
     	
     	<action name="">
     		<result>/jsp/student/base.jsp</result>
     	</action>
-    	
   		<action name="train" class="student.TrainAction">
 			<result>/jsp/student/train.jsp</result>
 		</action>
@@ -34,41 +23,35 @@
 			 	<param name="includeProperties">username,fullName,phoneNumber,sex,studentId,idCard,bankCard,college,entryTime,remark</param>
 			 </result>
 		</action>
+<<<<<<< HEAD
+=======
 
     	
+>>>>>>> df61f885f989e21ae73362b7e5de556b7695647d
     	<action name="classroom_manage" class="student.ClassroomManageAction" method="classroomList">
-
 			<result>
-				/jsp/student/classroom_manage.jsp
+			/jsp/student/classroom_manage.jsp
 			</result>
 		</action>
 		<action name="classroom_detail" class="student.ClassroomDetailAction">
 			<result>
 				<param name="location">/jsp/student/classroom_detail.jsp</param>
-				<!-- <param name="build_id">${classroom_id}</param> <param name="build_name">${classroom_num}</param> -->
+				<!-- <param name="build_id">${classroom_id}</param>
+				<param name="build_name">${classroom_num}</param> -->
 				<param name="classroom_id">${classroom_id}</param>
 				<param name="build_id">${build_id}</param>
 			</result>
 		</action>
-
+<<<<<<< HEAD
 		<action name="chooseclass" class="student.StudentAction" method="chooseClass">
 			<result>/jsp/student/chooseClass.jsp</result>
 		</action>
+=======
+>>>>>>> df61f885f989e21ae73362b7e5de556b7695647d
     </package>
     
     <package name="StudentclassroomDevice" namespace="/student/classroomDevice" extends="Default">
-
 		
-		<action name="rules" class="student.StudentAction" method="ruleShow">
-			<result name="success">
-				/jsp/student/student_show_rules.jsp
-			</result>
-		</action>
-	</package>
-
-	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
-		extends="Default">
-
 		<action name="*_action" class="action.RepairAction" method="{1}">
 			<result name="query_repair">
 				/jsp/admin/record_query.jsp
@@ -76,50 +59,32 @@
 			<result type="json" name="adddevice">
 				<param name="includeProperties">ret</param>
 			</result>
-		</action>
+		</action>	
 	</package>
-
-	<package name="student_classroom_json" namespace="/student/classroom_json"
-		extends="Default">
-		<action name="classroom_search" class="student.ClassroomManageAction"
-			method="classroom_search">
+	
+    <package name="student_classroom_json" namespace="/student/classroom_json" extends="Default">
+		<action name="classroom_search" class="student.ClassroomManageAction" method="classroom_search">
 			<result type="json">
 				<!-- <param name="root">classrooms</param> -->
 				<!-- <param name="includeProperties">classroominfo_html, status</param> -->
 				<param name="includeProperties">
-					status, classroominfo_html,
-					classrooms\[\d+\]\.id, classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity,
-					classrooms\[\d+\]\.principal_name,
-					classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys
+					status, classroominfo_html, 
+					classrooms\[\d+\]\.id, classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity, classrooms\[\d+\]\.principal_name, classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys
 				</param>
 			</result>
 		</action>
-		<action name="checkrecord_save" class="admin.CheckRecordAction"
-			method="checkrecordsave">
+		<action name="checkrecord_save" class="admin.CheckRecordAction" method="checkrecordsave">
 			<result type="json">
 				<param name="includeProperties">savestatus</param>
 			</result>
 		</action>
-		<action name="repairrecord_save" class="student.RepairRecordAction"
-			method="repairrecordsave">
+		<action name="repairrecord_save" class="student.RepairRecordAction" method="repairrecordsave">
 			<result type="json">
 				<param name="includeProperties">savestatus</param>
 			</result>
 		</action>
-
-
-		<action name="chooseclass" class="student.StudentAction"
-			method="chooseClass">
-			<result>/jsp/student/chooseClass.jsp</result>
-		</action>
-
-		<action name="train" class="student.TrainAction">
-			<result>/jsp/student/train.jsp</result>
-		</action>
-
-	</package>
-
 		
 
    
+    </package>
 </struts>

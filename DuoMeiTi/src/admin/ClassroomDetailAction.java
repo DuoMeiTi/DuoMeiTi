@@ -17,6 +17,7 @@ import model.CheckRecord;
 import model.Classroom;
 import model.RepairRecord;
 import model.Repertory;
+import model.TeachBuilding;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,6 +29,7 @@ public class ClassroomDetailAction extends ActionSupport{
 	
 	public int classroomId;
 	
+	public TeachBuilding building;
 	public Classroom classroom;
 	
 	public List<CheckRecord> checkrecords;
@@ -41,11 +43,14 @@ public class ClassroomDetailAction extends ActionSupport{
 		Session session = model.Util.sessionFactory.openSession();
 		//query current select classroom
 		Criteria classroom_criteria = session.createCriteria(Classroom.class);
+		Criteria building_criteria = session.createCriteria(TeachBuilding.class);
 		classroom_criteria.add(Restrictions.eq("id", classroomId));
 		classroom = (Classroom) classroom_criteria.uniqueResult();
+		building_criteria.add(Restrictions.eq("build_id", classroom.teachbuilding.build_id));
+		building = (TeachBuilding) building_criteria.uniqueResult();
+		
 		ActionContext.getContext().getSession().remove("classroom_id");
 		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
-
 		
 		/*String hql = "SELECT rt FROM Repertory rt WHERE rt.classroom = " + classroomId;
 		Query query = session.createQuery(hql);
@@ -60,7 +65,7 @@ public class ClassroomDetailAction extends ActionSupport{
 		try {
 			Session session1 = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
 			tx = session1.beginTransaction();
-			hql = "SELECT rt FROM Repertory rt WHERE rt.classroom = " + classroomId;
+			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + classroomId;
 			System.out.println(hql);
 			Query query = session1.createQuery(hql);
 			rtClass = query.list();

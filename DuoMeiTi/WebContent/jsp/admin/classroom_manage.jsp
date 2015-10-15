@@ -116,7 +116,7 @@
 				<%-- <td>   <s:property value="#classroom.capacity"/>    </td> --%>
 				<td studId="<s:property value="#classroom.principal_stuId"/>">   <s:property value="#classroom.principal_name"/>    </td>
 				<td>   <a class="btn btn-info" onclick="edit_classroom(<s:property value="#i.index"/>)">编&nbsp;&nbsp;辑</a></td>
-				<td>   <a href="classroom_detail?classroomId=<s:property value="#classroom.id"/>&build_name=<s:property value="build_name"/>" class="btn btn-info">详&nbsp;&nbsp;细</a>    </td>
+				<td>   <a href="classroom_detail?classroomId=<s:property value="#classroom.id"/>" class="btn btn-info">详&nbsp;&nbsp;细</a>    </td>
 				<%-- <td> <a class="btn btn-info" onclick="mypost(<s:property value="#i.index"/>)">详&nbsp;&nbsp;细</a></td> --%>
 			</tr>
 		</s:iterator>
