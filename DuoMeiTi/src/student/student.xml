@@ -6,15 +6,6 @@
 <struts>
 
 
-	<package name="student" namespace="/student" extends="Default">
-
-		<action name="">
-			<result>/jsp/student/base.jsp</result>
-		</action>
-		<action name="classroom_manage" class="student.ClassroomManageAction"
-			method="classroomList">
-</action>
-</package>
     <package name="student" namespace="/student" extends="Default">    	
     	
     	<action name="">
@@ -78,11 +69,9 @@
 			</result>
 		</action>
 	</package>
-
-	<package name="student_classroom_json" namespace="/student/classroom_json"
-		extends="Default">
-		<action name="classroom_search" class="student.ClassroomManageAction"
-			method="classroom_search">
+	
+    <package name="student_classroom_json" namespace="/student/student_classroom_json" extends="Default">
+		<action name="classroom_search" class="student.ClassroomManageAction" method="classroom_search">
 			<result type="json">
 				<!-- <param name="root">classrooms</param> -->
 				<!-- <param name="includeProperties">classroominfo_html, status</param> -->
