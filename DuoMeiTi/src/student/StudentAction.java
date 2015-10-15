@@ -3,10 +3,14 @@ package student;
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.TeachBuilding;
+import model.DutyTime;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.hibernate.Session;
+
 import utility.DatabaseOperation;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -14,7 +18,52 @@ import com.opensymphony.xwork2.ActionContext;
 public class StudentAction extends ActionSupport{
 	
 	private List<BuildingsInfo> teahBuildings;
+	private int teachBuildingId;
+	private List<DutyTime> duties;
+	private String log;
+	private List<Integer> chosen;
 	
+	
+	public List<Integer> getChosen() {
+		return chosen;
+	}
+
+	public void setChosen(List<Integer> chosen) {
+		this.chosen = chosen;
+	}
+
+	public String getLog() {
+		return log;
+	}
+
+	public void setLog(String log) {
+		this.log = log;
+	}
+
+	public List<DutyTime> getDuties() {
+		return duties;
+	}
+
+	public void setDuties(List<DutyTime> duties) {
+		this.duties = duties;
+	}
+
+	public List<BuildingsInfo> getTeahBuildings() {
+		return teahBuildings;
+	}
+
+	public void setTeahBuildings(List<BuildingsInfo> teahBuildings) {
+		this.teahBuildings = teahBuildings;
+	}
+
+	public int getTeachBuildingId() {
+		return teachBuildingId;
+	}
+
+	public void setTeachBuildingId(int teachBuildingId) {
+		this.teachBuildingId = teachBuildingId;
+	}
+
 	public class BuildingsInfo{
 		public String buildingName;
 		public int buildingId;
@@ -42,12 +91,20 @@ public class StudentAction extends ActionSupport{
 		return ActionSupport.SUCCESS;
 	}
 	
-	public List getTeahBuildings() {
-		return teahBuildings;
+	public String getDutyTime() throws Exception{
+		Session session = model.Util.sessionFactory.openSession();
+		String hql="from DutyTime d where d.teachBuilding.build_id="+teachBuildingId;
+		System.out.println(hql);
+		duties=session.createQuery(hql).list();
+		session.close();
+		return "ajaxSuccess";
 	}
-
-	public void setTeahBuildings(List teahBuildings) {
-		this.teahBuildings = teahBuildings;
+	
+	public String reciveChoice() throws Exception{
+		
+		return "ajaxSuccess";
 	}
+	
+	
 	
 }

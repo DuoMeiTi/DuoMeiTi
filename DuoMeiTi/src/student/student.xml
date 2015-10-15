@@ -43,6 +43,21 @@
 		<action name="chooseclass" class="student.StudentAction" method="chooseClass">
 			<result>/jsp/student/chooseClass.jsp</result>
 		</action>
+		<action name="getdutytime" class="student.StudentAction" method="getDutyTime">
+			<result type="json" name="ajaxSuccess">
+				<param name="includeProperties">
+					duties\[\d+\]\.dutyLeft,
+					duties\[\d+\]\.time
+				</param>
+			</result>
+		</action>
+		<action name="sendChoice" class="student.StudentAction" method="reciveChoice">
+			<result type="json" name="ajaxSuccess">
+				<param name="includeProperties">
+					log
+				</param>
+			</result>
+		</action>
     </package>
     
     <package name="StudentclassroomDevice" namespace="/student/classroomDevice" extends="Default">
