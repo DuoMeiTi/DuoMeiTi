@@ -17,7 +17,7 @@
 	<!-- 
 	<h3>时间列表(还可选择<span class="self-duty-left"><s:property value='3'/></span>个班)</h3>
 	-->
-	<div class="time-table hide" iid=<s:property value="#session.username"/>>
+	<div class="time-table hide" iid=<s:property value="#session.student_id"/>>
 		<h3>时间列表</h3>
 		<table class="table table-bordered">
 			<thead>
