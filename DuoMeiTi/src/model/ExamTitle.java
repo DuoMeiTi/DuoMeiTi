@@ -15,8 +15,6 @@ public class ExamTitle {
 	@Column(length = 500)
 	public String emTitle;
 	
-	@Column(length = 20)
-	public String emTrue;//正确选项
 
 	public int getEmId() {
 		return emId;
@@ -32,14 +30,6 @@ public class ExamTitle {
 
 	public void setEmTitle(String emTitle) {
 		this.emTitle = emTitle;
-	}
-
-	public String getEmTrue() {
-		return emTrue;
-	}
-
-	public void setEmTrue(String emTrue) {
-		this.emTrue = emTrue;
 	}
 	
 	
