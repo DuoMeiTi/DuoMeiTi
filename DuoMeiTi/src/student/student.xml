@@ -13,30 +13,33 @@
 		</action>
 		<action name="classroom_manage" class="student.ClassroomManageAction"
 			method="classroomList">
-</action>
-</package>
-    <package name="student" namespace="/student" extends="Default">    	
-    	
-    	<action name="">
-    		<result>/jsp/student/base.jsp</result>
-    	</action>
-    	
-  		<action name="train" class="student.TrainAction">
-			<result>/jsp/student/train.jsp</result>
 		</action>
-		
-		<action name="student_information" class="student.InformationAction" method="studentInformation">
-			<result>/jsp/student/student_information.jsp</result>
-		</action>
-   
-		<action name="student_information_change" class="student.InformationAction" method="studentInformationChange">
-			 <result name="success" type="json">
-			 	<param name="includeProperties">username,fullName,phoneNumber,sex,studentId,idCard,bankCard,college,entryTime,remark</param>
-			 </result>
+	</package>
+	<package name="student" namespace="/student" extends="Default">
+
+		<action name="">
+			<result>/jsp/student/base.jsp</result>
 		</action>
 
-    	
-    	<action name="classroom_manage" class="student.ClassroomManageAction" method="classroomList">
+		<action name="train" class="student.TrainAction">
+			<result>/jsp/student/train.jsp</result>
+		</action>
+
+		<action name="student_information" class="student.InformationAction"
+			method="studentInformation">
+			<result>/jsp/student/student_information.jsp</result>
+		</action>
+
+		<action name="student_information_change" class="student.InformationAction"
+			method="studentInformationChange">
+			<result name="success" type="json">
+				<param name="includeProperties">username,fullName,phoneNumber,sex,studentId,idCard,bankCard,college,entryTime,remark</param>
+			</result>
+		</action>
+
+
+		<action name="classroom_manage" class="student.ClassroomManageAction"
+			method="classroomList">
 
 			<result>
 				/jsp/student/classroom_manage.jsp
@@ -51,14 +54,16 @@
 			</result>
 		</action>
 
-		<action name="chooseclass" class="student.StudentAction" method="chooseClass">
+		<action name="chooseclass" class="student.StudentAction"
+			method="chooseClass">
 			<result>/jsp/student/chooseClass.jsp</result>
 		</action>
-    </package>
-    
-    <package name="StudentclassroomDevice" namespace="/student/classroomDevice" extends="Default">
+	</package>
 
-		
+	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
+		extends="Default">
+
+
 		<action name="rules" class="student.StudentAction" method="ruleShow">
 			<result name="success">
 				/jsp/student/student_show_rules.jsp
@@ -88,7 +93,8 @@
 				<!-- <param name="includeProperties">classroominfo_html, status</param> -->
 				<param name="includeProperties">
 					status, classroominfo_html,
-					classrooms\[\d+\]\.id, classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity,
+					classrooms\[\d+\]\.id,
+					classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity,
 					classrooms\[\d+\]\.principal_name,
 					classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys
 				</param>
@@ -119,7 +125,7 @@
 
 	</package>
 
-		
 
-   
+
+
 </struts>
