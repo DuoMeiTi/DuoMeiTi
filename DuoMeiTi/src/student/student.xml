@@ -6,7 +6,7 @@
 <struts>
 
 
-    <package name="student" namespace="/student" extends="Default">    	
+    <package name="student" namespace="/student" extends="StudentDefault">    	
     	
     	<action name="">
     		<result>/jsp/student/base.jsp</result>
@@ -62,7 +62,7 @@
 		</action>
     </package>
     
-    <package name="StudentclassroomDevice" namespace="/student/classroomDevice" extends="Default">
+    <package name="StudentclassroomDevice" namespace="/student/classroomDevice" extends="StudentDefault">
 
 		
 		<action name="rules" class="student.StudentAction" method="ruleShow">
@@ -73,7 +73,7 @@
 	</package>
 
 	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
-		extends="Default">
+		extends="StudentDefault">
 
 		<action name="*_action" class="action.RepairAction" method="{1}">
 			<result name="query_repair">
@@ -85,7 +85,7 @@
 		</action>
 	</package>
 	
-    <package name="student_classroom_json" namespace="/student/student_classroom_json" extends="Default">
+    <package name="student_classroom_json" namespace="/student/student_classroom_json" extends="StudentDefault">
 		<action name="classroom_search" class="student.ClassroomManageAction" method="classroom_search">
 			<result type="json">
 				<!-- <param name="root">classrooms</param> -->
