@@ -59,8 +59,10 @@
 	  <br><br>
 	  
 	  <div class="form-group col-lg-offset-4">
-	  	<label for="profilePhotoPath">上传头像</label>
-	  	<input type="file" name="profilePhotoPath" id="file_upload" class="pull-right" placeholder="图片地址">
+		<label for="profilePhotoPath">上传头像</label> 
+	    <input type="file" class ="pull-right "name="profilePhotoPath" id="file_upload"  placeholder="图片地址"> 
+	   <br>
+			 <s:fielderror/>
 	  </div>
 	  
 	  <br><br>
@@ -86,21 +88,21 @@
 	  
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="college">院系信息</label>
-	  	<s:select list="collegeSelect" class="form-control" name="college"></s:select>
+	  	<s:select list="collegeSelect" class="form-control" id="college" name="college"></s:select>
 	  </div>
 	  
 	  <br><br>
 	   
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="phoneNumber">联系方式</label>
-	  	<input type="text" class="form-control" name="phoneNumber" value="<s:property value="phoneNumber"/>" placeholder="">	
+	  	<input type="text" class="form-control" name="phoneNumber" id="phoneNumber" value="<s:property value="phoneNumber"/>" placeholder="">	
 	  </div>
 	  
 	  <br><br>
 	  
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="bankCard">银行卡号</label>
-	  	<input type="text" class="form-control" name="bankCard" value="<s:property value="bankCard"/>" placeholder="">
+	  	<input type="text" class="form-control" id="bankCard" name="bankCard" value="<s:property value="bankCard"/>" placeholder="">
 	  </div>
 	  
 	  <br><br>
@@ -117,7 +119,7 @@
 	  
 	  <div class="form-group col-lg-offset-4 date">
 	  	<label for="entryTime">入职时间</label>
-	  	<input type="date" class="form-control" name="entryTime" value="<s:property value="entryTime"/>" placeholder="">
+	  	<input type="date" class="form-control" id="entryTime" name="entryTime" value="<s:property value="entryTime"/>" placeholder="">
 	  </div> 
 	  <div class="form-group">
 	  	<span style="color:red">*</span>
@@ -137,7 +139,6 @@
 
     $(document).on("click", "button", function (){
         //var params = $('#student_register_form').serialize(); //利用jquery将表单序列化
-       alert(document.getElementById('file_upload').files);
         var fd = new FormData();
         if(document.getElementById('file_upload').files.length != 0)
     		fd.append("file", document.getElementById('file_upload').files[0]);
@@ -150,14 +151,14 @@
         fd.append("profilePhotoPath",$("#profilePhotoPath").val());
         fd.append("studentId",$("#studentId").val());
         fd.append("college",$("#college").val());
-        fd.append("phoneNumber",$("#phoneNumber").val());
         fd.append("bankCard",$("#bankCard").val());
         fd.append("idCard",$("#idCard").val());
         fd.append("entryTime",$("#entryTime").val());
         fd.append("phoneNumber",$("#phoneNumber").val());
         
-        alert("1111");
-        alert($("#username").val());
+//         alert("1111");
+//         alert($("#username").val());
+//		   alert($("#phoneNumber").val());
         
         $.ajax({
           url: 'student_register_save',

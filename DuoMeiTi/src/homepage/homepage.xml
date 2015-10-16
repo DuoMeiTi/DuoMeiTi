@@ -138,10 +138,7 @@
         
         <action name="student_register_save" class="homepage.StudentAction" method="studentRegisterSave">
             <result name="success" type="json">
-            	<!-- <param name="includeProperties">register_status,  username, password, fullName,passwordAgain,studentId,sex,status,classrooms,college,phoneNumber,bankNumber,idCard,entryTime</param>           
-				<param name="excludeProperties"> user_list</param> -->
             </result>  
-              <result name="input">/jsp/homepage/student_register.jsp</result>
                       
         </action>
         

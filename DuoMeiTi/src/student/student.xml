@@ -68,18 +68,15 @@
 		</action>
     </package>
     
-    <package name="StudentclassroomDevice" namespace="/student/classroomDevice" extends="StudentDefault">
 
+	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
+		extends="StudentDefault">
 		<action name="rules" class="student.StudentAction" method="ruleShow">
 			<result name="success">
 				/jsp/student/student_show_rules.jsp
 			</result>
 		</action>
-	</package>
-
-	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
-		extends="StudentDefault">
-
+		
 		<action name="*_action" class="action.RepairAction" method="{1}">
 			<result name="query_repair">
 				/jsp/admin/record_query.jsp
