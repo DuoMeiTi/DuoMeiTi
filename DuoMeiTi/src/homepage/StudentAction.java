@@ -2,23 +2,31 @@ package homepage;
 
 import java.util.Collections;
 import java.util.List;
+import java.io.File;
 
-
+import org.apache.commons.io.FileUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.service.ServiceRegistry;
 
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.opensymphony.xwork2.ActionSupport;
+
+import model.EgFilePathSave;
+import util.FileUploadBaseAction;
 
 import model.StudentProfile;
 import model.User;
 import util.Const;
 
-public class StudentAction {
+public class StudentAction extends FileUploadBaseAction {
+	
 	
 	private String collegeSelect[];
 	private String sexSelect[];
@@ -43,8 +51,17 @@ public class StudentAction {
 	private int isPassed;
 	private int userid;
 	private String status;
+	private String profilePhotoPath;
 	
 	
+	public String getProfilePhotoPath() {
+		return profilePhotoPath;
+	}
+
+	public void setProfilePhotoPath(String profilePhotoPath) {
+		this.profilePhotoPath = profilePhotoPath;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -238,8 +255,7 @@ public class StudentAction {
 	
 	public String studentRegisterSave() throws Exception
 	{
-		System.out.println("AdminAction.adminRegisterSave()");
-		
+		System.out.println("haha");
 		if(username.equals("") || password.equals("") || fullName.equals("") || studentId.equals(""))
 		{
 			this.register_status = "1";
@@ -278,6 +294,9 @@ public class StudentAction {
 			User um = new User();
 			um.setUsername(username);
 			um.setPassword(password);
+			um.setPhoneNumber(phoneNumber);
+			um.setSex(sex);
+			um.setFullName(fullName);
 			session.save(um);//因为user是外键，所以commit StudentProfile之前需要先save user；
 			
 			StudentProfile stupro=new StudentProfile();
@@ -285,11 +304,16 @@ public class StudentAction {
 			stupro.setIdCard(idCard);
 			stupro.setBankCard(bankCard);
 			stupro.setEntryTime(entryTime);
-			um.setPhoneNumber(phoneNumber);
-			um.setSex(sex);
 			stupro.setStudentId(studentId);
 			stupro.setCollege(college);
-			um.setFullName(fullName);
+			
+			if (file != null)
+			{
+				util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
+				String inserted_file_path = util.Util.ProfilePhotoPath + fileFileName;
+				um.setProfilePhotoPath(inserted_file_path);
+			}
+			
 			
 			session.beginTransaction();
 			session.save(stupro);
