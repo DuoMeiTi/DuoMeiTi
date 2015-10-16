@@ -45,13 +45,14 @@ $(document).on("click",".dutyleft",function(){
 $(document).on("click",".buildingSelect",function(){
 	var id=parseInt($(this).val());
 	var timetable=$(".time-table");
+	var studentId=parseInt(timetable.attr("iid"));
 	if(id>0){
 		timetable.removeClass("hide");
 		$.ajax({
 			url:"/student/getdutytime",
 			type : 'post',
 			dataType : 'json',
-			data : {"teachBuildingId":id},
+			data : {"teachBuildingId":id,"studentId":studentId},
 			success : getDutyTimeCallBack
 		})
 	}
@@ -76,11 +77,13 @@ $("#duty-choose-submit").click(function(){
 		var col=parseInt($(this).attr("col"));
 		chosen[i]=row*10+col;
 	});
+	var timetable=$(".time-table");
+	var studentId=parseInt(timetable.attr("iid"));
 	$.ajax({
 		url:"/student/sendChoice",
 		type : 'post',
 		dataType : 'json',
-		data : {"chosen":chosen},
+		data : {"chosen":chosen,"studentId":studentId},
 		traditional:true,
 		success : sendChoiceCallBack
 	});

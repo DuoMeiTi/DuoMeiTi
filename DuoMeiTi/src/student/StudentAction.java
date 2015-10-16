@@ -26,8 +26,18 @@ public class StudentAction extends ActionSupport{
 	private String log;
 	private List<Integer> chosen;
 	private String textShow;
+	private int studentId;
 	
+		
 	
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
 	public List<Integer> getChosen() {
 		return chosen;
 	}
@@ -114,6 +124,7 @@ public class StudentAction extends ActionSupport{
 	}
 	
 	public String reciveChoice() throws Exception{
+		Session session = model.Util.sessionFactory.openSession();
 		
 		return "ajaxSuccess";
 	}
