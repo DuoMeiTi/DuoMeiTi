@@ -18,7 +18,7 @@
 			else{
 				$(this).addClass("chosen");
 				$(this).html(leftduty-1);
-				dutyleft.html(leftnum-1);
+				dutayleft.html(leftnum-1);
 			}
 		}
 	}
@@ -43,5 +43,49 @@ $(document).on("click",".dutyleft",function(){
 })
 
 $(document).on("click",".buildingSelect",function(){
-	alert("hello");
+	var id=parseInt($(this).val());
+	var timetable=$(".time-table");
+	if(id>0){
+		timetable.removeClass("hide");
+		$.ajax({
+			url:"/student/getdutytime",
+			type : 'post',
+			dataType : 'json',
+			data : {"teachBuildingId":id},
+			success : getDutyTimeCallBack
+		})
+	}
+	else{
+		timetable.addClass("hide");
+	}
 })
+
+function getDutyTimeCallBack(data){
+	var dutyTime=data.duties;
+	$(dutyTime).each(function(i){
+		$(".dutyleft").each(function(j){
+			$(this).html(dutyTime[i].dutyLeft);
+		})
+	})
+}
+
+$("#duty-choose-submit").click(function(){
+	var chosen = new Array();
+	$(".chosen").each(function(i){
+		var row=parseInt($(this).closest("tr").attr("row"));
+		var col=parseInt($(this).attr("col"));
+		chosen[i]=row*10+col;
+	});
+	$.ajax({
+		url:"/student/sendChoice",
+		type : 'post',
+		dataType : 'json',
+		data : {"chosen":chosen},
+		traditional:true,
+		success : sendChoiceCallBack
+	});
+});
+
+function sendChoiceCallBack(){
+	
+}

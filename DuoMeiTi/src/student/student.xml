@@ -6,6 +6,7 @@
 <struts>
 
 
+<<<<<<< HEAD
 	<package name="student" namespace="/student" extends="Default">
 
 		<action name="">
@@ -22,6 +23,15 @@
 		</action>
 
 		<action name="train" class="student.TrainAction">
+=======
+    <package name="student" namespace="/student" extends="StudentDefault">    	
+    	
+    	<action name="">
+    		<result>/jsp/student/base.jsp</result>
+    	</action>
+    	
+  		<action name="train" class="student.TrainAction">
+>>>>>>> origin/master
 			<result>/jsp/student/train.jsp</result>
 		</action>
 
@@ -58,11 +68,32 @@
 			method="chooseClass">
 			<result>/jsp/student/chooseClass.jsp</result>
 		</action>
+<<<<<<< HEAD
 	</package>
 
 	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
 		extends="Default">
 
+=======
+		<action name="getdutytime" class="student.StudentAction" method="getDutyTime">
+			<result type="json" name="ajaxSuccess">
+				<param name="includeProperties">
+					duties\[\d+\]\.dutyLeft,
+					duties\[\d+\]\.time
+				</param>
+			</result>
+		</action>
+		<action name="sendChoice" class="student.StudentAction" method="reciveChoice">
+			<result type="json" name="ajaxSuccess">
+				<param name="includeProperties">
+					log
+				</param>
+			</result>
+		</action>
+    </package>
+    
+    <package name="StudentclassroomDevice" namespace="/student/classroomDevice" extends="StudentDefault">
+>>>>>>> origin/master
 
 		<action name="rules" class="student.StudentAction" method="ruleShow">
 			<result name="success">
@@ -72,7 +103,7 @@
 	</package>
 
 	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
-		extends="Default">
+		extends="StudentDefault">
 
 		<action name="*_action" class="action.RepairAction" method="{1}">
 			<result name="query_repair">
@@ -83,11 +114,9 @@
 			</result>
 		</action>
 	</package>
-
-	<package name="student_classroom_json" namespace="/student/classroom_json"
-		extends="Default">
-		<action name="classroom_search" class="student.ClassroomManageAction"
-			method="classroom_search">
+	
+    <package name="student_classroom_json" namespace="/student/student_classroom_json" extends="StudentDefault">
+		<action name="classroom_search" class="student.ClassroomManageAction" method="classroom_search">
 			<result type="json">
 				<!-- <param name="root">classrooms</param> -->
 				<!-- <param name="includeProperties">classroominfo_html, status</param> -->

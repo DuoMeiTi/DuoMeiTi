@@ -4,10 +4,12 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import model.Rules;
 import model.TeachBuilding;
+import model.DutyTime;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -19,8 +21,53 @@ import com.opensymphony.xwork2.ActionContext;
 public class StudentAction extends ActionSupport{
 	
 	private List<BuildingsInfo> teahBuildings;
+	private int teachBuildingId;
+	private List<DutyTime> duties;
+	private String log;
+	private List<Integer> chosen;
 	private String textShow;
 	
+	
+	public List<Integer> getChosen() {
+		return chosen;
+	}
+
+	public void setChosen(List<Integer> chosen) {
+		this.chosen = chosen;
+	}
+
+	public String getLog() {
+		return log;
+	}
+
+	public void setLog(String log) {
+		this.log = log;
+	}
+
+	public List<DutyTime> getDuties() {
+		return duties;
+	}
+
+	public void setDuties(List<DutyTime> duties) {
+		this.duties = duties;
+	}
+
+	public List<BuildingsInfo> getTeahBuildings() {
+		return teahBuildings;
+	}
+
+	public void setTeahBuildings(List<BuildingsInfo> teahBuildings) {
+		this.teahBuildings = teahBuildings;
+	}
+
+	public int getTeachBuildingId() {
+		return teachBuildingId;
+	}
+
+	public void setTeachBuildingId(int teachBuildingId) {
+		this.teachBuildingId = teachBuildingId;
+	}
+
 	public class BuildingsInfo{
 		public String buildingName;
 		public int buildingId;
@@ -28,15 +75,6 @@ public class StudentAction extends ActionSupport{
 			this.buildingName=name;
 			this.buildingId=id.intValue();
 		}
-	}
-	
-
-	public List getTeahBuildings() {
-		return teahBuildings;
-	}
-
-	public void setTeahBuildings(List teahBuildings) {
-		this.teahBuildings = teahBuildings;
 	}
 
 	public String getTextShow() {
@@ -65,6 +103,21 @@ public class StudentAction extends ActionSupport{
 		}
 		return ActionSupport.SUCCESS;
 	}
+	
+	public String getDutyTime() throws Exception{
+		Session session = model.Util.sessionFactory.openSession();
+		String hql="from DutyTime d where d.teachBuilding.build_id="+teachBuildingId;
+		System.out.println(hql);
+		duties=session.createQuery(hql).list();
+		session.close();
+		return "ajaxSuccess";
+	}
+	
+	public String reciveChoice() throws Exception{
+		
+		return "ajaxSuccess";
+	}
+	
 	public String ruleShow() throws Exception{
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(Rules.class);
@@ -82,7 +135,5 @@ public class StudentAction extends ActionSupport{
 		session.close();
 		return SUCCESS;
 	}
-	
-	
 	
 }

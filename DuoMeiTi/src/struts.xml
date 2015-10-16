@@ -51,16 +51,33 @@
         </interceptors>  
         
 		<default-interceptor-ref name="AdminLoginInterceptorStack" />
-		
 	</package>
+	
+	
+	<package name="StudentLoginInterceptor" abstract="true" extends="struts-default">	
+		<!-- 定义一个拦截器 -->  
+        <interceptors>  
+            <interceptor name="StudentLoginInterceptor" class="homepage.StudentLoginInterceptor">  
+            </interceptor>  
+            <!-- 拦截器栈 -->  
+            <interceptor-stack name="StudentLoginInterceptorStack">
+                <interceptor-ref name="defaultStack" />  
+                <interceptor-ref name="StudentLoginInterceptor" />  
+            </interceptor-stack>  
+        </interceptors>  
+        
+		<default-interceptor-ref name="StudentLoginInterceptorStack" />
+	</package>
+	
+	
 	
 	
 	
 	<package name="AdminDefault" extends="Default, AdminLoginInterceptor">
 	</package>
 	
-<!-- 	<package name="StudentDefault" extends="Default, StudentLoginInterceptor"> -->
-<!-- 	</package> -->
+	<package name="StudentDefault" extends="Default, StudentLoginInterceptor">
+	</package>
 	
 	
 	
