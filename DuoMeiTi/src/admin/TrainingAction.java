@@ -22,7 +22,7 @@ public class TrainingAction extends ActionSupport{
 	private List<ExamTitle> qtitle;
 	private List<List<ExamOption> > qoption = new ArrayList<List<ExamOption>>();
 	
-	private String emId;
+	private int emId;
 	private String emTitle;
 	private List optionList;
 	private List checkList;
@@ -99,7 +99,6 @@ public class TrainingAction extends ActionSupport{
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria qt = session.createCriteria(ExamTitle.class).add(Restrictions.eq("emId", emId));
 		qtitle = qt.list();
-		System.out.println("|||" + qtitle);
 		if(qtitle.isEmpty())
 		{
 			this.trStatus = "0";
@@ -107,9 +106,8 @@ public class TrainingAction extends ActionSupport{
 		else
 		{
 			session.beginTransaction();
-			Criteria qo = session.createCriteria(ExamOption.class).add(Restrictions.eq("emTitle_emId", emId));
+			Criteria qo = session.createCriteria(ExamOption.class).add(Restrictions.eq("emTitle.emId", emId));
 			List<ExamOption> qoList = qo.list();
-			System.out.println(qoList + "|||");
 			for(int i = 0; i < qoList.size(); i++)
 			{
 				session.delete(qoList.get(i));
@@ -238,13 +236,15 @@ public class TrainingAction extends ActionSupport{
 		this.exam_table = exam_table;
 	}
 
-	public String getEmId() {
+	public int getEmId() {
 		return emId;
 	}
 
-	public void setEmId(String emId) {
+	public void setEmId(int emId) {
 		this.emId = emId;
 	}
+
+	
 
 	
 	

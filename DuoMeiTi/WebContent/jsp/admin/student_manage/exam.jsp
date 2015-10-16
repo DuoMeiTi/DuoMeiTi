@@ -135,7 +135,6 @@
 			var temp = $(this).parents("tr");
 			delete_emId = temp.children().eq(0).text();
 			$(temp).attr("emid", delete_emId);
-			alert(delete_emId);
 			$.ajax({
 				url : 'training_examDelete',
 				type : 'post',
@@ -146,12 +145,12 @@
 		}
 	})
 	function emDeleteCallback(data){
-		alert("ok!!!!");
-// 		if (data.trStatus == "0") {
-// 			alert("删除数据不存在！ ");
-// 		} else if (data.trStatus == "1") {
-// 			$(document).find("tr[emid=" + delete_emId + "]").remove();
-// 		}
+		//alert("ok!!!!");
+		if (data.trStatus == "0") {
+			alert("删除数据不存在！ ");
+		} else if (data.trStatus == "1") {
+			$(document).find("tr[emid=" + delete_emId + "]").remove();
+		}
 	}
 </script>
 
