@@ -6,7 +6,8 @@
 <struts>
 
 
-	<package name="student" namespace="/student" extends="StudentDefault">
+<<<<<<< HEAD
+	<package name="student" namespace="/student" extends="Default">
 
 		<action name="">
 			<result>/jsp/student/base.jsp</result>
@@ -15,6 +16,14 @@
 			method="classroomList">
 		</action>
 	</package>
+	<package name="student" namespace="/student" extends="Default">
+
+		<action name="">
+			<result>/jsp/student/base.jsp</result>
+		</action>
+
+		<action name="train" class="student.TrainAction">
+=======
     <package name="student" namespace="/student" extends="StudentDefault">    	
     	
     	<action name="">
@@ -22,6 +31,7 @@
     	</action>
     	
   		<action name="train" class="student.TrainAction">
+>>>>>>> origin/master
 			<result>/jsp/student/train.jsp</result>
 		</action>
 
@@ -58,6 +68,13 @@
 			method="chooseClass">
 			<result>/jsp/student/chooseClass.jsp</result>
 		</action>
+<<<<<<< HEAD
+	</package>
+
+	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
+		extends="Default">
+
+=======
 		<action name="getdutytime" class="student.StudentAction" method="getDutyTime">
 			<result type="json" name="ajaxSuccess">
 				<param name="includeProperties">
@@ -76,6 +93,7 @@
     </package>
     
     <package name="StudentclassroomDevice" namespace="/student/classroomDevice" extends="StudentDefault">
+>>>>>>> origin/master
 
 		<action name="rules" class="student.StudentAction" method="ruleShow">
 			<result name="success">
