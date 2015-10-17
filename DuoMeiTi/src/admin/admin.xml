@@ -14,8 +14,7 @@
 				/admin/classroom/teachBuildingAction 
 			</result>
 		</action>
-		
-		
+
 <!-- 		<action name=""> -->
 <!-- 			<result> -->
 <!-- 				/jsp/admin/base.jsp -->
@@ -51,6 +50,13 @@
 			</result>
 		</action>
 		
+		<action name="repertory_*" class="admin.RepertoryAction" method="{1}">
+			<result name="success" type="json">
+<!-- 				<param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param> -->
+<!-- 				<param name="excludeProperties"> repertory_list</param> -->
+			</result>
+		</action> 
+		
 		<action name="modifypassword" class="admin.ModifyPasswordAction">
 			<result name="success">
 				/jsp/admin/modify_password.jsp
@@ -63,6 +69,7 @@
 			</result>
 		</action>
 
+<<<<<<< HEAD
 		<action name="repertory_*" class="admin.RepertoryAction" method="{1}">
 			<result name="success" type="json">
 				<!-- <param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param> -->
@@ -77,8 +84,14 @@
 		  
 	</package>
 	
+=======
+		       
+	</package>
+	
+	<!-- 教室设备管理 -->
+>>>>>>> origin/master
 	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="AdminDefault">
-		<action name="maintainRecords">
+		<action name="maintainRecords" class="admin.TeachBuildingAction">
 			<result>
 				/jsp/admin/maintainRecords.jsp
 			</result>
@@ -90,6 +103,18 @@
 			</result>
 			<result type="json" name="adddevice">
 				<param name="includeProperties">ret</param>
+			</result>
+			<result name="alternative">
+				/jsp/admin/alternative.jsp
+			</result>
+			<result name="move2alter" type="redirect">
+				../classroom/classroom_detail.action?classroomId=${classroom_id}
+			</result>
+			<result name="addalter" type="redirectAction">
+				alter_action?classroomid=${classroom_id}
+			</result>
+			<result name="delalter" type="redirectAction">
+				alter_action?classroomid=${classroom_id}
 			</result>
 		</action>
 		
@@ -166,25 +191,47 @@
 		</action>
 		
 		<!-- 规章制度 -->
-		<action name="rules" class="admin.StudentManageAction" method="studentInformation">
-			<result>
+		<!-- <action name=rules class="admin."></action> -->
+		<action name="rule_show" class="admin.StudentManageAction" method="showRules">
+			<result name="success" >
 				/jsp/admin/student_manage/student_manage_rules.jsp
+			</result>
+		</action>
+		<action name="ruleEdit" class="admin.StudentManageAction" method="editRules">
+			<result name="success" type="json">
+			
 			</result>
 		</action>
 		
 		<!-- 技术培训 -->
-		<action name="techteach" class="admin.StudentManageAction" method="studentInformation">
-			<result>
-				/jsp/admin/student_manage/student_manage_techteach.jsp
+		<action name="training" class="admin.TrainingAction">
+			<result name="success">
+				/jsp/admin/student_manage/training.jsp
 			</result>
 		</action>
+		
+		<action name="training_*" class="admin.TrainingAction" method="{1}">
+			<result name="success" type="json"></result>
+		</action> 
+		
+		<!-- 考试管理 -->
+<!-- 		<action name="exam" > -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/student_manage/exam.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
+		
 	
-	
+<!-- 		<action name="exam" class="admin.ExamAction"> -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/student_manage/exam.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 	
 		<!-- 获取学生信息 -->
 		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">
            <result name="success" type="json">
-            	<param name="includeProperties">fullName,studentId,college,phoneNumber,isUpgradePrivilege</param>           
+            	<param name="includeProperties">fullName,sex,studentId,college,phoneNumber,isUpgradePrivilege,bankCard,idCard</param>           
            </result>           
         </action>
 		
@@ -206,7 +253,7 @@
         <!-- 检索学生信息 -->
         <action name="student_information_search" class="admin.StudentManageAction" method="searchStudentInformation">
             <result name="success" type="json">
-            <param name="includeProperties">isEmpty,student_profile_id,fullName,studentId,college,phoneNumber,isUpgradePrivilege</param>
+            <param name="includeProperties">isEmpty,student_profile_id,fullName,studentId,sex,college,phoneNumber,isUpgradePrivilege,bankCard,idCard</param>
 			</result>        
         </action>
         
@@ -264,6 +311,7 @@
 		</action>
 	</package>
 	
+	<!-- 教室管理 -->
 	<package name="classroom" namespace="/admin/classroom" extends="AdminDefault">
 		<action name="">
 			<result type="redirect">teachBuildingAction</result>
@@ -297,6 +345,27 @@
 			</result>
 		</action>
 		
+		
+		<!-- 上传照片 -->
+        <action name="picture_upload" class="admin.ClassroomDetailAction" method="PictureUpload">
+            <result name="success" type="json">
+            <param name="includeProperties"></param>
+			</result>        
+        </action>
+        
+        <!-- 删除照片 -->
+        <action name="picture_delete" class="admin.ClassroomDetailAction" method="PictureDelete">
+            <result name="success" type="json">
+            <param name="includeProperties"></param>
+			</result>        
+        </action>
+		
+		
+		
+		
+		
+		
+		
 	</package>
 	
 	
@@ -325,12 +394,12 @@
 			<result name="success" type="redirect"> /admin/HomepageModify/notice</result>
 		</action>
 		
-		<action name="FileUpload"  class="admin.FileUploadAction">
+		<action name="resourceFileManage"  class="admin.ResourceFileUploadAction">
 			<result>
-				/jsp/admin/HomepageModify/FileUpload.jsp
+				/jsp/admin/HomepageModify/resourceFileManage.jsp
 			</result>			
 		</action>
-		<action name="FileUploadInsert"  class="admin.FileUploadAction" method ="insert">
+		<action name="FileUploadInsert"  class="admin.ResourceFileUploadAction" method ="insert">
 			<result type="json">				
 			</result>			
 		</action>
@@ -346,9 +415,13 @@
         <result name="success" type="json">
 <!--             	<param name="includeProperties">status,notice_id</param>            -->
 				
-            </result> 
+          </result> 
         </action>
     </package>
+    
+    
+    
+    
 </struts>
 
 

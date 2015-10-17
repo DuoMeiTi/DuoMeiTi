@@ -1,0 +1,21 @@
+.time-table td,th{
+	text-align:center;
+}
+
+.teachbuilding-droplist select{
+	width:150px;
+}
+
+#duty-choose-submit{
+	float:right;
+	margin-right:10px;
+}
+
+.chosen{
+	background-color:blue;
+	color:#eee;
+}
+
+.hide{
+	display:none;
+}

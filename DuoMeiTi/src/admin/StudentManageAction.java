@@ -1,5 +1,6 @@
 package admin;
 
+import java.sql.Date;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import model.AdminProfile;
 import model.Repertory;
+import model.Rules;
 import model.StudentProfile;
 import model.User;
 import util.Const;
@@ -52,6 +54,15 @@ public class StudentManageAction extends ActionSupport{
 	private static User edit_user;
 	private String isUpgradePrivilegelist[];
 	
+<<<<<<< HEAD
+=======
+	private String ruleText;//规章制度的内容,jsp页面传过来的内容
+	private String textShow;//规章制度的内容，显示给jsp页面的内容
+	private Date time;//规章制度的修改时间
+	
+	
+	
+>>>>>>> origin/master
 	public String searchStudentInformation() throws Exception
 	{
 		
@@ -85,12 +96,17 @@ public class StudentManageAction extends ActionSupport{
 				System.out.println("studentid:"+student_list.get(0).studentId);
 			
 				
-				student_profile_id = edit_student.getId();
+				
 				fullName = edit_user.getFullName();
+				sex = edit_user.getSex();
 				phoneNumber = edit_user.getPhoneNumber();
 				college = edit_student.getCollege();
 				studentId = edit_student.getStudentId();
 				isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
+				bankCard = edit_student.getBankCard();
+				idCard = edit_student.getIdCard();
+				
+				
 				
 				System.out.println(student_profile_id);
 				System.out.println(fullName);
@@ -126,12 +142,15 @@ public class StudentManageAction extends ActionSupport{
 				edit_student = student_list.get(0);
 				System.out.println("list:"+student_list);
 				
-				student_profile_id = edit_student.getId();
 				fullName = edit_user.getFullName();
+				sex = edit_user.getSex();
 				phoneNumber = edit_user.getPhoneNumber();
 				college = edit_student.getCollege();
 				studentId = edit_student.getStudentId();
 				isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
+				bankCard = edit_student.getBankCard();
+				idCard = edit_student.getIdCard();
+				
 				
 				System.out.println(student_profile_id);
 				System.out.println(fullName);
@@ -169,11 +188,13 @@ public String saveStudentInformation() throws Exception
 //		System.out.println(isUpgradePrivilege);
 		
 		edit_user.setFullName(fullName);
+		edit_user.setSex(sex);
 		edit_user.setPhoneNumber(phoneNumber);
 		edit_student.setStudentId(studentId);
 		edit_student.setCollege(college);
 		edit_student.setIsUpgradePrivilege(isUpgradePrivilege);
-		
+		edit_student.setBankCard(bankCard);
+		edit_student.setIdCard(idCard);
 		
 		
 		//更新学生数据
@@ -215,17 +236,23 @@ public String saveStudentInformation() throws Exception
 		edit_user = user_list.get(0);
 		
 		fullName = edit_user.getFullName();
+		sex = edit_user.getSex();
 		phoneNumber = edit_user.getPhoneNumber();
 		college = edit_student.getCollege();
 		studentId = edit_student.getStudentId();
 		isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
+		bankCard = edit_student.getBankCard();
+		idCard = edit_student.getIdCard();
 		
-		System.out.println(fullName);
-		System.out.println(studentId);
-		System.out.println(college);
-		System.out.println(phoneNumber);
-		System.out.println(isUpgradePrivilege);
-
+		
+//		System.out.println(fullName);
+//		System.out.println(sex);
+//		System.out.println(studentId);
+//		System.out.println(college);
+//		System.out.println(phoneNumber);
+//		System.out.println(isUpgradePrivilege);
+//		System.out.println(bankCard);
+//		System.out.println(idCard);
 		return SUCCESS;
 	}
 	
@@ -280,6 +307,8 @@ public String saveStudentInformation() throws Exception
 	public String studentInformation() throws Exception
 	{
 		System.out.println("studentInformation():");
+		collegeSelect=Const.collegeSelect;
+		sexSelect=Const.sexSelect;
 		
 		Session session=model.Util.sessionFactory.openSession();
 		Criteria q=session.createCriteria(StudentProfile.class);
@@ -291,8 +320,56 @@ public String saveStudentInformation() throws Exception
 		return SUCCESS;
 
 	}
-	
-	
+	//编辑规章制度
+	public String editRules() throws Exception{
+		System.out.println("StudentManageAction.editRules()");
+		
+		Session session = model.Util.sessionFactory.openSession();
+		//将前台传过来的文字 更新到数据库
+		Criteria q = session.createCriteria(Rules.class);
+		Rules rules = new Rules();
+		
+		if (q.list().size() == 0 ) {//如果现在表是空的，就插入到数据库中
+			rules.setText(ruleText);
+			rules.setTime(new Date(new java.util.Date().getTime()));
+			session.beginTransaction();
+			session.save(rules);
+			session.getTransaction().commit();
+			session.close();
+			
+		}
+		else {//如果不是空的，就更新数据库
+			q.add(Restrictions.eq("id",1));//默认就一条数据，所以id设为1
+			rules = (Rules)q.uniqueResult();
+			rules.setText(ruleText);
+			rules.setTime(new Date(new java.util.Date().getTime()));
+			session.beginTransaction();
+			session.save(rules);
+			session.getTransaction().commit();
+			session.close();
+		}
+//		Criteria q = session.createCriteria(Rules.class).add(Restrictions.eq("id",
+//					 1));//默认只有一条数据
+		
+		return ActionSupport.SUCCESS;
+	}
+	//显示规章制度
+	public String showRules() throws Exception{
+		System.out.println("StudentManageAction.showRules()");
+		
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(Rules.class);
+		Rules temp;
+		if (q.list().size() > 0) {
+			temp = (Rules)q.list().get(0);//
+			textShow = temp.getText();
+		}
+		else {
+			textShow =" ";
+		}
+		session.close();
+		return SUCCESS;
+	}
 	
 	
 	
@@ -619,6 +696,42 @@ public String saveStudentInformation() throws Exception
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	
+
+
+
+	
+	
+
+	public String getRuleText() {
+		return ruleText;
+	}
+
+
+	public void setRuleText(String ruleText) {
+		this.ruleText = ruleText;
+	}
+
+
+	public Date getTime() {
+		return time;
+	}
+
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+
+	public String getTextShow() {
+		return textShow;
+	}
+
+
+	public void setTextShow(String textShow) {
+		this.textShow = textShow;
 	}
 	
 	

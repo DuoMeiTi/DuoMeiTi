@@ -33,21 +33,16 @@ td,tr,th{
 				name="radio-select" value="3"
 				onclick="return showdiv('#timeCondition')"> 按时间
 			</label>
-			<a id="commitSearch" <%-- href="<%=path%>/admin/classroomDevice/query_action" --%> type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%" onclick="startSearch()">检索维修记录</a>
+			<a id="commitSearch" type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%" onclick="startSearch()">检索维修记录</a>
 			<%-- <a id="commitExport" href="<%=path%>/admin/classroomDevice/query_action" type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%">导出检索记录</a> --%>
 		</div>
 		<br />
 		<div class="searchCondition" id="conditions">
 			<div class="searchCondition-building" id="buildingCondition">
 				<select id="building" class="form-control" style="width: 30%;">
-					<option value="0">综合教学一号楼</option>
-					<option value="6">综合教学二号楼</option>
-					<option value="3">一馆</option>
-					<option value="4">二馆</option>
-					<option value="5">建馆</option>
-					<option value="1">研教楼</option>
-					<option value="7">机械馆</option>
-					<option value="8">材料馆</option>
+				<s:iterator value="builds" var="build" status="i">
+					<option value="<s:property value="#build.build_id"/>"><s:property value="#build.build_name"/></option>
+				</s:iterator>
 				</select>
 				<!--<input type="text" class="form-control" id="personVal" style="width: 30%">-->
 			</div>

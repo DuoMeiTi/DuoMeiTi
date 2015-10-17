@@ -10,4 +10,12 @@ public interface RepairDAO {
 	public List<Repair> queryRepair(String type, String val);
 
 	public int add_rt(String id, String bh);
+	
+	public List<Repertory> alterDevice(String classroom_id);
+	
+	public int m2alter(String move);
+	
+	public int addalterIm(String move);
+	
+	public int delalterIm(String move);
 }

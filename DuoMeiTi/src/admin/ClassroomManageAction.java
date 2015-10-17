@@ -136,7 +136,6 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
                 Projections.rowCount()).uniqueResult();  
 		classroom_criteria.setProjection(null);
 		 
-System.out.println("rowcount:" + rowCount);
 		//获取分页信息
 		PageBean pageBean = PageMessage.getPageMessage(currPage, (int) rowCount);
 
