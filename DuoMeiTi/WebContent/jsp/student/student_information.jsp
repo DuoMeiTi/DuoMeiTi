@@ -114,7 +114,7 @@
 			
 			function studentChangeCallBack(data)
 			{
-				alert("changed");
+				alert("修改成功");
 				location.reload();
 			}
 		</script>

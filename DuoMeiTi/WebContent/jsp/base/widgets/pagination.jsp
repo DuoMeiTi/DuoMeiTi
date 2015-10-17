@@ -12,8 +12,8 @@
 	      </a>
 	    </li>
   	</s:if>
-  	
   	<s:iterator  var="i" begin="@@max(currentPageNum - 2, 1)" end="currentPageNum - 1" step = "1" >
+  			
 			<li requestPageNum=<s:property value="i"/> > 
 				<a href="#"><s:property value="i"/> </a>
 			</li>

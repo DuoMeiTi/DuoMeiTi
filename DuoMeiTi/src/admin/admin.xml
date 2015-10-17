@@ -74,7 +74,7 @@
 	
 	<!-- 教室设备管理 -->
 	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="AdminDefault">
-		<action name="maintainRecords">
+		<action name="maintainRecords" class="admin.TeachBuildingAction">
 			<result>
 				/jsp/admin/maintainRecords.jsp
 			</result>
@@ -180,7 +180,7 @@
 				/jsp/admin/student_manage/student_manage_rules.jsp
 			</result>
 		</action>
-		<action name="rule_edit" class="admin.StudentManageAction" method="editRules">
+		<action name="ruleEdit" class="admin.StudentManageAction" method="editRules">
 			<result name="success" type="json">
 			
 			</result>
