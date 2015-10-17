@@ -82,7 +82,7 @@ public class PageGetBaseAction extends ActionSupport  {
 		if(this.currentPageNum != 0)
 		{
 			this.currentPageNum = newCurrentPageNum;
-			this.paginationHtml = util.Util.getJspOutput("/jsp/base/widgets/pagination.jsp");
+			this.paginationHtml = util.Util.getJspOutput("/jsp/base/widgets/paginationTable.jsp");
 		}
 		else 
 		{
