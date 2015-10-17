@@ -13,21 +13,11 @@ public class PageGetBaseAction extends ActionSupport  {
 	public static final String getPage = "getPage";
 	
 	
-	public int totalPageNum;
-	public int currentPageNum;
-	public String paginationHtml;
+	private int totalPageNum;
+	private int currentPageNum = 1;
+	private String paginationHtml;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
+	private boolean isAjaxTransmission = false;
 	
 	
 	
@@ -68,29 +58,28 @@ public class PageGetBaseAction extends ActionSupport  {
 		return res;
 	}
 	
+
 	// newCurrentPageNum  新的页面值！！！
-	public List makeAllOk(int newCurrentPageNum, Criteria q, int page_size)
+	// 根据q 所表示整体数据量返回页大小为page_size的List
+	// 同时设置this.currentPageNum
+	public List makeCurrentPageList(Criteria q, int page_size)
 	{		
 		q.setProjection(Projections.rowCount());
-		int tot_row = ((Long)q.uniqueResult()).intValue();		
+		int tot_row = ((Long)q.uniqueResult()).intValue();
 		q.setProjection(null);
 		q.setResultTransformer(Criteria.ROOT_ENTITY);
 		
 		this.totalPageNum = getTotalPageNum(page_size, tot_row);
-		int[] res = getPageRange(newCurrentPageNum, page_size, tot_row);
+		int[] res = getPageRange(currentPageNum, page_size, tot_row);
 		
-		if(this.currentPageNum != 0)
+		if(this.getIsAjaxTransmission())
 		{
-			this.currentPageNum = newCurrentPageNum;
 			this.paginationHtml = util.Util.getJspOutput("/jsp/base/widgets/paginationTable.jsp");
 		}
 		else 
 		{
-			this.currentPageNum = newCurrentPageNum;
 			this.paginationHtml = null;
 		}
-		
-		
 		
 		q.setFirstResult(res[0]);
 		q.setMaxResults(res[1]);
@@ -126,6 +115,14 @@ public class PageGetBaseAction extends ActionSupport  {
 	
 	
 	
+	public boolean getIsAjaxTransmission() {
+		return isAjaxTransmission;
+	}
+
+	public void setIsAjaxTransmission(boolean isAjaxTransmission) {
+		this.isAjaxTransmission = isAjaxTransmission;
+	}
+
 	public int getTotalPageNum() {
 		return totalPageNum;
 	}

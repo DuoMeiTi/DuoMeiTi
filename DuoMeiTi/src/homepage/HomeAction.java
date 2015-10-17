@@ -59,25 +59,18 @@ public class HomeAction extends PageGetBaseAction
 
 	public String resourceFile() throws Exception
 	{	
-		if(this.currentPageNum != 0) // 这是ajax 传输
-		{
-			Session session = model.Util.sessionFactory.openSession();
-			Criteria q = session.createCriteria(model.ResourceFilePath.class);
-			
-			file_path_list = makeAllOk(this.currentPageNum, q, 5);
-			session.close();
-			
-			file_path_html = util.Util.getJspOutput("/jsp/admin/HomepageModify/ResourceFileTable.jsp");
-
-				
-			return "getPage";
-		}
-
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(model.ResourceFilePath.class);
 		
-		file_path_list = this.makeAllOk(1, q, 5);
+		file_path_list = this.makeCurrentPageList(q, 5); // 获取当前页第一页
 		session.close();
+		if(this.getIsAjaxTransmission()) // 这是ajax 传输
+		{
+			file_path_html = util.Util.getJspOutput("/jsp/admin/HomepageModify/ResourceFileTable.jsp");
+				
+			return "getPage";
+		}
+		
 		return ActionSupport.SUCCESS;
 	}
 

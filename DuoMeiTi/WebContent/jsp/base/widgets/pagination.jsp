@@ -23,7 +23,7 @@ $(document).on("click","[requestPageNum]",  function(){
         url: '',
         type: 'post',
         dataType: 'json',
-        data: {"currentPageNum": $(this).attr("requestPageNum") ,},
+        data: {"currentPageNum": $(this).attr("requestPageNum") , "isAjaxTransmission":true, },
         success: _requestPageNumCallback
       });	
 })
