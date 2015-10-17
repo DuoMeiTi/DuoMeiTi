@@ -256,6 +256,8 @@ public class StudentAction extends FileUploadBaseAction {
 	public String studentRegisterSave() throws Exception
 	{
 		System.out.println("haha");
+		System.out.println(username);
+		System.out.println(phoneNumber);
 		if(username.equals("") || password.equals("") || fullName.equals("") || studentId.equals(""))
 		{
 			this.register_status = "1";

@@ -377,9 +377,9 @@
 			<result name="success" type="redirect"> /admin/HomepageModify/notice</result>
 		</action>
 		
-		<action name="FileUpload"  class="admin.ResourceFileUploadAction">
+		<action name="resourceFileManage"  class="admin.ResourceFileUploadAction">
 			<result>
-				/jsp/admin/HomepageModify/FileUpload.jsp
+				/jsp/admin/HomepageModify/resourceFileManage.jsp
 			</result>			
 		</action>
 		<action name="FileUploadInsert"  class="admin.ResourceFileUploadAction" method ="insert">
@@ -401,6 +401,10 @@
           </result> 
         </action>
     </package>
+    
+    
+    
+    
 </struts>
 
 
