@@ -69,7 +69,6 @@
 			</result>
 		</action>
 
-<<<<<<< HEAD
 		<action name="repertory_*" class="admin.RepertoryAction" method="{1}">
 			<result name="success" type="json">
 				<!-- <param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param> -->
@@ -84,12 +83,9 @@
 		  
 	</package>
 	
-=======
 		       
-	</package>
 	
 	<!-- 教室设备管理 -->
->>>>>>> origin/master
 	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="AdminDefault">
 		<action name="maintainRecords" class="admin.TeachBuildingAction">
 			<result>

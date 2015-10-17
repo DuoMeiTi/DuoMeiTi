@@ -54,15 +54,14 @@ public class StudentManageAction extends ActionSupport{
 	private static User edit_user;
 	private String isUpgradePrivilegelist[];
 	
-<<<<<<< HEAD
-=======
 	private String ruleText;//规章制度的内容,jsp页面传过来的内容
 	private String textShow;//规章制度的内容，显示给jsp页面的内容
 	private Date time;//规章制度的修改时间
 	
 	
 	
->>>>>>> origin/master
+
+
 	public String searchStudentInformation() throws Exception
 	{
 		
