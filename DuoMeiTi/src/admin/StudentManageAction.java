@@ -52,10 +52,6 @@ public class StudentManageAction extends ActionSupport{
 	private static User edit_user;
 	private String isUpgradePrivilegelist[];
 	
-	
-	
-	
-	
 	public String searchStudentInformation() throws Exception
 	{
 		

@@ -11,7 +11,7 @@
 	    <a href="/admin/student_manage/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;在职学生管理</span></a>
 	    <a href="/admin/user_request/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;用户注册请求</span></a>
 	    
-	    <a href="/admin/usefdsaf" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;账号生成</span></a>
+	    <a href="/admin/adminaccount" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;账号生成</span></a>
 
 <!-- 	    <a href="/admin/wer" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;主页修改</span></a> -->
 <!-- 	    <a href="/admin/notice" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;公告管理</span></a> -->

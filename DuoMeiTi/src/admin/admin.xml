@@ -68,9 +68,14 @@
 				<!-- <param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param> -->
 				<param name="excludeProperties"> repertory_list</param>
 			</result>
-		</action>        
+		</action>  
+		
+		<!-- 管理员账号管理 Action -->
+		<action name="adminaccount" class="admin.AdminAccountAction" method="initallAdminProfilelist">
+			<result>/jsp/admin/adminAccount.jsp</result>
+		</action>  
+		  
 	</package>
-	
 	
 	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="AdminDefault">
 		<action name="maintainRecords">
