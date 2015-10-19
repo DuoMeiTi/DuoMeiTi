@@ -34,7 +34,7 @@ public class CheckRecordAction extends ActionSupport {
 			
 			Date checkdate = new Date(new java.util.Date().getTime());
 			System.out.println("好了没有啊"+classroomid);
-			
+			/*int classroom_id = (int) ActionContext.getContext().getSession().get("classroom_id");*/
 			Criteria classroom_criteria = session.createCriteria(Classroom.class);
 			classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(classroomid)));
 			Classroom classroom = (Classroom) classroom_criteria.uniqueResult();

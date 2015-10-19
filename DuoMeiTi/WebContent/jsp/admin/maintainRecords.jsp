@@ -60,10 +60,9 @@ td,tr,th{
 			
 			<div class="searchCondition-equipment" id="equipmentCondition">
 				<select id="deviceid" class="form-control" style="width: 30%">
-					<option value="计算机">计算机</option>
-					<option value="投影">投影</option>
-					<option value="中央控制器">中央控制器</option>
-					<option value="外围设备">外围设备</option>
+				<s:iterator value="repo_types" var="repo_type" status="i">
+					<option value="<s:property value="#repo_type"/>"><s:property value="#repo_type"/></option>
+				</s:iterator>
 				</select>
 
 			</div>
