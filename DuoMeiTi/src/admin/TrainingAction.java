@@ -1,6 +1,7 @@
 package admin;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -21,8 +22,13 @@ public class TrainingAction extends ActionSupport{
 	private List<ExamTitle> qtitle;
 	private List<List<ExamOption> > qoption = new ArrayList<List<ExamOption>>();
 	
+	private int emId;
 	private String emTitle;
-	List optionList = new ArrayList();
+	private List optionList;
+	private List checkList;
+	private String add_exam_html;
+	private String exam_table;
+
 	private String emTrue;
 	
 	public String execute() throws Exception
@@ -34,7 +40,6 @@ public class TrainingAction extends ActionSupport{
 		//exam
 		Criteria ctitle = session.createCriteria(ExamTitle.class);
 		qtitle = ctitle.list();
-		
 		qoption.clear();
 		for(int i = 0; i < qtitle.size(); i++)
 		{
@@ -42,16 +47,76 @@ public class TrainingAction extends ActionSupport{
 							  .add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()  ));
 			qoption.add(coption.list());
 		}
-		
+		Collections.reverse(qtitle);
+		Collections.reverse(qoption);
 		session.close();
 		return SUCCESS;
 	}
 	
 	public String examInsert() throws Exception
 	{
-		System.out.println(emTitle + " | " + optionList + " | " + emTrue + "|");
-//		ExamTitle et = new ExamTitle();
+		System.out.println(emTitle + " | " + optionList + " | " + checkList + "|");
+		Session session = model.Util.sessionFactory.openSession();
+		session.beginTransaction();
+		
+		ExamTitle et = new ExamTitle();
+		et.setEmTitle(emTitle);
+		session.save(et);
+		
+		for(int i = 0; i < optionList.size(); i++)
+		{
+			ExamOption eo = new ExamOption();
+			eo.setEmTitle(et);
+			eo.setEmOption(optionList.get(i).toString());
+			eo.setEmCheck(checkList.get(i).toString());
+			session.save(eo);
+		}
+		
+		session.getTransaction().commit();
+		
+		Criteria ctitle = session.createCriteria(ExamTitle.class);
+		qtitle = ctitle.list();
+		qoption.clear();
+		for(int i = 0; i < qtitle.size(); i++)
+		{
+			Criteria coption = session.createCriteria(ExamOption.class)
+							  .add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()  ));
+			qoption.add(coption.list());
+		}
+		Collections.reverse(qtitle);
+		Collections.reverse(qoption);
+		
+		session.close();
+//		this.execute();
+		exam_table = util.Util.getJspOutput("/jsp/admin/widgets/examTable.jsp");
 		trStatus = "1";
+		return SUCCESS;
+	}
+	
+	public String examDelete() throws Exception
+	{
+		System.out.println("$$$$$$$$$$$$" + emId);
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria qt = session.createCriteria(ExamTitle.class).add(Restrictions.eq("emId", emId));
+		qtitle = qt.list();
+		if(qtitle.isEmpty())
+		{
+			this.trStatus = "0";
+		}
+		else
+		{
+			session.beginTransaction();
+			Criteria qo = session.createCriteria(ExamOption.class).add(Restrictions.eq("emTitle.emId", emId));
+			List<ExamOption> qoList = qo.list();
+			for(int i = 0; i < qoList.size(); i++)
+			{
+				session.delete(qoList.get(i));
+			}
+			session.delete(qtitle.get(0));
+			session.getTransaction().commit();
+			this.trStatus = "1";
+		}
+		session.close();
 		return SUCCESS;
 	}
 	
@@ -83,10 +148,6 @@ public class TrainingAction extends ActionSupport{
 		return SUCCESS;
 	}
 
-	
-	
-	
-	
 	public int getTrId() {
 		return trId;
 	}
@@ -135,11 +196,11 @@ public class TrainingAction extends ActionSupport{
 		this.emTitle = emTitle;
 	}
 
-	public List<ExamOption> getOptionList() {
+	public List getOptionList() {
 		return optionList;
 	}
 
-	public void setOptionList(List<ExamOption> optionList) {
+	public void setOptionList(List optionList) {
 		this.optionList = optionList;
 	}
 
@@ -150,5 +211,61 @@ public class TrainingAction extends ActionSupport{
 	public void setEmTrue(String emTrue) {
 		this.emTrue = emTrue;
 	}
+
+	public List getCheckList() {
+		return checkList;
+	}
+
+	public void setCheckList(List checkList) {
+		this.checkList = checkList;
+	}
+
+	public String getAdd_exam_html() {
+		return add_exam_html;
+	}
+
+	public void setAdd_exam_html(String add_exam_html) {
+		this.add_exam_html = add_exam_html;
+	}
+
+	public String getExam_table() {
+		return exam_table;
+	}
+
+	public void setExam_table(String exam_table) {
+		this.exam_table = exam_table;
+	}
+
+	public int getEmId() {
+		return emId;
+	}
+
+	public void setEmId(int emId) {
+		this.emId = emId;
+	}
+
+	
+
+	
+	
+	
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

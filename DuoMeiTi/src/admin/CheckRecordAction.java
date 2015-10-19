@@ -31,7 +31,6 @@ public class CheckRecordAction extends ActionSupport {
 //System.out.println(stu.getUser().getUsername());
 			
 			Date checkdate = new Date(new java.util.Date().getTime());
-			
 			int classroom_id = (int) ActionContext.getContext().getSession().get("classroom_id");
 			Criteria classroom_criteria = session.createCriteria(Classroom.class);
 			classroom_criteria.add(Restrictions.eq("id", classroom_id));
