@@ -20,6 +20,9 @@ public class ExamOption {
 	@Column(length = 500)
 	public String emOption;
 	
+	@Column(length = 30)
+	public String emCheck;//选项是否正确
+	
 	@ManyToOne
 	@JoinColumn
 	@Fetch(FetchMode.SELECT)
@@ -48,6 +51,17 @@ public class ExamOption {
 	public void setEmTitle(ExamTitle emTitle) {
 		this.emTitle = emTitle;
 	}
+
+	public String getEmCheck() {
+		return emCheck;
+	}
+
+	public void setEmCheck(String emCheck) {
+		this.emCheck = emCheck;
+	}
+
+	
+	
 	
 	
 }
