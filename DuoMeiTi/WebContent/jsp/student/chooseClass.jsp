@@ -23,7 +23,7 @@
 			<thead>
 				<tr class="row">
 					<th class="col-md-2">值班时间</th>
-					<s:iterator value="{'一','二','三','四','五','六','七'}" var='week'>
+					<s:iterator value="{'一','二','三','四','五','六','日'}" var='week'>
 						<th class="col-md-1.5"><s:property value='week'/></th>
 					</s:iterator>
 				</tr>
