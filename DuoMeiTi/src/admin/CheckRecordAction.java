@@ -18,6 +18,8 @@ public class CheckRecordAction extends ActionSupport {
 	
 	public String checkdetail;
 	
+	public String classroomid;
+	
 	public String savestatus;
 
 	public String checkrecordsave() {
@@ -31,10 +33,10 @@ public class CheckRecordAction extends ActionSupport {
 //System.out.println(stu.getUser().getUsername());
 			
 			Date checkdate = new Date(new java.util.Date().getTime());
+			System.out.println("好了没有啊"+classroomid);
 			
-			int classroom_id = (int) ActionContext.getContext().getSession().get("classroom_id");
 			Criteria classroom_criteria = session.createCriteria(Classroom.class);
-			classroom_criteria.add(Restrictions.eq("id", classroom_id));
+			classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(classroomid)));
 			Classroom classroom = (Classroom) classroom_criteria.uniqueResult();
 			
 			CheckRecord checkrecord = new CheckRecord();

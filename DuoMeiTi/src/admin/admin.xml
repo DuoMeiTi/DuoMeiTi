@@ -93,8 +93,8 @@
 			<result name="move2alter" type="redirect">
 				../classroom/classroom_detail.action?classroomId=${classroom_id}
 			</result>
-			<result name="addalter" type="redirectAction">
-				alter_action?classroomid=${classroom_id}
+			<result name="addalter" type="redirect">
+				../classroom/classroom_detail.action?classroomId=${classroom_id}
 			</result>
 			<result name="delalter" type="redirectAction">
 				alter_action?classroomid=${classroom_id}
