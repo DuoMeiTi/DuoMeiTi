@@ -69,8 +69,21 @@
 			</result>
 		</action>
 
-		       
+		<action name="repertory_*" class="admin.RepertoryAction" method="{1}">
+			<result name="success" type="json">
+				<!-- <param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param> -->
+				<param name="excludeProperties"> repertory_list</param>
+			</result>
+		</action>  
+		
+		<!-- 管理员账号管理 Action -->
+		<action name="adminaccount" class="admin.AdminAccountAction" method="initallAdminProfilelist">
+			<result>/jsp/admin/adminAccount.jsp</result>
+		</action>  
+		  
 	</package>
+	
+		       
 	
 	<!-- 教室设备管理 -->
 	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="AdminDefault">
@@ -93,8 +106,8 @@
 			<result name="move2alter" type="redirect">
 				../classroom/classroom_detail.action?classroomId=${classroom_id}
 			</result>
-			<result name="addalter" type="redirectAction">
-				alter_action?classroomid=${classroom_id}
+			<result name="addalter" type="redirect">
+				../classroom/classroom_detail.action?classroomId=${classroom_id}
 			</result>
 			<result name="delalter" type="redirectAction">
 				alter_action?classroomid=${classroom_id}
@@ -328,6 +341,27 @@
 			</result>
 		</action>
 		
+		
+		<!-- 上传照片 -->
+        <action name="picture_upload" class="admin.ClassroomDetailAction" method="PictureUpload">
+            <result name="success" type="json">
+            <param name="includeProperties"></param>
+			</result>        
+        </action>
+        
+        <!-- 删除照片 -->
+        <action name="picture_delete" class="admin.ClassroomDetailAction" method="PictureDelete">
+            <result name="success" type="json">
+            <param name="includeProperties"></param>
+			</result>        
+        </action>
+		
+		
+		
+		
+		
+		
+		
 	</package>
 	
 	
@@ -356,9 +390,9 @@
 			<result name="success" type="redirect"> /admin/HomepageModify/notice</result>
 		</action>
 		
-		<action name="FileUpload"  class="admin.ResourceFileUploadAction">
+		<action name="resourceFileManage"  class="admin.ResourceFileUploadAction">
 			<result>
-				/jsp/admin/HomepageModify/FileUpload.jsp
+				/jsp/admin/HomepageModify/resourceFileManage.jsp
 			</result>			
 		</action>
 		<action name="FileUploadInsert"  class="admin.ResourceFileUploadAction" method ="insert">
@@ -380,6 +414,10 @@
           </result> 
         </action>
     </package>
+    
+    
+    
+    
 </struts>
 
 

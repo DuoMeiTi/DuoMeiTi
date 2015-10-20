@@ -17,13 +17,13 @@
 	<!-- 
 	<h3>时间列表(还可选择<span class="self-duty-left"><s:property value='3'/></span>个班)</h3>
 	-->
-	<div class="time-table hide" iid=<s:property value="#session.username"/>>
+	<div class="time-table hide" iid=<s:property value="#session.student_id"/>>
 		<h3>时间列表</h3>
 		<table class="table table-bordered">
 			<thead>
 				<tr class="row">
 					<th class="col-md-2">值班时间</th>
-					<s:iterator value="{'一','二','三','四','五','六','七'}" var='week'>
+					<s:iterator value="{'一','二','三','四','五','六','日'}" var='week'>
 						<th class="col-md-1.5"><s:property value='week'/></th>
 					</s:iterator>
 				</tr>

@@ -55,7 +55,9 @@
 			<result type="json" name="ajaxSuccess">
 				<param name="includeProperties">
 					duties\[\d+\]\.dutyLeft,
-					duties\[\d+\]\.time
+					duties\[\d+\]\.time,
+					chosen\[\d+\],
+					teachBuildingId
 				</param>
 			</result>
 		</action>

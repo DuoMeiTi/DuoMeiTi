@@ -20,7 +20,7 @@ public class ChooseClass {
 		List<TeachBuilding> building_list=session.createCriteria(TeachBuilding.class).list();
 		for(TeachBuilding tb:building_list){
 			for(int i=1;i<=5;i++){
-				for(int j=1;j<=5;j++){
+				for(int j=1;j<=7;j++){
 					List<DutyTime> temp=session.createCriteria(DutyTime.class)
 							.add(Restrictions.eq("teachBuilding.build_id",tb.build_id))
 							.add(Restrictions.eq("time",i*10+j))

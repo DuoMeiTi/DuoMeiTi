@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<th style="width:10%;">出厂日期</th>
 						<th style="width:10%;">使用时常</th>
 						<th style="width:10%;"></th>
-						<th style="width:10%;"></th>
+						<!-- <th style="width:10%;"></th> -->
 					</tr>
 				</thead>
 				
@@ -62,10 +62,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td><s:property value="#item.rtFactorynum"/></td>
 							<td><s:property value="#item.rtProdDate"/></td>
 							<td><s:property value="#item.rtReplacePeriod"/></td>
-							<td><a href="<%=path%>/admin/classroomDevice/addalter_action?rtid=<s:property value="#item.rtId"/>" id="addalter" type="button" class="btn btn-primary btn-sm"  
-									>加入教室</a></td>
-							<td><a href="<%=path%>/admin/classroomDevice/delalter_action?rtid=<s:property value="#item.rtId"/>" id="delalter" type="button" class="btn btn-primary btn-sm"  
-									>删除设备</a></td>
+							<td><button type="button" class="btn btn-primary btn-sm" onclick="refresh(<s:property value="#item.rtId"/>)" 
+									>加入教室</button></td>
+							<%-- td><a href="<%=path%>/admin/classroomDevice/delalter_action?rtid=<s:property value="#item.rtId"/>" id="delalter" type="button" class="btn btn-primary btn-sm"  
+									>删除设备</a></td> --%>
 					</tr>
 				</s:iterator>
 
@@ -125,6 +125,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		Request = GetRequest();
 		var classid = Request['classroomid'];
 		return classid;
+	}
+	
+	$(window.parent.document).find("#main").load(function(){
+		var main = $(window.parent.document).find("#main");
+		var thisheight = $(document).height()+30;
+		main.height(thisheight);
+	});
+	
+	function refresh(rtid) {
+		var url = "<%=path%>/admin/classroomDevice/addalter_action?rtid=" + rtid;
+		url = url+"&classroomid="+getId();
+		parent.location.reload(); 
+		window.open(url);
+		window.opener.location.reload();
+		window.opener.closeWindow();
 	}
 	</script>
 </body>
