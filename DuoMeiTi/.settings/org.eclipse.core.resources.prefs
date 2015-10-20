@@ -33,6 +33,8 @@ encoding//WebContent/jsp/base/user_base.jsp=UTF-8
 encoding//WebContent/jsp/homepage/ResourceFile.jsp=UTF-8
 encoding//WebContent/jsp/homepage/admin_register.jsp=UTF-8
 encoding//WebContent/jsp/homepage/base.jsp=UTF-8
+encoding//WebContent/jsp/homepage/building_information.jsp=UTF-8
+encoding//WebContent/jsp/homepage/classroom_information.jsp=UTF-8
 encoding//WebContent/jsp/homepage/file_upload.jsp=UTF-8
 encoding//WebContent/jsp/homepage/home.jsp=UTF-8
 encoding//WebContent/jsp/homepage/home2.jsp=UTF-8
@@ -49,14 +51,7 @@ encoding//WebContent/jsp/student/base.jsp=UTF-8
 encoding//WebContent/jsp/student/chooseClass.jsp=UTF-8
 encoding//WebContent/jsp/student/classroom_detail.jsp=UTF-8
 encoding//WebContent/jsp/student/classroom_manage.jsp=UTF-8
-<<<<<<< HEAD
 encoding//WebContent/jsp/student/student_information.jsp=UTF-8
-=======
-<<<<<<< HEAD
 encoding//WebContent/jsp/student/student_show_rules.jsp=UTF-8
-=======
->>>>>>> origin/master
->>>>>>> origin/master
->>>>>>> origin/master
 encoding//WebContent/jsp/student/train.jsp=UTF-8
 encoding/<project>=UTF-8
