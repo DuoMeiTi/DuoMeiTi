@@ -27,6 +27,7 @@ import common.ChooseClass;
 
 
 import model.User;
+import model.StudentProfile;
 import util.Util;
 
 public class UserAction
@@ -96,6 +97,7 @@ public class UserAction
 			if(!ul.isEmpty())
 			{
 				role = util.Const.StudentRole;
+				ActionContext.getContext().getSession().put("student_id",((StudentProfile)ul.get(0)).getId());
 			}
 			else 
 			{

@@ -57,7 +57,9 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		building = (TeachBuilding) building_criteria.uniqueResult();
 		
 		ActionContext.getContext().getSession().remove("classroom_id");
+		//ActionContext.getContext().getSession().remove("classroom");
 		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
+		//ActionContext.getContext().getSession().put("classroom", classroom);
 		
 		/*String hql = "SELECT rt FROM Repertory rt WHERE rt.classroom = " + classroomId;
 		Query query = session.createQuery(hql);

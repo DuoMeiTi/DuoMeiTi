@@ -6,29 +6,29 @@
 
 
 
-	<table class="table table-bordered" id="file_list_table">
+<table class="table table-bordered" id="file_list_table">
+
+	<tr class="active">
+		<th> 文件列表 </th>
+	</tr>
 	
-		<tr class="active">
-			<th> 文件列表 </th>
-		</tr>
-		
-		
-		
-		<s:iterator value="file_path_list" var="i" status="index" >  
+	
+	
+	<s:iterator value="file_path_list" var="i" status="index" >  
 
 
-			<tr class="success" >
-				<td style="text-align:left;">  
-					 <a href="<s:property value="#i.filePath"/> "> 
+		<tr class="success" >
+			<td style="text-align:left;">  
+				 <a href="<s:property value="#i.filePath"/> "> 
 <%-- 						<s:property value="#i.filePath.split('/')"/> --%>
-						<s:property value="@util.Util@getFileNameFromPath(#i.filePath)"/>
-					 </a>  
-				</td>
+					<s:property value="@util.Util@getFileNameFromPath(#i.filePath)"/>
+				 </a>  
+			</td>
 
-			</tr>
-		</s:iterator>  
-		
-		
-		
+		</tr>
+	</s:iterator>  
+	
+	
+	
 
-	</table>
+</table>

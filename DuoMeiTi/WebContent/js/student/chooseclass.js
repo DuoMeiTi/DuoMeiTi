@@ -45,13 +45,17 @@ $(document).on("click",".dutyleft",function(){
 $(document).on("click",".buildingSelect",function(){
 	var id=parseInt($(this).val());
 	var timetable=$(".time-table");
+	var studentId=parseInt(timetable.attr("iid"));
 	if(id>0){
 		timetable.removeClass("hide");
+		$(".dutyleft").each(function(){
+			$(this).removeClass("chosen");
+		});
 		$.ajax({
 			url:"/student/getdutytime",
 			type : 'post',
 			dataType : 'json',
-			data : {"teachBuildingId":id},
+			data : {"teachBuildingId":id,"studentId":studentId},
 			success : getDutyTimeCallBack
 		})
 	}
@@ -61,11 +65,21 @@ $(document).on("click",".buildingSelect",function(){
 })
 
 function getDutyTimeCallBack(data){
+	var chosen=data.chosen;
 	var dutyTime=data.duties;
-	$(dutyTime).each(function(i){
-		$(".dutyleft").each(function(j){
-			$(this).html(dutyTime[i].dutyLeft);
-		})
+	var teachBuildingId=data.teachBuildingId;
+	var sel=$(".buildingSelect");
+	$(".dutyleft").each(function(j){
+		$(this).html(dutyTime[j].dutyLeft);
+		if(teachBuildingId==sel.val()){
+			var cur=$(this);
+			var b=10*(parseInt(j/7)+1)+(j%7+1);
+			$(chosen).each(function(i){
+				if(chosen[i]==b){
+					cur.addClass("chosen");
+				}
+			});
+		}
 	})
 }
 
@@ -76,16 +90,19 @@ $("#duty-choose-submit").click(function(){
 		var col=parseInt($(this).attr("col"));
 		chosen[i]=row*10+col;
 	});
+	var timetable=$(".time-table");
+	var studentId=parseInt(timetable.attr("iid"));
+	var id=parseInt($(".buildingSelect").val());
 	$.ajax({
 		url:"/student/sendChoice",
 		type : 'post',
 		dataType : 'json',
-		data : {"chosen":chosen},
+		data : {"chosen":chosen,"studentId":studentId,"teachBuildingId":id},
 		traditional:true,
 		success : sendChoiceCallBack
 	});
 });
 
-function sendChoiceCallBack(){
-	
+function sendChoiceCallBack(data){
+	alert(data.log);
 }
