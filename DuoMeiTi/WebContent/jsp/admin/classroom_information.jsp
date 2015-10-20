@@ -21,15 +21,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	</script>
 	
-	<div class="row">
-			<div class="col-lg-6 col-lg-offset-3 classbuilding">
-				<span><s:property value="building.build_name"/>&nbsp;&nbsp;<s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>负责人:</span>
-				<span id="classroomid" style="visibility:hidden"><s:property value="classroom.id"/></span>
-				<span class="director-span"><s:property value="classroom.principal.user.username"/></span>
-			</div>
-		</div>
-		<hr>
 	
 		<!-- Modal -->
 		<div class="modal fade" id="schedule-modal" tabindex="-1" role="dialog"
