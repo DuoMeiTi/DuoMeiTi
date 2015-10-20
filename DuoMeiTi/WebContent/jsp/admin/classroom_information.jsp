@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	</script>
 	
-<<<<<<< HEAD
+<%-- <<<<<<< HEAD
 =======
 	<div class="row">
 			<div class="col-lg-6 col-lg-offset-3 classbuilding">
@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			</div>
 		<hr>
->>>>>>> origin/master
+>>>>>>> origin/master --%>
 	
 		<!-- Modal -->
 		<div class="modal fade" id="schedule-modal" tabindex="-1" role="dialog"
@@ -131,6 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input type="text" class="form-control" id="zichanhao" style="width:30%;float:left;margin-left:5%;" placeholder="请输入资产编号"></input>
 						<!-- <button type="submit" class="btn btn-info btn-sm" style="margin-left:5%">查询</button> -->
 						<button type="button" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="add_classroomrt()">添加</button>
+						<button id="alterSearch" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</button>
 					</div>
 				<!-- </form> -->
 				<script>
@@ -250,7 +251,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 		<div id="alter_table">
-			<button id="alterSearch" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</button>
+			<!-- <button id="alterSearch" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</button> -->
 			<!-- <a id="alterSearch" target="myFrame1" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</a> -->
 
 			<iframe name="myFrame1" id="main" frameborder="0" scrolling="no" style="width:100%;" height="" ></iframe>
