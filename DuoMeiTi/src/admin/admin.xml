@@ -74,8 +74,8 @@
 				<!-- <param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param> -->
 				<param name="excludeProperties"> repertory_list</param>
 			</result>
-		</action>  
-		
+		</action>        
+
 		<!-- 管理员账号管理 Action -->
 		<action name="adminaccount" class="admin.AdminAccountAction" method="initallAdminProfilelist">
 			<result>/jsp/admin/adminAccount.jsp</result>
@@ -396,6 +396,17 @@
 			</result>			
 		</action>
 		<action name="FileUploadInsert"  class="admin.ResourceFileUploadAction" method ="insert">
+			<result type="json">				
+			</result>			
+		</action>
+		
+<!--常见问题的action设置  -->		
+        <action name="CommonProblem" class = "admin.CommonProblemAction">
+			<result name="success">
+				/jsp/admin/HomepageModify/CommonProblem.jsp
+			</result>
+		</action>
+		<action name="CommonProblem_*"  class="admin.CommonProblemAction" method ="{1}">
 			<result type="json">				
 			</result>			
 		</action>

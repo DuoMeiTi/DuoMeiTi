@@ -1,6 +1,5 @@
 package admin;
 
-
 import java.util.Collections;
 import java.util.List;
 import java.sql.Date;
@@ -13,9 +12,11 @@ import org.hibernate.criterion.Restrictions;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import model.Notice;
+import model.Commonproblem;
 import model.User;;
-public class NoticeAction {
+
+public class CommonProblemAction extends ActionSupport
+{
 	public String title;
 	public String content;
 	public int id;
@@ -26,8 +27,8 @@ public class NoticeAction {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Notice notice2;
-	public List<Notice> notice ;
+	public Commonproblem notice2;
+	public List<Commonproblem> notice ;
 	public String status;
 	
 	public String submit_type;
@@ -37,17 +38,16 @@ public class NoticeAction {
 	public void setId(int id) {
 		this.id = id;
 	}
-	//	public 
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public List<Notice> getNotice() {
+	public List<Commonproblem> getNotice() {
 		return notice;
 	}
-	public void setNotice(List<Notice> notice) {
+	public void setNotice(List<Commonproblem> notice) {
 		this.notice = notice;
 	}
 	public String getStatus() {
@@ -60,7 +60,7 @@ public class NoticeAction {
 	public String execute() throws Exception{
 		//System.out.println("NoticeAction.execute()");
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria c = session.createCriteria(Notice.class);
+		Criteria c = session.createCriteria(Commonproblem.class);
 		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		notice = c.list();
 		Collections.reverse(notice);
@@ -68,10 +68,10 @@ public class NoticeAction {
 //		System.out.println("NoticeAction.execute()2222");
 		return ActionSupport.SUCCESS;
 	}
-	//添加公告和更新公告
+	
 	public String add(){
 		// 获得时间
-		System.out.println("NoticeAction.add()");
+		System.out.println(title +"///" +  content + "///");
 //		Date date = new Date();
 //		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 //		String time = format.format(date).toString();
@@ -79,7 +79,7 @@ public class NoticeAction {
 		Session session = model.Util.sessionFactory.openSession();
 		if(submit_type.equals("add")){
 		System.out.println("type:add");
-		Notice notice3 = new Notice();
+		Commonproblem notice3 = new Commonproblem();
 		notice3.setTitle(title);
 		notice3.setContent(content);
 		notice3.setTime(new Date(new java.util.Date().getTime()));
@@ -91,11 +91,11 @@ public class NoticeAction {
 		else if(submit_type.equals("update")){
 			System.out.println("type:update");
 			Criteria q =
-					 session.createCriteria(Notice.class).add(Restrictions.eq("id",
+					 session.createCriteria(Commonproblem.class).add(Restrictions.eq("id",
 					 id));
-			Notice notice4 = new Notice();
+			Commonproblem notice4 = new Commonproblem();
 			notice4.setId(id);
-			notice4 = (Notice)q.uniqueResult(); 
+			notice4 = (Commonproblem)q.uniqueResult(); 
 			notice4.setContent(content);
 			notice4.setTitle(title);
 			session.beginTransaction();
@@ -108,10 +108,10 @@ public class NoticeAction {
 		return ActionSupport.SUCCESS;
 	}
 	public String delete(){
-		System.out.println("NoticeAction.delete()");
+		System.out.println("CommonProblemAction.delete()");
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q =
-				 session.createCriteria(Notice.class).add(Restrictions.eq("id",
+				 session.createCriteria(Commonproblem.class).add(Restrictions.eq("id",
 				 id));
 //		Notice notice4 = new Notice();
 //		notice4.setId(id);
@@ -133,4 +133,10 @@ public class NoticeAction {
 		
 		return ActionSupport.SUCCESS;
 	}  
+	
+	public String commonPro() throws Exception 
+	{
+		return ActionSupport.SUCCESS;
+	}
+	
 }
