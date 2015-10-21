@@ -14,6 +14,7 @@ import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -35,17 +36,12 @@ public class HomeAction extends PageGetBaseAction
 	public String file_path_html;
 	
 
-	
-	
-
 	public String execute() throws Exception
 	{ 
 		Session session = model.Util.sessionFactory.openSession();
 		
 		check_list = session.createCriteria(model.CheckRecord.class).list();
 		notice_list = session.createCriteria(model.Notice.class).list();
-		
-
 		repair_list = session.createCriteria(model.RepairRecord.class).list();
 		
 		Collections.reverse(check_list);
@@ -131,9 +127,6 @@ public class HomeAction extends PageGetBaseAction
 	public void setFile_path_html(String file_path_html) {
 		this.file_path_html = file_path_html;
 	}
-
-	
-	
 }
 
 

@@ -3,7 +3,6 @@
 <layout:override name="main_content">
     <%//加入标题  %>
 <div class="mycontent">
-
 	<div class="row">
 		<div class="col-lg-6 col-lg-offset-3 classbuilding">
 			<span>修改密码</span>

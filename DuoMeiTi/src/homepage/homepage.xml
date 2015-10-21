@@ -12,7 +12,7 @@
 <!--   		<action name="resourceFileGetPage" class="homepage.HomeAction" method="getPage"> -->
 <!--         	<result name="success" type="json"> </result> -->
 <!--         </action> -->
-    	
+    	 
     	
     	
     	<action name="home2">

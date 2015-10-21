@@ -71,7 +71,7 @@ public class CommonProblemAction extends ActionSupport
 	
 	public String add(){
 		// 获得时间
-//		System.out.println("CommonProblemAction.add()" + title +" " +  content);
+		System.out.println(title +"///" +  content + "///");
 //		Date date = new Date();
 //		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 //		String time = format.format(date).toString();

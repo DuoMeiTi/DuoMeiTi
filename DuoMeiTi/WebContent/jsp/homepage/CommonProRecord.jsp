@@ -1,26 +1,28 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
-<layout:override name="main_content">
-<h3 style="margin-left:20px"> 常见问题</h3>
-<style>
-#cmpr{
-	margin-left:20px;
-	"border:red solid;
-	border-width:1 1 1 1;
-	max-width:1120px;
-}
-</style>
-<textarea name="cmpr" cols="178" rows="30" id="cmpr" ></textarea>
-                    <s:iterator value="notice_list" var="i" status="index" >
+<layout:override name="main_content">       
+<div class="row news_frame">
+  <div class="col-lg-6" style="width:98%; margin:10px">
+    <!--news base template-->
+		<div class="">
+		  <div class="front-wrap" style="height:800px">
+		    <div class="home-news">
+		      <div class="usoft-listview-header">
+		        <h3>常见问题          <small>COMMONPROBLEM </small> </h3>
+
+		      </div>
+		      
+		      <div class="news-list">
+		      
+		      
+		        <div class="news-documents documents-list " >
+		         	
+		         	<s:iterator value="cmpShow" var="i" status="index" >
 		         	 	
 	         	 		<div class="usoft-listview-basic">
 						  <ul>
 						    <li>
-						      <span class="usoft-listview-item-date">
-						      		<s:property value="#i.time.toString()"/> 
-							  </span>
 						      <span>
-						      	<a href="/" > 
-						      		<s:property value="#i.title"/> 
+						      		<span class="glyphicon glyphicon-star"></span></span><b><s:property value="#i.title"/> </b>
 						      		:
 						      		<s:property value="#i.content"/>
 						      	</a>
@@ -28,13 +30,7 @@
 						    </li>
 						  </ul>
 						</div>
-		         	</s:iterator>	        	
-
-
-
-
-
-
+		         	</s:iterator>	    
 
 
 </layout:override>

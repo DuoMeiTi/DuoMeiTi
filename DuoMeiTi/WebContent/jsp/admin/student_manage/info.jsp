@@ -24,7 +24,7 @@
 		};
 		//alert(trTextarea)
 		$.ajax({
-			url : 'training_update',
+			url : 'training_infoUpdate',
 			type : 'post',
 			dataType : 'json',
 			data : params,

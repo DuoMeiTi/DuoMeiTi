@@ -2,21 +2,49 @@
 
 <layout:override name="main_content">
 
+<link rel="stylesheet" type="text/css" media="screen" href="/css/student/chooseclass.css"/> 
+
 <div class="mycontent">
-	<h1>选择值班时间地点</h1>
-	<div class="dropdown">
-		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    		选择教学楼
-    		<span class="caret"></span>
-  		</button>
-  		<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-  			<s:iterator value="teahBuildings" var="i" status="index" >
-  				<li iid=<s:property value="#i.buildingId"/>><a href="#"><s:property value="#i.buildingName"/></a></li>
+	<h3>选择值班时间地点</h3>
+	<div class="teachbuilding-droplist">
+		<select class="form-control buildingSelect">
+			<s:iterator value="teahBuildings" var="i" status="index" >
+  				<option value=<s:property value="#i.buildingId"/>><s:property value="#i.buildingName"/></option>
   			</s:iterator>
-		</ul>
+  		</select>
 	</div>
+	<!-- 
+	<h3>时间列表(还可选择<span class="self-duty-left"><s:property value='3'/></span>个班)</h3>
+	-->
+	<h3>时间列表</h3>
+	<div class="time-table">
+		<table class="table table-bordered">
+			<thead>
+				<tr class="row">
+					<th class="col-md-2">值班时间</th>
+					<s:iterator value="{'一','二','三','四','五','六','七'}" var='week'>
+						<th class="col-md-1.5"><s:property value='week'/></th>
+					</s:iterator>
+				</tr>
+			</thead>
+			<tbody>
+				<s:iterator value="{'7:40 ~~ 9:20','9:50 ~~ 11:30','13:15 ~~ 14:50','15:20 ~~ 17:00','17:45 ~~ 19:20'}" var="time">
+					<tr class="row">
+						<td class="col-md-2"><s:property value="time"/></td>
+						<s:iterator value="{'1','2','3','4','5','6','7'}" var="num">
+							<td class="col-md-1.5 dutyleft"><s:property value="num"/></td>
+						</s:iterator>
+					</tr>
+				</s:iterator>
+			</tbody>
+		</table>
+	</div>
+	
+	<button type="button" class="btn btn-default" id="duty-choose-submit">提交</button>
+	
 </div>
 
+<script type='text/javascript' src="/js/student/chooseclass.js"></script>
 </layout:override>
 
 <%@ include file="/jsp/student/base.jsp" %>

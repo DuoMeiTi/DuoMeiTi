@@ -27,16 +27,21 @@
 		<mapping class="model.Classroom"/>
 		<mapping class="model.Commonproblem"/>
 		<mapping class="model.Repertory"/>
+		
 		<mapping class="model.Training"/>
+		<mapping class="model.ExamTitle"/>
+		<mapping class="model.ExamOption"/>
+		
 		<mapping class="model.TeachBuilding"/>
 		<mapping class="model.RepairRecord"/>
 		<mapping class="model.CheckRecord"/>
 		<mapping class="model.Message"/>
 		<mapping class="model.EgFilePathSave"/>
 		<mapping class="model.Notice"/>
+		<mapping class="model.DutyTime"/>
+		<mapping class="model.DutySchedule"/>
 
 		<mapping class="model.Rules"/>
-
 		<mapping class="model.ResourceFilePath"/>
 
 		

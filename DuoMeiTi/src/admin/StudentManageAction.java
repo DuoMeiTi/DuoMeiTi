@@ -54,7 +54,7 @@ public class StudentManageAction extends ActionSupport{
 	private static User edit_user;
 	private String isUpgradePrivilegelist[];
 	
-	private String text;//规章制度的内容,jsp页面传过来的内容
+	private String ruleText;//规章制度的内容,jsp页面传过来的内容
 	private String textShow;//规章制度的内容，显示给jsp页面的内容
 	private Date time;//规章制度的修改时间
 	
@@ -327,7 +327,7 @@ public String saveStudentInformation() throws Exception
 		Rules rules = new Rules();
 		
 		if (q.list().size() == 0 ) {//如果现在表是空的，就插入到数据库中
-			rules.setText(text);
+			rules.setText(ruleText);
 			rules.setTime(new Date(new java.util.Date().getTime()));
 			session.beginTransaction();
 			session.save(rules);
@@ -338,7 +338,7 @@ public String saveStudentInformation() throws Exception
 		else {//如果不是空的，就更新数据库
 			q.add(Restrictions.eq("id",1));//默认就一条数据，所以id设为1
 			rules = (Rules)q.uniqueResult();
-			rules.setText(text);
+			rules.setText(ruleText);
 			rules.setTime(new Date(new java.util.Date().getTime()));
 			session.beginTransaction();
 			session.save(rules);
@@ -694,15 +694,21 @@ public String saveStudentInformation() throws Exception
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
 
 
-	public String getText() {
-		return text;
+
+	
+	
+
+	public String getRuleText() {
+		return ruleText;
 	}
 
 
-	public void setText(String text) {
-		this.text = text;
+	public void setRuleText(String ruleText) {
+		this.ruleText = ruleText;
 	}
 
 

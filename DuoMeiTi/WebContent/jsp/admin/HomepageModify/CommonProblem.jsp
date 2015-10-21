@@ -133,6 +133,7 @@
 		var title = $("#notice_title").val();
 // 		alert(title);
 		var content = $("#notice_content").val();
+// 		alert(title + "//" + content + "//")
 		var id =  $("#hidden_id").val();
 		
 		$.ajax({
