@@ -4,9 +4,12 @@
 
 function checkrecord_submit() {
 	var checkrecord_detail = $("#checkdetail").val();
+	var classroomid = $("#classroomid").text();
+	var checkrecord_detail = $("#checkdetail").val();
 //	alert(checkrecord_detail);
 	var params = {
-		"checkdetail" : checkrecord_detail
+		"checkdetail" : checkrecord_detail,
+		"classroomid": classroomid
 	};
 	
 	$.ajax({

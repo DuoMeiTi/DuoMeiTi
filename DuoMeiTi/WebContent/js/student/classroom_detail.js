@@ -3,10 +3,8 @@
  */
 
 function checkrecord_submit() {
-	var checkrecord_detail = $("#checkdetail").val();
-//	alert(checkrecord_detail);
 	var params = {
-		"checkdetail": checkrecord_detail,
+		"checkdetail": checkrecord_detail
 	};
 	$.ajax({
 		url : '/student/student_classroom_json/checkrecord_save',

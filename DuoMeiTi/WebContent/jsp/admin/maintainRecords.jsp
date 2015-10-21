@@ -40,14 +40,9 @@ td,tr,th{
 		<div class="searchCondition" id="conditions">
 			<div class="searchCondition-building" id="buildingCondition">
 				<select id="building" class="form-control" style="width: 30%;">
-					<option value="0">综合教学一号楼</option>
-					<option value="6">综合教学二号楼</option>
-					<option value="3">一馆</option>
-					<option value="4">二馆</option>
-					<option value="5">建馆</option>
-					<option value="1">研教楼</option>
-					<option value="7">机械馆</option>
-					<option value="8">材料馆</option>
+				<s:iterator value="builds" var="build" status="i">
+					<option value="<s:property value="#build.build_id"/>"><s:property value="#build.build_name"/></option>
+				</s:iterator>
 				</select>
 				<!--<input type="text" class="form-control" id="personVal" style="width: 30%">-->
 			</div>
@@ -65,10 +60,9 @@ td,tr,th{
 			
 			<div class="searchCondition-equipment" id="equipmentCondition">
 				<select id="deviceid" class="form-control" style="width: 30%">
-					<option value="计算机">计算机</option>
-					<option value="投影">投影</option>
-					<option value="中央控制器">中央控制器</option>
-					<option value="外围设备">外围设备</option>
+				<s:iterator value="repo_types" var="repo_type" status="i">
+					<option value="<s:property value="#repo_type"/>"><s:property value="#repo_type"/></option>
+				</s:iterator>
 				</select>
 
 			</div>

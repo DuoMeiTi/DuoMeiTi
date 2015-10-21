@@ -60,6 +60,8 @@ public class StudentManageAction extends ActionSupport{
 	
 	
 	
+
+
 	public String searchStudentInformation() throws Exception
 	{
 		

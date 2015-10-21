@@ -87,7 +87,7 @@
         <action name="register_save" class="homepage.UserAction" method="save">
             <result name="success" type="json">
             	<param name="includeProperties">status, user_id, username, password, added_user_html</param>           
-<!-- 				<param name="excludeProperties"> user_list</param> -->
+				<param name="excludeProperties"> user_list</param>
             </result>            
         </action>
         
@@ -139,9 +139,8 @@
         
         <action name="student_register_save" class="homepage.StudentAction" method="studentRegisterSave">
             <result name="success" type="json">
-            	<param name="includeProperties">register_status,  username, password, fullName,passwordAgain,studentId,sex,status,classrooms,college,phoneNumber,bankNumber,idCard,entryTime</param>           
-<!-- 				<param name="excludeProperties"> user_list</param> -->
-            </result>            
+            </result>  
+                      
         </action>
         
 

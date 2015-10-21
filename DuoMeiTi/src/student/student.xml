@@ -6,8 +6,9 @@
 <struts>
 
 
-    <package name="student" namespace="/student" extends="Default">    	
-    	
+
+    <package name="student" namespace="/student" extends="StudentDefault">    	
+		    	
     	<action name="">
     		<result>/jsp/student/base.jsp</result>
     	</action>
@@ -16,19 +17,21 @@
 			<result>/jsp/student/train.jsp</result>
 		</action>
 
-		
 		<action name="student_information" class="student.InformationAction" method="studentInformation">
 			<result>/jsp/student/student_information.jsp</result>
 		</action>
-   
-		<action name="student_information_change" class="student.InformationAction" method="studentInformationChange">
-			 <result name="success" type="json">
-			 	<param name="includeProperties">username,fullName,phoneNumber,sex,studentId,idCard,bankCard,college,entryTime,remark</param>
-			 </result>
+
+		<action name="student_information_change" class="student.InformationAction"
+			method="studentInformationChange">
+			<result name="success" type="json">
+				<param name="includeProperties">username,fullName,phoneNumber,sex,studentId,idCard,bankCard,college,entryTime,remark</param>
+			</result>
 		</action>
 
-    	
-    	<action name="classroom_manage" class="student.ClassroomManageAction" method="classroomList">
+
+
+		<action name="classroom_manage" class="student.ClassroomManageAction"
+			method="classroomList">
 
 			<result>
 				/jsp/student/classroom_manage.jsp
@@ -43,24 +46,38 @@
 			</result>
 		</action>
 
-		<action name="chooseclass" class="student.StudentAction" method="chooseClass">
+		<action name="chooseclass" class="student.StudentAction"
+			method="chooseClass">
 			<result>/jsp/student/chooseClass.jsp</result>
+		</action>
+		<action name="getdutytime" class="student.StudentAction" method="getDutyTime">
+			<result type="json" name="ajaxSuccess">
+				<param name="includeProperties">
+					duties\[\d+\]\.dutyLeft,
+					duties\[\d+\]\.time,
+					chosen\[\d+\],
+					teachBuildingId
+				</param>
+			</result>
+		</action>
+		<action name="sendChoice" class="student.StudentAction" method="reciveChoice">
+			<result type="json" name="ajaxSuccess">
+				<param name="includeProperties">
+					log
+				</param>
+			</result>
 		</action>
     </package>
     
-    <package name="StudentclassroomDevice" namespace="/student/classroomDevice" extends="Default">
 
-		
+	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
+		extends="StudentDefault">
 		<action name="rules" class="student.StudentAction" method="ruleShow">
 			<result name="success">
 				/jsp/student/student_show_rules.jsp
 			</result>
 		</action>
-	</package>
-
-	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
-		extends="Default">
-
+		
 		<action name="*_action" class="action.RepairAction" method="{1}">
 			<result name="query_repair">
 				/jsp/admin/record_query.jsp
@@ -71,14 +88,15 @@
 		</action>
 	</package>
 	
-    <package name="student_classroom_json" namespace="/student/student_classroom_json" extends="Default">
+    <package name="student_classroom_json" namespace="/student/student_classroom_json" extends="StudentDefault">
 		<action name="classroom_search" class="student.ClassroomManageAction" method="classroom_search">
 			<result type="json">
 				<!-- <param name="root">classrooms</param> -->
 				<!-- <param name="includeProperties">classroominfo_html, status</param> -->
 				<param name="includeProperties">
 					status, classroominfo_html,
-					classrooms\[\d+\]\.id, classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity,
+					classrooms\[\d+\]\.id,
+					classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity,
 					classrooms\[\d+\]\.principal_name,
 					classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys
 				</param>
@@ -109,7 +127,7 @@
 
 	</package>
 
-		
 
-   
+
+
 </struts>

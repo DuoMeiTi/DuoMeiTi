@@ -13,7 +13,7 @@
 		        </div>
 		        
     	        <div class="col-lg-3 nopadding">
-		           <a href="FileUpload" class="navbar-button navbar-button-left">教室文件上传</a> 
+		           <a href="resourceFileManage" class="navbar-button navbar-button-left">资源文件管理</a> 
 		        </div>
 		        
 		        <div class="col-lg-3 nopadding">

@@ -24,6 +24,9 @@ public class Util
 	
 	public static final String ResourceFilePath = 
 			FileUploadPath + "ResourceFile/";//相对于Rootpath
+	
+	public static final String ClassroomInfoFilePath = 
+			FileUploadPath + "ClassroomInfoFile/";//相对于Rootpath
 
 	static 
 	{

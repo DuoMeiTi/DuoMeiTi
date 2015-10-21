@@ -113,15 +113,17 @@ public class RepairAction extends SuperAction {
 		return "move2alter";
 	}
 	public String addalter() {
-		int id = (int) (ActionContext.getContext().getSession().get("classroom_id"));
-		classroom_id = Integer.toString(id);
+		/*int id = (int) (ActionContext.getContext().getSession().get("classroom_id"));*/
+		classroom_id = request.getParameter("classroomid");
 		RepairDAO rdao = new RepairDAOImpl();
 		System.out.println("============");
-		ret = Integer.toString(rdao.addalterIm(request.getParameter("rtid")));
 		System.out.println("怎么可能"+classroom_id);
+		System.out.println("怎么可能"+request.getParameter("rtid"));
+		ret = Integer.toString(rdao.addalterIm(request.getParameter("rtid"), classroom_id));
+		
 		return "addalter";
 	}
-	public String delalter() {
+	public String delalter() {                      //此方法已经不使用了
 		int id = (int) (ActionContext.getContext().getSession().get("classroom_id"));
 		classroom_id = Integer.toString(id);
 		RepairDAO rdao = new RepairDAOImpl();

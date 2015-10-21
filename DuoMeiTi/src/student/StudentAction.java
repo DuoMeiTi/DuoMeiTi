@@ -4,13 +4,18 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import model.Rules;
 import model.TeachBuilding;
+import model.DutyTime;
+import model.DutySchedule;
+import model.StudentProfile;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import utility.DatabaseOperation;
 
@@ -19,8 +24,63 @@ import com.opensymphony.xwork2.ActionContext;
 public class StudentAction extends ActionSupport{
 	
 	private List<BuildingsInfo> teahBuildings;
+	private int teachBuildingId;
+	private List<DutyTime> duties;
+	private String log;
+	private List<Integer> chosen;
 	private String textShow;
+	private int studentId;
 	
+		
+	
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public List<Integer> getChosen() {
+		return chosen;
+	}
+
+	public void setChosen(List<Integer> chosen) {
+		this.chosen = chosen;
+	}
+
+	public String getLog() {
+		return log;
+	}
+
+	public void setLog(String log) {
+		this.log = log;
+	}
+
+	public List<DutyTime> getDuties() {
+		return duties;
+	}
+
+	public void setDuties(List<DutyTime> duties) {
+		this.duties = duties;
+	}
+
+	public List<BuildingsInfo> getTeahBuildings() {
+		return teahBuildings;
+	}
+
+	public void setTeahBuildings(List<BuildingsInfo> teahBuildings) {
+		this.teahBuildings = teahBuildings;
+	}
+
+	public int getTeachBuildingId() {
+		return teachBuildingId;
+	}
+
+	public void setTeachBuildingId(int teachBuildingId) {
+		this.teachBuildingId = teachBuildingId;
+	}
+
 	public class BuildingsInfo{
 		public String buildingName;
 		public int buildingId;
@@ -28,15 +88,6 @@ public class StudentAction extends ActionSupport{
 			this.buildingName=name;
 			this.buildingId=id.intValue();
 		}
-	}
-	
-
-	public List getTeahBuildings() {
-		return teahBuildings;
-	}
-
-	public void setTeahBuildings(List teahBuildings) {
-		this.teahBuildings = teahBuildings;
 	}
 
 	public String getTextShow() {
@@ -65,6 +116,90 @@ public class StudentAction extends ActionSupport{
 		}
 		return ActionSupport.SUCCESS;
 	}
+	
+	public String getDutyTime() throws Exception{
+		Session session = model.Util.sessionFactory.openSession();
+		String hql="from DutyTime d where d.teachBuilding.build_id="+teachBuildingId;
+		
+		String studentSelect="from StudentProfile s where s.id="+studentId;
+		StudentProfile s=(StudentProfile)session.createQuery(studentSelect).list().get(0);
+		
+		String selectChosen="select ds.dutyTime.time from DutySchedule ds where ds.student.id="+s.id+" and "
+							+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
+		List chosenList = session.createQuery(selectChosen).list();
+		
+		chosen = new ArrayList<Integer>();
+		if(chosenList.size()>0){
+			Iterator iter= chosenList.iterator();
+			while(iter.hasNext()){
+				Integer temp=(Integer)iter.next();
+				chosen.add(temp);
+			}
+		}
+		duties=session.createQuery(hql).list();
+		session.close();
+		return "ajaxSuccess";
+	}
+	
+	public String reciveChoice() throws Exception{
+		Session session = model.Util.sessionFactory.openSession();
+		Transaction trans;
+		//选出选课的学生
+		String studentSelect="from StudentProfile s where s.id="+studentId;
+		StudentProfile s=(StudentProfile)session.createQuery(studentSelect).list().get(0);
+		//删除dutySchedule中的该生以前选择的班次,并更新
+//		trans=session.beginTransaction();
+//		String back = "update DutySchedule ds set ds.dutyTime.dutyLeft=ds.dutyTime.dutyLeft+1 where ds.student.id="+studentId
+//					  +" and "+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
+//		session.createQuery(back).executeUpdate();
+//		String deleteChosen = "delete from DutySchedule ds where ds.student.id="+studentId+" and "
+//				  			  +"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
+//		session.createQuery(deleteChosen).executeUpdate();
+//		trans.commit();
+		//所选的班
+		String dc="(";
+		for(int i=0,end=chosen.size();i<end;i++){
+			dc+="d.time="+chosen.get(i).intValue();
+			if(i<end-1)dc+=" or ";
+			else dc+=")";
+		}
+		System.out.println(dc);
+		//dutyTime数据库更新
+		trans=session.beginTransaction();
+		String updateDutyLeft="update DutyTime d set d.dutyLeft=d.dutyLeft-1 where d.teachBuilding.build_id="
+								  +teachBuildingId+" and "+dc;
+		int ret=session.createQuery(updateDutyLeft).executeUpdate();
+		System.out.println(ret);
+		if(ret==0){
+			log="something wrong during updating database";
+			return "ajaxSuccess";
+		}
+		trans.commit();
+		
+		//dutySchedule数据库更新
+		String selectDutyTime="from DutyTime d where d.teachBuilding.build_id="
+							  +teachBuildingId+" and "+dc;
+		List<DutyTime> dutyChosen=session.createQuery(selectDutyTime).list();
+		
+		for(DutyTime t:dutyChosen){
+			try{
+				trans=session.beginTransaction();
+				DutySchedule temp =new DutySchedule();
+				temp.student=s;
+				temp.dutyTime=t;
+				session.save(temp);
+				trans.commit();
+			}
+			catch(Exception e){
+				log="something wrong during update database";
+				return "ajaxSuccess";
+			}
+		}
+		session.close();
+		log="sucess";
+		return "ajaxSuccess";
+	}
+	
 	public String ruleShow() throws Exception{
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(Rules.class);
@@ -82,7 +217,5 @@ public class StudentAction extends ActionSupport{
 		session.close();
 		return SUCCESS;
 	}
-	
-	
 	
 }
