@@ -1,6 +1,7 @@
 package admin;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -170,11 +171,16 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		nPicture.setClass_id(classroomId);
 		nPicture.setRemark(remark);
 		
+		//获取当前时间，命名照片，防止照片重复
+		java.util.Date date = new java.util.Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddHHmmss");
+		String curdate = simpleDateFormat.format(date);
+		String fileName = curdate+fileFileName;
+
 		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
         {
-			util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ClassroomInfoFilePath);
-			String inserted_file_path = util.Util.ClassroomInfoFilePath +fileFileName;
-			
+			util.Util.saveFile(file, fileName, util.Util.RootPath + util.Util.ClassroomInfoFilePath);
+			String inserted_file_path = util.Util.ClassroomInfoFilePath +fileName;
 			nPicture.setPath(inserted_file_path);
         }
 		
