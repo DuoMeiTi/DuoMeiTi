@@ -27,8 +27,19 @@ public class Classroom {
 	@JoinColumn
 	@Fetch(FetchMode.SELECT)
 	public StudentProfile principal;
-
 	
+	@Column(length = 100)
+	public String class_schedule_path;
+	
+	
+	public String getClass_schedule_path() {
+		return class_schedule_path;
+	}
+
+	public void setClass_schedule_path(String class_schedule_path) {
+		this.class_schedule_path = class_schedule_path;
+	}
+
 	public int getId() {
 		return id;
 	}
