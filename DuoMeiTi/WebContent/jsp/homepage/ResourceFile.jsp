@@ -15,6 +15,7 @@
 
 
 
+<!-- 为了使用分页，include如下jsp -->
 <%@ include file="/jsp/base/widgets/pagination.jsp" %>
 
 <script>
