@@ -157,9 +157,6 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		session.close();
 		
 		System.out.println(picture_list);
-
-		
-		
 	}
 	
 	public String PictureUpload() {
@@ -195,25 +192,23 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		System.out.println("PictureDelete:");
 		System.out.println(picID);
 		
-	
+		//从数据库中删除
 		Session session = model.Util.sessionFactory.openSession();		
-		//查找student对应的user
 		Criteria q = session.createCriteria(RoomPicture.class).add(Restrictions.eq("id",picID)); //hibernate session创建查询
-		
-	
 		picture_list=q.list();
 		Collections.reverse(picture_list);
 		RoomPicture nPicture = new RoomPicture();
 		nPicture = picture_list.get(0);
-	
 		//System.out.println(nPicture);
-		
 		session.beginTransaction();
 		session.delete(nPicture);
 		Transaction t = session.getTransaction();
 		t.commit();
 		session.close();
-		
+		//删除本地文件
+		String filePath = util.Util.RootPath + nPicture.getPath();
+		System.out.println(filePath);
+		util.Util.deleteFile(filePath);
 		
 		return ActionSupport.SUCCESS;
 	}

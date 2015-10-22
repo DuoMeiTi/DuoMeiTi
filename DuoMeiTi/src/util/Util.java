@@ -77,6 +77,19 @@ public class Util
         	e.printStackTrace();
         }
 	}
+	/*
+	 *删除file文件，filePath为完整路径名
+	 */
+	static public void deleteFile(String filePath)
+	{
+		System.out.println("deleteFile:");
+		System.out.println(filePath);
+		File file = new File(filePath);
+		if(file.isFile() && file.exists()){
+			file.delete();
+			System.out.println("OK");
+		}
+	}
 	
 	static public String getFileNameFromPath(String path)
 	{
