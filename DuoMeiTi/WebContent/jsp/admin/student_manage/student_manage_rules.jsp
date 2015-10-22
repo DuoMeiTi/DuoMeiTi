@@ -20,7 +20,7 @@
 	<button id="ruleEditButton"class="btn  btn-primary"  type="button">确定</button>
 	</form>
 	
-	<label for="name_id">还没做：</label>
+	
 	</center>
 	<br>
 	<br>

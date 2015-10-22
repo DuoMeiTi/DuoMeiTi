@@ -17,8 +17,7 @@
 			<result>/jsp/student/train.jsp</result>
 		</action>
 
-		<action name="student_information" class="student.InformationAction"
-			method="studentInformation">
+		<action name="student_information" class="student.InformationAction" method="studentInformation">
 			<result>/jsp/student/student_information.jsp</result>
 		</action>
 

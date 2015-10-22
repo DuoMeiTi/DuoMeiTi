@@ -1,8 +1,6 @@
-=\=\=\=\=\=\=
-<<<<<<<=HEAD
->>>>>>>=origin/master
 eclipse.preferences.version=1
 encoding//WebContent/jsp/admin/HomepageModify/Base.jsp=UTF-8
+encoding//WebContent/jsp/admin/HomepageModify/CommonProblem.jsp=UTF-8
 encoding//WebContent/jsp/admin/HomepageModify/notice.jsp=UTF-8
 encoding//WebContent/jsp/admin/HomepageModify/resourceFileManage.jsp=UTF-8
 encoding//WebContent/jsp/admin/admin_eg.jsp=UTF-8
@@ -19,19 +17,15 @@ encoding//WebContent/jsp/admin/modify_password.jsp=UTF-8
 encoding//WebContent/jsp/admin/notice.jsp=UTF-8
 encoding//WebContent/jsp/admin/repertory.jsp=UTF-8
 encoding//WebContent/jsp/admin/student_manage/base.jsp=UTF-8
-encoding//WebContent/jsp/admin/student_manage/exam.jsp=UTF-8
-encoding//WebContent/jsp/admin/student_manage/info.jsp=UTF-8
-encoding//WebContent/jsp/admin/student_manage/student_information.jsp=UTF-8
 encoding//WebContent/jsp/admin/student_manage/student_information_search.jsp=UTF-8
 encoding//WebContent/jsp/admin/student_manage/student_manage_rules.jsp=UTF-8
 encoding//WebContent/jsp/admin/student_manage/training.jsp=UTF-8
 encoding//WebContent/jsp/admin/teachbuilding.jsp=UTF-8
-encoding//WebContent/jsp/admin/untreated.jsp=UTF-8
-encoding//WebContent/jsp/admin/users_information.jsp=UTF-8
 encoding//WebContent/jsp/admin/users_request.jsp=UTF-8
 encoding//WebContent/jsp/admin/widgets/add_repertory.html=UTF-8
 encoding//WebContent/jsp/base/base.jsp=UTF-8
 encoding//WebContent/jsp/base/user_base.jsp=UTF-8
+encoding//WebContent/jsp/homepage/CommonProRecord.jsp=UTF-8
 encoding//WebContent/jsp/homepage/ResourceFile.jsp=UTF-8
 encoding//WebContent/jsp/homepage/admin_register.jsp=UTF-8
 encoding//WebContent/jsp/homepage/base.jsp=UTF-8
@@ -43,7 +37,6 @@ encoding//WebContent/jsp/homepage/home2.jsp=UTF-8
 encoding//WebContent/jsp/homepage/login.jsp=UTF-8
 encoding//WebContent/jsp/homepage/login_fail.jsp=UTF-8
 encoding//WebContent/jsp/homepage/login_success.jsp=UTF-8
-encoding//WebContent/jsp/homepage/modify_password.jsp=UTF-8
 encoding//WebContent/jsp/homepage/new_home.jsp=UTF-8
 encoding//WebContent/jsp/homepage/new_home_base.jsp=UTF-8
 encoding//WebContent/jsp/homepage/not_login.jsp=UTF-8
@@ -54,6 +47,7 @@ encoding//WebContent/jsp/student/chooseClass.jsp=UTF-8
 encoding//WebContent/jsp/student/classroom_detail.jsp=UTF-8
 encoding//WebContent/jsp/student/classroom_manage.jsp=UTF-8
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 encoding//WebContent/jsp/student/student_information.jsp=UTF-8
 <<<<<<< HEAD
@@ -72,6 +66,10 @@ encoding//WebContent/jsp/student/student_show_rules.jsp=UTF-8
 =======
 encoding//WebContent/jsp/student/student_show_rules.jsp=UTF-8
 >>>>>>> origin/master
+>>>>>>> origin/master
+=======
+encoding//WebContent/jsp/student/student_information.jsp=UTF-8
+encoding//WebContent/jsp/student/student_show_rules.jsp=UTF-8
 >>>>>>> origin/master
 encoding//WebContent/jsp/student/train.jsp=UTF-8
 encoding/<project>=UTF-8

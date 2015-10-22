@@ -3,6 +3,20 @@
 
 <layout:override name="main_content">
 	<div class="mycontent">
+	
+	
+	
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3 classbuilding">
+				<span><s:property value="building.build_name"/>&nbsp;&nbsp;<s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
+				<span>负责人:</span>
+				<span id="classroomid" style="visibility:hidden"><s:property value="classroom.id"/></span>
+				<span class="director-span"><s:property value="classroom.principal.user.username"/></span>
+			</div>
+		</div>
+		
+	
+	
 		<br>
 		<ul class="nav  nav-pills"  style="position:relative;left:800px;">
 		    <li role="presentation" >
@@ -12,7 +26,7 @@
 		    	<a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">详细信息</a>
 		    </li>
 		</ul>
-		
+		<hr>
 		<div class="tab-content">
 	    <div role="tabpanel" class="tab-pane " id="home">
 	    	<%@ include file="classroom_picture.jsp" %>

@@ -1,6 +1,7 @@
 package admin;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -157,9 +158,6 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		session.close();
 		
 		System.out.println(picture_list);
-
-		
-		
 	}
 	
 	public String PictureUpload() {
@@ -173,11 +171,16 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		nPicture.setClass_id(classroomId);
 		nPicture.setRemark(remark);
 		
+		//获取当前时间，命名照片，防止照片重复
+		java.util.Date date = new java.util.Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddHHmmss");
+		String curdate = simpleDateFormat.format(date);
+		String fileName = curdate+fileFileName;
+
 		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
         {
-			util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
-			String inserted_file_path = util.Util.ProfilePhotoPath +fileFileName;
-			
+			util.Util.saveFile(file, fileName, util.Util.RootPath + util.Util.ClassroomInfoFilePath);
+			String inserted_file_path = util.Util.ClassroomInfoFilePath +fileName;
 			nPicture.setPath(inserted_file_path);
         }
 		
@@ -195,25 +198,23 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		System.out.println("PictureDelete:");
 		System.out.println(picID);
 		
-	
+		//从数据库中删除
 		Session session = model.Util.sessionFactory.openSession();		
-		//查找student对应的user
 		Criteria q = session.createCriteria(RoomPicture.class).add(Restrictions.eq("id",picID)); //hibernate session创建查询
-		
-	
 		picture_list=q.list();
 		Collections.reverse(picture_list);
 		RoomPicture nPicture = new RoomPicture();
 		nPicture = picture_list.get(0);
-	
 		//System.out.println(nPicture);
-		
 		session.beginTransaction();
 		session.delete(nPicture);
 		Transaction t = session.getTransaction();
 		t.commit();
 		session.close();
-		
+		//删除本地文件
+		String filePath = util.Util.RootPath + nPicture.getPath();
+		System.out.println(filePath);
+		util.Util.deleteFile(filePath);
 		
 		return ActionSupport.SUCCESS;
 	}

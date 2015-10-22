@@ -12,7 +12,7 @@
 <!--   		<action name="resourceFileGetPage" class="homepage.HomeAction" method="getPage"> -->
 <!--         	<result name="success" type="json"> </result> -->
 <!--         </action> -->
-    	
+    	 
     	
     	
     	<action name="home2">
@@ -74,8 +74,7 @@
             </result>
         </action>
         
-        
-        
+      
         
         
         
@@ -111,8 +110,10 @@
 				
             </result>            
         </action>
-        
-        
+        <!--常见问题首页显示action-->
+        <action name="CommonProRecord" class="homepage.CommonProRecord" method="showRecord">
+        	<result> /jsp/homepage/CommonProRecord.jsp</result>
+        </action>
         
         
 
@@ -174,6 +175,16 @@
             </result> 
 <!--             <result name="input">/jsp/homepage/admin_register.jsp</result>            -->
         </action>
+<<<<<<< HEAD
+=======
+      
+
+   
+<!--游客访问教室信息  showBuildings;showClassRooms;showDevices -->
+<action name="classRoomInfo*" class="homepage.ClassRoomInfoAction" method="{1}">
+<result>/jsp/homepage/{1}.jsp</result>
+</action>
+>>>>>>> origin/master
 
     </package>
     

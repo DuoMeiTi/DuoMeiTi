@@ -3,6 +3,8 @@
 
 <!-- 	<div class="mycontent"> -->
 	
+	
+	
 		<div class="form-group col-lg-offset-1">
 		
 		    <label for="username" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上传照片:</label>
@@ -22,11 +24,14 @@
 		 	<button type="button" class="btn btn-success col-lg-offset-4" id="picture_up">上传</button> 
 		 	</div>
 		</div>
+		<hr>
+		
+
 
 		<br/>
-			<br/>
-			<br/>
-			<br/>
+		<br/>
+		<br/>
+		<br/>
 
 		<table class="table device-table-bordered" id="roompicture_table">
 			<tbody>

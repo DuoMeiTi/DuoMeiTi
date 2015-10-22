@@ -17,9 +17,9 @@
 		        </div>
 		        
 		        <div class="col-lg-3 nopadding">
-		           <a href="sdfsdf" class="navbar-button"></a> 
+		           <a href="CommonProblem" class="navbar-button">常见问题记录</a> 
 		        </div>
-		
+		        
 		        <div class="col-lg-3 nopadding">
 		           <a href="sdfsdf" class="navbar-button navbar-button-right">学生成绩搜索</a> 
 		        </div>
