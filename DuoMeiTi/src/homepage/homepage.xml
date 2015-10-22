@@ -42,6 +42,16 @@
         	</result>
         </action>
         
+        <action name="classroom_detail" class="homepage.ClassroomDetailAction">
+			<result>
+				<param name="location">/jsp/homepage/classroom_detail.jsp</param>
+				<!-- <param name="build_id">${classroom_id}</param>
+				<param name="build_name">${classroom_num}</param> -->
+				<param name="classroomselectIndex">${classroomId}</param>
+				<param name="build_name">${build_name}</param>
+			</result>
+		</action>
+		
         <action name="ResourceFile" class="homepage.HomeAction" method="resourceFile">
 			<result>/jsp/homepage/ResourceFile.jsp</result>
 			
@@ -175,16 +185,15 @@
             </result> 
 <!--             <result name="input">/jsp/homepage/admin_register.jsp</result>            -->
         </action>
-<<<<<<< HEAD
-=======
+
       
 
    
-<!--游客访问教室信息  showBuildings;showClassRooms;showDevices -->
+<!--游客访问教室信息  showBuildings;showClassRooms;showDevices
 <action name="classRoomInfo*" class="homepage.ClassRoomInfoAction" method="{1}">
 <result>/jsp/homepage/{1}.jsp</result>
 </action>
->>>>>>> origin/master
+ -->
 
     </package>
     
