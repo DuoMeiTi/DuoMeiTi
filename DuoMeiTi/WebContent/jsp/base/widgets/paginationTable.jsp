@@ -2,13 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/jsp/base/taglib.jsp" %>
 
-<nav>
-  <ul class="pagination pagination-lg">
+<nav >
+  <ul class="pagination pagination-lg ">
+  	
+  	<li class="previous" id="firstPage"><a href="#">首页</a></li>
   
   	<s:if test="currentPageNum - 2 > 1"> 
 		<li>
 	      <a href="#" aria-label="Previous">
-	        <span aria-hidden="true">&laquo;</span>
+	        <span aria-hidden="true">...</span>
 	      </a>
 	    </li>
   	</s:if>
@@ -30,15 +32,24 @@
  	<s:if test="currentPageNum + 2 < totalPageNum"> 
 		<li>
 	      <a href="#" aria-label="Previous">
-	        <span aria-hidden="true">&raquo;</span>
+	        ...
 	      </a>
 	    </li>
   	</s:if>
+  	
+    
+    <li class="next" id="lastPage" totalPageNum=<s:property value="totalPageNum"/>><a href="#">尾页 </a></li>
 	
+
 	
 	
   </ul>
 </nav>
+
+
+
+
+
 
 
 

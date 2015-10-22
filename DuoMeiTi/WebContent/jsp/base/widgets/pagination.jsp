@@ -13,9 +13,21 @@
 
 
 // var pageAddtionalData = {}
+$(document).on("click","#firstPage",  function(){
+
+    sendRequestPage(1);
+})
+$(document).on("click","#lastPage",  function(){
+
+    sendRequestPage($(this).attr("totalPageNum"));
+})
+
 $(document).on("click","[requestPageNum]",  function(){
-	
-	var data = {"currentPageNum": $(this).attr("requestPageNum") , "isAjaxTransmission":true, };
+
+    sendRequestPage($(this).attr("requestPageNum"));
+})
+function sendRequestPage(currentPageNum) {
+	var data = {"currentPageNum": currentPageNum , "isAjaxTransmission":true, };
 	
 	if(typeof(pageAddtionalData)!="undefined")
 		data = $.extend({}, data, pageAddtionalData);
@@ -27,7 +39,7 @@ $(document).on("click","[requestPageNum]",  function(){
         data: data,
         success: _requestPageCallback
       });	
-})
+}
 
 function _requestPageCallback(data) {
 	$("#paginationTableDiv").html(data.paginationHtml);
