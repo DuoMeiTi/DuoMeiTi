@@ -12,12 +12,18 @@ import org.hibernate.criterion.Restrictions;
 import model.Classroom;
 import model.TeachBuilding;
 
+import util.Const;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 public class TeachBuildingAction extends ActionSupport {
 	
 	private List<TeachBuilding> builds;
-	private List<String> repo_types;
+	
+	private String device[];
+	private String mainDevice[];
+	private String costDevice[];
+	
 	public String add_status;
 	
 	public String build_name;
@@ -33,7 +39,7 @@ public class TeachBuildingAction extends ActionSupport {
 		
 		
 		//******************修改库存设备类型为外键
-		repo_types=new ArrayList<String>();
+/*		repo_types=new ArrayList<String>();
 		String hql="select r.rtType from Repertory r";
 		Query query = session.createQuery(hql);
 		
@@ -44,7 +50,10 @@ public class TeachBuildingAction extends ActionSupport {
 			//System.out.println(s);
 			if(!repo_types.contains(s))
 				repo_types.add(s);
-		}
+		}*/
+		device = Const.device;
+		mainDevice = Const.mainDevice;
+		costDevice = Const.costDevice;
 		//******************修改库存设备类型为外键
 
 		session.close();
@@ -104,12 +113,35 @@ public class TeachBuildingAction extends ActionSupport {
 		this.build_name = build_name;
 	}
 
-	public List<String> getRepo_types() {
+/*	public List<String> getRepo_types() {
 		return repo_types;
 	}
 
 	public void setRepo_types(List<String> repo_types) {
 		this.repo_types = repo_types;
+	}*/
+	public String[] getDevice() {
+		return device;
+	}
+
+	public void setDevice(String[] device) {
+		this.device = device;
+	}
+
+	public String[] getMainDevice() {
+		return mainDevice;
+	}
+
+	public void setMainDevice(String[] mainDevice) {
+		this.mainDevice = mainDevice;
+	}
+
+	public String[] getCostDevice() {
+		return costDevice;
+	}
+
+	public void setCostDevice(String[] costDevice) {
+		this.costDevice = costDevice;
 	}
 	
 }
