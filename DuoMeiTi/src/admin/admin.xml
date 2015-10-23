@@ -194,6 +194,14 @@
 			<result name="success" type="json"></result>
 		</action> 
 		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		<!-- 获取学生信息 -->
 		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">
