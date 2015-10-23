@@ -30,10 +30,33 @@
         	<result>/jsp/homepage/new_home.jsp</result>
         </action>
         
+        <action name="building_information" class="homepage.BuildingInformationAction">
+        	<result>/jsp/homepage/building_information.jsp</result>
+        </action>
+        
+        <action name="classroom_information" class="homepage.ClassroomInformationAction" method="classroomList">
+        	<result>
+        		<param name="location">/jsp/homepage/classroom_information.jsp</param>
+				<param name="build_id">${build_id}</param>
+				<param name="build_name">${build_name}</param>
+        	</result>
+        </action>
+        
+        <action name="classroom_detail" class="homepage.ClassroomDetailAction">
+			<result>
+				<param name="location">/jsp/homepage/classroom_detail.jsp</param>
+				<!-- <param name="build_id">${classroom_id}</param>
+				<param name="build_name">${classroom_num}</param> -->
+				<param name="classroomselectIndex">${classroomId}</param>
+				<param name="build_name">${build_name}</param>
+			</result>
+		</action>
+		
         <action name="ResourceFile" class="homepage.HomeAction" method="resourceFile">
 			<result>/jsp/homepage/ResourceFile.jsp</result>
 			
     	</action>
+    	
         
         
         
@@ -162,12 +185,31 @@
             </result> 
 <!--             <result name="input">/jsp/homepage/admin_register.jsp</result>            -->
         </action>
-      
+
+
 
    
+<!--游客访问教室信息  showBuildings;showClassRooms;showDevices
+<action name="classRoomInfo*" class="homepage.ClassRoomInfoAction" method="{1}">
+<result>/jsp/homepage/{1}.jsp</result>
+</action>
+
+ -->
 
 
-
+    </package>
+    
+    <package name="classroom_json" namespace="/homepage/classroom_json" extends="HomepageDefault">
+    	
+    	<action name="classroom_search" class="homepage.ClassroomInformationAction" method="classroom_search">
+    		<result type="json">
+				<param name="includeProperties">
+					status, classroominfo_html, 
+					classrooms\[\d+\]\.id, classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity, classrooms\[\d+\]\.principal_name, classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys
+				</param>
+			</result>
+    	</action>
+    	
     </package>
     
 

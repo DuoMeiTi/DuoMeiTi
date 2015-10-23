@@ -23,11 +23,8 @@
             <result name="not_login" type="redirect"> /not_login</result>
             
 			<result name="getPage" type="json">
-				  <param name="ignoreHierarchy">false</param>				
-			</result>
-
-<!-- 			<result name="getPage" type="redirect"> /</result> -->
-            
+				  <param name="ignoreHierarchy">false</param>
+			</result>            
         </global-results>    
         	
         

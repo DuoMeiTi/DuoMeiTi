@@ -108,13 +108,6 @@ public class StudentProfile {
 		this.entryTime = entryTime;
 	}
 
-//	public Set<Classroom> getClassrooms() {
-//		return classrooms;
-//	}
-//
-//	public void setClassrooms(Set<Classroom> classrooms) {
-//		this.classrooms = classrooms;
-//	}
 
 	public String getStatus() {
 		return status;

@@ -14,8 +14,11 @@
             	<s:if test="#session.role.equals(@util.Const@AdminRole)">
             		(您是管理员)
             	</s:if>
-            	<s:else>
+            	<s:elseif test="#session.role.equals(@util.Const@StudentRole)">
             		(您是在职学生)
+            	</s:elseif>
+            	<s:else>
+            		(您是在职学生转成的管理员)
             	</s:else>
             	
             	

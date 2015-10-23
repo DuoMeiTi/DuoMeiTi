@@ -69,12 +69,14 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		costDevice = Const.costDevice;
 		deviceStatus = Const.deviceStatus;
 		
-		Session session = model.Util.sessionFactory.openSession();
+		Session session = 
+				model.Util.sessionFactory.openSession();
+//		model.Util.sessionFactory.getCurrentSession();
 		Criteria c = session.createCriteria(Repertory.class);
 		repertory_list = c.list();
 		//System.out.println(repertory_list);
 		Collections.reverse(repertory_list);
-		session.close();
+//		session.close();
 		return SUCCESS;
 	}
 	

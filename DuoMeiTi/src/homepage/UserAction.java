@@ -41,10 +41,6 @@ public class UserAction
 	
 	public int user_id;
 	
-	public String AdminRole = util.Const.AdminRole;
-	public String StudentRole = util.Const.StudentRole;
-	public String TeacherRole = util.Const.TeacherRole;
-	
 
 
 	/*
@@ -97,6 +93,11 @@ public class UserAction
 			if(!ul.isEmpty())
 			{
 				role = util.Const.StudentRole;
+				if(((StudentProfile)ul.get(0)).getIsUpgradePrivilege() == 1)
+				{
+					role = util.Const.StudentToAdminRole; 					
+				}
+				
 				ActionContext.getContext().getSession().put("student_id",((StudentProfile)ul.get(0)).getId());
 			}
 			else 
@@ -123,7 +124,7 @@ public class UserAction
 			ChooseClass.insertDataToDutyTimeTable();
 			return "admin_login_success";
 		}
-		else if(role.equals(util.Const.StudentRole))
+		else if(role.equals(util.Const.StudentRole) || role.equals(util.Const.StudentToAdminRole))
 		{	
 			ChooseClass.insertDataToDutyTimeTable();
 			return "student_login_success";

@@ -31,13 +31,19 @@ public class PageGetBaseAction extends ActionSupport  {
 		return ans;
 	}
 	
-	//page_num:第几页，页数， 从第一页开始计数
-	//page_size:每一页显示的元素条数
-	//total_num:元素的总数，元素的条数从0开始计数
-	// 返回一个长度为2的数组：第一个元素表示这个页的起始条目的索引， 第二个元素表示这个页应该容纳的元素数目
+	
+	/*
+	 *page_num:第几页，页数， 从第一页开始计数
+	 *page_size:每一页显示的元素条数
+	 *total_num:元素的总数，元素的条数从0开始计数
+	 *返回一个长度为3的数组：
+	 *第0个元素表示这个页的起始条目的索引，
+	 *第1个元素表示这个页容纳的元素数目，
+	 *第2个元素表示总页数 
+	 */
 	private static int[] getPageRange(int page_num, int page_size, int total_num)
 	{
-		int[] res = new int[2];
+		int[] res = new int[3];
 		
 		if(total_num < 1)
 		{
@@ -45,7 +51,8 @@ public class PageGetBaseAction extends ActionSupport  {
 			res[1] = 0;
 			return res; 
 		}
-		int tot_page = getTotalPageNum(page_size, total_num);		
+		int tot_page = getTotalPageNum(page_size, total_num);
+		res[2] = tot_page;
 		res[0] = (page_num - 1) * page_size;
 		if(page_num < tot_page)
 		{			
@@ -89,11 +96,10 @@ public class PageGetBaseAction extends ActionSupport  {
 		q.setProjection(Projections.rowCount());
 		int tot_row = ((Long)q.uniqueResult()).intValue();
 		q.setProjection(null);
-		q.setResultTransformer(Criteria.ROOT_ENTITY);
-		
-		this.totalPageNum = getTotalPageNum(page_size, tot_row);
+		q.setResultTransformer(Criteria.ROOT_ENTITY);		
+		 
 		int[] res = getPageRange(currentPageNum, page_size, tot_row);
-		
+		this.totalPageNum = res[2];
 		if(this.getIsAjaxTransmission())
 		{
 			this.paginationHtml = util.Util.getJspOutput("/jsp/base/widgets/paginationTable.jsp");
