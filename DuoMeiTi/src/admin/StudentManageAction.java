@@ -1,7 +1,9 @@
 package admin;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -12,12 +14,17 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import common.BuildingsInfo;
 import model.AdminProfile;
 import model.Repertory;
 import model.Rules;
 import model.StudentProfile;
 import model.User;
 import util.Const;
+import utility.DatabaseOperation;
+
+import model.DutyTime;
+import model.DutySchedule;
 
 public class StudentManageAction extends ActionSupport{
 	
@@ -58,8 +65,67 @@ public class StudentManageAction extends ActionSupport{
 	private String textShow;//规章制度的内容，显示给jsp页面的内容
 	private Date time;//规章制度的修改时间
 	
+	private List<BuildingsInfo> teahBuildings;
+	private List<DutySchedule> dutySchedule; 
+	private int teachBuildingId;
 	
 	
+	
+	
+	public List<DutySchedule> getDutySchedule() {
+		return dutySchedule;
+	}
+
+
+	public void setDutySchedule(List<DutySchedule> dutySchedule) {
+		this.dutySchedule = dutySchedule;
+	}
+
+
+	public int getTeachBuildingId() {
+		return teachBuildingId;
+	}
+
+
+	public void setTeachBuildingId(int teachBuildingId) {
+		this.teachBuildingId = teachBuildingId;
+	}
+
+
+	public List<BuildingsInfo> getTeahBuildings() {
+		return teahBuildings;
+	}
+
+
+	public void setTeahBuildings(List<BuildingsInfo> teahBuildings) {
+		this.teahBuildings = teahBuildings;
+	}
+
+
+	public String dutyManager() throws Exception{
+		List fields = new ArrayList<String>();
+		fields.add("build_id,");
+		fields.add("build_name");
+		DatabaseOperation getBuildings = new DatabaseOperation("TeachBuilding", fields);
+		List result=getBuildings.selectOperation();
+		teahBuildings =new ArrayList<BuildingsInfo>();
+		Iterator iter =result.iterator();
+		while(iter.hasNext()){
+			Object[] temp=(Object[])iter.next();
+			String name=(String)temp[1];
+			Integer id=(Integer)temp[0];
+			teahBuildings.add(new BuildingsInfo(name,id));
+		}
+		return SUCCESS;
+	}
+	
+	public String getDutyTable() throws Exception{
+		Session session = model.Util.sessionFactory.openSession();
+		String hql="from DutySchedule ds where ds.dutyTime.teachBuilding.build_id="+teachBuildingId+" order by ds.dutyTime.time";
+		dutySchedule = session.createQuery(hql).list();
+		session.close();
+		return SUCCESS;
+	}
 
 
 	public String searchStudentInformation() throws Exception

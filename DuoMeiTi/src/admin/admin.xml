@@ -224,6 +224,19 @@
 			</result>        
         </action>
         
+        <!-- 学生值班管理 -->
+        <action name="duty_manage" class="admin.StudentManageAction" method="dutyManager">
+        	<result>/jsp/admin/student_manage/dutyManage.jsp</result>
+        </action>
+        
+        <!-- 获取值班表 -->
+        <action name="getDutyTable" class="admin.StudentManageAction" method="getDutyTable">
+        	<result type="json">
+        		<param name="includeProperties">
+        		</param>
+        	</result>
+        </action>
+        
 	</package>  
 	<!-- student_manage package end-->
 	

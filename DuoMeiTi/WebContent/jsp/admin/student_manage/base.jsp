@@ -14,7 +14,7 @@
         		</div>
         		
         		<div class="col-lg-3 nopadding" >
-           			<a href="/admin/student_manage/dfsdfsdf" class="navbar-button">设置管理</a> 
+           			<a href="/admin/student_manage/duty_manage" class="navbar-button">值班管理</a> 
         		</div>
         		
        			<div class="col-lg-3 nopadding" >
