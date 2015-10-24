@@ -194,6 +194,7 @@
 			<result name="success" type="json"></result>
 		</action> 
 		
+		
 
 		<!-- 获取学生信息 -->
 		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">
@@ -242,17 +243,6 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	<package name="classroom_json" namespace="/admin/classroom_json" extends="AdminDefault">
 		<action name="classroom_search" class="admin.ClassroomManageAction" method="classroom_search">
 			<result type="json">
@@ -339,11 +329,13 @@
             <param name="includeProperties"></param>
 			</result>        
         </action>
-		
-		
-		
-		
-		
+        
+        <!-- 上传课表 -->
+        <action name="schedule_upload" class="admin.ClassroomDetailAction" method="ScheduleUpload">
+            <result name="success" type="json">
+            <param name="includeProperties"></param>
+			</result>        
+        </action>
 		
 		
 	</package>

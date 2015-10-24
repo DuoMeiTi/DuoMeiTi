@@ -25,9 +25,6 @@
 		 	</div>
 		</div>
 		<hr>
-		
-
-
 		<br/>
 		<br/>
 		<br/>
@@ -50,12 +47,8 @@
 			</tbody>
 		</table>	
 			
-			
-			
-			
-		
+	
 		<script>
-		
 		$(document).on('click',"#picture_up",function(){
 			
 	        var f_id = $("#picture_upload").val();
