@@ -206,23 +206,6 @@
 		});
 	}
 	
-		/* //处理删除操作
-		$(document).on("click", ".delete", function() {
-			notice_id = $(this).parents("tr").attr("notice_id");
-			// 	    alert(deleted_user_id);
-			// 	    alert(typeof user_id);
-
-			$.ajax({
-				url : 'notice_delete',
-				type : 'post',
-				dataType : 'json',
-				data : {
-					"notice_id" : notice_id,
-				},
-				success : deleteCallback
-			});
-
-		}); */
 
 		function deleteCallback(data) {
 
@@ -240,81 +223,7 @@
 			}
 
 		}
-		/* //处理查看编辑操作
-		$(document).on("click", "#edit", function() {
-			notice_id = $(this).parents("tr").attr("notice_id");
-			// 	    alert(deleted_user_id);
-			// 	    alert(typeof user_id);
 
-			$.ajax({
-				url : 'notice_edit',
-				type : 'post',
-				dataType : 'json',
-				data : {
-					"notice_id" : notice_id,
-				},
-				success : editCallback
-			});
-
-		});
-
-		function editCallback(data) {
-
-			if (data.status == "0") {
-				animatedShow("修改成功");
-				//			$(document).find("tr[notice_id=" + notice_id + "]").remove();
-			} else if (data.status == "1") {
-				animatedShow("操作失败");
-			} else {
-				alert("error");
-			}
-
-		}
-		$(document).on("click", "#notice_add", function() {
-			var params = $('#notice_form').serialize(); //利用jquery将表单序列化
-
-			$.ajax({
-				url : 'notice_save',
-				type : 'post',
-				dataType : 'json',
-				data : params,
-				success : noticeAddCallback
-			});
-
-		});
-
-		function animatedShow(text) {
-			$("#alert_register_info").hide();
-			$("#alert_register_info").text(text);
-			$("#alert_register_info").show(500);
-		}
-		function noticeAddCallback(data) {
-			if (data.status == "0") {
-				$("#notice_table tr:first").after(data.added_notice_html);
-
-				var cnt = $(document).find("#notice_table tr:eq(1)");
-				$(cnt).children().eq(0).text(data.title);
-				$(cnt).children().eq(1).text(data.time);
-
-				//         	alert(data.user_id);
-
-				$(cnt).attr("notice_id", data.notice_id);
-
-				animatedShow("添加成功");
-			} else if (data.status == "1") {
-				animatedShow("æ³¨åç¨æ·åæèå¯ç ä¸ºç©º");
-			} else if (data.status == "2") {
-				animatedShow("æ³¨åç¨æ·åéå¤");
-			} else {
-				alert("error with status" + data.status);
-			}
-
-		} */
-
-		/* $('#myModal').on('shown.bs.modal', function() {
-			$('#myInput').focus()
-		}) */
-	</script>
 
 </layout:override>
 
