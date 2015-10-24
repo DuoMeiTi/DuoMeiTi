@@ -1,4 +1,4 @@
-package admin;
+package homepage;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -38,8 +38,9 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	
 	public TeachBuilding building;
 	public Classroom classroom;
-	public String schedulePath;
+	
 	public List<CheckRecord> checkrecords;
+	
 	public List<RepairRecord> repairrecords;
 	public List<RoomPicture>picture_list;
 	public List classroom_repertory_list;
@@ -154,16 +155,9 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c1 = session.createCriteria(RoomPicture.class).add(Restrictions.eq("class_id",classroomId)); //hibernate session创建查询
 		picture_list = c1.list();
-		
-		Criteria q = session.createCriteria(Classroom.class).add(Restrictions.eq("id",classroomId)); //hibernate session创建查询
-		List<Classroom> class_list = q.list();
-		Collections.reverse(class_list);
-		schedulePath = class_list.get(0).getClass_schedule_path();
 		session.close();
 		
-		
 		System.out.println(picture_list);
-		System.out.println(schedulePath);
 	}
 	
 	public String PictureUpload() {
@@ -225,32 +219,6 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		return ActionSupport.SUCCESS;
 	}
 	
-	public String ScheduleUpload(){
-		System.out.println("ScheduleUpload:");
-		System.out.println("calssid" + classroomId);
-		System.out.println("fileFileName" + fileFileName);
-		
-		Session session = model.Util.sessionFactory.openSession();		
-		Criteria q = session.createCriteria(Classroom.class).add(Restrictions.eq("id",classroomId)); //hibernate session创建查询
-		List<Classroom> class_list = q.list();
-		Collections.reverse(class_list);
-		Classroom nClass = class_list.get(0);
-
-		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
-        {
-			util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ClassroomSchedulePath);
-			String inserted_file_path = util.Util.ClassroomSchedulePath +fileFileName;
-			nClass.setClass_schedule_path(inserted_file_path);
-			System.out.println("inserted_file_path" + inserted_file_path);
-        }
-	
-		session.beginTransaction();
-		session.update(nClass);
-		Transaction t = session.getTransaction();
-		t.commit();
-		session.close();
-		return ActionSupport.SUCCESS;
-	}
 
 	
 	public String getBuild_name() {

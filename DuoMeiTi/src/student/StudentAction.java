@@ -21,6 +21,8 @@ import utility.DatabaseOperation;
 
 import com.opensymphony.xwork2.ActionContext;
 
+import common.BuildingsInfo;
+
 public class StudentAction extends ActionSupport{
 	
 	private List<BuildingsInfo> teahBuildings;
@@ -81,14 +83,7 @@ public class StudentAction extends ActionSupport{
 		this.teachBuildingId = teachBuildingId;
 	}
 
-	public class BuildingsInfo{
-		public String buildingName;
-		public int buildingId;
-		BuildingsInfo(String name,Integer id){
-			this.buildingName=name;
-			this.buildingId=id.intValue();
-		}
-	}
+	
 
 	public String getTextShow() {
 		return textShow;
@@ -142,20 +137,30 @@ public class StudentAction extends ActionSupport{
 	}
 	
 	public String reciveChoice() throws Exception{
+		//代码太挫，留待有缘人！
 		Session session = model.Util.sessionFactory.openSession();
 		Transaction trans;
 		//选出选课的学生
 		String studentSelect="from StudentProfile s where s.id="+studentId;
 		StudentProfile s=(StudentProfile)session.createQuery(studentSelect).list().get(0);
 		//删除dutySchedule中的该生以前选择的班次,并更新
-//		trans=session.beginTransaction();
-//		String back = "update DutySchedule ds set ds.dutyTime.dutyLeft=ds.dutyTime.dutyLeft+1 where ds.student.id="+studentId
-//					  +" and "+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
-//		session.createQuery(back).executeUpdate();
-//		String deleteChosen = "delete from DutySchedule ds where ds.student.id="+studentId+" and "
-//				  			  +"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
-//		session.createQuery(deleteChosen).executeUpdate();
-//		trans.commit();
+		trans=session.beginTransaction();
+		String dutySelect="select ds.dutyTime from DutySchedule ds where ds.student.id="
+					 	  +studentId+" and "+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
+		List<DutyTime> duties=session.createQuery(dutySelect).list();
+		for(DutyTime tmp:duties){
+			String back= "update DutyTime d set d.dutyLeft=d.dutyLeft+1 where d.id="+tmp.id;
+			session.createQuery(back).executeUpdate();
+		}
+		String selectDutySchedule="From DutySchedule ds where ds.student.id="+studentId+" and "
+				  			  	  +"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
+		List<DutySchedule> dutySchedules=session.createQuery(selectDutySchedule).list();
+		for(DutySchedule tmp:dutySchedules){
+			String deleteChosen = "delete from DutySchedule ds where ds.id="+tmp.id;
+		  	session.createQuery(deleteChosen).executeUpdate();
+		}
+		trans.commit();
+		
 		//所选的班
 		String dc="(";
 		for(int i=0,end=chosen.size();i<end;i++){
@@ -169,7 +174,6 @@ public class StudentAction extends ActionSupport{
 		String updateDutyLeft="update DutyTime d set d.dutyLeft=d.dutyLeft-1 where d.teachBuilding.build_id="
 								  +teachBuildingId+" and "+dc;
 		int ret=session.createQuery(updateDutyLeft).executeUpdate();
-		System.out.println(ret);
 		if(ret==0){
 			log="something wrong during updating database";
 			return "ajaxSuccess";
