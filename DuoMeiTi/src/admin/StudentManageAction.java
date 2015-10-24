@@ -25,6 +25,7 @@ import utility.DatabaseOperation;
 
 import model.DutyTime;
 import model.DutySchedule;
+import common.DutyInfo;
 
 public class StudentManageAction extends ActionSupport{
 	
@@ -66,18 +67,15 @@ public class StudentManageAction extends ActionSupport{
 	private Date time;//规章制度的修改时间
 	
 	private List<BuildingsInfo> teahBuildings;
-	private List<DutySchedule> dutySchedule; 
+	private List<DutyInfo> dutySchedule; 
 	private int teachBuildingId;
 	
-	
-	
-	
-	public List<DutySchedule> getDutySchedule() {
+	public List<DutyInfo> getDutySchedule() {
 		return dutySchedule;
 	}
 
 
-	public void setDutySchedule(List<DutySchedule> dutySchedule) {
+	public void setDutySchedule(List<DutyInfo> dutySchedule) {
 		this.dutySchedule = dutySchedule;
 	}
 
@@ -121,8 +119,15 @@ public class StudentManageAction extends ActionSupport{
 	
 	public String getDutyTable() throws Exception{
 		Session session = model.Util.sessionFactory.openSession();
-		String hql="from DutySchedule ds where ds.dutyTime.teachBuilding.build_id="+teachBuildingId+" order by ds.dutyTime.time";
-		dutySchedule = session.createQuery(hql).list();
+		String hql="select ds.student.id,ds.student.user.username,ds.dutyTime.time from DutySchedule ds where ds.dutyTime.teachBuilding.build_id="
+					+teachBuildingId+" order by ds.dutyTime.time";
+		List temp =session.createQuery(hql).list();
+		Iterator iter=temp.iterator();
+		dutySchedule = new ArrayList<DutyInfo>();
+		while(iter.hasNext()){
+			Object [] tmp= (Object[]) iter.next();
+			dutySchedule.add(new DutyInfo((Integer)tmp[0],(String)tmp[1],(Integer)tmp[2]));
+		}
 		session.close();
 		return SUCCESS;
 	}

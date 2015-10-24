@@ -33,7 +33,7 @@
 				<s:iterator value="{'7:40 ~~ 9:20','9:50 ~~ 11:30','13:15 ~~ 14:50','15:20 ~~ 17:00','17:45 ~~ 19:20'}" var="time" status="row">
 					<tr class="row" row=<s:property value="#row.index+1"/>>
 						<td class="col-md-2"><s:property value="time"/></td>
-						<s:iterator value="{'0','0','0','0','0','0','0'}" var="num" status="col">
+						<s:iterator value="{'','','','','','',''}" var="num" status="col">
 							<td class="col-md-1.5 dutyleft" col=<s:property value="#col.index+1"/>><s:property value="num"/></td>
 						</s:iterator>
 					</tr>

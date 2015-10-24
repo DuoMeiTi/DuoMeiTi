@@ -8,7 +8,6 @@
 
 	<package name="admin" namespace="/admin" extends="AdminDefault">	
 		
-	
 		<action name="" >
 			<result name="success" type="redirect">
 				/admin/classroom/teachBuildingAction 
@@ -234,6 +233,9 @@
         <action name="getDutyTable" class="admin.StudentManageAction" method="getDutyTable">
         	<result type="json">
         		<param name="includeProperties">
+        			dutySchedule\[\d+\]\.studentId,
+        			dutySchedule\[\d+\]\.studentName,
+        			dutySchedule\[\d+\]\.time,
         		</param>
         	</result>
         </action>
