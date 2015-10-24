@@ -106,11 +106,11 @@
         	<result> /jsp/homepage/contacts.jsp</result>
         </action>
         
-        <action name="add_contacts" class="homepage.ContactsAction" method="addContacts">
+        <action name="contacts_add" class="homepage.ContactsAction" method="addContacts">
             <result type="json"></result>
         </action>
         
-        <action name="delete_contacts" class="homepage.ContactsAction" method="deleteContacts">
+        <action name="contacts_delete" class="homepage.ContactsAction" method="deleteContacts">
             <result type="json"></result>
         </action>
         

@@ -11,13 +11,11 @@ public class Contacts {
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO) 
 	public int id;
-	
 	@Column(length=50)
 	public String username;
-	
 	@Column(length=50)
 	public String telnumber;
-
+	@Column(length=50)
 	public int getId() {
 		return id;
 	}

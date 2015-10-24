@@ -1,10 +1,10 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 <layout:override name="main_content">       
 <br/>
-    
+    <!-- 建立姓名和电话的输入表单 -->
     <center>
 	<form class="form-inline" action="" method="POST" id="contacts_form" >
-	  <div class="form-group" border-radius="4px">
+	  <div class="form-group" border-radius="10px">
 	    <label for="username">姓&nbsp;名</label>	    
 	    <input type="text" class="form-control" size="10"  style="border-radius:10px!important;" id="username" >
 	  </div>
@@ -20,11 +20,8 @@
 	</form>	
 	
 	<br/>
-		
-	<div class="alert alert-info" role="alert" id="alert_register_info"  style="display:none">
-	<br/>
-	</div>	
-	
+
+	<!-- 建立姓名和电话的显示表格 -->
 	<table class="table table-bordered" id="contacts_table">
 	
 		<tr class="active" >
@@ -34,21 +31,26 @@
 		</tr>
 		
 		
-		<s:iterator value="telnumber_list" var="i" status="index" >  
-			<tr class="success" contacts_id=<s:property value="#i.id"/> contacts_username=<s:property value="#i.username"/> contacts_telnumber=<s:property value="#i.telnumber"/>>
-				<td class="success">   <s:property value="#i.username"/>    </td>
-				<td class="warning">   <s:property value="#i.telnumber"/>   </td>
-				<td class="danger"> <button type="button" class="btn btn-danger delete" onclick="delete_contacts(<s:property value="#index.index"/>)">删除</button> 
+		<s:iterator value="contacts" var="n" status="i" >  
+			<tr class="success" contacts_id=<s:property value="#n.id"/> contacts_username=<s:property value="#n.username"/> contacts_telnumber=<s:property value="#n.telnumber"/>>
+				<td class="success">   <s:property value="#n.username"/>    </td>
+				<td class="warning">   <s:property value="#n.telnumber"/>   </td>
+				<td class="danger"> <button type="button" class="btn btn-danger delete" onclick="delete_contacts(<s:property value="#i.index"/>)">删除</button> 
 				 </td>
 			</tr>
 		</s:iterator>  
 		
 	</table>
-	
+	<!-- 增加通讯录和删除通讯录的前台 函数-->
 	<script>
     function add_contacts(){
+    	if ($("#username").val() == "" || $("#telnumber").val() == ""){
+    		alert("姓名或电话不能为空!")
+    		return false;
+    	}
 		var username = $("#username").val();
 		var telnumber = $("#telnumber").val();
+// 		var id = $("#")
 // 		alert(telnumber);
 		$.ajax({
 			url : '/contacts/contacts_add',
@@ -66,7 +68,7 @@
     function addContactsCallback(data) {
 		
 		if(data.status == "ok") {
-			alert("ok");
+			alert("添加成功!");
 			window.location.href=window.location.href;  
 			window.location.reload;
 		}
@@ -75,7 +77,6 @@
     function delete_contacts(index){
 		var contacts_id;
 		var select_contacts_id = $("#contacts_table").find("tr:eq("+(index+1) +")").attr("contacts_id");
-			    alert(select_contacts_id);
 
 		$.ajax({
 			url : 'contacts_delete',
@@ -88,9 +89,9 @@
 		});
 	}
 	
-    function deleteContactsCallback(){
+    function deleteContactsCallback(data){
     	if (data.status == "0"){
-    		alert("ok");
+    		alert("删除成功!");
     		window.location.href=window.location.href;
     		window.location.reload;
     	}
@@ -98,7 +99,7 @@
     		alert("你删除的数据可能不存在")
     	}
     	else {
-    		alert("error");
+    		alert("错误!");
     	}
     	
     }
