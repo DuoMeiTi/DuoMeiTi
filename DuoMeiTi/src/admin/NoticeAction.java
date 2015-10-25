@@ -18,6 +18,7 @@ import model.User;;
 public class NoticeAction {
 	public String title;
 	public String content;
+	
 	public int id;
 	
 	public String getContent() {
