@@ -128,6 +128,7 @@ public class StudentManageAction extends ActionSupport{
 			Object [] tmp= (Object[]) iter.next();
 			dutySchedule.add(new DutyInfo((Integer)tmp[0],(String)tmp[1],(Integer)tmp[2]));
 		}
+		System.out.println(dutySchedule.get(0).studentName);
 		session.close();
 		return SUCCESS;
 	}

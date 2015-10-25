@@ -5,10 +5,8 @@
 <link rel="stylesheet" type="text/css" media="screen" href="/css/admin/dutyManage.css"/> 
 
 <div class="dutyManage">
-	<div class="chooseClassSwitch">
-		<h3>选班开关</h3>
-		<button type="button" class="btn btn-primary">选班功能已关闭</button>
-	</div>
+	<h3>选班开关</h3>
+	<button type="button" class="btn btn-primary" id="chooseClassSwitch">选班功能已关闭</button>
 	<h3>值班表</h3>
 	<div class="teachbuilding-droplist">
 		<select class="form-control buildingSelect">

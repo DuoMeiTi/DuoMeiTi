@@ -236,6 +236,7 @@
         			dutySchedule\[\d+\]\.studentId,
         			dutySchedule\[\d+\]\.studentName,
         			dutySchedule\[\d+\]\.time,
+        			teachBuildingId,
         		</param>
         	</result>
         </action>
