@@ -4,7 +4,7 @@
 
 <table class="table table-bordered" id="exam_table">
 	<tr class="active">
-		<th>编号</th>
+		<th style="display:none;">编号</th>
 		<th>题目</th>
 		<th>选项</th>
 		<th>操作</th>
@@ -12,7 +12,7 @@
 	
 	<s:iterator var="i"  begin="0" end="qtitle.size()-1" step="1">
 		<tr class="danger" titleId=<s:property value="qtitle.get(#i).emId" />>
-			<td ><s:property value="qtitle.get(#i).emId" /></td>
+			<td style="display:none;"><s:property value="qtitle.get(#i).emId" /></td>
 			<td class="titleContent"><s:property value="qtitle.get(#i).emTitle" /></td>
 			
 			<td class="optionList">
