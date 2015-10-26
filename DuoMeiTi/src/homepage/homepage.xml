@@ -175,8 +175,6 @@
             </result> 
 <!--             <result name="input">/jsp/homepage/admin_register.jsp</result>            -->
         </action>
-<<<<<<< HEAD
-=======
       
 
    
@@ -184,7 +182,7 @@
 <action name="classRoomInfo*" class="homepage.ClassRoomInfoAction" method="{1}">
 <result>/jsp/homepage/{1}.jsp</result>
 </action>
->>>>>>> origin/master
+
 
     </package>
     
