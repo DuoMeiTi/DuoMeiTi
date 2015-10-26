@@ -11,15 +11,20 @@
 	</tr>
 	
 	<s:iterator var="i"  begin="0" end="qtitle.size()-1" step="1">
-		<tr class="danger">
-			<td><s:property value="qtitle.get(#i).emId" /></td>
-			<td><s:property value="qtitle.get(#i).emTitle" /></td>
-			<td>
-			<s:iterator var="j" begin="0" end="qoption.get(#i).size() - 1" step="1">
-				<s:property value="qoption.get(#i).get(#j).emOption" />;
-			</s:iterator>
+		<tr class="danger" titleId=<s:property value="qtitle.get(#i).emId" />>
+			<td ><s:property value="qtitle.get(#i).emId" /></td>
+			<td class="titleContent"><s:property value="qtitle.get(#i).emTitle" /></td>
+			
+			<td class="optionList">
+				<s:iterator var="j" begin="0" end="qoption.get(#i).size() - 1" step="1">
+					<div isRight=<s:property value="qoption.get(#i).get(#j).emCheck" /> ><s:property value="qoption.get(#i).get(#j).emOption" /></div>
+				</s:iterator>
 			</td>
-			<td><button type="button" class="btn btn-success edit">编辑</button>&nbsp;&nbsp;<button type="button" class="btn btn-danger delete">删除</button></td>
+			
+			<td>
+				<button type="button" class="btn btn-success edit">编辑</button>&nbsp;&nbsp;
+				<button type="button" class="btn btn-danger delete">删除</button>
+			</td>
 		</tr>
 	</s:iterator>
   	

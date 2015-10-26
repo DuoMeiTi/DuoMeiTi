@@ -11,21 +11,21 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">添加题目</h4>
+        <h2 class="modal-title" id="myModalLabel">添加题目</h2>
       </div>
       <div class="modal-body">
 		题目描述
-		<form id="exam_form">
+		<form id="exam_form" titleId>
 			<textarea id="titleInput" class="form-control titleContent" rows="3" style="resize: vertical"></textarea>
 			<br>
 			<span style="color:red">请勾选正确选项</span>
 			
 			<div style="display:none" class="option">
 			
-			  <div class="form-inline form-group toc" id="optionLine">
+			  <div class="form-inline form-group toc optionContent" id="optionLine">
 			  	<input type="checkbox" class="optionCheck">
 			    <label for="optionInput">选项:</label>
-			    <textarea class="form-control" id="optionInput" rows="1" cols="45" placeholder="选项内容"></textarea>
+			    <textarea class="form-control optionInput" id="optionInput" rows="2" cols="55" placeholder="选项内容"></textarea>
 			    <button type="button" class="btn btn-primary" id="optionRemove"> 移除</button>
 			  </div>
 			  
@@ -41,7 +41,7 @@
     	<button type="button" class="btn btn-primary" id="addOption">添加选项</button>
       	
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary" id="examInsert">保存</button>
+        <button type="button" class="btn btn-primary" id="examInsert" >保存</button>
       </div>
     </div>
   </div>
@@ -60,13 +60,105 @@
 
 
 <script>
+	var optionHtml = $(".option").html();
+	$(".option").remove();
+	
+	// clear modal
+	function clearModal(){
+		$("#titleInput").val("");
+		$(".optionContent").each(function(){
+			$(this).remove();
+		})
+	}
 	var id='A';
-	$(document).on("click", "#addOption", function(){
+	function addOption(){
 		code = id.charCodeAt();
 		id = String.fromCharCode(++code);
-		$("#exam_form").append($(".option").html());
-		$("#emModal .toc:last").addClass("optionContent");
+		$("#exam_form").append(optionHtml);
+	}
+
+	// open edit title
+	$(document).on("click", ".edit", function(){
+		clearModal();
+		$('#emModal').find(".modal-title").html("编辑题目");
+		var tr = $(this).parent().parent();
+		var optionList = $(tr).find(".optionList")[0];
+
+		optionList = $(optionList).find("div");
+		$("#titleInput").val($(tr).find(".titleContent").html());
+		$("#exam_form").attr("titleId", $(tr).attr("titleId"));
+		$(optionList).each(function(){
+			
+			var isRight = $(this).attr("isRight");
+			addOption();
+			var cntOption = $(".optionContent:last");
+			$(cntOption).find(".optionInput").val($(this).text());			
+			if(isRight == "true")
+			{				
+				
+				$(cntOption).find(".optionCheck").attr("checked",true);
+			}
+			else
+			{
+				$(cntOption).find(".optionCheck").attr("checked",false);
+			}
+		})
+		$('#emModal').modal('show');
+		
 	})
+	
+	
+	
+	
+	// save edit Title
+	function editTitle() {
+		$('#emModal').modal('hide');
+// 		alert("DOUBI");
+		
+		var titleId = $("#exam_form").attr("titleId");
+// 		alert("|" + titleId + "|");
+		
+		
+		var params = getParams();
+		params = $.extend(params, {"emId": titleId});
+		
+		$.ajax({
+			url : 'training_examEdit',
+			type : 'post',
+			dataType : 'json',
+			data : params,
+			traditional : true,
+			success : editTitleCallBack
+		});
+
+	}
+	
+	function editTitleCallBack(data){
+		if(data.trStatus == "1") {
+			$(document).find("#examTableDiv").html(data.exam_table);
+// 			$('#emModal').modal('hide');
+			alert("更改成功！ ");
+		}
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// add option
+	
+	$(document).on("click", "#addOption",addOption )
 	
 	$(document).on("click", "#testButton", function(){
 		alert("lalala");
@@ -77,20 +169,34 @@
 		}
 	})
 	
+	
+	
+	
 	$(document).on("click","#addExam",function(){
-		$("#titleInput").val("");
 		
-		$(".optionContent").each(function(){
-			$(this).remove();
-		})
+		$('#emModal').find(".modal-title").html("新增题目");
+		clearModal();
+		
 		
 	})
 	//remove
 	$(document).on("click", "#optionRemove", function(){
 		$(this).parents("#optionLine").remove();
 	})
-	//examinsert
+	
 	$(document).on("click", "#examInsert", function(){
+		var judge = $('#emModal').find(".modal-title").html();
+// 		alert(judge);
+		if(judge == "编辑题目")
+		{
+			editTitle();
+		}
+		else insertTitle();
+	})
+	
+	// from modal  get params
+	function getParams()
+	{
 		var emTextarea = $("#titleInput").val();
 		var optionList = new Array();
 		$(".optionContent #optionInput").each(function(){
@@ -104,6 +210,7 @@
 			var temp = findList[i].getElementsByClassName("optionCheck")[0].checked;
 			checkList.push(temp);
 		}
+		
 // 		alert(optionList);
 // 		alert(checkList);
 		var params = {
@@ -111,6 +218,14 @@
 				"optionList" : optionList,
 				"checkList" : checkList
 		};
+		return params;
+
+	}
+	
+	//exam insert
+	function insertTitle(){
+		
+		var params = getParams();
 		$.ajax({
 			url : 'training_examInsert',
 			type : 'post',
@@ -119,7 +234,8 @@
 			traditional : true,
 			success : emInsertCallback
 		});
-	})
+	}
+	
 	function emInsertCallback(data){
 		if(data.trStatus == "1") {
 			$(document).find("#examTableDiv").html(data.exam_table);
@@ -127,6 +243,13 @@
 			alert("插入成功！ ");
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
 	//delete
 	var delete_emId
 	$(document).on("click",".delete",function(){
