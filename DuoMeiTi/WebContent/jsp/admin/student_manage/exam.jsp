@@ -36,7 +36,7 @@
 		
       </div>
       <div class="modal-footer">
-      	<button type="button" class="btn btn-primary" id="testButton">test</button>
+<!--       	<button type="button" class="btn btn-primary" id="testButton">test</button> -->
 		
     	<button type="button" class="btn btn-primary" id="addOption">添加选项</button>
       	

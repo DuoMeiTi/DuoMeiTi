@@ -75,6 +75,9 @@ public class TrainingAction extends ActionSupport{
 		{
 			System.out.println("$$$$$$$$$$$$" + emId);
 			session.beginTransaction();
+			ExamTitle et = (ExamTitle)qtitle.get(0);
+			et.setEmTitle(emTitle);
+			session.save(et);
 			Criteria qo = session.createCriteria(ExamOption.class).add(Restrictions.eq("emTitle.emId", emId));
 			List<ExamOption> oldOptionList = qo.list();
 			
