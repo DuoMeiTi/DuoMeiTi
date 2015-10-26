@@ -14,7 +14,11 @@
 	    <a href="/student/sssfdf" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;修改密码</span></a>
 	    <a href="/logout" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;安全退出</span></a>
 	    
-
+		
+		<s:if test="#session.role.equals(@util.Const@StudentToAdminRole)">
+            <a href="/admin/" class="menu-button-middle"><span class="glyphicon glyphicon-share-alt">&nbsp;跳到管理员</span></a>
+        </s:if>
+		
 	    <div class="menu-blank"></div>
 	</div>
 

@@ -21,6 +21,8 @@ import utility.DatabaseOperation;
 
 import com.opensymphony.xwork2.ActionContext;
 
+import common.BuildingsInfo;
+
 public class StudentAction extends ActionSupport{
 	
 	private List<BuildingsInfo> teahBuildings;
@@ -81,14 +83,7 @@ public class StudentAction extends ActionSupport{
 		this.teachBuildingId = teachBuildingId;
 	}
 
-	public class BuildingsInfo{
-		public String buildingName;
-		public int buildingId;
-		BuildingsInfo(String name,Integer id){
-			this.buildingName=name;
-			this.buildingId=id.intValue();
-		}
-	}
+	
 
 	public String getTextShow() {
 		return textShow;

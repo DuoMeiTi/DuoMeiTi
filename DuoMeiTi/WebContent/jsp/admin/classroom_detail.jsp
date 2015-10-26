@@ -18,23 +18,31 @@
 	
 	
 		<br>
-		<ul class="nav  nav-pills"  style="position:relative;left:800px;">
+		<ul class="nav  nav-pills"  style="position:relative;left:700px;">
+		 	<li role="presentation" >
+		    	<a href="#schedule" aria-controls="schedule" role="tab" data-toggle="tab">教室课表</a>
+		    </li>
 		    <li role="presentation" >
 		    	<a href="#home" aria-controls="home" role="tab" data-toggle="tab">教室照片</a>
 		    </li>
 		    <li role="presentation" class="active">
 		    	<a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">详细信息</a>
 		    </li>
+		    
 		</ul>
 		<hr>
 		<div class="tab-content">
-	    <div role="tabpanel" class="tab-pane " id="home">
-	    	<%@ include file="classroom_picture.jsp" %>
-	    </div>
-	    
-	    <div role="tabpanel" class="tab-pane active" id="profile">
-			<%@ include file="classroom_information.jsp" %>
-		</div>
+			<div role="tabpanel" class="tab-pane " id="schedule">
+		    	<%@ include file="classroom_schedule.jsp" %>
+		    </div>
+		    
+		    <div role="tabpanel" class="tab-pane " id="home">
+		    	<%@ include file="classroom_picture.jsp" %>
+		    </div>
+		    
+		    <div role="tabpanel" class="tab-pane active" id="profile">
+				<%@ include file="classroom_information.jsp" %>
+			</div>
 	
 		</div>
 		

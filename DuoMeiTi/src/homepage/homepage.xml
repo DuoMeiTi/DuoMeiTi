@@ -42,6 +42,16 @@
         	</result>
         </action>
         
+        <action name="classroom_detail" class="homepage.ClassroomDetailAction">
+			<result>
+				<param name="location">/jsp/homepage/classroom_detail.jsp</param>
+				<!-- <param name="build_id">${classroom_id}</param>
+				<param name="build_name">${classroom_num}</param> -->
+				<param name="classroomselectIndex">${classroomId}</param>
+				<param name="build_name">${build_name}</param>
+			</result>
+		</action>
+		
         <action name="ResourceFile" class="homepage.HomeAction" method="resourceFile">
 			<result>/jsp/homepage/ResourceFile.jsp</result>
 			
@@ -114,9 +124,20 @@
         <action name="CommonProRecord" class="homepage.CommonProRecord" method="showRecord">
         	<result> /jsp/homepage/CommonProRecord.jsp</result>
         </action>
+        <!-- 通讯录action-->
+        <action name="contacts" class="homepage.ContactsAction" method="wrContacts">
+        	<result> /jsp/homepage/contacts.jsp</result>
+        </action>
         
+        <action name="contacts_add" class="homepage.ContactsAction" method="addContacts">
+            <result type="json"></result>
+        </action>
         
-
+        <action name="contacts_delete" class="homepage.ContactsAction" method="deleteContacts">
+            <result type="json"></result>
+        </action>
+        
+        <!-- 登录 -->
         <action name="login" class="homepage.UserAction" method="login">
         	<result> /jsp/homepage/login.jsp </result>
         	
@@ -175,13 +196,15 @@
             </result> 
 <!--             <result name="input">/jsp/homepage/admin_register.jsp</result>            -->
         </action>
-      
+
+
 
    
-<!--游客访问教室信息  showBuildings;showClassRooms;showDevices -->
+<!--游客访问教室信息  showBuildings;showClassRooms;showDevices-->
 <action name="classRoomInfo*" class="homepage.ClassRoomInfoAction" method="{1}">
 <result>/jsp/homepage/{1}.jsp</result>
 </action>
+
 
 
     </package>
