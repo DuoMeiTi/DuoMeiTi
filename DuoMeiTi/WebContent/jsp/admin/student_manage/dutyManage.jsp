@@ -20,6 +20,8 @@
 	  			<option value=<s:property value="#i.buildingId"/>><s:property value="#i.buildingName"/></option>
 	  		</s:iterator>
 	  	</select>
+
+		<button type="button" class="btn btn-primary adjust-btn">调整</button>
 	</div>
 	<br/>
 	<div class="time-table hide">
@@ -28,7 +30,7 @@
 				<tr class="row">
 					<th class="col-md-2">值班时间</th>
 					<s:iterator value="{'一','二','三','四','五','六','日'}" var='week'>
-						<th class="col-md-1.5"><s:property value='week'/></th>
+						<th class="col-md-1.5"><span><s:property value='week'/></span></th>
 					</s:iterator>
 				</tr>
 			</thead>

@@ -57,13 +57,16 @@ function getDutyTableCallBack(data){
 		var time=dutySchedule[i].time;
 		var row = parseInt(time/10);
 		var col = parseInt(time%10);
-		console.log(time);
 		$("td").each(function(j){
 			var coll=$(this).attr("col");
 			var roww=$(this).closest("tr").attr("row");
 			if(coll==col&&roww==row){
-				$(this).append("<span>"+name+"</span>");
+				$(this).append("<span iid="+id+">"+name+"</span>");
 			}
 		});
 	});
 }
+
+$(document).on("click",".adjust-btn",function(){
+	
+});
