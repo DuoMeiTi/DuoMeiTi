@@ -200,12 +200,11 @@
 
 
    
-<!--游客访问教室信息  showBuildings;showClassRooms;showDevices
+<!--游客访问教室信息  showBuildings;showClassRooms;showDevices-->
 <action name="classRoomInfo*" class="homepage.ClassRoomInfoAction" method="{1}">
 <result>/jsp/homepage/{1}.jsp</result>
 </action>
 
- -->
 
 
     </package>

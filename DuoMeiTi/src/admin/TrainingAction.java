@@ -53,6 +53,103 @@ public class TrainingAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
+	
+	
+	
+	
+	
+	public String examEdit() throws Exception{
+		
+		
+		System.out.println("YEYYEE");
+		System.out.println(emId);
+		System.out.println("$$$$$$$$$$$$" + emId);
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria qt = session.createCriteria(ExamTitle.class).add(Restrictions.eq("emId", emId));
+		qtitle = qt.list();
+		if(qtitle.isEmpty())
+		{
+			this.trStatus = "0";
+		}
+		else
+		{
+			System.out.println("$$$$$$$$$$$$" + emId);
+			session.beginTransaction();
+			ExamTitle et = (ExamTitle)qtitle.get(0);
+			et.setEmTitle(emTitle);
+			session.save(et);
+			Criteria qo = session.createCriteria(ExamOption.class).add(Restrictions.eq("emTitle.emId", emId));
+			List<ExamOption> oldOptionList = qo.list();
+			
+			while(oldOptionList.size() > optionList.size()) 
+			{
+				int last = oldOptionList.size() - 1;
+				session.delete(oldOptionList.get(last));
+				oldOptionList.remove(last);				
+			}
+			while(oldOptionList.size() < optionList.size()) 
+			{				
+				ExamOption eo = new ExamOption();
+				eo.setEmTitle(qtitle.get(0));
+				oldOptionList.add(eo);
+				session.save(eo);
+			}
+			for(int i = 0; i < oldOptionList.size(); ++ i)
+			{
+				ExamOption oldeo = (ExamOption)oldOptionList.get(i);
+				
+				oldeo.setEmCheck(checkList.get(i).toString());
+				oldeo.setEmOption(optionList.get(i).toString());
+				
+				session.update(oldeo);
+			}
+			
+//			optionList
+//			for(int i = 0; i < qoList.size(); i++)
+//			{
+//				session.delete(qoList.get(i));
+//			}
+//			session.delete(qtitle.get(0));
+			session.getTransaction().commit();
+			Criteria ctitle = session.createCriteria(ExamTitle.class);
+			qtitle = ctitle.list();
+			qoption.clear();
+			for(int i = 0; i < qtitle.size(); i++)
+			{
+				Criteria coption = session.createCriteria(ExamOption.class)
+								  .add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()  ));
+				qoption.add(coption.list());
+			}
+			Collections.reverse(qtitle);
+			Collections.reverse(qoption);
+			exam_table = util.Util.getJspOutput("/jsp/admin/widgets/examTable.jsp");
+			this.trStatus = "1";
+		}
+		session.close();
+		
+		
+		System.out.println("FJFJJFJ*********");
+		return SUCCESS;
+
+
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public String examInsert() throws Exception
 	{
 		System.out.println(emTitle + " | " + optionList + " | " + checkList + "|");
@@ -69,6 +166,12 @@ public class TrainingAction extends ActionSupport{
 			eo.setEmTitle(et);
 			eo.setEmOption(optionList.get(i).toString());
 			eo.setEmCheck(checkList.get(i).toString());
+//			System.out.println("YES:INSERT");
+//			System.out.println(checkList.get(i).toString());
+//			System.out.println(checkList.get(i).getClass());
+			
+			
+			
 			session.save(eo);
 		}
 		
