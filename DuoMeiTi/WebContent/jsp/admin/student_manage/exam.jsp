@@ -77,6 +77,59 @@
 		$("#exam_form").append(optionHtml);
 	}
 
+	//remove
+	$(document).on("click", "#optionRemove", function(){
+		$(this).parents("#optionLine").remove();
+	})
+	
+	//exam insert
+	function insertTitle(){
+		
+		var params = getParams();
+		$.ajax({
+			url : 'training_examInsert',
+			type : 'post',
+			dataType : 'json',
+			data : params,
+			traditional : true,
+			success : emInsertCallback
+		});
+	}
+	
+	function emInsertCallback(data){
+		if(data.trStatus == "1") {
+			$(document).find("#examTableDiv").html(data.exam_table);
+			$('#emModal').modal('hide');
+			alert("插入成功！ ");
+		}
+	}
+	
+	//delete
+	var delete_emId
+	$(document).on("click",".delete",function(){
+		var temp = confirm("删除不可恢复！");
+		if(temp == true){
+			var temp = $(this).parents("tr");
+			delete_emId = temp.children().eq(0).text();
+			$(temp).attr("emid", delete_emId);
+			$.ajax({
+				url : 'training_examDelete',
+				type : 'post',
+				dataType : 'json',
+				data : {"emId" : delete_emId,},// {"后台",""}
+				success : emDeleteCallback
+			});
+		}
+	})
+	function emDeleteCallback(data){
+		//alert("ok!!!!");
+		if (data.trStatus == "0") {
+			alert("删除数据不存在！ ");
+		} else if (data.trStatus == "1") {
+			$(document).find("tr[emid=" + delete_emId + "]").remove();
+		}
+	}
+	
 	// open edit title
 	$(document).on("click", ".edit", function(){
 		clearModal();
@@ -146,16 +199,6 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// add option
 	
 	$(document).on("click", "#addOption",addOption )
@@ -179,10 +222,7 @@
 		
 		
 	})
-	//remove
-	$(document).on("click", "#optionRemove", function(){
-		$(this).parents("#optionLine").remove();
-	})
+	
 	
 	$(document).on("click", "#examInsert", function(){
 		var judge = $('#emModal').find(".modal-title").html();
@@ -222,59 +262,7 @@
 
 	}
 	
-	//exam insert
-	function insertTitle(){
-		
-		var params = getParams();
-		$.ajax({
-			url : 'training_examInsert',
-			type : 'post',
-			dataType : 'json',
-			data : params,
-			traditional : true,
-			success : emInsertCallback
-		});
-	}
 	
-	function emInsertCallback(data){
-		if(data.trStatus == "1") {
-			$(document).find("#examTableDiv").html(data.exam_table);
-			$('#emModal').modal('hide');
-			alert("插入成功！ ");
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	//delete
-	var delete_emId
-	$(document).on("click",".delete",function(){
-		var temp = confirm("删除不可恢复！");
-		if(temp == true){
-			var temp = $(this).parents("tr");
-			delete_emId = temp.children().eq(0).text();
-			$(temp).attr("emid", delete_emId);
-			$.ajax({
-				url : 'training_examDelete',
-				type : 'post',
-				dataType : 'json',
-				data : {"emId" : delete_emId,},// {"后台",""}
-				success : emDeleteCallback
-			});
-		}
-	})
-	function emDeleteCallback(data){
-		//alert("ok!!!!");
-		if (data.trStatus == "0") {
-			alert("删除数据不存在！ ");
-		} else if (data.trStatus == "1") {
-			$(document).find("tr[emid=" + delete_emId + "]").remove();
-		}
-	}
 </script>
 
 

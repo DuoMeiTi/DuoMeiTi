@@ -16,6 +16,14 @@
   		<action name="train" class="student.TrainAction">
 			<result>/jsp/student/train.jsp</result>
 		</action>
+		
+		<action name="exam" class="student.ExamAction">
+			<result>/jsp/student/exam.jsp</result>
+		</action>
+
+		<action name="exam_*" class="student.ExamAction" method="{1}">
+			<result type="json"></result>
+		</action>
 
 		<action name="student_information" class="student.InformationAction" method="studentInformation">
 			<result>/jsp/student/student_information.jsp</result>
