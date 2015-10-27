@@ -28,24 +28,6 @@
 			</result>
 		</action>
 
-
-
-		<action name="classroom_manage" class="student.ClassroomManageAction"
-			method="classroomList">
-
-			<result>
-				/jsp/student/classroom_manage.jsp
-			</result>
-		</action>
-		<action name="classroom_detail" class="student.ClassroomDetailAction">
-			<result>
-				<param name="location">/jsp/student/classroom_detail.jsp</param>
-				<!-- <param name="build_id">${classroom_id}</param> <param name="build_name">${classroom_num}</param> -->
-				<param name="classroom_id">${classroom_id}</param>
-				<param name="build_id">${build_id}</param>
-			</result>
-		</action>
-
 		<action name="chooseclass" class="student.StudentAction"
 			method="chooseClass">
 			<result>/jsp/student/chooseClass.jsp</result>
@@ -65,6 +47,23 @@
 				<param name="includeProperties">
 					log
 				</param>
+			</result>
+		</action>
+    </package>
+    <package name="sutdent_classroom" namespace="/student/classroom" extends="StudentDefault">
+    	<action name="classroom_manage" class="student.ClassroomManageAction"
+			method="classroomList">
+
+			<result>
+				/jsp/student/classroom_manage.jsp
+			</result>
+		</action>
+		<action name="classroom_detail" class="student.ClassroomDetailAction">
+			<result>
+				<param name="location">/jsp/student/classroom_detail.jsp</param>
+				<!-- <param name="build_id">${classroom_id}</param> <param name="build_name">${classroom_num}</param> -->
+				<param name="classroom_id">${classroom_id}</param>
+				<param name="build_id">${build_id}</param>
 			</result>
 		</action>
     </package>

@@ -129,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#schedule-modal">查看课表</button>
 					<a type="button" data-toggle="modal" data-target="#schedule-modal" class="btn btn-primary btn-sm">查看课表</a>
 					</div> -->
-				<div class="col-lg-2">
+				<div class="col-lg-2" style="float:right;">
 					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#check-record-modal">填写周检查记录</button>
 				</div>
 			</div>
