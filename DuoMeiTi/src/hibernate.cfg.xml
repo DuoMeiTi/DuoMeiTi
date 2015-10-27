@@ -45,6 +45,7 @@
 
 		<mapping class="model.Rules"/>
 		<mapping class="model.ResourceFilePath"/>
+		<mapping class="model.ChooseClassSwitch"/>
 
 		
     </session-factory>

@@ -241,6 +241,13 @@
         	</result>
         </action>
         
+        <!-- 改变开关状态 -->
+        <action name="switchStatuChange" class="admin.StudentManageAction" method="switchStatuChange">
+        	<result type="json">
+        		<param name="includeProperties">log</param>
+        	</result>
+        </action>
+        
 	</package>  
 	<!-- student_manage package end-->
 	

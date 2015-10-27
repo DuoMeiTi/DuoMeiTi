@@ -7,6 +7,7 @@ import model.TeachBuilding;
 import model.DutyTime;
 import model.DutySchedule;
 import model.StudentProfile;
+import model.ChooseClassSwitch;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -137,8 +138,17 @@ public class StudentAction extends ActionSupport{
 	}
 	
 	public String reciveChoice() throws Exception{
+		
 		//代码太挫，留待有缘人！
 		Session session = model.Util.sessionFactory.openSession();
+		
+		String hql="from ChooseClassSwitch ccs where ccs.id=1";
+		ChooseClassSwitch f=(ChooseClassSwitch)session.createQuery(hql).list().get(0);
+		if(!f.open){
+			log="closed";
+			session.close();
+			return "ajaxSuccess";
+		}
 		Transaction trans;
 		//选出选课的学生
 		String studentSelect="from StudentProfile s where s.id="+studentId;
@@ -195,12 +205,12 @@ public class StudentAction extends ActionSupport{
 				trans.commit();
 			}
 			catch(Exception e){
-				log="something wrong during update database";
+				log="fail";
 				return "ajaxSuccess";
 			}
 		}
 		session.close();
-		log="sucess";
+		log="success";
 		return "ajaxSuccess";
 	}
 	

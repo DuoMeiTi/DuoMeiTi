@@ -26,6 +26,7 @@ import utility.DatabaseOperation;
 import model.DutyTime;
 import model.DutySchedule;
 import common.DutyInfo;
+import model.ChooseClassSwitch;
 
 public class StudentManageAction extends ActionSupport{
 	
@@ -54,7 +55,7 @@ public class StudentManageAction extends ActionSupport{
 	private int student_profile_id;
 	private int isUpgradePrivilege;
 	private String status;
-	
+
 
 	private static List<StudentProfile> student_list;
 	private static List<User> user_list;
@@ -69,7 +70,32 @@ public class StudentManageAction extends ActionSupport{
 	private List<BuildingsInfo> teahBuildings;
 	private List<DutyInfo> dutySchedule; 
 	private int teachBuildingId;
+	private boolean chooseClassSwitch;
+	private String log;
 	
+	
+	
+	
+	public String getLog() {
+		return log;
+	}
+
+
+	public void setLog(String log) {
+		this.log = log;
+	}
+
+
+	public boolean isChooseClassSwitch() {
+		return chooseClassSwitch;
+	}
+
+
+	public void setChooseClassSwitch(boolean chooseClassSwitch) {
+		this.chooseClassSwitch = chooseClassSwitch;
+	}
+
+
 	public List<DutyInfo> getDutySchedule() {
 		return dutySchedule;
 	}
@@ -114,6 +140,35 @@ public class StudentManageAction extends ActionSupport{
 			Integer id=(Integer)temp[0];
 			teahBuildings.add(new BuildingsInfo(name,id));
 		}
+		Session session = model.Util.sessionFactory.openSession();
+		String s="from ChooseClassSwitch ccs where id=1";
+		List<ChooseClassSwitch> t=session.createQuery(s).list();
+		chooseClassSwitch=t.get(0).open;
+		session.close();
+		return SUCCESS;
+	}
+	
+	public String switchStatuChange() throws Exception{
+
+		try{
+			Session session = model.Util.sessionFactory.openSession();
+			Transaction tx=session.beginTransaction();
+			String hql="from ChooseClassSwitch ccs where ccs.id=1";
+			ChooseClassSwitch f = (ChooseClassSwitch)session.createQuery(hql).list().get(0);
+			String flag;
+			if(f.open==true)flag="false";
+			else flag="true";
+			hql="update ChooseClassSwitch ccs set ccs.open="+flag+" where ccs.id=1";
+			session.createQuery(hql).executeUpdate();
+			tx.commit();
+			session.close();
+			log="success";
+		}
+		catch(Exception e){
+			log="fail";
+			System.out.println(e);
+		}
+		System.out.println("hello");
 		return SUCCESS;
 	}
 	

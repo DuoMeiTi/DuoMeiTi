@@ -6,7 +6,12 @@
 
 <div class="dutyManage">
 	<h3>选班开关</h3>
-	<button type="button" class="btn btn-primary" id="chooseClassSwitch">选班功能已关闭</button>
+	<s:if test="chooseClassSwitch==false">
+		<button type="button" class="btn btn-primary" id="chooseClassSwitch">选班功能已关闭</button>
+	</s:if>
+	<s:else>
+		<button type="button" class="btn btn-warning" id="chooseClassSwitch">选班功能已打开</button>
+	</s:else>
 	<h3>值班表</h3>
 	<div class="teachbuilding-droplist">
 		<select class="form-control buildingSelect">

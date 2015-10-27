@@ -1,15 +1,32 @@
 $(document).on("click","#chooseClassSwitch",function(){
-	var btn=$(this);
-	if(btn.hasClass("btn-primary")){
-		btn.removeClass("btn-primary");
-		btn.addClass("btn-warning");
-		btn.html("选班功能已打开");
-	}else{
-		btn.removeClass("btn-warning");
-		btn.addClass("btn-primary");
-		btn.html("选班功能已关闭");
-	}
+	$.ajax({
+		url : "/admin/student_manage/switchStatuChange",
+		type : 'post',
+		dataType : 'json',
+		data : {},
+		success : switchStatuChangeCallBack
+	});
 });
+
+function switchStatuChangeCallBack(data){
+	var btn=$("#chooseClassSwitch");
+	var log=data.log;
+	if(log=="success"){
+		if(btn.hasClass("btn-primary")){
+			btn.removeClass("btn-primary");
+			btn.addClass("btn-warning");
+			btn.html("选班功能已打开");
+		}else{
+			btn.removeClass("btn-warning");
+			btn.addClass("btn-primary");
+			btn.html("选班功能已关闭");
+		}
+		alert("状态修改成功");
+	}else{
+		alert("额..好像出问题了..");
+	}
+	
+}
 
 $(document).on("click",".buildingSelect",function(){
 	var id=parseInt($(this).val());

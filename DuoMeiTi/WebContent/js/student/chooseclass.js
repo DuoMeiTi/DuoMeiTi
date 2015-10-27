@@ -104,5 +104,8 @@ $("#duty-choose-submit").click(function(){
 });
 
 function sendChoiceCallBack(data){
-	alert(data.log);
+	var log=data.log;
+	if(log=="success")alert("很棒，你选班成功了！");
+	if(log=="fail")alert("额..好像出了什么问题..");
+	if(log=="closed")alert("管理员大人还没打开开关，你不能选班！");
 }
