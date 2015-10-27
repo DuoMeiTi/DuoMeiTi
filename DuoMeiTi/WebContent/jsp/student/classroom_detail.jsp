@@ -31,51 +31,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			</div>
 		<hr>
-	
-		<!-- Modal -->
-		<div class="modal fade" id="schedule-modal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title">课表</h4>
-					</div>
-					<div class="modal-body" style="height:800px;">
-						<!-- <div class="form-group">
-							<label for="dtp_input2" class="col-md-2 control-label">选择日期</label>
-							<div style="float:left;position:relative;" class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-								<input class="form-control" size="16" type="text" value="" readonly> 
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-remove"></span>
-								</span>
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar"></span>
-								</span>
-							</div>
-							<input type="hidden" id="dtp_input2" value="" />
-							<button type="button" style="float:right" class="btn btn-primary">查询</button>
-							<br /><br /><br />
-						</div> -->
-						<!-- <table class="table table-bordered">
-							<thead>
-								<tr><td>1-2节</td><td>3-4节</td><td>5-6节</td><td>7-8节</td><td>9-10节</td></tr>
-							</thead>
-							<tbody>
-								<tr><td>C语言</td><td>Java语言</td><td>PHP语言</td><td>C#语言</td><td>C++语言</td></tr>
-							</tbody>
-						</table> -->
-						<iframe name="myFrame" frameborder="0" style="width:100%;height:800px;" src="/schedule/校部第一教学馆1-101(10301).html"></iframe>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		
+		
 		<div class="modal fade" id="check-record-modal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -129,6 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input type="text" class="form-control" id="zichanhao" style="width:30%;float:left;margin-left:5%;" placeholder="请输入资产编号"></input>
 						<!-- <button type="submit" class="btn btn-info btn-sm" style="margin-left:5%">查询</button> -->
 						<button type="button" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="add_classroomrt(<s:property value="#session.ret"/>)">添加</button>
+						<button id="alterSearch" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</button>
 					</div>
 				<!-- </form> -->
 				<script>
@@ -154,12 +112,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						else
 							alert("Sorry，添加失败");
 					}
+					function alter_device() {
+						var classroomid = <s:property value="classroom_id" />;
+						var href="<%=path%>/admin/classroomDevice/alter_action?classroomid="+classroomid;
+						//document.getElementById("alterSearch").href=href;
+						window.open(href,'myFrame1');
+					}
+					function closeWindow() {
+						window.opener=null;
+						window.open('','_self');
+						window.close();
+					}
 				</script>
 				</div>
-				<div class="col-lg-2">
-					<!-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#schedule-modal">查看课表</button> -->
+<!-- 				<div class="col-lg-2">
+					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#schedule-modal">查看课表</button>
 					<a type="button" data-toggle="modal" data-target="#schedule-modal" class="btn btn-primary btn-sm">查看课表</a>
-					</div>
+					</div> -->
 				<div class="col-lg-2">
 					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#check-record-modal">填写周检查记录</button>
 				</div>
@@ -174,7 +143,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label class="control-label device-type-label"><s:property value="#device.rtType"/>&nbsp;</label>
 								<span>
 									<button type="button" class="btn btn-primary btn-sm"  
-									onclick="openRepairMoadl(<s:property value="#i.index"/>)">维修</button>
+									onclick="openRepairMoadl(<s:property value="#i.index"/>)">维修记录</button>
+									<a href="<%=path%>/admin/classroomDevice/move2alter_action?m2alter=<s:property value="#device.rtId"/>&classroomId=<s:property value="classroom.id"/>" id="mtoalter" type="button" class="btn btn-primary btn-sm"  
+									>移入备用</a>
 								</span>
 								<span style="visibility:hidden" class="device-id-span"><s:property value="#device.rtId"/></span>
 								<span style="visibility:hidden" class="device-num-span"><s:property value="#device.rtNumber"/></span>
@@ -236,6 +207,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</li>
 				</ul>
 			</div>
+		</div>
+				<div id="alter_table">
+			<!-- <button id="alterSearch" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</button> -->
+			<!-- <a id="alterSearch" target="myFrame1" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</a> -->
+
+			<iframe name="myFrame1" id="main" frameborder="0" scrolling="no" style="width:100%;" height="" ></iframe>
 		</div>
 	</div>
 	

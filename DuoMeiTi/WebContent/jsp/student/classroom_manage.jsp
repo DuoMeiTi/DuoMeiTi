@@ -7,7 +7,7 @@
 <div class="mycontent">
   <div class="row">
     <div class="col-lg-6 col-lg-offset-3 classbuilding ">
-      <span id="build_name"><s:property value="build_name"/></span>教学楼
+      <span id="build_name"><s:property value="build_name"/></span>教室管理
     </div>
   </div>
   <hr>
