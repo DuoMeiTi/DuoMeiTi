@@ -11,7 +11,7 @@
 
 
 		<br>
-
+<a href="<s:property value="class_schedule_path"/>">课表</a>
 		<table class=" table table-bordered table-striped ">
 			<thead>
 				<tr>

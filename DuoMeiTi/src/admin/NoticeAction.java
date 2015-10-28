@@ -35,6 +35,13 @@ public class NoticeAction extends PageGetBaseAction {
 	//尝试分页
 	public String file_path_html;
 	
+	
+	public String getFile_path_html() {
+		return file_path_html;
+	}
+	public void setFile_path_html(String file_path_html) {
+		this.file_path_html = file_path_html;
+	}
 	public String submit_type;
     public int getId() {
 		return id;
@@ -73,7 +80,9 @@ public class NoticeAction extends PageGetBaseAction {
 		
 		if(this.getIsAjaxTransmission()) // 这是ajax 传输
 		{
-			file_path_html = util.Util.getJspOutput("/jsp/admin/HomepageModify/ResourceFileTable.jsp");				
+			file_path_html = util.Util.getJspOutput("/jsp/admin/HomepageModify/notice.jsp");
+			System.out.println("JJJJJJJJJJJ");
+			System.out.println(file_path_html);
 			return "getPage";
 		}
 		return ActionSupport.SUCCESS;
