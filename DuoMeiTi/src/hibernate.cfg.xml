@@ -33,6 +33,7 @@
 		<mapping class="model.ExamTitle"/>
 		<mapping class="model.ExamOption"/>
 		<mapping class="model.ExamStuOption"/>
+		<mapping class="model.ExamStuScore"/>
 		
 		<mapping class="model.TeachBuilding"/>
 		<mapping class="model.RepairRecord"/>
