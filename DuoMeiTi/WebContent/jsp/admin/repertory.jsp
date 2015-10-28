@@ -47,10 +47,11 @@
 								</div>
 								<div class="input-group">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">更换时间</button>
+										<button type="button" class="btn btn-default" style="width:120px;">更换时间(天数)</button>
 									</span>
-									<input type="text" class="form-control" name="rtReplacePeriod" id="rtReplacePeriod" value="<s:property value="rtReplacePeriod"/>">
+									<input placeholder="" type="text" class="form-control" name="rtReplacePeriod" id="rtReplacePeriod" value="<s:property value="rtReplacePeriod"/>">
 								</div>
+								
 							</div>
 							<div class="col-lg-6">
 								<div class="input-group">
@@ -97,8 +98,8 @@
 					</form>
 					</div>
 					<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="rtSave" mark="">保存</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal" id="rtClose">关闭</button>
+						<button type="button" class="btn btn-primary" id="rtSave" mark="">保存</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="rtClose">关闭</button>
 					</div>
 				</div>
 				<!-- /.modal-content -->
@@ -200,32 +201,7 @@
 		<div id="repertoryTableDiv">
 			<%@ include file="/jsp/admin/widgets/repertoryTable.jsp" %>
 		</div>
-<!-- 		<table class="table table-bordered table-hover" id="repertory_table"> -->
-<!-- 			<tr class="active"> -->
-<!-- 				<th>设备类型</th> -->
-<!-- 				<th>资产编号</th> -->
-<!-- 				<th>型号</th> -->
-<!-- 				<th>出厂日期</th> -->
-<!-- 				<th>审批日期</th> -->
-<!-- 				<th>出厂号</th> -->
-<!-- 				<th>使用状态</th> -->
-<!-- 				<th>更换时间</th> -->
-<!-- 				<th>删除</th> -->
-<!-- 			</tr> -->
-<%-- 			<s:iterator value="repertory_list" var="i" status="index"> --%>
-<%-- 				<tr class="success" rt_id="<s:property value="#i.rtId"/>" rt_device="<s:property value="#i.rtDevice"/>"> --%>
-<%-- 					<td class="click_me"> <s:property value="#i.rtType"/> </td> --%>
-<%-- 					<td class="click_me"> <s:property value="#i.rtNumber"/> </td> --%>
-<%-- 					<td class="click_me"> <s:property value="#i.rtVersion"/> </td> --%>
-<%-- 					<td class="click_me"> <s:property value="#i.rtProdDate.toString()"/> </td> --%>
-<%-- 					<td class="click_me"> <s:property value="#i.rtApprDate.toString()"/> </td> --%>
-<%-- 					<td class="click_me"> <s:property value="#i.rtFactorynum"/> </td> --%>
-<%-- 					<td class="click_me"> <s:property value="#i.rtDeviceStatus"/> </td> --%>
-<%-- 					<td class="click_me"> <s:property value="#i.rtReplacePeriod"/>（小时） </td> --%>
-<!-- 					<td> <button type="button" class="btn btn-danger delete" >删除</button> </td> -->
-<!-- 				</tr> -->
-<%-- 			</s:iterator> --%>
-<!-- 		</table> -->
+
 		
 		<div id="noResult"></div>
 		
