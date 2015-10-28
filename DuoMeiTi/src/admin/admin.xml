@@ -408,13 +408,18 @@
 			</result>			
 		</action>
 	
-<!--公告的action设置  -->
+<!--公告的action设置 
 		<action name="notice" class="admin.NoticeAction">
 			<result name="success">
 			/jsp/admin/HomepageModify/notice.jsp
-<!-- 				/jsp/admin/notice.jsp -->
 			</result>
-		</action>
+		</action> -->
+		<!-- 尝试分页 -->
+		<action name="notice" class="admin.NoticeAction" method="resourceFile">
+			<result name="success">
+			/jsp/admin/HomepageModify/noticePage.jsp
+			</result>
+		</action> 
         <action name="notice_*" class="admin.NoticeAction" method="{1}">
         <result name="success" type="json">
 <!--             	<param name="includeProperties">status,notice_id</param>            -->

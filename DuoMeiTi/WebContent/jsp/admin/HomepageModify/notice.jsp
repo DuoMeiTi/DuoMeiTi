@@ -1,6 +1,6 @@
 <%@ include file="/jsp/base/taglib.jsp"%>
 
-<layout:override name="mycontent">
+<%--  <layout:override name="mycontent">   --%>
 	<div class="modal fade" id="notice-modal" tabindex="-1" role="dialog"
 	aria-labelledby="noticeAddModalLabel"><!--aria-labelledby什么意思？？？？？  -->
 	<div class="modal-dialog" role="document" style="width: 60%; height:400px" >
@@ -162,7 +162,7 @@
 	}
 	//编辑
 	function edit_notice(index) {
-		//alert(index);
+// 		alert(index);
 		var select_notice_title = $("#notice_search_table").find("tr:eq(" + (index + 1) + ") td:eq(0)").text();
 //		var select_notice_time = $("#notice_search_table").find("tr:eq(" + (index + 1) + ") td:eq(1)");
 		var select_notice_time = $("#notice_search_table").find("tr:eq(" + (index + 1) + ")").attr("notice_time");
@@ -313,7 +313,7 @@
 		}) */
 	</script>
 
-</layout:override>
+ <%-- </layout:override> --%>  
 
 
 
@@ -323,6 +323,5 @@
 
 
 
-
-<%@ include file="/jsp/admin/HomepageModify/Base.jsp"%>
-
+<%--  <%@ include file="/jsp/admin/HomepageModify/Base.jsp"%> --%>
+ 

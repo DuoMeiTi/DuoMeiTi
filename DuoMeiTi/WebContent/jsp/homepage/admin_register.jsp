@@ -181,6 +181,7 @@
         	$(cnt).attr("user_id", data.user_id);
  */			
     		alert("ok");
+ animatedShow("ok");
  			animatesHide();
  			 
  			window.location.href = "${pageContext.request.contextPath}/login";

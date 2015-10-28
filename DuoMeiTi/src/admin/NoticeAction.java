@@ -14,8 +14,9 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.Notice;
-import model.User;;
-public class NoticeAction {
+import model.User;
+import util.PageGetBaseAction;;
+public class NoticeAction extends PageGetBaseAction {
 	public String title;
 	public String content;
 	
@@ -30,6 +31,9 @@ public class NoticeAction {
 	public Notice notice2;
 	public List<Notice> notice ;
 	public String status;
+	
+	//尝试分页
+	public String file_path_html;
 	
 	public String submit_type;
     public int getId() {
@@ -57,7 +61,23 @@ public class NoticeAction {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+	public String resourceFile() throws Exception{	
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(model.Notice.class);
+		
+		notice = this.makeCurrentPageList(q, 10); // 根据代表总体的Criteria 获取当前页元素的List，这个效率高，应尽量使用这个
+//		file_path_list = this.makeCurrentPageList(q.list(), 10); //根据代表总体的List 获取当前页元素的List
+		
+		
+		session.close();
+		
+		if(this.getIsAjaxTransmission()) // 这是ajax 传输
+		{
+			file_path_html = util.Util.getJspOutput("/jsp/admin/HomepageModify/ResourceFileTable.jsp");				
+			return "getPage";
+		}
+		return ActionSupport.SUCCESS;
+	}
 	public String execute() throws Exception{
 		//System.out.println("NoticeAction.execute()");
 		Session session = model.Util.sessionFactory.openSession();

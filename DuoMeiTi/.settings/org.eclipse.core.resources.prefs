@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//WebContent/jsp/admin/HomepageModify/Base.jsp=UTF-8
 encoding//WebContent/jsp/admin/HomepageModify/CommonProblem.jsp=UTF-8
 encoding//WebContent/jsp/admin/HomepageModify/notice.jsp=UTF-8
+encoding//WebContent/jsp/admin/HomepageModify/noticePage.jsp=UTF-8
 encoding//WebContent/jsp/admin/HomepageModify/resourceFileManage.jsp=UTF-8
 encoding//WebContent/jsp/admin/admin_eg.jsp=UTF-8
 encoding//WebContent/jsp/admin/admin_information.jsp=UTF-8
