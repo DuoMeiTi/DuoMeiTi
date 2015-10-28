@@ -112,6 +112,11 @@
 				
             </result>            
         </action>
+        
+        
+        
+        
+        
         <!--常见问题首页显示action-->
         <action name="CommonProRecord" class="homepage.CommonProRecord" method="showRecord">
         	<result> /jsp/homepage/CommonProRecord.jsp</result>
@@ -181,13 +186,12 @@
         <action name="admin_register_save" class="homepage.AdminAction" method="adminRegisterSave">
           
           
-            <result name="success" type="json">
-            	
-<!--             	 <param name="includeProperties">register_status,profilePhotoPath</param>            -->
-<!-- 				<param name="excludeProperties"> user_list</param> -->
+            <result name="success" type="json">            	
             </result> 
-<!--             <result name="input">/jsp/homepage/admin_register.jsp</result>            -->
+
         </action>
+
+
 
 
 
@@ -199,7 +203,7 @@
 
 
 
-    </package>
+</package>
     
     <package name="classroom_json" namespace="/homepage/classroom_json" extends="HomepageDefault">
     	
