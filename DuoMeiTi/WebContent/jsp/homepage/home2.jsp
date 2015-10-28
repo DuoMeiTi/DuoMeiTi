@@ -19,7 +19,7 @@
     
  <!-- Le styles -->
  
-         <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />		
 		<link href="/datepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
         <script type='text/javascript' src="/js/base/jquery-2.1.4.min.js"></script>

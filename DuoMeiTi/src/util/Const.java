@@ -28,6 +28,7 @@ public class Const
     
     public static final String AdminRole = "admin";
     public static final String StudentRole = "student";
+    public static final String StudentToAdminRole = "StudentToAdmin";
     public static final String TeacherRole = "teacher";
     public static final String NoRole = "no";
 //    public static final String AdminRole = "admin";

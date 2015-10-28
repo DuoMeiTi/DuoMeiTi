@@ -39,7 +39,7 @@ td,tr,th{
 		<br />
 		<div class="searchCondition" id="conditions">
 			<div class="searchCondition-building" id="buildingCondition">
-				<select id="building" class="form-control" style="width: 30%;">
+				<select id="building" class="form-control" style="width: 20%;">
 				<s:iterator value="builds" var="build" status="i">
 					<option value="<s:property value="#build.build_id"/>"><s:property value="#build.build_name"/></option>
 				</s:iterator>
@@ -58,16 +58,46 @@ td,tr,th{
 				</select>
 			</div>-->
 			
-			<div class="searchCondition-equipment" id="equipmentCondition">
-				<select id="deviceid" class="form-control" style="width: 30%">
-					<option value="计算机">计算机</option>
-					<option value="投影">投影</option>
-					<option value="中央控制器">中央控制器</option>
-					<option value="外围设备">外围设备</option>
-				</select>
-
+			<div class="searchCondition-equipment" id="equipmentCondition" style="width:40%;">
+				<div style="width:auto;float:left;">
+				<s:select list="device" class="form-control" onchange="show_or_hide()" name="main_type" id="main_type"></s:select>
+				</div>
+				<div class="searchCondition-equipment" id="sub_type" style="margin-left:10px;width:auto;float:left;">
+					<div id="sub_type_main" style="width:100%">
+						<s:select list="mainDevice" class="form-control" name="deviceid" id="main_device"></s:select>
+					</div>
+					<div id="sub_type_cost" style="width:100%">
+						<s:select list="costDevice" class="form-control" name="deviceid" id="cost_device"></s:select>
+					</div>
+				</div>
+				<script>
+				$(function(){
+					$('#cost_device').hide();
+					$('#main_device').hide();
+				})
+				function show_or_hide()
+				{
+					var type=$('#main_type option:selected').val();
+					if(type=="主要设备")
+					{
+						$('#cost_device').hide();
+						$('#main_device').show();
+						
+					}
+					else if (type=="耗材设备")
+					{
+						$('#cost_device').show();
+						$('#main_device').hide();
+					}
+					else
+					{
+						$('#cost_device').hide();
+						$('#main_device').hide();
+					}
+				}
+				</script>	
 			</div>
-			
+		
 			<div class="searchCondition-time" id="timeCondition">
 				<!-- <select id="time" class="form-control" style="width: 30%">
 					<option value="0">2015年9月</option>
@@ -146,7 +176,19 @@ td,tr,th{
 		
 		
 		function sc_device() {
-			var optionval = $("#deviceid option:selected").val();
+			if($('#main_device').is(':visible'))
+			{
+				var optionval=$('#main_device option:selected').val();
+			}
+			else if($('#cost_device').is(':visible'))
+			{
+				var optionval=$('#cost_device option:selected').val();
+			}
+			else
+			{
+				var optionval=null;
+			}
+			//alert(optionval);
 			sc_condition('2',optionval);
 		}
 		

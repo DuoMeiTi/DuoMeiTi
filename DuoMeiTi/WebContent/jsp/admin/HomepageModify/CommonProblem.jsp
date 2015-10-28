@@ -1,17 +1,20 @@
-<%@ include file="/jsp/base/taglib.jsp"%>
+	<%@ include file="/jsp/base/taglib.jsp"%>
 
 
 
-<div class="modal fade" id="notice-modal" tabindex="-1" role="dialog"
+
+
+<layout:override name="mycontent">
+	<div class="modal fade" id="notice-modal" tabindex="-1" role="dialog"
 	aria-labelledby="noticeAddModalLabel"><!--aria-labelledby什么意思？？？？？  -->
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog" role="document" style="width: 60%; height:400px" >
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="myModalLabel">添加公告</h4>
+				<h4 class="modal-title" id="myModalLabel">常见问题添加</h4>
 			</div>
 			<div class="modal-body">
 			
@@ -19,9 +22,9 @@
 			<form class="form-horizontal">
 				<input style="visibility:hidden" id="submit_type" value="add" />
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="notice_title">标题</label>
+					<label class="control-label col-sm-3" for="notice_title">常见问题概述</label>
 					<div class="col-sm-5">
-						<input type="text" class="form-control" id="notice_title" >
+						<input type="text" class="form-control" id="notice_title" style="width: 400px">
 						<!-- <p class="help-block">字母，数字，汉字皆可</p> -->
 					</div>
 					<!-- <div style="text-align:center" class="col-sm-4 control-label">
@@ -31,7 +34,7 @@
 				<div class="form-group">
 					<label class="control-label col-sm-3" for="notice_content">内容</label>
 					<div class="col-sm-5">
-						<textarea class="form-control"  id="notice_content" rows="3" cols="1" ></textarea>
+						<textarea class="form-control"  id="notice_content" rows="9" cols="2" style="width: 400px"></textarea>
 						<!-- <input type="" class="form-control" id="input_principal_student_id" oninput="disable_add_btn()"> -->
 					</div>
 					<span  hidden="true" id="hidden_id"></span>
@@ -52,9 +55,7 @@
 		</div>
 	</div>
 </div>
-
-
-<layout:override name="main_content">
+	
 	<br />
 
 	<form class="form-inline" action="notice_add" method="POST "
@@ -62,7 +63,7 @@
 <!-- 
 		<button type="button" class="btn btn-primary " data-toggle="modal"
 			data-target="notice-modal" id="notice_add" onclick="notice_add()">增加新公告</button> -->
-	<button type="button" class="btn btn-primary" style="margin:2px;" id="add_button" onclick="notice_add()">增加新公告</button>
+	<button type="button" class="btn btn-primary" style="margin:2px;" id="add_button" onclick="notice_add()">常见问题添加</button>
 	</form>
 	<br />
 
@@ -80,7 +81,7 @@
 	<table class="table table-bordered" id="notice_table">
 
 		<tr class="active">
-			<th>公告标题</th>
+			<th>常见问题概述</th>
 			<th>时间</th>
 			<th>编辑</th>
 			<th>删除</th>
@@ -113,6 +114,7 @@
 
 	<script>
 	function notice_add(){
+		
 		$("#notice_title").val("");
 		//$("#input_principal_student_name").text("");
 		$("#notice_content").val("");
@@ -121,23 +123,21 @@
 		$("#notice_add_btn").text("确定添加");
 		$('#notice-modal').modal('show');
 		
+		
 	}	
 	
 	function notice_add_submit(){
 		
 		var submit_type = $("#submit_type").attr("value");//新增教室的时候是add
-//		alert(submit_type);
+// 		alert(submit_type);
 		var title = $("#notice_title").val();
+// 		alert(title);
 		var content = $("#notice_content").val();
+// 		alert(title + "//" + content + "//")
 		var id =  $("#hidden_id").val();
-		alert("id"+title+"   "+"  "+content +"  "+id+"  "+submit_type);
-		//var id =$("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_id");
-//		Request = GetRequest();
-//		var build_id = Request['build_id'];
-	//	alert(submit_type + " " +title + " " + content);
 		
 		$.ajax({
-			url : '/admin/notice/notice_add',
+			url : '/admin/HomepageModify/CommonProblem_add',
 			type : 'post',
 			dataType : 'json',
 			data : {//发送到服务器的数据
@@ -148,14 +148,14 @@
 				"id" : id
 			},
 			success : addNoticeCallback
-		});
+		}); 
 		
 	}
 	
 	function addNoticeCallback(data) {
 		
 		if(data.status == "ok") {
-			alert("ok");
+			alert("添加成功");
 			$('#notice-modal').modal('hide');
 			window.location.href=window.location.href;  
 			window.location.reload;
@@ -190,11 +190,11 @@
 		var notice_id;
 		var select_notice_id = $("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_id");
 		//notice_id = $(this).parents("tr").attr("notice_id");
-			    alert(select_notice_id);
+			//    alert(select_notice_id);
 		// 	    alert(typeof user_id);
 
 		$.ajax({
-			url : 'notice_delete',
+			url : 'CommonProblem_delete',
 			type : 'post',
 			dataType : 'json',
 			data : {
@@ -204,28 +204,11 @@
 		});
 	}
 	
-		/* //处理删除操作
-		$(document).on("click", ".delete", function() {
-			notice_id = $(this).parents("tr").attr("notice_id");
-			// 	    alert(deleted_user_id);
-			// 	    alert(typeof user_id);
-
-			$.ajax({
-				url : 'notice_delete',
-				type : 'post',
-				dataType : 'json',
-				data : {
-					"notice_id" : notice_id,
-				},
-				success : deleteCallback
-			});
-
-		}); */
 
 		function deleteCallback(data) {
 
 			if (data.status == "0") {
-				alert("ok");
+				alert("删除成功");
 				$('#notice-modal').modal('hide');
 				window.location.href=window.location.href;  
 				window.location.reload;
@@ -234,84 +217,11 @@
 			} else if (data.status == "1") {
 				animatedShow("你所删除的数据可能不存在");
 			} else {
-				alert("error");
+				alert("错误");
 			}
 
 		}
-		/* //处理查看编辑操作
-		$(document).on("click", "#edit", function() {
-			notice_id = $(this).parents("tr").attr("notice_id");
-			// 	    alert(deleted_user_id);
-			// 	    alert(typeof user_id);
-
-			$.ajax({
-				url : 'notice_edit',
-				type : 'post',
-				dataType : 'json',
-				data : {
-					"notice_id" : notice_id,
-				},
-				success : editCallback
-			});
-
-		});
-
-		function editCallback(data) {
-
-			if (data.status == "0") {
-				animatedShow("修改成功");
-				//			$(document).find("tr[notice_id=" + notice_id + "]").remove();
-			} else if (data.status == "1") {
-				animatedShow("操作失败");
-			} else {
-				alert("error");
-			}
-
-		}
-		$(document).on("click", "#notice_add", function() {
-			var params = $('#notice_form').serialize(); //利用jquery将表单序列化
-
-			$.ajax({
-				url : 'notice_save',
-				type : 'post',
-				dataType : 'json',
-				data : params,
-				success : noticeAddCallback
-			});
-
-		});
-
-		function animatedShow(text) {
-			$("#alert_register_info").hide();
-			$("#alert_register_info").text(text);
-			$("#alert_register_info").show(500);
-		}
-		function noticeAddCallback(data) {
-			if (data.status == "0") {
-				$("#notice_table tr:first").after(data.added_notice_html);
-
-				var cnt = $(document).find("#notice_table tr:eq(1)");
-				$(cnt).children().eq(0).text(data.title);
-				$(cnt).children().eq(1).text(data.time);
-
-				//         	alert(data.user_id);
-
-				$(cnt).attr("notice_id", data.notice_id);
-
-				animatedShow("添加成功");
-			} else if (data.status == "1") {
-				animatedShow("æ³¨åç¨æ·åæèå¯ç ä¸ºç©º");
-			} else if (data.status == "2") {
-				animatedShow("æ³¨åç¨æ·åéå¤");
-			} else {
-				alert("error with status" + data.status);
-			}
-
-		} */
-
-		/* $('#myModal').on('shown.bs.modal', function() {
-			$('#myInput').focus()
-		}) */
+	
 	</script>
 
 </layout:override>
@@ -325,5 +235,5 @@
 
 
 
-<%@ include file="/jsp/homepage/base.jsp"%>
+<%@ include file="/jsp/admin/HomepageModify/Base.jsp"%>
 

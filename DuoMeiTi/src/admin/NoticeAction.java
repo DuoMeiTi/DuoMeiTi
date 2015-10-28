@@ -18,6 +18,7 @@ import model.User;;
 public class NoticeAction {
 	public String title;
 	public String content;
+	
 	public int id;
 	
 	public String getContent() {
@@ -31,7 +32,7 @@ public class NoticeAction {
 	public String status;
 	
 	public String submit_type;
-public int getId() {
+    public int getId() {
 		return id;
 	}
 	public void setId(int id) {

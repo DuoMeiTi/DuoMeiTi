@@ -34,6 +34,7 @@ public class HomeAction extends PageGetBaseAction
 	public List repair_list;
 	public List file_path_list;
 	public String file_path_html;
+	public List deviceReplaceList;
 	
 
 	public String execute() throws Exception
@@ -43,6 +44,17 @@ public class HomeAction extends PageGetBaseAction
 		check_list = session.createCriteria(model.CheckRecord.class).list();
 		notice_list = session.createCriteria(model.Notice.class).list();
 		repair_list = session.createCriteria(model.RepairRecord.class).list();
+		
+		java.util.Date now = new java.util.Date();
+		java.sql.Date sql_now = new java.sql.Date(  now.getTime());
+		System.out.println("_--------------");
+		System.out.println(now);
+		System.out.println(sql_now);
+		
+		deviceReplaceList = session.createCriteria(model.Repertory.class)
+						.add(Restrictions.le("rtDeadlineData", sql_now))
+						.add(Restrictions.eq("rtDeviceStatus", "教室"))
+						.list();
 		
 		Collections.reverse(check_list);
 		Collections.reverse(notice_list);
@@ -122,6 +134,22 @@ public class HomeAction extends PageGetBaseAction
 	public void setFile_path_html(String file_path_html) {
 		this.file_path_html = file_path_html;
 	}
+
+
+
+	public List getDeviceReplaceList() {
+		return deviceReplaceList;
+	}
+
+
+
+	public void setDeviceReplaceList(List deviceReplaceList) {
+		this.deviceReplaceList = deviceReplaceList;
+	}
+	
+	
+	
+	
 }
 
 

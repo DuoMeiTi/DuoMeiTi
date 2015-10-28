@@ -16,9 +16,16 @@
   		<action name="train" class="student.TrainAction">
 			<result>/jsp/student/train.jsp</result>
 		</action>
+		
+		<action name="exam" class="student.ExamAction">
+			<result>/jsp/student/exam.jsp</result>
+		</action>
 
-		<action name="student_information" class="student.InformationAction"
-			method="studentInformation">
+		<action name="exam_*" class="student.ExamAction" method="{1}">
+			<result type="json"></result>
+		</action>
+
+		<action name="student_information" class="student.InformationAction" method="studentInformation">
 			<result>/jsp/student/student_information.jsp</result>
 		</action>
 
@@ -29,9 +36,30 @@
 			</result>
 		</action>
 
-
-
-		<action name="classroom_manage" class="student.ClassroomManageAction"
+		<action name="chooseclass" class="student.StudentAction"
+			method="chooseClass">
+			<result>/jsp/student/chooseClass.jsp</result>
+		</action>
+		<action name="getdutytime" class="student.StudentAction" method="getDutyTime">
+			<result type="json" name="ajaxSuccess">
+				<param name="includeProperties">
+					duties\[\d+\]\.dutyLeft,
+					duties\[\d+\]\.time,
+					chosen\[\d+\],
+					teachBuildingId
+				</param>
+			</result>
+		</action>
+		<action name="sendChoice" class="student.StudentAction" method="reciveChoice">
+			<result type="json" name="ajaxSuccess">
+				<param name="includeProperties">
+					log
+				</param>
+			</result>
+		</action>
+    </package>
+    <package name="sutdent_classroom" namespace="/student/classroom" extends="StudentDefault">
+    	<action name="classroom_manage" class="student.ClassroomManageAction"
 			method="classroomList">
 
 			<result>
@@ -44,26 +72,6 @@
 				<!-- <param name="build_id">${classroom_id}</param> <param name="build_name">${classroom_num}</param> -->
 				<param name="classroom_id">${classroom_id}</param>
 				<param name="build_id">${build_id}</param>
-			</result>
-		</action>
-
-		<action name="chooseclass" class="student.StudentAction"
-			method="chooseClass">
-			<result>/jsp/student/chooseClass.jsp</result>
-		</action>
-		<action name="getdutytime" class="student.StudentAction" method="getDutyTime">
-			<result type="json" name="ajaxSuccess">
-				<param name="includeProperties">
-					duties\[\d+\]\.dutyLeft,
-					duties\[\d+\]\.time
-				</param>
-			</result>
-		</action>
-		<action name="sendChoice" class="student.StudentAction" method="reciveChoice">
-			<result type="json" name="ajaxSuccess">
-				<param name="includeProperties">
-					log
-				</param>
 			</result>
 		</action>
     </package>

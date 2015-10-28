@@ -27,6 +27,7 @@ import common.ChooseClass;
 
 
 import model.User;
+import model.StudentProfile;
 import util.Util;
 
 public class UserAction
@@ -39,10 +40,6 @@ public class UserAction
 //	public String role;
 	
 	public int user_id;
-	
-	public String AdminRole = util.Const.AdminRole;
-	public String StudentRole = util.Const.StudentRole;
-	public String TeacherRole = util.Const.TeacherRole;
 	
 
 
@@ -96,6 +93,12 @@ public class UserAction
 			if(!ul.isEmpty())
 			{
 				role = util.Const.StudentRole;
+				if(((StudentProfile)ul.get(0)).getIsUpgradePrivilege() == 1)
+				{
+					role = util.Const.StudentToAdminRole; 					
+				}
+				
+				ActionContext.getContext().getSession().put("student_id",((StudentProfile)ul.get(0)).getId());
 			}
 			else 
 			{
@@ -119,11 +122,13 @@ public class UserAction
 		if(role.equals(util.Const.AdminRole))
 		{
 			ChooseClass.insertDataToDutyTimeTable();
+			ChooseClass.insertDataToChooseClassSwitchTable();
 			return "admin_login_success";
 		}
-		else if(role.equals(util.Const.StudentRole))
+		else if(role.equals(util.Const.StudentRole) || role.equals(util.Const.StudentToAdminRole))
 		{	
 			ChooseClass.insertDataToDutyTimeTable();
+			ChooseClass.insertDataToChooseClassSwitchTable();
 			return "student_login_success";
 		}
 		System.out.println("ERROR");
@@ -295,26 +300,8 @@ public class UserAction
 	
 	
 	
-	
-	
-	
-	
-//	public String getRole() {
-//		return role;
-//	}
-//	public void setRole(String role) {
-//		this.role = role;
-//	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

@@ -21,15 +21,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	</script>
 	
+<%-- <<<<<<< HEAD
+=======
 	<div class="row">
 			<div class="col-lg-6 col-lg-offset-3 classbuilding">
 				<span><s:property value="building.build_name"/>&nbsp;&nbsp;<s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
 				<span>负责人:</span>
-				<span id="classroomid" style="visibility:hidden"><s:property value="classroom.id"/></span>
+				<span id="classroomid" style="visibility:hidden" value="<s:property value="classroom.id"/>"><s:property value="classroom.id"/></span>
 				<span class="director-span"><s:property value="classroom.principal.user.username"/></span>
 			</div>
-		</div>
+			</div>
 		<hr>
+>>>>>>> origin/master --%>
 	
 		<!-- Modal -->
 		<div class="modal fade" id="schedule-modal" tabindex="-1" role="dialog"
@@ -128,6 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input type="text" class="form-control" id="zichanhao" style="width:30%;float:left;margin-left:5%;" placeholder="请输入资产编号"></input>
 						<!-- <button type="submit" class="btn btn-info btn-sm" style="margin-left:5%">查询</button> -->
 						<button type="button" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="add_classroomrt()">添加</button>
+						<button id="alterSearch" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</button>
 					</div>
 				<!-- </form> -->
 				<script>
@@ -195,7 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<td><s:property value="#device.rtType"/></td>
 										<td><s:property value="#device.rtFactorynum"/></td>
 										<td><s:property value="#device.rtProdDate"/></td>
-										<td><s:property value="#device.rtApprDate"/></td>
+										<td><s:property value="#device.rtDeadlineData"/></td>
 									</tr>
 								</tbody>
 							</table>
@@ -247,14 +251,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 		<div id="alter_table">
-			<a id="alterSearch" target="myFrame1" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">教室备用设备</a>
+			<!-- <button id="alterSearch" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</button> -->
+			<!-- <a id="alterSearch" target="myFrame1" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</a> -->
 
-			<iframe name="myFrame1" frameborder="0" scrolling="no" style="width:100%;" height="200px" ></iframe>
+			<iframe name="myFrame1" id="main" frameborder="0" scrolling="no" style="width:100%;" height="" ></iframe>
 		</div>
 		<script>
 			function alter_device() {
 				var classroomid = $("#classroomid").text();
 				var href="<%=path%>/admin/classroomDevice/alter_action?classroomid="+classroomid;
-				document.getElementById("alterSearch").href=href;
+				//document.getElementById("alterSearch").href=href;
+				window.open(href,'myFrame1');
+			}
+			function closeWindow() {
+				window.opener=null;
+				window.open('','_self');
+				window.close();
 			}
 		</script>

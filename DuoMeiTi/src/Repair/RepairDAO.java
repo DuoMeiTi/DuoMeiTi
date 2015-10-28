@@ -15,7 +15,7 @@ public interface RepairDAO {
 	
 	public int m2alter(String move);
 	
-	public int addalterIm(String move);
+	public int addalterIm(String move, String classroomid);
 	
 	public int delalterIm(String move);
 }

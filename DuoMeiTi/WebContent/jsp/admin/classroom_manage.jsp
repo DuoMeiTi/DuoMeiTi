@@ -100,7 +100,7 @@
       <thead>
         <tr>
             <th>教室号</th>
-            <th>设备</th>
+            <th style="display:none;">设备</th>
             <!-- <th>教室大小</th> -->
             <th>负责人</th>
             <th>编辑</th>
@@ -111,7 +111,7 @@
       <s:iterator value="classrooms" var="classroom" status="i">  
 			<tr class="success" classroom_id=<s:property value="#classroom.id"/> >
 				<td>   <s:property value="#classroom.classroom_num"/>    </td>
-				<td width="40%">   <s:property value="#classroom.repertorys"/>    </td>
+				<td width="40%" style="display:none;">   <s:property value="#classroom.repertorys"/>    </td>
 				<%-- <td>   <s:iterator value="#classroom.repertorys" var="rt"> <s:property value="#rt.rtType"/>&nbsp;&nbsp;&nbsp;</s:iterator>   </td> --%>
 				<%-- <td>   <s:property value="#classroom.capacity"/>    </td> --%>
 				<td studId="<s:property value="#classroom.principal_stuId"/>">   <s:property value="#classroom.principal_name"/>    </td>
@@ -124,7 +124,7 @@
       
     </table>
   </div>
-		<pt:pageInfo
+		<%-- <pt:pageInfo
 			pageCount="${pageBean.pageCount }"
 			currPage="${pageBean.currPage }"
 			param="currPage" 
@@ -132,7 +132,7 @@
 			totalPage="${pageBean.lastPage }" 
 			pageSize="${pageBean.pageSize }"
 			totalSize="${pageBean.totalSize }" 
-		/>
+		/> --%>
 		<%-- <span style="visibility:hidden" id="pageSize"><s:property value="pageSize"/></span> --%>
 	</div>
 

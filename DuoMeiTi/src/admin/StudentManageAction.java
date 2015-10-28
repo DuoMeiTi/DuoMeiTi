@@ -1,7 +1,9 @@
 package admin;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -12,12 +14,19 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import common.BuildingsInfo;
 import model.AdminProfile;
 import model.Repertory;
 import model.Rules;
 import model.StudentProfile;
 import model.User;
 import util.Const;
+import utility.DatabaseOperation;
+
+import model.DutyTime;
+import model.DutySchedule;
+import common.DutyInfo;
+import model.ChooseClassSwitch;
 
 public class StudentManageAction extends ActionSupport{
 	
@@ -46,7 +55,7 @@ public class StudentManageAction extends ActionSupport{
 	private int student_profile_id;
 	private int isUpgradePrivilege;
 	private String status;
-	
+
 
 	private static List<StudentProfile> student_list;
 	private static List<User> user_list;
@@ -58,8 +67,126 @@ public class StudentManageAction extends ActionSupport{
 	private String textShow;//规章制度的内容，显示给jsp页面的内容
 	private Date time;//规章制度的修改时间
 	
+	private List<BuildingsInfo> teahBuildings;
+	private List<DutyInfo> dutySchedule; 
+	private int teachBuildingId;
+	private boolean chooseClassSwitch;
+	private String log;
 	
 	
+	
+	
+	public String getLog() {
+		return log;
+	}
+
+
+	public void setLog(String log) {
+		this.log = log;
+	}
+
+
+	public boolean isChooseClassSwitch() {
+		return chooseClassSwitch;
+	}
+
+
+	public void setChooseClassSwitch(boolean chooseClassSwitch) {
+		this.chooseClassSwitch = chooseClassSwitch;
+	}
+
+
+	public List<DutyInfo> getDutySchedule() {
+		return dutySchedule;
+	}
+
+
+	public void setDutySchedule(List<DutyInfo> dutySchedule) {
+		this.dutySchedule = dutySchedule;
+	}
+
+
+	public int getTeachBuildingId() {
+		return teachBuildingId;
+	}
+
+
+	public void setTeachBuildingId(int teachBuildingId) {
+		this.teachBuildingId = teachBuildingId;
+	}
+
+
+	public List<BuildingsInfo> getTeahBuildings() {
+		return teahBuildings;
+	}
+
+
+	public void setTeahBuildings(List<BuildingsInfo> teahBuildings) {
+		this.teahBuildings = teahBuildings;
+	}
+
+
+	public String dutyManager() throws Exception{
+		List fields = new ArrayList<String>();
+		fields.add("build_id,");
+		fields.add("build_name");
+		DatabaseOperation getBuildings = new DatabaseOperation("TeachBuilding", fields);
+		List result=getBuildings.selectOperation();
+		teahBuildings =new ArrayList<BuildingsInfo>();
+		Iterator iter =result.iterator();
+		while(iter.hasNext()){
+			Object[] temp=(Object[])iter.next();
+			String name=(String)temp[1];
+			Integer id=(Integer)temp[0];
+			teahBuildings.add(new BuildingsInfo(name,id));
+		}
+		Session session = model.Util.sessionFactory.openSession();
+		String s="from ChooseClassSwitch ccs where id=1";
+		List<ChooseClassSwitch> t=session.createQuery(s).list();
+		chooseClassSwitch=t.get(0).open;
+		session.close();
+		return SUCCESS;
+	}
+	
+	public String switchStatuChange() throws Exception{
+
+		try{
+			Session session = model.Util.sessionFactory.openSession();
+			Transaction tx=session.beginTransaction();
+			String hql="from ChooseClassSwitch ccs where ccs.id=1";
+			ChooseClassSwitch f = (ChooseClassSwitch)session.createQuery(hql).list().get(0);
+			String flag;
+			if(f.open==true)flag="false";
+			else flag="true";
+			hql="update ChooseClassSwitch ccs set ccs.open="+flag+" where ccs.id=1";
+			session.createQuery(hql).executeUpdate();
+			tx.commit();
+			session.close();
+			log="success";
+		}
+		catch(Exception e){
+			log="fail";
+			System.out.println(e);
+		}
+		System.out.println("hello");
+		return SUCCESS;
+	}
+	
+	public String getDutyTable() throws Exception{
+		Session session = model.Util.sessionFactory.openSession();
+		String hql="select ds.student.id,ds.student.user.username,ds.dutyTime.time from DutySchedule ds where ds.dutyTime.teachBuilding.build_id="
+					+teachBuildingId+" order by ds.dutyTime.time";
+		List temp =session.createQuery(hql).list();
+		Iterator iter=temp.iterator();
+		dutySchedule = new ArrayList<DutyInfo>();
+		while(iter.hasNext()){
+			Object [] tmp= (Object[]) iter.next();
+			dutySchedule.add(new DutyInfo((Integer)tmp[0],(String)tmp[1],(Integer)tmp[2]));
+		}
+		System.out.println(dutySchedule.get(0).studentName);
+		session.close();
+		return SUCCESS;
+	}
 
 
 	public String searchStudentInformation() throws Exception

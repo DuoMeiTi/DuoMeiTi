@@ -1,6 +1,7 @@
 package admin;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -37,9 +38,8 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	
 	public TeachBuilding building;
 	public Classroom classroom;
-	
+	public String schedulePath;
 	public List<CheckRecord> checkrecords;
-	
 	public List<RepairRecord> repairrecords;
 	public List<RoomPicture>picture_list;
 	public List classroom_repertory_list;
@@ -57,7 +57,9 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		building = (TeachBuilding) building_criteria.uniqueResult();
 		
 		ActionContext.getContext().getSession().remove("classroom_id");
+		//ActionContext.getContext().getSession().remove("classroom");
 		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
+		//ActionContext.getContext().getSession().put("classroom", classroom);
 		
 		/*String hql = "SELECT rt FROM Repertory rt WHERE rt.classroom = " + classroomId;
 		Query query = session.createQuery(hql);
@@ -152,12 +154,16 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c1 = session.createCriteria(RoomPicture.class).add(Restrictions.eq("class_id",classroomId)); //hibernate session创建查询
 		picture_list = c1.list();
+		
+		Criteria q = session.createCriteria(Classroom.class).add(Restrictions.eq("id",classroomId)); //hibernate session创建查询
+		List<Classroom> class_list = q.list();
+		Collections.reverse(class_list);
+		schedulePath = class_list.get(0).getClass_schedule_path();
 		session.close();
 		
+		
 		System.out.println(picture_list);
-
-		
-		
+		System.out.println(schedulePath);
 	}
 	
 	public String PictureUpload() {
@@ -171,11 +177,16 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		nPicture.setClass_id(classroomId);
 		nPicture.setRemark(remark);
 		
+		//获取当前时间，命名照片，防止照片重复
+		java.util.Date date = new java.util.Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddHHmmss");
+		String curdate = simpleDateFormat.format(date);
+		String fileName = curdate+fileFileName;
+
 		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
         {
-			util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
-			String inserted_file_path = util.Util.ProfilePhotoPath +fileFileName;
-			
+			util.Util.saveFile(file, fileName, util.Util.RootPath + util.Util.ClassroomInfoFilePath);
+			String inserted_file_path = util.Util.ClassroomInfoFilePath +fileName;
 			nPicture.setPath(inserted_file_path);
         }
 		
@@ -193,29 +204,53 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		System.out.println("PictureDelete:");
 		System.out.println(picID);
 		
-	
+		//从数据库中删除
 		Session session = model.Util.sessionFactory.openSession();		
-		//查找student对应的user
 		Criteria q = session.createCriteria(RoomPicture.class).add(Restrictions.eq("id",picID)); //hibernate session创建查询
-		
-	
 		picture_list=q.list();
 		Collections.reverse(picture_list);
 		RoomPicture nPicture = new RoomPicture();
 		nPicture = picture_list.get(0);
-	
 		//System.out.println(nPicture);
-		
 		session.beginTransaction();
 		session.delete(nPicture);
 		Transaction t = session.getTransaction();
 		t.commit();
 		session.close();
-		
+		//删除本地文件
+		String filePath = util.Util.RootPath + nPicture.getPath();
+		System.out.println(filePath);
+		util.Util.deleteFile(filePath);
 		
 		return ActionSupport.SUCCESS;
 	}
 	
+	public String ScheduleUpload(){
+		System.out.println("ScheduleUpload:");
+		System.out.println("calssid" + classroomId);
+		System.out.println("fileFileName" + fileFileName);
+		
+		Session session = model.Util.sessionFactory.openSession();		
+		Criteria q = session.createCriteria(Classroom.class).add(Restrictions.eq("id",classroomId)); //hibernate session创建查询
+		List<Classroom> class_list = q.list();
+		Collections.reverse(class_list);
+		Classroom nClass = class_list.get(0);
+
+		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
+        {
+			util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ClassroomSchedulePath);
+			String inserted_file_path = util.Util.ClassroomSchedulePath +fileFileName;
+			nClass.setClass_schedule_path(inserted_file_path);
+			System.out.println("inserted_file_path" + inserted_file_path);
+        }
+	
+		session.beginTransaction();
+		session.update(nClass);
+		Transaction t = session.getTransaction();
+		t.commit();
+		session.close();
+		return ActionSupport.SUCCESS;
+	}
 
 	
 	public String getBuild_name() {

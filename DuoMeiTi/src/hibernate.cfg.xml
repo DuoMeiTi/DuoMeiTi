@@ -25,11 +25,14 @@
 		<mapping class="model.StudentProfile"/>
 		<mapping class="model.AdminProfile"/>
 		<mapping class="model.Classroom"/>
+		<mapping class="model.Contacts"/>
+		<mapping class="model.Commonproblem"/>
 		<mapping class="model.Repertory"/>
 		
 		<mapping class="model.Training"/>
 		<mapping class="model.ExamTitle"/>
 		<mapping class="model.ExamOption"/>
+		<mapping class="model.ExamStuOption"/>
 		
 		<mapping class="model.TeachBuilding"/>
 		<mapping class="model.RepairRecord"/>
@@ -43,6 +46,7 @@
 
 		<mapping class="model.Rules"/>
 		<mapping class="model.ResourceFilePath"/>
+		<mapping class="model.ChooseClassSwitch"/>
 
 		
     </session-factory>

@@ -9,30 +9,46 @@
 <%@ include file="/jsp/base/widgets/paginationTable.jsp" %>
 
 </div>
-
 <script> 
 
 
+// var pageAddtionalData = {}
+$(document).on("click","#firstPage",  function(){
 
+    sendRequestPage(1);
+})
+$(document).on("click","#lastPage",  function(){
 
-
+    sendRequestPage($(this).attr("totalPageNum"));
+})
 
 $(document).on("click","[requestPageNum]",  function(){
+
+    sendRequestPage($(this).attr("requestPageNum"));
+})
+function sendRequestPage(currentPageNum) {
+	var data = {"currentPageNum": currentPageNum , "isAjaxTransmission":true, };
+	
+	if(typeof(pageAddtionalData)!="undefined")
+		data = $.extend({}, data, pageAddtionalData);
 
     $.ajax({
         url: '',
         type: 'post',
         dataType: 'json',
-        data: {"currentPageNum": $(this).attr("requestPageNum") , "isAjaxTransmission":true, },
-        success: _requestPageNumCallback
+        data: data,
+        success: _requestPageCallback
       });	
-})
+}
 
-function _requestPageNumCallback(data) {
-//	$("#ResourceFileTableDiv").html(data.file_path_html);
+function _requestPageCallback(data) {
 	$("#paginationTableDiv").html(data.paginationHtml);
-	
-	requestPageNumCallback(data);
+	requestPageCallback(data);
 }
 
 </script>
+
+
+
+
+

@@ -28,29 +28,18 @@ public class Classroom {
 	@Fetch(FetchMode.SELECT)
 	public StudentProfile principal;
 	
-//	@Column
-//	public int capacity;
-		
+	@Column(length = 100)
+	public String class_schedule_path;
+	
+	
+	public String getClass_schedule_path() {
+		return class_schedule_path;
+	}
 
-//	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-//	public Set<Repertory> repertorys;
-	
-//	@OneToMany(mappedBy="classroom", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-//	public Set<CheckRecord> checkrecords;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void setClass_schedule_path(String class_schedule_path) {
+		this.class_schedule_path = class_schedule_path;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -83,29 +72,6 @@ public class Classroom {
 		this.principal = principal;
 	}
 
-//	public int getCapacity() {
-//		return capacity;
-//	}
-//
-//	public void setCapacity(int capacity) {
-//		this.capacity = capacity;
-//	}
-
-//	public Set<Repertory> getRepertorys() {
-//		return repertorys;
-//	}
-//
-//	public void setRepertorys(Set<Repertory> repertorys) {
-//		this.repertorys = repertorys;
-//	}
-
-	/*public Set<CheckRecord> getCheckrecords() {
-		return checkrecords;
-	}
-
-	public void setCheckrecords(Set<CheckRecord> checkrecords) {
-		this.checkrecords = checkrecords;
-	}*/
 	
 	
 }
