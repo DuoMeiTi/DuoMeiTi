@@ -95,7 +95,6 @@
                         
         <action name="register" class="homepage.UserAction" method="register">
             <result name="success">                
-<!--                 <param name="includeProperties">username, password, user_list</param> -->
                 /jsp/homepage/register.jsp
             </result>            
         </action>
