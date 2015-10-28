@@ -13,11 +13,7 @@
 				/admin/classroom/teachBuildingAction 
 			</result>
 		</action>
-<<<<<<< HEAD
-=======
 
-
->>>>>>> origin/master
 		<action name="user_request">
 			<result>
 				/jsp/admin/users_request.jsp
