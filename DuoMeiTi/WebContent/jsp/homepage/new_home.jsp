@@ -30,7 +30,7 @@
 						      		<s:property value="#i.time.toString()"/> 
 							  </span>
 						      <span>
-						      	<a href="/" > 
+						      	<a href="#" > 
 						      		<s:property value="#i.title"/> 
 						      		:
 						      		<s:property value="#i.content"/>
@@ -41,14 +41,7 @@
 						</div>
 		         	</s:iterator>	        	
 		        
-<!-- 					<div class="usoft-listview-basic"> -->
-<!-- 					  <ul> -->
-<!-- 					    <li> -->
-<!-- 					      <span class="usoft-listview-item-date">12-30</span> -->
-<!-- 					      <span><a href="home/news/4" title="关于用户名的说明">关于用户名的说明</a></span> -->
-<!-- 					    </li> -->
-<!-- 					  </ul> -->
-<!-- 					</div> -->				
+
 		
 		
 		        </div><!--end news-documents-->
@@ -131,7 +124,7 @@
 				
 				
 <div class="row news_frame">
-  <div class="col-lg-12">
+  <div class="col-lg-6">
     <!--news base template-->
 		<div class="">
 		  <div class="front-wrap">
@@ -153,7 +146,7 @@
 						      		<s:property value="#i.repairdate.toString()"/>
 						      </span>
 						      <span>
-						      	<a href="/">
+						      	<a href="#">
 						      		<s:property value="#i.repairman.fullName"/>
 						      		维修
 						      		<s:property value="#i.device.classroom.teachbuilding.build_name"/>
@@ -178,8 +171,78 @@
 		</div>				
   </div>  <!--<div class="col-lg-6"> -->
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="col-lg-6">
+    <!--news base template-->
+		<div class="">
+		  <div class="front-wrap">
+		    <div class="home-news">
+		      <div class="usoft-listview-header">
+		        <h3>设备更换提醒         <small>Equipment- replacement- reminder </small> </h3>
+		        <span class="usoft-listview-more">					          
+				<strong><a href="home/news/news_cate=announcement">更多»</a></strong>						
+		        </span>
+		      </div>						      
+		      <div class="news-list">
+		        <div class="news-documents documents-list "> 
+		        
+		        	<s:iterator value="deviceReplaceList" var="i" status="index" >
+		        		<div class="usoft-listview-basic">
+						  <ul>
+						    <li>
+						      <span class="usoft-listview-item-date">
+<%-- 						      		<s:property value=""/> --%>
+						      </span>
+						      <span>
+						      	<a href="#">
+						      	
+						      		<s:property value="#i.classroom.teachbuilding.build_name"/>
+						      		<s:property value="#i.classroom.classroom_num"/>
+						      		
+						      		
+						      		
+						      		<s:property value="#i.rtType"/>
+						      		
+<%-- 						      		<s:property value="#i.classroom.principal.user.fullName"/> --%>
+<%-- 						      		<s:property value="#i.rtFactorynum"/> --%>
+
+								</a>
+							  </span>
+						    </li>
+						  </ul>
+						</div>
+		        	</s:iterator>
+		        
+		        </div><!--end news-documents-->
+		      </div><!--end news-list-->
+		      
+		    </div><!--home-news-->
+		  </div><!--front wrap-->
+		</div>				
+  </div>  <!--<div class="col-lg-6"> -->
+  
 
 </div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 
 
