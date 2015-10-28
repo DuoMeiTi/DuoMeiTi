@@ -10,7 +10,7 @@
     <package name="student" namespace="/student" extends="StudentDefault">    	
 		    	
     	<action name="">
-    		<result>/jsp/student/base.jsp</result>
+    		<result type="redirect">/student/chooseclass</result>
     	</action>
     	
   		<action name="train" class="student.TrainAction">
@@ -58,7 +58,16 @@
 			</result>
 		</action>
     </package>
+    
+    
+    
+    
+    
+    
     <package name="sutdent_classroom" namespace="/student/classroom" extends="StudentDefault">
+    	<action name="">
+    		<result type="redirect">/student/classroom/classroom_manage</result>
+    	</action>
     	<action name="classroom_manage" class="student.ClassroomManageAction"
 			method="classroomList">
 
@@ -76,6 +85,12 @@
 		</action>
     </package>
     
+
+
+
+
+
+
 
 	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
 		extends="StudentDefault">
