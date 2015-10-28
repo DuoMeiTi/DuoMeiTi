@@ -180,7 +180,7 @@
 			
         	$(cnt).attr("user_id", data.user_id);
  */			
-    		alert("ok");
+    		alert("注册成功");
  			animatesHide();
  			 
  			window.location.href = "${pageContext.request.contextPath}/login";

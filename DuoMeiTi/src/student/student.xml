@@ -16,7 +16,14 @@
   		<action name="train" class="student.TrainAction">
 			<result>/jsp/student/train.jsp</result>
 		</action>
-
+		<!-- 修改密码 -->
+		<action name="modify_password" class="student.ModifyPasswordAction">
+		    <result>/jsp/student/modify_password.jsp</result>
+		</action>
+		<action name="password_update" class="student.ModifyPasswordAction" method="updatePsw">
+		    <result type="json"></result>
+		</action>
+        <!-- 学生信息 -->
 		<action name="student_information" class="student.InformationAction" method="studentInformation">
 			<result>/jsp/student/student_information.jsp</result>
 		</action>
@@ -121,9 +128,7 @@
 			<result>/jsp/student/chooseClass.jsp</result>
 		</action>
 
-		<action name="train" class="student.TrainAction">
-			<result>/jsp/student/train.jsp</result>
-		</action>
+		
 
 	</package>
 

@@ -27,6 +27,7 @@ private List<TeachBuilding> builds;
 
 
 	public String execute(){
+		System.out.println("建立查询");
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria criteria = session.createCriteria(TeachBuilding.class)
 							.setFetchMode("classroom", FetchMode.SELECT);
