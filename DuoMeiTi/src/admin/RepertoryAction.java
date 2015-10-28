@@ -59,6 +59,10 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	private String costDevice[];
 	private String deviceStatus[];
 
+	public static java.sql.Date addDays(java.util.Date d, int day)
+	{
+		return new java.sql.Date(d.getTime() + day * 24*60 *60*1000);
+	}
 	
 	public String execute() throws Exception{
 		
@@ -162,6 +166,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
     		rt.setRtFactorynum(rtFactorynum);
     		rt.setRtDeviceStatus(rtDeviceStatus);
     		rt.setRtReplacePeriod(rtReplacePeriod);
+    		rt.setRtDeadlineData(addDays(new java.util.Date(), rtReplacePeriod));
     		if(rtDeviceStatus.equals("教室"))
         	{
     			String build_name = rs.getCell(7, i).getContents();
@@ -286,6 +291,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		rt.setRtReplacePeriod(rtReplacePeriod);
 		rt.setRtFilterCleanPeriod(rtFilterCleanPeriod);
 		rt.setRtFreqPoint(rtFreqPoint);
+		rt.setRtDeadlineData(addDays(new java.util.Date(), rtReplacePeriod));
 		
 		session.beginTransaction();
 		session.update(rt);
@@ -347,6 +353,9 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		rt.setRtReplacePeriod(rtReplacePeriod);
 		rt.setRtFilterCleanPeriod(rtFilterCleanPeriod);
 		rt.setRtFreqPoint(rtFreqPoint);
+//		rt.setRtFreqPoint(rtFreqPoint);
+
+		rt.setRtDeadlineData(addDays(new java.util.Date(), rtReplacePeriod));
 		Session session = model.Util.sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(rt);
