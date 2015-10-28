@@ -14,12 +14,6 @@
 				/admin/classroom/teachBuildingAction 
 			</result>
 		</action>
-
-<!-- 		<action name=""> -->
-<!-- 			<result> -->
-<!-- 				/jsp/admin/base.jsp -->
-<!-- 			</result> -->
-<!-- 		</action> -->
 		<action name="user_request">
 			<result>
 				/jsp/admin/users_request.jsp
@@ -52,8 +46,7 @@
 		
 		<action name="repertory_*" class="admin.RepertoryAction" method="{1}">
 			<result name="success" type="json">
-<!-- 				<param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param> -->
-<!-- 				<param name="excludeProperties"> repertory_list</param> -->
+
 			</result>
 		</action> 
 		
@@ -79,8 +72,21 @@
 		<!-- 管理员账号管理 Action -->
 		<action name="adminaccount" class="admin.AdminAccountAction" method="initallAdminProfilelist">
 			<result>/jsp/admin/adminAccount.jsp</result>
-		</action>  
+		</action>
 		  
+		<action name="addNewAdminProfile" class="admin.AdminAccountAction" method="addNewAdminProfile">
+			<result name="success" type="json">
+				<param name="includeProperties">result</param>
+			</result>  
+		</action>
+		<action name="deleteAdminProfile" class="admin.AdminAccountAction" method="deleteAdminProfile">
+			<result name="success" type="json">
+				<param name="includeProperties">result</param>
+			</result>   
+			<result name="error" type="json">
+				<param name="includeProperties">result</param>
+			</result>  
+		</action>
 	</package>
 	
 		       

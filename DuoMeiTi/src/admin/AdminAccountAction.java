@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import model.AdminProfile;
+import model.StudentProfile;
 import model.User;
 import model.Util;
 
@@ -25,8 +26,9 @@ public class AdminAccountAction extends ActionSupport{
 	 *该Action用于处理管理员用户的添加和删除
 	 */
 	private static final long serialVersionUID = 1L;
-	private List allAdminProfilelist;
+	private List<AdminProfile> allAdminProfilelist;
 	private int id;
+	private String rmID;
 	private String username;
 	private String password;
 	private String fullName;
@@ -35,6 +37,62 @@ public class AdminAccountAction extends ActionSupport{
 	private String phoneNumber;
 	private String remark;
 	private String unitInfo;
+	private String password2;
+	private User user;
+	private AdminProfile edit_admin;
+	private String result="success";
+	
+	public String getRmID() {
+		return rmID;
+	}
+
+	public void setRmID(String rmID) {
+		this.rmID = rmID;
+	}
+
+	public AdminProfile getEdit_admin() {
+		return edit_admin;
+	}
+
+	public void setEdit_admin(AdminProfile edit_admin) {
+		this.edit_admin = edit_admin;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+
+	public void setAllAdminProfilelist(List<AdminProfile> allAdminProfilelist) {
+		this.allAdminProfilelist = allAdminProfilelist;
+	}
+
+	public String getPassword2() {
+		return password2;
+	}
+
+	public void setPassword2(String password2) {
+		this.password2 = password2;
+	}
+	public String getUnitInfo() {
+		return unitInfo;
+	}
+
+	public void setUnitInfo(String unitInfo) {
+		this.unitInfo = unitInfo;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public String initallAdminProfilelist()
 	{
 		Session session = Util.sessionFactory.openSession();
@@ -45,6 +103,13 @@ public class AdminAccountAction extends ActionSupport{
 		{
 			System.out.println("allAdminProfilelist is Empty");
 		}
+		else
+		{
+			for(AdminProfile admin:allAdminProfilelist)
+			{
+				System.out.println("fullName: "+admin.user.fullName);
+			}
+		}
 		session.close();
 		return SUCCESS;
 	}
@@ -52,68 +117,70 @@ public class AdminAccountAction extends ActionSupport{
 	public String deleteAdminProfile(){
 		int deleteid=(int) ServletActionContext.getContext().getSession().get("user_id");
 		javax.servlet.http.HttpServletResponse response = ServletActionContext.getResponse();
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out;
-		try {
-			out = response.getWriter();
+		
+		System.out.println("deleteAdminProfile "+"rmID "+rmID);
+		id=Integer.valueOf(rmID).intValue();
 		if(deleteid==this.id)
 		{
-			out.flush();
-
-			out.println("<script>");
-
-			out.println("alert('账户或密码错误');");
-
-			out.println("history.back();");
-
-			out.println("</script>");
+			result="error";
 			return ERROR;
 		}
 		Session session =Util.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try{
-			Criteria criteriauser = session.createCriteria(User.class).add(Restrictions.eq("id",id ));
+			
 			Criteria criteriaadmin = session.createCriteria(AdminProfile.class).add(Restrictions.eq("id",id ));
-			List<User> listuser = criteriauser.list();
 			List<AdminProfile> listadmin = criteriaadmin.list();
-			if(listuser.isEmpty())
-			{
-				return ERROR;
-			}
 			for(AdminProfile ap:listadmin)
 			{
 				session.delete(ap);
-			}
-			for(User user:listuser)
-			{
-				session.delete(user);
+				Criteria criteriauser = session.createCriteria(User.class).add(Restrictions.eq("id",ap.user.id ));
+				List<User> listuser = criteriauser.list();
+				for(User user:listuser)
+				{
+					session.delete(user);
+				}
 			}
 			tx.commit();
-			out.flush();
-			out.println("<script>");
-			out.println("alert('删除成功');");
-			out.println("history.back();");
-			out.println("</script>");
+			result="success";
 		}catch(HibernateException e)
 		{
 			tx.rollback();
+			return ERROR;
 		}finally{
 			session.close();
 		}
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		return SUCCESS;
+	}
+	public String getAdminAccountinfo()
+	{
+		for(AdminProfile admin : allAdminProfilelist){
+			if(admin.getId()==Integer.parseInt(rmID)){
+				edit_admin = admin;
+				break;
+			}
 		}
-		
+		//查找对应的user
+		if(allAdminProfilelist==null||allAdminProfilelist.isEmpty())
+		{
+			initallAdminProfilelist();
+		}
 		return SUCCESS;
 	}
 	
 	public String addNewAdminProfile()
 	{
+		System.out.println("hehe");
 		Session session =Util.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
+		System.out.println("fullname: "+fullName+"  "+"password: "+password+" username "+username);
 		try{
 			Criteria criteria = session.createCriteria(AdminProfile.class);
+			Criteria criteriauser = session.createCriteria(User.class).add(Restrictions.eq("username",username));
+			if(criteriauser.list().size()>0){
+				result="用户已存在";
+				return ERROR;
+			}
 			AdminProfile adminaccount = new AdminProfile();
 			adminaccount.id=id;
 			adminaccount.unitInfo=unitInfo;
@@ -130,14 +197,17 @@ public class AdminAccountAction extends ActionSupport{
 			session.save(user);
 			session.save(adminaccount);
 			tx.commit();
+			result="success";
+			System.out.println("end");
 		}catch(HibernateException e)
 		{
 			System.out.println("AdminAccount 64 addNewAdminProfile Exception");
 			tx.rollback();
+			result="error";
 		}finally{
 			session.close();
 		}
-		return SUCCESS;
+		return ActionSupport.SUCCESS;
 	}
 	
 	public int getId() {
@@ -212,10 +282,6 @@ public class AdminAccountAction extends ActionSupport{
 		return allAdminProfilelist;
 	}
 
-	public void setAllAdminProfilelist(List allAdminProfilelist) {
-		this.allAdminProfilelist = allAdminProfilelist;
-	}
-	
 	
 	
 	
