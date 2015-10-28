@@ -188,7 +188,7 @@ td,tr,th{
 			{
 				var optionval=null;
 			}
-			alert(optionval);
+			//alert(optionval);
 			sc_condition('2',optionval);
 		}
 		

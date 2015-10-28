@@ -146,6 +146,7 @@ public class ClassroomInformationAction extends ActionSupport implements Request
 		if(query_condition != null && !query_condition.equals("")) {
 			if(searchselect.equals("1")){
 				classroom_criteria.add(Restrictions.eq("classroom_num", query_condition));
+				System.out.println("youyou");
 			}
 			else{
 				Criteria user_criteria = session.createCriteria(User.class);

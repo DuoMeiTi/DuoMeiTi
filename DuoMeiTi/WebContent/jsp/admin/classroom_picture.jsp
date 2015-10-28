@@ -30,19 +30,17 @@
 		<br/>
 		<br/>
 
-		<table class="table device-table-bordered" id="roompicture_table">
+		<table class="table device-table-bordered " id="roompicture_table">
 			<tbody>
 				<s:iterator value="picture_list" var="picture" status="i">
-					<div class="form-group col-lg-offset-2">
-						<label for="username"><s:property value="#picture.remark"/>:</label>
+				<label  for="username"><s:property value="#picture.remark"/>:</label>
+				<div class="well well-sm">		
+					<div class="form-group col-lg-offset-4" id = "<s:property value="#picture.id"/>">
+						
+						<img src="<s:property value="#picture.path"/>"  width="200" height="200" />   
+						<button type="button" class="btn btn-primary btn-sm delete col-lg-offset-4" id="delede-button">删除</button>	
 					</div>
-					<div class="form-group col-lg-offset-3">
-						<img src="<s:property value="#picture.path"/>"  width="100" height="100" />   
-					</div>
-					<div id = "<s:property value="#picture.id"/>" class="form-group col-lg-offset-3">
-					<button type="button" class="btn btn-primary btn-sm delete" id="delede-button">删除</button>	
-					</div>
-					<br/>
+				</div>
 				</s:iterator>
 			</tbody>
 		</table>	

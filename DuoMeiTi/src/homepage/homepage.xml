@@ -9,11 +9,6 @@
     <package name="homepage" namespace="/" extends="HomepageDefault">
     
         	
-<!--   		<action name="resourceFileGetPage" class="homepage.HomeAction" method="getPage"> -->
-<!--         	<result name="success" type="json"> </result> -->
-<!--         </action> -->
-    	 
-    	
     	
     	<action name="home2">
     		<result> /jsp/homepage/home2.jsp</result>
@@ -69,9 +64,7 @@
         
         
     
-<!--     	<action name="" class="homepage.HomeAction"> -->
-<!--         	<result>/jsp/homepage/home.jsp</result> -->
-<!--         </action> -->
+
         <!--这个是原始的文件上传，最新的在admin账户下  -->
         <action name="file_upload" class="homepage.FileUploadAction">
         	<result>/jsp/homepage/file_upload.jsp</result>
@@ -102,7 +95,6 @@
                         
         <action name="register" class="homepage.UserAction" method="register">
             <result name="success">                
-<!--                 <param name="includeProperties">username, password, user_list</param> -->
                 /jsp/homepage/register.jsp
             </result>            
         </action>
@@ -120,6 +112,11 @@
 				
             </result>            
         </action>
+        
+        
+        
+        
+        
         <!--常见问题首页显示action-->
         <action name="CommonProRecord" class="homepage.CommonProRecord" method="showRecord">
         	<result> /jsp/homepage/CommonProRecord.jsp</result>
@@ -190,25 +187,23 @@
           
           
             <result name="success" type="json">
-            	
-<!--             	 <param name="includeProperties">register_status,profilePhotoPath</param>            -->
-<!-- 				<param name="excludeProperties"> user_list</param> -->
             </result> 
-<!--             <result name="input">/jsp/homepage/admin_register.jsp</result>            -->
+
         </action>
 
 
 
+
+
    
-<!--游客访问教室信息  showBuildings;showClassRooms;showDevices
+<!--游客访问教室信息  showBuildings;showClassRooms;showDevices-->
 <action name="classRoomInfo*" class="homepage.ClassRoomInfoAction" method="{1}">
 <result>/jsp/homepage/{1}.jsp</result>
 </action>
 
- -->
 
 
-    </package>
+</package>
     
     <package name="classroom_json" namespace="/homepage/classroom_json" extends="HomepageDefault">
     	

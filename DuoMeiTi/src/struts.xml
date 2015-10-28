@@ -18,18 +18,18 @@
      
     <package name="Default" namespace="" extends="json-default">
     
-    	<default-action-ref name="hello"/>
+    	<default-action-ref name="undefinedUrl"/>
   	    <global-results>
             <result name="not_login" type="redirect"> /not_login</result>
             
 			<result name="getPage" type="json">
 				  <param name="ignoreHierarchy">false</param>
 			</result>            
-        </global-results>    
+        </global-results>
         	
         
-        <action name="hello">
-        	<result> /hello.jsp</result>
+        <action name="undefinedUrl">
+        	<result> /jsp/homepage/undefinedUrl.jsp</result>
         </action>
         
     </package>
@@ -88,15 +88,7 @@
 	</package>
 	
 	
-<!--     <package name="global"  extends="struts-default">	 -->
-        
-<!--         <default-action-ref name="hello"/> -->
-        
-<!--         <global-exception-mappings> -->
-<!--             <exception-mapping exception="java.lang.Exception" result="error"/> -->
-<!--         </global-exception-mappings> -->
-        
-<!--     </package> -->
+
     
     <include file="/admin/admin.xml"/>	
     <include file="/homepage/homepage.xml"/>

@@ -10,12 +10,13 @@
     <package name="student" namespace="/student" extends="StudentDefault">    	
 		    	
     	<action name="">
-    		<result>/jsp/student/base.jsp</result>
+    		<result type="redirect">/student/chooseclass</result>
     	</action>
     	
   		<action name="train" class="student.TrainAction">
 			<result>/jsp/student/train.jsp</result>
 		</action>
+
 		<!-- 修改密码 -->
 		<action name="modify_password" class="student.ModifyPasswordAction">
 		    <result>/jsp/student/modify_password.jsp</result>
@@ -24,6 +25,16 @@
 		    <result type="json"></result>
 		</action>
         <!-- 学生信息 -->
+
+		
+		<action name="exam" class="student.ExamAction">
+			<result>/jsp/student/exam.jsp</result>
+		</action>
+
+		<action name="exam_*" class="student.ExamAction" method="{1}">
+			<result type="json"></result>
+		</action>
+
 		<action name="student_information" class="student.InformationAction" method="studentInformation">
 			<result>/jsp/student/student_information.jsp</result>
 		</action>
@@ -32,24 +43,6 @@
 			method="studentInformationChange">
 			<result name="success" type="json">
 				<param name="includeProperties">username,fullName,phoneNumber,sex,studentId,idCard,bankCard,college,entryTime,remark</param>
-			</result>
-		</action>
-
-
-
-		<action name="classroom_manage" class="student.ClassroomManageAction"
-			method="classroomList">
-
-			<result>
-				/jsp/student/classroom_manage.jsp
-			</result>
-		</action>
-		<action name="classroom_detail" class="student.ClassroomDetailAction">
-			<result>
-				<param name="location">/jsp/student/classroom_detail.jsp</param>
-				<!-- <param name="build_id">${classroom_id}</param> <param name="build_name">${classroom_num}</param> -->
-				<param name="classroom_id">${classroom_id}</param>
-				<param name="build_id">${build_id}</param>
 			</result>
 		</action>
 
@@ -76,6 +69,38 @@
 		</action>
     </package>
     
+    
+    
+    
+    
+    
+    <package name="sutdent_classroom" namespace="/student/classroom" extends="StudentDefault">
+    	<action name="">
+    		<result type="redirect">/student/classroom/classroom_manage</result>
+    	</action>
+    	<action name="classroom_manage" class="student.ClassroomManageAction"
+			method="classroomList">
+
+			<result>
+				/jsp/student/classroom_manage.jsp
+			</result>
+		</action>
+		<action name="classroom_detail" class="student.ClassroomDetailAction">
+			<result>
+				<param name="location">/jsp/student/classroom_detail.jsp</param>
+				<!-- <param name="build_id">${classroom_id}</param> <param name="build_name">${classroom_num}</param> -->
+				<param name="classroom_id">${classroom_id}</param>
+				<param name="build_id">${build_id}</param>
+			</result>
+		</action>
+    </package>
+    
+
+
+
+
+
+
 
 	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
 		extends="StudentDefault">

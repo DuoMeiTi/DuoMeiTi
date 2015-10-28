@@ -14,7 +14,6 @@
 			</result>
 		</action>
 
-
 		<action name="user_request">
 			<result>
 				/jsp/admin/users_request.jsp
@@ -47,8 +46,7 @@
 		
 		<action name="repertory_*" class="admin.RepertoryAction" method="{1}">
 			<result name="success" type="json">
-<!-- 				<param name="includeProperties">status, rtNumber, rtSave, add_repertory_html</param> -->
-<!-- 				<param name="excludeProperties"> repertory_list</param> -->
+
 			</result>
 		</action> 
 		<!-- 修改密码 -->
@@ -68,8 +66,21 @@
 		<!-- 管理员账号管理 Action -->
 		<action name="adminaccount" class="admin.AdminAccountAction" method="initallAdminProfilelist">
 			<result>/jsp/admin/adminAccount.jsp</result>
-		</action>  
+		</action>
 		  
+		<action name="addNewAdminProfile" class="admin.AdminAccountAction" method="addNewAdminProfile">
+			<result name="success" type="json">
+				<param name="includeProperties">result</param>
+			</result>  
+		</action>
+		<action name="deleteAdminProfile" class="admin.AdminAccountAction" method="deleteAdminProfile">
+			<result name="success" type="json">
+				<param name="includeProperties">result</param>
+			</result>   
+			<result name="error" type="json">
+				<param name="includeProperties">result</param>
+			</result>  
+		</action>
 	</package>
 	
 		       
@@ -235,7 +246,15 @@
         			dutySchedule\[\d+\]\.studentId,
         			dutySchedule\[\d+\]\.studentName,
         			dutySchedule\[\d+\]\.time,
+        			teachBuildingId,
         		</param>
+        	</result>
+        </action>
+        
+        <!-- 改变开关状态 -->
+        <action name="switchStatuChange" class="admin.StudentManageAction" method="switchStatuChange">
+        	<result type="json">
+        		<param name="includeProperties">log</param>
         	</result>
         </action>
         
@@ -388,13 +407,18 @@
 			</result>			
 		</action>
 	
-<!--公告的action设置  -->
+<!--公告的action设置 
 		<action name="notice" class="admin.NoticeAction">
 			<result name="success">
 			/jsp/admin/HomepageModify/notice.jsp
-<!-- 				/jsp/admin/notice.jsp -->
 			</result>
-		</action>
+		</action> -->
+		<!-- 尝试分页 -->
+		<action name="notice" class="admin.NoticeAction" method="resourceFile">
+			<result name="success">
+			/jsp/admin/HomepageModify/noticePage.jsp
+			</result>
+		</action> 
         <action name="notice_*" class="admin.NoticeAction" method="{1}">
         <result name="success" type="json">
 <!--             	<param name="includeProperties">status,notice_id</param>            -->

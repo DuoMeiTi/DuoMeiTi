@@ -2,12 +2,14 @@ package common;
 
 import java.util.List;
 
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import model.DutyTime;
 import model.TeachBuilding;
+import model.ChooseClassSwitch;
 
 public class ChooseClass {
 	
@@ -38,6 +40,18 @@ public class ChooseClass {
 					}
 				}
 			}
+		}
+		session.close();
+	}
+	public static void insertDataToChooseClassSwitchTable(){
+		Session session = model.Util.sessionFactory.openSession();
+		List<ChooseClassSwitch> s=session.createCriteria(ChooseClassSwitch.class).list();
+		if(s.size()==0){
+			Transaction tx=session.beginTransaction();
+			ChooseClassSwitch t = new ChooseClassSwitch();
+			t.open=false;
+			session.save(t);
+			tx.commit();
 		}
 		session.close();
 	}
