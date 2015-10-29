@@ -108,7 +108,7 @@ public class RepairAction extends SuperAction {
 		classroom_id = request.getParameter("classroomId");
 		RepairDAO rdao = new RepairDAOImpl();
 		System.out.println("============");
-		ret = Integer.toString(rdao.m2alter(request.getParameter("m2alter")));
+		ret = Integer.toString(rdao.m2alter(request.getParameter("m2alter"), request.getParameter("opt")));
 		System.out.println("怎么可能"+classroom_id);
 		return "move2alter";
 	}
