@@ -12,7 +12,7 @@
 	    <a href="/student/exam" class="menu-button-middle"><span class="glyphicon glyphicon-pencil">&nbsp;考试系统</span></a>
 	    <a href="/student/a" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;考勤记录</span></a>
 	    <a href="/student/student_information" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;个人信息</span></a>
-	    <a href="/student/sssfdf" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;修改密码</span></a>
+	    <a href="/student/modify_password" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;修改密码</span></a>
 	    <a href="/logout" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;安全退出</span></a>
 	    
 		

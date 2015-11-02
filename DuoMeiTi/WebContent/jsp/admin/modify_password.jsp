@@ -19,7 +19,7 @@
     		<label >输&nbsp;入&nbsp;原&nbsp;密&nbsp;码&nbsp;</label>
     			<div class="input-group">
       				<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-      				<input type="password" class="form-control" id="oldPsw" iid=<s:property value="#session.user_id"/>>   		
+      				<input type="password" class="form-control" id="oldPsw" >   		
     			</div>
     		<br />
     		<br />		

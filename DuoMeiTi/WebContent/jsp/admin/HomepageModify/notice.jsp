@@ -1,4 +1,5 @@
 <%@ include file="/jsp/base/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%--  <layout:override name="mycontent">   --%>
 	<div class="modal fade" id="notice-modal" tabindex="-1" role="dialog"
@@ -76,7 +77,7 @@
 	<table class="table table-bordered" id="notice_table">
 
 		<tr class="active">
-			<th>公告标题</th>
+			<th>公告专题</th>
 			<th>时间</th>
 			<th>编辑</th>
 			<th>删除</th>

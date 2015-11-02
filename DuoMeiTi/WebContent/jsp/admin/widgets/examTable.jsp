@@ -13,7 +13,7 @@
 	<s:iterator var="i"  begin="0" end="qtitle.size()-1" step="1">
 		<tr class="danger" titleId=<s:property value="qtitle.get(#i).emId" />>
 			<td style="display:none;"><s:property value="qtitle.get(#i).emId" /></td>
-			<td class="titleContent"><s:property value="qtitle.get(#i).emTitle" /></td>
+			<td class="titleContent"><s:property value="qtitle.get(#i).emTitle" escape="false"/></td>
 			
 			<td class="optionList">
 				<s:iterator var="j" begin="0" end="qoption.get(#i).size() - 1" step="1">

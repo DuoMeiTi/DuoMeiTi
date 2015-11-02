@@ -20,7 +20,10 @@
     	<%@ include file="info.jsp" %>
     </div>
     <div role="tabpanel" class="tab-pane active" id="exam">
+    
 		<%@ include file="exam.jsp" %>
+		
+		
     </div>
 <!--     <div role="tabpanel" class="tab-pane" id="messages">.rwerqwerzczsdfsd.</div> -->
 <!--     <div role="tabpanel" class="tab-pane" id="settings">..rrr.</div> -->

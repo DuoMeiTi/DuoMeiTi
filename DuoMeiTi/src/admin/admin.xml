@@ -49,7 +49,7 @@
 
 			</result>
 		</action> 
-		
+		<!-- 修改密码 -->
 		<action name="modifypassword" class="admin.ModifyPasswordAction">
 			<result name="success">
 				/jsp/admin/modify_password.jsp
@@ -58,7 +58,6 @@
 		
 		<action name="modify_password" class="admin.ModifyPasswordAction" method="modifyPassword">
 			<result name="success" type="json">
-				<param name="includeProperties">oldPsw,newPsw,rePsw,id,cmpResult</param>
 			</result>
 		</action>
 

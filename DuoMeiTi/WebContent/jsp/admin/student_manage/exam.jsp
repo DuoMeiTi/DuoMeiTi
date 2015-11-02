@@ -14,10 +14,33 @@
         <h2 class="modal-title" id="myModalLabel">添加题目</h2>
       </div>
       <div class="modal-body">
-		题目描述
+		<b>题目描述 </b>
 		<form id="exam_form" titleId>
-			<textarea id="titleInput" class="form-control titleContent" rows="3" style="resize: vertical"></textarea>
-			<br>
+			
+			<textarea id="titleInput" class="form-control titleContent" rows="3" style="resize: vertical;display:none"></textarea>
+			
+			
+			<%@ include file="/bootstrap-wysiwyg/widget.jsp" %>
+			
+			<script>
+				$("#editor").attr("style", "height:150px;");
+			</script>
+	
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<br/>
+			
+			
 			<span style="color:red">请勾选正确选项</span>
 			
 			<div style="display:none" class="option">
@@ -57,15 +80,23 @@
 </div>
 
 
-
+<script type='text/javascript' src="/js/base/bootstrap-wysiwyg.js"></script>
 
 <script>
+	
+
+
+
+
+
 	var optionHtml = $(".option").html();
 	$(".option").remove();
 	
 	// clear modal
 	function clearModal(){
 		$("#titleInput").val("");
+		$("#editor").html("");
+		
 		$(".optionContent").each(function(){
 			$(this).remove();
 		})
@@ -139,6 +170,8 @@
 
 		optionList = $(optionList).find("div");
 		$("#titleInput").val($(tr).find(".titleContent").html());
+		$("#editor").html($(tr).find(".titleContent").html());
+		
 		$("#exam_form").attr("titleId", $(tr).attr("titleId"));
 		$(optionList).each(function(){
 			
@@ -166,10 +199,9 @@
 	// save edit Title
 	function editTitle() {
 		$('#emModal').modal('hide');
-// 		alert("DOUBI");
 		
 		var titleId = $("#exam_form").attr("titleId");
-// 		alert("|" + titleId + "|");
+
 		
 		
 		var params = getParams();
@@ -238,6 +270,8 @@
 	function getParams()
 	{
 		var emTextarea = $("#titleInput").val();
+		emTextarea = $("#editor").html();
+		
 		var optionList = new Array();
 		$(".optionContent #optionInput").each(function(){
 			optionList.push($(this).val());

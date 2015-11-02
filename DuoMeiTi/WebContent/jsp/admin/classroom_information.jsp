@@ -165,8 +165,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="col-lg-2">
 					<!-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#schedule-modal">查看课表</button> -->
-					<a type="button" href="<%=path%>/schedule/校部第一教学馆1-101(10301).pdf" target="_black" class="btn btn-primary btn-sm">查看课表</a>
-					</div>
+					<%-- <a type="button" href="<%=path%>/schedule/校部第一教学馆1-101(10301).pdf" target="_black" class="btn btn-primary btn-sm" onclick="checkschedule()">查看课表</a> --%>
+				</div>
 				<div class="col-lg-2">
 					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#check-record-modal">填写周检查记录</button>
 				</div>
@@ -182,8 +182,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<span>
 									<button type="button" class="btn btn-primary btn-sm"  
 									onclick="openRepairMoadl(<s:property value="#i.index"/>)">维修记录</button>
-									<a href="<%=path%>/admin/classroomDevice/move2alter_action?m2alter=<s:property value="#device.rtId"/>&classroomId=<s:property value="classroom.id"/>" id="mtoalter" type="button" class="btn btn-primary btn-sm"  
-									>移入备用</a>
+									<a href="<%=path%>/admin/classroomDevice/move2alter_action?m2alter=<s:property value="#device.rtId"/>&classroomId=<s:property value="classroom.id"/>&opt=0" id="mtoalter" type="button" class="btn btn-primary btn-sm"  
+									>维修</a>
+									<a href="<%=path%>/admin/classroomDevice/move2alter_action?m2alter=<s:property value="#device.rtId"/>&classroomId=<s:property value="classroom.id"/>&opt=1" id="mtoalter" type="button" class="btn btn-primary btn-sm"  
+									>报废</a>
 								</span>
 								
 								<span style="visibility:hidden" class="device-id-span"><s:property value="#device.rtId"/></span>

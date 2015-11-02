@@ -46,7 +46,11 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public List classroom_repertory_list;
 	
 	public List<Repertory> rtClass;
+	public String class_schedule_path ;
 	
+	
+
+
 	public String execute() {
 		Session session = model.Util.sessionFactory.openSession();
 		//query current select classroom
@@ -54,6 +58,8 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		Criteria building_criteria = session.createCriteria(TeachBuilding.class);
 		classroom_criteria.add(Restrictions.eq("id", classroomId));
 		classroom = (Classroom) classroom_criteria.uniqueResult();
+		//课程表
+		class_schedule_path = classroom.class_schedule_path;
 		building_criteria.add(Restrictions.eq("build_id", classroom.teachbuilding.build_id));
 		building = (TeachBuilding) building_criteria.uniqueResult();
 		
@@ -138,10 +144,11 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 //		System.out.println(classroom.repertorys);
 		System.out.println(classroom_repertory_list);
 		
-		session.close();
+		
 		ClassroomPicture();
 		
 		
+		session.close();
 		
 		return ActionSupport.SUCCESS;
 	}
@@ -236,5 +243,12 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public void setClassroomId(int classroomId) {
 		this.classroomId = classroomId;
 	}
+	public String getClass_schedule_path() {
+		return class_schedule_path;
+	}
 
+
+	public void setClass_schedule_path(String class_schedule_path) {
+		this.class_schedule_path = class_schedule_path;
+	}
 }
