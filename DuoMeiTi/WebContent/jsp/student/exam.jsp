@@ -28,7 +28,7 @@
 			<div class="panel-body ">
   			<s:iterator var="i" begin="0" end="qtitle.size()-1" step="1" status="index">
 				<ul class="exam_margin" titleId=<s:property value="qtitle.get(#i).emId" />>
-					<li class="margin_liTitle"><span><s:property value="#index.index+1"/>.&nbsp;</span><s:property value="qtitle.get(#i).emTitle" /></li>
+					<li class="margin_liTitle"><span><s:property value="#index.index+1"/>.&nbsp;</span><s:property value="qtitle.get(#i).emTitle" escape="false"/></li>
 					<s:iterator value='{"A","B","C","D","E","F","G"}' var="j" begin="0" end="qoption.get(#i).size() - 1" step="1" status ="L">
 					<li>
 						<div opId=<s:property value="qoption.get(#i).get(#L.index).emId" /> class="opToback">
