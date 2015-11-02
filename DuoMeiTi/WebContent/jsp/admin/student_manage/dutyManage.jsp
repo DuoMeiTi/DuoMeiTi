@@ -21,7 +21,7 @@
 	  		</s:iterator>
 	  	</select>
 
-		<button type="button" class="btn btn-primary adjust-btn">调整</button>
+		<button type="button" class="btn btn-primary adjust-btn" statu=0>调整</button>
 	</div>
 	<br/>
 	<div class="time-table hide">
@@ -39,12 +39,14 @@
 					<tr class="row" row=<s:property value="#row.index+1"/>>
 						<td class="col-md-2"><s:property value="time"/></td>
 						<s:iterator value="{'','','','','','',''}" var="num" status="col">
-							<td class="col-md-1.5 dutyleft" col=<s:property value="#col.index+1"/>><s:property value="num"/></td>
+							<td class="col-md-1.5 students" col=<s:property value="#col.index+1"/>><s:property value="num"/></td>
 						</s:iterator>
 					</tr>
 				</s:iterator>
 			</tbody>
 		</table>
+	</div>
+	<div class="not-in-list">
 	</div>
 	
 </div>

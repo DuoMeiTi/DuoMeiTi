@@ -61,12 +61,42 @@ function getDutyTableCallBack(data){
 			var coll=$(this).attr("col");
 			var roww=$(this).closest("tr").attr("row");
 			if(coll==col&&roww==row){
-				$(this).append("<span iid="+id+">"+name+"</span>");
+				$(this).append("<span  class ='student-name' iid="+id+">"+name+"</span>");
 			}
 		});
 	});
 }
 
 $(document).on("click",".adjust-btn",function(){
+	if($(".buildingSelect").val()==0){
+		alert("请选择教学楼");
+		return;
+	}
+	if($(this).attr("statu")==0){
+		$(".students").each(function(i){
+			$(this).append("<span class='addBtn'>+</span>");
+		});
+		$(this).attr("statu",1);
+		$(this).html("提交");
+		$(this).removeClass("btn-primary");
+		$(this).addClass("btn-warning");
+	}else{
+		$(".addBtn").each(function(i){
+			$(this).remove();
+		});
+		$(this).attr("statu",0);
+		$(this).html("调整");
+		$(this).removeClass("btn-warning");
+		$(this).addClass("btn-primary");
+	}
 	
 });
+
+$(document).on("click",".student-name",function(i){
+	if($(".adjust-btn").attr("statu")==1){
+		$(this).remove();	
+	}
+});
+
+$(document).on("click",".student-name",function(i){});
+
