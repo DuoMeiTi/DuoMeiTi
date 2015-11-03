@@ -27,6 +27,8 @@ import model.DutyTime;
 import model.DutySchedule;
 import common.DutyInfo;
 import model.ChooseClassSwitch;
+import model.User;
+import common.StudentInfo;
 
 public class StudentManageAction extends ActionSupport{
 	
@@ -69,13 +71,55 @@ public class StudentManageAction extends ActionSupport{
 	
 	private List<BuildingsInfo> teahBuildings;
 	private List<DutyInfo> dutySchedule; 
+	private List<StudentInfo> searchResult;
 	private int teachBuildingId;
+	private int student_Id;
+	private int dtime;//值班时间
 	private boolean chooseClassSwitch;
 	private String log;
+	private String studentName;
 	
 	
-	
-	
+	public List<StudentInfo> getSearchResult() {
+		return searchResult;
+	}
+
+
+	public void setSearchResult(List<StudentInfo> searchResult) {
+		this.searchResult = searchResult;
+	}
+
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+
+	public int getDtime() {
+		return dtime;
+	}
+
+
+	public void setDtime(int dtime) {
+		this.dtime = dtime;
+	}
+
+
+	public int getStudent_Id() {
+		return student_Id;
+	}
+
+
+	public void setStudent_Id(int student_Id) {
+		this.student_Id = student_Id;
+	}
+
+
 	public String getLog() {
 		return log;
 	}
@@ -184,6 +228,71 @@ public class StudentManageAction extends ActionSupport{
 			dutySchedule.add(new DutyInfo((Integer)tmp[0],(String)tmp[1],(Integer)tmp[2]));
 		}
 		System.out.println(dutySchedule.get(0).studentName);
+		session.close();
+		return SUCCESS;
+	}
+	
+	public String deleteDuty() throws Exception{
+		try{
+			Session session = model.Util.sessionFactory.openSession();
+			//选出选课的学生
+			String studentSelect="from StudentProfile s where s.id="+student_Id;
+			StudentProfile s=(StudentProfile)session.createQuery(studentSelect).list().get(0);
+			//更新DutyTime
+			Transaction trans=session.beginTransaction();
+			String updateDutyTime = "update DutyTime d set d.dutyLeft=d.dutyLeft+1 where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
+			session.createQuery(updateDutyTime).executeUpdate();
+			//删除DutySchedule
+			String selectDutyTime = "From DutyTime d where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
+			DutyTime duty = (DutyTime)session.createQuery(selectDutyTime).list().get(0);
+			String deleteDuty = "delete from DutySchedule ds where ds.student.id="+student_Id+" and "+"ds.dutyTime.id="+duty.id;
+			session.createQuery(deleteDuty).executeUpdate();
+			trans.commit();
+			session.close();
+			log="success";
+		}
+		catch(Exception e){
+			log="fail";
+		}
+		System.out.println(log);
+		return SUCCESS;
+	}
+	public String searchStudent() throws Exception{
+		String conditions;
+		if(studentName.length()>0&&studentId.length()>0)conditions="where s.studentId="+studentId+" and "+"s.user.fullName='"+studentName+"'";
+		else if(studentName.length()>0)conditions="where s.user.fullName='"+studentName+"'";
+		else conditions="where s.studentId="+studentId;
+		String hql="select new common.StudentInfo(s.id,s.user.fullName,s.studentId) from StudentProfile s "+conditions;
+		Session session = model.Util.sessionFactory.openSession();
+		searchResult=session.createQuery(hql).list();
+		session.close();
+		return SUCCESS;
+	}
+	public String dutyAdd() throws Exception{
+		Session session=model.Util.sessionFactory.openSession();
+		//更新DutyTime
+		String selectDutyTime = "from DutyTime d where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
+		DutyTime t=(DutyTime)session.createQuery(selectDutyTime).list().get(0);
+		if(t.dutyLeft==0){
+			log="fail0";
+			return SUCCESS;
+		}
+		t.dutyLeft=t.dutyLeft-1;
+		try{
+			Transaction trans=session.beginTransaction();		
+			session.update(t);
+			String selectStudent = "from StudentProfile sp where sp.id="+student_Id;
+			StudentProfile s=(StudentProfile)session.createQuery(selectStudent).list().get(0);
+			System.out.println(s);
+			DutySchedule ds = new DutySchedule();
+			ds.student=s;
+			ds.dutyTime=t;
+			session.save(ds);
+			trans.commit();
+			log="success";
+		}catch(Exception e){
+			log="fail1";
+		}
 		session.close();
 		return SUCCESS;
 	}

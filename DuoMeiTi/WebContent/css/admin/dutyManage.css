@@ -21,3 +21,10 @@ td span{
 	min-height:27px;
 	line-height:27px;
 }
+
+#studentId{
+	width:200px;
+}
+#studentName{
+	width:200px;
+}

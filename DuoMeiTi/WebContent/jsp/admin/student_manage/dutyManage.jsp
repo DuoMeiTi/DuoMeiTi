@@ -21,7 +21,7 @@
 	  		</s:iterator>
 	  	</select>
 
-		<button type="button" class="btn btn-primary adjust-btn" statu=0>调整</button>
+		<button type="button" class="btn btn-primary adjust-btn" statu=0>打开调整</button>
 	</div>
 	<br/>
 	<div class="time-table hide">
@@ -46,7 +46,35 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="not-in-list">
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">添加学生</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<form class="form-inline">
+  					<div class="form-group">
+    					<label for="studentName">姓名</label>
+    					<input type="text" class="form-control" id="studentName">
+  					</div>
+  					<div class="form-group">
+    					<label for="studentId">学号</label> 
+    					<input type="text" class="form-control" id="studentId">
+  					</div>
+  					<button type="button" class="btn btn-default" id="searchButton">检索</button>
+				</form>
+				<hr>
+				<p class="log"></p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" id="dutyAdd" data-dismiss="modal">添加</button>
+		      </div>
+	    	</div>
+	    </div>
 	</div>
 	
 </div>

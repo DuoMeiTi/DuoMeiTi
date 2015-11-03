@@ -258,6 +258,32 @@
         	</result>
         </action>
         
+        <!-- 删除选班 -->
+        <action name="deleteDuty" class="admin.StudentManageAction" method="deleteDuty">
+        	<result type="json">
+        		<param name="includeProperties">log</param>
+        	</result>
+        </action>
+       	<!-- 搜索学生 -->
+       	<action name="searchStudent" class="admin.StudentManageAction" method="searchStudent">
+       		<result type="json">
+       			<param name="includeProperties">
+       				searchResult\[\d+\]\.id,
+       				searchResult\[\d+\]\.studentName,
+       				searchResult\[\d+\]\.studentId,
+       			</param>
+       		</result>
+       	</action>
+       	<!-- 添加值班 -->
+       	<action name="dutyAdd" class="admin.StudentManageAction" method="dutyAdd">
+       		<result type="json">
+       			<param name="includeProperties">
+       				log
+       			</param>
+       		</result>
+       	</action>
+       
+        
 	</package>  
 	<!-- student_manage package end-->
 	
