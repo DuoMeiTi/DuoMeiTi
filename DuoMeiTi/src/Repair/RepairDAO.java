@@ -13,7 +13,7 @@ public interface RepairDAO {
 	
 	public List<Repertory> alterDevice(String classroom_id);
 	
-	public int m2alter(String move);
+	public int m2alter(String move, String opt);
 	
 	public int addalterIm(String move, String classroomid);
 	

@@ -134,14 +134,20 @@ public class RepairDAOImpl implements RepairDAO{
 	}
 	
 	@Override
-	public int m2alter(String move) {
+	public int m2alter(String move, String opt) {
 		Transaction tx = null;
 		String hql ="";
 		try {
 			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
 			tx = session.beginTransaction();
-			hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '备用', repertory.classroom = NULL" +
-					" where repertory.rtId = " + move;
+			if (opt.equals("0")) {
+				hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '维修', repertory.classroom = NULL" +
+						" where repertory.rtId = " + move;
+			}
+			else {
+				hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '报废', repertory.classroom = NULL" +
+						" where repertory.rtId = " + move;
+			}
 			System.out.println(hql);
 			Query queryupdate=session.createQuery(hql);
 			int ret=queryupdate.executeUpdate();

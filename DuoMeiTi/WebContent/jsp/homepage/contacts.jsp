@@ -61,7 +61,7 @@
 				"telnumber" : telnumber
 			},
 			success : addContactsCallback
-		});
+		}); 
 
 	}
 	

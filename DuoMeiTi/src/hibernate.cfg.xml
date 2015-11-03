@@ -7,7 +7,7 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 
         <property name="connection.url"> jdbc:mysql://192.168.2.108:3306/DuoMeiTi?useUnicode=true&amp;characterEncoding=utf8</property>
-
+	
         <property name="connection.username">root</property>
         <property name="connection.password">root</property>
 <!--         <property name="format_sql">true</property> -->
@@ -19,6 +19,8 @@
 <!--         <property name="hbm2ddl.auto">create-drop</property> -->
 		<property name="hbm2ddl.auto">update</property>
 		<property name="hibernate.current_session_context_class">thread</property>
+		
+		<property name="connection.autoReconnect">true</property> 
 		
 <!--         <mapping resource="model/UserModel.hbm.xml"/> -->
 		<mapping class="model.User"/>
@@ -33,6 +35,7 @@
 		<mapping class="model.ExamTitle"/>
 		<mapping class="model.ExamOption"/>
 		<mapping class="model.ExamStuOption"/>
+		<mapping class="model.ExamStuScore"/>
 		
 		<mapping class="model.TeachBuilding"/>
 		<mapping class="model.RepairRecord"/>

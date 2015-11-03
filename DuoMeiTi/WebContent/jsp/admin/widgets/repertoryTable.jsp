@@ -23,7 +23,7 @@
 				<td class="click_me"> <s:property value="#i.rtApprDate.toString()"/> </td>
 				<td class="click_me"> <s:property value="#i.rtFactorynum"/> </td>
 				<td class="click_me"> <s:property value="#i.rtDeviceStatus"/> </td>
-				<td class="click_me"> <s:property value="#i.rtReplacePeriod"/>/小时 </td>
+				<td class="click_me"> <s:property value="#i.rtReplacePeriod"/>/天数 </td>
 				<td> <button type="button" class="btn btn-danger delete" >删除</button> </td>
 			</tr>
 		</s:iterator>

@@ -49,7 +49,7 @@
 
 			</result>
 		</action> 
-		
+		<!-- 修改密码 -->
 		<action name="modifypassword" class="admin.ModifyPasswordAction">
 			<result name="success">
 				/jsp/admin/modify_password.jsp
@@ -58,7 +58,6 @@
 		
 		<action name="modify_password" class="admin.ModifyPasswordAction" method="modifyPassword">
 			<result name="success" type="json">
-				<param name="includeProperties">oldPsw,newPsw,rePsw,id,cmpResult</param>
 			</result>
 		</action>
 
@@ -259,6 +258,32 @@
         	</result>
         </action>
         
+        <!-- 删除选班 -->
+        <action name="deleteDuty" class="admin.StudentManageAction" method="deleteDuty">
+        	<result type="json">
+        		<param name="includeProperties">log</param>
+        	</result>
+        </action>
+       	<!-- 搜索学生 -->
+       	<action name="searchStudent" class="admin.StudentManageAction" method="searchStudent">
+       		<result type="json">
+       			<param name="includeProperties">
+       				searchResult\[\d+\]\.id,
+       				searchResult\[\d+\]\.studentName,
+       				searchResult\[\d+\]\.studentId,
+       			</param>
+       		</result>
+       	</action>
+       	<!-- 添加值班 -->
+       	<action name="dutyAdd" class="admin.StudentManageAction" method="dutyAdd">
+       		<result type="json">
+       			<param name="includeProperties">
+       				log
+       			</param>
+       		</result>
+       	</action>
+       
+        
 	</package>  
 	<!-- student_manage package end-->
 	
@@ -408,13 +433,18 @@
 			</result>			
 		</action>
 	
-<!--公告的action设置  -->
+<!--公告的action设置 
 		<action name="notice" class="admin.NoticeAction">
 			<result name="success">
 			/jsp/admin/HomepageModify/notice.jsp
-<!-- 				/jsp/admin/notice.jsp -->
 			</result>
-		</action>
+		</action> -->
+		<!-- 尝试分页 -->
+		<action name="notice" class="admin.NoticeAction" method="resourceFile">
+			<result name="success">
+			/jsp/admin/HomepageModify/noticePage.jsp
+			</result>
+		</action> 
         <action name="notice_*" class="admin.NoticeAction" method="{1}">
         <result name="success" type="json">
 <!--             	<param name="includeProperties">status,notice_id</param>            -->

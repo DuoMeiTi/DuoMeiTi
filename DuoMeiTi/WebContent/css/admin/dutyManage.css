@@ -8,7 +8,8 @@ td{
 }
 
 .adjust-btn{
-	float:right;	
+	float:right;
+	margin-right:30px;
 }
 
 td span{
@@ -19,4 +20,11 @@ td span{
 	cursor:pointer;
 	min-height:27px;
 	line-height:27px;
+}
+
+#studentId{
+	width:200px;
+}
+#studentName{
+	width:200px;
 }

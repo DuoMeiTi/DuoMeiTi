@@ -17,14 +17,11 @@ import util.Const;
 public class ModifyPasswordAction extends ActionSupport {
 	private String oldPsw;
 	private String newPsw;
-	private String rePsw;
-	private String user_password;
-	private int id;
+	private String user_password;   //当前用户的密码
 	public List<User>user_list;
-	private static User now_user;
-	private int user_id;
-	private String username;
-	private String cmpResult;
+	private static User now_user;   //当前用户
+	private String username;        //当前用户名
+	private String cmpResult;       //比较结果
 	
 	
 	
@@ -55,19 +52,7 @@ public class ModifyPasswordAction extends ActionSupport {
 	public void setNewPsw(String newPsw) {
 		this.newPsw = newPsw;
 	}
-	public String getRePsw() {
-		return rePsw;
-	}
-	public void setRePsw(String rePsw) {
-		this.rePsw = rePsw;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-		
-	}
+
 	public List<User> getUser_list() {
 		return user_list;
 	}
@@ -83,13 +68,6 @@ public class ModifyPasswordAction extends ActionSupport {
 		ModifyPasswordAction.now_user = now_user;
 	}
 
-	public int getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
 	public String getUsername() {
 		return username;
 	}
