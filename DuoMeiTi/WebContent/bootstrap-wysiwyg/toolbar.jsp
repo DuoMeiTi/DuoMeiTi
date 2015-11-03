@@ -109,7 +109,7 @@
 	};
     initToolbarBootstrapBindings();
     
-// 	$('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
-//     window.prettyPrint && prettyPrint();
+	$('.editor').wysiwyg({ fileUploadError: showErrorAlert} );
+    window.prettyPrint && prettyPrint();
   });
 </script>

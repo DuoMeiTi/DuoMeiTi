@@ -18,7 +18,7 @@
 		<b>题目描述 </b>
 		<form id="exam_form" titleId>
 			
-			<textarea id="titleInput" class="form-control titleContent" rows="3" style="resize: vertical;display:none"></textarea>
+<!-- 			<textarea id="titleInput" class="form-control titleContent" rows="3" style="resize: vertical;display:none"></textarea> -->
 			
 			
 			
@@ -29,21 +29,17 @@
 			
 			
 			
-			<div id="GG">
+			<div id="titleInput">
 				<%@ include file="/bootstrap-wysiwyg/toolbar.jsp" %>				
 			</div>
 			
-			<div id="HH">
-				<%@ include file="/bootstrap-wysiwyg/toolbar.jsp" %>
-			</div>
+<!-- 			<div id="HH"> -->
+<%-- 				<%@ include file="/bootstrap-wysiwyg/toolbar.jsp" %> --%>
+<!-- 			</div> -->
 			
 			
 			
-			<script>
-// 				$('.editor').wysiwyg();
-				$("#GG .editor").wysiwyg();
-				$("#HH .editor").wysiwyg();
-			</script>
+
 
 			
 			
@@ -108,16 +104,13 @@
 	
 
 
-
-
-
 	var optionHtml = $(".option").html();
 	$(".option").remove();
 	
 	// clear modal
 	function clearModal(){
-		$("#titleInput").val("");
-		$("#editor").html("");
+// 		$("#titleInput").val("");
+		$(".editor").html("");
 		
 		$(".optionContent").each(function(){
 			$(this).remove();
@@ -191,8 +184,8 @@
 		var optionList = $(tr).find(".optionList")[0];
 
 		optionList = $(optionList).find("div");
-		$("#titleInput").val($(tr).find(".titleContent").html());
-		$("#editor").html($(tr).find(".titleContent").html());
+// 		$("#titleInput").val($(tr).find(".titleContent").html());
+		$("#titleInput .editor").html($(tr).find(".titleContent").html());
 		
 		$("#exam_form").attr("titleId", $(tr).attr("titleId"));
 		$(optionList).each(function(){
@@ -222,9 +215,7 @@
 	function editTitle() {
 		$('#emModal').modal('hide');
 		
-		var titleId = $("#exam_form").attr("titleId");
-
-		
+		var titleId = $("#exam_form").attr("titleId");		
 		
 		var params = getParams();
 		params = $.extend(params, {"emId": titleId});
@@ -243,22 +234,18 @@
 	function editTitleCallBack(data){
 		if(data.trStatus == "1") {
 			$(document).find("#examTableDiv").html(data.exam_table);
-// 			$('#emModal').modal('hide');
 			alert("更改成功！ ");
 		}
-
 	}
 	
 	
 	
 	
 	
-	// add option
-	
-	$(document).on("click", "#addOption",addOption )
+	// add option	
+	$(document).on("click", "#addOption",addOption );
 	
 	$(document).on("click", "#testButton", function(){
-		alert("lalala");
 		var checkList = document.getElementsByClassName("optionContent");
 		for(var i = 0; i < checkList.length; ++ i)
 		{
@@ -269,18 +256,14 @@
 	
 	
 	
-	$(document).on("click","#addExam",function(){
-		
+	$(document).on("click","#addExam",function(){		
 		$('#emModal').find(".modal-title").html("新增题目");
 		clearModal();
-		
-		
 	})
 	
 	
 	$(document).on("click", "#examInsert", function(){
 		var judge = $('#emModal').find(".modal-title").html();
-// 		alert(judge);
 		if(judge == "编辑题目")
 		{
 			editTitle();
@@ -291,8 +274,7 @@
 	// from modal  get params
 	function getParams()
 	{
-		var emTextarea = $("#titleInput").val();
-		emTextarea = $("#editor").html();
+		var emTextarea = $("#titleInput .editor").html();
 		
 		var optionList = new Array();
 		$(".optionContent #optionInput").each(function(){
@@ -307,8 +289,6 @@
 			checkList.push(temp);
 		}
 		
-// 		alert(optionList);
-// 		alert(checkList);
 		var params = {
 				"emTitle" : emTextarea,
 				"optionList" : optionList,
