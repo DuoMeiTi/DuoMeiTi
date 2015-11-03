@@ -7,7 +7,8 @@
 <button type="button" id="addExam" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#emModal">添加题目</button>
 <!-- Modal -->
 <div class="modal fade" id="emModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
+
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -20,11 +21,32 @@
 			<textarea id="titleInput" class="form-control titleContent" rows="3" style="resize: vertical;display:none"></textarea>
 			
 			
-			<%@ include file="/bootstrap-wysiwyg/widget.jsp" %>
+			
+			
+			
+			
+			
+			
+			
+			
+			<div id="GG">
+				<%@ include file="/bootstrap-wysiwyg/toolbar.jsp" %>				
+			</div>
+			
+			<div id="HH">
+				<%@ include file="/bootstrap-wysiwyg/toolbar.jsp" %>
+			</div>
+			
+			
 			
 			<script>
-				$("#editor").attr("style", "height:150px;");
+// 				$('.editor').wysiwyg();
+				$("#GG .editor").wysiwyg();
+				$("#HH .editor").wysiwyg();
 			</script>
+
+			
+			
 	
 
 			
@@ -48,7 +70,7 @@
 			  <div class="form-inline form-group toc optionContent" id="optionLine">
 			  	<input type="checkbox" class="optionCheck">
 			    <label for="optionInput">选项:</label>
-			    <textarea class="form-control optionInput" id="optionInput" rows="2" cols="55" placeholder="选项内容"></textarea>
+			    <textarea class="form-control optionInput" id="optionInput" rows="2" cols="100" placeholder="选项内容"></textarea>
 			    <button type="button" class="btn btn-primary" id="optionRemove"> 移除</button>
 			  </div>
 			  

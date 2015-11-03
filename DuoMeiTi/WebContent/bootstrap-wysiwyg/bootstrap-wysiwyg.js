@@ -25,7 +25,7 @@
 			toolbarBtnSelector,
 			updateToolbar = function () {
 				if (options.activeToolbarClass) {
-					$(options.toolbarSelector).find(toolbarBtnSelector).each(function () {
+					editor.parent().find(options.toolbarSelector).find(toolbarBtnSelector).each(function () {
 						var command = $(this).data(options.commandRole);
 						if (document.queryCommandState(command)) {
 							$(this).addClass(options.activeToolbarClass);
@@ -103,7 +103,13 @@
 				input.data(options.selectionMarker, color);
 			},
 			bindToolbar = function (toolbar, options) {
+
+//				alert("FFFF")
+//				alert(toolbar.html());
+				
 				toolbar.find(toolbarBtnSelector).click(function () {
+//					alert("JJJJ");
+//					alert(editor.attr("id"));
 					restoreSelection();
 					editor.focus();
 					execCommand($(this).data(options.commandRole));
@@ -158,7 +164,7 @@
 		if (options.dragAndDropImages) {
 			initFileDrops();
 		}
-		bindToolbar($(options.toolbarSelector), options);
+		bindToolbar(editor.parent().find(options.toolbarSelector), options);
 		editor.attr('contenteditable', true)
 			.on('mouseup keyup mouseout', function () {
 				saveSelection();
@@ -189,7 +195,10 @@
 			'shift+tab': 'outdent',
 			'tab': 'indent'
 		},
+//		toolbarSelector: '[data-role=editor-toolbar]',
+//		toolbarSelector: $(this).parent().find("[data-role=editor-toolbar]"),
 		toolbarSelector: '[data-role=editor-toolbar]',
+//		toolbarSelector: '[data-role=editor-toolbar]',
 		commandRole: 'edit',
 		activeToolbarClass: 'btn-info',
 		selectionMarker: 'edit-focus-marker',
