@@ -23,6 +23,7 @@
 		<property name="connection.autoReconnect">true</property>
         <property name="connection.autoReconnectForPools">true</property> 
         <property name="connection.is-connection-validation-required">true</property> 
+        <property name="connection.failOverReadOnly">false</property>
 		
 <!--         <mapping resource="model/UserModel.hbm.xml"/> -->
 		<mapping class="model.User"/>
