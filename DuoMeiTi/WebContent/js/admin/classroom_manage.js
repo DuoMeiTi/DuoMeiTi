@@ -18,30 +18,35 @@ function GetRequest() {
 
 //jquery发送ajax请求
 function queryclassrooms() {
+	
 	$("#pagediv").css("display","none");
-	
-	
 	var searchselect = $("#searchselect  option:selected").attr("value");
 	var query_condition = $("#query_condition").val();
-	var Request = new Object();
-
-	Request = GetRequest();
-	var build_id = Request['build_id'];
-	var build_name = Request['build_name'];
-	var params = {
-		"searchselect" : searchselect,
-		"query_condition" : query_condition,
-		"build_id" : build_id,
-		"build_name" : build_name
-	};
 	
-	$.ajax({
-		url : '/admin/classroom_json/classroom_search',
-		type : 'post',
-		dataType : 'json',
-		data : params,
-		success : ClassroomSearchCallback
-	});
+	if(query_condition.length == 0){
+		alert("输入不能为空!");
+	}
+	else{
+		var Request = new Object();
+		Request = GetRequest();
+		var build_id = Request['build_id'];
+		var build_name = Request['build_name'];
+		var params = {
+			"searchselect" : searchselect,
+			"query_condition" : query_condition,
+			"build_id" : build_id,
+			"build_name" : build_name
+		};
+		
+		$.ajax({
+			url : '/admin/classroom_json/classroom_search',
+			type : 'post',
+			dataType : 'json',
+			data : params,
+			success : ClassroomSearchCallback
+		});
+	}
+	
 }
 
 

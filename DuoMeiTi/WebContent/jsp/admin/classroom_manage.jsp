@@ -139,7 +139,7 @@
 				<td >
 					<button type="button" class="btn btn-info" id="edit-button" name="edit-button" >编辑</button></td>
 				<td >
-				   <button type="button" class="btn btn-info edit" id="detail-button" name="edit-button" >详&nbsp;&nbsp;细</button></td>
+					<button type="button" class="btn btn-info edit" id="detail-button" name="edit-button" >详&nbsp;&nbsp;细</button></td>
 			</tr>
 			
 			<s:iterator value="classrooms" var="i" status="index">

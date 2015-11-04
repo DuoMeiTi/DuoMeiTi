@@ -41,7 +41,7 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 	
 	public String classroominfo_html;
 	
-	public int search_classroom_id = 1;
+	public int search_classroom_id ;
 	
 	public int currPage;
 	
@@ -274,26 +274,6 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 		System.out.println("add ok!");
 		return SUCCESS;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
