@@ -20,7 +20,9 @@
 		<property name="hbm2ddl.auto">update</property>
 		<property name="hibernate.current_session_context_class">thread</property>
 		
-		<property name="connection.autoReconnect">true</property> 
+		<property name="connection.autoReconnect">true</property>
+        <property name="connection.autoReconnectForPools">true</property> 
+        <property name="connection.is-connection-validation-required">true</property> 
 		
 <!--         <mapping resource="model/UserModel.hbm.xml"/> -->
 		<mapping class="model.User"/>
