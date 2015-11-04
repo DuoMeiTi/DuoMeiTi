@@ -18,13 +18,13 @@ function GetRequest() {
 
 //jquery发送ajax请求
 function queryclassrooms() {
-	//var params = $('#classroom_search_form').serialize(); //利用jquery将表单序列化
-	//params = decodeURIComponent(params,true);
 	$("#pagediv").css("display","none");
+	
+	
 	var searchselect = $("#searchselect  option:selected").attr("value");
 	var query_condition = $("#query_condition").val();
 	var Request = new Object();
-	//获取url中的参数  
+
 	Request = GetRequest();
 	var build_id = Request['build_id'];
 	var build_name = Request['build_name'];
@@ -44,29 +44,50 @@ function queryclassrooms() {
 	});
 }
 
+
+var search_id
+var search_classroom_num  
+var search_studId 
+var search_stuName
+
 function ClassroomSearchCallback(data) {
 	if (data.status == "0") {
-		$("#classroom_table tr:not(:first)").remove();
-		$("#classroom_table tr:first").after(data.classroominfo_html);
 		var classrooms = data.classrooms;
-		var table = $("#classroom_search_table");
-		var row;
-		$(classrooms).each(function(i) {
-			row = $(table).find("tr:eq(" + (i + 1) + ")");
-			$(row).find("td:eq(0)").text(classrooms[i].classroom_num);
-			$(row).find("td:eq(1)").text(classrooms[i].repertorys);
-//			$(row).find("td:eq(2)").text(classrooms[i].capacity);
-			$(row).find("td:eq(2)").text(classrooms[i].principal_name);
-			$(row).find("td:eq(3)").children().eq(0).attr("onclick", "edit_classroom("+ i +")");
-			$(row).find("td:eq(4)").children().eq(0).attr("href", "classroom_detail?classroom_id=" + classrooms[i].id +"&classroom_num=" +classrooms[i].classroom_num);
-		});
+		search_id = data.search_classroom_id;
+		search_classroom_num = data.classrooms[0].classroom_num;
+		search_studId = classrooms[0].principal_stuId;
+		search_stuName = classrooms[0].principal_name;
+	
+		if(classrooms.length == 0){
+			alert("未找到对应教室");
+		}
+		else{
+			var tb = document.getElementById('classroom_table');
+			var rowNum=tb.rows.length;
+			for (i=2; i<rowNum; i++)
+		    {
+		        tb.deleteRow(i);
+		        rowNum=rowNum-1;
+		        i=i-1;
+		    }
+			
+			document.getElementById('search_classroom').style.display='';
+			search_class_num.innerText = classrooms[0].classroom_num; 
+			search_principal_name.innerText = classrooms[0].principal_name;
+		}
 	} else if (data.status == "1") {
 		animatedShow("查询关键字为空");
 	} 
 }
 
+$(document).on("click", "#detail-button", function() {
+	location.href = 'classroom_detail?classroomId='+search_id;	
+})
+
 function queryAll() {
-	$("#pagediv").css("display","block");
+	location.reload();
+	//下面是以前的代码,被我注释了，改成刷新页面
+	/*$("#pagediv").css("display","block");
 	$("#query_condition").val("");
 	//获取url中的参数  
 	Request = GetRequest();
@@ -78,21 +99,19 @@ function queryAll() {
 		"build_id" : build_id,
 		"build_name" : build_name
 	};
-	
 	$.ajax({
 		url : '/admin/classroom_json/classroom_search',
 		type : 'post',
 		dataType : 'json',
 		data : params,
 		success : ClassroomSearchCallback
-	});
+	});*/
 }
 
 
 function disable_add_btn() {
 	$("#add_classroom_btn").attr("disabled", "disabled");
 }
-
 
 
 function query_stu_name() {
@@ -126,9 +145,6 @@ function queryStuNameCallback(data) {
 		$("#add_classroom_btn").removeAttr("disabled");
 	}
 }
-
-
-
 
 
 function classroom_submit() {
@@ -182,20 +198,32 @@ function add_classroom() {
 	dismiss();
 }
 
+
+$(document).on("click", "#edit-button", function() {
+
+	/*alert(search_classroom_num+search_studId+search_stuName);*/
+	
+	$("#input_principal_student_id").val(search_studId);
+	$("#input_principal_student_name").text(search_stuName);
+	$("#input_classroom_num").val(search_classroom_num);
+	$("#submit_type").attr("value", "update");
+	$("#add_classroom_btn").text("确定更新");
+	$('#classroom-modal').modal('show');
+	
+	dismiss();
+})
+
+
 function edit_classroom(index) {
-	var select_classroom_num = $("#classroom_search_table").find("tr:eq(" + (index + 1) + ") td:eq(0)").text();
-	var select_stu_td = $("#classroom_search_table").find("tr:eq(" + (index + 1) + ") td:eq(2)");
-	var select_studId = $(select_stu_td).attr("studId");
-	var select_stuName = $(select_stu_td).text();
-//	alert(index +" "+"  "+select_classroom_num +" "+select_studId+" "+select_stuName);
+	var select_classroom_num = $("#classroom_table").find("tr:eq(" + (index + 2) + ") td:eq(0)").text();
+	var select_studId = $("#classroom_table").find("tr:eq(" + (index + 2) + ") ").attr("studId");
+	var select_stuName = $("#classroom_search_table").find("tr:eq(" + (index + 1) + ") td:eq(1)").text();
 	
-	select_classroom_num = select_classroom_num.trim();
-	select_studId = select_studId.trim();
-	
+	/*get tr值的时候一定要注意空格！！！ 空格！！！ 空格！！！*/
+	/*alert(index+select_classroom_num+select_studId+select_stuName);*/
 	$("#input_principal_student_id").val(select_studId);
 	$("#input_principal_student_name").text(select_stuName);
 	$("#input_classroom_num").val(select_classroom_num);
-	
 	$("#submit_type").attr("value", "update");
 	$("#add_classroom_btn").text("确定更新");
 	$('#classroom-modal').modal('show');
