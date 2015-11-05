@@ -218,6 +218,26 @@
     	
     </package>
     
+    <package name="more_information" namespace="/home" extends="HomepageDefault">
+    
+    	<action name="more_announcement" class="homepage.HomepageInformation" method="MoreAnnouncement">
+    		<result>/jsp/homepage/more_announcement.jsp</result>
+    	</action>
+    	
+    	<action name="more_classroom" class="homepage.HomepageInformation" method="MoreCheckClassroom">
+    		<result>/jsp/homepage/more_classroom.jsp</result>
+    	</action>
+    	
+    	<action name="more_equipment_maintenance" class="homepage.HomepageInformation" method="MoreEquipmentMaintenance">
+    		<result>/jsp/homepage/more_equipment_maintenance.jsp</result>
+    	</action>
+    	
+    	<action name="more_equipment_replacement" class="homepage.HomepageInformation" method="MoreEquipmentReplacement">
+    		<result>/jsp/homepage/more_equipment_replacement.jsp</result>
+    	</action>
+    
+    </package>
+    
 
 
 </struts>
