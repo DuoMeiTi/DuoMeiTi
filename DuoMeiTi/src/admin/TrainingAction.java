@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -47,8 +48,8 @@ public class TrainingAction extends ActionSupport{
 							  .add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()  ));
 			qoption.add(coption.list());
 		}
-		Collections.reverse(qtitle);
-		Collections.reverse(qoption);
+//		Collections.reverse(qtitle);
+//		Collections.reverse(qoption);
 		session.close();
 		return SUCCESS;
 	}
@@ -120,8 +121,8 @@ public class TrainingAction extends ActionSupport{
 								  .add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()  ));
 				qoption.add(coption.list());
 			}
-			Collections.reverse(qtitle);
-			Collections.reverse(qoption);
+//			Collections.reverse(qtitle);
+//			Collections.reverse(qoption);
 			exam_table = util.Util.getJspOutput("/jsp/admin/widgets/examTable.jsp");
 			this.trStatus = "1";
 		}
@@ -186,8 +187,8 @@ public class TrainingAction extends ActionSupport{
 							  .add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()  ));
 			qoption.add(coption.list());
 		}
-		Collections.reverse(qtitle);
-		Collections.reverse(qoption);
+//		Collections.reverse(qtitle);
+//		Collections.reverse(qoption);
 		
 		session.close();
 //		this.execute();

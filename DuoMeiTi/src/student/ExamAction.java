@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -13,38 +16,140 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import model.ExamOption;
 import model.ExamStuOption;
+import model.ExamStuScore;
 import model.ExamTitle;
 import model.StudentProfile;
+
+
 
 public class ExamAction extends ActionSupport {
 	private List<ExamTitle> qtitle;
 	private List<List<ExamOption> > qoption = new ArrayList< List<ExamOption>>();
+	private List<List<String> > qstuOption = new ArrayList< List<String>>();
+	
+	public List<List<String>> getQstuOption() {
+		return qstuOption;
+	}
+
+	public void setQstuOption(List<List<String>> qstuOption) {
+		this.qstuOption = qstuOption;
+	}
+
+	/*
+	 * mergeList 表示题目列表，对于每一道题目格式为：题目ID，选项数目，各个选项 
+	 */
 	private List mergeList;
 	private String status;
-	
 	private int score;
-//	public StudentProfile stuPro;
-//	public ExamOption emoption;
-//	int numsTitle[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-//	String letOption[] = {"A","B","C","D","E","F","G"};
+	private int newNum;
+	private int titleId;
+	
+	private int opId;
+	private boolean checked;
+	
 	
 	
 
-	public String execute() throws Exception{
+
+
+
+	public String execute() throws Exception
+	{
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria c = session.createCriteria(ExamTitle.class);
+		int student_id = (int)ActionContext.getContext().getSession().get("student_id");
+		Criteria c = session.createCriteria(ExamStuScore.class).add(Restrictions.eq("stuPro.id", student_id))
+				.setProjection(Projections.rowCount());				
+		newNum = ((Long)c.uniqueResult()).intValue();
+		
+		newNum ++;
+		
+		 c = session.createCriteria(ExamTitle.class);
 		qtitle = c.list();
 		qoption.clear();
+		qstuOption.clear();
 		for(int i = 0; i < qtitle.size(); i++)
 		{
 			Criteria c2 = session.createCriteria(ExamOption.class).add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()));
-			qoption.add(c2.list());
+			List l = c2.list();
+			qoption.add(l);
+			ArrayList<String> cntChecked = new ArrayList<String>(); 
+			for(int j = 0; j < l.size(); ++j)
+			{
+				ExamOption op = (ExamOption)l.get(j);
+				List tmpL = session.createCriteria(ExamStuOption.class)
+						    .add(Restrictions.eq("emoption.emId", op.getEmId()))
+						    .add(Restrictions.eq("esNums", newNum))
+						    .add(Restrictions.eq("stuPro.id", student_id)).list();
+				if(tmpL.isEmpty())
+					cntChecked.add("");
+				else 
+					cntChecked.add("checked");
+			}
+			qstuOption.add(cntChecked);
+			
 		}
-		Collections.reverse(qtitle);
-		Collections.reverse(qoption);
+		
+		
+		
+		
+		
+		
 		session.close();
+		
+		
+		
+		
+		
 		return SUCCESS;
 	}
+	
+	public String checkChange() throws Exception{
+		System.out.println("JFJJFJFJJ");
+		System.out.println(newNum);
+		System.out.println(titleId);
+		System.out.println(checked);
+		System.out.println(opId);
+		
+		int student_id = (int)ActionContext.getContext().getSession().get("student_id");
+		Session session = model.Util.sessionFactory.openSession();
+		session.beginTransaction();
+		
+		if(checked == false)
+		{
+			System.out.println("Flase");
+			Criteria c = session.createCriteria(ExamStuOption.class)
+								.add(Restrictions.eq("stuPro.id", student_id))
+								.add(Restrictions.eq("emoption.emId", opId))
+								.add(Restrictions.eq("esNums", newNum));
+			
+			
+			List l = c.list();
+			if(l.isEmpty())
+			{
+				this.status="这个选项之前怎么没选过";
+				return SUCCESS;
+			}			
+			this.status="去除选项成功";
+			session.delete(l.get(0));
+		}
+		else 
+		{
+			System.out.println("TTTT");
+			ExamStuOption op= new ExamStuOption();
+			op.setEmoption((ExamOption)session.createCriteria(ExamOption.class).add(Restrictions.eq("emId", opId) ).list().get(0));
+			op.setEsNums(newNum);
+			op.setStuPro((StudentProfile)session.createCriteria(StudentProfile.class).add(Restrictions.eq("id", student_id) ).list().get(0));
+			session.save(op);
+			this.status="添加选项成功";
+		}		
+		session.getTransaction().commit();
+		session.close();
+		
+		return SUCCESS;
+	}
+	
+	
+	
 
 	public String insert() throws Exception {
 		
@@ -54,14 +159,9 @@ public class ExamAction extends ActionSupport {
 		Criteria cstu =  session.createCriteria(model.StudentProfile.class);
 		List qstu = cstu.add((Restrictions.eq("id", student_id))).list();
 		
-		for(int k = 0; k < mergeList.size(); k++)
-		{
-			System.out.print(mergeList.get(k) + " ");
-		}
 		for(int i = 1 ; i < mergeList.size(); i += 2)
 		{
 			int len = Integer.parseInt((String)mergeList.get(i));
-			//System.out.println("%^&*()||||" + len);
 			for(int j = 0; j < len; j++)
 			{
 				i++;
@@ -74,25 +174,6 @@ public class ExamAction extends ActionSupport {
 				session.save(eso);
 			}
 		}
-		
-		
-//		int student_id = (int)ActionContext.getContext().getSession().get("student_id");
-//		String fullName = (String)ActionContext.getContext().getSession().get("fullName");
-//		
-//		Criteria cstu =  session.createCriteria(model.StudentProfile.class);
-//		List qstu = cstu.add((Restrictions.eq("id", student_id))).list();
-//		
-//		
-//		for(int i =0 ; i < optionIdList.size(); i++)
-//		{
-//			Criteria cop = session.createCriteria(ExamOption.class);
-//			
-//			List qop = cop.add(Restrictions.eq("emId", Integer.valueOf((String)optionIdList.get(i)).intValue() )).list();
-//			ExamStuOption eso = new ExamStuOption();
-//			eso.setEmoption((model.ExamOption)qop.get(0));
-//			eso.setStuPro((model.StudentProfile)qstu.get(0));
-//			session.save(eso);
-//		}
 		session.getTransaction().commit();
 		session.close();
 		this.countScore();
@@ -102,10 +183,6 @@ public class ExamAction extends ActionSupport {
 
 	public String countScore() throws Exception{
 		Session session = model.Util.sessionFactory.openSession();
-//		for(int i = 0; i < mergeList.size(); i++)
-//		{
-//			System.out.print(mergeList.get(i) + " ");
-//		}
 		score = 0;
 		for(int i = 0; i < mergeList.size(); i++)
 		{
@@ -118,11 +195,6 @@ public class ExamAction extends ActionSupport {
 			{
 				qOpTrue.add(((ExamOption)temp.get(k)).getEmId());
 			}
-			
-//			for(int k = 0; k < qOpTrue.size(); k++)
-//			{
-//				System.out.print(qOpTrue.get(k) + " ");
-//			}
 			
 			List<Integer> qOpStu = new ArrayList();
 			i++;
@@ -144,17 +216,14 @@ public class ExamAction extends ActionSupport {
 					{
 						flag = true;
 					}
-					else{
+					else
+					{
 						flag = false;
 						break;
 					}
 				}
 			}
 			if(flag == true) score++;
-//			for(int k = 0; k < qOpStu.size(); k++)
-//			{
-//				System.out.print(qOpStu.get(k) + " ");
-//			}
 		}
 		session.close();
 		this.status = "1";
@@ -207,6 +276,46 @@ public class ExamAction extends ActionSupport {
 		this.score = score;
 	}
 	
+	public int getNewNum() {
+		return newNum;
+	}
+
+
+
+
+	public void setNewNum(int newNum) {
+		this.newNum = newNum;
+	}
+
+
+
+
+	public int getTitleId() {
+		return titleId;
+	}
+
+
+
+
+	public void setTitleId(int titleId) {
+		this.titleId = titleId;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
+	public int getOpId() {
+		return opId;
+	}
+
+	public void setOpId(int opId) {
+		this.opId = opId;
+	}
 
 	
 	
