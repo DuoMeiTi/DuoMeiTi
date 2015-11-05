@@ -30,12 +30,9 @@
 			
 			
 			<div id="titleInput">
-				<%@ include file="/bootstrap-wysiwyg/toolbar.jsp" %>				
+				<%@ include file="/bootstrap-wysiwyg/editor.jsp" %>				
 			</div>
 			
-<!-- 			<div id="HH"> -->
-<%-- 				<%@ include file="/bootstrap-wysiwyg/toolbar.jsp" %> --%>
-<!-- 			</div> -->
 			
 			
 			
