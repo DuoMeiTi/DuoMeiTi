@@ -18,55 +18,73 @@ function GetRequest() {
 
 //jquery发送ajax请求
 function queryclassrooms() {
-	//var params = $('#classroom_search_form').serialize(); //利用jquery将表单序列化
-	//params = decodeURIComponent(params,true);
-	/*$("#pagediv").css("display","none");*/
+
 	var searchselect = $("#searchselect  option:selected").attr("value");
 	var query_condition = $("#query_condition").val();
-	var Request = new Object();
-	//获取url中的参数  
-	Request = GetRequest();
-	var build_id = Request['build_id'];
-	var build_name = Request['build_name'];
-	var params = {
-		"searchselect" : searchselect,
-		"query_condition" : query_condition,
-		"build_id" : build_id,
-		"build_name" : build_name
-	};
 	
-	$.ajax({
-		url : '/homepage/classroom_json/classroom_search',
-		type : 'post',
-		dataType : 'json',
-		data : params,
-		success : ClassroomSearchCallback
-	});
+	if(query_condition.length == 0){
+		alert("输入不能为空!!!");
+	}
+	else{
+		var Request = new Object();
+		//获取url中的参数  
+		Request = GetRequest();
+		var build_id = Request['build_id'];
+		var build_name = Request['build_name'];		
+		var params = {
+				"searchselect" : searchselect,
+				"query_condition" : query_condition,
+				"build_id" : build_id,
+				"build_name" : build_name
+			};
+			
+			$.ajax({
+				url : '/homepage/classroom_json/classroom_search2',
+				type : 'post',
+				dataType : 'json',
+				data : params,
+				success : ClassroomSearchCallback
+			});
+	}
 }
 
+var search_id
 function ClassroomSearchCallback(data) {
 	if (data.status == "0") {
-		$("#classroom_table tr:not(:first)").remove();
-		$("#classroom_table tr:first").after(data.classroominfo_html);
 		var classrooms = data.classrooms;
-		var table = $("#classroom_search_table");
-		var row;
-		$(classrooms).each(function(i) {
-			row = $(table).find("tr:eq(" + (i + 1) + ")");
-			$(row).find("td:eq(0)").text(classrooms[i].classroom_num);
-			$(row).find("td:eq(1)").text(classrooms[i].repertorys);
-//			$(row).find("td:eq(2)").text(classrooms[i].capacity);
-//			$(row).find("td:eq(2)").text(classrooms[i].principal_name);
-//			$(row).find("td:eq(3)").children().eq(0).attr("onclick", "edit_classroom("+ i +")");
-			$(row).find("td:eq(4)").children().eq(0).attr("href", "classroom_detail?classroom_id=" + classrooms[i].id +"&classroom_num=" +classrooms[i].classroom_num);
-		});
+		search_id = data.search_classroom_id;
+		if(classrooms.length == 0){
+			alert("未找到对应教室");
+		}
+
+		else{
+			var tb = document.getElementById('classroom_table');
+			var rowNum=tb.rows.length;
+			for (i=2; i<rowNum; i++)
+		    {
+		        tb.deleteRow(i);
+		        rowNum=rowNum-1;
+		        i=i-1;
+		    }
+			document.getElementById('search_classroom').style.display='';
+			search_class_num.innerText = classrooms[0].classroom_num; 
+			search_principal_name.innerText = classrooms[0].principal_name;
+		}
 	} else if (data.status == "1") {
 		animatedShow("查询关键字为空");
 	} 
 }
 
+$(document).on("click", "#detail-button", function() {
+	location.href = 'classroom_detail?classroomId='+ search_id;	
+})
+
+
+
 function queryAll() {
-	$("#pagediv").css("display","block");
+	location.reload();
+	
+	/*$("#pagediv").css("display","block");
 	$("#query_condition").val("");
 	//获取url中的参数  
 	Request = GetRequest();
@@ -85,7 +103,7 @@ function queryAll() {
 		dataType : 'json',
 		data : params,
 		success : ClassroomSearchCallback
-	});
+	});*/
 }
 
 

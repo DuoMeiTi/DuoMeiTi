@@ -6,7 +6,7 @@
     <session-factory>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 
-        <property name="connection.url"> jdbc:mysql://192.168.2.108:3306/DuoMeiTi?useUnicode=true&amp;characterEncoding=utf8</property>
+        <property name="connection.url"> jdbc:mysql://192.168.2.108:3306/DuoMeiTi?autoReconnect=true&amp;autoReconnectForPools=true&amp;useUnicode=true&amp;characterEncoding=utf8</property>
 	
         <property name="connection.username">root</property>
         <property name="connection.password">root</property>
@@ -20,7 +20,10 @@
 		<property name="hbm2ddl.auto">update</property>
 		<property name="hibernate.current_session_context_class">thread</property>
 		
-		<property name="connection.autoReconnect">true</property> 
+<!-- 		<property name="connection.autoReconnect">true</property> -->
+<!--         <property name="connection.autoReconnectForPools">true</property>  -->
+<!--         <property name="connection.is-connection-validation-required">true</property>  -->
+<!--         <property name="connection.failOverReadOnly">false</property> -->
 		
 <!--         <mapping resource="model/UserModel.hbm.xml"/> -->
 		<mapping class="model.User"/>

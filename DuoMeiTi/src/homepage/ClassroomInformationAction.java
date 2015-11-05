@@ -33,6 +33,8 @@ public class ClassroomInformationAction extends ActionSupport implements Request
 	public List<T_Classroom> classrooms;
 	
 	//for classroom_manage.js ajax
+	public int search_classroom_id ;
+	
 	public String searchselect;
 	
 	public String query_condition;
@@ -62,6 +64,7 @@ public class ClassroomInformationAction extends ActionSupport implements Request
 	private String path;
 	
 	public String classroomList() throws Exception {
+		System.out.println("classroomList:");
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria classroom_criteria = session.createCriteria(Classroom.class).setFetchMode("repertorys", FetchMode.SELECT).setFetchMode("checkrecords", FetchMode.SELECT);
 
@@ -121,6 +124,8 @@ public class ClassroomInformationAction extends ActionSupport implements Request
 	}
 	
 	public String classroom_search() throws Exception {
+		System.out.println("classroom_search:");
+		
 		if(searchselect == null)
 		{
 			searchselect = "1";
@@ -186,12 +191,19 @@ public class ClassroomInformationAction extends ActionSupport implements Request
 //				sb.append(r.getRtType() + "  ");
 //			}
 			t_classroom.repertorys = sb.toString();
-System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroom.principal.user.getUsername() + " " + sb.toString());
+			System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroom.principal.user.getUsername() + " " + sb.toString());
 			classrooms.add(t_classroom);
 			htmlsb.append(util.Util.fileToString("/jsp/admin/widgets/classroominfo.html"));
 		}
 		this.classroominfo_html = htmlsb.toString();
-		session.close();		
+		session.close();
+		if(classrooms.size()!=0){
+			System.out.println("not_empty");
+			this.setSearch_classroom_id(classrooms.get(0).getId());
+			System.out.println("id:");
+			System.out.println(this.search_classroom_id);
+		}
+		
 		this.status = "0";
 		return SUCCESS;
 	}
@@ -317,6 +329,15 @@ System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroo
 	public void setSubmit_type(String submit_type) {
 		this.submit_type = submit_type;
 	}
+
+	public int getSearch_classroom_id() {
+		return search_classroom_id;
+	}
+
+	public void setSearch_classroom_id(int search_classroom_id) {
+		this.search_classroom_id = search_classroom_id;
+	}
+	
 
 	/*public int getPageSize() {
 		return pageSize;

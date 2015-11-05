@@ -1,35 +1,15 @@
-
-
-
-
-    <link href="/bootstrap-wysiwyg/external/google-code-prettify/prettify.css" rel="stylesheet">
-
-    <link href="/bootstrap-wysiwyg/font-awesome.css" rel="stylesheet">
-
-
-    
-    <script src="/bootstrap-wysiwyg/external/jquery.hotkeys.js"></script>
-
-   
-
-
-    <script src="/bootstrap-wysiwyg/external/google-code-prettify/prettify.js"></script>
-
-
-    <link href="/bootstrap-wysiwyg/index.css" rel="stylesheet">
-    <script src="/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
-
-
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+			    <link href="/bootstrap-wysiwyg/external/google-code-prettify/prettify.css" rel="stylesheet"/>
+    			<link href="/bootstrap-wysiwyg/font-awesome.css" rel="stylesheet">    
+    			<script src="/bootstrap-wysiwyg/external/jquery.hotkeys.js"></script>
+    			<script src="/bootstrap-wysiwyg/external/google-code-prettify/prettify.js"></script>
+			    <link href="/bootstrap-wysiwyg/index.css" rel="stylesheet">
+    			<script src="/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
 
 
 
 <div class="container" style="width:100%;">
-  <div class="">
-  
-
-
-
 	<div id="alerts"></div>
     <div class="btn-toolbar" data-role="editor-toolbar"  >
       <div class="btn-group">
@@ -83,13 +63,11 @@
         <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
       </div>
       <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
-    </div>
-
-    <div id="editor" style="height:200px;" >
       
     </div>
-  </div>
+	<div class="editor" >
 
+</div>
 
 </div>
 <script>
@@ -102,8 +80,9 @@
       $.each(fonts, function (idx, fontName) {
           fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
       });
-      $('a[title]').tooltip({container:'body'});
-    	$('.dropdown-menu input').click(function() {return false;})
+      $(".editor").parent().find('a[title]').tooltip({container:'body'});
+      
+      $('.dropdown-menu input').click(function() {return false;})
 		    .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
         .keydown('esc', function () {this.value='';$(this).change();});
 
@@ -111,6 +90,7 @@
         var overlay = $(this), target = $(overlay.data('target')); 
         overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
       });
+
       if ("onwebkitspeechchange"  in document.createElement("input")) {
         var editorOffset = $('#editor').offset();
         $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
@@ -127,24 +107,9 @@
 		$('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
 		 '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
 	};
-    initToolbarBootstrapBindings();  
-	$('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
-//     window.prettyPrint && prettyPrint();
+    initToolbarBootstrapBindings();
+    
+	$('.editor').wysiwyg({ fileUploadError: showErrorAlert} );
+    window.prettyPrint && prettyPrint();
   });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
