@@ -1,20 +1,17 @@
-<div class="">
-  
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+			    <link href="/bootstrap-wysiwyg/external/google-code-prettify/prettify.css" rel="stylesheet"/>
+    			<link href="/bootstrap-wysiwyg/font-awesome.css" rel="stylesheet">    
+    			<script src="/bootstrap-wysiwyg/external/jquery.hotkeys.js"></script>
+    			<script src="/bootstrap-wysiwyg/external/google-code-prettify/prettify.js"></script>
+			    <link href="/bootstrap-wysiwyg/index.css" rel="stylesheet">
+    			<script src="/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
 
-<!-- 	<h1>bootstrap-wysiwyg <br/> <small>tiny wysiwyg rich text editor for Bootstrap</small></h1> -->
-<!-- 	<hr/> -->
-	<!--
-	Please read this before copying the toolbar:
 
-	* One of the best things about this widget is that it does not impose any styling on you, and that it allows you 
-	* to create a custom toolbar with the options and functions that are good for your particular use. This toolbar
-	* is just an example - don't just copy it and force yourself to use the demo styling. Create your own. Read 
-	* this page to understand how to customise it:
-    * https://github.com/mindmup/bootstrap-wysiwyg/blob/master/README.md#customising-
-	-->
 
+<div class="container" style="width:100%;">
 	<div id="alerts"></div>
-    <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
+    <div class="btn-toolbar" data-role="editor-toolbar"  >
       <div class="btn-group">
         <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -34,6 +31,7 @@
         <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
         <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
       </div>
+      
       <div class="btn-group">
         <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>
         <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>
@@ -65,14 +63,14 @@
         <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
       </div>
       <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
+      
     </div>
+	<div class="editor" >
 
-<!--     <div id="editor" style="height:200px;" > -->
-<!--       Go ahead&hellip; -->
-<!--     </div> -->
-  </div>
-  
-  <script>
+</div>
+
+</div>
+<script>
   $(function(){
     function initToolbarBootstrapBindings() {
       var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
@@ -82,8 +80,9 @@
       $.each(fonts, function (idx, fontName) {
           fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
       });
-      $('a[title]').tooltip({container:'body'});
-    	$('.dropdown-menu input').click(function() {return false;})
+      $(".editor").parent().find('a[title]').tooltip({container:'body'});
+      
+      $('.dropdown-menu input').click(function() {return false;})
 		    .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
         .keydown('esc', function () {this.value='';$(this).change();});
 
@@ -91,6 +90,7 @@
         var overlay = $(this), target = $(overlay.data('target')); 
         overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
       });
+
       if ("onwebkitspeechchange"  in document.createElement("input")) {
         var editorOffset = $('#editor').offset();
         $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
@@ -107,13 +107,9 @@
 		$('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
 		 '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
 	};
-    initToolbarBootstrapBindings();  
-// 	$('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
-//     window.prettyPrint && prettyPrint();
+    initToolbarBootstrapBindings();
+    
+	$('.editor').wysiwyg({ fileUploadError: showErrorAlert} );
+    window.prettyPrint && prettyPrint();
   });
 </script>
-  
-  
-  
-  
-  

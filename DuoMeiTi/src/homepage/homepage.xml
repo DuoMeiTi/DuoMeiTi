@@ -5,11 +5,20 @@
 
 <struts>
 
+	<package name="classroom_json234" namespace="/homepage/classroom_json" extends="HomepageDefault">
+		<action name="classroom_search2" class="homepage.ClassroomInformationAction" method="classroom_search">
+			<result type="json">
+				<param name="includeProperties">
+					search_classroom_id, status, classroominfo_html, 
+					classrooms\[\d+\]\.id, classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity, classrooms\[\d+\]\.principal_name, classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys
+				</param>
+			</result>
+		</action>
+		
+	</package>
 
     <package name="homepage" namespace="/" extends="HomepageDefault">
-    
-        	
-    	
+  	
     	<action name="home2">
     		<result> /jsp/homepage/home2.jsp</result>
     	</action>
@@ -55,16 +64,6 @@
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-    
-
         <!--这个是原始的文件上传，最新的在admin账户下  -->
         <action name="file_upload" class="homepage.FileUploadAction">
         	<result>/jsp/homepage/file_upload.jsp</result>
@@ -78,12 +77,6 @@
         </action>
         
       
-        
-        
-        
-        
-        
-        
     	<action name="not_login">
             <result> /jsp/homepage/not_login.jsp </result>
         </action>
@@ -204,7 +197,7 @@
 
 
 </package>
-    
+
     <package name="classroom_json" namespace="/homepage/classroom_json" extends="HomepageDefault">
     	
     	<action name="classroom_search" class="homepage.ClassroomInformationAction" method="classroom_search">
@@ -218,6 +211,25 @@
     	
     </package>
     
-
+    <package name="more_information" namespace="/home" extends="HomepageDefault">
+    
+    	<action name="more_announcement" class="homepage.HomepageInformation" method="MoreAnnouncement">
+    		<result>/jsp/homepage/more_announcement.jsp</result>
+    	</action>
+    	
+    	<action name="more_classroom" class="homepage.HomepageInformation" method="MoreCheckClassroom">
+    		<result>/jsp/homepage/more_classroom.jsp</result>
+    	</action>
+    	
+    	<action name="more_equipment_maintenance" class="homepage.HomepageInformation" method="MoreEquipmentMaintenance">
+    		<result>/jsp/homepage/more_equipment_maintenance.jsp</result>
+    	</action>
+    	
+    	<action name="more_equipment_replacement" class="homepage.HomepageInformation" method="MoreEquipmentReplacement">
+    		<result>/jsp/homepage/more_equipment_replacement.jsp</result>
+    	</action>
+    
+    </package>
+    
 
 </struts>

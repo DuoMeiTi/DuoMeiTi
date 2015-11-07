@@ -15,7 +15,6 @@
 				<th >姓名</th>
 				<th >性别</th>
 				<th >电话</th>
-				<th >头像</th>
 				<th >工作单位</th>
 				<th >备注</th>
 				<th >删除</th>
@@ -25,7 +24,6 @@
 					<td class="col-lg-1.5"> <s:property value="#i.user.fullName"/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.user.sex"/>  </td>
 					<td class="col-lg-1"> <s:property value="#i.user.phoneNumber"/> </td>
-					<td class="col-lg-1.5"> <s:property value="#i.user.profilePhotoPath "/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.unitinfo"/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.user.remark"/> </td>			
 					<td class="col-lg-1 ">

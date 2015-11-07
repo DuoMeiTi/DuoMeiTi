@@ -31,7 +31,7 @@
 
 
 	<div id="alerts"></div>
-    <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
+    <div class="btn-toolbar" data-role="editor-toolbar"  >
       <div class="btn-group">
         <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -58,7 +58,6 @@
         <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
         <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="icon-indent-right"></i></a>
       </div>
-      <hr/>
       <div class="btn-group">
         <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
         <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>

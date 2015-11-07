@@ -41,6 +41,8 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 	
 	public String classroominfo_html;
 	
+	public int search_classroom_id ;
+	
 	public int currPage;
 	
 //	public int pageSize;
@@ -120,7 +122,17 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 		return SUCCESS;
 	}
 	
+	public String search_test(){
+		System.out.println("search_classroom_id");
+		
+		
+		return SUCCESS;
+	}
 	public String classroom_search() throws Exception {
+		
+		System.out.println("classroom_search:");
+		
+		
 		if(searchselect == null)
 		{
 			searchselect = "1";
@@ -176,24 +188,29 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 			classroom = classroom_list.get(i);
 			T_Classroom t_classroom = new T_Classroom();
 			t_classroom.id = classroom.id;
-//			t_classroom.capacity = classroom.capacity;
 			t_classroom.classroom_num = classroom.classroom_num;
 			t_classroom.principal_name = classroom.principal == null ? "" : classroom.principal.user.getFullName();
 			t_classroom.principal_stuId = classroom.principal == null ? "" : classroom.principal.getStudentId();
 			StringBuilder sb = new StringBuilder();
-//			for(Repertory r : classroom.repertorys) {
-//				sb.append(r.getRtType() + "  ");
-//			}
 			t_classroom.repertorys = sb.toString();
-System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroom.principal.user.getUsername() + " " + sb.toString());
+			System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroom.principal.user.getUsername() + " " + sb.toString());
 			classrooms.add(t_classroom);
 			htmlsb.append(util.Util.fileToString("/jsp/admin/widgets/classroominfo.html"));
 		}
 		this.classroominfo_html = htmlsb.toString();
-		session.close();		
+		session.close();
+		if(classrooms.size()!=0){
+			System.out.println("not_empty");
+			this.setSearch_classroom_id(classrooms.get(0).getId());
+			System.out.println("id:");
+			System.out.println(this.search_classroom_id);
+		}
 		this.status = "0";
 		return SUCCESS;
 	}
+	
+	
+	
 	
 	public String queryStuNameByStuId() {
 		Session session = model.Util.sessionFactory.openSession();
@@ -213,12 +230,13 @@ System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroo
 	}
 	
 	public String addClassroom() {
+		System.out.println("addClassroom:");
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria classroom_criteria = session.createCriteria(Classroom.class).setFetchMode("repertorys", FetchMode.SELECT).setFetchMode("checkrecords", FetchMode.SELECT);
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
 		classroom_criteria.add(Restrictions.eq("classroom_num", add_classroom_num));
 		List<Classroom> classroom_list = classroom_criteria.list();
-//System.out.println("size:" + classroom_list.size());
+		System.out.println("size:" + classroom_list.size());
 		if(classroom_list.size() > 0 && submit_type.equals("add")) {
 			add_status = "exist";
 		}
@@ -231,18 +249,18 @@ System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroo
 			stu_criteria.add(Restrictions.eq("studentId", stuId));
 			StudentProfile stu = (StudentProfile)stu_criteria.uniqueResult();
 
-//System.out.println("stuId:" + stuId + "add_classroom_num:" + add_classroom_num +"build_id:" +build_id+ "build_name:"+build_name);
-			
+			System.out.println("stuId:" + stuId + "add_classroom_num:" + add_classroom_num +"build_id:" +build_id+ "build_name:"+build_name);
+
 			Classroom classroom = null;
 			if(submit_type.equals("add"))
 				classroom = new Classroom();
 			else if(submit_type.equals("update")) 
 				classroom = (Classroom) classroom_criteria.uniqueResult();
 			
-			classroom.setTeachbuilding(build);
-			classroom.setPrincipal(stu);
-			classroom.setClassroom_num(add_classroom_num);
 			
+			classroom.setTeachbuilding(build);
+			classroom.setPrincipal(stu);	
+			classroom.setClassroom_num(add_classroom_num);
 			session.beginTransaction();
 			if(submit_type.equals("add"))
 				session.save(classroom);
@@ -253,28 +271,9 @@ System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroo
 			add_status = "ok";
 		}
 		session.close();
+		System.out.println("add ok!");
 		return SUCCESS;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -401,6 +400,17 @@ System.out.println(classroom.id + " " + classroom.classroom_num + " " + classroo
 		this.submit_type = submit_type;
 	}
 
+	public int getSearch_classroom_id() {
+		return search_classroom_id;
+	}
+
+	public void setSearch_classroom_id(int search_classroom_id) {
+		this.search_classroom_id = search_classroom_id;
+	}
+
+	
+	
+	
 	/*public int getPageSize() {
 		return pageSize;
 	}
