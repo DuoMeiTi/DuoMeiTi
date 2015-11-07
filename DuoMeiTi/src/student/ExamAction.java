@@ -49,21 +49,30 @@ public class ExamAction extends ActionSupport {
 	
 	
 	
-
-
-
-
-	public String execute() throws Exception
+	private int getStudentId()
 	{
-		Session session = model.Util.sessionFactory.openSession();
-		int student_id = (int)ActionContext.getContext().getSession().get("student_id");
+		return (int)ActionContext.getContext().getSession().get("student_id");
+		
+	}
+
+	private void calNewNum(Session session)
+	{
+		int student_id = getStudentId();
 		Criteria c = session.createCriteria(ExamStuScore.class).add(Restrictions.eq("stuPro.id", student_id))
 				.setProjection(Projections.rowCount());				
 		newNum = ((Long)c.uniqueResult()).intValue();
 		
 		newNum ++;
 		
-		 c = session.createCriteria(ExamTitle.class);
+	}
+
+	public String execute() throws Exception
+	{
+		Session session = model.Util.sessionFactory.openSession();
+		calNewNum(session);
+		
+		int student_id = getStudentId();
+		Criteria c = session.createCriteria(ExamTitle.class);
 		qtitle = c.list();
 		qoption.clear();
 		qstuOption.clear();
@@ -85,20 +94,10 @@ public class ExamAction extends ActionSupport {
 				else 
 					cntChecked.add("checked");
 			}
-			qstuOption.add(cntChecked);
-			
+			qstuOption.add(cntChecked);			
 		}
 		
-		
-		
-		
-		
-		
 		session.close();
-		
-		
-		
-		
 		
 		return SUCCESS;
 	}
@@ -114,16 +113,14 @@ public class ExamAction extends ActionSupport {
 		Session session = model.Util.sessionFactory.openSession();
 		session.beginTransaction();
 		
+		Criteria c = session.createCriteria(ExamStuOption.class)
+				.add(Restrictions.eq("stuPro.id", student_id))
+				.add(Restrictions.eq("emoption.emId", opId))
+				.add(Restrictions.eq("esNums", newNum));
+		List l = c.list();
 		if(checked == false)
 		{
 			System.out.println("Flase");
-			Criteria c = session.createCriteria(ExamStuOption.class)
-								.add(Restrictions.eq("stuPro.id", student_id))
-								.add(Restrictions.eq("emoption.emId", opId))
-								.add(Restrictions.eq("esNums", newNum));
-			
-			
-			List l = c.list();
 			if(l.isEmpty())
 			{
 				this.status="这个选项之前怎么没选过";
@@ -135,6 +132,11 @@ public class ExamAction extends ActionSupport {
 		else 
 		{
 			System.out.println("TTTT");
+			if(!l.isEmpty())
+			{
+				this.status="这个选项之前已经添加了";
+				return SUCCESS;
+			}
 			ExamStuOption op= new ExamStuOption();
 			op.setEmoption((ExamOption)session.createCriteria(ExamOption.class).add(Restrictions.eq("emId", opId) ).list().get(0));
 			op.setEsNums(newNum);
@@ -147,6 +149,37 @@ public class ExamAction extends ActionSupport {
 		
 		return SUCCESS;
 	}
+	public String submit() throws Exception {
+		Session session = model.Util.sessionFactory.openSession();
+		calNewNum(session);
+		
+		List allTitle = session.createCriteria(ExamTitle.class).list();
+		for(int i = 0; i < allTitle.size(); ++ i)
+		{
+			session.createCriteria(ExamOption.class).list();
+		}
+		
+		
+		
+		
+		session.close();
+		return SUCCESS;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

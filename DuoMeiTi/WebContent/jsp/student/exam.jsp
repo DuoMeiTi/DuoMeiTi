@@ -97,51 +97,84 @@
 				alert(checkList[i].checked);
 			}
 		})
-		
-		//exam submit		
 		$(document).on("click","#examSubmit", function(){
-			var mergeList = new Array();
-			
-			$("ul.exam_margin").each(function(i) {
-				mergeList.push($(this).attr("titleId"));
-				var opToBackList = $(this).find(".opToback");
-				var count = 0;
-				$(opToBackList).each(function(i){
-					if($(this).children("input")[0].checked==true){
-						count = count + 1;
-					}
-				})
-				mergeList.push(count);
-				$(opToBackList).each(function(i){
-					if($(this).children("input")[0].checked==true){
-						mergeList.push($(this).attr("opId"));
-					}
-				});
-			})
-
-			
 			var params = {
-					"mergeList" : mergeList,
+						
 			}
 			$.ajax({
-				url : 'exam_insert',
+				url : 'exam_submit',
 				type : 'post',
 				dataType : 'json',
 				data : params,
 				traditional : true,
-				success : InsertCallback
+				success : submitCallback
 			});
+		})
+		function submitCallback(data)
+		{
 			
-		});
-		function InsertCallback(data){
-			if(data.status == "1"){
-
-				$("#examSubmit").attr("disabled","disabled");
-				$("#alertInfo").hide();
-				$("#alertInfo").html("考试分数为 " + data.score + " .");
-				$("#alertInfo").show(500);
-			}
 		}
+		
+		
+// 		//exam submit		
+// 		$(document).on("click","#examSubmit", function(){
+// 			var mergeList = new Array();
+			
+// 			$("ul.exam_margin").each(function(i) {
+// 				mergeList.push($(this).attr("titleId"));
+// 				var opToBackList = $(this).find(".opToback");
+// 				var count = 0;
+// 				$(opToBackList).each(function(i){
+// 					if($(this).children("input")[0].checked==true){
+// 						count = count + 1;
+// 					}
+// 				})
+// 				mergeList.push(count);
+// 				$(opToBackList).each(function(i){
+// 					if($(this).children("input")[0].checked==true){
+// 						mergeList.push($(this).attr("opId"));
+// 					}
+// 				});
+// 			})
+
+			
+// 			var params = {
+// 					"mergeList" : mergeList,
+// 			}
+// 			$.ajax({
+// 				url : 'exam_insert',
+// 				type : 'post',
+// 				dataType : 'json',
+// 				data : params,
+// 				traditional : true,
+// 				success : InsertCallback
+// 			});
+			
+// 		});	
+		
+// 		function InsertCallback(data){
+// 			if(data.status == "1"){
+
+// 				$("#examSubmit").attr("disabled","disabled");
+// 				$("#alertInfo").hide();
+// 				$("#alertInfo").html("考试分数为 " + data.score + " .");
+// 				$("#alertInfo").show(500);
+// 			}			
+// 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		</script>
 		
