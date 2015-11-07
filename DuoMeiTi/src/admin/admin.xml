@@ -282,6 +282,12 @@
        			</param>
        		</result>
        	</action>
+       	<!-- 重置 -->
+       	<action name="reset" class="admin.StudentManageAction" method="reset">
+       		<result type="json">
+       			<param name="includeProperties">log</param>
+       		</result>
+       	</action>
        
         
 	</package>  

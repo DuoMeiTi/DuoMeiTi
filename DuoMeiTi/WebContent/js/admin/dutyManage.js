@@ -212,5 +212,27 @@ $(document).on("click","#dutyAdd",function(){
 	});
 })
 
+$(document).on("click","#reset-switch",function(){
+	if(confirm("重置后意味着开始新的一次选班，确定吗？")){	
+		var number=$("#duty-number").val();
+		try{
+			number=parseInt(number);
+			$.ajax({
+				url:"/admin/student_manage/reset",
+				type : 'post',
+				dataType : 'json',
+				data : {"dutyNumber":number},
+				success : resetCallBack
+			});
+		}catch(e){
+			alert("请输入整数");
+		}
+	}
+});
 
+function resetCallBack(data){
+	var log=data.log;
+	if(log=="fail")alert("出了点问题未能重置！");
+	if(log=="success")alert("重置成功");
+}
 
