@@ -218,7 +218,7 @@ public class StudentManageAction extends ActionSupport{
 	
 	public String getDutyTable() throws Exception{
 		Session session = model.Util.sessionFactory.openSession();
-		String hql="select ds.student.id,ds.student.user.username,ds.dutyTime.time from DutySchedule ds where ds.dutyTime.teachBuilding.build_id="
+		String hql="select ds.student.id,ds.student.user.fullName,ds.dutyTime.time from DutySchedule ds where ds.dutyTime.teachBuilding.build_id="
 					+teachBuildingId+" order by ds.dutyTime.time";
 		List temp =session.createQuery(hql).list();
 		Iterator iter=temp.iterator();
