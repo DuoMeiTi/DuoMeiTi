@@ -30,13 +30,14 @@ function checkrecord_save_callback(data) {
 		var table = $("#checkrecord_table");
 		var rowcount = $(table).find("tr").length;
 //		alert(rowcount);
-		$(table).find("tr:last").after("<tr><td width=\"20%\"></td><td></td><td></td></tr>");
-		var row = $(table).find("tr:last");
+		$(table).find("tr:first").after("<tr><td width=\"20%\"></td><td></td><td></td></tr>");
+		var row = $(table).find("tr:first").next();
+		
 		$(row).find("td:eq(0)").text(login_username);
 		$(row).find("td:eq(1)").text(checkrecord_detail);
 		$(row).find("td:eq(2)").text(today);
 		if(rowcount >= 6) {
-			$(table).find("tr:eq(1)").remove();
+			$(table).find("tr:last").remove();
 //			var v = $(table).find("tr:eq(1)").find("td:eq(1)").text();
 //			var last = $(table).find("tr:last").find("td:eq(1)").text();
 //			alert(v+" "+last);

@@ -122,7 +122,10 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 												+ "from RepairRecord as rd "
 												+ "left join rd.device as ry "
 												+ "left join ry.classroom as cm  "
-												+ "where cm.id=" + classroomId + " order by rd.repairdate").setFirstResult(repairrecord_start).setMaxResults(5).list();
+												+ "where cm.id=" + classroomId + " order by rd.id desc")
+				
+//				.setFirstResult(repairrecord_start)
+				.setMaxResults(5).list();
 //		System.out.println("repairsize:"+repairrecords.size());
 //		for(RepairRecord r : repairrecords) {
 //			System.out.println(r.repairman);
