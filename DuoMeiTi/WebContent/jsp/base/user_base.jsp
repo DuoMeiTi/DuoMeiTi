@@ -6,7 +6,11 @@
     <div id="headerpic" >
         <ul class="nav navbar-right">
             <li id="welcome_word">
-            	欢迎您: <span id="login_user_name"><s:property value="#session.username"/></span>
+            	欢迎您: 
+            	<span id="login_user_name">
+            		<s:property value="#session.username"/>,
+            		<s:property value="#session.fullName"/>
+            	</span>
 
 <%--             	<s:property value="@util.Const@AdminRole"/> --%>
 <!--             	<p></p> -->
