@@ -179,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<tbody>
 								<s:iterator value="checkrecords" var="checkrecord" status="i">
 									<tr>
-										<td width="20%"><s:property value="#checkrecord.checkman.username"/></td>
+										<td width="20%"><s:property value="#checkrecord.checkman.fullName"/></td>
 										<td><s:property value="#checkrecord.checkdetail"/></td>
 										<td><s:property value="#checkrecord.checkdate"/></td>
 									</tr>
@@ -196,7 +196,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<tbody>
 								<s:iterator value="repairrecords" var="repairrecord" status="i">
 									<tr>
-										<td width="20%"><s:property value="#repairrecord.repairman.username"/></td>
+										<td width="20%"><s:property value="#repairrecord.repairman.fullName"/></td>
 										<td><s:property value="#repairrecord.device.rtType"/></td>
 										<td><s:property value="#repairrecord.repairdetail"/></td>
 										<td><s:property value="#repairrecord.repairdate"/></td>
