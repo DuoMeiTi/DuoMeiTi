@@ -18,6 +18,8 @@ public class CheckRecordAction extends ActionSupport {
 	
 	public String checkdetail;
 	
+	public String classroom_report;
+	
 	public String classroomid;
 	
 	public String savestatus;
@@ -49,6 +51,9 @@ public class CheckRecordAction extends ActionSupport {
 			session.save(checkrecord);
 			session.getTransaction().commit();
 			
+			classroom_report = util.Util.getJspOutput("/jsp/classroom/classroom_report.jsp");
+			
+			
 			this.savestatus = "success";
 		} catch(Exception e)	{
 			this.savestatus = "fail";
@@ -68,6 +73,71 @@ public class CheckRecordAction extends ActionSupport {
 	
 	
 	
+	public String getClassroom_report() {
+		return classroom_report;
+	}
+
+
+
+
+
+
+
+
+
+
+	public void setClassroom_report(String classroom_report) {
+		this.classroom_report = classroom_report;
+	}
+
+
+
+
+
+
+
+
+
+
+	public String getClassroomid() {
+		return classroomid;
+	}
+
+
+
+
+
+
+
+
+
+
+	public void setClassroomid(String classroomid) {
+		this.classroomid = classroomid;
+	}
+
+
+
+
+
+
+
+
+
+
+	public void setSavestatus(String savestatus) {
+		this.savestatus = savestatus;
+	}
+
+
+
+
+
+
+
+
+
+
 	public String getCheckdetail() {
 		return checkdetail;
 	}

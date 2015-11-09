@@ -211,7 +211,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<!-- <button type="button" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">教室备用设备</button> -->
 				
 			</div>
-			<div class="record">
+		
+			<div >
+				<ul>
+					<li id="checkrecord_jsp">
+						<%@ include file="/jsp/classroom/checkrecord.jsp" %>
+					</li>
+					<li id ="repairrecord_jsp">
+						<%@ include file="/jsp/classroom/repairrecord.jsp" %>
+					</li>
+				</ul>
+			</div>
+			
+			<%-- <div class="record">
 				<ul>
 					<li>
 						<label class="control-label">周检查记录：</label>
@@ -250,7 +262,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</li>
 				</ul>
 			</div>
+		</div> --%>
+		
 		</div>
+		
 		
 		<div id="alter_table">
 			<!-- <button id="alterSearch" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</button> -->

@@ -44,6 +44,15 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public List<RoomPicture>picture_list;
 	public List classroom_repertory_list;
 	
+	public String repairrecord_jsp;
+	public String checkdetail;
+	public String checkrecord_jsp;
+	public String classroomid;
+	public String savestatus;
+	public int deviceId;
+	public String repairdetail;
+
+	
 	public List<Repertory> rtClass;
 	
 	public String execute() {
@@ -149,6 +158,105 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		
 		return ActionSupport.SUCCESS;
 	}
+	
+	//维修记录
+	public String repairrecordsave() {
+		System.out.println("repairrecord:");
+		Session session = null;
+		try	{
+			int user_id = (int) ActionContext.getContext().getSession().get("user_id");
+			session = model.Util.sessionFactory.openSession();
+			Criteria user_criteria = session.createCriteria(User.class);
+			user_criteria.add(Restrictions.eq("id", user_id));
+			User repairman = (User) user_criteria.uniqueResult();
+			
+			Date repairdate = new Date(new java.util.Date().getTime());
+			
+			Criteria repertory_criteria = session.createCriteria(Repertory.class);
+			repertory_criteria.add(Restrictions.eq("rtId", deviceId));
+			Repertory device = (Repertory) repertory_criteria.uniqueResult();
+			
+			RepairRecord repairrecord = new RepairRecord();
+			repairrecord.setDevice(device);
+			repairrecord.setRepairdate(repairdate);
+			repairrecord.setRepairdetail(repairdetail);
+			repairrecord.setRepairman(repairman);
+			
+			session.beginTransaction();
+			session.save(repairrecord);
+			session.getTransaction().commit();
+			
+			repairrecords = (List) session.createQuery("select rd "
+					+ "from RepairRecord as rd "
+					+ "left join rd.device as ry "
+					+ "left join ry.classroom as cm  "
+					+ "where cm.id=" + classroomId + " order by rd.id desc")
+			
+			//.setFirstResult(repairrecord_start)
+			.setMaxResults(5).list();
+			
+			System.out.println("repairsize:"+repairrecords.size());
+			
+			repairrecord_jsp = util.Util.getJspOutput("/jsp/classroom/repairrecord.jsp");
+						
+			
+			this.savestatus = "success";
+		} catch(Exception e)	{
+			this.savestatus = "fail";
+			e.printStackTrace();
+		} finally {
+			if(session != null) session.close();
+		}
+		return SUCCESS;
+	}
+	
+	//检查记录
+	public String checkrecordsave() {
+		System.out.println("checkrecord:");
+		Session session = null;
+		try	{
+			int user_id = (int) ActionContext.getContext().getSession().get("user_id");
+			session = model.Util.sessionFactory.openSession();
+			Criteria user_criteria = session.createCriteria(User.class);
+			user_criteria.add(Restrictions.eq("id", user_id));
+			User user = (User) user_criteria.uniqueResult();
+//System.out.println(stu.getUser().getUsername());
+			
+			Date checkdate = new Date(new java.util.Date().getTime());
+			System.out.println("好了没有啊"+classroomid);
+			/*int classroom_id = (int) ActionContext.getContext().getSession().get("classroom_id");*/
+			Criteria classroom_criteria = session.createCriteria(Classroom.class);
+			classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(classroomid)));
+			Classroom classroom = (Classroom) classroom_criteria.uniqueResult();
+			CheckRecord checkrecord = new CheckRecord();
+			checkrecord.setCheckdate(checkdate);
+			checkrecord.setCheckdetail(checkdetail);
+			checkrecord.setCheckman(user);
+			checkrecord.setClassroom(classroom);
+			session.beginTransaction();
+			session.save(checkrecord);
+			session.getTransaction().commit();
+			
+			Criteria checkrecord_criteria = session.createCriteria(CheckRecord.class).setFetchMode("classroom", FetchMode.SELECT).setFetchMode("checkman", FetchMode.SELECT);
+			
+			checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
+			checkrecord_criteria.addOrder(Order.desc("id"));
+			checkrecord_criteria.setMaxResults(5);
+			checkrecords = checkrecord_criteria.list();
+			//System.out.println("checkrecord:" + checkrecords);
+			
+			checkrecord_jsp = util.Util.getJspOutput("/jsp/classroom/checkrecord.jsp");
+			
+			this.savestatus = "success";
+		} catch(Exception e)	{
+			this.savestatus = "fail";
+			e.printStackTrace();
+		} finally {
+			if(session != null) session.close();
+		}
+		return SUCCESS;
+	}
+	
 	
 	
 	public void ClassroomPicture(){
@@ -258,6 +366,217 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	}
 
 	
+	public String getRemark() {
+		return remark;
+	}
+
+
+
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+
+
+
+	public int getPicID() {
+		return picID;
+	}
+
+
+
+
+	public void setPicID(int picID) {
+		this.picID = picID;
+	}
+
+
+
+
+	public TeachBuilding getBuilding() {
+		return building;
+	}
+
+
+
+
+	public void setBuilding(TeachBuilding building) {
+		this.building = building;
+	}
+
+
+
+
+	public Classroom getClassroom() {
+		return classroom;
+	}
+
+
+
+
+	public void setClassroom(Classroom classroom) {
+		this.classroom = classroom;
+	}
+
+
+
+
+	public String getSchedulePath() {
+		return schedulePath;
+	}
+
+
+
+
+	public void setSchedulePath(String schedulePath) {
+		this.schedulePath = schedulePath;
+	}
+
+
+
+
+	public List<CheckRecord> getCheckrecords() {
+		return checkrecords;
+	}
+
+
+
+
+	public void setCheckrecords(List<CheckRecord> checkrecords) {
+		this.checkrecords = checkrecords;
+	}
+
+
+
+
+	public List<RepairRecord> getRepairrecords() {
+		return repairrecords;
+	}
+
+
+
+
+	public void setRepairrecords(List<RepairRecord> repairrecords) {
+		this.repairrecords = repairrecords;
+	}
+
+
+
+
+	public List<RoomPicture> getPicture_list() {
+		return picture_list;
+	}
+
+
+
+
+	public void setPicture_list(List<RoomPicture> picture_list) {
+		this.picture_list = picture_list;
+	}
+
+
+
+
+	public List getClassroom_repertory_list() {
+		return classroom_repertory_list;
+	}
+
+
+
+
+	public void setClassroom_repertory_list(List classroom_repertory_list) {
+		this.classroom_repertory_list = classroom_repertory_list;
+	}
+
+
+
+
+	public String getCheckdetail() {
+		return checkdetail;
+	}
+
+
+
+
+	public void setCheckdetail(String checkdetail) {
+		this.checkdetail = checkdetail;
+	}
+
+
+
+
+
+
+
+
+
+	public String getCheckrecord_jsp() {
+		return checkrecord_jsp;
+	}
+
+	public void setCheckrecord_jsp(String checkrecord_jsp) {
+		this.checkrecord_jsp = checkrecord_jsp;
+	}
+
+	public String getClassroomid() {
+		return classroomid;
+	}
+
+
+
+
+	public void setClassroomid(String classroomid) {
+		this.classroomid = classroomid;
+	}
+
+
+
+
+	public String getSavestatus() {
+		return savestatus;
+	}
+
+
+
+
+	public void setSavestatus(String savestatus) {
+		this.savestatus = savestatus;
+	}
+
+
+
+
+	public List<Repertory> getRtClass() {
+		return rtClass;
+	}
+
+
+
+
+	public int getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(int deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	public String getRepairdetail() {
+		return repairdetail;
+	}
+
+	public void setRepairdetail(String repairdetail) {
+		this.repairdetail = repairdetail;
+	}
+
+	public void setRtClass(List<Repertory> rtClass) {
+		this.rtClass = rtClass;
+	}
+
+
+
+
 	public String getBuild_name() {
 		return build_name;
 	}
@@ -273,5 +592,15 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public void setClassroomId(int classroomId) {
 		this.classroomId = classroomId;
 	}
+
+	public String getRepairrecord_jsp() {
+		return repairrecord_jsp;
+	}
+
+	public void setRepairrecord_jsp(String repairrecord_jsp) {
+		this.repairrecord_jsp = repairrecord_jsp;
+	}
+	
+	
 
 }

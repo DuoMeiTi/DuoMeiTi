@@ -20,32 +20,16 @@ function checkrecord_submit() {
 		success : checkrecord_save_callback
 	});
 }
+
 function checkrecord_save_callback(data) {
 	if(data.savestatus == "fail") 
 		alert("fail!");
 	else if(data.savestatus == "success") {
-		var login_username = $("#login_user_name").text();
-		var checkrecord_detail = $("#checkdetail").val();
-		var today = new Date().format("yy-MM-dd");
-		var table = $("#checkrecord_table");
-		var rowcount = $(table).find("tr").length;
-//		alert(rowcount);
-		$(table).find("tr:first").after("<tr><td width=\"20%\"></td><td></td><td></td></tr>");
-		var row = $(table).find("tr:first").next();
-		
-		$(row).find("td:eq(0)").text(login_username);
-		$(row).find("td:eq(1)").text(checkrecord_detail);
-		$(row).find("td:eq(2)").text(today);
-		if(rowcount >= 6) {
-			$(table).find("tr:last").remove();
-//			var v = $(table).find("tr:eq(1)").find("td:eq(1)").text();
-//			var last = $(table).find("tr:last").find("td:eq(1)").text();
-//			alert(v+" "+last);
-		}
-//		alert("success!");
+		$("#checkrecord_jsp").html(data.checkrecord_jsp);
 	}
 	$('#check-record-modal').modal('hide');
 }
+
 
 
 var selectDeviceId;
@@ -79,33 +63,71 @@ function repairrecord_submit() {
 			success : repairrecord_save_callback
 		});
 }
+
 function repairrecord_save_callback(data) {
 	if(data.savestatus == "fail") 
 		alert("fail!");
 	else if(data.savestatus == "success") {
-		var login_username = $("#login_user_name").text();
-		var type = $("#device-" + selectIndex + " .device-type-label:first").text();
-		var repairdetail = $("#repairdetail").val();
-		var today = new Date().format("yy-MM-dd");
-		var table = $("#repairrecord_table");
-		var rowcount = $(table).find("tr").length;
-//		alert(rowcount);
-		$(table).find("tr:last").after("<tr><td width=\"20%\"></td><td></td><td></td><td></td></tr>");
-		var row = $(table).find("tr:last");
-		$(row).find("td:eq(0)").text(login_username);
-		$(row).find("td:eq(1)").text(type);
-		$(row).find("td:eq(2)").text(repairdetail);
-		$(row).find("td:eq(3)").text(today);
-		if(rowcount >= 6) {
-			$(table).find("tr:eq(1)").remove();
-//			var v = $(table).find("tr:eq(1)").find("td:eq(1)").text();
-//			var last = $(table).find("tr:last").find("td:eq(1)").text();
-//			alert(v+" "+last);
-		}
-//		alert("success!");
+		$("#repairrecord_jsp").html(data.repairrecord_jsp);
 	}
 	$('#repair-record-modal').modal('hide');
 }
+
+
+//function checkrecord_save_callback(data) {
+//if(data.savestatus == "fail") 
+//	alert("fail!");
+//else if(data.savestatus == "success") {
+//	var login_username = $("#login_user_name").text();
+//	var checkrecord_detail = $("#checkdetail").val();
+//	var today = new Date().format("yy-MM-dd");
+//	var table = $("#checkrecord_table");
+//	var rowcount = $(table).find("tr").length;
+////	alert(rowcount);
+//	$(table).find("tr:first").after("<tr><td width=\"20%\"></td><td></td><td></td></tr>");
+//	var row = $(table).find("tr:first").next();
+//	
+//	$(row).find("td:eq(0)").text(login_username);
+//	$(row).find("td:eq(1)").text(checkrecord_detail);
+//	$(row).find("td:eq(2)").text(today);
+//	if(rowcount >= 6) {
+//		$(table).find("tr:last").remove();
+////		var v = $(table).find("tr:eq(1)").find("td:eq(1)").text();
+////		var last = $(table).find("tr:last").find("td:eq(1)").text();
+////		alert(v+" "+last);
+//	}
+////	alert("success!");
+//}
+//$('#check-record-modal').modal('hide');
+//}
+
+//function repairrecord_save_callback(data) {
+//	if(data.savestatus == "fail") 
+//		alert("fail!");
+//	else if(data.savestatus == "success") {
+//		var login_username = $("#login_user_name").text();
+//		var type = $("#device-" + selectIndex + " .device-type-label:first").text();
+//		var repairdetail = $("#repairdetail").val();
+//		var today = new Date().format("yy-MM-dd");
+//		var table = $("#repairrecord_table");
+//		var rowcount = $(table).find("tr").length;
+////		alert(rowcount);
+//		$(table).find("tr:last").after("<tr><td width=\"20%\"></td><td></td><td></td><td></td></tr>");
+//		var row = $(table).find("tr:last");
+//		$(row).find("td:eq(0)").text(login_username);
+//		$(row).find("td:eq(1)").text(type);
+//		$(row).find("td:eq(2)").text(repairdetail);
+//		$(row).find("td:eq(3)").text(today);
+//		if(rowcount >= 6) {
+//			$(table).find("tr:eq(1)").remove();
+////			var v = $(table).find("tr:eq(1)").find("td:eq(1)").text();
+////			var last = $(table).find("tr:last").find("td:eq(1)").text();
+////			alert(v+" "+last);
+//		}
+////		alert("success!");
+//	}
+//	$('#repair-record-modal').modal('hide');
+//}
 
 
 

@@ -298,14 +298,16 @@
 				</param>
 			</result>
 		</action>
-		<action name="checkrecord_save" class="admin.CheckRecordAction" method="checkrecordsave">
+		<!-- 检查记录 -->
+		<action name="checkrecord_save" class="admin.ClassroomDetailAction" method="checkrecordsave">
 			<result type="json">
-				<param name="includeProperties">savestatus</param>
+				<param name="includeProperties">savestatus,checkrecord_jsp</param>
 			</result>
 		</action>
-		<action name="repairrecord_save" class="admin.RepairRecordAction" method="repairrecordsave">
+		<!-- 维修记录 -->
+		<action name="repairrecord_save" class="admin.ClassroomDetailAction" method="repairrecordsave">
 			<result type="json">
-				<param name="includeProperties">savestatus</param>
+				<param name="includeProperties">savestatus,repairrecord_jsp</param>
 			</result>
 		</action>
 		<action name="queryStuNameByStuId" class="admin.ClassroomManageAction" method="queryStuNameByStuId">
