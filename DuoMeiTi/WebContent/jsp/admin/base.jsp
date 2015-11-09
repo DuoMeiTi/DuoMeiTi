@@ -15,7 +15,7 @@
 
 
 	    <a href="/admin/HomepageModify/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;主页管理</span></a>
-	    <a href="/admin/adf" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;日志管理</span></a>
+	    <a href="/admin/adf" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;批量课表导入</span></a>
 	    <a href="/admin/asdf" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;远程控制</span></a>
 	    
 	    <s:if test="!#session.role.equals(@util.Const@StudentToAdminRole)">
