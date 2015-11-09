@@ -17,10 +17,13 @@ public class TrainAction extends ActionSupport{
 	{
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c = session.createCriteria(Training.class);
-		String temp = ((Training)c.list().get(0)).getTrContent();
-		String temp2 = temp.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-		String temp3 = temp2.replace(" ", "&nbsp;");
-		trContent = temp3.replace("\n", "<br/>");
+		String temp ="";
+		List L = c.list();
+		if(L.size() != 0)
+			temp = ((Training)L.get(0)).getTrContent();
+		temp = temp.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+		temp = temp.replace(" ", "&nbsp;");
+		trContent = temp.replace("\n", "<br/>");
 		System.out.println(trContent);
 		session.close();
 		return SUCCESS;

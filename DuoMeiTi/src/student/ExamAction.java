@@ -54,6 +54,14 @@ public class ExamAction extends ActionSupport {
 		return (int)ActionContext.getContext().getSession().get("student_id");
 		
 	}
+	private StudentProfile getStudent(Session session)
+	{
+		int student_id = getStudentId();
+		return (StudentProfile)session.createCriteria(model.StudentProfile.class)
+		.add(Restrictions.eq("id", student_id))
+		.list()
+		.get(0);
+	}
 
 	private void calNewNum(Session session)
 	{
@@ -68,10 +76,19 @@ public class ExamAction extends ActionSupport {
 
 	public String execute() throws Exception
 	{
+		
 		Session session = model.Util.sessionFactory.openSession();
+		StudentProfile sp = getStudent(session);
+		if(sp.isPassed != StudentProfile.Passed)
+		{
+			session.close();
+			return ActionSupport.ERROR;
+		}
 		calNewNum(session);
 		
 		int student_id = getStudentId();
+		
+		
 		Criteria c = session.createCriteria(ExamTitle.class);
 		qtitle = c.list();
 		qoption.clear();
@@ -150,22 +167,65 @@ public class ExamAction extends ActionSupport {
 		return SUCCESS;
 	}
 	public String submit() throws Exception {
+		System.out.println("JFJFJJFJJ");
+		
 		Session session = model.Util.sessionFactory.openSession();
 		calNewNum(session);
-		
-		List allTitle = session.createCriteria(ExamTitle.class).list();
-		for(int i = 0; i < allTitle.size(); ++ i)
+		System.out.println("JFJFJJFJJ");
+		qtitle = session.createCriteria(ExamTitle.class).list();
+		score = 0;
+		System.out.println("BBBBBBBBBBB");
+		for(int i = 0; i < qtitle.size(); ++ i)
 		{
-			session.createCriteria(ExamOption.class).list();
+			ExamTitle cntTitle = (ExamTitle)qtitle.get(i);
+			List cntOptions = session.createCriteria(ExamOption.class)
+							 .add(Restrictions.eq("emTitle.emId",cntTitle.getEmId()))
+							 .list();
+			boolean isRight = true;
+			for(int j = 0; j < cntOptions.size(); ++ j)
+			{
+				ExamOption op = (ExamOption)cntOptions.get(j);
+				List checked = session.createCriteria(ExamStuOption.class)
+						.add(Restrictions.eq("esNums", newNum))
+						.add(Restrictions.eq("emoption.emId", op.getEmId()))
+						.list();
+				
+				boolean ok = op.getEmCheck().equals("true") ^ !checked.isEmpty();
+				if(ok)
+				{
+					isRight = false;
+					break;
+				}				
+			}
+			if(isRight) score ++;
+		}
+		System.out.println("AAAAAAAAAAAA");
+		
+		int student_id = getStudentId();
+		
+		if(score * 100 >= qtitle.size() * 80)
+		{
+			this.status = "您已通过考试";
+			ExamStuScore stuScore = new ExamStuScore();
+			stuScore.setScore(score);
+			stuScore.setStuPro(getStudent(session));
+			session.beginTransaction();
+			session.save(stuScore);
+			session.getTransaction().commit();
+		}
+		else 
+		{
+			this.status = "您还未通过考试";
 		}
 		
 		
 		
+		System.out.println("SBSBSB");
 		
 		session.close();
 		return SUCCESS;
 	}
-	
+
 	
 	
 	

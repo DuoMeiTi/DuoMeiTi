@@ -36,8 +36,21 @@ public class TrainingAction extends ActionSupport{
 	{
 		Session session = model.Util.sessionFactory.openSession();
 		//info
-		Criteria c = session.createCriteria(Training.class);
-		trContent = ((Training)c.list().get(0)).getTrContent();
+		List L = session.createCriteria(Training.class).list();
+		
+		if(L.size() == 0)
+		{
+			trContent = "";
+			Training tr = new Training();
+			tr.setTrContent("");
+			session.beginTransaction();
+			
+			
+			session.save(tr);
+			session.getTransaction().commit();
+		}
+		else 
+		trContent = ((Training)L.get(0)).getTrContent();
 		//exam
 		Criteria ctitle = session.createCriteria(ExamTitle.class);
 		qtitle = ctitle.list();

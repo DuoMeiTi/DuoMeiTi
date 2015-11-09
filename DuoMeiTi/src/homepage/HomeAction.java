@@ -35,7 +35,34 @@ public class HomeAction extends PageGetBaseAction
 	public List file_path_list;
 	public String file_path_html;
 	public List deviceReplaceList;
-	
+	static
+	{
+		Session session = model.Util.sessionFactory.openSession();		
+		
+		
+		List L = session.createCriteria(model.AdminProfile.class).list();
+		if(L.size() == 0)
+		{
+			User user = new User();
+			user.setUsername("admin");
+			user.setPassword("admin");
+			
+			model.AdminProfile ap = new model.AdminProfile();
+			ap.setUser(user);
+			
+			session.beginTransaction();
+			session.save(user);
+			session.save(ap);
+			session.getTransaction().commit();
+		}
+		
+		
+		
+		
+		
+		session.close();
+		
+	}
 
 	public String execute() throws Exception
 	{ 

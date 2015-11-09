@@ -4,6 +4,9 @@
 <layout:override name="main_content">
 <link rel="stylesheet" type="text/css" media="screen" href="/css/student/train.css" />
 <div class="mycontent">
+	
+	<s:if test="newNum == 1">
+		<div id="showContent" newNum=<s:property value="newNum" /> > 
 		
 		<div class="panel panel-primary">
 			<div class="panel-heading center"><h2 style="font-weight:bold;">考试系统</h2></div>
@@ -16,12 +19,9 @@
   			
 		</div>
 		
-		<div class="alert alert-info" role="alert" id="alertInfo" style="display:none">
-		</div>		
+			
 		
-		<div id="examCont"  style="display:none;">
-		
-		
+		<div id="showexamCont">
 			<div id="exCont" class="panel panel-default" newNum=<s:property value="newNum" /> >
 				<div class="panel-body ">
 	  			<s:iterator var="i" begin="0" end="qtitle.size()-1" step="1" status="index">
@@ -44,29 +44,39 @@
 				</s:iterator>
 				<div class="center-block" style="max-width:300px;">
 				<button type="button" class="btn btn-primary btn-lg btn-block center" id="examSubmit">我要交卷</button></div>
-				</div>
-			
-			</div>
+				</div>			
+			  </div>
 		</div>
-		<div id="showexamCont"></div>
+		
+		
+		</div>
+		
+	</s:if>
+	
+	<s:else>
+		<div class="alert alert-success" role="alert">
+			<h2> 您已经通过考试，不需要答题了 </h2>
+		</div>	
+	</s:else>
+	
+	
+	
 		<script>
 		
-		var examHtml = $("#examCont").html();
-		$("#examCont").remove();
-		$("#showexamCont").append(examHtml);
 		
 		
-// 		alert($("#exCont").attr("newNum"));
+
 		$(document).on("click",".checkOption", function(){
 			
 			var checked = $(this).parent().children("input")[0].checked;
 			
 			
-			if(checked)
-			{
-				alert("OK");
-			}
-			else alert("NO");
+// 			if(checked)
+// 			{
+// 				alert("OK");
+// 			}
+// 			else alert("NO");
+			
 			params = {
 					"checked":checked,
 					"newNum": Number($("#exCont").attr("newNum")),
@@ -89,14 +99,6 @@
 		}
 		
 
-		$(document).on("click","#test", function(){
-			alert("lalala");
-			var checkList = document.getElementsByClassName("checkOption");
-			for(var i = 0; i < checkList.length; ++ i)
-			{
-				alert(checkList[i].checked);
-			}
-		})
 		$(document).on("click","#examSubmit", function(){
 			var params = {
 						
@@ -110,59 +112,16 @@
 				success : submitCallback
 			});
 		})
+		
 		function submitCallback(data)
 		{
-			
+			alert("您答对了：" + data.score + "个题目" + "\n" + data.status);
+			window.location.reload();
 		}
 		
 		
-// 		//exam submit		
-// 		$(document).on("click","#examSubmit", function(){
-// 			var mergeList = new Array();
-			
-// 			$("ul.exam_margin").each(function(i) {
-// 				mergeList.push($(this).attr("titleId"));
-// 				var opToBackList = $(this).find(".opToback");
-// 				var count = 0;
-// 				$(opToBackList).each(function(i){
-// 					if($(this).children("input")[0].checked==true){
-// 						count = count + 1;
-// 					}
-// 				})
-// 				mergeList.push(count);
-// 				$(opToBackList).each(function(i){
-// 					if($(this).children("input")[0].checked==true){
-// 						mergeList.push($(this).attr("opId"));
-// 					}
-// 				});
-// 			})
 
-			
-// 			var params = {
-// 					"mergeList" : mergeList,
-// 			}
-// 			$.ajax({
-// 				url : 'exam_insert',
-// 				type : 'post',
-// 				dataType : 'json',
-// 				data : params,
-// 				traditional : true,
-// 				success : InsertCallback
-// 			});
-			
-// 		});	
-		
-// 		function InsertCallback(data){
-// 			if(data.status == "1"){
 
-// 				$("#examSubmit").attr("disabled","disabled");
-// 				$("#alertInfo").hide();
-// 				$("#alertInfo").html("考试分数为 " + data.score + " .");
-// 				$("#alertInfo").show(500);
-// 			}			
-// 		}
-		
-		
 		
 		
 		
