@@ -17,7 +17,7 @@ public class ChooseClass {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void insertDataToDutyTimeTable(int number){
+	public static void insertDataToDutyTimeTable(){
 		Session session = model.Util.sessionFactory.openSession();
 		List<TeachBuilding> building_list=session.createCriteria(TeachBuilding.class).list();
 		for(TeachBuilding tb:building_list){
@@ -33,7 +33,7 @@ public class ChooseClass {
 						DutyTime a=new DutyTime();
 						a.teachBuilding=tb;
 						a.time=i*10+j;
-						a.numberOfDuty=number;
+						a.numberOfDuty=4;
 						a.dutyLeft=a.numberOfDuty;
 						session.save(a);
 						tx.commit();
@@ -43,7 +43,6 @@ public class ChooseClass {
 		}
 		session.close();
 	}
-	
 	public static void insertDataToChooseClassSwitchTable(){
 		Session session = model.Util.sessionFactory.openSession();
 		List<ChooseClassSwitch> s=session.createCriteria(ChooseClassSwitch.class).list();

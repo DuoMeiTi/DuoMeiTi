@@ -13,23 +13,11 @@
 	<s:iterator var="i"  begin="0" end="qtitle.size()-1" step="1">
 		<tr class="danger" titleId=<s:property value="qtitle.get(#i).emId" />>
 			<td style="display:none;"><s:property value="qtitle.get(#i).emId" /></td>
-			
 			<td class="titleContent"><s:property value="qtitle.get(#i).emTitle" escape="false"/></td>
 			
 			<td class="optionList">
 				<s:iterator var="j" begin="0" end="qoption.get(#i).size() - 1" step="1">
-					<div isRight=<s:property value="qoption.get(#i).get(#j).emCheck" /> >
-					
-					
-						<s:if test="qoption.get(#i).get(#j).emCheck.equals('true')" >
-							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-						</s:if>
-						<s:else>
-							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-						</s:else>
-					
-						<s:property value="qoption.get(#i).get(#j).emOption" />
-					</div>
+					<div isRight=<s:property value="qoption.get(#i).get(#j).emCheck" /> ><s:property value="qoption.get(#i).get(#j).emOption" /></div>
 				</s:iterator>
 			</td>
 			

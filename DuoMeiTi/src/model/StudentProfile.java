@@ -54,6 +54,10 @@ public class StudentProfile {
     @Column(columnDefinition="INT default 0", nullable=false)
     public int isUpgradePrivilege;
     
+    //isUpgradePrivilege: 0 在职学生； 1 管理教师； 2 离职学生；
+    public static final int ServingStudent = 0;
+    public static final int ManagedTeacher = 1;
+    public static final int DepartureStudent = 2;
     
 
 	public User getUser() {

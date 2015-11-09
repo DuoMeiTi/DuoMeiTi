@@ -6,16 +6,40 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import model.Contacts;
+import model.StudentProfile;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.inject.Inject;
-public class ContactsAction extends ActionSupport {
+public class ContactsAction extends util.PageGetBaseAction {
 	public String username;
 	public String telnumber;
 	public int id;
 	public List<Contacts> contacts;
 	public String status;
+	public List contacts_list;
+	public String contacts_list_html;
     
+	
+	public String getContacts_list_html() {
+		return contacts_list_html;
+	}
+
+
+	public void setContacts_list_html(String contacts_list_html) {
+		this.contacts_list_html = contacts_list_html;
+	}
+
+
+	public List getContacts_list() {
+		return contacts_list;
+	}
+
+
+	public void setContacts_list(List contacts_list) {
+		this.contacts_list = contacts_list;
+	}
+
+
 	public String getUsername() {
 		return username;
 	}
@@ -67,14 +91,24 @@ public class ContactsAction extends ActionSupport {
 
     //建立数据库查询
 	public String wrContacts() throws Exception {
-		System.out.println(username);
+		/*System.out.println(username);
 		System.out.println(telnumber);
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c = session.createCriteria(Contacts.class);
 		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		contacts = c.list();
 		Collections.reverse(contacts);
+		session.close();*/
+		
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(StudentProfile.class);
+		contacts_list = this.makeCurrentPageList(q, 10);
 		session.close();
+		if(this.getIsAjaxTransmission())
+		{
+			contacts_list_html =util.Util.getJspOutput("/jsp/homepage/widgets/contactsTable.jsp");
+			return "getPage";
+		}
 		return ActionSupport.SUCCESS;
 	}
 	//将前台传入的姓名和电话数据写入数据库

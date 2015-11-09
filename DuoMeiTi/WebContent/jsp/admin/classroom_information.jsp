@@ -183,9 +183,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<button type="button" class="btn btn-primary btn-sm"  
 									onclick="openRepairMoadl(<s:property value="#i.index"/>)">维修记录</button>
 									<a href="<%=path%>/admin/classroomDevice/move2alter_action?m2alter=<s:property value="#device.rtId"/>&classroomId=<s:property value="classroom.id"/>&opt=0" id="mtoalter" type="button" class="btn btn-primary btn-sm"  
-									>移入维修</a>
+									>维修</a>
 									<a href="<%=path%>/admin/classroomDevice/move2alter_action?m2alter=<s:property value="#device.rtId"/>&classroomId=<s:property value="classroom.id"/>&opt=1" id="mtoalter" type="button" class="btn btn-primary btn-sm"  
-									>移入报废</a>
+									>报废</a>
 								</span>
 								
 								<span style="visibility:hidden" class="device-id-span"><s:property value="#device.rtId"/></span>
