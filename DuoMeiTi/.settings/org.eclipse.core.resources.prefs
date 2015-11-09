@@ -46,10 +46,6 @@ encoding//WebContent/jsp/homepage/home2.jsp=UTF-8
 encoding//WebContent/jsp/homepage/login.jsp=UTF-8
 encoding//WebContent/jsp/homepage/login_fail.jsp=UTF-8
 encoding//WebContent/jsp/homepage/login_success.jsp=UTF-8
-encoding//WebContent/jsp/homepage/more_announcement.jsp=UTF-8
-encoding//WebContent/jsp/homepage/more_classroom.jsp=UTF-8
-encoding//WebContent/jsp/homepage/more_equipment_maintenance.jsp=UTF-8
-encoding//WebContent/jsp/homepage/more_equipment_replacement.jsp=UTF-8
 encoding//WebContent/jsp/homepage/new_home.jsp=UTF-8
 encoding//WebContent/jsp/homepage/new_home_base.jsp=UTF-8
 encoding//WebContent/jsp/homepage/not_login.jsp=UTF-8
@@ -63,6 +59,9 @@ encoding//WebContent/jsp/student/classroom_manage.jsp=UTF-8
 encoding//WebContent/jsp/student/exam.jsp=UTF-8
 encoding//WebContent/jsp/student/examNotWatch.jsp=UTF-8
 encoding//WebContent/jsp/student/modify_password.jsp=UTF-8
+
+encoding//WebContent/jsp/student/exam.jsp=UTF-8
+
 encoding//WebContent/jsp/student/student_information.jsp=UTF-8
 encoding//WebContent/jsp/student/student_show_rules.jsp=UTF-8
 encoding//WebContent/jsp/student/train.jsp=UTF-8

@@ -173,9 +173,8 @@ public class AdminAccountAction extends ActionSupport{
 		System.out.println("hehe");
 		Session session =Util.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		System.out.println("fullname: "+fullName+"  "+"password: "+password+" username "+username);
+	//	System.out.println("fullname: "+fullName+"  "+"password: "+password+" username "+username);
 		try{
-			Criteria criteria = session.createCriteria(AdminProfile.class);
 			Criteria criteriauser = session.createCriteria(User.class).add(Restrictions.eq("username",username));
 			if(criteriauser.list().size()>0){
 				result="用户已存在";
