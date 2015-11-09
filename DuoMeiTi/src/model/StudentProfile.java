@@ -35,7 +35,7 @@ public class StudentProfile {
     public String college;    
     
     @Column
-    public java.sql.Date entryTime;
+    public java.sql.Date entryTime;    
 
 //    @OneToMany(mappedBy="principal", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 //    public Set<Classroom> classrooms;

@@ -29,7 +29,6 @@
 		
 		<action name="exam" class="student.ExamAction">
 			<result>/jsp/student/exam.jsp</result>
-			<result name="error">/jsp/student/examNotWatch.jsp</result>
 		</action>
 
 		<action name="exam_*" class="student.ExamAction" method="{1}">

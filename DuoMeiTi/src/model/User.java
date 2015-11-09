@@ -21,7 +21,7 @@ public class User
 	@Column(length=50)
 	public String password;
     
-    @Column(length=50)
+    @Column(length=10)
     public String fullName;
 
 	@Column(length=10)
