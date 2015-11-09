@@ -98,7 +98,7 @@
 	</div>
 	
 	
-  <div id="classroom_search_table">
+  <%-- <div id="classroom_search_table">
     <table class="table table-bordered table-striped" id="classroom_table12">
       <thead>
         <tr>
@@ -119,7 +119,7 @@
 		</s:iterator>
 
     </table>
-  </div>
+  </div> --%>
 		
 		<!-- 新加的教室列表 -->
 		<table class="table table-bordered table-striped" id="classroom_table">

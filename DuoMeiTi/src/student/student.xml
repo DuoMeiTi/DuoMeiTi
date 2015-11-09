@@ -118,6 +118,15 @@
 			<result type="json" name="adddevice">
 				<param name="includeProperties">ret</param>
 			</result>
+			<result name="alternative">
+				/jsp/student/alternative.jsp
+			</result>
+			<result name="move2alter" type="redirect">
+				../classroom/classroom_detail.action?classroomId=${classroom_id}
+			</result>
+			<result name="addalter" type="redirect">
+				../classroom/classroom_detail.action?classroomId=${classroom_id}
+			</result>
 		</action>
 	</package>
 	
