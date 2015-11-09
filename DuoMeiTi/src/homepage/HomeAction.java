@@ -23,12 +23,34 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import model.AdminProfile;
 import model.User;
 import util.PageGetBaseAction;
 
 
 public class HomeAction extends PageGetBaseAction
 {
+	static  // admin profile 初始化第一个admin账户
+	{		
+		Session session = model.Util.sessionFactory.openSession();
+		List l = session.createCriteria(model.AdminProfile.class).list();
+		if(l.size() == 0)
+		{
+			User user = new User();
+			AdminProfile ap = new AdminProfile();
+			user.setUsername("admin");
+			user.setPassword("admin");
+			ap.setUser(user);
+			session.beginTransaction();
+			session.save(user);
+			session.save(ap);
+			session.getTransaction().commit();
+			session.close();
+		}
+		
+		
+		
+	}
 	public List check_list;
 	public List notice_list;
 	public List repair_list;
@@ -38,7 +60,11 @@ public class HomeAction extends PageGetBaseAction
 	
 
 	public String execute() throws Exception
-	{ 
+	{
+		
+		
+		
+		
 		Session session = model.Util.sessionFactory.openSession();
 		
 		check_list = session.createCriteria(model.CheckRecord.class).list();

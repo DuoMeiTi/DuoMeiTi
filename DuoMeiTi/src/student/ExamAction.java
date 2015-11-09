@@ -75,6 +75,18 @@ public class ExamAction extends ActionSupport {
 		calNewNum(session);
 		
 		int student_id = getStudentId();
+		StudentProfile student = getStudent(session);
+		if(student.isPassed != StudentProfile.Passed)
+		{
+			session.close();
+			
+			return ActionSupport.ERROR; 
+		}
+		
+		
+		
+		
+		
 		Criteria c = session.createCriteria(ExamTitle.class);
 		qtitle = c.list();
 		qoption.clear();

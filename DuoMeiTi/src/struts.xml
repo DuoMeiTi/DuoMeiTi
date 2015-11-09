@@ -11,7 +11,7 @@
       
     <constant name="struts.multipart.maxSize" value="1000000000" />
     <constant name="struts.aciton.excludePattern" value="ws://*"></constant>
-     <constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
 	
     
 
