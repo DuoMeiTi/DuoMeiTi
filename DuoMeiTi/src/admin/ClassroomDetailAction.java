@@ -72,11 +72,11 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		Transaction tx = null;
 		String hql ="";
 		try {
-			Session session1 = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
-			tx = session1.beginTransaction();
+//			Session session1 = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+			tx = session.beginTransaction();
 			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + classroomId;
 			System.out.println(hql);
-			Query query = session1.createQuery(hql);
+			Query query = session.createQuery(hql);
 			rtClass = query.list();
 			for (int i = 0; i < rtClass.size(); i++) {
 				System.out.println("输出++++++++++++++++++++++++++++++++");
@@ -100,12 +100,14 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		Criteria checkrecord_criteria = session.createCriteria(CheckRecord.class).setFetchMode("classroom", FetchMode.SELECT).setFetchMode("checkman", FetchMode.SELECT);
 		
 		checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
-		checkrecord_criteria.addOrder(Order.asc("checkdate"));
-		long check_rowCount = (Long) checkrecord_criteria.setProjection(  
-                Projections.rowCount()).uniqueResult();
-		int checkrecord_start = ((int) check_rowCount) > 5 ? ((int) check_rowCount) - 5 : 0;
-		checkrecord_criteria.setProjection(null);
-		checkrecord_criteria.setFirstResult(checkrecord_start);
+		checkrecord_criteria.addOrder(Order.desc("id"));
+		
+//		checkrecord_criteria.addOrder(Order.asc("checkdate"));
+//		long check_rowCount = (Long) checkrecord_criteria.setProjection(  
+//                Projections.rowCount()).uniqueResult();
+//		int checkrecord_start = ((int) check_rowCount) > 5 ? ((int) check_rowCount) - 5 : 0;
+//		checkrecord_criteria.setProjection(null);
+//		checkrecord_criteria.setFirstResult(checkrecord_start);
 		checkrecord_criteria.setMaxResults(5);
 		checkrecords = checkrecord_criteria.list();
 //System.out.println("checksize:"+checkrecords.size());
