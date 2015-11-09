@@ -91,7 +91,7 @@ public class PageGetBaseAction extends ActionSupport  {
 	}
 	
 	// 根据数据库的Criteria q 所表示整体数据量返回页大小为page_size的List
-	public List makeCurrentPageList(Criteria q, int page_size)
+	public  List makeCurrentPageList(Criteria q, int page_size)
 	{		
 		q.setProjection(Projections.rowCount());
 		int tot_row = ((Long)q.uniqueResult()).intValue();

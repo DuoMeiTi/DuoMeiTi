@@ -50,7 +50,6 @@
 		<mapping class="model.Rules"/>
 		<mapping class="model.ResourceFilePath"/>
 		<mapping class="model.ChooseClassSwitch"/>
-
-		
+		<mapping class="model.CheckInRecord"/>
     </session-factory>
 </hibernate-configuration>
