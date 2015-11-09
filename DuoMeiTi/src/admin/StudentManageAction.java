@@ -1,6 +1,7 @@
 package admin;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -29,6 +30,8 @@ import common.DutyInfo;
 import model.ChooseClassSwitch;
 import model.User;
 import common.StudentInfo;
+import common.ChooseClass;
+import model.LastestResetTime;
 
 public class StudentManageAction extends ActionSupport{
 	
@@ -78,8 +81,30 @@ public class StudentManageAction extends ActionSupport{
 	private boolean chooseClassSwitch;
 	private String log;
 	private String studentName;
+	private int dutyNumber;
+	private String lastestResetTime;
 	
 	
+	public String getLastestResetTime() {
+		return lastestResetTime;
+	}
+
+
+	public void setLastestResetTime(String lastestResetTime) {
+		this.lastestResetTime = lastestResetTime;
+	}
+
+
+	public int getDutyNumber() {
+		return dutyNumber;
+	}
+
+
+	public void setDutyNumber(int dutyNumber) {
+		this.dutyNumber = dutyNumber;
+	}
+
+
 	public List<StudentInfo> getSearchResult() {
 		return searchResult;
 	}
@@ -216,10 +241,22 @@ public class StudentManageAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
-	public String getDutyTable() throws Exception{
+	public void getLastestResetDate(){
 		Session session = model.Util.sessionFactory.openSession();
-		String hql="select ds.student.id,ds.student.user.username,ds.dutyTime.time from DutySchedule ds where ds.dutyTime.teachBuilding.build_id="
-					+teachBuildingId+" order by ds.dutyTime.time";
+		String hql="from LastestResetTime";
+		LastestResetTime l=(LastestResetTime)session.createQuery(hql).list().get(0);
+		session.close();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		System.out.println(l.entryTime);
+		lastestResetTime = f.format(l.entryTime);
+//		System.out.println(lastestResetTime);
+	}
+	
+	public String getDutyTable() throws Exception{
+		getLastestResetDate();
+		Session session = model.Util.sessionFactory.openSession();
+		String hql="select ds.student.id,ds.student.user.fullName,ds.dutyTime.time from DutySchedule ds where ds.dutyTime.teachBuilding.build_id="
+					+teachBuildingId+" and "+"ds.entryTime>='"+lastestResetTime+"'"+" order by ds.dutyTime.time";
 		List temp =session.createQuery(hql).list();
 		Iterator iter=temp.iterator();
 		dutySchedule = new ArrayList<DutyInfo>();
@@ -232,7 +269,38 @@ public class StudentManageAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
+	public String reset() throws Exception{
+		ChooseClass.insertDataToDutyTimeTable(dutyNumber);
+		ChooseClass.insertDataToChooseClassSwitchTable();
+		Session session = model.Util.sessionFactory.openSession();
+		try{
+			Transaction trans=session.beginTransaction();
+			String hql="update DutyTime ds set ds.dutyLeft="+dutyNumber;
+			session.createQuery(hql).executeUpdate();
+			String hql2="from LastestResetTime lst where lst.id=1";
+			List<LastestResetTime> l=session.createQuery(hql2).list();
+			if(l.size()==0){
+				LastestResetTime nl=new LastestResetTime();
+				nl.entryTime= new java.util.Date();
+				session.save(nl);
+			}
+			else{
+				LastestResetTime ol=l.get(0);
+				ol.entryTime = new java.util.Date();
+				session.save(ol);
+			}
+			trans.commit();
+			log="success";
+			
+		}catch(Exception e){
+			log="fail";
+		}
+		session.close();
+		return SUCCESS;
+	}
+	
 	public String deleteDuty() throws Exception{
+		getLastestResetDate();
 		try{
 			Session session = model.Util.sessionFactory.openSession();
 			//选出选课的学生
@@ -245,7 +313,8 @@ public class StudentManageAction extends ActionSupport{
 			//删除DutySchedule
 			String selectDutyTime = "From DutyTime d where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
 			DutyTime duty = (DutyTime)session.createQuery(selectDutyTime).list().get(0);
-			String deleteDuty = "delete from DutySchedule ds where ds.student.id="+student_Id+" and "+"ds.dutyTime.id="+duty.id;
+			String deleteDuty = "delete from DutySchedule ds where ds.student.id="+student_Id+" and "+
+								"ds.dutyTime.id="+duty.id+" and "+"ds.entryTime>='"+lastestResetTime+"'";
 			session.createQuery(deleteDuty).executeUpdate();
 			trans.commit();
 			session.close();
@@ -287,6 +356,7 @@ public class StudentManageAction extends ActionSupport{
 			DutySchedule ds = new DutySchedule();
 			ds.student=s;
 			ds.dutyTime=t;
+			ds.entryTime=new java.util.Date();
 			session.save(ds);
 			trans.commit();
 			log="success";

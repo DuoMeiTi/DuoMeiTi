@@ -8,8 +8,11 @@ import model.DutyTime;
 import model.DutySchedule;
 import model.StudentProfile;
 import model.ChooseClassSwitch;
+import model.LastestResetTime;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,9 +36,19 @@ public class StudentAction extends ActionSupport{
 	private List<Integer> chosen;
 	private String textShow;
 	private int studentId;
+	private String lastestResetTime;
 	
 		
 	
+
+	public String getLastestResetTime() {
+		return lastestResetTime;
+	}
+
+	public void setLastestResetTime(String lastestResetTime) {
+		this.lastestResetTime = lastestResetTime;
+	}
+
 	public int getStudentId() {
 		return studentId;
 	}
@@ -93,7 +106,17 @@ public class StudentAction extends ActionSupport{
 	public void setTextShow(String textShow) {
 		this.textShow = textShow;
 	}
-
+	
+	public void getLastestResetDate(){
+		Session session = model.Util.sessionFactory.openSession();
+		String hql="from LastestResetTime";
+		LastestResetTime l=(LastestResetTime)session.createQuery(hql).list().get(0);
+		session.close();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		System.out.println(l.entryTime);
+		lastestResetTime = f.format(l.entryTime);
+//		System.out.println(lastestResetTime);
+	}
 
 	public String chooseClass() throws Exception{
 		
@@ -114,6 +137,7 @@ public class StudentAction extends ActionSupport{
 	}
 	
 	public String getDutyTime() throws Exception{
+		getLastestResetDate();
 		Session session = model.Util.sessionFactory.openSession();
 		String hql="from DutyTime d where d.teachBuilding.build_id="+teachBuildingId;
 		
@@ -121,10 +145,11 @@ public class StudentAction extends ActionSupport{
 		StudentProfile s=(StudentProfile)session.createQuery(studentSelect).list().get(0);
 		
 		String selectChosen="select ds.dutyTime.time from DutySchedule ds where ds.student.id="+s.id+" and "
-							+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
+							+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId+" and "+"ds.entryTime>='"+lastestResetTime+"'";
 		List chosenList = session.createQuery(selectChosen).list();
 		
 		chosen = new ArrayList<Integer>();
+		System.out.println(chosenList.size());
 		if(chosenList.size()>0){
 			Iterator iter= chosenList.iterator();
 			while(iter.hasNext()){
@@ -138,7 +163,7 @@ public class StudentAction extends ActionSupport{
 	}
 	
 	public String reciveChoice() throws Exception{
-		
+		getLastestResetDate();
 		//代码太挫，留待有缘人！
 		Session session = model.Util.sessionFactory.openSession();
 		
@@ -156,14 +181,14 @@ public class StudentAction extends ActionSupport{
 		//删除dutySchedule中的该生以前选择的班次,并更新
 		trans=session.beginTransaction();
 		String dutySelect="select ds.dutyTime from DutySchedule ds where ds.student.id="
-					 	  +studentId+" and "+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
+					 	  +studentId+" and "+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId+" and "+"ds.entryTime>='"+lastestResetTime+"'";
 		List<DutyTime> duties=session.createQuery(dutySelect).list();
 		for(DutyTime tmp:duties){
 			String back= "update DutyTime d set d.dutyLeft=d.dutyLeft+1 where d.id="+tmp.id;
 			session.createQuery(back).executeUpdate();
 		}
 		String selectDutySchedule="From DutySchedule ds where ds.student.id="+studentId+" and "
-				  			  	  +"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
+				  			  	  +"ds.dutyTime.teachBuilding.build_id="+teachBuildingId+" and "+"ds.entryTime>='"+lastestResetTime+"'";
 		List<DutySchedule> dutySchedules=session.createQuery(selectDutySchedule).list();
 		for(DutySchedule tmp:dutySchedules){
 			String deleteChosen = "delete from DutySchedule ds where ds.id="+tmp.id;
@@ -201,6 +226,7 @@ public class StudentAction extends ActionSupport{
 				DutySchedule temp =new DutySchedule();
 				temp.student=s;
 				temp.dutyTime=t;
+				temp.entryTime=new Date();
 				session.save(temp);
 				trans.commit();
 			}

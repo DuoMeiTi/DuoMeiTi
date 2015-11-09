@@ -72,6 +72,7 @@ public class HomeAction extends PageGetBaseAction
 	public String resourceFile() throws Exception
 	{	
 		Session session = model.Util.sessionFactory.openSession();
+		
 		Criteria q = session.createCriteria(model.ResourceFilePath.class);
 		
 		file_path_list = this.makeCurrentPageList(q, 10); // 根据代表总体的Criteria 获取当前页元素的List，这个效率高，应尽量使用这个

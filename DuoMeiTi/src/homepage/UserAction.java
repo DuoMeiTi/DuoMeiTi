@@ -121,14 +121,10 @@ public class UserAction
 		
 		if(role.equals(util.Const.AdminRole))
 		{
-			ChooseClass.insertDataToDutyTimeTable();
-			ChooseClass.insertDataToChooseClassSwitchTable();
 			return "admin_login_success";
 		}
 		else if(role.equals(util.Const.StudentRole) || role.equals(util.Const.StudentToAdminRole))
 		{	
-			ChooseClass.insertDataToDutyTimeTable();
-			ChooseClass.insertDataToChooseClassSwitchTable();
 			return "student_login_success";
 		}
 		System.out.println("ERROR");

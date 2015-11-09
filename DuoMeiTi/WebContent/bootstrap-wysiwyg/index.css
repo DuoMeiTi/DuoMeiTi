@@ -2,7 +2,7 @@
  * of the key things about the widget is that it allows you to do your own styling!
  */
 
-#editor {
+.editor,#editor {
 	max-height: 250px;
 	height: 200px;
 	background-color: white;

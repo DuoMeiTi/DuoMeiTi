@@ -5,6 +5,9 @@
 <link rel="stylesheet" type="text/css" media="screen" href="/css/admin/dutyManage.css"/> 
 
 <div class="dutyManage">
+	<h3>重置开关</h3>
+	<input type="text" class="form-control" id="duty-number" placeholder="每个时间段最多人数">
+	<button type="button" class="btn btn-primary" id="reset-switch">重置</button>
 	<h3>选班开关</h3>
 	<s:if test="chooseClassSwitch==false">
 		<button type="button" class="btn btn-primary" id="chooseClassSwitch">选班功能已关闭</button>

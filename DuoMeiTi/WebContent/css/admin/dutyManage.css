@@ -25,6 +25,10 @@ td span{
 #studentId{
 	width:200px;
 }
-#studentName{
+#student-name{
+	width:200px;
+}
+#duty-number{
+	display:inline-block;
 	width:200px;
 }

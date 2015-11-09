@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Date;
+
 import javax.persistence.*;
 import model.DutyTime;
 import model.StudentProfile;
@@ -19,6 +21,21 @@ public class DutySchedule {
 	@ManyToOne
 	@JoinColumn
 	public DutyTime dutyTime;
+	
+	@Column
+	@GeneratedValue(strategy=GenerationType.AUTO)
+    public Date entryTime;
+	
+	
+	
+
+	public Date getEntryTime() {
+		return entryTime;
+	}
+
+	public void setEntryTime(Date entryTime) {
+		this.entryTime = entryTime;
+	}
 
 	public int getId() {
 		return id;

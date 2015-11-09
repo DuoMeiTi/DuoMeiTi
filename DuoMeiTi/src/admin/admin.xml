@@ -282,6 +282,12 @@
        			</param>
        		</result>
        	</action>
+       	<!-- 重置 -->
+       	<action name="reset" class="admin.StudentManageAction" method="reset">
+       		<result type="json">
+       			<param name="includeProperties">log</param>
+       		</result>
+       	</action>
        
         
 	</package>  
@@ -292,10 +298,8 @@
 	<package name="classroom_json" namespace="/admin/classroom_json" extends="AdminDefault">
 		<action name="classroom_search" class="admin.ClassroomManageAction" method="classroom_search">
 			<result type="json">
-				<!-- <param name="root">classrooms</param> -->
-				<!-- <param name="includeProperties">classroominfo_html, status</param> -->
 				<param name="includeProperties">
-					status, classroominfo_html, 
+					search_classroom_id, status, classroominfo_html, 
 					classrooms\[\d+\]\.id, classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity, classrooms\[\d+\]\.principal_name, classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys
 				</param>
 			</result>
