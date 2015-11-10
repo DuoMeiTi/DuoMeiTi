@@ -28,6 +28,8 @@ import util.FileUploadBaseAction;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import Repair.RepairDAO;
+import RepairImpl.RepairDAOImpl;
 import db.MyHibernateSessionFactory;
 
 public class ClassroomDetailAction extends FileUploadBaseAction{
@@ -51,6 +53,9 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public String savestatus;
 	public int deviceId;
 	public String repairdetail;
+	public String move_device_id;
+	public String move_class_id;
+	public String device_jsp;
 
 	
 	public List<Repertory> rtClass;
@@ -158,6 +163,68 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		
 		return ActionSupport.SUCCESS;
 	}
+	
+	
+	//移入维修
+	public String move2repair(){
+		System.out.println("move2repair:");
+		
+		System.out.println(move_device_id);
+		System.out.println(move_class_id);
+		
+		RepairDAO rdao = new RepairDAOImpl();
+		//System.out.println("============");
+		String ret = Integer.toString(rdao.m2alter(move_device_id, "0"));
+		
+		//System.out.println("怎么可能"+classroom_id);
+		
+		Session session = null;
+		session = model.Util.sessionFactory.openSession();
+		
+		
+		//query current select classroom
+//		Criteria classroom_criteria = session.createCriteria(Classroom.class);
+//		Criteria building_criteria = session.createCriteria(TeachBuilding.class);
+//		classroom_criteria.add(Restrictions.eq("id", move_class_id));
+//		classroom = (Classroom) classroom_criteria.uniqueResult();
+		
+		Criteria classroom_criteria = session.createCriteria(Classroom.class);
+		classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(move_class_id)));
+		classroom = (Classroom) classroom_criteria.uniqueResult();
+		
+		System.out.println(classroom.id);
+		Transaction tx = null;
+		String hql ="";
+		try {
+			tx = session.beginTransaction();
+			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + move_class_id;
+			System.out.println(hql);
+			Query query = session.createQuery(hql);
+			rtClass = query.list();
+			for (int i = 0; i < rtClass.size(); i++) {
+				System.out.println("输出++++++++++++++++++++++++++++++++");
+				System.out.println(rtClass.get(i));
+			}
+			tx.commit();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			tx.commit();
+		}
+		
+		device_jsp = util.Util.getJspOutput("/jsp/classroom/device.jsp");
+		
+		
+		return ActionSupport.SUCCESS;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//维修记录
 	public String repairrecordsave() {
@@ -599,6 +666,36 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 
 	public void setRepairrecord_jsp(String repairrecord_jsp) {
 		this.repairrecord_jsp = repairrecord_jsp;
+	}
+
+
+	public String getMove_device_id() {
+		return move_device_id;
+	}
+
+
+	public void setMove_device_id(String move_device_id) {
+		this.move_device_id = move_device_id;
+	}
+
+
+	public String getMove_class_id() {
+		return move_class_id;
+	}
+
+
+	public void setMove_class_id(String move_class_id) {
+		this.move_class_id = move_class_id;
+	}
+
+
+	public String getDevice_jsp() {
+		return device_jsp;
+	}
+
+
+	public void setDevice_jsp(String device_jsp) {
+		this.device_jsp = device_jsp;
 	}
 	
 	

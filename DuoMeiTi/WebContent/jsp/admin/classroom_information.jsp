@@ -6,6 +6,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<link href="/css/admin/classroom_detail.css" rel="stylesheet" />
 	<script type='text/javascript' src="/js/admin/classroom_detail.js"></script>
+	
 	<script type="text/javascript">
 	window.onload = function () {
 	    $('.form_date').datetimepicker({
@@ -21,18 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	</script>
 	
-<%-- <<<<<<< HEAD
-=======
-	<div class="row">
-			<div class="col-lg-6 col-lg-offset-3 classbuilding">
-				<span><s:property value="building.build_name"/>&nbsp;&nbsp;<s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>负责人:</span>
-				<span id="classroomid" style="visibility:hidden" value="<s:property value="classroom.id"/>"><s:property value="classroom.id"/></span>
-				<span class="director-span"><s:property value="classroom.principal.user.username"/></span>
-			</div>
-			</div>
-		<hr>
->>>>>>> origin/master --%>
+
 	
 		<!-- Modal -->
 		<div class="modal fade" id="schedule-modal" tabindex="-1" role="dialog"
@@ -47,29 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<h4 class="modal-title">课表</h4>
 					</div>
 					<div class="modal-body">
-						<!-- <div class="form-group">
-							<label for="dtp_input2" class="col-md-2 control-label">选择日期</label>
-							<div style="float:left;position:relative;" class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-								<input class="form-control" size="16" type="text" value="" readonly> 
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-remove"></span>
-								</span>
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar"></span>
-								</span>
-							</div>
-							<input type="hidden" id="dtp_input2" value="" />
-							<button type="button" style="float:right" class="btn btn-primary">查询</button>
-							<br /><br /><br />
-						</div> -->
-						<!-- <table class="table table-bordered">
-							<thead>
-								<tr><td>1-2节</td><td>3-4节</td><td>5-6节</td><td>7-8节</td><td>9-10节</td></tr>
-							</thead>
-							<tbody>
-								<tr><td>C语言</td><td>Java语言</td><td>PHP语言</td><td>C#语言</td><td>C++语言</td></tr>
-							</tbody>
-						</table> -->
+						
 						<iframe name="myFrame" frameborder="0" scrolling="no" style="width:100%;" height="200px" src="/schedule/校部第一教学馆1-101(10301).html"></iframe>
 					</div>
 					<div class="modal-footer">
@@ -172,58 +140,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</div>
 		</div>
-		<div class="detail-div">
-			<div class="device">
-				<ul>
-				<s:iterator value="rtClass" var="device" status="i">
-						<li id="device-<s:property value="#i.index"/>" />
-							<div style="margin-bottom:5px">
-								<label class="control-label device-type-label"><s:property value="#device.rtType"/>&nbsp;</label>
-								<span>
-									<button type="button" class="btn btn-primary btn-sm"  
-									onclick="openRepairMoadl(<s:property value="#i.index"/>)">维修记录</button>
-									<a href="<%=path%>/admin/classroomDevice/move2alter_action?m2alter=<s:property value="#device.rtId"/>&classroomId=<s:property value="classroom.id"/>&opt=0" id="mtoalter" type="button" class="btn btn-primary btn-sm"  
-									>移入维修</a>
-									<a href="<%=path%>/admin/classroomDevice/move2alter_action?m2alter=<s:property value="#device.rtId"/>&classroomId=<s:property value="classroom.id"/>&opt=1" id="mtoalter" type="button" class="btn btn-primary btn-sm"  
-									>移入报废</a>
+
+
+
+<!-- 设备列表 -->
+<div class="detail-div" id="device_jsp">
+	<%@ include file="/jsp/classroom/device.jsp"%>
+</div>
+
+<!-- 检查记录与维修记录 -->
+<div>
+	<ul>
+		<li id="checkrecord_jsp"><%@ include
+				file="/jsp/classroom/checkrecord.jsp"%></li>
+		<li id="repairrecord_jsp"><%@ include
+				file="/jsp/classroom/repairrecord.jsp"%></li>
+	</ul>
+</div>
+	
+	
+	
+	
+	<%-- <<<<<<< HEAD
+=======
+	<div class="row">
+			<div class="col-lg-6 col-lg-offset-3 classbuilding">
+				<span><s:property value="building.build_name"/>&nbsp;&nbsp;<s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
+				<span>负责人:</span>
+				<span id="classroomid" style="visibility:hidden" value="<s:property value="classroom.id"/>"><s:property value="classroom.id"/></span>
+				<span class="director-span"><s:property value="classroom.principal.user.username"/></span>
+			</div>
+			</div>
+		<hr>
+>>>>>>> origin/master --%>
+	
+	<!-- <div class="form-group">
+							<label for="dtp_input2" class="col-md-2 control-label">选择日期</label>
+							<div style="float:left;position:relative;" class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+								<input class="form-control" size="16" type="text" value="" readonly> 
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-remove"></span>
 								</span>
-								
-								<span style="visibility:hidden" class="device-id-span"><s:property value="#device.rtId"/></span>
-								<span style="visibility:hidden" class="device-num-span"><s:property value="#device.rtNumber"/></span>
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
 							</div>
-							<table class="table device-table-bordered">
-								<thead>
-									<tr><td>资产编号</td><td>型号</td><td>名称</td><td>出厂号</td><td>出厂日期</td><td>更换日期</td></tr>
-								</thead>
-								<tbody>
-									<tr><td><s:property value="#device.rtNumber"/></td>
-										<td><s:property value="#device.rtVersion"/></td>
-										<td><s:property value="#device.rtType"/></td>
-										<td><s:property value="#device.rtFactorynum"/></td>
-										<td><s:property value="#device.rtProdDate"/></td>
-										<td><s:property value="#device.rtDeadlineData"/></td>
-									</tr>
-								</tbody>
-							</table>
-						</li>
-					</s:iterator>
-				</ul>
-				<!-- <button type="button" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">教室备用设备</button> -->
-				
-			</div>
-		
-			<div >
-				<ul>
-					<li id="checkrecord_jsp">
-						<%@ include file="/jsp/classroom/checkrecord.jsp" %>
-					</li>
-					<li id ="repairrecord_jsp">
-						<%@ include file="/jsp/classroom/repairrecord.jsp" %>
-					</li>
-				</ul>
-			</div>
-			
-			<%-- <div class="record">
+							<input type="hidden" id="dtp_input2" value="" />
+							<button type="button" style="float:right" class="btn btn-primary">查询</button>
+							<br /><br /><br />
+						</div> -->
+						<!-- <table class="table table-bordered">
+							<thead>
+								<tr><td>1-2节</td><td>3-4节</td><td>5-6节</td><td>7-8节</td><td>9-10节</td></tr>
+							</thead>
+							<tbody>
+								<tr><td>C语言</td><td>Java语言</td><td>PHP语言</td><td>C#语言</td><td>C++语言</td></tr>
+							</tbody>
+						</table> -->
+	
+	
+	<%-- <div class="record">
 				<ul>
 					<li>
 						<label class="control-label">周检查记录：</label>
@@ -263,11 +239,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</ul>
 			</div>
 		</div> --%>
-		
-		</div>
-		
-		
-		<div id="alter_table">
+
+
+
+
+<div id="alter_table">
 			<!-- <button id="alterSearch" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</button> -->
 			<!-- <a id="alterSearch" target="myFrame1" class="btn btn-primary btn-sm" style="margin-left:5%" onclick="alter_device()">备用设备</a> -->
 

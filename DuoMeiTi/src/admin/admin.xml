@@ -310,6 +310,21 @@
 				<param name="includeProperties">savestatus,repairrecord_jsp</param>
 			</result>
 		</action>
+		<!-- 移入维修move2repair -->
+		<action name="move2repair" class="admin.ClassroomDetailAction" method="move2repair">
+			<result type="json">
+				<param name="includeProperties">savestatus,device_jsp</param>
+			</result>
+		</action>
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<action name="queryStuNameByStuId" class="admin.ClassroomManageAction" method="queryStuNameByStuId">
 			<result type="json">
 				<param name="includeProperties">queryResult</param>

@@ -2,6 +2,42 @@
  * 
  */
 
+
+
+$(document).on('click','#move2repair',function(){
+	alert("move2repair!");
+	class_Id = $(this).parents("[class_id]").attr("class_id");// attr所选元素属性值
+	move_device_id = $(this).parents("[device_id]").attr("device_id");// attr所选元素属性值
+	alert(class_Id+"  "+move_device_id);
+	
+	var params = {
+			"move_class_id" : class_Id,
+			"move_device_id" : move_device_id,
+			"opt" : 1,
+		};
+	alert($("#device_jsp").html());
+	$.ajax({
+        url: '/admin/classroom_json/move2repair',
+        type: 'post',
+        dataType: 'json',
+        data : params,
+        success: moveCallback
+      });
+	
+})
+
+
+function moveCallback(data){
+	alert("callback");
+	alert(data.device_jsp);
+	$("#device_jsp").html(data.device_jsp);
+}
+
+$(document).on('click','#move2bad',function(){
+	alert("move2bad!");
+})
+
+
 function checkrecord_submit() {
 	var checkrecord_detail = $("#checkdetail").val();
 	var classroomid = $("#classroomid").text();
