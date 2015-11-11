@@ -196,7 +196,7 @@ function repertoryCallback(data) {
 		$(cnt).children().eq(4).text(data.rtApprDateString);
 		$(cnt).children().eq(5).text(data.rtFactorynum);
 		$(cnt).children().eq(6).text(data.rtDeviceStatus);
-		$(cnt).children().eq(7).text(data.rtReplacePeriod + "/小时");
+		$(cnt).children().eq(7).text(data.rtReplacePeriod + "/天数");
 		$(cnt).attr("rt_id", data.rtId);
 		$('#rtModal').modal('hide');
 		alert("保存成功！ ");
@@ -214,7 +214,7 @@ function updateCallback(data) {
 		$(line).children().eq(4).text(data.rtApprDateString);
 		$(line).children().eq(5).text(data.rtFactorynum);
 		$(line).children().eq(6).text(data.rtDeviceStatus);
-		$(line).children().eq(7).text(data.rtReplacePeriod + "/小时");
+		$(line).children().eq(7).text(data.rtReplacePeriod + "/天数");
 		$('#rtModal').modal('hide');
 		alert("修改成功！ ");
 	}

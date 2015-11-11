@@ -71,7 +71,13 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		/*for(int i = 0; i < mainDevice.length; i++)
 			System.out.println(mainDevice[i]);*/
 		costDevice = Const.costDevice;
-		deviceStatus = Const.deviceStatus;
+//		deviceStatus = Const.deviceStatus;
+		deviceStatus = new String[4];
+		deviceStatus[0] = Const.deviceStatus[0];
+		deviceStatus[1] = Const.deviceStatus[1];
+		deviceStatus[2] = Const.deviceStatus[3];
+		deviceStatus[3] = Const.deviceStatus[4];
+		
 		
 		Session session = 
 				model.Util.sessionFactory.openSession();

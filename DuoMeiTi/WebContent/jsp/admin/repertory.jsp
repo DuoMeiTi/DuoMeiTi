@@ -17,6 +17,7 @@
 						<h2 class="modal-title" id="modal-title"></h2>
 					</div>
 					<div class="modal-body">
+					<div class="alert alert-success" role="alert">若想要将此设备的状态设为教室，请在教室管理页面操作！</div>
 					<form class="form-inline well" id="repertory_form" method="post">
 						<div class="modal-body">
 							<div class="row">
