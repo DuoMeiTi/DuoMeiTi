@@ -161,8 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	
-	<%-- <<<<<<< HEAD
-=======
+
 	<div class="row">
 			<div class="col-lg-6 col-lg-offset-3 classbuilding">
 				<span><s:property value="building.build_name"/>&nbsp;&nbsp;<s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
