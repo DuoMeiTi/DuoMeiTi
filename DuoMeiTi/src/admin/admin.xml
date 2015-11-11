@@ -81,6 +81,16 @@
 				<param name="includeProperties">result</param>
 			</result>  
 		</action>
+		
+		<action name="batchImport" class="admin.BatchImportAction" >
+			<result>/jsp/admin/batchImport.jsp</result>
+		</action>
+		
+		<action name="batchImport_*" class="admin.BatchImportAction" method="{1}">
+			<result name="success" type="json"></result>
+		</action>
+		
+		
 	</package>
 	
 		       

@@ -12,6 +12,7 @@
     	<layout:block name="head_begin">
     	</layout:block>
         <meta charset="utf-8"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="renderer" content="webkit"/>
         <title>多媒体管理系统</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>

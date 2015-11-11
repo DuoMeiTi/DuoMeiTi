@@ -9,7 +9,7 @@
     <constant name="struts.devMode" value="true" />
     <constant name="struts.multipart.saveDir " value="d:/tmp" />
       
-    <constant name="struts.multipart.maxSize" value="1000000000" />
+    <constant name="struts.multipart.maxSize" value="100000000" />
     <constant name="struts.aciton.excludePattern" value="ws://*"></constant>
      <constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
 	
