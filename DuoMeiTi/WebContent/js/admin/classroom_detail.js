@@ -2,7 +2,49 @@
  * 
  */
 
+var selectDeviceId;
+var selectIndex;
+/*提交维修记录*/
+$(document).on('click','#submit_repair_record',function(){
+	var repairdetail = $("#repairdetail").val();
+	/*alert(selectDeviceId+" "+repairdetail);*/
+	var params = {
+			"repairdetail" : repairdetail,
+			"deviceId" : selectDeviceId
+		};
+		
+		$.ajax({
+			url : '/admin/classroom_json/repairrecord_save',
+			type : 'post',
+			dataType : 'json',
+			data : params,
+			success : repairrecord_save_callback
+		});
+})
+function repairrecord_save_callback(data) {
+	if(data.savestatus == "fail") 
+		alert("fail!");
+	else if(data.savestatus == "success") {
+		$("#repairrecord_jsp").html(data.repairrecord_jsp);
+	}
+	$('#repair-record-modal').modal('hide');
+}
+/*填写维修记录*/
+$(document).on('click','.checkrecord',function(){
+	/*alert("writecheckrecord");*/
+	selectDeviceId = $(this).parents("[device_id]").attr("device_id");// attr所选元素属性值
+	var num = $(this).parents("[device_num]").attr("device_num");
+	var type = $(this).parents("[device_type]").attr("device_type");
+	/*alert(selectDeviceId+" "+num+" "+type);*/
+	$('#repair-record-modal').modal('show');
+	$('#repair-record-modal').on('shown.bs.modal', function () {
+		  $("#selectType").text(type);
+		  $("#selectNum").text(num);
+	})
 
+})
+
+/*加入教室*/
 $(document).on('click','.move2class',function(){	
 	rtID = $(this).parents("[rtID]").attr("rtID");// attr所选元素属性值
 	classroom_id = $("#classroomid").text();
@@ -76,11 +118,8 @@ $(document).on('click','#move2repair',function(){
 })
 
 
-function moveCallback(data){
-	/*alert("callback");*/
-	$("#device_jsp").html(data.device_jsp);
-}
 
+/*移入报废*/
 $(document).on('click','#move2bad',function(){
 	/*alert("move2bad!");*/
 	class_Id = $("#classroomid").text();
@@ -100,6 +139,11 @@ $(document).on('click','#move2bad',function(){
         success: moveCallback
       });
 })
+
+function moveCallback(data){
+	/*alert("callback");*/
+	$("#device_jsp").html(data.device_jsp);
+}
 
 
 function checkrecord_submit() {
@@ -131,11 +175,48 @@ function checkrecord_save_callback(data) {
 }
 
 
+window.onload = function () {
+    $('.form_date').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+}
 
-var selectDeviceId;
-var selectIndex;
+function add_classroomrt() {
+	var classroomid = $("#classroomid").text();
+	var bh = $("#zichanhao").val();
+	var href="<%=path%>/admin/classroomDevice/add_action";
+	
+	$.ajax({
+		url : href,
+		type : 'post',
+		dataType : 'json',
+		data : {
+			"id" : classroomid,
+			"bh" : bh
+		}, 
+		success : addcallback
+	});
+}
 
-function openRepairMoadl(index) {
+function addcallback(data) {
+	if (parseInt(data.ret)) {
+		alert("Ok, 添加成功");
+		location.reload();	
+	}
+		
+	else
+		alert("Sorry, 添加失败");
+}
+
+
+/*function openRepairMoadl(index) {
 	selectDeviceId = $("#device-" + index + " .device-id-span:first").text();
 	selectIndex = index;
 	var num = $("#device-" + index + " .device-num-span:first").text();
@@ -147,9 +228,9 @@ function openRepairMoadl(index) {
 		  $("#selectType").text(type);
 		  $("#selectNum").text(num);
 	})
-}
+}*/
 
-function repairrecord_submit() {
+/*function repairrecord_submit() {
 	var repairdetail = $("#repairdetail").val();
 	var params = {
 			"repairdetail" : repairdetail,
@@ -164,16 +245,7 @@ function repairrecord_submit() {
 			success : repairrecord_save_callback
 		});
 }
-
-function repairrecord_save_callback(data) {
-	if(data.savestatus == "fail") 
-		alert("fail!");
-	else if(data.savestatus == "success") {
-		$("#repairrecord_jsp").html(data.repairrecord_jsp);
-	}
-	$('#repair-record-modal').modal('hide');
-}
-
+*/
 
 //function checkrecord_save_callback(data) {
 //if(data.savestatus == "fail") 

@@ -3,9 +3,9 @@
 <ul>
 	<s:iterator value="rtClass" var="device" status="i">
 		
-		<div style="margin-bottom: 5px" device_id=<s:property value="#device.rtId"/> >
+		<div style="margin-bottom: 5px" device_id=<s:property value="#device.rtId"/>  device_type=<s:property value="#device.rtType"/> device_num=<s:property value="#device.rtNumber"/>>
 			<label class="control-label device-type-label"><s:property value="#device.rtType" />&nbsp;</label> <span>
-				<button type="button" class="btn btn-primary btn-sm" onclick="openRepairMoadl(<s:property value="#i.index"/>)">维修记录</button>
+				<button type="button" class="btn btn-primary btn-sm checkrecord" >维修记录</button>
 				<button type="button" class="btn btn-primary " id="move2repair">移入维修</button>
 				<button type="button" class="btn btn-primary move2" id="move2bad">移入报废</button>
 			</span> <span style="visibility: hidden" class="device-id-span"><s:property value="#device.rtId" /></span> <span style="visibility: hidden" class="device-num-span"><s:property value="#device.rtNumber" /></span>

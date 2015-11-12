@@ -6,10 +6,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<link href="/css/admin/classroom_detail.css" rel="stylesheet" />
 	<script type='text/javascript' src="/js/admin/classroom_detail.js"></script>
-	
-	<script type="text/javascript">
-	
-	</script>
 
 	
 	<!-- 添加设备 -->
@@ -42,151 +38,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 
-	
-	
-	<!-- 设备列表 -->
-	<div class="detail-div" id="device_jsp">
-		<%@ include file="/jsp/classroom/device.jsp"%>
-	</div>
-	
-	<!-- 检查记录与维修记录 -->
-	<div>
-		<ul>
-			<li id="checkrecord_jsp"><%@ include
-					file="/jsp/classroom/checkrecord.jsp"%></li>
-			<li id="repairrecord_jsp"><%@ include
-					file="/jsp/classroom/repairrecord.jsp"%></li>
-		</ul>
+
+	<div class="mycontent">
+		<!-- 设备列表 -->
+		<div class="device">
+			<div class="detail-div" id="device_jsp">
+				<%@ include file="/jsp/classroom/device.jsp"%>
+			</div>
+		</div>
+		
+		<!-- 检查记录与维修记录 -->
+		<div class="record">
+			<ul>
+				<li id="checkrecord_jsp"><%@ include
+						file="/jsp/classroom/checkrecord.jsp"%></li>
+				<li id="repairrecord_jsp"><%@ include
+						file="/jsp/classroom/repairrecord.jsp"%></li>
+			</ul>
+		</div>
 	</div>
 	
 	<!-- 备用设备 -->
-	<div id="alterdevice_jsp" style="display: none;">
-		<%@ include file="/jsp/classroom/alterdevice.jsp" %>>
+	<div class="mycontent">
+		<div id="alterdevice_jsp" style="display: none;">
+			<%@ include file="/jsp/classroom/alterdevice.jsp" %>>
+		</div>
 	</div>
-	
-	
-	
-	
 	
 	<!-- Modal -->
-	<div class="modal fade" id="schedule-modal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">课表</h4>
-				</div>
-				<div class="modal-body">
 	
-					<iframe name="myFrame" frameborder="0" scrolling="no"
-						style="width: 100%;" height="200px"
-						src="/schedule/校部第一教学馆1-101(10301).html"></iframe>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				</div>
-			</div>
-		</div>
+	<div>
+		<%@ include file="/jsp/classroom/modal.jsp" %>>
 	</div>
 	
 	
-	<div class="modal fade" id="check-record-modal" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">填写周检查记录</h4>
-				</div>
-				<div class="modal-body">
-					<textarea class="form-control" rows="3" id="checkdetail"></textarea>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary"
-						onclick="checkrecord_submit()">提交</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="modal fade" id="repair-record-modal" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">填写维修记录</h4>
-				</div>
-				<div class="modal-body">
-					<div>
-						设备：<span class="control-label" id="selectType"></span>&nbsp;&nbsp;&nbsp;&nbsp;资产编号：<span
-							class="control-label" id="selectNum"></span>
-					</div>
-					<textarea class="form-control" rows="3" id="repairdetail"></textarea>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary"
-						onclick="repairrecord_submit()">提交</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	
-	
-	<script>
-	window.onload = function () {
-	    $('.form_date').datetimepicker({
-	        language:  'zh-CN',
-	        weekStart: 1,
-	        todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			minView: 2,
-			forceParse: 0
-	    });
-	}
-	
-	function add_classroomrt() {
-		var classroomid = $("#classroomid").text();
-		var bh = $("#zichanhao").val();
-		var href="<%=path%>/admin/classroomDevice/add_action";
-		
-		$.ajax({
-			url : href,
-			type : 'post',
-			dataType : 'json',
-			data : {
-				"id" : classroomid,
-				"bh" : bh
-			}, 
-			success : addcallback
-		});
-	}
-	
-	function addcallback(data) {
-		if (parseInt(data.ret)) {
-			alert("Ok, 添加成功");
-			location.reload();	
-		}
-			
-		else
-			alert("Sorry, 添加失败");
-	}
-	</script>
 	
 	
 
