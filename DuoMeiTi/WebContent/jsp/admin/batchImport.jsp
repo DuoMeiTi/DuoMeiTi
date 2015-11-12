@@ -10,7 +10,10 @@
 
 
 <form method="post" action="" enctype="multipart/form-data">
-
+		
+		
+		
+		
 		<div class="alert alert-danger" role="alert">
 			课表名称的格式为：教学楼名称-教室号
 		</div>	
@@ -99,7 +102,7 @@
 // 		alert(data.message);
 		if(data.status == "1") {
 			
-			$("#alert").html("成功上传" +(cntFileNumber-1) +"个文件"+"第" + cntFileNumber + "个文件上传失败:" + data.message);
+			$("#alert").html("成功上传前" +(cntFileNumber-1) +"个文件， "+"第" + cntFileNumber + "个文件上传失败:" + data.message);
 			$("#alert").show();
 			return ;
 		}
