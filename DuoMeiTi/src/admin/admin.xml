@@ -353,6 +353,20 @@
 			</result>
 		</action>
 		
+		<!-- 备用设备 -->
+		<action name="alterdevice" class="admin.ClassroomDetailAction" method="alterdevice">
+			<result type="json">
+				<param name="includeProperties">device_jsp,alterdevice_jsp</param>
+			</result>
+		</action>
+		
+		<!-- 加入教室 -->
+		<action name="move2class" class="admin.ClassroomDetailAction" method="move2class">
+			<result type="json">
+				<param name="includeProperties">device_jsp,alterdevice_jsp</param>
+			</result>
+		</action>
+		
 		
 		
 		

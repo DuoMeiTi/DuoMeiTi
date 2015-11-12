@@ -44,6 +44,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public String schedulePath;
 	public List<CheckRecord> checkrecords;
 	public List<RepairRecord> repairrecords;
+	public List<Repertory> repertory_list;
 	public List<RoomPicture>picture_list;
 	public List classroom_repertory_list;
 	
@@ -53,10 +54,12 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public String classroomid;
 	public String savestatus;
 	public int deviceId;
+	public String rtID;
 	public String repairdetail;
 	public String move_device_id;
 	public String move_class_id;
 	public String device_jsp;
+	public String alterdevice_jsp;
 
 	
 	public List<Repertory> rtClass;
@@ -166,28 +169,70 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	}
 	
 	
+	//备用设备
+	public String alterdevice(){
+		System.out.println("alterdevice:");
+		System.out.println(classroomid);
+		RepairDAO rdao = new RepairDAOImpl();
+		repertory_list = rdao.alterDevice(classroomid);
+		for (int i = 0; i < repertory_list.size(); i++) {
+			System.out.println("输出++++++++++++++++++++++++++++++++");
+			System.out.println(repertory_list.get(i).getRtDevice());
+		}
+		alterdevice_jsp = util.Util.getJspOutput("/jsp/classroom/alterdevice.jsp");
+		return ActionSupport.SUCCESS;
+	}
+	
+	//加入教室
+	public String move2class(){
+		System.out.println("move2class");
+		System.out.println(classroomid+" "+ rtID);
+		
+		RepairDAO rdao = new RepairDAOImpl();
+		System.out.println("============");
+		System.out.println("设备id："+ rtID);
+		System.out.println("加入教室："+ classroomid);
+		
+		String ret = Integer.toString(rdao.addalterIm(rtID, classroomid));
+
+		Session session = null;
+		session = model.Util.sessionFactory.openSession();		
+		Transaction tx = null;
+		String hql ="";
+		try {
+			tx = session.beginTransaction();
+			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + classroomid;
+			System.out.println(hql);
+			Query query = session.createQuery(hql);
+			rtClass = query.list();
+			tx.commit();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			tx.commit();
+		}
+		repertory_list = rdao.alterDevice(classroomid);
+		
+		device_jsp = util.Util.getJspOutput("/jsp/classroom/device.jsp");
+		alterdevice_jsp = util.Util.getJspOutput("/jsp/classroom/alterdevice.jsp");
+		
+		return ActionSupport.SUCCESS;
+	}
+	
+	
 	//移入维修
 	public String move2repair(){
 		System.out.println("move2repair:");
-		
 		System.out.println(move_device_id);
 		System.out.println(move_class_id);
 		
 		RepairDAO rdao = new RepairDAOImpl();
-		//System.out.println("============");
 		String ret = Integer.toString(rdao.m2alter(move_device_id, "0"));
-		
-		//System.out.println("怎么可能"+classroom_id);
 		
 		Session session = null;
 		session = model.Util.sessionFactory.openSession();
 		
-		
-		//query current select classroom
-//		Criteria classroom_criteria = session.createCriteria(Classroom.class);
-//		Criteria building_criteria = session.createCriteria(TeachBuilding.class);
-//		classroom_criteria.add(Restrictions.eq("id", move_class_id));
-//		classroom = (Classroom) classroom_criteria.uniqueResult();
+
 		
 		Criteria classroom_criteria = session.createCriteria(Classroom.class);
 		classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(move_class_id)));
@@ -263,12 +308,6 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		
 		return ActionSupport.SUCCESS;
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -754,6 +793,34 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 
 	public void setDevice_jsp(String device_jsp) {
 		this.device_jsp = device_jsp;
+	}
+
+	public String getAlterdevice_jsp() {
+		return alterdevice_jsp;
+	}
+
+	public void setAlterdevice_jsp(String alterdevice_jsp) {
+		this.alterdevice_jsp = alterdevice_jsp;
+	}
+
+
+	public List<Repertory> getRepertory_list() {
+		return repertory_list;
+	}
+
+
+	public void setRepertory_list(List<Repertory> repertory_list) {
+		this.repertory_list = repertory_list;
+	}
+
+
+	public String getRtID() {
+		return rtID;
+	}
+
+
+	public void setRtID(String rtID) {
+		this.rtID = rtID;
 	}
 	
 	

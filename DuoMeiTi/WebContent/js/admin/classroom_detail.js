@@ -3,19 +3,69 @@
  */
 
 
+$(document).on('click','.move2class',function(){	
+	rtID = $(this).parents("[rtID]").attr("rtID");// attr所选元素属性值
+	classroom_id = $("#classroomid").text();
+	/*alert(rtID+classroom_id);*/
+	var params = {
+			"classroomid" : classroom_id,
+			"rtID" : rtID
+	}
+	
+	$.ajax({
+        url: '/admin/classroom_json/move2class',
+        type: 'post',
+        dataType: 'json',
+        data : params,
+        success: move2classCallback
+      });
 
+})
+
+function move2classCallback(data){
+	$("#device_jsp").html(data.device_jsp);
+	$("#alterdevice_jsp").html(data.alterdevice_jsp);
+	/*alert("callback");*/
+}
+
+
+
+/*备用设备*/
+function alter_device() {
+/*	alert("alter");*/
+	var classroomid = $("#classroomid").text();
+	/*alert(classroomid);*/
+	var params = {
+			"classroomid" : classroomid,
+		};
+	$.ajax({
+        url: '/admin/classroom_json/alterdevice',
+        type: 'post',
+        dataType: 'json',
+        data : params,
+        success: alterdeviceCallback
+      });
+}
+
+function alterdeviceCallback(data){
+	$("#alterdevice_jsp").html(data.alterdevice_jsp);
+	document.getElementById('alterdevice_jsp').style.display='';
+}
+
+
+
+/*移入维修*/
 $(document).on('click','#move2repair',function(){
-	alert("move2repair!");
-	class_Id = $(this).parents("[class_id]").attr("class_id");// attr所选元素属性值
+	/*alert("move2repair!");*/
+	class_Id = $("#classroomid").text();
 	move_device_id = $(this).parents("[device_id]").attr("device_id");// attr所选元素属性值
 	/*alert(class_Id+"  "+move_device_id);*/
-	
 	var params = {
 			"move_class_id" : class_Id,
 			"move_device_id" : move_device_id,
 			"opt" : 1,
 		};
-	/*alert($("#device_jsp").html());*/
+
 	$.ajax({
         url: '/admin/classroom_json/move2repair',
         type: 'post',
@@ -32,12 +82,10 @@ function moveCallback(data){
 }
 
 $(document).on('click','#move2bad',function(){
-	alert("move2bad!");
-	
-	class_Id = $(this).parents("[class_id]").attr("class_id");// attr所选元素属性值
+	/*alert("move2bad!");*/
+	class_Id = $("#classroomid").text();
 	move_device_id = $(this).parents("[device_id]").attr("device_id");// attr所选元素属性值
 	/*alert(class_Id+"  "+move_device_id);*/
-	
 	var params = {
 			"move_class_id" : class_Id,
 			"move_device_id" : move_device_id,
@@ -92,7 +140,8 @@ function openRepairMoadl(index) {
 	selectIndex = index;
 	var num = $("#device-" + index + " .device-num-span:first").text();
 	var type = $("#device-" + index + " .device-type-label:first").text();
-//	alert(selectDeviceId+" "+num+" "+type);
+	
+	alert(selectDeviceId+" "+num+" "+type);
 	$('#repair-record-modal').modal('show');
 	$('#repair-record-modal').on('shown.bs.modal', function () {
 		  $("#selectType").text(type);
