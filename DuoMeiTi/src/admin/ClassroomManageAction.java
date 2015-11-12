@@ -231,6 +231,7 @@ public class ClassroomManageAction extends ActionSupport implements RequestAware
 	
 	public String addClassroom() {
 		System.out.println("addClassroom:");
+		add_classroom_num = add_classroom_num.trim();
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria classroom_criteria = session.createCriteria(Classroom.class).setFetchMode("repertorys", FetchMode.SELECT).setFetchMode("checkrecords", FetchMode.SELECT);
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));

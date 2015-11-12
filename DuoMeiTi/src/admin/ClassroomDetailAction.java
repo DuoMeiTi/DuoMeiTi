@@ -1,5 +1,6 @@
 package admin;
 
+import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -463,8 +464,20 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 
 		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
         {
-			util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ClassroomSchedulePath);
-			String inserted_file_path = util.Util.ClassroomSchedulePath +fileFileName;
+			File old_class_schedule = new File(util.Util.RootPath + nClass.getClass_schedule_path());
+	    	if(!old_class_schedule.delete()) // 删除旧课表
+	    	{
+//	    		this.status = "1";
+//				this.message = "系统出现致命错误！！！！！！";
+	    		System.out.println("系统出现致命错误！！！！！！");
+//				return SUCCESS;
+	    	}
+	    	System.out.println("**"+nClass.getClassroom_num()+"**");
+			String newFileName = nClass.getTeachbuilding().getBuild_name() + "-" + nClass.getClassroom_num() 
+								 + fileFileName.substring(fileFileName.lastIndexOf("."));
+			
+			util.Util.saveFile(file, newFileName,  util.Util.RootPath + util.Util.ClassroomSchedulePath);
+			String inserted_file_path = util.Util.ClassroomSchedulePath +newFileName;
 			nClass.setClass_schedule_path(inserted_file_path);
 			System.out.println("inserted_file_path" + inserted_file_path);
         }

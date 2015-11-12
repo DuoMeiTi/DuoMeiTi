@@ -9,7 +9,11 @@
 
 
 
-<form method="post" action="" enctype="multipart/form-data">	
+<form method="post" action="" enctype="multipart/form-data">
+
+		<div class="alert alert-danger" role="alert">
+			课表名称的格式为：教学楼名称-教室号
+		</div>	
 		<br/>
 		<div id="alert" class="alert alert-success" role="alert" style="display:none;">...</div>
 		<span class="btn btn-success btn-lg btn-file">
@@ -89,9 +93,18 @@
 	}
 	
 	function sendFileCallback(data)
-	{		
+	{
 		cntFileNumber ++;
-		$("#alert").hide();
+// 		alert(data.status);
+// 		alert(data.message);
+		if(data.status == "1") {
+			
+			$("#alert").html("成功上传" +(cntFileNumber-1) +"个文件"+"第" + cntFileNumber + "个文件上传失败:" + data.message);
+			$("#alert").show();
+			return ;
+		}
+		
+
 		$("#alert").html("已经成功上传了" + cntFileNumber + "个文件");
 		$("#alert").show();
 		if(cntFileNumber >= file_list.length)
