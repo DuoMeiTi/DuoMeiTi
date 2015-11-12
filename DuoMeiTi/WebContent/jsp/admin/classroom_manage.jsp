@@ -144,7 +144,7 @@
 			
 			<s:iterator value="classrooms" var="i" status="index">
 				<tr class="success" id=<s:property value="#i.id"/> studId=<s:property value="#i.principal_stuId"/>>
-					<td ><s:property value="#i.classroom_num"/> </td>
+					<td><s:property value="#i.classroom_num"/></td>
 					<td studId=<s:property value="#i.principal_stuId"/>><s:property value="#i.principal_name"/>    </td>
 					<td >
 						<a class="btn btn-info" onclick="edit_classroom(<s:property value="#index.index"/>)">编&nbsp;&nbsp;辑</a>
