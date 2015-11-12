@@ -218,6 +218,51 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		return ActionSupport.SUCCESS;
 	}
 	
+	//移入报废
+	public String move2bad(){
+		System.out.println("move2bad:");
+		
+		System.out.println(move_device_id);
+		System.out.println(move_class_id);
+		
+		RepairDAO rdao = new RepairDAOImpl();
+		//System.out.println("============");
+		String ret = Integer.toString(rdao.m2alter(move_device_id, "1"));
+		
+		//System.out.println("怎么可能"+classroom_id);
+		
+		Session session = null;
+		session = model.Util.sessionFactory.openSession();		
+		Criteria classroom_criteria = session.createCriteria(Classroom.class);
+		classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(move_class_id)));
+		classroom = (Classroom) classroom_criteria.uniqueResult();
+		
+		System.out.println(classroom.id);
+		Transaction tx = null;
+		String hql ="";
+		try {
+			tx = session.beginTransaction();
+			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + move_class_id;
+			System.out.println(hql);
+			Query query = session.createQuery(hql);
+			rtClass = query.list();
+			for (int i = 0; i < rtClass.size(); i++) {
+				System.out.println("输出++++++++++++++++++++++++++++++++");
+				System.out.println(rtClass.get(i));
+			}
+			tx.commit();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			tx.commit();
+		}
+		
+		device_jsp = util.Util.getJspOutput("/jsp/classroom/device.jsp");
+		
+		
+		return ActionSupport.SUCCESS;
+	}
+	
 	
 	
 	

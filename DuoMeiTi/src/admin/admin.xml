@@ -327,6 +327,13 @@
 			</result>
 		</action>
 		
+		<!-- 移入报废move2bad -->
+		<action name="move2bad" class="admin.ClassroomDetailAction" method="move2bad">
+			<result type="json">
+				<param name="includeProperties">savestatus,device_jsp</param>
+			</result>
+		</action>
+		
 		
 		
 		
