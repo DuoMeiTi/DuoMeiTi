@@ -13,12 +13,12 @@
 	
 	<s:iterator value="classroom_list" var="i" status="index">
 	
-		<tr class="success">
+		<tr class="success"   student_id=<s:property value="#i.principal.id"/>>
 			<td><s:property value="#i.classroom_num"/></td>
 			<td> <s:property value="#i.principal.user.fullName"/>    
 			</td>
 			<td>
-				<a class="btn btn-info">编辑</a>
+				<button class="btn btn-info update">编辑</button>
 			<td>
 			   <a href="classroom_detail?classroomId=<s:property value="#i.id"/>" class="btn btn-info">详细</a>
 			</td>
