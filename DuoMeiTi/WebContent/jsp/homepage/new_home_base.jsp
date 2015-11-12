@@ -62,12 +62,31 @@
 			           <li class=""><a href="/contacts">通讯录</a></li>
 			           <li class=""><a href="/CommonProRecord">常见问题</a></li>
 			           
+<%-- 			           <s:property value="#session.fullName"/> --%>
 			           
-			           <li class=""><a href="/login">登录</a></li>
+			           <li class="">
+				           <s:if test="#session.containsKey('role')">
+				           
+					           	<s:if test="#session.role.equals(@util.Const@AdminRole)">
+				            		<a href="/admin/">
+				            	</s:if>
+				            	<s:else>
+				            		<a href="/student/">
+				            	</s:else>
+				            		您好：<s:property value="#session.fullName"/> </a>
+				            			
+			               </s:if>
+			               <s:else>
+			            		<a href="/login">登录</a>
+			               </s:else>
+			           
+					   </li>
+			           
 			           <li class="dropdown">
 			             <a href="#" class="dropdown-toggle" data-toggle="dropdown">注册
 			               <b class="caret"></b>
 			             </a>
+			             
 			             <ul class="dropdown-menu home_menu" role="menu">
 <!-- 			               <li><a href="/admin_register">系统管理员</a></li> -->
 			               <li><a href="/student_register">在职学生</a></li>

@@ -46,7 +46,9 @@
 		<div class="container-fluid">
 			<s:iterator value="builds" var="build" status="i">
 				<div class="col-lg-4">
-					<a href="classroom_manage?build_id=<s:property value="#build.build_id"/>&build_name=<s:property value="#build.build_name"/>">
+				
+<!-- 				newClassroomManage  classroom_manage-->
+					<a href="classroomManageNew?build_id=<s:property value="#build.build_id"/>&build_name=<s:property value="#build.build_name"/>">
 						<div class="teachbuilding-div"><s:property value="#build.build_name"/></div>
 					</a>
 				</div>

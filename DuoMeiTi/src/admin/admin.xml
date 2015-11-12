@@ -14,11 +14,11 @@
 			</result>
 		</action>
 
-		<action name="user_request">
-			<result>
-				/jsp/admin/users_request.jsp
-			</result>
-		</action>
+<!-- 		<action name="user_request"> -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/users_request.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		
 		<action name="student_manage">
 			<result>
@@ -82,6 +82,7 @@
 			</result>  
 		</action>
 		
+<!-- 		批量导入 -->
 		<action name="batchImport" class="admin.BatchImportAction" >
 			<result>/jsp/admin/batchImport.jsp</result>
 		</action>
@@ -89,9 +90,28 @@
 		<action name="batchImport_*" class="admin.BatchImportAction" method="{1}">
 			<result name="success" type="json"></result>
 		</action>
-		
+<!-- 		end 批量导入 -->
 		
 	</package>
+	
+	
+<!-- 	新classroom -->
+	<package name="newClassroom" namespace="/admin/classroom" extends="AdminDefault">
+		
+		<action name="classroomManageNew" class="common.ClassroomManageAction" method="classroomList">
+			<result>
+				<param name="location">/jsp/admin/classroomManage.jsp</param>
+				<param name="build_id">${build_id}</param>
+				<param name="build_name">${build_name}</param>
+			</result>
+		</action>
+		<action name="classroomManageNew_*" class="common.ClassroomManageAction" method="{1}">
+			<result type="json">
+			</result>
+		</action>
+	</package>
+<!-- end	新classroom -->
+	
 	
 		       
 	
@@ -133,9 +153,8 @@
 	</package>
 	
 	
-	
-	<package name="user_request" namespace="/admin/user_request"
-		extends="AdminDefault">
+<!-- 	用户注册请求 -->
+	<package name="user_request" namespace="/admin/user_request" extends="AdminDefault">
 		
 		<action name="" >
 			<result name="success" type="redirect">untreated</result>
@@ -168,7 +187,7 @@
 		</action>
 
 	</package>
-
+<!-- 	end用户注册请求 -->
 
 
 
@@ -370,6 +389,7 @@
 				/jsp/admin/teachbuilding.jsp
 			</result>
 		</action>
+		
 		<action name="classroom_manage" class="admin.ClassroomManageAction" method="classroomList">
 			<result>
 				<param name="location">/jsp/admin/classroom_manage.jsp</param>
@@ -377,6 +397,7 @@
 				<param name="build_name">${build_name}</param>
 			</result>
 		</action>
+		
 		<!--action name="classroom_select" class="admin.ClassroomManageAction" method="classroom_select">
 			<result type="redirectAction">
 				<param name="actionName">classroom_detail</param>

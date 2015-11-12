@@ -118,6 +118,7 @@ public class UserAction
 		ActionContext.getContext().getSession().put("fullName", u.getFullName());
 		ActionContext.getContext().getSession().put("role", role);
 		ActionContext.getContext().getSession().put("user_id", u.getId());
+//		ActionContext.getContext().getSession().containsKey(key)
 		
 		if(role.equals(util.Const.AdminRole))
 		{

@@ -10,10 +10,7 @@
             	<s:property value="#session.username"/>,
             	<s:property value="#session.fullName"/>
             	</span>
-
-<%--             	<s:property value="@util.Const@AdminRole"/> --%>
-<!--             	<p></p> -->
-            	
+            	            	
             	<s:if test="#session.role.equals(@util.Const@AdminRole)">
             		(您是管理员)
             	</s:if>
