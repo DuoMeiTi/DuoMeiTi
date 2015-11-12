@@ -9,6 +9,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -24,6 +25,7 @@ import util.Const;
 import utility.DatabaseOperation;
 
 import model.DutyTime;
+import model.ExamStuScore;
 import model.DutySchedule;
 import common.DutyInfo;
 import model.ChooseClassSwitch;
@@ -57,6 +59,17 @@ public class StudentManageAction extends ActionSupport{
 	private int student_profile_id;
 	private int isUpgradePrivilege;
 	private String status;
+	private List score_list;
+
+
+	public List getScore_list() {
+		return score_list;
+	}
+
+
+	public void setScore_list(List score_list) {
+		this.score_list = score_list;
+	}
 
 
 	private static List<StudentProfile> student_list;
@@ -539,21 +552,37 @@ public String saveStudentInformation() throws Exception
 	
 	
 	
-	public String studentInformation() throws Exception
-	{
-		System.out.println("studentInformation():");
-		collegeSelect=Const.collegeSelect;
-		sexSelect=Const.sexSelect;
+	public String studentInformation() throws Exception{
+		collegeSelect = Const.collegeSelect;
+		sexSelect = Const.sexSelect;
 		
-		Session session=model.Util.sessionFactory.openSession();
-		Criteria q=session.createCriteria(StudentProfile.class);
-		student_list=q.list();
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(model.StudentProfile.class);
+		student_list = q.list();
+		score_list = new ArrayList<ExamStuScore>();
+		for(int i = 0; i<student_list.size(); i++)
+		{
+			model.StudentProfile cnt_stu = (model.StudentProfile)student_list.get(i);
+			Criteria sc = session.createCriteria(model.ExamStuScore.class)
+						   .add(Restrictions.eq("stuPro.id",cnt_stu.id ))
+						   .addOrder(Order.desc("id"));
+			List<ExamStuScore> temp = sc.list();
+			if(temp.size()>0)
+			{
+				score_list.add(temp.get(0));
+			}
+			else
+			{
+				ExamStuScore s = new ExamStuScore();
+				s.setScore(-1);
+				score_list.add(s);
+			}
+		}
 		Collections.reverse(student_list);
 		session.close();
-		System.out.println("student_list:");
-		System.out.println(student_list);
-		return SUCCESS;
-
+		
+		return ActionSupport.SUCCESS;
+	
 	}
 	//编辑规章制度
 	public String editRules() throws Exception{

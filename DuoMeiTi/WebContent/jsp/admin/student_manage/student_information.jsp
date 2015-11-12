@@ -41,55 +41,64 @@
 		<table class="table table-bordered table-hover" id="student_information_table">
 			
 			<tr class="row" id="search_infor">
-				<th class="col-lg-1.5">姓名</th>
-				<th class="col-lg-1.5">性别</th>
-				<th class="col-lg-1.5">学号</th>
-				<th class="col-lg-1.5">学院</th>
-				<th class="col-lg-1.5">电话</th>
-				<th class="col-lg-1.5">银行卡号</th>
-				<th class="col-lg-1.5">身份证号</th>
-				<th class="col-lg-1">权限</th>
-				<th class="col-lg-1">编辑</th>
-				<th class="col-lg-1">删除</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>学号</th>
+				<th>学院</th>
+				<th>电话</th>
+				<th>银行卡号</th>
+				<th>身份证号</th>
+				<th>权限</th>
+				<th>分数</th>
+				<th>编辑</th>
+				<th>删除</th>
 			</tr>
 		
 			<tr class="row" id="search_information" style="display: none;">
-				<td class="col-lg-1.5" id="search_name"></td>
-				<td class="col-lg-1.5" id="search_sex"></td>
-				<td class="col-lg-1.5" id="search_studentid"></td>
-				<td class="col-lg-1.5" id="search_college"></td>
-				<td class="col-lg-1.5" id="search_number"></td>
-				<td class="col-lg-1.5" id="search_bankCard"></td>
-				<td class="col-lg-1.5" id="search_idCard"></td>
-				<td class="col-lg-1" id="search_isUpgradePrivilege"></td>
+				<td id="search_name"></td>
+				<td id="search_sex"></td>
+				<td id="search_studentid"></td>
+				<td id="search_college"></td>
+				<td id="search_number"></td>
+				<td id="search_bankCard"></td>
+				<td id="search_idCard"></td>
+				<td id="search_isUpgradePrivilege"></td>
 				
-				<td class="col-lg-1 ">
-						<button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#student_edit" id="edit-button" name="edit-button" >编辑</button>
-					</td>
-					<td class="col-lg-1 ">
-						<button type="button" class="btn btn-primary btn-sm delete" id="delede-button">删除</button>	
-					</td>
+				<td>
+					<button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#student_edit" id="edit-button" name="edit-button" >编辑</button>
+				</td>
+				<td id="search_score"></td>
+				<td>
+					<button type="button" class="btn btn-primary btn-sm delete" id="delede-button">删除</button>	
+				</td>
 			</tr>
 			
 			
-			<s:iterator value="student_list" var="i" status="index">
-				<tr class="row" id=<s:property value="#i.id"/>>
-					<td class="col-lg-1.5"> <s:property value="#i.user.fullName"/> </td>
-					<td class="col-lg-1.5"> <s:property value="#i.user.sex"/>  </td>
-					<td class="col-lg-1"> <s:property value="#i.studentId"/> </td>
-					<td class="col-lg-1.5"> <s:property value="#i.college "/> </td>
-					<td class="col-lg-1.5"> <s:property value="#i.user.phoneNumber"/> </td>
-					<td class="col-lg-1.5"> <s:property value="#i.bankCard"/> </td>
-					<td class="col-lg-1.5"> <s:property value="#i.idCard"/> </td>
-					<td class="col-lg-1.5"> 
-						<s:if test="#i.isUpgradePrivilege == 0">在职学生</s:if>
+			<s:iterator var="i" begin="0" end="student_list.size()-1" step="1" status="index">
+				<tr class="row" id=<s:property value="student_list.get(#i).id"/>>
+					<td> <s:property value="student_list.get(#i).user.fullName"/> </td>
+					<td> <s:property value="student_list.get(#i).user.sex"/>  </td>
+					<td> <s:property value="student_list.get(#i).studentId"/> </td>
+					<td> <s:property value="student_list.get(#i).college "/> </td>
+					<td> <s:property value="student_list.get(#i).user.phoneNumber"/> </td>
+					<td> <s:property value="student_list.get(#i).bankCard"/> </td>
+					<td> <s:property value="student_list.get(#i).idCard"/> </td>
+					<td> 
+						<s:if test="student_list.get(#i).isUpgradePrivilege == 0">在职学生</s:if>
 						<s:else>管理教师</s:else>
 					</td>
-						
-					<td class="col-lg-1 ">
+					<td>
+						<s:if test="score_list.get(#i).score==-1">
+							未提交
+						</s:if>
+						<s:else>
+							<s:property value="score_list.get(#i).score"/>
+						</s:else>
+					</td>
+					<td>
 						<button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#student_edit" id="edit-button" name="edit-button" >编辑</button>
 					</td>
-					<td class="col-lg-1 ">
+					<td>
 						<button type="button" class="btn btn-primary btn-sm delete" id="delede-button">删除</button>	
 					</td>
 				</tr>
@@ -163,7 +172,7 @@
 																<button type="button" class="btn btn-default">权限</button>
 															</span>
 															<!-- <input type="text" class="form-control" id="isUpgradePrivilege"  name="isUpgradePrivilege" value=""> -->
-															<s:select list="#{'0':'在职学生','1':'管理教师'}" class="form-control" name="isUpgradePrivilege" id="isUpgradePrivilege"></s:select>
+															<s:select list="#{'0':'在职学生','1':'管理教师','2':'离职学生'}" class="form-control" name="isUpgradePrivilege" id="isUpgradePrivilege"></s:select>
 														</div>
 													</div>
 													
