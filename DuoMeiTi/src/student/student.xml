@@ -79,21 +79,26 @@
     	<action name="">
     		<result type="redirect">/student/classroom/classroom_manage</result>
     	</action>
-    	<action name="classroom_manage" class="student.ClassroomManageAction"
-			method="classroomList">
-
+    	
+    	<action name="classroom_manage" class="student.ClassroomManageAction" method="classroomList">
 			<result>
 				/jsp/student/classroom_manage.jsp
 			</result>
 		</action>
-		<action name="classroom_detail" class="student.ClassroomDetailAction">
+		
+		
+		<action name="classroom_detail" class="admin.ClassroomDetailAction">
 			<result>
 				<param name="location">/jsp/student/classroom_detail.jsp</param>
-				<!-- <param name="build_id">${classroom_id}</param> <param name="build_name">${classroom_num}</param> -->
-				<param name="classroom_id">${classroom_id}</param>
-				<param name="build_id">${build_id}</param>
+				<param name="classroomselectIndex">${classroomId}</param>
+				<param name="build_name">${build_name}</param>
 			</result>
 		</action>
+		
+		
+		
+		
+		
     </package>
     
 
@@ -104,7 +109,7 @@
 
 
 	<package name="StudentclassroomDevice" namespace="/student/classroomDevice"
-		extends="StudentDefault">
+		extends="StudentDefault"> 
 		<action name="rules" class="student.StudentAction" method="ruleShow">
 			<result name="success">
 				/jsp/student/student_show_rules.jsp
@@ -144,18 +149,45 @@
 				</param>
 			</result>
 		</action>
-		<action name="checkrecord_save" class="admin.CheckRecordAction"
+		<!-- 维修记录 -->
+		<action name="repairrecord_save" class="admin.ClassroomDetailAction" method="repairrecordsave">
+			<result type="json">
+				<param name="includeProperties">savestatus,repairrecord_jsp</param>
+			</result>
+		</action>
+		<!-- 检查记录 -->
+		<action name="checkrecordsave" class="admin.ClassroomDetailAction" method="checkrecordsave">
+			<result type="json">
+				<param name="includeProperties">savestatus,checkrecord_jsp</param>
+			</result>
+		</action>
+		<!-- 备用设备 -->
+		<action name="alterdevice" class="admin.ClassroomDetailAction" method="alterdevice">
+			<result type="json">
+				<param name="includeProperties">device_jsp,alterdevice_jsp</param>
+			</result>
+		</action>
+		<!-- 加入教室 -->
+		<action name="move2class" class="admin.ClassroomDetailAction" method="move2class">
+			<result type="json">
+				<param name="includeProperties">device_jsp,alterdevice_jsp</param>
+			</result>
+		</action>
+		
+		
+		
+		<!-- <action name="checkrecord_save" class="admin.CheckRecordAction"
 			method="checkrecordsave">
 			<result type="json">
 				<param name="includeProperties">savestatus</param>
 			</result>
-		</action>
-		<action name="repairrecord_save" class="student.RepairRecordAction"
+		</action> -->
+		<!-- <action name="repairrecord_save" class="student.RepairRecordAction"
 			method="repairrecordsave">
 			<result type="json">
 				<param name="includeProperties">savestatus</param>
 			</result>
-		</action>
+		</action> -->
 
 
 		<action name="chooseclass" class="student.StudentAction"

@@ -31,7 +31,7 @@
 					<s:property value="#classroom.principal_name"/>    
 				</td>				
 				<td >   
-					<a href="/student/classroom/classroom_detail?classroom_id=<s:property value="#classroom.id"/>&build_id=<s:property value="#classroom.teachbuilding_id"/>" class="btn btn-info">详&nbsp;&nbsp;细</a>    
+					<a href="/student/classroom/classroom_detail?classroomId=<s:property value="#classroom.id"/>&build_id=<s:property value="#classroom.teachbuilding_id"/>" class="btn btn-info">详&nbsp;&nbsp;细</a>    
 				</td>			
 				</tr>
 		</s:iterator>

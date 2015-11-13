@@ -8,6 +8,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type='text/javascript' src="/js/admin/classroom_detail.js"></script>
 
 	
+	
+	
+	
+	
+	
 	<!-- 添加设备 -->
 	<div class="container-fluid">
 		<div class="row col-lg-12">

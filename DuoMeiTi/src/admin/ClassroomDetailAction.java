@@ -65,6 +65,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public List<Repertory> rtClass;
 	
 	public String execute() {
+		System.out.println("admin.classroomaction:");
 		Session session = model.Util.sessionFactory.openSession();
 		//query current select classroom
 		Criteria classroom_criteria = session.createCriteria(Classroom.class);
@@ -313,7 +314,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	
 	//维修记录
 	public String repairrecordsave() {
-		System.out.println("repairrecord:");
+		System.out.println("admin.repairrecord:");
 		Session session = null;
 		try	{
 			int user_id = (int) ActionContext.getContext().getSession().get("user_id");
@@ -364,7 +365,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	
 	//检查记录
 	public String checkrecordsave() {
-		System.out.println("checkrecord:");
+		System.out.println("admin.checkrecord:");
 		Session session = null;
 		try	{
 			int user_id = (int) ActionContext.getContext().getSession().get("user_id");
