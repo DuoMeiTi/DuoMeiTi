@@ -173,23 +173,20 @@
 				<param name="includeProperties">device_jsp,alterdevice_jsp</param>
 			</result>
 		</action>
-		
-		
-		
-		<!-- <action name="checkrecord_save" class="admin.CheckRecordAction"
-			method="checkrecordsave">
+		<!-- 移入维修move2repair -->
+		<action name="move2repair" class="admin.ClassroomDetailAction" method="move2repair">
 			<result type="json">
-				<param name="includeProperties">savestatus</param>
+				<param name="includeProperties">savestatus,device_jsp</param>
 			</result>
-		</action> -->
-		<!-- <action name="repairrecord_save" class="student.RepairRecordAction"
-			method="repairrecordsave">
+		</action>
+		
+		<!-- 移入报废move2bad -->
+		<action name="move2bad" class="admin.ClassroomDetailAction" method="move2bad">
 			<result type="json">
-				<param name="includeProperties">savestatus</param>
+				<param name="includeProperties">savestatus,device_jsp</param>
 			</result>
-		</action> -->
-
-
+		</action>
+		
 		<action name="chooseclass" class="student.StudentAction"
 			method="chooseClass">
 			<result>/jsp/student/chooseClass.jsp</result>

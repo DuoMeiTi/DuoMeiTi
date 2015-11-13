@@ -2,6 +2,59 @@
  * 
  */
 
+
+/*移入维修*/
+$(document).on('click','#move2repair',function(){
+	/*alert("move2repair!");*/
+	class_Id = $("#classroomid").text();
+	move_device_id = $(this).parents("[device_id]").attr("device_id");// attr所选元素属性值
+	/*alert(class_Id+"  "+move_device_id);*/
+	var params = {
+			"move_class_id" : class_Id,
+			"move_device_id" : move_device_id,
+			"opt" : 1,
+		};
+
+	$.ajax({
+        url: '/student/student_classroom_json/move2repair',
+        type: 'post',
+        dataType: 'json',
+        data : params,
+        success: moveCallback
+      });
+})
+
+
+
+/*移入报废*/
+$(document).on('click','#move2bad',function(){
+	/*alert("move2bad!");*/
+	class_Id = $("#classroomid").text();
+	move_device_id = $(this).parents("[device_id]").attr("device_id");// attr所选元素属性值
+	/*alert(class_Id+"  "+move_device_id);*/
+	var params = {
+			"move_class_id" : class_Id,
+			"move_device_id" : move_device_id,
+			"opt" : 1,
+		};
+	/*alert($("#device_jsp").html());*/
+	$.ajax({
+        url: '/student/student_classroom_json/move2bad',
+        type: 'post',
+        dataType: 'json',
+        data : params,
+        success: moveCallback
+      });
+})
+
+function moveCallback(data){
+	/*alert("callback");*/
+	$("#device_jsp").html(data.device_jsp);
+}
+
+
+
+
 /*加入教室*/
 $(document).on('click','.move2class',function(){	
 	rtID = $(this).parents("[rtID]").attr("rtID");// attr所选元素属性值
@@ -71,7 +124,7 @@ $(document).on('click','#submit_repair_record',function(){
 		});
 })
 function repairrecord_save_callback(data) {
-	alert("callback");
+	/*alert("callback");*/
 	if(data.savestatus == "fail") 
 		alert("fail!");
 	else if(data.savestatus == "success") {
