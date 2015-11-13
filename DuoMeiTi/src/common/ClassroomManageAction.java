@@ -24,12 +24,24 @@ public class ClassroomManageAction extends ActionSupport {
 	String searchType;
 	String searchParam;
 	String classroomHtml;
+	String status;
+	
 	int build_id;
 	String build_name;
-	String studentID;// 学号
+	
+	
+	
+	String studentNumber;// 学号
+	int studentId; // studentProfile 的id;
+	
+
 	List classroom_list;
 	String add_classroom_num;
 	String submit_type;
+	int classroomId;
+	
+	
+	
 	public String classroomList() throws Exception {
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria classroom_criteria = session.createCriteria(Classroom.class);		
@@ -63,6 +75,7 @@ public class ClassroomManageAction extends ActionSupport {
 			classroom_criteria.createAlias("principal.user", "user"); 
 			classroom_criteria.add(Restrictions.eq("user.fullName" ,searchParam));	
 		}		
+		classroom_criteria.addOrder(Order.asc("classroom_num"));
 		classroom_list = classroom_criteria.list();
 		classroomHtml = util.Util.getJspOutput("/jsp/classroom/classroomTable.jsp");
 		session.close();
@@ -73,21 +86,21 @@ public class ClassroomManageAction extends ActionSupport {
 	public String queryStu() throws Exception {
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria stu_criteria = session.createCriteria(StudentProfile.class);
-		stu_criteria.add(Restrictions.eq("studentId", studentID));
+		stu_criteria.add(Restrictions.eq("studentId", studentNumber));
 		Object obj = stu_criteria.uniqueResult();
 		if(obj == null) {
-			classroomHtml = "";
+			status = "";
 		}
 		else {
 			StudentProfile stu = (StudentProfile) obj;
-			classroomHtml = stu.user.fullName;
+			status = stu.user.fullName;
 		}
 		session.close();
 
 		return SUCCESS;
 	}
 	
-	public String addClassroom() {
+	public String addClassroom() throws Exception {
 		System.out.println("addClassroom:");
 		add_classroom_num = add_classroom_num.trim();
 		
@@ -95,10 +108,11 @@ public class ClassroomManageAction extends ActionSupport {
 		Criteria classroom_criteria = session.createCriteria(Classroom.class);
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
 		classroom_criteria.add(Restrictions.eq("classroom_num", add_classroom_num));
-		List<Classroom> classroom_list = classroom_criteria.list();
+		classroom_list = classroom_criteria.list();
 		System.out.println("size:" + classroom_list.size());
 		if(classroom_list.size() > 0 && submit_type.equals("add")) {
-			classroomHtml = "exist";
+			this.status = "exist";
+			
 		}
 		else {
 			Criteria build_criteria = session.createCriteria(TeachBuilding.class);
@@ -106,17 +120,18 @@ public class ClassroomManageAction extends ActionSupport {
 			TeachBuilding build = (TeachBuilding) build_criteria.uniqueResult();
 			
 			Criteria stu_criteria = session.createCriteria(StudentProfile.class);
-			stu_criteria.add(Restrictions.eq("studentId", studentID));
+			stu_criteria.add(Restrictions.eq("studentId", studentNumber));
 			StudentProfile stu = (StudentProfile)stu_criteria.uniqueResult();
-
-
+			
+			System.out.println("addClassroom: update***&&" + add_classroom_num);
+			
 			Classroom classroom = null;
 			if(submit_type.equals("add"))
 				classroom = new Classroom();
 			else if(submit_type.equals("update")) 
-				classroom = (Classroom) classroom_criteria.uniqueResult();
+				classroom = (Classroom) session.createCriteria(Classroom.class).add(Restrictions.eq("id", classroomId)).uniqueResult();
 			
-			
+			System.out.println("addClassroom: classroomId***&&" + classroomId);
 			classroom.setTeachbuilding(build);
 			classroom.setPrincipal(stu);	
 			classroom.setClassroom_num(add_classroom_num);
@@ -128,10 +143,20 @@ public class ClassroomManageAction extends ActionSupport {
 			
 			session.getTransaction().commit();
 			
-			classroomHtml = "ok";
+			this.status = "ok";
 		}
+		
+		
+		classroom_criteria = session.createCriteria(Classroom.class);		
+		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
+		classroom_criteria.addOrder(Order.asc("classroom_num"));
+		classroom_list= classroom_criteria.list();
+		classroomHtml = util.Util.getJspOutput("/jsp/classroom/classroomTable.jsp");
+
 		session.close();
 		System.out.println("add ok!");
+		
+//		classroomList();
 		return SUCCESS;
 	}
 	
@@ -166,13 +191,6 @@ public class ClassroomManageAction extends ActionSupport {
 		this.add_classroom_num = add_classroom_num;
 	}
 
-	public String getStudentID() {
-		return studentID;
-	}
-
-	public void setStudentID(String studentID) {
-		this.studentID = studentID;
-	}
 
 	public String getClassroomHtml() {
 		return classroomHtml;
@@ -218,6 +236,37 @@ public class ClassroomManageAction extends ActionSupport {
 
 	public void setSearchParam(String searchParam) {
 		this.searchParam = searchParam;
+	}
+	public int getClassroomId() {
+		return classroomId;
+	}
+
+	public void setClassroomId(int classroomId) {
+		this.classroomId = classroomId;
+	}
+
+	public String getStudentNumber() {
+		return studentNumber;
+	}
+
+	public void setStudentNumber(String studentNumber) {
+		this.studentNumber = studentNumber;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

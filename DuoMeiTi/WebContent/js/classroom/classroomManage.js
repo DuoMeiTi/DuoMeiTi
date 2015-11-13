@@ -75,8 +75,8 @@ $(document).on("click", ".add", function (){
 
 $(document).on("click", "#queryStu", function (){
 	
-	var input_principal_student_id = $("#input_principal_student_id").val();
-	if(input_principal_student_id == "" || !/^\d+$/.test(input_principal_student_id)) {
+	var input_principal_student_number = $("#input_principal_student_number").val();
+	if(input_principal_student_number == "" || !/^\d+$/.test(input_principal_student_number)) {
 		$("#input_principal_student_name").text("请输入数字!");
 		return;
 	}
@@ -86,7 +86,7 @@ $(document).on("click", "#queryStu", function (){
 		type : 'post',
 		dataType : 'json',
 		data : {
-			"studentID" : input_principal_student_id
+			"studentNumber" : input_principal_student_number
 		},
 		success : queryStuNameCallback
 	});
@@ -95,56 +95,70 @@ $(document).on("click", "#queryStu", function (){
 
 
 function queryStuNameCallback(data) {
-	if(data.classroomHtml==null || data.classroomHtml == "") {
-		$("#input_principal_student_name").text("无此学号!");
-		$("#add_classroom_btn").attr("disabled", "disabled");
+	if(data.status==null || data.status == "") {
+		$("#input_principal_student_full_name").text("无此学号!");
+		$("#addClassroom").attr("disabled", "disabled");
 	}
 	else {
-		$("#input_principal_student_name").text(data.classroomHtml);
-		$("#add_classroom_btn").removeAttr("disabled");
+		$("#input_principal_student_full_name").text(data.status);
+		$("#addClassroom").removeAttr("disabled");
 	}
 }
 
 function clearModal() {
-	$("#input_principal_student_id").val("");
-	$("#input_principal_student_name").text("");
+	$("#input_principal_student_number").val("");
+	$("#input_principal_student_full_name").text("");
 	$("#input_classroom_num").val("");
 }
 
-
+var submit_type;
+var classroomId;
 $(document).on("click", ".update", function (){
 	clearModal();
 	$(".modal-title").text("编辑教室");
 	$('#classroom_modal').modal('show');
-	var submit_type = "update";
+	submit_type = "update";
+	classroomId = $(this).parents("[classroomId]").attr('classroomId');
+//	alert(classroomId);
+	$("#input_principal_student_number").val($(this).parents("[studentNumber]").attr('studentNumber'));
+	$("#input_principal_student_full_name").text($(this).parents("[studentFullName]").attr('studentFullName'))
+	$("#input_classroom_num").val($(this).parents("[classroomNum]").attr('classroomNum'));
 	
 })
 
 $(document).on("click", ".add", function (){
-	clearModal()
-	$(".modal-title").text("添加教室");
-	var tr = $(this).parents("[student_id]").attr(student_id)
+	clearModal();
+	$(".modal-title").text("添加教室");	
+	$('#classroom_modal').modal('show');
+	submit_type = "add";
+	classroomId = "";
+	
 })
+
 $(document).on("click", "#addClassroom", function (){
 	
 	
 	
 	
-	var submit_type = "add";
-	alert(submit_type);
-	var stuId = $("#input_principal_student_id").val();
-	var classroom_num = $("#input_classroom_num").val();
-		
+	
+//	alert(submit_type);
+	
+	studentNumber = $("#input_principal_student_number").val();
+	classroom_num = $("#input_classroom_num").val();
+	
+//	alert(classroom_num)
+//	studentId = 
 
 	$.ajax({
 		url : 'classroomManageNew_addClassroom',
 		type : 'post',
 		dataType : 'json',
 		data : {
-			"studentID" : stuId,
+			"studentNumber" : studentNumber,
 			"add_classroom_num" : classroom_num,
 			"build_id" : build_id,
-			"submit_type" : submit_type
+			"submit_type" : submit_type,
+			"classroomId":classroomId
 		},
 		success : addClassroomCallback
 	});
@@ -152,13 +166,14 @@ $(document).on("click", "#addClassroom", function (){
 
 
 function addClassroomCallback(data) {
-	if(data.classroomHtml == "exist") {
+	if(data.status == "exist") {
 		$("#exist").text("教室号已存在");
 	}
-	else if(data.classroomHtml == "ok") {
+	else if(data.status == "ok") {
 		$('#classroom_modal').modal('hide');
-		window.location.href=window.location.href;  
-		window.location.reload;
+		$(".classroomTableDiv").html(data.classroomHtml);
+//		window.location.href=window.location.href;  
+//		window.location.reload;
 	}
 }
 

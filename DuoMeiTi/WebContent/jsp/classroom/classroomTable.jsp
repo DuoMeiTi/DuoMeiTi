@@ -13,7 +13,14 @@
 	
 	<s:iterator value="classroom_list" var="i" status="index">
 	
-		<tr class="success"   student_id=<s:property value="#i.principal.id"/>>
+		<tr class="success"   
+		
+			 studentId='<s:property value="#i.principal.id"/>' 
+			 studentFullName='<s:property value="#i.principal.user.fullName"/>'
+			 studentNumber='<s:property value="#i.principal.studentId"/>'
+			 classroomNum='<s:property value="#i.classroom_num"/>'
+			 classroomId='<s:property value="#i.id"/>' 
+			 >
 			<td><s:property value="#i.classroom_num"/></td>
 			<td> <s:property value="#i.principal.user.fullName"/>    
 			</td>

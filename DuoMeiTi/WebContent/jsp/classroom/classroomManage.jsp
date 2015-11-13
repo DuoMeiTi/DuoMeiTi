@@ -24,12 +24,13 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="input_principal_student_id">负责人</label>
+					<label class="control-label col-sm-3" for="input_principal_student_number">负责人学号</label>
 					<div class="col-sm-5">
-						<input type="text" class="form-control" id="input_principal_student_id">
+						<input type="text" class="form-control" id="input_principal_student_number">
 					</div>
 					<div style="text-align:center" class="col-sm-4 control-label">
-						<span id="input_principal_student_name">
+						<strong>负责人姓名:</strong>  
+						<span id="input_principal_student_full_name">
 						</span>
 					</div>
 
