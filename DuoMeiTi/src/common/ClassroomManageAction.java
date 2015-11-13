@@ -3,6 +3,9 @@ package common;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
@@ -42,7 +45,17 @@ public class ClassroomManageAction extends ActionSupport {
 	int classroomId;
 	
 	String classroomManageJsp;
+	String url;
 	
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public String getClassroomManageJsp() {
 		return classroomManageJsp;
 	}
@@ -52,15 +65,22 @@ public class ClassroomManageAction extends ActionSupport {
 	}
 
 	public String classroomList() throws Exception {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		
+		System.out.println("**************JJ)))))))))))0");
+		System.out.println(request.getRequestURI());
+
 		
-//		classroomManageJsp = "/jsp/admin/classroomManage.jsp";
-//		/jsp/homepage/classroomManage.jsp
-		String role = (String)ActionContext.getContext().getSession().get("role");
-		if(role != null && (role.equals(util.Const.AdminRole) || role.equals(util.Const.StudentToAdminRole)))
+		url = request.getRequestURI(); 
+		if(url.contains(util.Const.AdminRole))			
 			classroomManageJsp = "/jsp/admin/classroomManage.jsp";
+		else if(url.contains(util.Const.StudentRole))
+		{
+			System.err.println("EEEEEEEEEEEEEEEEEEEE");
+		}
 		else 
 			classroomManageJsp = "/jsp/homepage/classroomManage.jsp";
+		
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria classroom_criteria = session.createCriteria(Classroom.class);		
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
