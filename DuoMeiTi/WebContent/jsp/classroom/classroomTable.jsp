@@ -7,7 +7,9 @@
 	<tr class="success" id="search_infor">
 		<th>教室号</th>
 		<th>负责人</th>
-		<th>编辑</th>
+		<s:if test="#session.role.equals(@util.Const@AdminRole)">
+			<th>编辑</th>
+		</s:if>
 		<th>管理教室</th>
 	</tr>
 	
@@ -24,9 +26,13 @@
 			<td><s:property value="#i.classroom_num"/></td>
 			<td> <s:property value="#i.principal.user.fullName"/>    
 			</td>
+			<s:if test="#session.role.equals(@util.Const@AdminRole)">
+	           <td>
+					<button class="btn btn-info update">编辑</button>
+			   <td>
+            </s:if>
 			<td>
-				<button class="btn btn-info update">编辑</button>
-			<td>
+			
 			   <a href="classroom_detail?classroomId=<s:property value="#i.id"/>" class="btn btn-info">详细</a>
 			</td>
 		</tr>		

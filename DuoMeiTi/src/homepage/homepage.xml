@@ -16,6 +16,39 @@
 		</action>
 		
 	</package>
+	
+	
+<!-- 	新classroom -->
+	<package name="newHomepageClassroom" namespace="/classroom" extends="HomepageDefault">
+		
+		<action name="classroomManageNew" class="common.ClassroomManageAction" method="classroomList">
+			<result>
+				<param name="location">/jsp/homepage/classroomManage.jsp</param>
+				<param name="build_id">${build_id}</param>
+				<param name="build_name">${build_name}</param>
+			</result>
+		</action>
+		<action name="classroomManageNew_*" class="common.ClassroomManageAction" method="{1}">
+			<result type="json">
+			</result>
+		</action>
+		
+        <action name="classroom_detail" class="homepage.ClassroomDetailAction">
+			<result>
+				<param name="location">/jsp/homepage/classroom_detail.jsp</param>
+				<param name="classroomselectIndex">${classroomId}</param>
+				<param name="build_name">${build_name}</param>
+			</result>
+		</action>
+		
+	</package>
+<!-- end	新classroom -->
+	
+	
+	
+	
+	
+	
 
     <package name="homepage" namespace="/" extends="HomepageDefault">
   	
@@ -38,23 +71,23 @@
         	<result>/jsp/homepage/building_information.jsp</result>
         </action>
         
-        <action name="classroom_information" class="homepage.ClassroomInformationAction" method="classroomList">
-        	<result>
-        		<param name="location">/jsp/homepage/classroom_information.jsp</param>
-				<param name="build_id">${build_id}</param>
-				<param name="build_name">${build_name}</param>
-        	</result>
-        </action>
+<!--         <action name="classroom_information" class="homepage.ClassroomInformationAction" method="classroomList"> -->
+<!--         	<result> -->
+<!--         		<param name="location">/jsp/homepage/classroom_information.jsp</param> -->
+<!-- 				<param name="build_id">${build_id}</param> -->
+<!-- 				<param name="build_name">${build_name}</param> -->
+<!--         	</result> -->
+<!--         </action> -->
         
-        <action name="classroom_detail" class="homepage.ClassroomDetailAction">
-			<result>
-				<param name="location">/jsp/homepage/classroom_detail.jsp</param>
-				<!-- <param name="build_id">${classroom_id}</param>
-				<param name="build_name">${classroom_num}</param> -->
-				<param name="classroomselectIndex">${classroomId}</param>
-				<param name="build_name">${build_name}</param>
-			</result>
-		</action>
+<!--         <action name="classroom_detail" class="homepage.ClassroomDetailAction"> -->
+<!-- 			<result> -->
+<!-- 				<param name="location">/jsp/homepage/classroom_detail.jsp</param> -->
+<!-- 				<param name="build_id">${classroom_id}</param> -->
+<!-- 				<param name="build_name">${classroom_num}</param> -->
+<!-- 				<param name="classroomselectIndex">${classroomId}</param> -->
+<!-- 				<param name="build_name">${build_name}</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		
         <action name="ResourceFile" class="homepage.HomeAction" method="resourceFile">
 			<result>/jsp/homepage/ResourceFile.jsp</result>
@@ -189,10 +222,10 @@
 
 
    
-<!--游客访问教室信息  showBuildings;showClassRooms;showDevices-->
-<action name="classRoomInfo*" class="homepage.ClassRoomInfoAction" method="{1}">
-<result>/jsp/homepage/{1}.jsp</result>
-</action>
+		<!--游客访问教室信息  showBuildings;showClassRooms;showDevices -->
+<!-- 		<action name="classRoomInfo*" class="homepage.ClassRoomInfoAction" method="{1}"> -->
+<!-- 		<result>/jsp/homepage/{1}.jsp</result> -->
+<!-- 		</action> -->
 
 
 
