@@ -53,7 +53,7 @@
 
 
 <div class="classroomManage">
-	<form class="form-horizontal">
+	<form class="form-horizontal" onsubmit="return false">
 	   <div class="form-horizontal">
 	       <div class="form-group">
 	       
@@ -78,7 +78,7 @@
 				<div class="col-lg-2">
 				  	<button class="btn btn-primary all" style="margin:2px;">所有教室</button>
 				</div>
-				<s:if test="#session.role.equals(@util.Const@AdminRole)">
+				<s:if test="#session.role.equals(@util.Const@AdminRole) || #session.role.equals(@util.Const@StudentToAdminRole)">
 					<div class="col-lg-1">
 					  	<button class="btn btn-danger add" style="margin:2px;" >新增教室</button>
 					</div>

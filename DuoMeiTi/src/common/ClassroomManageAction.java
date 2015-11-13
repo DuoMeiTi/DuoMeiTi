@@ -11,6 +11,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.Classroom;
@@ -40,9 +41,26 @@ public class ClassroomManageAction extends ActionSupport {
 	String submit_type;
 	int classroomId;
 	
+	String classroomManageJsp;
 	
-	
+	public String getClassroomManageJsp() {
+		return classroomManageJsp;
+	}
+
+	public void setClassroomManageJsp(String classroomManageJsp) {
+		this.classroomManageJsp = classroomManageJsp;
+	}
+
 	public String classroomList() throws Exception {
+		
+		
+//		classroomManageJsp = "/jsp/admin/classroomManage.jsp";
+//		/jsp/homepage/classroomManage.jsp
+		String role = (String)ActionContext.getContext().getSession().get("role");
+		if(role != null && (role.equals(util.Const.AdminRole) || role.equals(util.Const.StudentToAdminRole)))
+			classroomManageJsp = "/jsp/admin/classroomManage.jsp";
+		else 
+			classroomManageJsp = "/jsp/homepage/classroomManage.jsp";
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria classroom_criteria = session.createCriteria(Classroom.class);		
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));

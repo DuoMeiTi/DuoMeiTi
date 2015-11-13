@@ -18,7 +18,7 @@
      
     <package name="Default" namespace="" extends="json-default">
     
-    	<default-action-ref name="undefinedUrl"/>
+<!--     	<default-action-ref name="undefinedUrl"/> -->
   	    <global-results>
             <result name="not_login" type="redirect"> /not_login</result>
             
@@ -26,12 +26,9 @@
 				  <param name="ignoreHierarchy">false</param>
 			</result>            
         </global-results>
-        	
-        
         <action name="undefinedUrl">
         	<result> /jsp/homepage/undefinedUrl.jsp</result>
-        </action>
-        
+        </action>        
     </package>
     
       
@@ -88,7 +85,25 @@
 	</package>
 	
 	
+	
 
+	<package name="newClassroom" extends="Default">
+		
+		<action name="classroomManageNew" class="common.ClassroomManageAction" method="classroomList">
+			<result>
+<!-- 				<param name="location">/jsp/admin/classroomManage.jsp</param> -->
+				<param name="location">${classroomManageJsp}</param>
+				<param name="build_id">${build_id}</param>
+				<param name="build_name">${build_name}</param>
+			</result>
+		</action>
+		<action name="classroomManageNew_*" class="common.ClassroomManageAction" method="{1}">
+			<result type="json">
+			</result>
+		</action>
+	</package>
+	
+	
     
     <include file="/admin/admin.xml"/>	
     <include file="/homepage/homepage.xml"/>

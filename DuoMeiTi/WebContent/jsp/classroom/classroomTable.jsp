@@ -7,7 +7,7 @@
 	<tr class="success" id="search_infor">
 		<th>教室号</th>
 		<th>负责人</th>
-		<s:if test="#session.role.equals(@util.Const@AdminRole)">
+		<s:if test="#session.role.equals(@util.Const@AdminRole) || #session.role.equals(@util.Const@StudentToAdminRole)">
 			<th>编辑</th>
 		</s:if>
 		<th>管理教室</th>
@@ -26,10 +26,10 @@
 			<td><s:property value="#i.classroom_num"/></td>
 			<td> <s:property value="#i.principal.user.fullName"/>    
 			</td>
-			<s:if test="#session.role.equals(@util.Const@AdminRole)">
+			<s:if test="#session.role.equals(@util.Const@AdminRole) || #session.role.equals(@util.Const@StudentToAdminRole)">
 	           <td>
 					<button class="btn btn-info update">编辑</button>
-			   <td>
+			   </td>
             </s:if>
 			<td>
 			
