@@ -71,7 +71,6 @@ $(document).on("click", "#editSave", function() {
 $(document).on("click",'#addaccount',function(){
 	if(checkPassword())
 	{
-		alert("hehe");
 		var params = $('#add_admin_form').serialize();
 		$.ajax({
 	        url: 'addNewAdminProfile',

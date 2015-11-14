@@ -109,7 +109,7 @@
     <include file="/homepage/homepage.xml"/>
     <include file="/student/student.xml"/>
     <include file="/Message/message.xml"/>
-
+	<include file="/checkin/checkin.xml"/>
     <!-- Add packages here -->
 
 </struts>

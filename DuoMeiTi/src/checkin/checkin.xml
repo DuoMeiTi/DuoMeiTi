@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+<package name="studentcheckin" namespace="/studentcheckin" extends="StudentDefault">
+	<action name="checkinrecord_name" class="checkin.CheckInAction" method="InitRecordListByname">
+		<result name="success">/jsp/student/checkin.jsp</result>   
+	</action>
+	
+	<action name="getcheckinlistbyname" class="checkin.CheckInAction" method="getCheckInRecordByUsername">
+		<result name="success" type="json">
+				<param name="includeProperties">result</param>
+		</result>   
+	</action>
+	<action name="checkinbyusername" class="checkin.CheckInAction" method="checkIn">
+		<result name="success" type="json">
+				<param name="includeProperties">result</param>
+		</result>   
+	</action>
+</package>
+
+<package name="admincheckin" namespace="/admincheckin" extends="AdminDefault" >
+	<action name="checkinrecords" class="checkin.CheckInAction" method="InitRecordListByDate">
+		<result name="success">/jsp/admin/checkinrecord.jsp</result>  
+	</action>
+	
+	<action name="checkinrecord_date" class="checkin.CheckInAction" method="getCheckInRecordByDate">
+		<result name="success" type="json">
+			<param name="includeProperties">newtablestring</param>
+		</result>  
+	</action>
+	
+	<action name="setcheckinrule" class="checkin.CheckInAction" method="setCheckInRule">
+		<result name="success" type="json">
+				<param name="includeProperties">result</param>
+		</result>   
+	</action>
+</package>
+</struts>

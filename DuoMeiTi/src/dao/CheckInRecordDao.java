@@ -8,11 +8,10 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import util.PageGetBaseAction;
-import model.AdminProfile;
 import model.CheckInRecord;
 import model.StudentProfile;
 import model.Util;
@@ -29,7 +28,8 @@ public class CheckInRecordDao extends BaseDaoHibernate<CheckInRecord>{
 	public void checkIn(String username)
 	{
 		StudentProfileDao studentdao = new StudentProfileDao();
-		StudentProfile student = studentdao.get(StudentProfile.class, username);
+		System.out.println("checkindao username "+username);
+		StudentProfile student = studentdao.getStudentProfileByUsername(username);
 		CheckInRecord record = new CheckInRecord();
 		record.student=student;
 		record.recordtime=new Timestamp(System.currentTimeMillis());
@@ -43,10 +43,13 @@ public class CheckInRecordDao extends BaseDaoHibernate<CheckInRecord>{
 		Transaction tx = session.beginTransaction();
 		try{
 			Criteria criteria = session.createCriteria(CheckInRecord.class);
-			criteria.add(Expression.between("recordtime", starttime, endtime));
+			criteria.add(Restrictions.between("recordtime", starttime, endtime));
+			criteria.addOrder(Order.desc("recordtime"));
+			System.out.println("starttime "+starttime.toString()+" endtime "+endtime.toString());
 			PageGetBaseAction pba =new PageGetBaseAction();
 			pba.setCurrentPageNum(page);
 			list = pba.makeCurrentPageList(criteria, pagesize);
+			System.out.println("list "+list.size());
 			tx.commit();
 		}catch(HibernateException e)
 		{
@@ -64,12 +67,16 @@ public class CheckInRecordDao extends BaseDaoHibernate<CheckInRecord>{
 		Transaction tx = session.beginTransaction();
 		try{
 			StudentProfile student = (new StudentProfileDao()).getStudentProfileByUsername(username);
-			Criteria criteria = session.createCriteria(CheckInRecord.class).add(Restrictions.eq("student_id",student.id ));
+			Criteria criteria = session.createCriteria(CheckInRecord.class).add(Restrictions.eq("student.id",student.id ));
+			criteria.addOrder(Order.desc("recordtime"));
 			PageGetBaseAction pba =new PageGetBaseAction();
 			pba.setCurrentPageNum(page);
 			list = pba.makeCurrentPageList(criteria, pagesize);
+			System.out.println("checkinDao list "+list.size());
 		}catch(HibernateException e)
 		{
+			e.printStackTrace();
+			System.out.println("HibernateException e");
 			tx.rollback();
 		}finally{
 			session.close();

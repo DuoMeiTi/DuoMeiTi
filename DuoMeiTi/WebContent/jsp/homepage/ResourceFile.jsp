@@ -24,7 +24,7 @@
 // 你应该重写下面这个函数，使其在回调的时候可以做你自己做的事情
 function requestPageCallback(data){
 	
-	$("#resourceFileTableDiv").html(data.file_path_html);
+	$("#resourceFileTableDiv").html(data.newtablestring);
 }
 </script>
 

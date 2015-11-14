@@ -34,7 +34,7 @@ public class StudentProfileDao extends BaseDaoHibernate<StudentProfile>{
 		int user_id =  userDao.getByusername(username).id;
 		Session session =Util.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		Criteria criteriauser = session.createCriteria(StudentProfile.class).add(Restrictions.eq("user_id",user_id));
+		Criteria criteriauser = session.createCriteria(StudentProfile.class).add(Restrictions.eq("user.id",user_id));
 		StudentProfile student =  (StudentProfile) criteriauser.uniqueResult();
 		tx.commit();
 		session.close();

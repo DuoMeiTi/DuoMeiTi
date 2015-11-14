@@ -8,33 +8,57 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
-
-@SuppressWarnings("deprecation")
 public class CheckInRule {
-	private static Date amStartTime=new Date();
-	private static Date amEndTime=new Date();
-	private static Date pmStartTime=new Date();
-	private static Date pmEndTime=new Date();
+	static class Time{
+		int hour;
+		int minute;
+		void setHours(int hour){
+			this.hour=hour;
+		}
+		int getHours(){
+			return hour;
+		}
+		void setMinutes(int min){
+			minute=min;
+		}
+		int getMinutes(){
+			return minute;
+		}
+		protected Time clone()
+		{
+			Time t = new Time();
+			t.hour=this.hour;
+			t.minute=this.minute;
+			return t;
+		}
+	}
+	private static Time amStartTime=new Time();
+	private static Time amEndTime=new Time();
+	private static Time pmStartTime=new Time();
+	private static Time pmEndTime=new Time();
 	private static final int amDeadLine=12;//上午签到时间务必设置在中午12点之前
 	private static final int pmDeadLine=23;//晚上签到时间务必设置在晚上11点之前
 	private static final String FILENAME = "checkinrule.properties";
 	private static final String[] KEY = {"amStartTime_hour","amStartTime_minute","amEndTime_hour","amEndTime_minute",
 		"pmStartTime_hour","pmStartTime_minute","pmEndTime_hour","pmEndTime_mintue"};
 	
-	private CheckInRule(){}
-	
 	static{
-		int[] time = new int[KEY.length];
+		System.out.println("CheckInRule init");
+		int[] time = new int[8];
 		Properties prop =  new  Properties();    
-		InputStream in = Object.class.getClass().getResourceAsStream(FILENAME);
+		InputStream in = CheckInRule.class.getResourceAsStream(FILENAME);
+		if(in==null){
+			System.out.println("InputStream null");
+		}
 		try {
 			prop.load(in);
-			for(int i=0;i<KEY.length;i++)
+			for(int i=0;i<8;i++)
 			{
-				time[i]=(int) prop.get(KEY[i]);
+				time[i]=Integer.valueOf((String) prop.get(KEY[i]));
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -49,44 +73,56 @@ public class CheckInRule {
 			pmEndTime.setHours(time[6]);
 			pmEndTime.setMinutes(time[7]);
 			try {
-				in.close();
+				if(in!=null)in.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
-	public static Date getAmStartTime() {
-		Date time =  (Date) amStartTime.clone();
+	public static Time getAmStartTime() {
+		Time time = (Time) amStartTime.clone();
 		return time;
 	}
 
-	public static Date getAmEndTime() {
-		Date date =  (Date) amEndTime.clone();
+	public static Time getAmEndTime() {
+		Time date =  (Time) amEndTime.clone();
 		return date;
 	}
 	
-	public static Date getPmStartTime() {
-		Date time =  (Date) pmStartTime.clone();
+	public static Time getPmStartTime() {
+		Time time =  (Time) pmStartTime.clone();
 		return time;
 	}
 	
-	public static Date getPmEndTime() {
-		Date time =  (Date) pmEndTime.clone();
+	public static Time getPmEndTime() {
+		Time time =  (Time) pmEndTime.clone();
 		return time;
 	}
 	
 	public static synchronized boolean SetAmTime(Date newStartTime,Date newEndTime)
 	{
-		if(newStartTime.getHours()>=amDeadLine||newEndTime.getHours()>=amDeadLine)
+		Calendar cstart = Calendar.getInstance();
+		cstart.setTime(newStartTime);
+		Calendar cend = Calendar.getInstance();
+		cend.setTime(newEndTime);
+		if(cend.get(Calendar.HOUR_OF_DAY)>=amDeadLine||cstart.get(Calendar.HOUR_OF_DAY)>=amDeadLine)
 		{
 			return false;
 		}
 		if(newStartTime.before(newEndTime))
 		{
-			amStartTime=(Date) newStartTime.clone();
-			amEndTime=(Date) newEndTime.clone();
-			setAmTime();
+			amStartTime.hour = cstart.get(Calendar.HOUR_OF_DAY);
+			amStartTime.minute = cstart.get(Calendar.MINUTE);
+			amEndTime.hour = cend.get(Calendar.HOUR_OF_DAY);
+			amEndTime.minute = cend.get(Calendar.MINUTE);
+			try {
+				saveAmTime();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
 			return true;
 		}
 		return false;
@@ -99,9 +135,15 @@ public class CheckInRule {
 		}
 		if(newStartTime.before(newEndTime))
 		{
-			pmStartTime=(Date) newStartTime.clone();
-			pmEndTime=(Date) newEndTime.clone();
-			setPmTime();
+			pmStartTime.hour=newStartTime.getHours();
+			pmEndTime.minute= newEndTime.getMinutes();
+			try {
+				savePmTime();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
 			return true;
 		}
 		return false;
@@ -121,16 +163,23 @@ public class CheckInRule {
 		}
 	}
 	
-	private static void setAmTime()
+	private static void saveAmTime() throws IOException
 	{
 		Properties pro = new Properties();
+		InputStream in = CheckInRule.class.getResourceAsStream(FILENAME);
+		pro.load(in);
+		in.close();
 		OutputStream fos=null;
 		try {
-			fos = new FileOutputStream(FILENAME);
+			String path = CheckInRule.class.getResource(FILENAME).getPath();
+			if(path==null)path="FILENAME isnull";
+			System.out.println(path);
+			fos = new FileOutputStream(CheckInRule.class.getResource(FILENAME).getPath());
 			pro.setProperty(KEY[0], String.valueOf(amStartTime.getHours()));
 			pro.setProperty(KEY[1], String.valueOf(amStartTime.getMinutes()));
 			pro.setProperty(KEY[2],String.valueOf(amEndTime.getHours()));
 			pro.setProperty(KEY[3], String.valueOf(amEndTime.getMinutes()));
+			System.out.println("hehe");
 			pro.store(fos, "update pmTime");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -150,12 +199,15 @@ public class CheckInRule {
 		}
 	}
 	
-	private static void setPmTime()
+	private static void savePmTime() throws IOException
 	{
 		Properties pro = new Properties();
+		InputStream in = CheckInRule.class.getResourceAsStream(FILENAME);
+		pro.load(in);
+		in.close();
 		OutputStream fos=null;
 		try {
-			fos = new FileOutputStream(FILENAME);
+			fos = new FileOutputStream(CheckInRule.class.getClassLoader().getResource(FILENAME).getPath());
 			pro.setProperty(KEY[4], String.valueOf(pmStartTime.getHours()));
 			pro.setProperty(KEY[5], String.valueOf(pmStartTime.getMinutes()));
 			pro.setProperty(KEY[6],String.valueOf(pmEndTime.getHours()));

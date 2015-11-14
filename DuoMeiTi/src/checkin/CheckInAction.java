@@ -1,82 +1,112 @@
 package checkin;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.apache.struts2.ServletActionContext;
 
+import util.PageGetBaseAction;
+import util.Util;
 import model.CheckInRecord;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-
 import dao.CheckInRecordDao;
 import dao.DAOFactory;
 
-public class CheckInAction extends ActionSupport{
+public class CheckInAction extends PageGetBaseAction{
 	private String username;
 	private int starthour;
 	private int endhour;
 	private int startminute;
-	private int ednminute;
-	private String AMorPM;//上午还是下午
-	private final static String AM="am";
-	private final static String PM="pm";
-	private List<CheckInRecord> list;
+	private int endminute;
+	private String startTime;
+	private String endTime;
+	private int pagesize=10;
+	private int page=1;
+	private String newtablestring;
+	private boolean isAM=false;//上午还是下午
+	private boolean isPM=false;
+	private List<CheckInRecord> recordlist;
+
+	private String result;
+	private final static int MAX_PAGESIZE = 100;//一页数据上限为100
 	
-	private final static int MAX_PAGESIZE = 100;//一页数据上限为100条
-	
+	public List<CheckInRecord> getRecordlist() {
+		return recordlist;
+	}
+
+	public void setRecordlist(List<CheckInRecord> recordlist) {
+		this.recordlist = recordlist;
+	}
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+
 	public String checkIn()
 	{
 		try {
 			 String role = (String) ActionContext.getContext().getSession().get("role");
-			 if(role!=util.Const.StudentRole)return "你不能签到";
+			 if(role!=util.Const.StudentRole){
+				 result="你不能签到";
+			 }
+			 username = (String) ServletActionContext.getContext().getSession().get("username");
 			CheckInRecordDao bd = (CheckInRecordDao) DAOFactory.getDao(CheckInRecord.class);
 			bd.checkIn(username);
-		} catch (InstantiationException e) {
+			result="签到成功";
+		} catch (IllegalAccessException | InstantiationException iae) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			//ise.printStackTrace();
+			iae.printStackTrace();
+			result="签到失败";
+		} 
 		return SUCCESS;
 	}
 	
 	public String setCheckInRule()
 	{
-		boolean result=false;
-		Calendar canlendar = Calendar.getInstance();
-		Date newStartTime = (Date) canlendar.getTime();
-		Date newEndTime = (Date) canlendar.getTime();
-		newStartTime.setHours(starthour);
-		newStartTime.setMinutes(startminute);
-		newEndTime.setHours(endhour);
-		newEndTime.setMinutes(ednminute);
-		if(AMorPM.equals(AM))
+		boolean flag=false;
+		System.out.println("starthour "+starthour+" endhour "+endhour+" startminute "+startminute+" endminute "+endminute);
+		java.util.Date newStartTime = TimeUtil.getUtilDate(starthour, startminute);
+		java.util.Date newEndTime = TimeUtil.getUtilDate(endhour,endminute);
+		if(isAM)
 		{
-			result = CheckInRule.SetAmTime(newStartTime, newEndTime);
+			flag = CheckInRule.SetAmTime(newStartTime, newEndTime);
 		}
-		else if(AMorPM.equals(PM))
+		else
 		{
-			result = CheckInRule.SetPmTime(newStartTime, newEndTime);
+			flag = CheckInRule.SetPmTime(newStartTime, newEndTime);
 		}
-		if(result)
+		if(flag)
+			result = "修改成功";
+		else {
+			result="修改失败";
+		}
 		return SUCCESS;
-		else return ERROR;
 	}
 
-	public String getCheckInRecordByUsername(String username,int page,int pagesize)
+	public String InitRecordListByname()
+	{
+		username = (String) ServletActionContext.getContext().getSession().get("username");
+		System.out.println("InitRecordListByname");
+		getCheckInRecordByUsername();
+		System.out.println("recordlist size "+recordlist.size());
+		return SUCCESS;
+	}
+	
+	public String getCheckInRecordByUsername()
 	{
 		String result=null;
+		System.out.println(" getCheckInRecordByUsername");
 		if(pagesize>MAX_PAGESIZE)pagesize=MAX_PAGESIZE;
 		try {
 			CheckInRecordDao bd = (CheckInRecordDao) DAOFactory.getDao(CheckInRecord.class);
-			list=bd.getRecordByUserName(username, page, pagesize);
+			recordlist=bd.getRecordByUserName(username, page, pagesize);
+			newtablestring = Util.getJspOutput("/jsp/admin/widgets/checkinrecordtable.jsp");
 			result=SUCCESS;
 		} catch (InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
@@ -86,12 +116,40 @@ public class CheckInAction extends ActionSupport{
 		return result;
 	}
 	
-	public String getCheckInRecordByDate(int page,int pagesize)
+	public String InitRecordListByDate()
+	{
+		Calendar calendar = Calendar.getInstance();
+		Timestamp endtime = TimeUtil.getCalendartoTimestamp(calendar);
+		calendar.set(Calendar.DATE,calendar.get(Calendar.DATE)-7);
+		Timestamp starttime = TimeUtil.getCalendartoTimestamp(calendar);
+		CheckInRecordDao bd;
+		try {
+			bd = (CheckInRecordDao) DAOFactory.getDao(CheckInRecord.class);
+			recordlist=bd.getRecordByDate(starttime, endtime,this.getCurrentPageNum(),10);
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	
+	public String getNewtablestring() {
+		return newtablestring;
+	}
+
+	public void setNewtablestring(String newtablestring) {
+		this.newtablestring = newtablestring;
+	}
+
+	public String getCheckInRecordByDate()
 	{
 		if(pagesize>MAX_PAGESIZE)pagesize=MAX_PAGESIZE;
-		try{
 			try {
 				CheckInRecordDao bd = (CheckInRecordDao) DAOFactory.getDao(CheckInRecord.class);
+				Timestamp starttime = TimeUtil.StringtoTimestamp(startTime);
+				Timestamp endtime = TimeUtil.StringtoTimestamp(endTime);
+				recordlist=bd.getRecordByDate(starttime, endtime, this.getCurrentPageNum(), pagesize);
+				newtablestring = Util.getJspOutput("/jsp/admin/widgets/checkinrecordtable.jsp");
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -99,10 +157,6 @@ public class CheckInAction extends ActionSupport{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		//	list = bd.getRecordByDate(starttime, endtime, page, pagesize)
-		}finally{
-			
-		}
 		return SUCCESS;
 	}
 	
@@ -137,20 +191,43 @@ public class CheckInAction extends ActionSupport{
 	public void setStartminute(int startminute) {
 		this.startminute = startminute;
 	}
-
-	public String getAMorPM() {
-		return AMorPM;
+	public int getEndminute() {
+		return endminute;
 	}
 
-	public void setAMorPM(String aMorPM) {
-		AMorPM = aMorPM;
+	public void setEdnminute(int endminute) {
+		this.endminute = endminute;
+	}
+
+	public boolean getIsAM() {
+		return isAM;
+	}
+
+	public boolean getIsPM() {
+		return isPM;
+	}
+
+	public void setIsAM(boolean isAM) {
+		this.isAM = isAM;
+	}
+
+	public void setIsPM(boolean isPM) {
+		this.isPM = isPM;
 	}
 	
-	public int getEdnminute() {
-		return ednminute;
+	public String getStartTime() {
+		return startTime;
 	}
 
-	public void setEdnminute(int ednminute) {
-		this.ednminute = ednminute;
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 }
