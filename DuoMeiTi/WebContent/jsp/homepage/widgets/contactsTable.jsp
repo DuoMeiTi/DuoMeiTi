@@ -11,7 +11,7 @@
 			</tr>
 					
 			<s:iterator value="contacts_list" var="i" status="index" >  
-				<s:if test="#i.isUpgradePrivilege==0">							
+				<s:if test="#i.isPassed == @model.StudentProfile@Passed && #i.isUpgradePrivilege!=@model.StudentProfile@DepartureStudent">							
 					<tr id=<s:property value="#i.id"/>>
 						<td class="col-lg-3">   <s:property value="#i.user.fullName"/>    </td>
 						<td class="col-lg-4">   <s:property value="#i.studentId"/>   </td>
