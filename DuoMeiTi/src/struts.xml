@@ -19,6 +19,7 @@
     <package name="Default" namespace="" extends="json-default">
     
     	<default-action-ref name="undefinedUrl"/>
+    	
   	    <global-results>
             <result name="not_login" type="redirect"> /not_login</result>
             

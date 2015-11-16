@@ -26,6 +26,7 @@ $(document).on("click","[requestPageNum]",  function(){
 
     sendRequestPage($(this).attr("requestPageNum"));
 })
+
 var paginationURL='';
 function sendRequestPage(currentPageNum) {
 	var data = {"currentPageNum": currentPageNum , "isAjaxTransmission":true, };
