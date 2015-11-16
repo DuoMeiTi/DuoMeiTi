@@ -68,30 +68,26 @@
 			      </div>			      
 			      <div class="news-list">
 			        <div class="news-documents documents-list ">
-							
-							
-							
-							
-							
-						<s:iterator value="check_list" var="i" status="index" >   
+							<%@ include file = "/jsp/homepage/widgets/more_classroomTable.jsp" %>
+<%-- 						<s:iterator value="check_list" var="i" status="index" >    --%>
 						
-						   <div class="usoft-listview-basic">
-							  <ul>
-							    <li>
-							      <span class="usoft-listview-item-date">
-							      	<s:property value="#i.checkdate"/>
-								  </span>
-							      <span>
-							      	<a href="#" title="">
-							      		<s:property value="#i.checkman.fullName"/>检查<s:property value="#i.classroom.teachbuilding.build_name"/><s:property value="#i.classroom.classroom_num"/>
-							      		:
-							      		<s:property value="#i.checkdetail"/>
-							      	</a>
-							      </span>
-							    </li>
-							  </ul>
-							</div>
-						 </s:iterator>
+<!-- 						   <div class="usoft-listview-basic"> -->
+<!-- 							  <ul> -->
+<!-- 							    <li> -->
+<!-- 							      <span class="usoft-listview-item-date"> -->
+<%-- 							      	<s:property value="#i.checkdate"/> --%>
+<!-- 								  </span> -->
+<!-- 							      <span> -->
+<!-- 							      	<a href="#" title=""> -->
+<%-- 							      		<s:property value="#i.checkman.fullName"/>检查<s:property value="#i.classroom.teachbuilding.build_name"/><s:property value="#i.classroom.classroom_num"/> --%>
+<!-- 							      		: -->
+<%-- 							      		<s:property value="#i.checkdetail"/> --%>
+<!-- 							      	</a> -->
+<!-- 							      </span> -->
+<!-- 							    </li> -->
+<!-- 							  </ul> -->
+<!-- 							</div> -->
+<%-- 						 </s:iterator> --%>
 
 			
 			        </div><!--end news-documents-->
@@ -136,33 +132,8 @@
 		        </span>
 		      </div>						      
 		      <div class="news-list">
-		        <div class="news-documents documents-list "> 
-		        
-		        	<s:iterator value="repair_list" var="i" status="index" >
-		        		<div class="usoft-listview-basic">
-						  <ul>
-						    <li>
-						      <span class="usoft-listview-item-date">
-						      		<s:property value="#i.repairdate.toString()"/>
-						      </span>
-						      <span>
-						      	<a href="#">
-						      		<s:property value="#i.repairman.fullName"/>
-						      		维修
-						      		<s:property value="#i.device.classroom.teachbuilding.build_name"/>
-						      		教室
-						      		<s:property value="#i.device.classroom.classroom_num"/>
-						      		<s:property value="#i.device.rtType"/>
-						      		:
-						      		<s:property value="#i.repairdetail"/>
-						      		
-								</a>
-							  </span>
-						    </li>
-						  </ul>
-						</div>
-		        	</s:iterator>
-		        
+		        <div class="news-documents documents-list "> 		        
+					<%@ include file = "/jsp/homepage/widgets/more_equipment_maintenanceTable.jsp" %>		        
 		        </div><!--end news-documents-->
 		      </div><!--end news-list-->
 		      
@@ -197,32 +168,7 @@
 		      <div class="news-list">
 		        <div class="news-documents documents-list "> 
 		        
-		        	<s:iterator value="deviceReplaceList" var="i" status="index" >
-		        		<div class="usoft-listview-basic">
-						  <ul>
-						    <li>
-						      <span class="usoft-listview-item-date">
-<%-- 						      		<s:property value=""/> --%>
-						      </span>
-						      <span>
-						      	<a href="#">
-						      	
-						      		<s:property value="#i.classroom.teachbuilding.build_name"/>
-						      		<s:property value="#i.classroom.classroom_num"/>
-						      		
-						      		
-						      		
-						      		<s:property value="#i.rtType"/>
-						      		
-<%-- 						      		<s:property value="#i.classroom.principal.user.fullName"/> --%>
-<%-- 						      		<s:property value="#i.rtFactorynum"/> --%>
-
-								</a>
-							  </span>
-						    </li>
-						  </ul>
-						</div>
-		        	</s:iterator>
+		        	<%@ include file = "/jsp/homepage/widgets/more_equipment_replacementTable.jsp" %>
 		        
 		        </div><!--end news-documents-->
 		      </div><!--end news-list-->

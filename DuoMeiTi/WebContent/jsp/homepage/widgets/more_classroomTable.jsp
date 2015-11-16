@@ -11,9 +11,13 @@
 						      </span>
 						      <span>
 						      	<a href="#" >
-						      		<s:property value="#i.checkman.fullName"/>
-						      		:
-						      		<s:property value="#i.checkdetail"/>
+<%-- 						      		<s:property value="#i.checkman.fullName"/> --%>
+<!-- 						      		: -->
+<%-- 						      		<s:property value="#i.checkdetail"/> --%>
+						      		
+						      		<s:property value="#i.checkman.fullName"/>检查<s:property value="#i.classroom.teachbuilding.build_name"/><s:property value="#i.classroom.classroom_num"/>
+							      		:
+							      		<s:property value="#i.checkdetail"/>
 						      	</a>
 						      </span>
 						    </li>

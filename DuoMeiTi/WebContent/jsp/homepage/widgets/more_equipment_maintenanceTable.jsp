@@ -11,7 +11,7 @@
 						      </span>
 						      <span>
 						      	<a href="#" >
-						      		<s:property value="#i.repairman.fullname"/>
+						      		<s:property value="#i.repairman.fullName"/>
 						      		维修
 						      		<s:property value="#i.device.classroom.teachbuilding.build_name"/>
 						      		教室
