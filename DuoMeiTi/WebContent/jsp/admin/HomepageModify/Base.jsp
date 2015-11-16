@@ -8,21 +8,21 @@
     <div class="mynavbar">
         <div class="container-fluid nopadding">
 		    <div class="row nomargin">
-		        <div class="col-lg-3 nopadding">
+		        <div class="col-lg-4 nopadding">
 		           <a href="notice" class="navbar-button">公告管理</a> 
 		        </div>
 		        
-    	        <div class="col-lg-3 nopadding">
+    	        <div class="col-lg-4 nopadding">
 		           <a href="resourceFileManage" class="navbar-button navbar-button-left">资源文件管理</a> 
 		        </div>
 		        
-		        <div class="col-lg-3 nopadding">
+		        <div class="col-lg-4 nopadding">
 		           <a href="CommonProblem" class="navbar-button">常见问题记录</a> 
 		        </div>
 		        
-		        <div class="col-lg-3 nopadding">
-		           <a href="sdfsdf" class="navbar-button navbar-button-right">学生成绩搜索</a> 
-		        </div>
+<!-- 		        <div class="col-lg-3 nopadding"> -->
+<!-- 		           <a href="sdfsdf" class="navbar-button navbar-button-right">学生成绩搜索</a>  -->
+<!-- 		        </div> -->
 		    </div>
 		</div>
 

@@ -31,17 +31,16 @@ td,tr,th{
 				onclick="return showdiv('#timeCondition')"> 按时间
 			</label>
 			<a id="commitSearch" type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%" onclick="startSearch()">检索维修记录</a>
-			<%-- <a id="commitExport" href="<%=path%>/admin/classroomDevice/query_action" type="button" target="myFrame" class="btn btn-default" style="float:right;margin-right:5%">导出检索记录</a> --%>
 		</div>
 		<br />
 		<div class="searchCondition" id="conditions">
+		
 			<div class="searchCondition-building" id="buildingCondition">
 				<select id="building" class="form-control" style="width: 20%;">
 				<s:iterator value="builds" var="build" status="i">
 					<option value="<s:property value="#build.build_id"/>"><s:property value="#build.build_name"/></option>
 				</s:iterator>
 				</select>
-
 			</div>
 			
 

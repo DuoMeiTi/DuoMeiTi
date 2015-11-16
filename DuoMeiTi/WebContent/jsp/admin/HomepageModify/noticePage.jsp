@@ -43,5 +43,5 @@
 
 
  <%@ include file="/jsp/admin/HomepageModify/Base.jsp"%>
-<%-- <%@ include file="/jsp/homepage/new_home_base.jsp" %> --%>
+
 

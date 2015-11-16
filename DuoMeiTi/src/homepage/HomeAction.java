@@ -68,19 +68,27 @@ public class HomeAction extends PageGetBaseAction
 	{ 
 		Session session = model.Util.sessionFactory.openSession();
 		
-		check_list = session.createCriteria(model.CheckRecord.class).list();
-		notice_list = session.createCriteria(model.Notice.class).list();
-		repair_list = session.createCriteria(model.RepairRecord.class).list();
+		final int MaxRes = 8;
+		check_list = session.createCriteria(model.CheckRecord.class)
+							.setMaxResults(MaxRes)
+							.addOrder(Order.desc("id"))
+							.list();
+		notice_list = session.createCriteria(model.Notice.class)
+							 .setMaxResults(MaxRes)
+							 .addOrder(Order.desc("id"))
+							 .list();
+		repair_list = session.createCriteria(model.RepairRecord.class)
+							 .setMaxResults(MaxRes)
+							 .addOrder(Order.desc("id"))
+							 .list();
 		
 		java.util.Date now = new java.util.Date();
-		java.sql.Date sql_now = new java.sql.Date(  now.getTime());
-		System.out.println("_--------------");
-		System.out.println(now);
-		System.out.println(sql_now);
-		
+		java.sql.Date sql_now = new java.sql.Date(now.getTime());		
 		deviceReplaceList = session.createCriteria(model.Repertory.class)
 						.add(Restrictions.le("rtDeadlineData", sql_now))
 						.add(Restrictions.eq("rtDeviceStatus", "教室"))
+						.setMaxResults(MaxRes)
+						.addOrder(Order.desc("id"))
 						.list();
 		
 		Collections.reverse(check_list);

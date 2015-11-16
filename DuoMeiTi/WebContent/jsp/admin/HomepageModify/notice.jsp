@@ -35,12 +35,7 @@
 						<!-- <input type="" class="form-control" id="input_principal_student_id" oninput="disable_add_btn()"> -->
 					</div>
 					<span  hidden="true" id="hidden_id"></span>
-					<!-- <div style="text-align:center" class="col-sm-4 control-label">
-						<span id="input_principal_student_name">lz</span>
-					</div> -->
-					<!-- <div class="col-sm-3">
-						<button class="btn btn-primary" onclick="query_stu_name()">查询姓名</button>
-					</div> -->
+
 				</div>
 			</form>
 			
@@ -77,7 +72,7 @@
 	<table class="table table-bordered" id="notice_table">
 
 		<tr class="active">
-			<th>公告专题</th>
+			<th>公告标题</th>
 			<th>时间</th>
 			<th>编辑</th>
 			<th>删除</th>
@@ -109,10 +104,12 @@
 
 
 	<script>
+	
+	
 	function notice_add(){
 		
 		$("#notice_title").val("");
-		//$("#input_principal_student_name").text("");
+
 		$("#notice_content").val("");
 		
 		$("#submit_type").attr("value", "add");
@@ -125,16 +122,12 @@
 	function notice_add_submit(){
 		
 		var submit_type = $("#submit_type").attr("value");//新增教室的时候是add
-//		alert(submit_type);
+
 		var title = $("#notice_title").val();
-		alert(title);
+// 		alert(title);
 		var content = $("#notice_content").val();
 		var id =  $("#hidden_id").val();
-		//alert("id"+title+"   "+"  "+content +"  "+id+"  "+submit_type);
-		//var id =$("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_id");
-//		Request = GetRequest();
-//		var build_id = Request['build_id'];
-	//	alert(submit_type + " " +title + " " + content);
+
 		
 		$.ajax({
 			url : '/admin/HomepageModify/notice/notice_add',
@@ -163,15 +156,12 @@
 	}
 	//编辑
 	function edit_notice(index) {
-// 		alert(index);
+
 		var select_notice_title = $("#notice_search_table").find("tr:eq(" + (index + 1) + ") td:eq(0)").text();
-//		var select_notice_time = $("#notice_search_table").find("tr:eq(" + (index + 1) + ") td:eq(1)");
+
 		var select_notice_time = $("#notice_search_table").find("tr:eq(" + (index + 1) + ")").attr("notice_time");
 		var select_notice_content = $("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_content");
 		var select_notice_id = $("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_id");
-		//alert(select_notice_title +" "+select_notice_time+" "+select_notice_content+"  "+select_notice_id );
-		
-		
 		
 		$("#notice_title").val(select_notice_title);
 		$("#notice_content").val(select_notice_content);
@@ -189,9 +179,7 @@
 	function delete_notice(index){
 		var notice_id;
 		var select_notice_id = $("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_id");
-		//notice_id = $(this).parents("tr").attr("notice_id");
-			//    alert(select_notice_id);
-		// 	    alert(typeof user_id);
+
 
 		$.ajax({
 			url : 'notice_delete',
@@ -205,22 +193,7 @@
 	}
 	
 		/* //处理删除操作
-		$(document).on("click", ".delete", function() {
-			notice_id = $(this).parents("tr").attr("notice_id");
-			// 	    alert(deleted_user_id);
-			// 	    alert(typeof user_id);
-
-			$.ajax({
-				url : 'notice_delete',
-				type : 'post',
-				dataType : 'json',
-				data : {
-					"notice_id" : notice_id,
-				},
-				success : deleteCallback
-			});
-
-		}); */
+		 */
 
 		function deleteCallback(data) {
 
@@ -229,8 +202,6 @@
 				$('#notice-modal').modal('hide');
 				window.location.href=window.location.href;  
 				window.location.reload;
-				/* animatedShow("删除成功");
-				$(document).find("tr[notice_id=" + notice_id + "]").remove(); */
 			} else if (data.status == "1") {
 				animatedShow("你所删除的数据可能不存在");
 			} else {
@@ -238,91 +209,5 @@
 			}
 
 		}
-		/* //处理查看编辑操作
-		$(document).on("click", "#edit", function() {
-			notice_id = $(this).parents("tr").attr("notice_id");
-			// 	    alert(deleted_user_id);
-			// 	    alert(typeof user_id);
-
-			$.ajax({
-				url : 'notice_edit',
-				type : 'post',
-				dataType : 'json',
-				data : {
-					"notice_id" : notice_id,
-				},
-				success : editCallback
-			});
-
-		});
-
-		function editCallback(data) {
-
-			if (data.status == "0") {
-				animatedShow("修改成功");
-				//			$(document).find("tr[notice_id=" + notice_id + "]").remove();
-			} else if (data.status == "1") {
-				animatedShow("操作失败");
-			} else {
-				alert("error");
-			}
-
-		}
-		$(document).on("click", "#notice_add", function() {
-			var params = $('#notice_form').serialize(); //利用jquery将表单序列化
-
-			$.ajax({
-				url : 'notice_save',
-				type : 'post',
-				dataType : 'json',
-				data : params,
-				success : noticeAddCallback
-			});
-
-		});
-
-		function animatedShow(text) {
-			$("#alert_register_info").hide();
-			$("#alert_register_info").text(text);
-			$("#alert_register_info").show(500);
-		}
-		function noticeAddCallback(data) {
-			if (data.status == "0") {
-				$("#notice_table tr:first").after(data.added_notice_html);
-
-				var cnt = $(document).find("#notice_table tr:eq(1)");
-				$(cnt).children().eq(0).text(data.title);
-				$(cnt).children().eq(1).text(data.time);
-
-				//         	alert(data.user_id);
-
-				$(cnt).attr("notice_id", data.notice_id);
-
-				animatedShow("添加成功");
-			} else if (data.status == "1") {
-				animatedShow("æ³¨åç¨æ·åæèå¯ç ä¸ºç©º");
-			} else if (data.status == "2") {
-				animatedShow("æ³¨åç¨æ·åéå¤");
-			} else {
-				alert("error with status" + data.status);
-			}
-
-		} */
-
-		/* $('#myModal').on('shown.bs.modal', function() {
-			$('#myInput').focus()
-		}) */
 	</script>
 
- <%-- </layout:override> --%>  
-
-
-
-
-
-
-
-
-
-<%--  <%@ include file="/jsp/admin/HomepageModify/Base.jsp"%> --%>
- 
