@@ -13,20 +13,17 @@ td,tr,th{
 </style>
 
 	<div class="mycontent">
-		<!--  <div class="row">
-			<label type="label" class="btn btn-primary"
-				style="width: 100%; float: left">设备维修记录</label>
-		</div>-->
+		
 		<hr>
 
 		<div class="radios">
 			<label class="radio-inline" style="margin-left:5%" > <input type="radio"
 				name="radio-select" value="0"
 				onclick="return showdiv('#buildingCondition')" checked> 按教学楼
-			</label> <!-- <label class="radio-inline" style="margin-left:5%" > <input type="radio"
-				name="radio-select" value="1"
-				onclick="return showdiv('#buildingCondition')"> 按教学楼
-			</label>  --><label class="radio-inline" style="margin-left:5%" > <input type="radio"
+			</label>
+			
+					
+			<label class="radio-inline" style="margin-left:5%" > <input type="radio"
 				name="radio-select" value="2"
 				onclick="return showdiv('#equipmentCondition')"> 按设备
 			</label> <label class="radio-inline" style="margin-left:5%" > <input type="radio"
@@ -44,19 +41,10 @@ td,tr,th{
 					<option value="<s:property value="#build.build_id"/>"><s:property value="#build.build_name"/></option>
 				</s:iterator>
 				</select>
-				<!--<input type="text" class="form-control" id="personVal" style="width: 30%">-->
+
 			</div>
 			
-			<!--<div class="searchCondition-building" id="buildingCondition">
-				<select id="building" class="form-control" style="width: 20%; float: left">
-					<option value="0">一馆</option>
-					<option value="1">综合教学一号楼</option>
-				</select>
-				<select id="classroom" class="form-control" style="width: 20%">
-					<option value="0">101</option>
-					<option value="1">205</option>
-				</select>
-			</div>-->
+
 			
 			<div class="searchCondition-equipment" id="equipmentCondition" style="width:40%;">
 				<div style="width:auto;float:left;">
@@ -99,85 +87,27 @@ td,tr,th{
 			</div>
 		
 			<div class="searchCondition-time" id="timeCondition">
-				<!-- <select id="time" class="form-control" style="width: 30%">
-					<option value="0">2015年9月</option>
-					<option value="1">2015年8月</option>
-					<option value="2">2015年7月</option>
-					<option value="3">2015年6月</option>
-				</select> -->
+
 				<div class="form-group" style="margin-bottom:-0.5%;">
 	    			<label for="startTime">开始时间</label>
 					<input id="startTime" type="date" value="2015-09-30"></input>
 					<label for="endTime">结束时间</label>
 					<input id="endTime" type="date" value="2015-10-01"></input>
 				</div>
-				<!--
-				<script type="text/javascript" src="../../js/admin/Calendar3.js"></script>
-					<tr>
-						<td>
-							开始时间：
-						</td>
-						<td>
-							<input type="text" size="20" maxlength="10" id="startTime" style="width: 15%" 
-									onclick="new Calendar().show(this);" readonly="readonly">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							结束时间：
-						</td>
-						<td>
-							<input type="text" size="20" maxlength="10" id="endTime" style="width: 15%" 
-								onclick="new Calendar().show(this);" readonly="readonly">
-						</td>
-					</tr>
-					  -->
+
 			</div>
 		</div>
 		
 		<br />
 		<p>
-			 <!-- <script language="javascript" type="text/javascript">
-				//var items=$(":radio:checked"); //获取选中的项 
 
-				//alert(items.val()); //拿到选中项的值 
-			</script> -->
 		<p/>
-		<%-- <form class="form-horizontal" action="classroom_search"--%>
+
 
 		<div id="maintainRecords_table">
-<!-- 			<table class="table table-bordered table-striped" -->
-<!-- 				id="Records_table"> -->
-<!-- 				<thead> -->
-<!-- 					<tr> -->
-<!-- 						<th >学号</th> -->
-<!-- 						<th >姓名</th> -->
-<!-- 						<th >设备</th> -->
-<!-- 						<th >维修情况</th> -->
-<!-- 						<th >日期</th> -->
-<!-- 						<th >教室</th> -->
-<!-- 						<th style="width:10%;">教学楼</th> -->
-<!-- 					</tr> -->
-<!-- 				</thead> -->
-				
-<%-- 				<s:iterator value="#session.maintainRecords_list" var="item"> --%>
-<%-- 					<tr class="success" id='<s:property value="#item.id"/>'> --%>
-<%-- 						<td><s:property value="#item.studentId" /></td> --%>
-<%-- 						<td><s:property value="#item.fullName" /></td> --%>
-<%-- 						<td><s:property value="#item.rtType" /></td> --%>
-<%-- 						<td><s:property value="#item.repairDetail" /></td> --%>
-<%-- 						<td><s:property value="#item.repairDate" /></td> --%>
-<%-- 						<td><s:property value="#item.classRoom" /></td> --%>
-<%-- 						<td><s:property value="#item.teachBuilding" /></td> --%>
-
-<!-- 					</tr> -->
-<%-- 				</s:iterator> --%>
-
-
-<!-- 			</table> -->
 		
 		
-			<iframe name="myFrame" frameborder="0" style="width:100%;height:500px;" src="/jsp/admin/record_query.jsp"></iframe>
+			<iframe name="myFrame" frameborder="0" style="width:100%;height:1000px;" src="/jsp/admin/record_query.jsp"></iframe>
 		</div>
 	</div>
 
