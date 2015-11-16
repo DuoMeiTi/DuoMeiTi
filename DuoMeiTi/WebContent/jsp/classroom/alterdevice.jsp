@@ -1,10 +1,10 @@
 <%@ include file="/jsp/base/taglib.jsp"%>
 
-<label class="control-label">备用设备：</label>
+<label class="control-label"></label>
 	<table class="table device-table-bordered" id="alter_table">
 		<thead>
 			<tr>
-				<th style="width: 10%;">资产编号lalaal</th>
+				<th style="width: 10%;">资产编号</th>
 				<th style="width: 10%;">型号</th>
 				<th style="width: 10%;">名称</th>
 				<th style="width: 10%;">出厂号</th>

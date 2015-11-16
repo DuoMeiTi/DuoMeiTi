@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	
-	<div class="mycontent">
+	<div >
 		<!-- 设备列表 -->
 		<div class="device">
 			<div class="detail-div" id="device_jsp">
@@ -68,14 +68,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						file="/jsp/classroom/repairrecord.jsp"%></li>
 			</ul>
 		</div>
-	</div>
-	
-	<!-- 备用设备 -->
-	<div class="mycontent">
+		<!-- 备用设备 -->
 		<div id="alterdevice_jsp" style="display: none;">
 			<%@ include file="/jsp/classroom/alterdevice.jsp" %>>
 		</div>
+
 	</div>
+	
+	
+		
+	
 	
 	<!-- Modal -->
 	
@@ -86,6 +88,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </div>
 
+
+
+</layout:override>
 	<%-- <div class="mycontent">
 		<div class="row">
 			<div class="col-lg-6 col-lg-offset-3 classbuilding">
@@ -283,6 +288,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div> --%>
 	
-</layout:override>
+
 
 <%@ include file="/jsp/student/base.jsp" %>

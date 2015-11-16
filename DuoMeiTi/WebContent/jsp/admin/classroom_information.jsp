@@ -61,14 +61,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						file="/jsp/classroom/repairrecord.jsp"%></li>
 			</ul>
 		</div>
-	</div>
-	
-	<!-- 备用设备 -->
-	<div class="mycontent">
+		
+		<!-- 备用设备 -->
 		<div id="alterdevice_jsp" style="display: none;">
 			<%@ include file="/jsp/classroom/alterdevice.jsp" %>>
 		</div>
+
 	</div>
+	
 	
 	<!-- Modal -->
 	
