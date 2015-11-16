@@ -190,7 +190,7 @@
 			var isRight = $(this).attr("isRight");
 			addOption();
 			var cntOption = $(".optionContent:last");
-			$(cntOption).find(".optionInput").val($(this).text());			
+			$(cntOption).find(".optionInput").val($(this).attr("optionText"));			
 			if(isRight == "true")
 			{				
 				

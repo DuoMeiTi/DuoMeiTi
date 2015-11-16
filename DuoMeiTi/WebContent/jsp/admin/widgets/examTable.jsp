@@ -18,7 +18,8 @@
 			
 			<td class="optionList">
 				<s:iterator var="j" begin="0" end="qoption.get(#i).size() - 1" step="1">
-					<div isRight=<s:property value="qoption.get(#i).get(#j).emCheck" /> >
+					<div isRight='<s:property value="qoption.get(#i).get(#j).emCheck" />'
+					     optionText='<s:property value="qoption.get(#i).get(#j).emOption" />' >
 					
 					
 						<s:if test="qoption.get(#i).get(#j).emCheck.equals('true')" >
