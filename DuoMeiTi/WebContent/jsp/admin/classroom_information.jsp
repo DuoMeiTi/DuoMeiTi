@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- Modal -->
 	
 	<div>
-		<%@ include file="/jsp/classroom/modal.jsp" %>>
+		<%@ include file="/jsp/classroom/modal.jsp" %>
 	</div>
 	
 	
