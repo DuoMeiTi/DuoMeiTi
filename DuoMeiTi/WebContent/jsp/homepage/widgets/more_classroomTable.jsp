@@ -7,7 +7,7 @@
 						<ul>
 						   <li>
 						      <span class="usoft-listview-item-date">
-						      		<s:property value="#i.checkdate"/>
+						      		<s:property value="#i.checkdate.toString()"/>
 						      </span>
 						      <span>
 						      	<a href="#" >

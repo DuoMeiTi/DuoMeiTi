@@ -9,7 +9,7 @@
 						<ul>
 						   <li>
 						      <span class="usoft-listview-item-date">
-						      		<s:property value="#i.repairdate.toString()"/>
+						      		<s:property value="#i.rtDeadlineData.toString()"/>
 						      </span>
 						      <span>
 						      	<a href="#" >
