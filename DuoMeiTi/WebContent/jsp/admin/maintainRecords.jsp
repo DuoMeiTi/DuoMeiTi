@@ -146,7 +146,38 @@ td,tr,th{
 		<%-- <form class="form-horizontal" action="classroom_search"--%>
 
 		<div id="maintainRecords_table">
-			<iframe name="myFrame" frameborder="0" scrolling="no" style="width:100%;" height="200px" src="/jsp/admin/record_query.jsp"></iframe>
+<!-- 			<table class="table table-bordered table-striped" -->
+<!-- 				id="Records_table"> -->
+<!-- 				<thead> -->
+<!-- 					<tr> -->
+<!-- 						<th >学号</th> -->
+<!-- 						<th >姓名</th> -->
+<!-- 						<th >设备</th> -->
+<!-- 						<th >维修情况</th> -->
+<!-- 						<th >日期</th> -->
+<!-- 						<th >教室</th> -->
+<!-- 						<th style="width:10%;">教学楼</th> -->
+<!-- 					</tr> -->
+<!-- 				</thead> -->
+				
+<%-- 				<s:iterator value="#session.maintainRecords_list" var="item"> --%>
+<%-- 					<tr class="success" id='<s:property value="#item.id"/>'> --%>
+<%-- 						<td><s:property value="#item.studentId" /></td> --%>
+<%-- 						<td><s:property value="#item.fullName" /></td> --%>
+<%-- 						<td><s:property value="#item.rtType" /></td> --%>
+<%-- 						<td><s:property value="#item.repairDetail" /></td> --%>
+<%-- 						<td><s:property value="#item.repairDate" /></td> --%>
+<%-- 						<td><s:property value="#item.classRoom" /></td> --%>
+<%-- 						<td><s:property value="#item.teachBuilding" /></td> --%>
+
+<!-- 					</tr> -->
+<%-- 				</s:iterator> --%>
+
+
+<!-- 			</table> -->
+		
+		
+			<iframe name="myFrame" frameborder="0" style="width:100%;height:500px;" src="/jsp/admin/record_query.jsp"></iframe>
 		</div>
 	</div>
 

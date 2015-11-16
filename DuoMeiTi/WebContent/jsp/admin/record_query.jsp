@@ -59,7 +59,6 @@
 						<td><s:property value="#item.classRoom" /></td>
 						<td><s:property value="#item.teachBuilding" /></td>
 
-						</td>
 					</tr>
 				</s:iterator>
 
