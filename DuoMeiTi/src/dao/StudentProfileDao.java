@@ -30,13 +30,17 @@ public class StudentProfileDao extends BaseDaoHibernate<StudentProfile>{
 
 	public StudentProfile getStudentProfileByUsername(String username)
 	{
+		if(username==null||username.isEmpty())
+		{
+			throw new NullPointerException("username is null");
+		}
 		UserDao userDao = new UserDao();
 		int user_id =  userDao.getByusername(username).id;
 		Session session =Util.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+//		Transaction tx = session.beginTransaction();
 		Criteria criteriauser = session.createCriteria(StudentProfile.class).add(Restrictions.eq("user.id",user_id));
 		StudentProfile student =  (StudentProfile) criteriauser.uniqueResult();
-		tx.commit();
+//		tx.commit();
 		session.close();
 		return student;
 	}

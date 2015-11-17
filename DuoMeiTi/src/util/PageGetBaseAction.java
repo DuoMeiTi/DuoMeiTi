@@ -95,6 +95,7 @@ public class PageGetBaseAction extends ActionSupport  {
 	{		
 		q.setProjection(Projections.rowCount());
 		int tot_row = ((Long)q.uniqueResult()).intValue();
+		System.out.println("tot_row "+tot_row);
 		q.setProjection(null);
 		q.setResultTransformer(Criteria.ROOT_ENTITY);		
 		 
@@ -108,7 +109,7 @@ public class PageGetBaseAction extends ActionSupport  {
 		{
 			this.paginationHtml = null;
 		}
-		
+		System.out.println("makeCurrentPageList "+this.currentPageNum+"  "+this.totalPageNum+" "+this.isAjaxTransmission);
 		q.setFirstResult(res[0]);
 		q.setMaxResults(res[1]);
 		return q.list();

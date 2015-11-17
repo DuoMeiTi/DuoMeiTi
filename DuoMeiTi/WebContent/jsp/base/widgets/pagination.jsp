@@ -14,7 +14,6 @@
 
 // var pageAddtionalData = {}
 $(document).on("click","#firstPage",  function(){
-
     sendRequestPage(1);
 })
 $(document).on("click","#lastPage",  function(){
@@ -33,13 +32,13 @@ function sendRequestPage(currentPageNum) {
 	
 	if(typeof(pageAddtionalData)!="undefined")
 		data = $.extend({}, data, pageAddtionalData);
-	
     $.ajax({
         url: paginationURL,
         type: 'post',
         dataType: 'json',
         data: data,
-        success: _requestPageCallback
+        success: _requestPageCallback,
+        error: requesterror
       });	
 }
 
@@ -48,6 +47,9 @@ function _requestPageCallback(data) {
 	requestPageCallback(data);
 }
 
+function requesterror(data){
+	alert("error");
+}
 </script>
 
 

@@ -33,10 +33,10 @@ public class UserDao extends BaseDaoHibernate<User>{
 	public User getByusername(String username)
 	{
 		Session session =Util.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction(); 
+//		Transaction tx = session.beginTransaction(); 
 		Criteria criteriauser = session.createCriteria(User.class).add(Restrictions.eq("username",username));
 		User user =  (User) criteriauser.uniqueResult();
-		tx.commit();
+//		tx.commit();
 		session.close();
 		return user;
 	}

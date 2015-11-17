@@ -43,8 +43,7 @@ public class TimeUtil {
 	
 	static public Timestamp StringtoTimestamp(String str)
 	{
-		str=str.replaceAll("/","-");
-		Timestamp time = Timestamp.valueOf(str+" 00:00:00");
+		Timestamp time = Timestamp.valueOf(str);
 		return time;
 	}
 	

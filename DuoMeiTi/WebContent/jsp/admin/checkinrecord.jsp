@@ -6,14 +6,14 @@
 	</div>
 	<div class="form-group" >
 	    			<label for="startTime">开始时间</label>
-					<input id="startTime" type="date" value="2015-09-30"></input>
+					<input id="startTime" type="date"></input>
 					<label for="endTime">结束时间</label>
-					<input id="endTime" type="date" value="2015-10-01"></input>
-					<button type="button" class="btn btn-default"  id="addbutton" onclick="query()">查询</button>
+					<input id="endTime" type="date"></input>
+					<button type="button" class="btn btn-default"  id="addbutton" >查询</button>
 					<label for="changecheckinrule">&nbsp;&nbsp;修改签到时间</label>
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#changetime" id="addbutton">修&nbsp;&nbsp;改</button>
 	</div>
-	<div >
+	<div id="queryrecordstable">
 		<div class="student_table" id="recordstable">
 		<%@ include file="/jsp/admin/widgets/checkinrecordtable.jsp" %>
 		</div>
@@ -81,11 +81,34 @@
 </div>
 <script type='text/javascript' src="/js/admin/checkinrecord.js"></script>
 <script>
-	paginationURL='/student/checkinrecord_name';
+window.onload=function(){
+		var nowdate = new Date();
+		var predate = new Date();
+		predate.setDate(nowdate.getDate()-7);
+		document.getElementById("endTime").value = nowdate.getFullYear()+"-"+(nowdate.getMonth()+1)+"-"+nowdate.getDate();
+		document.getElementById("startTime").value = predate.getFullYear()+"-"+(predate.getMonth()+1)+"-"+predate.getDate();
+	}
+	function sendRequestPage(currentPageNum) {
+		var starttime = $("#startTime").val();
+		var endtime = $("#endTime").val();
+		var data = {"currentPageNum": currentPageNum , "isAjaxTransmission":true,"startTime":starttime,"endTime":endtime};
+		
+		if(typeof(pageAddtionalData)!="undefined")
+			data = $.extend({}, data, pageAddtionalData);
+	    $.ajax({
+	        url: '',
+	        type: 'post',
+	        dataType: 'json',
+	        data: data,
+	        success: _requestPageCallback,
+	        error: requesterror
+	      });	
+	}
 // 你可以定义pageAddtionalData变量，这个变量应该是json变量，这个变量可以直接通过ajax 在选择页码的时候传到后台
 // 你应该重写下面这个函数，使其在回调的时候可以做你自己做的事情
 function requestPageCallback(data){
-	document.getElementById("recordstable").innerHTML=data;
+	alert(data.newtablestring);
+	document.getElementById("recordstable").innerHTML=data.newtablestring;
 }
 </script>
 </layout:override>

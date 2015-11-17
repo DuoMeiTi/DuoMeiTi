@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/jsp/base/taglib.jsp" %>
-<table class="table table-bordered" id="admin_information_table">
+<table class="table table-bordered">
 			
 			<tr class="row" >
 				<th >姓名</th>

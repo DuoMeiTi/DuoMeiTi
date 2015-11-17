@@ -47,5 +47,11 @@ public class CheckInRecord {
 	
 	@Column
 	public Timestamp recordtime;
-
+	
+	@Override
+	public String toString()
+	{
+		return "check IN::" + student.user.getFullName() + "| " + recordtime;
+		
+	}
 }

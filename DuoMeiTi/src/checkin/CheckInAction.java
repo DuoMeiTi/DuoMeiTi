@@ -5,47 +5,37 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import util.PageGetBaseAction;
 import util.Util;
 import model.CheckInRecord;
+import model.StudentProfile;
 
 import com.opensymphony.xwork2.ActionContext;
+
 import dao.CheckInRecordDao;
 import dao.DAOFactory;
 
 public class CheckInAction extends PageGetBaseAction{
-	private String username;
+	private String username = "";
+	private boolean query=false;
 	private int starthour;
 	private int endhour;
 	private int startminute;
 	private int endminute;
-	private String startTime;
-	private String endTime;
+	private String startTime="";
+	private String endTime="";
 	private int pagesize=10;
-	private int page=1;
-	private String newtablestring;
+	private String newtablestring="";
 	private boolean isAM=false;//上午还是下午
 	private boolean isPM=false;
-	private List<CheckInRecord> recordlist;
-
-	private String result;
+	private List recordlist;
+	private String result="";
 	private final static int MAX_PAGESIZE = 100;//一页数据上限为100
-	
-	public List<CheckInRecord> getRecordlist() {
-		return recordlist;
-	}
-
-	public void setRecordlist(List<CheckInRecord> recordlist) {
-		this.recordlist = recordlist;
-	}
-	public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
-	}
 
 	public String checkIn()
 	{
@@ -89,132 +79,100 @@ public class CheckInAction extends PageGetBaseAction{
 		return SUCCESS;
 	}
 
-	public String InitRecordListByname()
+
+	
+
+	public String getCheckInRecordByUsername() throws Exception
 	{
-		username = (String) ServletActionContext.getContext().getSession().get("username");
-		System.out.println("InitRecordListByname");
-		getCheckInRecordByUsername();
-		System.out.println("recordlist size "+recordlist.size());
+		String username =(String)ActionContext.getContext().getSession().get("username");
+		Session session = model.Util.sessionFactory.openSession();
+		
+		model.User user = (model.User)session.createCriteria(model.User.class)
+		 .add(Restrictions.eq("username", username)).uniqueResult();
+		StudentProfile student =(StudentProfile) session.createCriteria(model.StudentProfile.class)
+								 .add(Restrictions.eq("user.id", user.id))
+								 .uniqueResult();
+		Criteria criteria = session.createCriteria(CheckInRecord.class).add(Restrictions.eq("student.id",student.id ));
+		criteria.addOrder(Order.desc("recordtime"));
+		recordlist = this.makeCurrentPageList(criteria, 10);
+		if(this.getIsAjaxTransmission())
+		{
+			newtablestring = util.Util.getJspOutput("/jsp/student/studentcheckintable.jsp");
+			session.close();
+			if(!query)
+				return "getPage";
+			else
+				return SUCCESS;
+		}
+		session.close();
 		return SUCCESS;
 	}
 	
-	public String getCheckInRecordByUsername()
+	public boolean isQuery() {
+		return query;
+	}
+
+	public void setQuery(boolean query) {
+		this.query = query;
+	}
+
+	public String getCheckInRecordByDate() throws InstantiationException, IllegalAccessException
 	{
-		String result=null;
-		System.out.println(" getCheckInRecordByUsername");
+		Timestamp starttime=null;
+		Timestamp endtime=null;
 		if(pagesize>MAX_PAGESIZE)pagesize=MAX_PAGESIZE;
-		try {
-			CheckInRecordDao bd = (CheckInRecordDao) DAOFactory.getDao(CheckInRecord.class);
-			recordlist=bd.getRecordByUserName(username, page, pagesize);
+		if(startTime==null||startTime.isEmpty()||endTime==null||endTime.isEmpty())
+		{
+			System.out.println("HEHEHEHEHEE");
+			Calendar calendar = Calendar.getInstance();
+			endtime = TimeUtil.getCalendartoTimestamp(calendar);
+			calendar.set(Calendar.DATE,calendar.get(Calendar.DATE)-7);
+			starttime = TimeUtil.getCalendartoTimestamp(calendar);
+		}
+		else
+		{
+			String newstarttime=startTime.replaceAll("/","-")+" 00:00:00";
+			String newendtime = endTime.replace("/","-") + " 23:00:00";
+			starttime = TimeUtil.StringtoTimestamp(newstarttime);
+			endtime = TimeUtil.StringtoTimestamp(newendtime);
+		}
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(CheckInRecord.class);
+		criteria.add(Restrictions.between("recordtime", starttime, endtime));
+		criteria.addOrder(Order.desc("recordtime"));
+		System.out.println("starttime "+starttime.toString()+" endtime "+endtime.toString());
+		recordlist = this.makeCurrentPageList(criteria,10);
+		session.close();
+		if(this.getIsAjaxTransmission())
+		{
 			newtablestring = Util.getJspOutput("/jsp/admin/widgets/checkinrecordtable.jsp");
-			result=SUCCESS;
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			result=ERROR;
-		}
-		return result;
-	}
-	
-	public String InitRecordListByDate()
-	{
-		Calendar calendar = Calendar.getInstance();
-		Timestamp endtime = TimeUtil.getCalendartoTimestamp(calendar);
-		calendar.set(Calendar.DATE,calendar.get(Calendar.DATE)-7);
-		Timestamp starttime = TimeUtil.getCalendartoTimestamp(calendar);
-		CheckInRecordDao bd;
-		try {
-			bd = (CheckInRecordDao) DAOFactory.getDao(CheckInRecord.class);
-			recordlist=bd.getRecordByDate(starttime, endtime,this.getCurrentPageNum(),10);
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(newtablestring);
+			if(!query)
+				return "getPage";
 		}
 		return SUCCESS;
 	}
-	
-	public String getNewtablestring() {
-		return newtablestring;
-	}
 
-	public void setNewtablestring(String newtablestring) {
-		this.newtablestring = newtablestring;
-	}
-
-	public String getCheckInRecordByDate()
-	{
-		if(pagesize>MAX_PAGESIZE)pagesize=MAX_PAGESIZE;
-			try {
-				CheckInRecordDao bd = (CheckInRecordDao) DAOFactory.getDao(CheckInRecord.class);
-				Timestamp starttime = TimeUtil.StringtoTimestamp(startTime);
-				Timestamp endtime = TimeUtil.StringtoTimestamp(endTime);
-				recordlist=bd.getRecordByDate(starttime, endtime, this.getCurrentPageNum(), pagesize);
-				newtablestring = Util.getJspOutput("/jsp/admin/widgets/checkinrecordtable.jsp");
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		return SUCCESS;
-	}
-	
 	public String getUsername() {
 		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public int getStarthour() {
 		return starthour;
 	}
 
-	public void setStarthour(int starthour) {
-		this.starthour = starthour;
-	}
-
 	public int getEndhour() {
 		return endhour;
-	}
-
-	public void setEndhour(int endhour) {
-		this.endhour = endhour;
 	}
 
 	public int getStartminute() {
 		return startminute;
 	}
 
-	public void setStartminute(int startminute) {
-		this.startminute = startminute;
-	}
 	public int getEndminute() {
 		return endminute;
 	}
 
-	public void setEdnminute(int endminute) {
-		this.endminute = endminute;
-	}
-
-	public boolean getIsAM() {
-		return isAM;
-	}
-
-	public boolean getIsPM() {
-		return isPM;
-	}
-
-	public void setIsAM(boolean isAM) {
-		this.isAM = isAM;
-	}
-
-	public void setIsPM(boolean isPM) {
-		this.isPM = isPM;
-	}
-	
 	public String getStartTime() {
 		return startTime;
 	}
@@ -223,11 +181,79 @@ public class CheckInAction extends PageGetBaseAction{
 		return endTime;
 	}
 
+	public int getPagesize() {
+		return pagesize;
+	}
+
+	public String getNewtablestring() {
+		return newtablestring;
+	}
+
+	public boolean isAM() {
+		return isAM;
+	}
+
+	public boolean isPM() {
+		return isPM;
+	}
+
+	public List getRecordlist() {
+		return recordlist;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setStarthour(int starthour) {
+		this.starthour = starthour;
+	}
+
+	public void setEndhour(int endhour) {
+		this.endhour = endhour;
+	}
+
+	public void setStartminute(int startminute) {
+		this.startminute = startminute;
+	}
+
+	public void setEndminute(int endminute) {
+		this.endminute = endminute;
+	}
+
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+	public void setPagesize(int pagesize) {
+		this.pagesize = pagesize;
+	}
+
+	public void setNewtablestring(String newtablestring) {
+		this.newtablestring = newtablestring;
+	}
+
+	public void setAM(boolean isAM) {
+		this.isAM = isAM;
+	}
+
+	public void setPM(boolean isPM) {
+		this.isPM = isPM;
+	}
+
+	public void setRecordlist(List recordlist) {
+		this.recordlist = recordlist;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
 	}
 }

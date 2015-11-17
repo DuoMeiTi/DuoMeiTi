@@ -45,17 +45,17 @@ function checktime()
 	return false;
 }
 
-function query()
-{
+$(document).on("click", "#addbutton", function(){
 	var starttime = $("#startTime").val();
 	var endtime = $("#endTime").val();
+	var data = {"currentPageNum":1 , "isAjaxTransmission":true,"startTime":starttime,"endTime":endtime,"query":true};
 	if(checkrecordtime(starttime,endtime))
 	{
 		$.ajax({
-	        url: '/admincheckin/checkinrecord_date',
+	        url: '/admincheckin/checkinrecordquery',
 	        type: 'post',
 	        dataType: 'json',
-	        data: {"startTime" : starttime,"endTime":endtime},
+	        data: data,
 			success:refreshtable
 	      });
 	}
@@ -63,8 +63,12 @@ function query()
 		{
 		alert("查询时间错误");
 		}
+
 	
-}
+})
+
+
+
 
 function checkrecordtime(starttime,endtime)
 {
@@ -77,8 +81,7 @@ function checkrecordtime(starttime,endtime)
 }
 function refreshtable(data)
 {
-	var newtable =data.newtablestring;
-	document.getElementById("recordstable").innerHTML=newtable;
+	document.getElementById("queryrecordstable").innerHTML=data.newtablestring;
 }
 
 $(document).on("click",'#savechange',function(){
