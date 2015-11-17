@@ -58,6 +58,7 @@ public class StudentManageAction extends ActionSupport{
 	private int userid;
 	private int student_profile_id;
 	private int isUpgradePrivilege;
+	private int score;
 	private String status;
 	private List score_list;
 
@@ -93,6 +94,16 @@ public class StudentManageAction extends ActionSupport{
 	private String studentName;
 	
 	
+	public int getScore() {
+		return score;
+	}
+
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+
 	public List<StudentInfo> getSearchResult() {
 		return searchResult;
 	}
@@ -338,7 +349,7 @@ public class StudentManageAction extends ActionSupport{
 				user_list=q2.list();
 				Collections.reverse(user_list);
 				edit_user = user_list.get(0);
-				session.close();
+				
 				
 				System.out.println("list:"+student_list);
 				System.out.println("studentid:"+student_list.get(0).studentId);
@@ -355,6 +366,20 @@ public class StudentManageAction extends ActionSupport{
 				idCard = edit_student.getIdCard();
 				
 				
+				model.StudentProfile cnt_stu = (model.StudentProfile)edit_student;
+				Criteria sc = session.createCriteria(model.ExamStuScore.class)
+							   .add(Restrictions.eq("stuPro.id",cnt_stu.id ))
+							   .addOrder(Order.desc("id"));
+				List<ExamStuScore> temp = sc.list();
+				if(temp.size()>0)
+				{
+					score = temp.get(0).getScore();				
+				}
+				else
+				{
+					score = -1;
+				}		
+				session.close();
 				
 				System.out.println(student_profile_id);
 				System.out.println(fullName);
@@ -362,6 +387,7 @@ public class StudentManageAction extends ActionSupport{
 				System.out.println(college);
 				System.out.println(phoneNumber);
 				System.out.println(isUpgradePrivilege);
+				System.out.println(score);
 			}
 		}
 		
@@ -386,7 +412,7 @@ public class StudentManageAction extends ActionSupport{
 				Criteria q2 = session.createCriteria(StudentProfile.class).add(Restrictions.eq("user.id", edit_user.getId()));
 				student_list=q2.list();
 				Collections.reverse(student_list);
-				session.close();
+				
 				edit_student = student_list.get(0);
 				System.out.println("list:"+student_list);
 				
@@ -398,14 +424,26 @@ public class StudentManageAction extends ActionSupport{
 				isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
 				bankCard = edit_student.getBankCard();
 				idCard = edit_student.getIdCard();
-				
-				
+				model.StudentProfile cnt_stu = (model.StudentProfile)edit_student;
+				Criteria sc = session.createCriteria(model.ExamStuScore.class)
+							   .add(Restrictions.eq("stuPro.id",cnt_stu.id ))
+							   .addOrder(Order.desc("id"));
+				List<ExamStuScore> temp = sc.list();
+				if(temp.size()>0)
+				{
+					score = temp.get(0).getScore();				}
+				else
+				{
+					score = -1;
+				}		
+				session.close();
 				System.out.println(student_profile_id);
 				System.out.println(fullName);
 				System.out.println(studentId);
 				System.out.println(college);
 				System.out.println(phoneNumber);
 				System.out.println(isUpgradePrivilege);
+				System.out.println(score);
 			}
 			
 		}

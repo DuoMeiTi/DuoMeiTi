@@ -28,7 +28,7 @@ function searchCallback(data) {
 	
 	if(data.isEmpty == "1"){
 		search_student = data.student_profile_id;
-		/*alert("查询成功！" + search_student );*/
+		/*alert("查询成功！" + search_student + " " + data.score);*/
 		for (i=2; i<rowNum; i++)
 	    {
 	        tb.deleteRow(i);
@@ -48,6 +48,14 @@ function searchCallback(data) {
 		else{
 			search_isUpgradePrivilege.innerText = "在职学生";
 		}
+		
+		if(data.score == -1){
+			search_score.innerText = "未提交"
+		}
+		else{
+			search_score,innerText = data.score;
+		}
+		
 		search_bankCard.innerText = data.bankCard;
 		search_idCard.innerText = data.idCard;
 		search_idCard.innerText = "sfdf";

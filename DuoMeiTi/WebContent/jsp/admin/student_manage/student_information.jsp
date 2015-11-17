@@ -63,11 +63,11 @@
 				<td id="search_bankCard"></td>
 				<td id="search_idCard"></td>
 				<td id="search_isUpgradePrivilege"></td>
+				<td id="search_score"></td>
 				
 				<td>
 					<button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#student_edit" id="edit-button" name="edit-button" >编辑</button>
 				</td>
-				<td id="search_score"></td>
 				<td>
 					<button type="button" class="btn btn-primary btn-sm delete" id="delede-button">删除</button>	
 				</td>
