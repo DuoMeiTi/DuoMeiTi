@@ -41,6 +41,7 @@ public class CheckInAction extends PageGetBaseAction{
 	{
 		try {
 			 String role = (String) ActionContext.getContext().getSession().get("role");
+			 
 			 if(role!=util.Const.StudentRole){
 				 result="你不能签到";
 			 }
