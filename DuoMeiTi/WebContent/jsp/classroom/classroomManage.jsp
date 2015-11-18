@@ -78,11 +78,14 @@
 				<div class="col-lg-2">
 				  	<button class="btn btn-primary all" style="margin:2px;">所有教室</button>
 				</div>
+				
+				
 				<s:if test="url.contains(@util.Const@AdminRole)">
 				
 					<div class="col-lg-1">
 					  	<button class="btn btn-danger add" style="margin:2px;" >新增教室</button>
 					</div>
+					
 				</s:if>
 	      </div>
 	   </div>

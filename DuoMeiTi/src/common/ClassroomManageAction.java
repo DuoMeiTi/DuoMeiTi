@@ -92,6 +92,15 @@ public class ClassroomManageAction extends ActionSupport {
 	}
 	
 	public String search() throws Exception {
+		
+		HttpServletRequest request = ServletActionContext.getRequest();
+		url = request.getRequestURI(); 
+		System.out.println("**************JJ)))))))))))0");
+		System.out.println(request.getRequestURI());
+		
+
+		
+		
 
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria classroom_criteria = session.createCriteria(Classroom.class);
