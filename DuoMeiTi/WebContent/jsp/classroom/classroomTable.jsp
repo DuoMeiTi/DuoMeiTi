@@ -7,7 +7,7 @@
 	<tr class="success" id="search_infor">
 		<th>教室号</th>
 		<th>负责人</th>
-		<s:if test="url.contains(@util.Const@AdminRole)">
+		<s:if test="makeUrl().contains(@util.Const@AdminRole)">
 			<th>编辑</th>
 		</s:if>
 		<th>管理教室</th>
@@ -28,7 +28,7 @@
 			</td>
 			
 			
-			<s:if test="url.contains(@util.Const@AdminRole)">
+			<s:if test="makeUrl().contains(@util.Const@AdminRole)">
 	           <td>
 					<button class="btn btn-info update">编辑</button>
 			   </td>

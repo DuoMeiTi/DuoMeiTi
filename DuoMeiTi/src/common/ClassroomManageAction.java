@@ -33,48 +33,27 @@ public class ClassroomManageAction extends ActionSupport {
 	int build_id;
 	String build_name;
 	
-	
-	
 	String studentNumber;// 学号
 	int studentId; // studentProfile 的id;
-	
-
 	List classroom_list;
 	String add_classroom_num;
 	String submit_type;
 	int classroomId;
 	
 	String classroomManageJsp;
-	String url;
+//	String url;
 	
+	public String makeUrl()
+	{
+		return ServletActionContext.getRequest().getRequestURI();
+	}
 	
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getClassroomManageJsp() {
-		return classroomManageJsp;
-	}
-
-	public void setClassroomManageJsp(String classroomManageJsp) {
-		this.classroomManageJsp = classroomManageJsp;
-	}
 
 	public String classroomList() throws Exception {
-		HttpServletRequest request = ServletActionContext.getRequest();
 		
-		System.out.println("**************JJ)))))))))))0");
-		System.out.println(request.getRequestURI());
-
-		
-		url = request.getRequestURI(); 
-		if(url.contains(util.Const.AdminRole))			
+		if(makeUrl().contains(util.Const.AdminRole))			
 			classroomManageJsp = "/jsp/admin/classroomManage.jsp";
-		else if(url.contains(util.Const.StudentRole))
+		else if(makeUrl().contains(util.Const.StudentRole))
 		{
 			System.err.println("EEEEEEEEEEEEEEEEEEEE");
 		}
@@ -91,17 +70,8 @@ public class ClassroomManageAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String search() throws Exception {
+	public String search() throws Exception {		
 		
-		HttpServletRequest request = ServletActionContext.getRequest();
-		url = request.getRequestURI(); 
-		System.out.println("**************JJ)))))))))))0");
-		System.out.println(request.getRequestURI());
-		
-
-		
-		
-
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria classroom_criteria = session.createCriteria(Classroom.class);
 		System.out.println(searchType);
@@ -316,5 +286,20 @@ public class ClassroomManageAction extends ActionSupport {
 		this.status = status;
 	}
 	
+//	public String getUrl() {
+//		return url;
+//	}
+//
+//	public void setUrl(String url) {
+//		this.url = url;
+//	}
+
+	public String getClassroomManageJsp() {
+		return classroomManageJsp;
+	}
+
+	public void setClassroomManageJsp(String classroomManageJsp) {
+		this.classroomManageJsp = classroomManageJsp;
+	}
 	
 }
