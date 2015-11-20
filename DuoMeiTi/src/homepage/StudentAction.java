@@ -39,7 +39,9 @@ public class StudentAction extends FileUploadBaseAction {
 	private String studentId;
 	private String bankCard;
 	private String phoneNumber;
-	public java.sql.Date entryTime;
+//	public java.sql.Date entryTime;
+	
+	
 //	private String classrooms;
 //	private String status;
 //	private String remark;
@@ -142,13 +144,13 @@ public class StudentAction extends FileUploadBaseAction {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public java.sql.Date getEntryTime() {
-		return entryTime;
-	}
-
-	public void setEntryTime(java.sql.Date entryTime) {
-		this.entryTime = entryTime;
-	}
+//	public java.sql.Date getEntryTime() {
+//		return entryTime;
+//	}
+//
+//	public void setEntryTime(java.sql.Date entryTime) {
+//		this.entryTime = entryTime;
+//	}
 	
 	
 	/*public String getClassrooms() {
@@ -305,9 +307,15 @@ public class StudentAction extends FileUploadBaseAction {
 			stupro.setUser(um);
 			stupro.setIdCard(idCard);
 			stupro.setBankCard(bankCard);
-			stupro.setEntryTime(entryTime);
+			
 			stupro.setStudentId(studentId);
 			stupro.setCollege(college);
+			
+			java.util.Date now = new java.util.Date();
+			java.sql.Date sql_now = new java.sql.Date(now.getTime());
+			stupro.setEntryTime(sql_now);
+//			stupro.setEntryTime(entryTime);
+			
 			
 			if (file != null)
 			{

@@ -21,18 +21,6 @@
 <!-- 	新classroom -->
 	<package name="newHomepageClassroom" namespace="/classroom" extends="HomepageDefault,newClassroom">
 		
-<!-- 		<action name="classroomManageNew" class="common.ClassroomManageAction" method="classroomList"> -->
-<!-- 			<result> -->
-<!-- 				<param name="location">/jsp/homepage/classroomManage.jsp</param> -->
-<!-- 				<param name="build_id">${build_id}</param> -->
-<!-- 				<param name="build_name">${build_name}</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-<!-- 		<action name="classroomManageNew_*" class="common.ClassroomManageAction" method="{1}"> -->
-<!-- 			<result type="json"> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-		
         <action name="classroom_detail" class="homepage.ClassroomDetailAction">
 			<result>
 				<param name="location">/jsp/homepage/classroom_detail.jsp</param>
@@ -52,16 +40,16 @@
 
     <package name="homepage" namespace="/" extends="HomepageDefault">
   	
-    	<action name="home2">
-    		<result> /jsp/homepage/home2.jsp</result>
-    	</action>
+<!--     	<action name="home2"> -->
+<!--     		<result> /jsp/homepage/home2.jsp</result> -->
+<!--     	</action> -->
     	
-    	<action name="new_home">
-    		<result> /jsp/homepage/new_home.jsp</result>
-    	</action>
-      	<action name="old_home" >
-        	<result>/jsp/homepage/home.jsp</result>
-        </action>
+<!--     	<action name="new_home"> -->
+<!--     		<result> /jsp/homepage/new_home.jsp</result> -->
+<!--     	</action> -->
+<!--       	<action name="old_home" > -->
+<!--         	<result>/jsp/homepage/home.jsp</result> -->
+<!--         </action> -->
     	
        	<action name="" class="homepage.HomeAction">
         	<result>/jsp/homepage/new_home.jsp</result>
@@ -98,16 +86,16 @@
         
         
         <!--这个是原始的文件上传，最新的在admin账户下  -->
-        <action name="file_upload" class="homepage.FileUploadAction">
-        	<result>/jsp/homepage/file_upload.jsp</result>
-        </action>
+<!--         <action name="file_upload" class="homepage.FileUploadAction"> -->
+<!--         	<result>/jsp/homepage/file_upload.jsp</result> -->
+<!--         </action> -->
         
         
-        <action name="admin_eg">
-            <result>
-                /jsp/admin/admin_eg.jsp
-            </result>
-        </action>
+<!--         <action name="admin_eg"> -->
+<!--             <result> -->
+<!--                 /jsp/admin/admin_eg.jsp -->
+<!--             </result> -->
+<!--         </action> -->
         
       
     	<action name="not_login">
@@ -119,25 +107,25 @@
         </action>
         
                         
-        <action name="register" class="homepage.UserAction" method="register">
-            <result name="success">                
-                /jsp/homepage/register.jsp
-            </result>            
-        </action>
+<!--         <action name="register" class="homepage.UserAction" method="register"> -->
+<!--             <result name="success">                 -->
+<!--                 /jsp/homepage/register.jsp -->
+<!--             </result>             -->
+<!--         </action> -->
         
-        <action name="register_save" class="homepage.UserAction" method="save">
-            <result name="success" type="json">
-            	<param name="includeProperties">status, user_id, username, password, added_user_html</param>           
-				<param name="excludeProperties"> user_list</param>
-            </result>            
-        </action>
+<!--         <action name="register_save" class="homepage.UserAction" method="save"> -->
+<!--             <result name="success" type="json"> -->
+<!--             	<param name="includeProperties">status, user_id, username, password, added_user_html</param>            -->
+<!-- 				<param name="excludeProperties"> user_list</param> -->
+<!--             </result>             -->
+<!--         </action> -->
         
-        <action name="register_delete" class="homepage.UserAction" method="delete">
-            <result name="success" type="json">
-            	<param name="includeProperties">status,user_id</param>           
+<!--         <action name="register_delete" class="homepage.UserAction" method="delete"> -->
+<!--             <result name="success" type="json"> -->
+<!--             	<param name="includeProperties">status,user_id</param>            -->
 				
-            </result>            
-        </action>
+<!--             </result>             -->
+<!--         </action> -->
         
         
         
@@ -152,13 +140,15 @@
         	<result> /jsp/homepage/contacts.jsp</result>
         </action>
         
-        <action name="contacts_add" class="homepage.ContactsAction" method="addContacts">
-            <result type="json"></result>
-        </action>
+<!--         <action name="contacts_add" class="homepage.ContactsAction" method="addContacts"> -->
+<!--             <result type="json"></result> -->
+<!--         </action> -->
         
-        <action name="contacts_delete" class="homepage.ContactsAction" method="deleteContacts">
-            <result type="json"></result>
-        </action>
+<!--         <action name="contacts_delete" class="homepage.ContactsAction" method="deleteContacts"> -->
+<!--             <result type="json"></result> -->
+<!--         </action> -->
+        
+        
         
         <!-- 登录 -->
         <action name="login" class="homepage.UserAction" method="login">
@@ -179,9 +169,9 @@
             
         </action>
         
-        <action name="login_success">
-            <result> /jsp/homepage/login_success.jsp </result>
-        </action>
+<!--         <action name="login_success"> -->
+<!--             <result> /jsp/homepage/login_success.jsp </result> -->
+<!--         </action> -->
         
         <action name="login_fail">
             <result> /jsp/homepage/login_fail.jsp </result>
@@ -196,26 +186,25 @@
         
         <action name="student_register_save" class="homepage.StudentAction" method="studentRegisterSave">
             <result name="success" type="json">
-            </result>  
-                      
-        </action>
-        
-
-
-        <action name="admin_register" class="homepage.AdminAction" method="adminRegister">
-        
-        	<result>
-        		/jsp/homepage/admin_register.jsp
-        	</result>
-        </action>
-        <!--  -->
-        <action name="admin_register_save" class="homepage.AdminAction" method="adminRegisterSave">
-          
-          
-            <result name="success" type="json">
             </result> 
-
         </action>
+        
+
+
+<!--         <action name="admin_register" class="homepage.AdminAction" method="adminRegister"> -->
+        
+<!--         	<result> -->
+<!--         		/jsp/homepage/admin_register.jsp -->
+<!--         	</result> -->
+<!--         </action> -->
+
+<!--         <action name="admin_register_save" class="homepage.AdminAction" method="adminRegisterSave"> -->
+          
+          
+<!--             <result name="success" type="json"> -->
+<!--             </result>  -->
+
+<!--         </action> -->
 
 
 

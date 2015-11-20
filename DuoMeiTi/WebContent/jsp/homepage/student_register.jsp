@@ -117,13 +117,13 @@
 	  
 	  <br><br>
 	  
-	  <div class="form-group col-lg-offset-4 date">
-	  	<label for="entryTime">入职时间</label>
-	  	<input type="date" class="form-control" id="entryTime" name="entryTime" value="<s:property value="entryTime"/>" placeholder="">
-	  </div> 
-	  <div class="form-group">
-	  	<span style="color:red">*</span>
-	  </div>
+<!-- 	  <div class="form-group col-lg-offset-4 date"> -->
+<!-- 	  	<label for="entryTime">入职时间</label> -->
+<%-- 	  	<input type="date" class="form-control" id="entryTime" name="entryTime" value="<s:property value="entryTime"/>" placeholder=""> --%>
+<!-- 	  </div>  -->
+<!-- 	  <div class="form-group"> -->
+<!-- 	  	<span style="color:red">*</span> -->
+<!-- 	  </div> -->
 	  
 	  <br> <br>
 	 
@@ -226,7 +226,8 @@
     {    	
     	if(data.register_status == "0")
     	{    		
-    		alert("注册成功");
+    		alert("注册成功, 您现在可以登录了");
+    		window.location.href = "/login";
     	}
     	else if(data.register_status == "1")
     	{
