@@ -248,8 +248,9 @@ public class InformationAction extends FileUploadBaseAction{
 	{
 		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
         {
-			util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
-			String inserted_file_path = util.Util.ProfilePhotoPath + fileFileName;
+			util.Util.deleteFile(util.Util.RootPath + now_user.getProfilePhotoPath());
+			util.Util.saveFile(file, now_user.getId() + fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
+			String inserted_file_path = util.Util.ProfilePhotoPath + now_user.getId() + fileFileName;
             now_user.setProfilePhotoPath(inserted_file_path);
         }
 		
