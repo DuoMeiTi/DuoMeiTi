@@ -211,10 +211,12 @@ public class InformationAction extends FileUploadBaseAction {
 	{
 		
 		System.out.println("AdminAction.adminInformationChange():");
-		
 //		System.out.println("user_id" + now_user.getId());
 		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
         {
+			//System.out.println("path"+util.Util.RootPath + now_user.getProfilePhotoPath());
+			util.Util.deleteFile(util.Util.RootPath + now_user.getProfilePhotoPath());
+			
 			util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
 			String inserted_file_path = util.Util.ProfilePhotoPath + fileFileName;
             now_user.setProfilePhotoPath(inserted_file_path);
