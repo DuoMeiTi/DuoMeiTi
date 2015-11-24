@@ -40,12 +40,20 @@ public class InformationAction extends FileUploadBaseAction{
 	private String sex;
 	private String username;
 	
-	
+	private String time;
 	
 	
 	
 	
 
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
 
 	public String getCollege() {
 		return college;
@@ -227,6 +235,11 @@ public class InformationAction extends FileUploadBaseAction{
 		studentId=now_student.getStudentId();
 		entryTime=now_student.getEntryTime();
 		college=now_student.getCollege();
+		if(entryTime != null){
+			time = entryTime.toString();
+		}
+		System.out.println("time:"+entryTime);
+
 		
 		return ActionSupport.SUCCESS;
 	}

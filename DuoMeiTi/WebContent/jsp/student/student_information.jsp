@@ -67,7 +67,7 @@
 			</div>
 			<div class="form-group col-lg-offset-1">
 				<label for="entryTime">入职时间</label>
-				<input type="date" class="form-control" id="entryTime" name="entryTime" value="<s:property value="entryTime"/>">
+				<input type="date" class="form-control" id="entryTime" name="entryTime" value="<s:property value="time"/>" />
 			</div>
 			
 			<br><br><br>
