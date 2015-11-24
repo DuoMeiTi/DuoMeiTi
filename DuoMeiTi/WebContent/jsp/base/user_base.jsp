@@ -7,9 +7,11 @@
         <ul class="nav navbar-right">
             <li id="welcome_word">
             	欢迎您: <span id="login_user_name">
-            	<s:property value="#session.username"/>,
+<%--             	<s:property value="#session.username"/>, --%>
             	<s:property value="#session.fullName"/>
             	</span>
+            	
+            	
             	            	
             	<s:if test="#session.role.equals(@util.Const@AdminRole)">
             		(您是管理员)
@@ -18,7 +20,7 @@
             		(您是在职学生)
             	</s:elseif>
             	<s:else>
-            		(您是在职学生转成的管理员)
+            		(您是有管理员权限的在职学生)
             	</s:else>
             	
             	

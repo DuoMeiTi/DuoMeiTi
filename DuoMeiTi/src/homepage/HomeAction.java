@@ -66,6 +66,8 @@ public class HomeAction extends PageGetBaseAction
 
 	public String execute() throws Exception
 	{ 
+		System.out.println("******************");
+		System.out.println(util.Util.RootPath);
 		Session session = model.Util.sessionFactory.openSession();
 		
 		final int MaxRes = 8;
