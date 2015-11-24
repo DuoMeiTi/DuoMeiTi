@@ -216,9 +216,9 @@ public class InformationAction extends FileUploadBaseAction {
         {
 			//System.out.println("path"+util.Util.RootPath + now_user.getProfilePhotoPath());
 			util.Util.deleteFile(util.Util.RootPath + now_user.getProfilePhotoPath());
-			
-			util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
-			String inserted_file_path = util.Util.ProfilePhotoPath + fileFileName;
+			//保存文件时文件名前面加上用户ID，防止文件重复
+			util.Util.saveFile(file, now_user.getId() + fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
+			String inserted_file_path = util.Util.ProfilePhotoPath + now_user.getId() + fileFileName;
             now_user.setProfilePhotoPath(inserted_file_path);
         }
 		
