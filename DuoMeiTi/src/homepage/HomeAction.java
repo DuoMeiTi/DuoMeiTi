@@ -46,8 +46,9 @@ public class HomeAction extends PageGetBaseAction
 			User user = new User();
 			user.setUsername("admin");
 			user.setPassword("admin");
-			user.setPassword("full_admin");
 			
+			user.setFullName("full_admin");
+
 			model.AdminProfile ap = new model.AdminProfile();
 			ap.setUser(user);
 			
