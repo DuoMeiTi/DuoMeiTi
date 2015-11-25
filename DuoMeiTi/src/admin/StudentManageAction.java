@@ -282,6 +282,8 @@ public class StudentManageAction extends ActionSupport{
 		return SUCCESS;
 	}
 	public String searchStudent() throws Exception{
+		
+		System.out.println("CNTTTTTTTTTTTT********");
 		String conditions;
 		if(studentName.length()>0&&studentId.length()>0)conditions="where s.studentId="+studentId+" and "+"s.user.fullName='"+studentName+"'";
 		else if(studentName.length()>0)conditions="where s.user.fullName='"+studentName+"'";
@@ -331,7 +333,8 @@ public class StudentManageAction extends ActionSupport{
 	
 		if(search_select.equals("2")){//按学号查找
 			Session session=model.Util.sessionFactory.openSession();
-			Criteria q1 = session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", name_id));
+			Criteria q1 = session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", name_id))
+					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
 			student_list=q1.list();
 			
 			
@@ -345,7 +348,11 @@ public class StudentManageAction extends ActionSupport{
 				Collections.reverse(student_list);
 				edit_student = student_list.get(0);
 				//查找student对应的user
-				Criteria q2 = session.createCriteria(User.class).add(Restrictions.eq("username",edit_student.getUser().getUsername())); //hibernate session创建查询
+				Criteria q2 = session.createCriteria(User.class)
+						.add(Restrictions.eq("username",edit_student.getUser().getUsername()))
+											
+						
+						; //hibernate session创建查询
 				user_list=q2.list();
 				Collections.reverse(user_list);
 				edit_user = user_list.get(0);
@@ -369,7 +376,8 @@ public class StudentManageAction extends ActionSupport{
 				model.StudentProfile cnt_stu = (model.StudentProfile)edit_student;
 				Criteria sc = session.createCriteria(model.ExamStuScore.class)
 							   .add(Restrictions.eq("stuPro.id",cnt_stu.id ))
-							   .addOrder(Order.desc("id"));
+							   .addOrder(Order.desc("id"))
+							   ;
 				List<ExamStuScore> temp = sc.list();
 				if(temp.size()>0)
 				{
@@ -409,8 +417,21 @@ public class StudentManageAction extends ActionSupport{
 				edit_user = user_list.get(0);
 //				System.out.println(edit_user);
 //				System.out.println(edit_user.getId());
-				Criteria q2 = session.createCriteria(StudentProfile.class).add(Restrictions.eq("user.id", edit_user.getId()));
+				Criteria q2 = session.createCriteria(StudentProfile.class)
+						.add(Restrictions.eq("user.id", edit_user.getId()))
+						.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));				
+				
 				student_list=q2.list();
+				if(student_list.isEmpty())
+				{
+					isEmpty = "0";
+					session.close();
+					return SUCCESS;
+				}
+					
+				
+				
+				
 				Collections.reverse(student_list);
 				
 				edit_student = student_list.get(0);
@@ -591,11 +612,16 @@ public String saveStudentInformation() throws Exception
 	
 	
 	public String studentInformation() throws Exception{
+		
+		System.out.println("JJJJJJJJJJ");
 		collegeSelect = Const.collegeSelect;
 		sexSelect = Const.sexSelect;
 		
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(model.StudentProfile.class);
+		Criteria q = session.createCriteria(model.StudentProfile.class)
+				.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
+		
+		
 		student_list = q.list();
 		score_list = new ArrayList<ExamStuScore>();
 		for(int i = 0; i<student_list.size(); i++)

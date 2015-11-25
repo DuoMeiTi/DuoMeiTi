@@ -56,12 +56,15 @@ public class UserAction
 	public String login() throws Exception
 	{
 		final String login_fail = "login_fail";
+		
+		this.status = "默认！！！";
 		if(ServletActionContext.getRequest().getMethod().equalsIgnoreCase("get"))
 		{
 			return ActionSupport.SUCCESS;
 		}
 		if(username == null || username == "")
 		{
+			this.status = "用户名不能为空";
 			return login_fail;
 		}
 
@@ -92,13 +95,20 @@ public class UserAction
 			ul = session.createCriteria(model.StudentProfile.class).add(Restrictions.eq("user.id", u.getId())).list();
 			if(!ul.isEmpty())
 			{
-				role = util.Const.StudentRole;
-				if(((StudentProfile)ul.get(0)).getIsUpgradePrivilege() == 1)
+				model.StudentProfile loginStudent = (StudentProfile)ul.get(0);
+				if(loginStudent.isPassed != model.StudentProfile.Passed)
 				{
-					role = util.Const.StudentToAdminRole; 					
+					session.close();
+					return login_fail;
 				}
 				
-				ActionContext.getContext().getSession().put("student_id",((StudentProfile)ul.get(0)).getId());
+				role = util.Const.StudentRole;
+				if(loginStudent.getIsUpgradePrivilege() == 1)
+				{
+					role = util.Const.StudentToAdminRole;
+				}
+				
+				ActionContext.getContext().getSession().put("student_id", loginStudent.getId());
 			}
 			else 
 			{

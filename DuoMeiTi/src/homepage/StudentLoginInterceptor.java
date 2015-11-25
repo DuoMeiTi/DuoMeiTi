@@ -14,6 +14,10 @@ public class StudentLoginInterceptor extends AbstractInterceptor
     	String role = (String)invocation.getInvocationContext().getSession().get("role");
     	if(role == null) return not_login;
     	
+    	
+    	
+    	
+    	
     	if(role.equals(util.Const.StudentRole) || role.equals(util.Const.StudentToAdminRole))
     	{
     		System.out.println("he can login");

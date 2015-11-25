@@ -8,7 +8,16 @@
 
 <div class="row">
 	<div class="col-md-offset-3">
-		<h1>登录失败, 请重新登录 </h1>
+		
+		<h1>
+			登录失败可能有如下几个原因：
+			<hr/>
+			<p> 1.用户名错误 </p> 
+			<p> 2.密码错误 </p>
+			<p> 3.学生账号审核还未通过</p>
+		
+		
+		</h1>
 	</div>
 	<div class="col-md-offset-3">
 		<br/>		
