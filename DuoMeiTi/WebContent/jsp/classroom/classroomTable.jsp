@@ -11,6 +11,9 @@
 			<th>编辑</th>
 		</s:if>
 		<th>管理教室</th>
+		<s:if test="makeUrl().contains(@util.Const@AdminRole)">
+		<th>删除</th>
+		</s:if>
 	</tr>
 	
 	<s:iterator value="classroom_list" var="i" status="index">
@@ -37,6 +40,15 @@
 			
 			   <a href="classroom_detail?classroomId=<s:property value="#i.id"/>" class="btn btn-info">详细</a>
 			</td>
+			
+			<s:if test="makeUrl().contains(@util.Const@AdminRole)">
+				<td>
+					<button class="btn btn-info delete">删除</button>
+				</td>
+			</s:if>
+			
+			
+			
 		</tr>		
 	</s:iterator>
 </table>

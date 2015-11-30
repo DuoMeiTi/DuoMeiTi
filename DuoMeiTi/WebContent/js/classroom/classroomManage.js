@@ -1,4 +1,33 @@
 
+
+$(document).on("click", ".delete", function(){
+	deleteID = $(this).parents("[classroomId]").attr("classroomId");
+	alert("delete:" + deleteID);
+	
+	$.ajax({
+		url : 'classroomManageNew_classroomDelete',
+		type : 'post',
+		dataType : 'json',
+		data : {
+			"deleteID" : deleteID
+		},
+		success : classroomDeleteCallback
+		
+	})
+})
+
+function classroomDeleteCallback(data){
+/*	alert("callBack:" + data.status);*/
+	if(data.status=="2"){
+		alert("请先将教室中的设备移除再删除教室ffgr！");
+	}
+	else{
+		location.reload(); 
+		alert("删除成功2333！");
+		
+	}
+}
+
 function getParam() {
 	//url例子：XXX.aspx?ID=" + ID + "&Name=" + Name；  
 	var url = location.search; //获取url中"?"符以及其后的字串  

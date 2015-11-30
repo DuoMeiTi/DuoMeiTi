@@ -9,6 +9,7 @@ import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -17,7 +18,10 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import model.CheckRecord;
 import model.Classroom;
+import model.Repertory;
+import model.RoomPicture;
 import model.StudentProfile;
 import model.TeachBuilding;
 
@@ -41,6 +45,7 @@ public class ClassroomManageAction extends ActionSupport {
 	int classroomId;
 	
 	String classroomManageJsp;
+	String deleteID;
 //	String url;
 	
 	public String makeUrl()
@@ -48,7 +53,61 @@ public class ClassroomManageAction extends ActionSupport {
 		return ServletActionContext.getRequest().getRequestURI();
 	}
 	
-
+	public String classroomDelete() throws Exception{
+		System.out.println("classroomDelete"+deleteID);
+		//
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria repertory_criteria = session.createCriteria(Repertory.class);
+		repertory_criteria.add(Restrictions.eq("classroom.id", Integer.parseInt(deleteID)));
+		List<Repertory> repertory_list= repertory_criteria.list();
+		
+		if(repertory_list.isEmpty()){//没有设备，直接删除
+			System.out.println("empty");
+			status = "1";
+			//删除对应的教室照片与数据库
+			Criteria picture_criteria = session.createCriteria(RoomPicture.class);
+			picture_criteria.add(Restrictions.eq("class_id", Integer.parseInt(deleteID)));
+			List<RoomPicture> picture_list= picture_criteria.list();
+			for(RoomPicture picture : picture_list){
+				System.out.println(util.Util.RootPath+picture.path);
+				util.Util.deleteFile(util.Util.RootPath+picture.path);
+				session.beginTransaction();
+				session.delete(picture);
+				Transaction t = session.getTransaction();
+				t.commit();
+			}
+			//删除检查记录
+			Criteria check_criteria = session.createCriteria(CheckRecord.class);
+			check_criteria.add(Restrictions.eq("classroom.id", Integer.parseInt(deleteID)));
+			List<CheckRecord> check_list = check_criteria.list();
+			for(CheckRecord checkrecord : check_list){
+				System.out.println(checkrecord);
+				session.beginTransaction();
+				session.delete(checkrecord);
+				Transaction t = session.getTransaction();
+				t.commit();
+			}
+			//删除课表
+			Criteria class_criteria = session.createCriteria(Classroom.class);
+			class_criteria.add(Restrictions.eq("id", Integer.parseInt(deleteID)));
+			List<Classroom> class_list = class_criteria.list();
+			Classroom classroom = class_list.get(0);
+			System.out.println(util.Util.RootPath+classroom.getClass_schedule_path());
+			util.Util.deleteFile(util.Util.RootPath + classroom.getClass_schedule_path());
+			//删除教室
+			session.beginTransaction();
+			session.delete(classroom);
+			Transaction t = session.getTransaction();
+			t.commit();
+		}
+		else{//有对应设备，无法直接删除
+			System.out.println(repertory_list);
+			status = "2";
+		}
+		session.close();
+		return SUCCESS;
+	}
+	
 	public String classroomList() throws Exception {
 		
 		if(makeUrl().contains(util.Const.AdminRole))			
@@ -293,6 +352,14 @@ public class ClassroomManageAction extends ActionSupport {
 //	public void setUrl(String url) {
 //		this.url = url;
 //	}
+
+	public String getDeleteID() {
+		return deleteID;
+	}
+
+	public void setDeleteID(String deleteID) {
+		this.deleteID = deleteID;
+	}
 
 	public String getClassroomManageJsp() {
 		return classroomManageJsp;
