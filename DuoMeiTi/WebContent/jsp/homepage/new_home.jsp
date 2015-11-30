@@ -10,7 +10,7 @@
 		  <div class="front-wrap">
 		    <div class="home-news">
 		      <div class="usoft-listview-header">
-		        <h3>通知公告          <small>announcement </small> </h3>
+		        <h3>通知公告          <!-- <small>announcement </small> --> </h3>
 		        <span class="usoft-listview-more">						          
 					<strong><a href="home/more_announcement">更多»</a></strong>						
 		        </span>
@@ -61,7 +61,7 @@
 			  <div class="front-wrap">
 			    <div class="home-news">
 			      <div class="usoft-listview-header">
-			        <h3>检查教室 <small>check-classroom</small> </h3>
+			        <h3>检查教室 <!-- <small>check-classroom</small> --> </h3>
 			        <span class="usoft-listview-more">
 						<strong><a href="home/more_classroom">更多»</a></strong>
 			        </span>
@@ -126,7 +126,7 @@
 		  <div class="front-wrap">
 		    <div class="home-news">
 		      <div class="usoft-listview-header">
-		        <h3>设备维修记录          <small>Equipment - maintenance - records </small> </h3>
+		        <h3>设备维修记录          <!-- <small>Equipment - maintenance - records </small> --> </h3>
 		        <span class="usoft-listview-more">					          
 				<strong><a href="home/more_equipment_maintenance">更多»</a></strong>						
 		        </span>
@@ -159,8 +159,8 @@
 		<div class="">
 		  <div class="front-wrap">
 		    <div class="home-news">
-		      <div class="usoft-listview-header">
-		        <h3>设备更换提醒         <small>Equipment- replacement- reminder </small> </h3>
+		      <div class="usoft-listview-header" >
+		        <h3>设备更换提醒         <!-- <small>Equipment- replacement- reminder </small> --> </h3>
 		        <span class="usoft-listview-more">					          
 				<strong><a href="home/more_equipment_replacement">更多»</a></strong>						
 		        </span>

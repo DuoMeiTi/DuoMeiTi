@@ -10,7 +10,7 @@
 		    <div class="home-news">
 		      
 		      <div class="usoft-listview-header">
-		        <h3>通讯录          <small>Contacts </small> </h3> 
+		        <h3>通讯录          <!-- <small>Contacts </small> --> </h3> 
 		      </div>
 		      <br/>
 		      

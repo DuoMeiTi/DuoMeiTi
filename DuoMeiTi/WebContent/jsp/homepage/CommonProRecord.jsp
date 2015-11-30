@@ -7,7 +7,7 @@
 		  <div class="front-wrap" style="height:800px">
 		    <div class="home-news">
 		      <div class="usoft-listview-header">
-		        <h3>常见问题          <small>COMMONPROBLEM </small> </h3>
+		        <h3>常见问题          <!-- <small>COMMONPROBLEM </small> --> </h3>
 
 		      </div>
 		      

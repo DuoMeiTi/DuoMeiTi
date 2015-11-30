@@ -24,12 +24,18 @@
 	</div>
 	<style>
 		.teachbuilding-div {
-			margin: 10%;
+			margin:10%;
 			height:100px;
 			line-height:100px;
 			border:1px solid black;
 			text-align:center;
+			vertical-align:middle;
+			font-size:35px;
 		} 
+		
+		a:hover{
+			color:black;
+		}
 	</style>
 </layout:override>
 
