@@ -19,11 +19,11 @@ $(document).on("click", ".delete", function(){
 function classroomDeleteCallback(data){
 /*	alert("callBack:" + data.status);*/
 	if(data.status=="2"){
-		alert("请先将教室中的设备移除再删除教室ffgr！");
+		alert("请先将教室中的设备移除再删除教室！");
 	}
 	else{
 		location.reload(); 
-		alert("删除成功2333！");
+		/*alert("删除成功！");*/
 		
 	}
 }
