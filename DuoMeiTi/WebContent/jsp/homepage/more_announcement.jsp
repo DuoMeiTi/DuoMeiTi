@@ -8,9 +8,9 @@
     
 		<div class="">
 		
-<!-- 		  <div class="front-wrap" > -->
+		  <div class="front-wrap" style="height:auto!important;">
 		    <div class="home-news" >
-		      
+
 		      <div class="usoft-listview-header">
 		        <h3>通知公告          <small>ANNOUNCEMENT </small> </h3> 
 		      </div>
@@ -21,7 +21,9 @@
 		      </div>
 		    
 		    </div>
-<!-- 		  </div>  -->
+		  </div> 
+		  
+		  
 		</div>
     </div>
 </div>
