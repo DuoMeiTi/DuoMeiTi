@@ -2,7 +2,7 @@
 
 $(document).on("click", ".delete", function(){
 	deleteID = $(this).parents("[classroomId]").attr("classroomId");
-	alert("delete:" + deleteID);
+	/*alert("delete:" + deleteID);*/
 	
 	$.ajax({
 		url : 'classroomManageNew_classroomDelete',
