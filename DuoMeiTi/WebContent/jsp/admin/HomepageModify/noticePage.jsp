@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
- <%-- <layout:override name="main_content">  --%>
+
+
  <layout:override name="mycontent">  
 
 

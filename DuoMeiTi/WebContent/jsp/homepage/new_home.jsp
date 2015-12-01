@@ -20,26 +20,26 @@
 		      
 		      
 		        <div class="news-documents documents-list ">
-		         	
-		         	<s:iterator value="notice_list" var="i" status="index" >
+		         	<%@ include file="/jsp/homepage/widgets/more_announcementTable.jsp" %>
+<%-- 		         	<s:iterator value="notice_list" var="i" status="index" > --%>
 		         	 	
-	         	 		<div class="usoft-listview-basic">
-						  <ul>
-						    <li>
-						      <span class="usoft-listview-item-date">
-						      		<s:property value="#i.time.toString()"/> 
-							  </span>
-						      <span>
-						      	<a href="#" > 
-						      		<s:property value="#i.title"/> 
-						      		:
-						      		<s:property value="#i.content"/>
-						      	</a>
-						      </span>
-						    </li>
-						  </ul>
-						</div>
-		         	</s:iterator>	        	
+<!-- 	         	 		<div class="usoft-listview-basic"> -->
+<!-- 						  <ul> -->
+<!-- 						    <li> -->
+<!-- 						      <span class="usoft-listview-item-date"> -->
+<%-- 						      		<s:property value="#i.time.toString()"/>  --%>
+<!-- 							  </span> -->
+<!-- 						      <span> -->
+<!-- 						      	<a href="#" >  -->
+<%-- 						      		<s:property value="#i.title"/>  --%>
+<!-- 						      		: -->
+<%-- 						      		<s:property value="#i.content"/> --%>
+<!-- 						      	</a> -->
+<!-- 						      </span> -->
+<!-- 						    </li> -->
+<!-- 						  </ul> -->
+<!-- 						</div> -->
+<%-- 		         	</s:iterator>	        	 --%>
 		        
 
 		

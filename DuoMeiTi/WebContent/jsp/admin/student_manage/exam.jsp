@@ -6,6 +6,9 @@
 <!-- Button trigger modal -->
 <button type="button" id="addExam" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#emModal">添加题目</button>
 <!-- Modal -->
+
+
+
 <div class="modal fade" id="emModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
   <div class="modal-dialog modal-lg" role="document">

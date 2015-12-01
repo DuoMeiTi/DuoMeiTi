@@ -82,6 +82,17 @@ public class NoticeAction extends PageGetBaseAction {
 		
 		session.close();
 		
+		System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJ--------------------------");
+
+		for(model.Notice n:notice)
+		{
+			System.out.println(n.content);
+			System.out.println("===================" + n.content.length());
+		}
+		
+		
+		
+		
 		if(this.getIsAjaxTransmission()) // 这是ajax 传输
 		{
 			file_path_html = util.Util.getJspOutput("/jsp/admin/HomepageModify/notice.jsp");
@@ -93,7 +104,7 @@ public class NoticeAction extends PageGetBaseAction {
 	}
 	//没有分页时
 	public String execute() throws Exception{
-		//System.out.println("NoticeAction.execute()");
+//		System.out.println("NoticeAction.execute()");
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c = session.createCriteria(Notice.class);
 		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);

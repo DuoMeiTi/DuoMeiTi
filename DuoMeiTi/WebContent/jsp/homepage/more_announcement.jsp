@@ -8,8 +8,8 @@
     <!--news base template-->
 		<div class="">
 		
-		  <div class="front-wrap" style="height:500px">
-		    <div class="home-news">
+		  <div class="front-wrap" >
+		    <div class="home-news" >
 		      
 		      <div class="usoft-listview-header">
 		        <h3>通知公告          <small>ANNOUNCEMENT </small> </h3> 

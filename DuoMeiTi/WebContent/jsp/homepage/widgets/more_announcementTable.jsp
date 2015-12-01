@@ -11,11 +11,14 @@
 						      		<s:property value="#i.time.toString()"/>
 						      </span>
 						      <span>
-						      	<a href="#" >
-						      		<s:property value="#i.title"/>
-						      		:
-						      		<s:property value="#i.content"/>
+						      	<a >
+<%-- 						      		<s:property value="#i.title"/> --%>
+<!-- 						      		: -->
+						      		<s:property value="#i.content" escape="false"/>
 						      	</a>
+						      	
+						      	<hr/>
+
 						      </span>
 						    </li>
 						  </ul>	
