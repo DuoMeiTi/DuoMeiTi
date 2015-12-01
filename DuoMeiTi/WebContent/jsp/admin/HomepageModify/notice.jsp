@@ -36,8 +36,6 @@
 <div class="modal fade" id="notice-modal" tabindex="-1" role="dialog" aria-labelledby="noticeAddModalLabel">
 
 
-<!-- 	<div class="modal fade" id="notice-modal" tabindex="-1" role="dialog" -->
-<!-- 	aria-labelledby="noticeAddModalLabel">aria-labelledby什么意思？？？？？  -->
 
 	<div class="modal-dialog modal-lg" role="document" >
 		<div class="modal-content">
@@ -52,15 +50,19 @@
 			
 			
 			<form >
+			
+			
 				<input style="visibility:hidden" id="submit_type" value="add" />
-				
-				<div class="form-inline form-group">
-					<label class="control-label" for="notice_title">标题</label>
+								
+<!-- 				<div class="form-inline form-group"> -->
+<!-- 					<label class="control-label" for="notice_title">标题</label> -->
 					
-					<input type="text" class="form-control" id="notice_title" >			</div>
+<!-- 					<input type="text" class="form-control" id="notice_title" >			 -->
+					
+<!-- 				</div> -->
 
 				<div class="form-inline form-group">
-					<label class="control-label " for="notice_content">内容</label>
+<!-- 					<label class="control-label " for="notice_content">内容</label> -->
 					
 					
 					
@@ -119,7 +121,8 @@
 	<table class="table table-bordered" id="notice_table">
 
 		<tr class="active">
-			<th>公告标题</th>
+			<th style="display:none;">公告标题</th>
+			<th >公告内容</th>
 			<th>时间</th>
 			<th>编辑</th>
 			<th>删除</th>
@@ -135,7 +138,9 @@
 			notice_title="<s:property value="#n.title"/>"
 			notice_time="<s:property value="#n.time"/>" >
 			
-				<td><s:property value="#n.title" /></td>
+				<td style="display:none;"><s:property value="#n.title" /></td>
+				
+				<td ><s:property value="#n.content" escape="false"/></td>
 				<td><s:property value="#n.time" /></td>
 				<td>
 					<button type="button" class="btn btn-primary " id="edit" 
@@ -194,7 +199,8 @@
 		var content = $(".editor").html();
 		
 		var id =  $("#hidden_id").val();
-
+		
+		alert("FJJFJFJFJJ-----")
 		
 		$.ajax({
 			url : '/admin/HomepageModify/notice/notice_add',
@@ -233,7 +239,7 @@
 		$("#notice_title").val(select_notice_title);
 		
 // 		$("#notice_content").val(select_notice_content);
-		alert(select_notice_content);
+// 		alert(select_notice_content);
 		$(".editor").html(select_notice_content);
 		
 		$("#hidden_id").val(select_notice_id);

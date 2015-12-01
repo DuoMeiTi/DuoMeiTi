@@ -82,7 +82,7 @@ public class NoticeAction extends PageGetBaseAction {
 		
 		session.close();
 		
-		System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJ--------------------------");
+//		System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJ--------------------------");
 
 		for(model.Notice n:notice)
 		{
@@ -125,14 +125,15 @@ public class NoticeAction extends PageGetBaseAction {
 		Session session = model.Util.sessionFactory.openSession();
 		if(submit_type.equals("add")){
 		System.out.println("type:add");
-		Notice notice3 = new Notice();
-		notice3.setTitle(title);
-		notice3.setContent(content);
-		notice3.setTime(new Date(new java.util.Date().getTime()));
-		session.beginTransaction();
-		session.save(notice3);
-		session.getTransaction().commit();
-		status ="ok";
+			Notice notice3 = new Notice();
+			
+			notice3.setTitle(title);
+			notice3.setContent(content);
+			notice3.setTime(new Date(new java.util.Date().getTime()));
+			session.beginTransaction();
+			session.save(notice3);
+			session.getTransaction().commit();
+			status ="ok";
 		}
 		else if(submit_type.equals("update")){
 			System.out.println("type:update");
