@@ -8,7 +8,7 @@
     <!--news base template-->
 		<div class="">
 		
-		  <div class="front-wrap" style="height:500px">
+		  <div class="front-wrap" style="height:auto!important;">
 		    <div class="home-news">
 		      
 		      <div class="usoft-listview-header">
