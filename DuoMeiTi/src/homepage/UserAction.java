@@ -154,6 +154,7 @@ public class UserAction
 	public String logout() throws Exception
 	{		
 	    ActionContext.getContext().getSession().remove("username");
+	    ActionContext.getContext().getSession().remove("fullName");
 	    ActionContext.getContext().getSession().remove("role");
 	    ActionContext.getContext().getSession().remove("user_id");
 	    return ActionSupport.SUCCESS;

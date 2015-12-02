@@ -95,8 +95,8 @@
 	</package>
 	
 	
-<!-- 	新classroom -->
-	<package name="newAdminClassroom" namespace="/admin/classroom" extends="AdminDefault,newClassroom">
+<!-- 	新classroom,注意，多继承时， AdminDefault应该放在后面 -->
+	<package name="newAdminClassroom" namespace="/admin/classroom" extends="newClassroom, AdminDefault">
 		
 	</package>
 <!-- end	新classroom -->

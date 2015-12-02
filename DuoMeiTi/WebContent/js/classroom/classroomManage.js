@@ -175,6 +175,12 @@ $(document).on("click", "#addClassroom", function (){
 	studentNumber = $("#input_principal_student_number").val();
 	classroom_num = $("#input_classroom_num").val();
 	
+	if(classroom_num=="")
+	{
+		$("#exist").text("教室号为空，添加失败");
+		return ;
+	}
+	
 //	alert(classroom_num)
 //	studentId = 
 
