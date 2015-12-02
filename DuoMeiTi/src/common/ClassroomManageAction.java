@@ -124,8 +124,8 @@ public class ClassroomManageAction extends ActionSupport {
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
 		classroom_criteria.addOrder(Order.asc("classroom_num"));
 		classroom_list= classroom_criteria.list();
-		
 		session.close();
+		System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH "+"  "+classroom_list.size());
 		return SUCCESS;
 	}
 	

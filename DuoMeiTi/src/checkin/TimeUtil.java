@@ -32,6 +32,12 @@ public class TimeUtil {
 		return strtodate;
 	}
 	
+	static public Timestamp getTimestamp(int hour,int minute)
+	{
+		Timestamp nowtime=null;
+		return nowtime;
+	}
+	
 	static public Timestamp getCalendartoTimestamp(Calendar ca)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

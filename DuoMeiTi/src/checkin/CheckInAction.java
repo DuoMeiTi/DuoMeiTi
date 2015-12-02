@@ -45,7 +45,7 @@ public class CheckInAction extends PageGetBaseAction{
 			 if(role!=util.Const.StudentRole){
 				 result="你不能签到";
 			 }
-			 username = (String) ServletActionContext.getContext().getSession().get("username");
+			username = (String) ServletActionContext.getContext().getSession().get("username");
 			CheckInRecordDao bd = (CheckInRecordDao) DAOFactory.getDao(CheckInRecord.class);
 			bd.checkIn(username);
 			result="签到成功";
