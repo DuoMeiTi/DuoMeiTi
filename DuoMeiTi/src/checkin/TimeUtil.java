@@ -32,10 +32,18 @@ public class TimeUtil {
 		return strtodate;
 	}
 	
+	static public Timestamp getNowTimestamp(){
+		Calendar c = Calendar.getInstance();
+		Timestamp time = new Timestamp(c.getTimeInMillis());
+		return time;
+	}
+	
 	static public Timestamp getTimestamp(int hour,int minute)
 	{
-		Timestamp nowtime=null;
-		return nowtime;
+		Calendar c = Calendar.getInstance();
+		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH),c.get(Calendar.DATE), hour,minute);
+		Timestamp time = new Timestamp(c.getTimeInMillis());
+		return time;
 	}
 	
 	static public Timestamp getCalendartoTimestamp(Calendar ca)

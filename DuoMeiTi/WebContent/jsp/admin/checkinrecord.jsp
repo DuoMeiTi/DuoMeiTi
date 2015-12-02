@@ -85,8 +85,12 @@ window.onload=function(){
 		var nowdate = new Date();
 		var predate = new Date();
 		predate.setDate(nowdate.getDate()-7);
-		document.getElementById("endTime").value = nowdate.getFullYear()+"-"+(nowdate.getMonth()+1)+"-"+nowdate.getDate();
-		document.getElementById("startTime").value = predate.getFullYear()+"-"+(predate.getMonth()+1)+"-"+predate.getDate();
+		var nowday = nowdate.getDate()<10?"0"+nowdate.getDate():nowdate.getDate();
+		var preday = predate.getDate()<10?"0"+predate.getDate():predate.getDate();
+		var nowmonth = nowdate.getMonth()+1<10?"0"+nowdate.getMonth()+1:nowdate.getMonth()+1;
+		var premonth = predate.getMonth()+1<10?"0"+predate.getMonth()+1:predate.getMonth()+1;
+		document.getElementById("endTime").value = nowdate.getFullYear()+"-"+nowmonth+"-"+nowday;
+		document.getElementById("startTime").value = predate.getFullYear()+"-"+premonth+"-"+preday;
 	}
 	function sendRequestPage(currentPageNum) {
 		var starttime = $("#startTime").val();

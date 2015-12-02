@@ -14,6 +14,7 @@ import util.PageGetBaseAction;
 import util.Util;
 import model.CheckInRecord;
 import model.StudentProfile;
+import checkin.CheckInRule.Time;
 
 import com.opensymphony.xwork2.ActionContext;
 
@@ -44,6 +45,36 @@ public class CheckInAction extends PageGetBaseAction{
 			 
 			 if(role!=util.Const.StudentRole){
 				 result="你不能签到";
+				 return SUCCESS;
+			 }
+			 
+			 Calendar calendar = Calendar.getInstance();
+			 
+			 //检查当前时间是否可以签到
+			 if(!CheckInRule.isCheckInTime(calendar)){
+				 result="当前时间不能签到";
+				 return SUCCESS;
+			 }
+			 
+			 //检查之前是否已经签过了
+			 int hour = calendar.get(Calendar.HOUR_OF_DAY);
+			 int minute = calendar.get(Calendar.MINUTE);
+			 Timestamp starttime=null;
+			 Timestamp nowtime=null;
+			 if(hour>=12){
+				 Time time = CheckInRule.getAmStartTime();
+				  starttime = TimeUtil.getTimestamp(time.hour,time.minute);
+				  nowtime = TimeUtil.getNowTimestamp();
+			 }
+			 else{
+				 Time time = CheckInRule.getPmStartTime();
+				 starttime = TimeUtil.getTimestamp(time.hour,time.minute);
+				 nowtime = TimeUtil.getNowTimestamp();
+			 }
+			 int times = getCheckInRecordByIdandTime(starttime,nowtime);
+			 if(times>0){
+				 result = "签到一次就够了";
+				 return SUCCESS;
 			 }
 			username = (String) ServletActionContext.getContext().getSession().get("username");
 			CheckInRecordDao bd = (CheckInRecordDao) DAOFactory.getDao(CheckInRecord.class);
@@ -56,6 +87,20 @@ public class CheckInAction extends PageGetBaseAction{
 			result="签到失败";
 		} 
 		return SUCCESS;
+	}
+	
+	public int getCheckInRecordByIdandTime(Timestamp starttime,Timestamp endtime){
+		Session session = model.Util.sessionFactory.openSession();
+		model.User user = (model.User)session.createCriteria(model.User.class)
+				 .add(Restrictions.eq("username", username)).uniqueResult();
+		StudentProfile student =(StudentProfile) session.createCriteria(model.StudentProfile.class)
+				 .add(Restrictions.eq("user.id", user.id))
+				 .uniqueResult();
+		Criteria criteria = session.createCriteria(CheckInRecord.class).add(Restrictions.eq("student.id",student.id ));
+		criteria.add(Restrictions.between("recordtime", starttime, endtime));
+		int times = criteria.list().size();
+		session.close();
+		return times;
 	}
 	
 	public String setCheckInRule()
@@ -94,7 +139,9 @@ public class CheckInAction extends PageGetBaseAction{
 								 .add(Restrictions.eq("user.id", user.id))
 								 .uniqueResult();
 		Criteria criteria = session.createCriteria(CheckInRecord.class).add(Restrictions.eq("student.id",student.id ));
+		
 		criteria.addOrder(Order.desc("recordtime"));
+		
 		recordlist = this.makeCurrentPageList(criteria, 10);
 		if(this.getIsAjaxTransmission())
 		{

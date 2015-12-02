@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -98,6 +99,30 @@ public class CheckInRule {
 	public static Time getPmEndTime() {
 		Time time =  (Time) pmEndTime.clone();
 		return time;
+	}
+	
+	public static boolean isCheckInTime(Calendar ca){
+		int hour = ca.get(Calendar.HOUR_OF_DAY);
+		Date startTime;
+		Date endTime;
+		if(hour <= 12)
+		{
+			startTime = TimeUtil.getSqlDate(amStartTime.hour, amStartTime.minute);
+			endTime = TimeUtil.getSqlDate(amEndTime.hour, amEndTime.minute);
+		}
+		else
+		{
+			startTime = TimeUtil.getSqlDate(pmStartTime.hour, pmStartTime.minute);
+			endTime = TimeUtil.getSqlDate(pmEndTime.hour, pmEndTime.minute);
+		}
+		if(ca.after(startTime)&&ca.before(endTime))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	public static synchronized boolean SetAmTime(Date newStartTime,Date newEndTime)
