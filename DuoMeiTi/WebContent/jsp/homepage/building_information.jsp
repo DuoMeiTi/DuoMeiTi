@@ -30,7 +30,7 @@
 			border:1px solid black;
 			text-align:center;
 			vertical-align:middle;
-			font-size:2.3em;
+			font-size:2.0em;
 		} 
 		
 		a:hover{
