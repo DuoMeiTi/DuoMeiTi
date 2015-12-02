@@ -201,9 +201,16 @@ function addClassroomCallback(data) {
 	else if(data.status == "ok") {
 		$('#classroom_modal').modal('hide');
 		$(".classroomTableDiv").html(data.classroomHtml);
-//		window.location.href=window.location.href;  
-//		window.location.reload;
 	}
+	else if(data.status == "no_principal")
+	{
+		$("#exist").text("负责人学号不正确，添加失败");
+	}
+	else
+	{
+		alert("发生严重错误，不知名原因");
+	}
+	
 }
 
 

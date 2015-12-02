@@ -197,8 +197,21 @@ public class ClassroomManageAction extends ActionSupport {
 			
 			Criteria stu_criteria = session.createCriteria(StudentProfile.class);
 			stu_criteria.add(Restrictions.eq("studentId", studentNumber));
-			StudentProfile stu = (StudentProfile)stu_criteria.uniqueResult();
 			
+			List stu_list = stu_criteria.list();
+			
+			if(!studentNumber.equals("") && stu_list.isEmpty())
+			{
+				this.status = "no_principal";
+				System.out.println("IIIII************************");
+				session.close();
+				return SUCCESS;
+			}
+			
+			StudentProfile stu = null;
+			if(!stu_list.isEmpty())
+			stu = (StudentProfile)stu_list.get(0);
+
 			System.out.println("addClassroom: update***&&" + add_classroom_num);
 			
 			Classroom classroom = null;
