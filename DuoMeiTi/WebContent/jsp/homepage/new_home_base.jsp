@@ -31,24 +31,26 @@
 <link rel="stylesheet" type="text/css" media="screen" href="/new_homepage/style/home/content.css">
 
 
-<style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
+<style type="text/css">object,embed{-webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
 
 
 
 <body>
-  <a href="/">
-  	<div id="headerpic" style="height:80px;">
-	</div>
-  </a>
+<!--   <a href="/"> -->
+<!--   	<div style="height:80px"></div> -->
+<!--   </a> -->
     
     <div class="container" id="nav-container">
-
 	       
 	       
        <!--head content-->
        <div class="masthead">
 	         <!--Head title-->
-<!-- 	         <a href="/"><h1 class="muted head-title">大连理工大学基本科研业务费管理平台</h1></a> -->
+	         <a href="/">
+	         	<img id="headerpic"   src="/img/head_pic.jpg" style="width:100%;height:230px;">
+				</img>
+<!-- 	         	<h1 class="muted head-title">大连理工大学基本科研业务费管理平台</h1> -->
+	         </a>
 <!-- 	         <p class="head-title-low">Dalian University of Technology Fundamental Research Fund Management Platform</p> -->
 <!-- 	         <hr class="head-hr"> -->
 			        
