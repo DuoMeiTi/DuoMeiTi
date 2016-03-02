@@ -1,11 +1,12 @@
-	<%@ include file="/jsp/base/taglib.jsp"%>
+<%@ include file="/jsp/base/taglib.jsp"%>
 
 
 
 
 
 <layout:override name="mycontent">
-	<div class="modal fade" id="notice-modal" tabindex="-1" role="dialog"
+
+<div class="modal fade" id="notice-modal" tabindex="-1" role="dialog"
 	aria-labelledby="noticeAddModalLabel"><!--aria-labelledby什么意思？？？？？  -->
 	<div class="modal-dialog" role="document" style="width: 60%; height:400px" >
 		<div class="modal-content">
@@ -58,7 +59,7 @@
 	
 	<br />
 
-	<form class="form-inline" action="notice_add" method="POST "
+	<form class="form-inline" action="notice_add" method="POST"
 		id="notice_form">
 <!-- 
 		<button type="button" class="btn btn-primary " data-toggle="modal"
@@ -77,6 +78,8 @@
 
 
 
+
+
 <div id="notice_search_table">
 	<table class="table table-bordered" id="notice_table">
 
@@ -89,7 +92,12 @@
 
 
 		<s:iterator value="notice" var="n" status="i">
-			<tr class="success" notice_id=<s:property value="#n.id"/> notice_content=<s:property value="#n.content"/> notice_title=<s:property value="#n.title"/> notice_time=<s:property value="#n.time"/>>
+			<tr class="success" 
+				notice_id='<s:property value="#n.id"/>' 
+				notice_content='<s:property value="#n.content"/>' 
+				notice_title='<s:property value="#n.title"/>' 
+				notice_time='<s:property value="#n.time"/>' 
+				>
 				<td><s:property value="#n.title" /></td>
 				<td><s:property value="#n.time" /></td>
 				<td>
@@ -107,6 +115,9 @@
 
 	</table>
 </div>
+
+
+
 
 
 
