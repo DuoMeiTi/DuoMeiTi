@@ -23,7 +23,10 @@
 			<form class="form-horizontal">
 				<input style="visibility:hidden" id="submit_type" value="add" />
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="notice_title">常见问题概述</label>
+					
+					<label class="col-sm-2 text-left" for="notice_title">常见问题概述</label>
+					<br>
+					<br>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="notice_title" style="width: 400px">
 						<!-- <p class="help-block">字母，数字，汉字皆可</p> -->
@@ -33,11 +36,19 @@
 					</div> -->
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="notice_content">内容</label>
-					<div class="col-sm-5">
-						<textarea class="form-control"  id="notice_content" rows="9" cols="2" style="width: 400px"></textarea>
-						<!-- <input type="" class="form-control" id="input_principal_student_id" oninput="disable_add_btn()"> -->
+					<label class="col-sm-2 text-left" for="notice_content">内容</label>
+<!-- 					<div class="col-sm-5"> -->
+<!-- 						<textarea class="form-control"  id="notice_content" rows="9" cols="2" style="width: 400px"></textarea> -->
+<!-- 						<input type="" class="form-control" id="input_principal_student_id" oninput="disable_add_btn()"> -->
+<!-- 					</div> -->
+					<br>
+					<br>					
+					<div id="notice_content">
+						<%@ include file="/bootstrap-wysiwyg/editor.jsp" %>				
 					</div>
+					
+					
+					
 					<span  hidden="true" id="hidden_id"></span>
 					<!-- <div style="text-align:center" class="col-sm-4 control-label">
 						<span id="input_principal_student_name">lz</span>
@@ -128,8 +139,8 @@
 		
 		$("#notice_title").val("");
 		//$("#input_principal_student_name").text("");
-		$("#notice_content").val("");
 		
+		$("#notice_content .editor").html("");
 		$("#submit_type").attr("value", "add");
 		$("#notice_add_btn").text("确定添加");
 		$('#notice-modal').modal('show');
@@ -143,7 +154,10 @@
 // 		alert(submit_type);
 		var title = $("#notice_title").val();
 // 		alert(title);
-		var content = $("#notice_content").val();
+
+		var content = $("#notice_content .editor").html();
+
+		//var content = $("#notice_content").val();
 // 		alert(title + "//" + content + "//")
 		var id =  $("#hidden_id").val();
 		
@@ -185,7 +199,8 @@
 		
 		
 		$("#notice_title").val(select_notice_title);
-		$("#notice_content").val(select_notice_content);
+		//$("#notice_content").val(select_notice_content);
+ 		$("#notice_content .editor").html(select_notice_content);
 		
 		$("#hidden_id").val(select_notice_id);
 		
