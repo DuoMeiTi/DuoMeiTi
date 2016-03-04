@@ -1,11 +1,10 @@
 function checkAmorPm()
 {
-	var isam = document.getElementById("isAM").checked;
-	var ispm = document.getElementById("isPM").checked;
-	alert("isam "+isam+"  ispm"+ispm);
-	if(isam|ispm)
+	var am = document.getElementById("AM").checked;
+	var pm = document.getElementById("PM").checked;
+	if(am|pm)
 	{
-		if(!(isam&ispm))
+		if(!(am&pm))
 		{
 			return true
 		}
@@ -19,14 +18,14 @@ function checktime()
 	{
 		return false;
 	}
-	var isam = document.getElementById("isAM").checked;
-	var ispm = document.getElementById("isPM").checked;
+	var am = document.getElementById("AM").checked;
+	var pm = document.getElementById("PM").checked;
 	var starthour = document.getElementById("starthour").value;
 	var startmin = document.getElementById("startminute").value;
 	var endhour = document.getElementById("endhour").value;
-	var endmin = document.getElementById("ednminute").value;
+	var endmin = document.getElementById("endminute").value;
 	alert("starthour "+starthour+" startmin "+startmin+" endhour "+endhour+" endmin "+endmin);
-	if(isam)
+	if(am)
 	{
 		if(starthour>0&&starthour<=12)
 		{

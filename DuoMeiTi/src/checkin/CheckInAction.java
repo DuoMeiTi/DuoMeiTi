@@ -32,8 +32,8 @@ public class CheckInAction extends PageGetBaseAction{
 	private String endTime="";
 	private int pagesize=10;
 	private String newtablestring="";
-	private boolean isAM=false;//上午还是下午
-	private boolean isPM=false;
+	private boolean AM=false;//上午还是下午
+	private boolean PM=false;
 	private List recordlist;
 	private String result="";
 	private final static int MAX_PAGESIZE = 100;//一页数据上限为100
@@ -109,7 +109,7 @@ public class CheckInAction extends PageGetBaseAction{
 		System.out.println("starthour "+starthour+" endhour "+endhour+" startminute "+startminute+" endminute "+endminute);
 		java.util.Date newStartTime = TimeUtil.getUtilDate(starthour, startminute);
 		java.util.Date newEndTime = TimeUtil.getUtilDate(endhour,endminute);
-		if(isAM)
+		if(AM)
 		{
 			flag = CheckInRule.SetAmTime(newStartTime, newEndTime);
 		}
@@ -237,14 +237,6 @@ public class CheckInAction extends PageGetBaseAction{
 		return newtablestring;
 	}
 
-	public boolean isAM() {
-		return isAM;
-	}
-
-	public boolean isPM() {
-		return isPM;
-	}
-
 	public List getRecordlist() {
 		return recordlist;
 	}
@@ -289,12 +281,26 @@ public class CheckInAction extends PageGetBaseAction{
 		this.newtablestring = newtablestring;
 	}
 
-	public void setAM(boolean isAM) {
-		this.isAM = isAM;
+	
+	
+	public boolean AM() {
+		return AM;
 	}
 
-	public void setPM(boolean isPM) {
-		this.isPM = isPM;
+	public boolean PM() {
+		return PM;
+	}
+
+	public static int getMaxPagesize() {
+		return MAX_PAGESIZE;
+	}
+
+	public void setAM(boolean AM) {
+		this.AM = AM;
+	}
+
+	public void setPM(boolean PM) {
+		this.PM = PM;
 	}
 
 	public void setRecordlist(List recordlist) {

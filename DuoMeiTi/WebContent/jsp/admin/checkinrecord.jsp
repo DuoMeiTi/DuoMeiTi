@@ -55,15 +55,15 @@
 			      <br>
 			       <div class="input-group">
 			         <span class="input-group-addon">结束时间</span>
-			          <input type="number" name="ednminute" class="form-control" placeholder="分钟&nbsp;&nbsp;0-59" id="ednminute">
+			          <input type="number" name="endminute" class="form-control" placeholder="分钟&nbsp;&nbsp;0-59" id="endminute">
 			      </div>
 			      <br>
 			        <div class="checkbox">
 				          <label>
-				            <input type="checkbox" name="isAM" id="isAM" value="true"> 上午
+				            <input type="checkbox" name="AM" id="AM" value="true"> 上午
 				          </label>
 				          <label>
-				          	<input type="checkbox" name="isPM" id="isPM" value="true"> 下午
+				          	<input type="checkbox" name="PM" id="PM" value="true"> 下午
 				          </label>
 		        	</div>
 			   </form>
