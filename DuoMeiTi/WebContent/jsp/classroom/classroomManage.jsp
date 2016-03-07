@@ -95,7 +95,7 @@
 	
 	    
 	
-	<div class="classroomTableDiv">
+	<div>
 		<%@ include file="classroomTable.jsp" %>		
 	</div>	
 		

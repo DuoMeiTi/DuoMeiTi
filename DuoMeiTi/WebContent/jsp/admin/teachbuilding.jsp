@@ -43,7 +43,54 @@
 			 	 新增教学楼
 			</button>
 		</div>
-		<div class="container-fluid">
+		
+		<div class="classroomTableDiv""> 
+			<table class="table table-bordered table-striped" id="building_table" >
+			
+				 <%-- <s:iterator value="builds" var="build" status="i">
+					<tr class="">
+						<td
+							build_id='<s:property value="#build.build_id"/>'
+							build_name='<s:property value="#build.build_name"/>'
+						>
+							<a href="classroomManageNew?build_id=<s:property value="#build.build_id"/>&build_name=<s:property value="#build.build_name"/>" class="btn btn-success btn-lg">
+								<s:property value="#build.build_name"/>
+							</a>
+							
+							<s:if test="makeUrl().contains(@util.Const@AdminRole)">
+								<button class="btn btn-info  btn-sm delete">删除</button>
+							</s:if>
+						</td>
+					</tr>
+				</s:iterator>  --%>
+				
+				<s:iterator begin="0" end="builds.size()-1" var="i" step="3">
+					<tr class="">
+					
+						<s:iterator  var="j" begin="0" end="@@min(builds.size()-#i-1,2)" step="1">
+							<td
+								build_name='<s:property value="builds.get(#i+#j).build_name"/>'
+								build_id='<s:property value="builds.get(#i+#j).build_id"/>'
+							>
+								<a href="classroomManageNew?build_id=<s:property value="builds.get(#i+#j).build_id"/>&build_name=<s:property value="builds.get(#i+#j).build_name"/>" class="btn btn-success btn-lg">
+									<s:property value="builds.get(#i+#j).build_name"/>
+								</a>
+								
+								<%-- <s:if test="makeUrl().contains(@util.Const@AdminRole)"> --%>
+									<button class="btn btn-info  btn-primary delete">删除</button>
+								<%-- </s:if> --%>
+							
+							</td>
+						</s:iterator>
+					 </tr>
+				</s:iterator>
+				
+				
+			</table>
+		</div>
+		
+		
+		<%-- <div class="container-fluid">
 			<s:iterator value="builds" var="build" status="i">
 				<div class="col-lg-4">
 				
@@ -53,14 +100,14 @@
 					</a>
 				</div>
 			</s:iterator>
-		</div>
+		</div> --%>
 	</div>
 	<style>
 		.teachbuilding-div {
 			margin:10%;
 			height:auto;
 			line-height:100px;
-			border:1px solid black;
+			border:none;
 			text-align:center;
 			vertical-align:middle;
 			font-size:2.0em;
@@ -70,7 +117,29 @@
 		a:hover{
 			color:black;
 		}
+		
 	</style>
+	<script>
+	$(".delete").click(function(){
+		var id = $(this).closest("td").attr("build_id");
+		/* var isPass=$('#judge').find("option:selected").val(); */
+		$.ajax({
+			url: 'build_delete',
+	        type: 'post',
+	        dataType: 'json',
+	        data:{buildId:id},
+	        success:deleteCallBack
+		});
+	})
+	
+	function deleteCallBack(data){
+		if(data.strValue=="success"){
+			var p=$("#"+data.buildId);
+			$("#"+data.buildId).remove();
+		}
+		else alert("something wrong!!");
+	}
+	</script>
 </layout:override>
 
 

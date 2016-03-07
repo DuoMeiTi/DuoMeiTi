@@ -8,9 +8,9 @@
 		<tr class=""  >
 			 <s:iterator var="j" begin="0" end="@@min(classroom_list.size()-#i-1,4)" step="1">
 			 	<td
-				 	studentId='<s:property value="classroom_list.get(#i+#j).principal.id"/>' 
+				 	<%-- studentId='<s:property value="classroom_list.get(#i+#j).principal.id"/>' 
 				 	studentFullName='<s:property value="classroom_list.get(#i+#j).principal.user.fullName"/>'
-				 	studentNumber='<s:property value="classroom_list.get(#i+#j).principal.studentId"/>'
+				 	studentNumber='<s:property value="classroom_list.get(#i+#j).principal.studentId"/>' --%>
 				 	classroomNum='<s:property value="classroom_list.get(#i+#j).classroom_num"/>'
 				 	classroomId='<s:property value="classroom_list.get(#i+#j).id"/>' 
 				 	nowrap="nowrap"

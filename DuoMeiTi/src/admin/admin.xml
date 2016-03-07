@@ -390,6 +390,7 @@
 		<action name="teachBuildingAction" class="admin.TeachBuildingAction">
 			<result>
 				/jsp/admin/teachbuilding.jsp
+				
 			</result>
 		</action>
 		
