@@ -24,7 +24,7 @@
 						      <span>
 						      		<span class="glyphicon glyphicon-star"></span></span><b><s:property value="#i.title"/> </b>
 						      		:
-						      		<s:property value="#i.content"/>
+						      		<s:property value="#i.content" escape="false"/>
 						      	</a>
 						      </span>
 						    </li>
