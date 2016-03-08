@@ -121,23 +121,26 @@
 	</style>
 	<script>
 	$(".delete").click(function(){
-		var id = $(this).closest("td").attr("build_id");
-		/* var isPass=$('#judge').find("option:selected").val(); */
-		$.ajax({
-			url: 'build_delete',
-	        type: 'post',
-	        dataType: 'json',
-	        data:{buildId:id},
-	        success:deleteCallBack
-		});
+		var temp = confirm("删除不可恢复！");
+		if (temp == true) {
+			var id = $(this).closest("td").attr("build_id");
+			/* var isPass=$('#judge').find("option:selected").val(); */
+			$.ajax({
+				url: 'build_delete',
+		        type: 'post',
+		        dataType: 'json',
+		        data:{buildId:id},
+		        success:deleteCallBack
+			});
+		}
 	})
 	
 	function deleteCallBack(data){
-		if(data.strValue=="success"){
-			var p=$("#"+data.buildId);
-			$("#"+data.buildId).remove();
+		if(data.status == 0){
+			var td = $("td[build_id='"+data.buildId+"']")
+			td.html("");
 		}
-		else alert("something wrong!!");
+		else alert("请先删除教室！");
 	}
 	</script>
 </layout:override>

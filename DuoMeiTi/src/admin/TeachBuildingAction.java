@@ -1,15 +1,21 @@
 package admin;
 
+import java.awt.print.Printable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.net.ssl.SSLEngineResult.Status;
+import javax.print.attribute.standard.PresentationDirection;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import model.Classroom;
+import model.StudentProfile;
 import model.TeachBuilding;
 
 import util.Const;
@@ -23,11 +29,58 @@ public class TeachBuildingAction extends ActionSupport {
 	private String device[];
 	private String mainDevice[];
 	private String costDevice[];
+	public List<Classroom> classroom_list;
+	public List<TeachBuilding> building_list;
 	
 	public String add_status;
 	
 	public String build_name;
+	private String strValue;
+	public int status;
+	public int buildId;
+	
+	
+	
+	
+	public List<TeachBuilding> getBuilding_list() {
+		return building_list;
+	}
 
+	public void setBuilding_list(List<TeachBuilding> building_list) {
+		this.building_list = building_list;
+	}
+
+	public int getBuildId() {
+		return buildId;
+	}
+
+	public void setBuildId(int buildId) {
+		this.buildId = buildId;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public List<Classroom> getClassroom_list() {
+		return classroom_list;
+	}
+
+	public void setClassroom_list(List<Classroom> classroom_list) {
+		this.classroom_list = classroom_list;
+	}
+
+	public String getStrValue() {
+		return strValue;
+	}
+
+	public void setStrValue(String strValue) {
+		this.strValue = strValue;
+	}
 
 	public String execute() {
 		Session session = model.Util.sessionFactory.openSession();
@@ -84,7 +137,38 @@ public class TeachBuildingAction extends ActionSupport {
 	
 	
 	
-	
+	public String BuildingDelete() throws Exception{
+		
+		Session session = model.Util.sessionFactory.openSession();
+		Transaction trans = session.beginTransaction();
+		Criteria q = session.createCriteria(Classroom.class);
+		q = q.createCriteria("teachbuilding");
+		q.add(Restrictions.eq("build_id",buildId));
+		
+		classroom_list = q.list();
+		System.out.println(classroom_list);
+		
+		if (classroom_list.isEmpty()) {
+			status = 0;
+		}
+		else {
+			status = 1;
+		}
+		/*Criteria b = session.createCriteria(TeachBuilding.class);
+		b.add(Restrictions.eq("build_id", buildId));
+		System.out.println(buildId);
+		System.out.println(b.list().get(0));
+		session.delete(b.list().get(0));
+		session.getTransaction().commit();
+		session.close();*/
+		trans.commit();
+		
+		System.out.println(status);
+		
+		return ActionSupport.SUCCESS;
+		
+		
+	}
 	
 
 	
