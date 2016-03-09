@@ -104,8 +104,14 @@ public class ContactsAction extends util.PageGetBaseAction {
 		Criteria q = session.createCriteria(StudentProfile.class);
 		//contacts_list = this.makeCurrentPageList(q, 10);
 		contacts_list=q.list();
+		for(int i=0; i<contacts_list.size(); i++){
+			StudentProfile si=(StudentProfile) contacts_list.get(i);
+			//System.out.println(si.user.fullName+": isupgrade:"+si.isUpgradePrivilege+" ispassed:"+si.isPassed);
+			if(si.isPassed!=2||si.isUpgradePrivilege==2){//判断必须是通过且在职学生
+				contacts_list.remove(si);
+			}
+		}
 		session.close();
-		System.out.println(contacts_list.size());
 		if(this.getIsAjaxTransmission())
 		{
 			contacts_list_html =util.Util.getJspOutput("/jsp/homepage/widgets/contactsTable.jsp");
