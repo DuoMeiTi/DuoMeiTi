@@ -59,6 +59,12 @@
         	<result>/jsp/homepage/building_information.jsp</result>
         </action>
         
+        <!-- <action name="build_delete" class="homepage.BuildingInformationAction" method="BuildingDelete">
+        	<result name="success" type="json">
+				<param name="includeProperties">status,buildId</param>
+			</result>	
+        </action> -->
+        
 <!--         <action name="classroom_information" class="homepage.ClassroomInformationAction" method="classroomList"> -->
 <!--         	<result> -->
 <!--         		<param name="location">/jsp/homepage/classroom_information.jsp</param> -->
