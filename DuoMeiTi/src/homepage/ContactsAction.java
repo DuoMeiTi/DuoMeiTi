@@ -102,8 +102,10 @@ public class ContactsAction extends util.PageGetBaseAction {
 		
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(StudentProfile.class);
-		contacts_list = this.makeCurrentPageList(q, 10);
+		//contacts_list = this.makeCurrentPageList(q, 10);
+		contacts_list=q.list();
 		session.close();
+		System.out.println(contacts_list.size());
 		if(this.getIsAjaxTransmission())
 		{
 			contacts_list_html =util.Util.getJspOutput("/jsp/homepage/widgets/contactsTable.jsp");
