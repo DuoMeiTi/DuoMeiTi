@@ -23,7 +23,6 @@
 	</div>
 </div>
 
-<%@ include file = "/jsp/base/widgets/pagination.jsp" %>
 <script>
 	function requestPageCallback(data)
 	{
