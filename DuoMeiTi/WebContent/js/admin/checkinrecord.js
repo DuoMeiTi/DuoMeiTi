@@ -112,4 +112,6 @@ function setcheckincallback(data)
 {
 	$('#changetime').modal('hide');
 	alert(data.result);
+	document.getElementById("amCheckIn").value =data.amCheckIn;
+	document.getElementById("pmCheckIn").value = data.pmCheckIn;
 }

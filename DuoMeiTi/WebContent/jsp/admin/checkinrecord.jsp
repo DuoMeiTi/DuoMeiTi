@@ -12,6 +12,14 @@
 					<button type="button" class="btn btn-default"  id="addbutton" >查询</button>
 					<label for="changecheckinrule">&nbsp;&nbsp;修改签到时间</label>
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#changetime" id="addbutton">修&nbsp;&nbsp;改</button>
+					<br/>
+					<table>
+					<tr>
+					<td><label>上午签到时间&nbsp;&nbsp;</label></td><td ><input id="amCheckIn" disabled="true" class="form-control" value='<s:property value='amCheckIn'/>'></input></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td><label>下午签到时间&nbsp;&nbsp;</label></td><td ><input id="pmCheckIn" disabled="true" class="form-control" value='<s:property value='pmCheckIn'/>'></input></td>
+					</tr>
+					</table>
 	</div>
 	<div id="queryrecordstable">
 		<div class="student_table" id="recordstable">
@@ -85,12 +93,14 @@ window.onload=function(){
 		var nowdate = new Date();
 		var predate = new Date();
 		predate.setDate(nowdate.getDate()-7);
-		var nowday = nowdate.getDate()<10?"0"+nowdate.getDate():nowdate.getDate();
-		var preday = predate.getDate()<10?"0"+predate.getDate():predate.getDate();
-		var nowmonth = nowdate.getMonth()+1<10?"0"+nowdate.getMonth()+1:nowdate.getMonth()+1;
-		var premonth = predate.getMonth()+1<10?"0"+predate.getMonth()+1:predate.getMonth()+1;
+		var nowday = nowdate.getDate()<10? "0" + nowdate.getDate():nowdate.getDate();
+		var preday = predate.getDate()<10? "0" +predate.getDate():predate.getDate();
+		var nowmonth = nowdate.getMonth()+1<10? "0"+(nowdate.getMonth()+1):nowdate.getMonth()+1;
+		var premonth = predate.getMonth()+1<10? "0"+(predate.getMonth()+1):predate.getMonth()+1;
 		document.getElementById("endTime").value = nowdate.getFullYear()+"-"+nowmonth+"-"+nowday;
 		document.getElementById("startTime").value = predate.getFullYear()+"-"+premonth+"-"+preday;
+		//document.getElementById("amCheckIn").innerHTML = "hehehe";
+		//document.getElementById("pmCheckIn").innerHTML = "hehehe";
 	}
 	function sendRequestPage(currentPageNum) {
 		var starttime = $("#startTime").val();
