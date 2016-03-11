@@ -55,6 +55,7 @@ $(document).find("#rtType1").change(function() {
 
 //update
 var rtId;
+var old_DeviceStatus
 $(document).on("click",".click_me", function() {
 	rtId = $(this).parent().attr("rt_id");
 	cleanValue();
@@ -110,13 +111,19 @@ function fetchCallback(data) {
 		$(document).find("#rtFactorynum").val(temp.rtFactorynum);
 		$(document).find("#rtDeviceStatus").val(temp.rtDeviceStatus);
 		$(document).find("#rtReplacePeriod").val(temp.rtReplacePeriod);
+		old_DeviceStatus = $("#rtDeviceStatus").val();
+		//alert("编辑前状态:"+old_DeviceStatus);
 	}
 	
 }
 //insert update
 $(document).on("click", "#rtSave", function() {
 	var d_DeviceStatus = $("#rtDeviceStatus").val();
-	if(d_DeviceStatus=="教室"){
+	if($(this).attr("mark") == "insert"&&d_DeviceStatus=="教室"){//新增设备时不能设为教室
+		alert("若想要将此设备的状态设为教室，请在教室管理页面操作！");
+		return;
+	}
+	if($(this).attr("mark") == "update"&&old_DeviceStatus!="教室"&&d_DeviceStatus=="教室"){//更改时如果原来状态不是教室，也不能改为教室
 		alert("若想要将此设备的状态设为教室，请在教室管理页面操作！");
 		return;
 	}
