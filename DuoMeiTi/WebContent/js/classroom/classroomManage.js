@@ -211,6 +211,7 @@ function addClassroomCallback(data) {
 	{
 		alert("发生严重错误，不知名原因");
 	}
+	location.reload(); 
 	
 }
 
