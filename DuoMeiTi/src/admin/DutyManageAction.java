@@ -153,6 +153,7 @@ public class DutyManageAction extends ActionSupport {
 				.add(Restrictions.eq("dutyPlace.id", id))
 				.list();
 		
+		obtainDutyTable_dutyScheduleList = new ArrayList<DutySchedule>();
 		
 		for(DutyPiece dp: dutyTimeList)
 		{
