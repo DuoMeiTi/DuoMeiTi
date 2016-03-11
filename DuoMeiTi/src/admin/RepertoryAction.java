@@ -72,11 +72,12 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 			System.out.println(mainDevice[i]);*/
 		costDevice = Const.costDevice;
 //		deviceStatus = Const.deviceStatus;
-		deviceStatus = new String[4];
+		deviceStatus = new String[5];
 		deviceStatus[0] = Const.deviceStatus[0];
 		deviceStatus[1] = Const.deviceStatus[1];
 		deviceStatus[2] = Const.deviceStatus[3];
 		deviceStatus[3] = Const.deviceStatus[4];
+		deviceStatus[4] = Const.deviceStatus[2];
 		
 		
 		Session session = 

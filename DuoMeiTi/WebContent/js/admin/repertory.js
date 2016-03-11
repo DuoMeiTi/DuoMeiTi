@@ -115,7 +115,11 @@ function fetchCallback(data) {
 }
 //insert update
 $(document).on("click", "#rtSave", function() {
-	
+	var d_DeviceStatus = $("#rtDeviceStatus").val();
+	if(d_DeviceStatus=="教室"){
+		alert("若想要将此设备的状态设为教室，请在教室管理页面操作！");
+		return;
+	}
 	var d_type = $("#rtDevice").val();
 	var d_name;
 	if (d_type == "") {
