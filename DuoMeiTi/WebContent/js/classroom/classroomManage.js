@@ -143,7 +143,7 @@ $(document).on("click", ".update", function (){
 	$('#classroom_modal').modal('show');
 	submit_type = "update";
 	classroomId = $(this).parents("[classroomId]").attr('classroomId');
-	alert(classroomId);
+	//alert(classroomId);
 	$("#input_principal_student_number").val($(this).parents("[studentNumber]").attr('studentNumber'));
 	$("#input_principal_student_full_name").text($(this).parents("[studentFullName]").attr('studentFullName'))
 	$("#input_classroom_num").val($(this).parents("[classroomNum]").attr('classroomNum'));
