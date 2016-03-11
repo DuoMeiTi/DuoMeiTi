@@ -9,7 +9,7 @@
 <table class="table table-bordered" id="file_list_table">
 
 	<tr class="active">
-		<th> 文件列表 </th>
+		<th colspan="2"> 文件列表 </th>
 	</tr>
 	
 	
@@ -18,16 +18,45 @@
 
 
 		<tr class="success" >
-			<td style="text-align:left;">  
+			<td filePath='<s:property value="@util.Util@getFileNameFromPath(#i.filePath)"/>' style="text-align:left;" class="col-lg-10">  
 				 <a href="<s:property value="#i.filePath"/> "> 
 <%-- 						<s:property value="#i.filePath.split('/')"/> --%>
 					<s:property value="@util.Util@getFileNameFromPath(#i.filePath)"/>
 				 </a>  
 			</td>
+			<td class="col-lg-2">
+				<button type="button" class="btn btn-danger delete ">删除</button>
+					
+				</button>
+			</td>
 
 		</tr>
 	</s:iterator>  
-	
+	<script>
+		$(".delete").click(function(){
+			var temp = confirm("删除不可恢复！");
+			if(temp == true){
+				var file = $(this).closest("td").attr("filePath");
+				$.ajax({
+					url:"HomepageModify/FileUploadDelete",
+					type: "POST",  
+			        data: {filePath:file},  
+			        async: true,  
+			        cache: false,  
+			        contentType: false,  
+			        processData: false,  
+			        success: deleteCallBack,
+				
+				});
+			}
+		})
+		
+		function deleteCallBack(data){
+			var tr = $("tr[filePath='"+data.file+"']");
+			tr.html("");
+		}
+		
+	</script>
 	
 	
 

@@ -485,6 +485,12 @@
 			</result>			
 		</action>
 		
+		<action name="FileUploadDelete" class="admin.ResourceFileUploadAction" method="delete">
+			<result type="json">
+				<param name="includeProperties">file</param>
+			</result>
+		</action>
+		
 <!--常见问题的action设置  -->		
         <action name="CommonProblem" class = "admin.CommonProblemAction">
 			<result name="success">

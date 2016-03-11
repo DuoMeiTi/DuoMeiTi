@@ -1,20 +1,25 @@
 package admin;
 
 import java.io.File;
+import java.awt.print.Printable;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import javax.transaction.Transaction;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.EgFilePathSave;
+import model.ResourceFilePath;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,8 +36,15 @@ public class ResourceFileUploadAction extends util.FileUploadBaseAction
 	public List file_path_list;
 //	public String inserted_file_path;
 	public String resource_file_table;
+	public List<ResourceFilePath> filePath_list;
 	
-    public List getFile_path_list() {
+    public List<ResourceFilePath> getFilePath_list() {
+		return filePath_list;
+	}
+	public void setFilePath_list(List<ResourceFilePath> filePath_list) {
+		this.filePath_list = filePath_list;
+	}
+	public List getFile_path_list() {
 		return file_path_list;
 	}
 	public void setFile_path_list(List file_path_list) {
@@ -103,6 +115,24 @@ public class ResourceFileUploadAction extends util.FileUploadBaseAction
 //        System.out.println("LIST::" + classroomFilePath);
         session.close();
         return "success";
+    }
+    
+    public String delete() throws Exception{
+    	System.out.println("hi");
+    	Session session = model.Util.sessionFactory.openSession();
+    	org.hibernate.Transaction trans = session.beginTransaction();
+    	Criteria q = session.createCriteria(ResourceFilePath.class);
+    	q.add(Restrictions.eq("filePath", file));
+    	System.out.println("2");
+    	System.out.println(file);
+    	System.out.println(q.list().get(0));
+    	session.delete(q.list().get(0));
+    	session.getTransaction().commit();
+    	session.close();
+    	trans.commit();
+    	
+    	
+    	return ActionSupport.SUCCESS;
     }
 
 
