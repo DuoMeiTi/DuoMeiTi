@@ -95,9 +95,10 @@ public class HomeAction extends PageGetBaseAction
 						.addOrder(Order.desc("id"))
 						.list();
 		
-//		Collections.reverse(check_list);
-//		Collections.reverse(notice_list);
-//		Collections.reverse(repair_list);
+
+		
+		
+		
 		
 		
 		System.out.println("&&&&&&&&&&");

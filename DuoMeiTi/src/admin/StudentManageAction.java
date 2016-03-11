@@ -24,7 +24,7 @@ import model.User;
 import util.Const;
 import utility.DatabaseOperation;
 
-import model.DutyTime;
+import model.DutyPiece;
 import model.ExamStuScore;
 import model.DutySchedule;
 import common.DutyInfo;
@@ -83,6 +83,10 @@ public class StudentManageAction extends ActionSupport{
 	private String textShow;//规章制度的内容，显示给jsp页面的内容
 	private Date time;//规章制度的修改时间
 	
+	
+	
+	
+	
 	private List<BuildingsInfo> teahBuildings;
 	private List<DutyInfo> dutySchedule; 
 	private List<StudentInfo> searchResult;
@@ -94,125 +98,35 @@ public class StudentManageAction extends ActionSupport{
 	private String studentName;
 	
 	
-	public int getScore() {
-		return score;
-	}
 
 
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-
-	public List<StudentInfo> getSearchResult() {
-		return searchResult;
-	}
-
-
-	public void setSearchResult(List<StudentInfo> searchResult) {
-		this.searchResult = searchResult;
-	}
-
-
-	public String getStudentName() {
-		return studentName;
-	}
-
-
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
-	}
-
-
-	public int getDtime() {
-		return dtime;
-	}
-
-
-	public void setDtime(int dtime) {
-		this.dtime = dtime;
-	}
-
-
-	public int getStudent_Id() {
-		return student_Id;
-	}
-
-
-	public void setStudent_Id(int student_Id) {
-		this.student_Id = student_Id;
-	}
-
-
-	public String getLog() {
-		return log;
-	}
-
-
-	public void setLog(String log) {
-		this.log = log;
-	}
-
-
-	public boolean isChooseClassSwitch() {
-		return chooseClassSwitch;
-	}
-
-
-	public void setChooseClassSwitch(boolean chooseClassSwitch) {
-		this.chooseClassSwitch = chooseClassSwitch;
-	}
-
-
-	public List<DutyInfo> getDutySchedule() {
-		return dutySchedule;
-	}
-
-
-	public void setDutySchedule(List<DutyInfo> dutySchedule) {
-		this.dutySchedule = dutySchedule;
-	}
-
-
-	public int getTeachBuildingId() {
-		return teachBuildingId;
-	}
-
-
-	public void setTeachBuildingId(int teachBuildingId) {
-		this.teachBuildingId = teachBuildingId;
-	}
-
-
-	public List<BuildingsInfo> getTeahBuildings() {
-		return teahBuildings;
-	}
-
-
-	public void setTeahBuildings(List<BuildingsInfo> teahBuildings) {
-		this.teahBuildings = teahBuildings;
-	}
-
-
-	public String dutyManager() throws Exception{
-		List fields = new ArrayList<String>();
-		fields.add("build_id,");
-		fields.add("build_name");
-		DatabaseOperation getBuildings = new DatabaseOperation("TeachBuilding", fields);
-		List result=getBuildings.selectOperation();
-		teahBuildings =new ArrayList<BuildingsInfo>();
-		Iterator iter =result.iterator();
-		while(iter.hasNext()){
-			Object[] temp=(Object[])iter.next();
-			String name=(String)temp[1];
-			Integer id=(Integer)temp[0];
-			teahBuildings.add(new BuildingsInfo(name,id));
-		}
-		Session session = model.Util.sessionFactory.openSession();
-		String s="from ChooseClassSwitch ccs where id=1";
-		List<ChooseClassSwitch> t=session.createQuery(s).list();
-		chooseClassSwitch=t.get(0).open;
-		session.close();
+	public String dutyManager() throws Exception {
+		
+		
+		
+		
+		
+		
+		
+		
+//		List fields = new ArrayList<String>();
+//		fields.add("build_id,");
+//		fields.add("build_name");
+//		DatabaseOperation getBuildings = new DatabaseOperation("TeachBuilding", fields);
+//		List result=getBuildings.selectOperation();
+//		teahBuildings =new ArrayList<BuildingsInfo>();
+//		Iterator iter =result.iterator();
+//		while(iter.hasNext()){
+//			Object[] temp=(Object[])iter.next();
+//			String name=(String)temp[1];
+//			Integer id=(Integer)temp[0];
+//			teahBuildings.add(new BuildingsInfo(name,id));
+//		}
+//		Session session = model.Util.sessionFactory.openSession();
+//		String s="from ChooseClassSwitch ccs where id=1";
+//		List<ChooseClassSwitch> t=session.createQuery(s).list();
+//		chooseClassSwitch=t.get(0).open;
+//		session.close();
 		return SUCCESS;
 	}
 	
@@ -268,7 +182,7 @@ public class StudentManageAction extends ActionSupport{
 			session.createQuery(updateDutyTime).executeUpdate();
 			//删除DutySchedule
 			String selectDutyTime = "From DutyTime d where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
-			DutyTime duty = (DutyTime)session.createQuery(selectDutyTime).list().get(0);
+			DutyPiece duty = (DutyPiece)session.createQuery(selectDutyTime).list().get(0);
 			String deleteDuty = "delete from DutySchedule ds where ds.student.id="+student_Id+" and "+"ds.dutyTime.id="+duty.id;
 			session.createQuery(deleteDuty).executeUpdate();
 			trans.commit();
@@ -298,7 +212,7 @@ public class StudentManageAction extends ActionSupport{
 		Session session=model.Util.sessionFactory.openSession();
 		//更新DutyTime
 		String selectDutyTime = "from DutyTime d where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
-		DutyTime t=(DutyTime)session.createQuery(selectDutyTime).list().get(0);
+		DutyPiece t=(DutyPiece)session.createQuery(selectDutyTime).list().get(0);
 		if(t.dutyLeft==0){
 			log="fail0";
 			return SUCCESS;
@@ -312,7 +226,7 @@ public class StudentManageAction extends ActionSupport{
 			System.out.println(s);
 			DutySchedule ds = new DutySchedule();
 			ds.student=s;
-			ds.dutyTime=t;
+			ds.dutyPiece=t;
 			session.save(ds);
 			trans.commit();
 			log="success";
@@ -1066,7 +980,104 @@ public String saveStudentInformation() throws Exception
 	
 	
 	
-	
+	public int getScore() {
+		return score;
+	}
+
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+
+	public List<StudentInfo> getSearchResult() {
+		return searchResult;
+	}
+
+
+	public void setSearchResult(List<StudentInfo> searchResult) {
+		this.searchResult = searchResult;
+	}
+
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+
+	public int getDtime() {
+		return dtime;
+	}
+
+
+	public void setDtime(int dtime) {
+		this.dtime = dtime;
+	}
+
+
+	public int getStudent_Id() {
+		return student_Id;
+	}
+
+
+	public void setStudent_Id(int student_Id) {
+		this.student_Id = student_Id;
+	}
+
+
+	public String getLog() {
+		return log;
+	}
+
+
+	public void setLog(String log) {
+		this.log = log;
+	}
+
+
+	public boolean isChooseClassSwitch() {
+		return chooseClassSwitch;
+	}
+
+
+	public void setChooseClassSwitch(boolean chooseClassSwitch) {
+		this.chooseClassSwitch = chooseClassSwitch;
+	}
+
+
+	public List<DutyInfo> getDutySchedule() {
+		return dutySchedule;
+	}
+
+
+	public void setDutySchedule(List<DutyInfo> dutySchedule) {
+		this.dutySchedule = dutySchedule;
+	}
+
+
+	public int getTeachBuildingId() {
+		return teachBuildingId;
+	}
+
+
+	public void setTeachBuildingId(int teachBuildingId) {
+		this.teachBuildingId = teachBuildingId;
+	}
+
+
+	public List<BuildingsInfo> getTeahBuildings() {
+		return teahBuildings;
+	}
+
+
+	public void setTeahBuildings(List<BuildingsInfo> teahBuildings) {
+		this.teahBuildings = teahBuildings;
+	}
 
 
 

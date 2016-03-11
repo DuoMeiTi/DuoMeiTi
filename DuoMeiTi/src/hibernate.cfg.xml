@@ -56,14 +56,18 @@
 		<mapping class="model.Message"/>
 		<mapping class="model.EgFilePathSave"/>
 		<mapping class="model.Notice"/>
-		<mapping class="model.RoomPicture"/>
-		<mapping class="model.DutyTime"/>
-		<mapping class="model.DutySchedule"/>
+		<mapping class="model.RoomPicture"/>	
 
 		<mapping class="model.Rules"/>
-		<mapping class="model.ResourceFilePath"/>
-		<mapping class="model.ChooseClassSwitch"/>
+		<mapping class="model.ResourceFilePath"/>		
 		<mapping class="model.CheckInRecord"/>
+		
+		
+		<mapping class="model.DutyPiece"/>
+		<mapping class="model.DutySchedule"/>
+		<mapping class="model.DutyPlace"/>
+		<mapping class="model.ChooseClassSwitch"/>
+		
 		
     </session-factory>
 </hibernate-configuration>
