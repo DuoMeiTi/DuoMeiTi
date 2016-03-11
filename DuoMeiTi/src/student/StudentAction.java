@@ -4,7 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import model.Rules;
 import model.TeachBuilding;
-import model.DutyTime;
+import model.DutyPiece;
 import model.DutySchedule;
 import model.StudentProfile;
 import model.ChooseClassSwitch;
@@ -28,7 +28,7 @@ public class StudentAction extends ActionSupport{
 	
 	private List<BuildingsInfo> teahBuildings;
 	private int teachBuildingId;
-	private List<DutyTime> duties;
+	private List<DutyPiece> duties;
 	private String log;
 	private List<Integer> chosen;
 	private String textShow;
@@ -60,11 +60,11 @@ public class StudentAction extends ActionSupport{
 		this.log = log;
 	}
 
-	public List<DutyTime> getDuties() {
+	public List<DutyPiece> getDuties() {
 		return duties;
 	}
 
-	public void setDuties(List<DutyTime> duties) {
+	public void setDuties(List<DutyPiece> duties) {
 		this.duties = duties;
 	}
 
@@ -157,8 +157,8 @@ public class StudentAction extends ActionSupport{
 		trans=session.beginTransaction();
 		String dutySelect="select ds.dutyTime from DutySchedule ds where ds.student.id="
 					 	  +studentId+" and "+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
-		List<DutyTime> duties=session.createQuery(dutySelect).list();
-		for(DutyTime tmp:duties){
+		List<DutyPiece> duties=session.createQuery(dutySelect).list();
+		for(DutyPiece tmp:duties){
 			String back= "update DutyTime d set d.dutyLeft=d.dutyLeft+1 where d.id="+tmp.id;
 			session.createQuery(back).executeUpdate();
 		}
@@ -193,14 +193,14 @@ public class StudentAction extends ActionSupport{
 		//dutySchedule数据库更新
 		String selectDutyTime="from DutyTime d where d.teachBuilding.build_id="
 							  +teachBuildingId+" and "+dc;
-		List<DutyTime> dutyChosen=session.createQuery(selectDutyTime).list();
+		List<DutyPiece> dutyChosen=session.createQuery(selectDutyTime).list();
 		
-		for(DutyTime t:dutyChosen){
+		for(DutyPiece t:dutyChosen){
 			try{
 				trans=session.beginTransaction();
 				DutySchedule temp =new DutySchedule();
 				temp.student=s;
-				temp.dutyTime=t;
+				temp.dutyPiece=t;
 				session.save(temp);
 				trans.commit();
 			}

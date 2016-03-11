@@ -18,6 +18,8 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import Repair.RepairDAO;
+import RepairImpl.RepairDAOImpl;
 import model.CheckRecord;
 import model.Classroom;
 import model.Repertory;
@@ -61,49 +63,54 @@ public class ClassroomManageAction extends ActionSupport {
 		repertory_criteria.add(Restrictions.eq("classroom.id", Integer.parseInt(deleteID)));
 		List<Repertory> repertory_list= repertory_criteria.list();
 		
-		if(repertory_list.isEmpty()){//没有设备，直接删除
-			System.out.println("empty");
-			status = "1";
-			//删除对应的教室照片与数据库
-			Criteria picture_criteria = session.createCriteria(RoomPicture.class);
-			picture_criteria.add(Restrictions.eq("class_id", Integer.parseInt(deleteID)));
-			List<RoomPicture> picture_list= picture_criteria.list();
-			for(RoomPicture picture : picture_list){
-				System.out.println(util.Util.RootPath+picture.path);
-				util.Util.deleteFile(util.Util.RootPath+picture.path);
-				session.beginTransaction();
-				session.delete(picture);
-				Transaction t = session.getTransaction();
-				t.commit();
-			}
-			//删除检查记录
-			Criteria check_criteria = session.createCriteria(CheckRecord.class);
-			check_criteria.add(Restrictions.eq("classroom.id", Integer.parseInt(deleteID)));
-			List<CheckRecord> check_list = check_criteria.list();
-			for(CheckRecord checkrecord : check_list){
-				System.out.println(checkrecord);
-				session.beginTransaction();
-				session.delete(checkrecord);
-				Transaction t = session.getTransaction();
-				t.commit();
-			}
-			//删除课表
-			Criteria class_criteria = session.createCriteria(Classroom.class);
-			class_criteria.add(Restrictions.eq("id", Integer.parseInt(deleteID)));
-			List<Classroom> class_list = class_criteria.list();
-			Classroom classroom = class_list.get(0);
-			System.out.println(util.Util.RootPath+classroom.getClass_schedule_path());
-			util.Util.deleteFile(util.Util.RootPath + classroom.getClass_schedule_path());
-			//删除教室
+		//先将教室里的设备改为备用状态
+		System.out.println(repertory_list);
+		RepairDAO rdao = new RepairDAOImpl();
+		for(Repertory repertory: repertory_list){//将所有设备改为备用
+			String move_device_id=Integer.toString(repertory.rtId);
+			System.out.println("设备ID："+move_device_id);
+			String ret = Integer.toString(rdao.m2alter(move_device_id, "2"));
+		}
+		repertory_criteria.add(Restrictions.eq("classroom.id", Integer.parseInt(deleteID)));
+		List<Repertory> repertory_list2= repertory_criteria.list();
+		
+		//删除对应的教室照片与数据库
+		Criteria picture_criteria = session.createCriteria(RoomPicture.class);
+		picture_criteria.add(Restrictions.eq("class_id", Integer.parseInt(deleteID)));
+		List<RoomPicture> picture_list= picture_criteria.list();
+		for(RoomPicture picture : picture_list){
+			System.out.println(util.Util.RootPath+picture.path);
+			util.Util.deleteFile(util.Util.RootPath+picture.path);
 			session.beginTransaction();
-			session.delete(classroom);
+			session.delete(picture);
 			Transaction t = session.getTransaction();
 			t.commit();
 		}
-		else{//有对应设备，无法直接删除
-			System.out.println(repertory_list);
-			status = "2";
+		//删除检查记录
+		Criteria check_criteria = session.createCriteria(CheckRecord.class);
+		check_criteria.add(Restrictions.eq("classroom.id", Integer.parseInt(deleteID)));
+		List<CheckRecord> check_list = check_criteria.list();
+		for(CheckRecord checkrecord : check_list){
+			System.out.println(checkrecord);
+			session.beginTransaction();
+			session.delete(checkrecord);
+			Transaction t = session.getTransaction();
+			t.commit();
 		}
+		//删除课表
+		Criteria class_criteria = session.createCriteria(Classroom.class);
+		class_criteria.add(Restrictions.eq("id", Integer.parseInt(deleteID)));
+		List<Classroom> class_list = class_criteria.list();
+		Classroom classroom = class_list.get(0);
+		System.out.println(util.Util.RootPath+classroom.getClass_schedule_path());
+		util.Util.deleteFile(util.Util.RootPath + classroom.getClass_schedule_path());
+		//删除教室
+		session.beginTransaction();
+		session.delete(classroom);
+		Transaction t = session.getTransaction();
+		t.commit();
+		
+		status = "1";
 		session.close();
 		return SUCCESS;
 	}

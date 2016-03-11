@@ -144,8 +144,11 @@ public class RepairDAOImpl implements RepairDAO{
 				hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '维修', repertory.classroom = NULL" +
 						" where repertory.rtId = " + move;
 			}
-			else {
+			else if(opt.equals("1")){//移入报废 1
 				hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '报废', repertory.classroom = NULL" +
+						" where repertory.rtId = " + move;
+			}else{
+				hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '备用', repertory.classroom = NULL" +
 						" where repertory.rtId = " + move;
 			}
 			System.out.println(hql);

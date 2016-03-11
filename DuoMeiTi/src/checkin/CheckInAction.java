@@ -37,7 +37,8 @@ public class CheckInAction extends PageGetBaseAction{
 	private List recordlist;
 	private String result="";
 	private final static int MAX_PAGESIZE = 100;//一页数据上限为100
-
+	private String amCheckIn;
+	private String pmCheckIn;
 	public String checkIn()
 	{
 		try {
@@ -283,11 +284,11 @@ public class CheckInAction extends PageGetBaseAction{
 
 	
 	
-	public boolean AM() {
+	public boolean getAM() {
 		return AM;
 	}
 
-	public boolean PM() {
+	public boolean getPM() {
 		return PM;
 	}
 
@@ -310,4 +311,28 @@ public class CheckInAction extends PageGetBaseAction{
 	public void setResult(String result) {
 		this.result = result;
 	}
+
+	public String getAmCheckIn() {
+		Time startTime = CheckInRule.getAmStartTime();
+		Time endTime = CheckInRule.getAmEndTime();
+		amCheckIn = startTime.getHours()+":"+startTime.getMinutes()+" - "+endTime.hour+":"+endTime.minute;
+		return amCheckIn;
+	}
+
+	public String getPmCheckIn() {
+		Time startTime = CheckInRule.getPmStartTime();
+		Time endTime = CheckInRule.getPmEndTime();
+		pmCheckIn = startTime.getHours()+":"+startTime.getMinutes()+" - "+endTime.hour+":"+endTime.minute;
+		return pmCheckIn;
+	}
+
+	public void setAmCheckIn(String amCheckIn) {
+		this.amCheckIn = amCheckIn;
+	}
+
+	public void setPmCheckIn(String pmCheckIn) {
+		this.pmCheckIn = pmCheckIn;
+	}
+	
+	
 }

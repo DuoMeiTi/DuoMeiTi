@@ -1,8 +1,9 @@
 package model;
 
 import javax.persistence.*;
-import model.DutyTime;
+import model.DutyPiece;
 import model.StudentProfile;
+import model.DutyPlace;
 
 @Entity
 public class DutySchedule {
@@ -18,7 +19,16 @@ public class DutySchedule {
 	//学生选的值班时间地点
 	@ManyToOne
 	@JoinColumn
-	public DutyTime dutyTime;
+	public DutyPiece dutyPiece;
+	
+	
+//	//学生选的值班时间地点
+//	@ManyToOne
+//	@JoinColumn
+//	public model.DutyPlace dutyPlace;
+	
+	
+	
 
 	public int getId() {
 		return id;
@@ -36,12 +46,15 @@ public class DutySchedule {
 		this.student = student;
 	}
 
-	public DutyTime getDutyTime() {
-		return dutyTime;
+	public DutyPiece getDutyPiece() {
+		return dutyPiece;
 	}
 
-	public void setDutyTime(DutyTime dutyTime) {
-		this.dutyTime = dutyTime;
+	public void setDutyPiece(DutyPiece dutyPiece) {
+		this.dutyPiece = dutyPiece;
 	}
+
+	
+	
 
 }

@@ -28,8 +28,8 @@
 	</action>
 	<action name="setcheckinrule" class="checkin.CheckInAction" method="setCheckInRule">
 		<result name="success" type="json">
-				<param name="includeProperties">result</param>
-		</result>   
+				<param name="includeProperties">result,amCheckIn,pmCheckIn</param>
+			</result>
 	</action>
 </package>
 </struts>

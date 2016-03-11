@@ -24,7 +24,7 @@ function checktime()
 	var startmin = document.getElementById("startminute").value;
 	var endhour = document.getElementById("endhour").value;
 	var endmin = document.getElementById("endminute").value;
-	alert("starthour "+starthour+" startmin "+startmin+" endhour "+endhour+" endmin "+endmin);
+	//alert("starthour "+starthour+" startmin "+startmin+" endhour "+endhour+" endmin "+endmin);
 	if(am)
 	{
 		if(starthour>0&&starthour<=12)
@@ -91,7 +91,7 @@ $(document).on("click",'#savechange',function(){
 	else
 	{
 		var params = $('#change_time_form').serialize(); //利用jquery将表单序列化 
-		alert(params);
+	//	alert(params);
 		$.ajax({
 	        url: '/admincheckin/setcheckinrule',
 	        type: 'post',
@@ -112,4 +112,6 @@ function setcheckincallback(data)
 {
 	$('#changetime').modal('hide');
 	alert(data.result);
+	document.getElementById("amCheckIn").value =data.amCheckIn;
+	document.getElementById("pmCheckIn").value = data.pmCheckIn;
 }

@@ -28,27 +28,34 @@ function switchStatuChangeCallBack(data){
 	
 }
 
+
+
 $(document).on("click",".buildingSelect",function(){
-	var id=parseInt($(this).val());
-	var timetable=$(".time-table");
-	if(id>0){
-		$("td").each(function(i){
-			if($(this).attr("col")>0)$(this).html("");
-		});
-		timetable.removeClass("hide");
-		adjustBtnClose();
-		$.ajax({
-			url:"/admin/student_manage/getDutyTable",
-			type : 'post',
-			dataType : 'json',
-			data : {"teachBuildingId":id},
-			success : getDutyTableCallBack
-		})
-	}
-	else{
-		timetable.addClass("hide");
-	}
+//	var id=parseInt($(this).val());
+//	
+//	var timetable=$(".time-table");
+//	if(id>0){
+//		$("td").each(function(i){
+//			if($(this).attr("col")>0)$(this).html("");
+//		});
+//		timetable.removeClass("hide");
+//		adjustBtnClose();
+//		$.ajax({
+//			url:"/admin/student_manage/getDutyTable",
+//			type : 'post',
+//			dataType : 'json',
+//			data : {"teachBuildingId":id},
+//			success : getDutyTableCallBack
+//		})
+//	}
+//	else{
+//		timetable.addClass("hide");
+//	}
 });
+
+
+
+
 
 function getDutyTableCallBack(data){
 	var dutySchedule=data.dutySchedule;
@@ -67,6 +74,20 @@ function getDutyTableCallBack(data){
 		});
 	});
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $(document).on("click",".adjust-btn",function(){
 	if($(".buildingSelect").val()==0){

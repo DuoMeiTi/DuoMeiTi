@@ -3,6 +3,7 @@
 $(document).on("click", ".delete", function(){
 	deleteID = $(this).parents("[classroomId]").attr("classroomId");
 	/*alert("delete:" + deleteID);*/
+	alert("删除后教室内设备将变为备用状态！");
 	
 	$.ajax({
 		url : 'classroomManageNew_classroomDelete',
@@ -18,14 +19,8 @@ $(document).on("click", ".delete", function(){
 
 function classroomDeleteCallback(data){
 /*	alert("callBack:" + data.status);*/
-	if(data.status=="2"){
-		alert("请先将教室中的设备移除再删除教室！");
-	}
-	else{
-		location.reload(); 
-		/*alert("删除成功！");*/
-		
-	}
+	location.reload(); 
+	/*alert("删除成功！");*/
 }
 
 function getParam() {
@@ -148,7 +143,7 @@ $(document).on("click", ".update", function (){
 	$('#classroom_modal').modal('show');
 	submit_type = "update";
 	classroomId = $(this).parents("[classroomId]").attr('classroomId');
-	alert(classroomId);
+	//alert(classroomId);
 	$("#input_principal_student_number").val($(this).parents("[studentNumber]").attr('studentNumber'));
 	$("#input_principal_student_full_name").text($(this).parents("[studentFullName]").attr('studentFullName'))
 	$("#input_classroom_num").val($(this).parents("[classroomNum]").attr('classroomNum'));
@@ -216,6 +211,7 @@ function addClassroomCallback(data) {
 	{
 		alert("发生严重错误，不知名原因");
 	}
+	location.reload(); 
 	
 }
 

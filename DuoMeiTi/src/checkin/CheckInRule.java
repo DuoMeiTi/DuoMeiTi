@@ -131,7 +131,7 @@ public class CheckInRule {
 		cstart.setTime(newStartTime);
 		Calendar cend = Calendar.getInstance();
 		cend.setTime(newEndTime);
-		if(cend.get(Calendar.HOUR_OF_DAY)>=amDeadLine||cstart.get(Calendar.HOUR_OF_DAY)>=amDeadLine)
+		if(cend.get(Calendar.HOUR_OF_DAY)>amDeadLine||cstart.get(Calendar.HOUR_OF_DAY)>amDeadLine)
 		{
 			return false;
 		}
