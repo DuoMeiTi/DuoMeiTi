@@ -511,7 +511,7 @@
 		
 		<action name="FileUploadDelete" class="admin.ResourceFileUploadAction" method="delete">
 			<result type="json">
-				<param name="includeProperties">file</param>
+				<param name="includeProperties">filePath</param>
 			</result>
 		</action>
 		

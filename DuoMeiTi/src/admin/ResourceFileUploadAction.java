@@ -37,8 +37,17 @@ public class ResourceFileUploadAction extends util.FileUploadBaseAction
 //	public String inserted_file_path;
 	public String resource_file_table;
 	public List<ResourceFilePath> filePath_list;
+	public String filePath;
 	
-    public List<ResourceFilePath> getFilePath_list() {
+	
+	
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	public List<ResourceFilePath> getFilePath_list() {
 		return filePath_list;
 	}
 	public void setFilePath_list(List<ResourceFilePath> filePath_list) {
@@ -118,20 +127,26 @@ public class ResourceFileUploadAction extends util.FileUploadBaseAction
     }
     
     public String delete() throws Exception{
-    	System.out.println("hi");
+    	System.out.println("2");
     	Session session = model.Util.sessionFactory.openSession();
     	org.hibernate.Transaction trans = session.beginTransaction();
     	Criteria q = session.createCriteria(ResourceFilePath.class);
-    	q.add(Restrictions.eq("filePath", file));
+    	q.add(Restrictions.eq("filePath", filePath));
     	System.out.println("2");
-    	System.out.println(file);
+    	System.out.println(filePath);
     	System.out.println(q.list().get(0));
+    	
+    	/*List<ResourceFilePath> file_list = q.list();
+    	for(ResourceFilePath file:file_list){
+    		System.out.println("22222222");
+    		System.out.println(file);
+    		System.out.println(util.Util.RootPath+file.getFilePath());    	
+    		util.Util.deleteFile(util.Util.RootPath+file.getFilePath());
+    	}*/
+    		
     	session.delete(q.list().get(0));
     	session.getTransaction().commit();
     	session.close();
-    	trans.commit();
-    	
-    	
     	return ActionSupport.SUCCESS;
     }
 

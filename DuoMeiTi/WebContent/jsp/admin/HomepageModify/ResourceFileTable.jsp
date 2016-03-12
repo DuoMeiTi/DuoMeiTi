@@ -25,7 +25,7 @@
 				 </a>  
 			</td>
 			<td class="col-lg-2">
-				<button type="button" class="btn btn-danger delete ">删除</button>
+				<button type="button" class="btn btn-danger delete" filepath="<s:property value="#i.filePath"/>">删除</button>
 					
 				</button>
 			</td>
@@ -36,24 +36,25 @@
 		$(".delete").click(function(){
 			var temp = confirm("删除不可恢复！");
 			if(temp == true){
-				var file = $(this).closest("td").attr("filePath");
+				var filePath = $(this).attr("filePath");
+				//alert(filePath);
 				$.ajax({
 					url:"HomepageModify/FileUploadDelete",
 					type: "POST",  
-			        data: {filePath:file},  
-			        async: true,  
+			        data: {'filePath':filePath},
+			        dataType : 'json',
+			        /* async: true,  
 			        cache: false,  
 			        contentType: false,  
-			        processData: false,  
+			        processData: false, */  
 			        success: deleteCallBack,
-				
 				});
 			}
 		})
 		
 		function deleteCallBack(data){
-			var tr = $("tr[filePath='"+data.file+"']");
-			tr.html("");
+			//alert("ddddd");
+			location.reload();
 		}
 		
 	</script>
