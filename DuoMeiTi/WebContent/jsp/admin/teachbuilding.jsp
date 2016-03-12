@@ -130,15 +130,17 @@
 		        type: 'post',
 		        dataType: 'json',
 		        data:{buildId:id},
-		        success:deleteCallBack
+		        success: deleteCallBack
 			});
 		}
 	})
 	
 	function deleteCallBack(data){
 		if(data.status == 0){
-			var td = $("td[build_id='"+data.buildId+"']");
-			td.html("");
+			/* var td = $("td[build_id='"+data.buildId+"']");
+			td.html(""); */
+			location.reload() 
+			alert("删除成功！");
 		}
 		else alert("请先删除教室！");
 	}

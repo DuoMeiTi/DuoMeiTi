@@ -420,7 +420,8 @@
 		
 		<action name="build_delete" class="admin.TeachBuildingAction" method="BuildingDelete">
 			<result name="success" type="json">
-				<param name="includeProperties">strValue,status,buildId</param>
+				<param name="includeProperties">*
+				</param>
 			</result>
 		</action>
 		

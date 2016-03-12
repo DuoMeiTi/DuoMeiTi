@@ -140,7 +140,8 @@ public class TeachBuildingAction extends ActionSupport {
 	public String BuildingDelete() throws Exception{
 		
 		Session session = model.Util.sessionFactory.openSession();
-		Transaction trans = session.beginTransaction();
+//		Transaction trans = 
+		session.beginTransaction();
 		Criteria q = session.createCriteria(Classroom.class);
 		q = q.createCriteria("teachbuilding");
 		q.add(Restrictions.eq("build_id",buildId));
@@ -154,14 +155,15 @@ public class TeachBuildingAction extends ActionSupport {
 		else {
 			status = 1;
 		}
-		/*Criteria b = session.createCriteria(TeachBuilding.class);
+		Criteria b = session.createCriteria(TeachBuilding.class);
 		b.add(Restrictions.eq("build_id", buildId));
+		List L = b.list();
 		System.out.println(buildId);
-		System.out.println(b.list().get(0));
-		session.delete(b.list().get(0));
+		System.out.println(L.get(0));
+		session.delete(L.get(0));
 		session.getTransaction().commit();
-		session.close();*/
-		trans.commit();
+		session.close();
+//		trans.commit();
 		
 		System.out.println(status);
 		
