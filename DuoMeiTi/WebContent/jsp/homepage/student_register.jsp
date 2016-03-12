@@ -244,10 +244,14 @@
     	else if(data.register_status == "3")
     	{
     		alert("两次密码不一致");
-    	}   
+    	} 
+    	else if(data.register_status == "6")
+    	{
+    		alert("学号已经存在！");
+    	} 
     	else 
    		{
-    		alert("error with status" + data.register_status);
+    		alert("error with status：" + data.register_status);
    		}
 
 		

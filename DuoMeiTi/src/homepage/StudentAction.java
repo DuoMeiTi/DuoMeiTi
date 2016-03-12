@@ -224,6 +224,7 @@ public class StudentAction extends FileUploadBaseAction {
 	 * 		  3: password两次不一致
 	 * 		  4:姓名为空
 	 * 		  5：学号为空
+	 * 		  6:学号已经存在
 	 */
 	
 	public String studentRegister() throws Exception
@@ -285,6 +286,16 @@ public class StudentAction extends FileUploadBaseAction {
 		}
 		
 		Session session = model.Util.sessionFactory.openSession();
+		//判断学号是否重复
+		Criteria q2= session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", studentId));
+		List u2 = q2.list();
+		if(!u2.isEmpty()){
+			System.out.println(studentId+"学号已经存在");
+			this.register_status="6";
+			return ActionSupport.SUCCESS;
+			
+		}
+		
 		Criteria q= session.createCriteria(User.class).add(Restrictions.eq("username", username));
 		List ul = q.list();
 		if(!ul.isEmpty())
