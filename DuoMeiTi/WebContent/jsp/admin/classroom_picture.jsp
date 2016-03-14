@@ -30,20 +30,43 @@
 		<br/>
 		<br/>
 
-		<table class="table device-table-bordered " id="roompicture_table">
-			<tbody>
-				<s:iterator value="picture_list" var="picture" status="i">
-				<label  for="username"><s:property value="#picture.remark"/>:</label>
-				<div class="well well-sm">		
-					<div class="form-group col-lg-offset-4" id = "<s:property value="#picture.id"/>">
+		<table>
+			<s:iterator begin="0" end="picture_list.size()-1" var="i" step="2">
+				<tr class="">
+					<s:iterator  var="j" begin="0" end="@@min(picture_list.size()-#i-1,2)" step="1">
+					<td height="500" width="400">
+						<div>
+							<img src="<s:property value="picture_list.get(#i+#j).path"/>" height="360px" width="300px" >  
+						</div>
+						<div id ="<s:property value="picture_list.get(#i+#j).id"/>">
+							<s:property value="picture_list.get(#i+#j).remark"/>
+							<button type="button" class="btn btn-primary btn-sm delete col-lg-offset-4" id="delede-button">删除</button>
+						</div>
+					</td>
+					</s:iterator>
+				</tr>
+			</s:iterator>
+		
+		</table>
+
+
+
+
+
+<!-- 		<table class="table device-table-bordered " id="roompicture_table"> -->
+<!-- 			<tbody> -->
+<%-- 				<s:iterator value="picture_list" var="picture" status="i"> --%>
+<%-- 				<label  for="username"><s:property value="#picture.remark"/>:</label> --%>
+<!-- 				<div class="well well-sm">		 -->
+<%-- 					<div class="form-group col-lg-offset-4" id = "<s:property value="#picture.id"/>"> --%>
 						
-						<img src="<s:property value="#picture.path"/>"  width="200" height="200" />   
-						<button type="button" class="btn btn-primary btn-sm delete col-lg-offset-4" id="delede-button">删除</button>	
-					</div>
-				</div>
-				</s:iterator>
-			</tbody>
-		</table>	
+<%-- 						<img src="<s:property value="#picture.path"/>"  width="200" height="200" />    --%>
+<!-- 						<button type="button" class="btn btn-primary btn-sm delete col-lg-offset-4" id="delede-button">删除</button>	 -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<%-- 				</s:iterator> --%>
+<!-- 			</tbody> -->
+<!-- 		</table>	 -->
 			
 	
 		<script>
@@ -87,7 +110,7 @@
 			var temp = confirm("删除不可恢复！");
 			if (temp == true) {
 				delete_Id = $(this).parents("div").attr("id");// attr所选元素属性值 
-				/* alert(delete_Id); */
+// 				alert(delete_Id); 
 				$.ajax({
 					url : 'picture_delete',
 					type : 'post',
