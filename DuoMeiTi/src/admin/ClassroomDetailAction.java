@@ -447,8 +447,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		java.util.Date date = new java.util.Date();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddHHmmss");
 		String curdate = simpleDateFormat.format(date);
-		String fileName = curdate+fileFileName;
-
+		String fileName = curdate+fileFileName.substring(fileFileName.length()-5, fileFileName.length());
 		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
         {
 			util.Util.saveFile(file, fileName, util.Util.RootPath + util.Util.ClassroomInfoFilePath);

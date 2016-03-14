@@ -34,7 +34,7 @@
 			<s:iterator begin="0" end="picture_list.size()-1" var="i" step="2">
 				<tr class="">
 					<s:iterator  var="j" begin="0" end="@@min(picture_list.size()-#i-1,2)" step="1">
-					<td height="500" width="400">
+					<td height="480" width="400">
 						<div  class="text" style=" text-align:center;">
 							<label>&nbsp;<s:property value="picture_list.get(#i+#j).remark"/>&nbsp;</label>
 						</div>
@@ -54,21 +54,6 @@
 
 
 
-
-<!-- 		<table class="table device-table-bordered " id="roompicture_table"> -->
-<!-- 			<tbody> -->
-<%-- 				<s:iterator value="picture_list" var="picture" status="i"> --%>
-<%-- 				<label  for="username"><s:property value="#picture.remark"/>:</label> --%>
-<!-- 				<div class="well well-sm">		 -->
-<%-- 					<div class="form-group col-lg-offset-4" id = "<s:property value="#picture.id"/>"> --%>
-						
-<%-- 						<img src="<s:property value="#picture.path"/>"  width="200" height="200" />    --%>
-<!-- 						<button type="button" class="btn btn-primary btn-sm delete col-lg-offset-4" id="delede-button">删除</button>	 -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<%-- 				</s:iterator> --%>
-<!-- 			</tbody> -->
-<!-- 		</table>	 -->
 			
 	
 		<script>
