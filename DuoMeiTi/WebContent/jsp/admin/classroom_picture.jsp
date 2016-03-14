@@ -35,11 +35,13 @@
 				<tr class="">
 					<s:iterator  var="j" begin="0" end="@@min(picture_list.size()-#i-1,2)" step="1">
 					<td height="500" width="400">
+						<div  class="text" style=" text-align:center;">
+							<label>&nbsp;<s:property value="picture_list.get(#i+#j).remark"/>&nbsp;</label>
+						</div>
 						<div>
 							<img src="<s:property value="picture_list.get(#i+#j).path"/>" height="360px" width="300px" >  
 						</div>
 						<div id ="<s:property value="picture_list.get(#i+#j).id"/>">
-							<s:property value="picture_list.get(#i+#j).remark"/>
 							<button type="button" class="btn btn-primary btn-sm delete col-lg-offset-4" id="delede-button">删除</button>
 						</div>
 					</td>
