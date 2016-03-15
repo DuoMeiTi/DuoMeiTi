@@ -100,7 +100,7 @@ public class StudentManageAction extends ActionSupport{
 	
 
 
-	public String dutyManager() throws Exception {
+//	public String dutyManager() throws Exception {
 		
 		
 		
@@ -127,48 +127,48 @@ public class StudentManageAction extends ActionSupport{
 //		List<ChooseClassSwitch> t=session.createQuery(s).list();
 //		chooseClassSwitch=t.get(0).open;
 //		session.close();
-		return SUCCESS;
-	}
+//		return SUCCESS;
+//	}
 	
-	public String switchStatuChange() throws Exception{
+//	public String switchStatuChange() throws Exception{
 
-		try{
-			Session session = model.Util.sessionFactory.openSession();
-			Transaction tx=session.beginTransaction();
-			String hql="from ChooseClassSwitch ccs where ccs.id=1";
-			ChooseClassSwitch f = (ChooseClassSwitch)session.createQuery(hql).list().get(0);
-			String flag;
-			if(f.open==true)flag="false";
-			else flag="true";
-			hql="update ChooseClassSwitch ccs set ccs.open="+flag+" where ccs.id=1";
-			session.createQuery(hql).executeUpdate();
-			tx.commit();
-			session.close();
-			log="success";
-		}
-		catch(Exception e){
-			log="fail";
-			System.out.println(e);
-		}
-		System.out.println("hello");
-		return SUCCESS;
-	}
+//		try{
+//			Session session = model.Util.sessionFactory.openSession();
+//			Transaction tx=session.beginTransaction();
+//			String hql="from ChooseClassSwitch ccs where ccs.id=1";
+//			ChooseClassSwitch f = (ChooseClassSwitch)session.createQuery(hql).list().get(0);
+//			String flag;
+//			if(f.open==true)flag="false";
+//			else flag="true";
+//			hql="update ChooseClassSwitch ccs set ccs.open="+flag+" where ccs.id=1";
+//			session.createQuery(hql).executeUpdate();
+//			tx.commit();
+//			session.close();
+//			log="success";
+//		}
+//		catch(Exception e){
+//			log="fail";
+//			System.out.println(e);
+//		}
+//		System.out.println("hello");
+//		return SUCCESS;
+//	}
 	
-	public String getDutyTable() throws Exception{
-		Session session = model.Util.sessionFactory.openSession();
-		String hql="select ds.student.id,ds.student.user.fullName,ds.dutyTime.time from DutySchedule ds where ds.dutyTime.teachBuilding.build_id="
-					+teachBuildingId+" order by ds.dutyTime.time";
-		List temp =session.createQuery(hql).list();
-		Iterator iter=temp.iterator();
-		dutySchedule = new ArrayList<DutyInfo>();
-		while(iter.hasNext()){
-			Object [] tmp= (Object[]) iter.next();
-			dutySchedule.add(new DutyInfo((Integer)tmp[0],(String)tmp[1],(Integer)tmp[2]));
-		}
-		System.out.println(dutySchedule.get(0).studentName);
-		session.close();
-		return SUCCESS;
-	}
+//	public String getDutyTable() throws Exception{
+//		Session session = model.Util.sessionFactory.openSession();
+//		String hql="select ds.student.id,ds.student.user.fullName,ds.dutyTime.time from DutySchedule ds where ds.dutyTime.teachBuilding.build_id="
+//					+teachBuildingId+" order by ds.dutyTime.time";
+//		List temp =session.createQuery(hql).list();
+//		Iterator iter=temp.iterator();
+//		dutySchedule = new ArrayList<DutyInfo>();
+//		while(iter.hasNext()){
+//			Object [] tmp= (Object[]) iter.next();
+//			dutySchedule.add(new DutyInfo((Integer)tmp[0],(String)tmp[1],(Integer)tmp[2]));
+//		}
+//		System.out.println(dutySchedule.get(0).studentName);
+//		session.close();
+//		return SUCCESS;
+//	}
 	
 	public String deleteDuty() throws Exception{
 		try{
@@ -195,9 +195,15 @@ public class StudentManageAction extends ActionSupport{
 		System.out.println(log);
 		return SUCCESS;
 	}
+	
+	
+	
+	
+	
+	
 	public String searchStudent() throws Exception{
 		
-		System.out.println("CNTTTTTTTTTTTT********");
+//		System.out.println("CNTTTTTTTTTTTT********");
 		String conditions;
 		if(studentName.length()>0&&studentId.length()>0)conditions="where s.studentId="+studentId+" and "+"s.user.fullName='"+studentName+"'";
 		else if(studentName.length()>0)conditions="where s.user.fullName='"+studentName+"'";

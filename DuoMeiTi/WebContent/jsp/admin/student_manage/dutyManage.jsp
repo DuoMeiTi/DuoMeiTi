@@ -8,19 +8,31 @@
 
 
 	<h3>选班开关</h3>
-	<s:if test="chooseClassSwitch==false">
-		<button type="button" class="btn btn-primary" id="chooseClassSwitch">选班功能已关闭</button>
+	<s:if test="dutyChooseSwitchIsOpen==false">
+		<button type="button" class="btn btn-primary" id="dutyChooseSwitchIsOpen">选班功能已关闭</button>
 	</s:if>
 	<s:else>
-		<button type="button" class="btn btn-warning" id="chooseClassSwitch">选班功能已打开</button>
+		<button type="button" class="btn btn-warning" id="dutyChooseSwitchIsOpen">选班功能已打开</button>
 	</s:else>
 	
 	
-	<h3> 值班地点管理</h3>	
+	
+	
+  	
+		<h3> 值班地点管理 </h3>	
+  	
 		<form class="form-inline" method="POST">
-			<input type="text" class="form-control" style="width:200px;" 
-			id="newDutyPlace"> 
+			
+			
+			<div class="form-group">
+
+					<input type="text" class="form-control" style="width:200px;" id="newDutyPlace"> 
+  			</div>
+			
+			
 			<button type="button" class="btn btn-default" id="addDutyPlace"> 添加</button>
+			
+			
 		</form>
 		
 		<br/>
@@ -48,16 +60,21 @@
 	
 	
 	<h3>值班表</h3>
-	<div class="teachbuilding-droplist">
+	<div 
+	>
 	
-		<select class="form-control buildingSelect" id="selectDutyPlace">
+		<select class="form-control buildingSelect" id="selectDutyPlace"
+				style="width:200px;"
+		>
+		
 			<option value=-1>请选择选班地点</option>
 			<s:iterator value="dutyPlaceList" var="i" status="index" >
 	  			<option  value=<s:property value="#i.id"/> ><s:property value="#i.placeName"/></option>
 	  		</s:iterator>
 	  	</select>
 
-		<button type="button" class="btn btn-primary adjust-btn" statu=0>打开调整</button>
+		<button type="button" class="btn btn-primary adjustDutyNumber" status=0>打开值班容量调整</button>
+		<button type="button" class="btn btn-primary adjust-btn" statu=0>打开值班人员调整</button>
 	</div>
 	
 	
@@ -74,14 +91,8 @@
 				</tr>
 			</thead>
 			<tbody>
-<%-- 				<s:iterator value="{'7:40 ~~ 9:20','9:50 ~~ 11:30','13:15 ~~ 14:50','15:20 ~~ 17:00','17:45 ~~ 19:20'}" var="time" status="row"> --%>
-<!-- 					<tr class="row" row=<s:property value="#row.index+1"/>   > -->
-<%-- 						<td class="col-md-2"><s:property value="time"/></td> --%>
-<%-- 						<s:iterator value="{'','','','','','',''}" var="num" status="col"> --%>
-<%-- 							<td class="col-md-1.5 students" col=<s:property value="#col.index+1"/>><s:property value="num"/></td> --%>
-<%-- 						</s:iterator> --%>
-<!-- 					</tr> -->
-<%-- 				</s:iterator> --%>
+
+
 
 
 <s:iterator value="{'7:40 ~~ 9:20','9:50 ~~ 11:30','13:15 ~~ 14:50','15:20 ~~ 17:00','17:45 ~~ 19:20'}"
@@ -93,14 +104,21 @@
 			
 			<s:iterator value="{'','','','','','',''}" var="value"  status="j"  >
 			
-				<td class="col-md-1.5 students"  dutyTime='<s:property value="(#i.index) * 7 + #j.index  "/>'  >
-				
-<%-- 					<s:property value="(#i.index) * 7 + #j.index  "/> --%>
+				<td class="col-md-1.5 "  
+					dutyPieceTime='<s:property value="(#i.index) * 7 + #j.index  "/>' 
+					>				
 				
 				</td>
 			</s:iterator>
 		</tr>
 </s:iterator>
+				
+				
+				
+				
+				
+				
+				
 				
 				
 				
@@ -136,16 +154,111 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-		        <button type="button" class="btn btn-primary" id="dutyAdd" data-dismiss="modal">添加</button>
+		        <button type="button" class="btn btn-primary" id="addDutySchedule" data-dismiss="modal">添加</button>
 		      </div>
 	    	</div>
 	    </div>
 	</div>
 	
+	
+	
+<!-- Modal    调整值班容量modal-->
+	<div class="modal fade" id="updateDutyNumberModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">更新值班容量</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<form class="form-inline">
+  					<div class="form-group">
+    					<label for="inputDutyNumber">新的容量值</label>
+    					<input type="text" class="form-control" id="inputDutyNumber">
+  					</div>
+  					
+<!--   					<button type="button" class="btn btn-default" id="searchButton">检索</button> -->
+				</form>
+				<hr>
+<!-- 				<p class="log"></p> -->
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" id="updateDutyNumberButton" data-dismiss="modal">确定</button>
+		      </div>
+	    	</div>
+	    </div>
+	</div>
+	
+	
+	
+	<!-- 	表单 -->
+	
+	
+	
+	
+	
 </div>
 
 
 <script>
+
+
+$(document).on("click","#dutyChooseSwitchIsOpen",function(){
+	$.ajax({
+		url : "/admin/student_manage/duty_manage_switchDutyChoose",
+		type : 'post',
+		dataType : 'json',
+		data : {},
+		success : 
+
+			function switchStatuChangeCallBack(data){
+			var btn=$("#dutyChooseSwitchIsOpen");
+				
+			if(btn.hasClass("btn-primary"))
+			{
+				btn.removeClass("btn-primary");
+				btn.addClass("btn-warning");
+				btn.html("选班功能已打开");
+			}
+			else
+			{
+				btn.removeClass("btn-warning");
+				btn.addClass("btn-primary");
+				btn.html("选班功能已关闭");
+			}
+			
+		}
+
+		
+		
+		
+		
+		
+	});
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $(document).on("click","#addDutyPlace",function() {
 
@@ -187,7 +300,6 @@ $(document).on("click","#deleteDutyPlace",function() {
 });
 function deleteDutyPlaceCallBack(data){
 	window.location.reload();
-// 	window.location.reload();
 }
 
 
@@ -197,28 +309,32 @@ function deleteDutyPlaceCallBack(data){
 
 
 
+// 选择值班地点
 
 $(document).on("change",".buildingSelect",function(){
 
 	
 			
 	var id=parseInt($(this).val());
-	alert(id);
-	if(id <0) return ;
 	
-// 	return ;
 	
 	var timetable=$(".time-table");
-// 	alert(id);
-
-	
-	$("td").each(function(i)
+	if(id <0) 
 	{
-		if($(this).attr("col")>0)
-			$(this).html("");
+		timetable.addClass("hide");
+		return ;
+	}
+	
+
+
+	timetable.removeClass("hide");
+	$("[dutyPieceTime]").each(function(i) {
+		
+		$(this).html("");
+
 	});
 	
-	timetable.removeClass("hide");
+	
 	adjustBtnClose();
 	$.ajax({
 		url:"/admin/student_manage/duty_manage_obtainDutyTable",
@@ -236,32 +352,377 @@ $(document).on("change",".buildingSelect",function(){
 
 function obtainDutyTableCallBack(data) {
 	
-	alert("GGGG");	
 	
-	var list =  data.obtainDutyTable_dutyScheduleList;
+	var ds_list =  data.obtainDutyTable_dutyScheduleList;
 	
-	alert(list[0].id);
+	for(var i = 0; i < ds_list.length; ++ i)
+	{
+		var time = ds_list[i].dutyPiece.time;
+		var fullName = ds_list[i].student.user.fullName;
+		var dutyScheduleId = ds_list[i].id;
+		var dutyPieceId = ds_list[i].dutyPiece.id;		
+		$("[dutyPieceTime="+time+"]").append(
+				"<span  dutyScheduleId=" + dutyScheduleId +">"
+				+ fullName +
+				"</span>"
+				
+		);
+	}
 	
+
+
 	
-	
+	var dutyPieceList = data.obtainDutyTable_dutyPieceList;
+	for(var i = 0; i < dutyPieceList.length; ++ i)
+	{		
+		var d = dutyPieceList[i];
+		$("[dutyPieceTime="+d.time+"]").attr("numberOfDuty", d.numberOfDuty);
+		$("[dutyPieceTime="+d.time+"]").attr("dutyPieceId", d.id);
+		$("[dutyPieceTime="+d.time+"]").attr("dutyLeft", d.dutyLeft);
+		
+		
+// 		$("[dutyPieceTime="+d.time+"]").prepend(
+				
+// 				"<span  class= 'showDutyNumberAndLeft'>" + 
+// 				d.numberOfDuty + 
+// 				"," +
+// 				d.dutyLeft + 
+				
+				
+// 				"</span>"
+				
+// 		);
+	}
+		
+
 	
 }
-// 	var dutySchedule=data.dutySchedule;
-// 	$(dutySchedule).each(function(i){
-// 		var id=dutySchedule[i].studentId;
-// 		var name=dutySchedule[i].studentName;
-// 		var time=dutySchedule[i].time;
-// 		var row = parseInt(time/10);
-// 		var col = parseInt(time%10);
-// 		$("td").each(function(j){
-// 			var coll=$(this).attr("col");
-// 			var roww=$(this).closest("tr").attr("row");
-// 			if(coll==col&&roww==row){
-// 				$(this).append("<span  class ='student-name' iid="+id+">"+name+"</span>");
-// 			}
-// 		});
-// 	});
-// }
+
+
+
+var cntDutySchedule;
+$(document).on("click","[dutyScheduleId]",function() {
+	
+	
+	if(!window.confirm("您确定要删除此学生的选班时间段吗？")) return ;
+
+	cntDutySchedule = $(this);
+	var deleteDutySchedule_id = $(this).attr("dutyScheduleId");
+	
+	$.ajax({
+		url:"/admin/student_manage/duty_manage_deleteDutySchedule",
+		type : 'post',
+		dataType : 'json',
+		data : {"deleteDutySchedule_id": deleteDutySchedule_id },
+		success : deleteDutyScheduleCallBack
+	})
+
+	
+})
+function deleteDutyScheduleCallBack(data)
+{
+	$(cntDutySchedule).remove();	
+}
+
+
+// 控制 调整在职学生的按钮
+$(document).on("click",".adjust-btn",function()
+{
+	if($(".buildingSelect").val()<0)
+	{
+		alert("请选择教学楼");
+		return;
+	}
+	if($(this).attr("statu")==0)
+	{
+		adjustBtnOpen();
+	}
+	else
+	{
+		adjustBtnClose();
+	}
+});
+
+function adjustBtnClose(){
+	var btn=$(".adjust-btn");
+	$(".addBtn").each(function(i){
+		$(this).remove();
+	});
+	btn.attr("statu",0);
+	btn.html("打开值班人员调整");
+	btn.removeClass("btn-warning");
+	btn.addClass("btn-primary");
+}
+
+function adjustBtnOpen(){
+	var btn=$(".adjust-btn");
+	$("[dutyPieceTime]").each(function(i){
+		$(this).append("<span class='addBtn'>+</span>");
+	});
+	btn.attr("statu",1);
+	btn.html("关闭值班人员调整");
+	btn.removeClass("btn-primary");
+	btn.addClass("btn-warning");
+}
+
+
+//添加学生的按钮
+
+var cntDutyPlaceId;
+var cntDutyPieceTime;
+
+var cntAddDutyPieceButton;
+$(document).on("click",".addBtn",function() {
+	
+	cntDutyPlaceId = $(".buildingSelect").val();
+	cntDutyPieceTime = $(this).parent().attr("dutyPieceTime");
+	
+	cntAddDutyPieceButton = $(this);
+
+	
+	
+	$("#studentName").val("");
+	$("#studentId").val("");
+	$(".log").html("");
+	$("#myModal").modal();
+});
+
+
+
+
+
+// 检索学生
+$(document).on("click","#searchButton",function(){
+	var name=$("#studentName").val();
+	var id=$("#studentId").val();
+	var logdiv=$(".log");
+	if(name==""&&id=="")logdiv.html("请至少填写一个字段");
+	else{
+		$.ajax({
+			url:"/admin/student_manage/searchStudent",
+			type : 'post',
+			dataType : 'json',
+			data : {"studentName":name,"studentId":id},
+			success : SearchStudentCallBack
+		});
+	}
+})
+
+
+var cntStudentId;
+function SearchStudentCallBack(data){
+	var students=data.searchResult;
+	var logdiv=$(".log");
+	var nameInput=$("#studentName");
+	var idInput=$("#studentId");
+
+	
+	if(students.length==0)logdiv.html("查无此人");
+	if(students.length==1)
+	{
+		if(nameInput.val()=="") nameInput.val(students[0].studentName);
+		if(idInput.val()=="")idInput.val(students[0].studentId);
+		cntStudentId = students[0].id;
+
+		logdiv.html("可以添加");
+	}
+	if(students.length>1)logdiv.html("有多名学生同名，请输入学号重新检索");
+}
+
+
+
+// 添加addDutySchedule
+$(document).on("click","#addDutySchedule",function() {
+	
+	
+	if($(".log").text() != "可以添加")
+	{
+		alert("没有合法学生信息，无法添加请继续搜索");
+		return ;
+	}
+	
+	
+
+
+
+	$.ajax({
+		url:"/admin/student_manage/duty_manage_addDutySchedule",
+		type : 'post',
+		dataType : 'json',
+		data : {"addDutySchedule_dutyPlaceId":cntDutyPlaceId,
+				"addDutySchedule_studentId":cntStudentId,
+				"addDutySchedule_dutyPieceTime":cntDutyPieceTime,
+				},
+		success : 
+			
+		function dutyAddCallBack(data) {
+			
+			
+			var cmd = data.status.substr(0, 1);
+			var info = data.status.substr(1);
+			
+			alert(info);
+			if(cmd != "0")
+			{
+				return ;	
+			}
+
+// 			$("[dutyPieceTime="+ cntDutyPieceTime + "]").pre
+
+			var fullName=$("#studentName").val();	
+			var dutyScheduleId = data.addDutySchedule_addeddutyScheduleId;
+			
+			$(cntAddDutyPieceButton).before(
+					"<span  dutyScheduleId=" + dutyScheduleId +">"
+					+ fullName +
+					"</span>");
+		}
+	});
+})
+
+
+
+
+
+
+
+
+
+
+
+
+// adjustDutyNumber
+
+// 控制 调整值班容量
+
+$(document).on("click",".adjustDutyNumber",function()
+{
+	if($(".buildingSelect").val()<0)
+	{
+		alert("请选择教学楼");
+		return;
+	}
+	if($(this).attr("status")==0) // 关闭状态
+	{
+		
+	 	$("[dutyPieceTime]").each(function(i){
+			$(this).append(
+					"<span> </span>"								
+			);			
+			$(this).children(":last").addClass("updateDutyNumber");
+			
+			
+			var numberOfDuty = $(this).attr("numberOfDuty");
+			$(this).children(":last").html("更新(" + numberOfDuty + ")");
+			
+			
+			
+			
+// 			$("[dutyPieceTime="+d.time+"]").attr("numberOfDuty", d.numberOfDuty);
+// 			$("[dutyPieceTime="+d.time+"]").attr("dutyPieceId", d.id);
+// 			$("[dutyPieceTime="+d.time+"]").attr("dutyLeft", d.dutyLeft);
+		});
+	 	
+	 	
+	 	
+	 	$(this).attr("status", 1);
+	 	$(this).html("关闭值班容量调整");
+	 	$(this).removeClass("btn-primary");
+	 	$(this).addClass("btn-warning");
+
+	}
+	else
+	{
+		$(".updateDutyNumber").each(function(i){
+			$(this).remove();
+		});
+		$(this).attr("status", 0);
+		$(this).html("打开值班容量调整");
+		$(this).removeClass("btn-warning");
+		$(this).addClass("btn-primary");
+
+	}
+	
+});
+
+
+
+var cntDutyPieceId;
+$(document).on("click",".updateDutyNumber",function() {
+	
+
+	$("#inputDutyNumber").val("");
+	
+	$("#updateDutyNumberModal").modal();
+	
+	cntDutyPieceId = $(this).parent().attr("dutyPieceId");
+
+});
+
+$(document).on("click","#updateDutyNumberButton",function() {
+	
+	var dutyNumber = $("#inputDutyNumber").val();
+	dutyNumber = parseInt(dutyNumber);
+
+	
+	if(isNaN(dutyNumber))
+	{
+		alert("输入的是非法的数字"); return;
+	}
+	
+	if(dutyNumber < 0)
+	{
+		alert("输入的数字是负数，请重新输入"); return;
+	}
+	
+
+	
+	
+	$.ajax({
+		url:"/admin/student_manage/duty_manage_updateDutyNumber",
+		type : 'post',
+		dataType : 'json',
+		data : {"updateDutyNumber_dutyNumber":dutyNumber,
+				"updateDutyNumber_dutyPieceId":cntDutyPieceId,
+				},
+		success : 
+			
+		function updateDutyNumberCallBack(data) {
+			
+			var cmd = data.status.substr(0, 1);
+			var info = data.status.substr(1);
+			alert(info);
+			if(cmd != "0")
+			{	
+				return ;
+			}
+			
+			
+			var cntOccupiedDuty = $("[dutyPieceId="+ cntDutyPieceId  + "]").attr("numberOfDuty") 
+								- $("[dutyPieceId="+ cntDutyPieceId  + "]").attr("dutyLeft");
+			
+			$("[dutyPieceId="+ cntDutyPieceId  + "]").attr("numberOfDuty", dutyNumber);			
+			
+			$("[dutyPieceId="+ cntDutyPieceId  + "]").attr("dutyLeft", dutyNumber - cntOccupiedDuty);
+			
+// 			var text = dutyNumber + ", " + (dutyNumber - cntOccupiedDuty);
+			
+// 			$("[dutyPieceId="+ cntDutyPieceId  + "]").find(".showDutyNumberAndLeft").text(text);
+
+			$("[dutyPieceId="+ cntDutyPieceId  + "]").find(".updateDutyNumber").text("更新(" + dutyNumber + ")");
+
+			
+
+		}
+				
+				
+				
+	});
+
+	
+	
+})
+
 
 
 

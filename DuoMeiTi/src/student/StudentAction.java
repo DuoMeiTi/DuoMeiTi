@@ -214,6 +214,10 @@ public class StudentAction extends ActionSupport{
 		return "ajaxSuccess";
 	}
 	
+	
+	
+	
+	
 	public String ruleShow() throws Exception{
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(Rules.class);
