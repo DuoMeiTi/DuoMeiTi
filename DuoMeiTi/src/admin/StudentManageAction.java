@@ -243,6 +243,33 @@ public class StudentManageAction extends ActionSupport{
 		return SUCCESS;
 	}
 
+	public static List<StudentProfile> studentSearch(String name, String studentID){
+		if(name.length()==0&&studentID.length()==0){
+			return null;
+		}
+		List<StudentProfile> reList=new ArrayList<StudentProfile>();
+		Session session=model.Util.sessionFactory.openSession();
+		if(studentID.length()!=0){//按学号查找
+			Criteria q = session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", studentID))
+					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
+			reList=q.list();
+		}else{//按姓名查找
+			Criteria q1 = session.createCriteria(User.class).add(Restrictions.eq("fullName", name));
+			List<User> userList=q1.list();
+			List<Integer> idList=new ArrayList<Integer>();
+			if(!userList.isEmpty()){
+				for(User user: userList){
+					idList.add(user.getId());
+				}
+				Criteria q2 = session.createCriteria(StudentProfile.class)
+						.add(Restrictions.in("user.id", idList))//查找所有符合要求d
+						.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));			
+				reList=q2.list();
+			}
+		}
+		session.close();
+		return reList;
+	}
 
 	public String searchStudentInformation() throws Exception
 	{
@@ -252,47 +279,25 @@ public class StudentManageAction extends ActionSupport{
 		System.out.println("s:"+search_select);
 	
 		if(search_select.equals("2")){//按学号查找
-			Session session=model.Util.sessionFactory.openSession();
-			Criteria q1 = session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", name_id))
-					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
-			student_list=q1.list();
-			
-			
+			student_list=studentSearch("", name_id);
 			if(student_list.isEmpty()){
-				System.out.println("empty");
 				isEmpty = "0";
-				session.close();
 			}
 			else{
 				isEmpty = "1";
-				Collections.reverse(student_list);
 				edit_student = student_list.get(0);
-				//查找student对应的user
-				Criteria q2 = session.createCriteria(User.class)
-						.add(Restrictions.eq("username",edit_student.getUser().getUsername()))
-											
-						
-						; //hibernate session创建查询
-				user_list=q2.list();
-				Collections.reverse(user_list);
-				edit_user = user_list.get(0);
+				System.out.println("studentid:"+edit_student.studentId);
 				
-				
-				System.out.println("list:"+student_list);
-				System.out.println("studentid:"+student_list.get(0).studentId);
-			
-				
-				
-				fullName = edit_user.getFullName();
-				sex = edit_user.getSex();
-				phoneNumber = edit_user.getPhoneNumber();
+				fullName = edit_student.getUser().getFullName();
+				sex = edit_student.getUser().getSex();
+				phoneNumber = edit_student.getUser().getPhoneNumber();
 				college = edit_student.getCollege();
 				studentId = edit_student.getStudentId();
 				isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
 				bankCard = edit_student.getBankCard();
 				idCard = edit_student.getIdCard();
 				
-				
+				Session session=model.Util.sessionFactory.openSession();
 				model.StudentProfile cnt_stu = (model.StudentProfile)edit_student;
 				Criteria sc = session.createCriteria(model.ExamStuScore.class)
 							   .add(Restrictions.eq("stuPro.id",cnt_stu.id ))
@@ -321,54 +326,26 @@ public class StudentManageAction extends ActionSupport{
 		
 		else{//按姓名查找
 			System.out.println("xingming："+name_id);
-			
-			Session session=model.Util.sessionFactory.openSession();
-			Criteria q1 = session.createCriteria(User.class).add(Restrictions.eq("fullName", name_id));
-			user_list=q1.list();
-			System.out.println(user_list);
-			if(user_list.isEmpty()){
+			student_list=studentSearch(name_id, "");
+			if(student_list.isEmpty()){
 				System.out.println("empty");
 				isEmpty = "0";
-				session.close();
 			}
 			else{
 				isEmpty = "1";
-				Collections.reverse(user_list);
-				List<Integer> searchlist=new ArrayList<Integer>();
-				//获得所有名字相同的ID存在一个list中，按照ID进行查找
-				for(User user: user_list){
-					searchlist.add(user.getId());
-				}
-				System.out.println(searchlist);
-				Criteria q2 = session.createCriteria(StudentProfile.class)
-						.add(Restrictions.in("user.id", searchlist))//查找所有符合要求d
-						.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));				
-				
-				student_list=q2.list();
-				System.out.println("studentlist"+student_list);
-				if(student_list.isEmpty())
-				{
-					isEmpty = "0";
-					session.close();
-					return SUCCESS;
-				}
 				Collections.reverse(student_list);
 				edit_student = student_list.get(0);
-				System.out.println("editstudent_user_id:"+edit_student.user.getId());
-				for(User user: user_list){
-					if(user.getId()==edit_student.user.getId()){
-						edit_user=user;
-						break;
-					}
-				}
-				fullName = edit_user.getFullName();
-				sex = edit_user.getSex();
-				phoneNumber = edit_user.getPhoneNumber();
+				
+				fullName = edit_student.getUser().getFullName();
+				sex = edit_student.getUser().getSex();
+				phoneNumber = edit_student.getUser().getPhoneNumber();
 				college = edit_student.getCollege();
 				studentId = edit_student.getStudentId();
 				isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
 				bankCard = edit_student.getBankCard();
 				idCard = edit_student.getIdCard();
+				
+				Session session=model.Util.sessionFactory.openSession();
 				model.StudentProfile cnt_stu = (model.StudentProfile)edit_student;
 				Criteria sc = session.createCriteria(model.ExamStuScore.class)
 							   .add(Restrictions.eq("stuPro.id",cnt_stu.id ))
