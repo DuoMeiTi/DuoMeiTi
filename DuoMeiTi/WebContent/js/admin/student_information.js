@@ -22,51 +22,14 @@ $(document).on("click", "#student_search", function() {
 
 var search_student;
 function searchCallback(data) {
-	var student_list = data.student_list;
-	var tb = document.getElementById('student_information_table');
-	var rowNum=tb.rows.length;
-	
 	if(data.isEmpty == "1"){
 		search_student = data.student_profile_id;
-		/*alert("查询成功！" + search_student + " " + data.score);*/
-		for (i=2; i<rowNum; i++)
-	    {
-	        tb.deleteRow(i);
-	        rowNum=rowNum-1;
-	        i=i-1;
-	    }
-		document.getElementById('search_information').style.display='';
-		search_name.innerText = data.fullName; 
-		search_sex.innerText = data.sex;
-		search_studentid.innerText = data.studentId;
-		search_college.innerText = data.college;
-		search_number.innerText = data.phoneNumber;
-		if(data.isUpgradePrivilege == 1)
-		{
-			search_isUpgradePrivilege.innerText = "管理教师";
-		}
-		else{
-			search_isUpgradePrivilege.innerText = "在职学生";
-		}
-		
-		if(data.score == -1){
-			search_score.innerText = "未提交"
-		}
-		else{
-			search_score,innerText = data.score;
-		}
-		
-		search_bankCard.innerText = data.bankCard;
-		search_idCard.innerText = data.idCard;
-		search_idCard.innerText = "sfdf";
+		$("#student_information_table").html(data.studenttable_jsp);
 	}	
 	else{
 		alert("查找的学生不存在！");
 		location.reload();
 	}
-	/*alert("OK!");*/
-	
-
 }
 
 

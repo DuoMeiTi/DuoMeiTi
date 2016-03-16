@@ -248,7 +248,7 @@
         <!-- 检索学生信息 -->
         <action name="student_information_search" class="admin.StudentManageAction" method="searchStudentInformation">
             <result name="success" type="json">
-            <param name="includeProperties">isEmpty,student_profile_id,fullName,studentId,sex,college,phoneNumber,isUpgradePrivilege,bankCard,idCard,score</param>
+            <param name="includeProperties">studenttable_jsp,isEmpty</param>
 			</result>        
         </action>
         
