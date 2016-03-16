@@ -292,9 +292,28 @@ public class StudentManageAction extends ActionSupport{
 			isEmpty = "0";
 		}else{
 			isEmpty = "1";
+			score_list = new ArrayList<ExamStuScore>();
+			Session session=model.Util.sessionFactory.openSession();
+			for(int i = 0; i<student_list.size(); i++)
+			{
+				model.StudentProfile cnt_stu = (model.StudentProfile)student_list.get(i);
+				Criteria sc = session.createCriteria(model.ExamStuScore.class)
+							   .add(Restrictions.eq("stuPro.id",cnt_stu.id ))
+							   .addOrder(Order.desc("id"));
+				List<ExamStuScore> temp = sc.list();
+				if(temp.size()>0){
+					score_list.add(temp.get(0));
+				}else{
+					ExamStuScore s = new ExamStuScore();
+					s.setScore(-1);
+					score_list.add(s);
+				}
+				
+			}
+			session.close();
 		}
 		studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
-		System.out.println(studenttable_jsp);
+		System.out.println(score_list);
 		return SUCCESS;
 	}
 	
