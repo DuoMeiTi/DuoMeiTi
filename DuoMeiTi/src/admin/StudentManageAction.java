@@ -61,6 +61,7 @@ public class StudentManageAction extends ActionSupport{
 	private int score;
 	private String status;
 	private List score_list;
+	private String studenttable_jsp;
 
 
 	public List getScore_list() {
@@ -218,6 +219,7 @@ public class StudentManageAction extends ActionSupport{
 		session.close();
 		return SUCCESS;
 	}
+<<<<<<< HEAD
 //	public String dutyAdd() throws Exception{
 //		Session session=model.Util.sessionFactory.openSession();
 //		//更新DutyTime
@@ -247,156 +249,107 @@ public class StudentManageAction extends ActionSupport{
 //		return SUCCESS;
 //	}
 
+=======
+	public String dutyAdd() throws Exception{
+		Session session=model.Util.sessionFactory.openSession();
+		//更新DutyTime
+		String selectDutyTime = "from DutyTime d where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
+		DutyPiece t=(DutyPiece)session.createQuery(selectDutyTime).list().get(0);
+		if(t.dutyLeft==0){
+			log="fail0";
+			return SUCCESS;
+		}
+		t.dutyLeft=t.dutyLeft-1;
+		try{
+			Transaction trans=session.beginTransaction();		
+			session.update(t);
+			String selectStudent = "from StudentProfile sp where sp.id="+student_Id;
+			StudentProfile s=(StudentProfile)session.createQuery(selectStudent).list().get(0);
+			System.out.println(s);
+			DutySchedule ds = new DutySchedule();
+			ds.student=s;
+			ds.dutyPiece=t;
+			session.save(ds);
+			trans.commit();
+			log="success";
+		}catch(Exception e){
+			log="fail1";
+		}
+		session.close();
+		return SUCCESS;
+	}
+	
+	
+	/*
+	 * 学生查找方法
+	 * 如果姓名和学号都为空，返回null
+	 * 如果姓名和学号都不为空，优先按学号搜索
+	 * 结果通过list返回，如果isEmpty，说明没有找到
+	 */
+	public static List<StudentProfile> studentSearch(String name, String studentID){
+		if(name.length()==0&&studentID.length()==0){
+			return null;
+		}
+		List<StudentProfile> reList=new ArrayList<StudentProfile>();
+		Session session=model.Util.sessionFactory.openSession();
+		if(studentID.length()!=0){//按学号查找
+			Criteria q = session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", studentID))
+					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
+			reList=q.list();
+		}else{//按姓名查找
+			Criteria q1 = session.createCriteria(User.class).add(Restrictions.eq("fullName", name));
+			List<User> userList=q1.list();
+			List<Integer> idList=new ArrayList<Integer>();
+			if(!userList.isEmpty()){
+				for(User user: userList){
+					idList.add(user.getId());
+				}
+				Criteria q2 = session.createCriteria(StudentProfile.class)
+						.add(Restrictions.in("user.id", idList))//查找所有符合要求d
+						.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));			
+				reList=q2.list();
+			}
+		}
+		session.close();
+		return reList;
+	}
+>>>>>>> origin/master
 
 	public String searchStudentInformation() throws Exception
 	{
-		
 		System.out.println("searchStudentInformation():");
-		System.out.println("id:"+name_id);
-		System.out.println("s:"+search_select);
-	
 		if(search_select.equals("2")){//按学号查找
-			Session session=model.Util.sessionFactory.openSession();
-			Criteria q1 = session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", name_id))
-					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
-			student_list=q1.list();
-			
-			
-			if(student_list.isEmpty()){
-				System.out.println("empty");
-				isEmpty = "0";
-				session.close();
-			}
-			else{
-				isEmpty = "1";
-				Collections.reverse(student_list);
-				edit_student = student_list.get(0);
-				//查找student对应的user
-				Criteria q2 = session.createCriteria(User.class)
-						.add(Restrictions.eq("username",edit_student.getUser().getUsername()))
-											
-						
-						; //hibernate session创建查询
-				user_list=q2.list();
-				Collections.reverse(user_list);
-				edit_user = user_list.get(0);
-				
-				
-				System.out.println("list:"+student_list);
-				System.out.println("studentid:"+student_list.get(0).studentId);
-			
-				
-				
-				fullName = edit_user.getFullName();
-				sex = edit_user.getSex();
-				phoneNumber = edit_user.getPhoneNumber();
-				college = edit_student.getCollege();
-				studentId = edit_student.getStudentId();
-				isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
-				bankCard = edit_student.getBankCard();
-				idCard = edit_student.getIdCard();
-				
-				
-				model.StudentProfile cnt_stu = (model.StudentProfile)edit_student;
-				Criteria sc = session.createCriteria(model.ExamStuScore.class)
-							   .add(Restrictions.eq("stuPro.id",cnt_stu.id ))
-							   .addOrder(Order.desc("id"))
-							   ;
-				List<ExamStuScore> temp = sc.list();
-				if(temp.size()>0)
-				{
-					score = temp.get(0).getScore();				
-				}
-				else
-				{
-					score = -1;
-				}		
-				session.close();
-				
-				System.out.println(student_profile_id);
-				System.out.println(fullName);
-				System.out.println(studentId);
-				System.out.println(college);
-				System.out.println(phoneNumber);
-				System.out.println(isUpgradePrivilege);
-				System.out.println(score);
-			}
+			student_list=studentSearch("", name_id);
 		}
-		
 		else{//按姓名查找
-			System.out.println("xingming："+name_id);
-			
+			student_list=studentSearch(name_id, "");
+		}
+		if(student_list.isEmpty()){
+			isEmpty = "0";
+		}else{
+			isEmpty = "1";
+			score_list = new ArrayList<ExamStuScore>();
 			Session session=model.Util.sessionFactory.openSession();
-			Criteria q1 = session.createCriteria(User.class).add(Restrictions.eq("fullName", name_id));
-			user_list=q1.list();
-			System.out.println(user_list);
-			if(user_list.isEmpty()){
-				System.out.println("empty");
-				isEmpty = "0";
-				session.close();
-			}
-			else{
-				isEmpty = "1";
-				Collections.reverse(user_list);
-				List<Integer> searchlist=new ArrayList<Integer>();
-				//获得所有名字相同的ID存在一个list中，按照ID进行查找
-				for(User user: user_list){
-					searchlist.add(user.getId());
-				}
-				System.out.println(searchlist);
-				Criteria q2 = session.createCriteria(StudentProfile.class)
-						.add(Restrictions.in("user.id", searchlist))//查找所有符合要求d
-						.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));				
-				
-				student_list=q2.list();
-				System.out.println("studentlist"+student_list);
-				if(student_list.isEmpty())
-				{
-					isEmpty = "0";
-					session.close();
-					return SUCCESS;
-				}
-				Collections.reverse(student_list);
-				edit_student = student_list.get(0);
-				System.out.println("editstudent_user_id:"+edit_student.user.getId());
-				for(User user: user_list){
-					if(user.getId()==edit_student.user.getId()){
-						edit_user=user;
-						break;
-					}
-				}
-				fullName = edit_user.getFullName();
-				sex = edit_user.getSex();
-				phoneNumber = edit_user.getPhoneNumber();
-				college = edit_student.getCollege();
-				studentId = edit_student.getStudentId();
-				isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
-				bankCard = edit_student.getBankCard();
-				idCard = edit_student.getIdCard();
-				model.StudentProfile cnt_stu = (model.StudentProfile)edit_student;
+			for(int i = 0; i<student_list.size(); i++)
+			{
+				model.StudentProfile cnt_stu = (model.StudentProfile)student_list.get(i);
 				Criteria sc = session.createCriteria(model.ExamStuScore.class)
 							   .add(Restrictions.eq("stuPro.id",cnt_stu.id ))
 							   .addOrder(Order.desc("id"));
 				List<ExamStuScore> temp = sc.list();
-				if(temp.size()>0)
-				{
-					score = temp.get(0).getScore();				}
-				else
-				{
-					score = -1;
-				}		
-				session.close();
-				System.out.println(student_profile_id);
-				System.out.println(fullName);
-				System.out.println(studentId);
-				System.out.println(college);
-				System.out.println(phoneNumber);
-				System.out.println(isUpgradePrivilege);
-				System.out.println(score);
+				if(temp.size()>0){
+					score_list.add(temp.get(0));
+				}else{
+					ExamStuScore s = new ExamStuScore();
+					s.setScore(-1);
+					score_list.add(s);
+				}
+				
 			}
-			
+			session.close();
 		}
-		
+		studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
+		System.out.println(score_list);
 		return SUCCESS;
 	}
 	
@@ -1091,6 +1044,16 @@ public String saveStudentInformation() throws Exception
 
 	public void setTeahBuildings(List<BuildingsInfo> teahBuildings) {
 		this.teahBuildings = teahBuildings;
+	}
+
+
+	public String getStudenttable_jsp() {
+		return studenttable_jsp;
+	}
+
+
+	public void setStudenttable_jsp(String studenttable_jsp) {
+		this.studenttable_jsp = studenttable_jsp;
 	}
 
 
