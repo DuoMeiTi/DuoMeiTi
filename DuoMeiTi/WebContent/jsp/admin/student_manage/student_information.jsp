@@ -35,7 +35,7 @@
 
 
 		<div class="student_table">
-			<%@ include file="studenttable.jsp"%>
+			<%@ include file="studenttable.jsp" %>
 		</div>
 
 		<div class="modal fade" id="student_edit">

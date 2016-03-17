@@ -219,7 +219,7 @@ public class StudentManageAction extends ActionSupport{
 		session.close();
 		return SUCCESS;
 	}
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //	public String dutyAdd() throws Exception{
 //		Session session=model.Util.sessionFactory.openSession();
 //		//更新DutyTime
@@ -249,7 +249,7 @@ public class StudentManageAction extends ActionSupport{
 //		return SUCCESS;
 //	}
 
-=======
+//=======
 	public String dutyAdd() throws Exception{
 		Session session=model.Util.sessionFactory.openSession();
 		//更新DutyTime
@@ -313,7 +313,7 @@ public class StudentManageAction extends ActionSupport{
 		session.close();
 		return reList;
 	}
->>>>>>> origin/master
+//>>>>>>> origin/master
 
 	public String searchStudentInformation() throws Exception
 	{

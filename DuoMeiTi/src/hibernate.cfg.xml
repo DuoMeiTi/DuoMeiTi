@@ -7,12 +7,11 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 
 <!-- 		部署的服务器使用本地数据库 -->
-<!--         <property name="connection.url"> jdbc:mysql://localhost:3306/duomeiti?autoReconnect=true&amp;autoReconnectForPools=true&amp;useUnicode=true&amp;characterEncoding=utf8</property> -->
+        <property name="connection.url"> jdbc:mysql://localhost:3306/duomeiti?autoReconnect=true&amp;autoReconnectForPools=true&amp;useUnicode=true&amp;characterEncoding=utf8</property>
         
 <!-- 		测试数据库，大家都连向同一台数据库 -->        
-<!--         <property name="connection.url"> jdbc:mysql://192.168.9.75:3306/duomeiti?autoReconnect=true&amp;autoReconnectForPools=true&amp;useUnicode=true&amp;characterEncoding=utf8</property> -->
 
-        <property name="connection.url"> jdbc:mysql://192.168.9.9:3306/duomeiti?autoReconnect=true&amp;autoReconnectForPools=true&amp;useUnicode=true&amp;characterEncoding=utf8</property>
+<!--         <property name="connection.url"> jdbc:mysql://192.168.9.9:3306/duomeiti?autoReconnect=true&amp;autoReconnectForPools=true&amp;useUnicode=true&amp;characterEncoding=utf8</property> -->
 	
 	
 	
