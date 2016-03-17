@@ -219,7 +219,6 @@ public class StudentManageAction extends ActionSupport{
 		session.close();
 		return SUCCESS;
 	}
-<<<<<<< HEAD
 //	public String dutyAdd() throws Exception{
 //		Session session=model.Util.sessionFactory.openSession();
 //		//更新DutyTime
@@ -249,7 +248,6 @@ public class StudentManageAction extends ActionSupport{
 //		return SUCCESS;
 //	}
 
-=======
 	public String dutyAdd() throws Exception{
 		Session session=model.Util.sessionFactory.openSession();
 		//更新DutyTime
@@ -313,7 +311,6 @@ public class StudentManageAction extends ActionSupport{
 		session.close();
 		return reList;
 	}
->>>>>>> origin/master
 
 	public String searchStudentInformation() throws Exception
 	{
@@ -368,32 +365,22 @@ public String saveStudentInformation() throws Exception
 	{
 		
 		System.out.println("saveStudentInformation():");
-	
-//		System.out.println(fullName);
-//		System.out.println(studentId);
-//		System.out.println(college);
-//		System.out.println(phoneNumber);
-//		System.out.println(isUpgradePrivilege);
-		
-		edit_user.setFullName(fullName);
-		edit_user.setSex(sex);
-		edit_user.setPhoneNumber(phoneNumber);
+		edit_student.getUser().setFullName(fullName);
+		edit_student.getUser().setSex(sex);
+		edit_student.getUser().setPhoneNumber(phoneNumber);
 		edit_student.setStudentId(studentId);
 		edit_student.setCollege(college);
 		edit_student.setIsUpgradePrivilege(isUpgradePrivilege);
 		edit_student.setBankCard(bankCard);
 		edit_student.setIdCard(idCard);
 		
-		
 		//更新学生数据
 		Session session = model.Util.sessionFactory.openSession();
 		session.beginTransaction();
-		session.update(edit_user);
 		session.update(edit_student);
 		Transaction t = session.getTransaction();
 		t.commit();
 		session.close();
-		
 		return SUCCESS;
 	}
 	
@@ -412,35 +399,16 @@ public String saveStudentInformation() throws Exception
 				break;
 			}
 		}
-	
 		
-		//查找对应的user
-		Session session=model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username",edit_student.getUser().getUsername())); //hibernate session创建查询
-		user_list=q.list();
-		Collections.reverse(user_list);
-		session.close();
-		
-		edit_user = user_list.get(0);
-		
-		fullName = edit_user.getFullName();
-		sex = edit_user.getSex();
-		phoneNumber = edit_user.getPhoneNumber();
+		fullName = edit_student.getUser().getFullName();
+		sex = edit_student.getUser().getSex();
+		phoneNumber = edit_student.getUser().getPhoneNumber();
 		college = edit_student.getCollege();
 		studentId = edit_student.getStudentId();
 		isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
 		bankCard = edit_student.getBankCard();
 		idCard = edit_student.getIdCard();
 		
-		
-//		System.out.println(fullName);
-//		System.out.println(sex);
-//		System.out.println(studentId);
-//		System.out.println(college);
-//		System.out.println(phoneNumber);
-//		System.out.println(isUpgradePrivilege);
-//		System.out.println(bankCard);
-//		System.out.println(idCard);
 		return SUCCESS;
 	}
 	
