@@ -234,7 +234,7 @@
         <!-- 删除学生信息 -->
 		<action name="student_manage_delete" class="admin.StudentManageAction" method="studentInformationDelete">
 			<result name="success" type="json">
-            	<param name="includeProperties">fullName,studentId,college,phoneNumber</param>           
+            	<param name="includeProperties">isException,fullName,studentId,college,phoneNumber</param>           
            </result>       
         </action>
         

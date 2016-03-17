@@ -63,8 +63,12 @@ $(document).on("click", ".delete", function() {
 })
 
 function deleteCallback(data) {
+	if(data.isException=="1"){
+		alert("学生存在关联数据，无法删除！")
+	}else{
+		alert("删除成功！");
+	}
 	location.reload() 
-	alert("删除成功！");
 }
 
 

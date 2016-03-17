@@ -97,6 +97,7 @@ public class StudentManageAction extends ActionSupport{
 	private boolean chooseClassSwitch;
 	private String log;
 	private String studentName;
+	private String isException;
 	
 	
 
@@ -364,10 +365,11 @@ public class StudentManageAction extends ActionSupport{
 public String saveStudentInformation() throws Exception
 	{
 		
-		System.out.println("saveStudentInformation():");
-		edit_student.getUser().setFullName(fullName);
-		edit_student.getUser().setSex(sex);
-		edit_student.getUser().setPhoneNumber(phoneNumber);
+		System.out.println("saveStudentInformation():");		
+		
+		edit_user.setFullName(fullName);
+		edit_user.setSex(sex);
+		edit_user.setPhoneNumber(phoneNumber);
 		edit_student.setStudentId(studentId);
 		edit_student.setCollege(college);
 		edit_student.setIsUpgradePrivilege(isUpgradePrivilege);
@@ -377,6 +379,7 @@ public String saveStudentInformation() throws Exception
 		//更新学生数据
 		Session session = model.Util.sessionFactory.openSession();
 		session.beginTransaction();
+		session.update(edit_user);
 		session.update(edit_student);
 		Transaction t = session.getTransaction();
 		t.commit();
@@ -399,6 +402,13 @@ public String saveStudentInformation() throws Exception
 				break;
 			}
 		}
+		Session session=model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username",edit_student.getUser().getUsername())); //hibernate session创建查询
+		user_list=q.list();
+		Collections.reverse(user_list);
+		session.close();
+		
+		edit_user = user_list.get(0);
 		
 		fullName = edit_student.getUser().getFullName();
 		sex = edit_student.getUser().getSex();
@@ -423,28 +433,37 @@ public String saveStudentInformation() throws Exception
 		
 		System.out.println("studentInformationDelete():");
 		System.out.println(rtID);
-		
+		isException="0";
 		for(StudentProfile student : student_list){
 			if(student.getId()==Integer.parseInt(rtID)){
 				edit_student = student;
 				break;
 			}
 		}
-		
-		Session session = model.Util.sessionFactory.openSession();		
-		//查找student对应的user
-		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username",edit_student.getUser().getUsername())); //hibernate session创建查询
-		user_list=q.list();
-		Collections.reverse(user_list);
-		//要删除的user
-		edit_user = user_list.get(0);
-		//必须同时删除student和user
-		session.beginTransaction();
-		session.delete(edit_student);
-		session.delete(edit_user);
-		Transaction t = session.getTransaction();
-		t.commit();
-		session.close();
+		Session session = model.Util.sessionFactory.openSession();	
+		try{
+			
+			//查找student对应的user
+			Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username",edit_student.getUser().getUsername())); //hibernate session创建查询
+			user_list=q.list();
+			Collections.reverse(user_list);
+			//要删除的user
+			edit_user = user_list.get(0);
+			//必须同时删除student和user
+			session.beginTransaction();
+			session.delete(edit_student);
+			session.delete(edit_user);
+			Transaction t = session.getTransaction();
+			t.commit();
+		}catch(Exception e){
+			e.printStackTrace();
+            session.getTransaction().rollback();
+            System.out.println("删除失败");
+            isException="1";
+		}
+		finally{
+			session.close();
+		}
 		return SUCCESS;
 	}
 	
@@ -1022,6 +1041,16 @@ public String saveStudentInformation() throws Exception
 
 	public void setStudenttable_jsp(String studenttable_jsp) {
 		this.studenttable_jsp = studenttable_jsp;
+	}
+
+
+	public String getIsException() {
+		return isException;
+	}
+
+
+	public void setIsException(String isException) {
+		this.isException = isException;
 	}
 
 
