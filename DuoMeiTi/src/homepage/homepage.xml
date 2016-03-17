@@ -175,9 +175,7 @@
             
         </action>
         
-<!--         <action name="login_success"> -->
-<!--             <result> /jsp/homepage/login_success.jsp </result> -->
-<!--         </action> -->
+
         
         <action name="login_fail">
             <result> /jsp/homepage/login_fail.jsp </result>

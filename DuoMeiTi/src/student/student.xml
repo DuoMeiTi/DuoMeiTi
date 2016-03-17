@@ -10,7 +10,7 @@
     <package name="student" namespace="/student" extends="StudentDefault">    	
 		    	
     	<action name="">
-    		<result type="redirect">/student/chooseclass</result>
+    		<result type="redirect">/student/dutyManage</result>
     	</action>
     	
   		<action name="train" class="student.TrainAction">
@@ -47,28 +47,54 @@
 			</result>
 		</action>
 
-		<action name="chooseclass" class="student.StudentAction"
-			method="chooseClass">
-			<result>/jsp/student/chooseClass.jsp</result>
+
+
+
+<!-- 		<action name="chooseclass" class="student.StudentAction" -->
+<!-- 			method="chooseClass"> -->
+<!-- 			<result>/jsp/student/chooseClass.jsp</result> -->
+<!-- 		</action> -->
+<!-- 		<action name="getdutytime" class="student.StudentAction" method="getDutyTime"> -->
+<!-- 			<result type="json" name="ajaxSuccess"> -->
+<!-- 				<param name="includeProperties"> -->
+<!-- 					duties\[\d+\]\.dutyLeft, -->
+<!-- 					duties\[\d+\]\.time, -->
+<!-- 					chosen\[\d+\], -->
+<!-- 					teachBuildingId -->
+<!-- 				</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
+<!-- 		<action name="sendChoice" class="student.StudentAction" method="reciveChoice"> -->
+<!-- 			<result type="json" name="ajaxSuccess"> -->
+<!-- 				<param name="includeProperties"> -->
+<!-- 					log -->
+<!-- 				</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
+		
+		
+		
+		<action name="dutyManage" class="student.DutyManageAction"
+			method="dutyManage">
+			<result>/jsp/student/dutyManage.jsp</result>
 		</action>
-		<action name="getdutytime" class="student.StudentAction" method="getDutyTime">
-			<result type="json" name="ajaxSuccess">
-				<param name="includeProperties">
-					duties\[\d+\]\.dutyLeft,
-					duties\[\d+\]\.time,
-					chosen\[\d+\],
-					teachBuildingId
-				</param>
+		
+		<action name="dutyManage_*" class="student.DutyManageAction"
+			method="{1}">
+			<result  type="json">				
+				<param name="includeProperties">*</param>
 			</result>
 		</action>
-		<action name="sendChoice" class="student.StudentAction" method="reciveChoice">
-			<result type="json" name="ajaxSuccess">
-				<param name="includeProperties">
-					log
-				</param>
-			</result>
-		</action>
+		
+		
+		
+		
+		
+		
     </package>
+    
+    
+    
     
     
     

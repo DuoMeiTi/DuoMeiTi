@@ -170,31 +170,31 @@ public class StudentManageAction extends ActionSupport{
 //		return SUCCESS;
 //	}
 	
-	public String deleteDuty() throws Exception{
-		try{
-			Session session = model.Util.sessionFactory.openSession();
-			//选出选课的学生
-			String studentSelect="from StudentProfile s where s.id="+student_Id;
-			StudentProfile s=(StudentProfile)session.createQuery(studentSelect).list().get(0);
-			//更新DutyTime
-			Transaction trans=session.beginTransaction();
-			String updateDutyTime = "update DutyTime d set d.dutyLeft=d.dutyLeft+1 where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
-			session.createQuery(updateDutyTime).executeUpdate();
-			//删除DutySchedule
-			String selectDutyTime = "From DutyTime d where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
-			DutyPiece duty = (DutyPiece)session.createQuery(selectDutyTime).list().get(0);
-			String deleteDuty = "delete from DutySchedule ds where ds.student.id="+student_Id+" and "+"ds.dutyTime.id="+duty.id;
-			session.createQuery(deleteDuty).executeUpdate();
-			trans.commit();
-			session.close();
-			log="success";
-		}
-		catch(Exception e){
-			log="fail";
-		}
-		System.out.println(log);
-		return SUCCESS;
-	}
+//	public String deleteDuty() throws Exception{
+//		try{
+//			Session session = model.Util.sessionFactory.openSession();
+//			//选出选课的学生
+//			String studentSelect="from StudentProfile s where s.id="+student_Id;
+//			StudentProfile s=(StudentProfile)session.createQuery(studentSelect).list().get(0);
+//			//更新DutyTime
+//			Transaction trans=session.beginTransaction();
+//			String updateDutyTime = "update DutyTime d set d.dutyLeft=d.dutyLeft+1 where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
+//			session.createQuery(updateDutyTime).executeUpdate();
+//			//删除DutySchedule
+//			String selectDutyTime = "From DutyTime d where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
+//			DutyPiece duty = (DutyPiece)session.createQuery(selectDutyTime).list().get(0);
+//			String deleteDuty = "delete from DutySchedule ds where ds.student.id="+student_Id+" and "+"ds.dutyTime.id="+duty.id;
+//			session.createQuery(deleteDuty).executeUpdate();
+//			trans.commit();
+//			session.close();
+//			log="success";
+//		}
+//		catch(Exception e){
+//			log="fail";
+//		}
+//		System.out.println(log);
+//		return SUCCESS;
+//	}
 	
 	
 	
@@ -205,43 +205,47 @@ public class StudentManageAction extends ActionSupport{
 		
 //		System.out.println("CNTTTTTTTTTTTT********");
 		String conditions;
-		if(studentName.length()>0&&studentId.length()>0)conditions="where s.studentId="+studentId+" and "+"s.user.fullName='"+studentName+"'";
-		else if(studentName.length()>0)conditions="where s.user.fullName='"+studentName+"'";
-		else conditions="where s.studentId="+studentId;
+		if(studentName.length()>0&&studentId.length()>0)
+			conditions="where s.studentId="+studentId+" and "+"s.user.fullName='"+studentName+"'";
+		else if(studentName.length()>0)
+			conditions="where s.user.fullName='"+studentName+"'";
+		else 
+			conditions="where s.studentId="+studentId;
+		
 		String hql="select new common.StudentInfo(s.id,s.user.fullName,s.studentId) from StudentProfile s "+conditions;
 		Session session = model.Util.sessionFactory.openSession();
 		searchResult=session.createQuery(hql).list();
 		session.close();
 		return SUCCESS;
 	}
-	public String dutyAdd() throws Exception{
-		Session session=model.Util.sessionFactory.openSession();
-		//更新DutyTime
-		String selectDutyTime = "from DutyTime d where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
-		DutyPiece t=(DutyPiece)session.createQuery(selectDutyTime).list().get(0);
-		if(t.dutyLeft==0){
-			log="fail0";
-			return SUCCESS;
-		}
-		t.dutyLeft=t.dutyLeft-1;
-		try{
-			Transaction trans=session.beginTransaction();		
-			session.update(t);
-			String selectStudent = "from StudentProfile sp where sp.id="+student_Id;
-			StudentProfile s=(StudentProfile)session.createQuery(selectStudent).list().get(0);
-			System.out.println(s);
-			DutySchedule ds = new DutySchedule();
-			ds.student=s;
-			ds.dutyPiece=t;
-			session.save(ds);
-			trans.commit();
-			log="success";
-		}catch(Exception e){
-			log="fail1";
-		}
-		session.close();
-		return SUCCESS;
-	}
+//	public String dutyAdd() throws Exception{
+//		Session session=model.Util.sessionFactory.openSession();
+//		//更新DutyTime
+//		String selectDutyTime = "from DutyTime d where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
+//		DutyPiece t=(DutyPiece)session.createQuery(selectDutyTime).list().get(0);
+//		if(t.dutyLeft==0){
+//			log="fail0";
+//			return SUCCESS;
+//		}
+//		t.dutyLeft=t.dutyLeft-1;
+//		try{
+//			Transaction trans=session.beginTransaction();		
+//			session.update(t);
+//			String selectStudent = "from StudentProfile sp where sp.id="+student_Id;
+//			StudentProfile s=(StudentProfile)session.createQuery(selectStudent).list().get(0);
+//			System.out.println(s);
+//			DutySchedule ds = new DutySchedule();
+//			ds.student=s;
+//			ds.dutyPiece=t;
+//			session.save(ds);
+//			trans.commit();
+//			log="success";
+//		}catch(Exception e){
+//			log="fail1";
+//		}
+//		session.close();
+//		return SUCCESS;
+//	}
 
 
 	public String searchStudentInformation() throws Exception

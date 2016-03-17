@@ -95,124 +95,124 @@ public class StudentAction extends ActionSupport{
 	}
 
 
-	public String chooseClass() throws Exception{
-		
-		List fields = new ArrayList<String>();
-		fields.add("build_id,");
-		fields.add("build_name");
-		DatabaseOperation getBuildings = new DatabaseOperation("TeachBuilding", fields);
-		List result=getBuildings.selectOperation();
-		teahBuildings =new ArrayList<BuildingsInfo>();
-		Iterator iter =result.iterator();
-		while(iter.hasNext()){
-			Object[] temp=(Object[])iter.next();
-			String name=(String)temp[1];
-			Integer id=(Integer)temp[0];
-			teahBuildings.add(new BuildingsInfo(name,id));
-		}
-		return ActionSupport.SUCCESS;
-	}
-	
-	public String getDutyTime() throws Exception{
-		Session session = model.Util.sessionFactory.openSession();
-		String hql="from DutyTime d where d.teachBuilding.build_id="+teachBuildingId;
-		
-		String studentSelect="from StudentProfile s where s.id="+studentId;
-		StudentProfile s=(StudentProfile)session.createQuery(studentSelect).list().get(0);
-		
-		String selectChosen="select ds.dutyTime.time from DutySchedule ds where ds.student.id="+s.id+" and "
-							+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
-		List chosenList = session.createQuery(selectChosen).list();
-		
-		chosen = new ArrayList<Integer>();
-		if(chosenList.size()>0){
-			Iterator iter= chosenList.iterator();
-			while(iter.hasNext()){
-				Integer temp=(Integer)iter.next();
-				chosen.add(temp);
-			}
-		}
-		duties=session.createQuery(hql).list();
-		session.close();
-		return "ajaxSuccess";
-	}
-	
-	public String reciveChoice() throws Exception{
-		
-		//代码太挫，留待有缘人！
-		Session session = model.Util.sessionFactory.openSession();
-		
-		String hql="from ChooseClassSwitch ccs where ccs.id=1";
-		ChooseClassSwitch f=(ChooseClassSwitch)session.createQuery(hql).list().get(0);
-		if(!f.open){
-			log="closed";
-			session.close();
-			return "ajaxSuccess";
-		}
-		Transaction trans;
-		//选出选课的学生
-		String studentSelect="from StudentProfile s where s.id="+studentId;
-		StudentProfile s=(StudentProfile)session.createQuery(studentSelect).list().get(0);
-		//删除dutySchedule中的该生以前选择的班次,并更新
-		trans=session.beginTransaction();
-		String dutySelect="select ds.dutyTime from DutySchedule ds where ds.student.id="
-					 	  +studentId+" and "+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
-		List<DutyPiece> duties=session.createQuery(dutySelect).list();
-		for(DutyPiece tmp:duties){
-			String back= "update DutyTime d set d.dutyLeft=d.dutyLeft+1 where d.id="+tmp.id;
-			session.createQuery(back).executeUpdate();
-		}
-		String selectDutySchedule="From DutySchedule ds where ds.student.id="+studentId+" and "
-				  			  	  +"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
-		List<DutySchedule> dutySchedules=session.createQuery(selectDutySchedule).list();
-		for(DutySchedule tmp:dutySchedules){
-			String deleteChosen = "delete from DutySchedule ds where ds.id="+tmp.id;
-		  	session.createQuery(deleteChosen).executeUpdate();
-		}
-		trans.commit();
-		
-		//所选的班
-		String dc="(";
-		for(int i=0,end=chosen.size();i<end;i++){
-			dc+="d.time="+chosen.get(i).intValue();
-			if(i<end-1)dc+=" or ";
-			else dc+=")";
-		}
-		System.out.println(dc);
-		//dutyTime数据库更新
-		trans=session.beginTransaction();
-		String updateDutyLeft="update DutyTime d set d.dutyLeft=d.dutyLeft-1 where d.teachBuilding.build_id="
-								  +teachBuildingId+" and "+dc;
-		int ret=session.createQuery(updateDutyLeft).executeUpdate();
-		if(ret==0){
-			log="something wrong during updating database";
-			return "ajaxSuccess";
-		}
-		trans.commit();
-		
-		//dutySchedule数据库更新
-		String selectDutyTime="from DutyTime d where d.teachBuilding.build_id="
-							  +teachBuildingId+" and "+dc;
-		List<DutyPiece> dutyChosen=session.createQuery(selectDutyTime).list();
-		
-		for(DutyPiece t:dutyChosen){
-			try{
-				trans=session.beginTransaction();
-				DutySchedule temp =new DutySchedule();
-				temp.student=s;
-				temp.dutyPiece=t;
-				session.save(temp);
-				trans.commit();
-			}
-			catch(Exception e){
-				log="fail";
-				return "ajaxSuccess";
-			}
-		}
-		session.close();
-		log="success";
-		return "ajaxSuccess";
-	}
+//	public String chooseClass() throws Exception{
+//		
+//		List fields = new ArrayList<String>();
+//		fields.add("build_id,");
+//		fields.add("build_name");
+//		DatabaseOperation getBuildings = new DatabaseOperation("TeachBuilding", fields);
+//		List result=getBuildings.selectOperation();
+//		teahBuildings =new ArrayList<BuildingsInfo>();
+//		Iterator iter =result.iterator();
+//		while(iter.hasNext()){
+//			Object[] temp=(Object[])iter.next();
+//			String name=(String)temp[1];
+//			Integer id=(Integer)temp[0];
+//			teahBuildings.add(new BuildingsInfo(name,id));
+//		}
+//		return ActionSupport.SUCCESS;
+//	}
+//	
+//	public String getDutyTime() throws Exception{
+//		Session session = model.Util.sessionFactory.openSession();
+//		String hql="from DutyTime d where d.teachBuilding.build_id="+teachBuildingId;
+//		
+//		String studentSelect="from StudentProfile s where s.id="+studentId;
+//		StudentProfile s=(StudentProfile)session.createQuery(studentSelect).list().get(0);
+//		
+//		String selectChosen="select ds.dutyTime.time from DutySchedule ds where ds.student.id="+s.id+" and "
+//							+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
+//		List chosenList = session.createQuery(selectChosen).list();
+//		
+//		chosen = new ArrayList<Integer>();
+//		if(chosenList.size()>0){
+//			Iterator iter= chosenList.iterator();
+//			while(iter.hasNext()){
+//				Integer temp=(Integer)iter.next();
+//				chosen.add(temp);
+//			}
+//		}
+//		duties=session.createQuery(hql).list();
+//		session.close();
+//		return "ajaxSuccess";
+//	}
+//	
+//	public String reciveChoice() throws Exception{
+//		
+//		//代码太挫，留待有缘人！
+//		Session session = model.Util.sessionFactory.openSession();
+//		
+//		String hql="from ChooseClassSwitch ccs where ccs.id=1";
+//		ChooseClassSwitch f=(ChooseClassSwitch)session.createQuery(hql).list().get(0);
+//		if(!f.open){
+//			log="closed";
+//			session.close();
+//			return "ajaxSuccess";
+//		}
+//		Transaction trans;
+//		//选出选课的学生
+//		String studentSelect="from StudentProfile s where s.id="+studentId;
+//		StudentProfile s=(StudentProfile)session.createQuery(studentSelect).list().get(0);
+//		//删除dutySchedule中的该生以前选择的班次,并更新
+//		trans=session.beginTransaction();
+//		String dutySelect="select ds.dutyTime from DutySchedule ds where ds.student.id="
+//					 	  +studentId+" and "+"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
+//		List<DutyPiece> duties=session.createQuery(dutySelect).list();
+//		for(DutyPiece tmp:duties){
+//			String back= "update DutyTime d set d.dutyLeft=d.dutyLeft+1 where d.id="+tmp.id;
+//			session.createQuery(back).executeUpdate();
+//		}
+//		String selectDutySchedule="From DutySchedule ds where ds.student.id="+studentId+" and "
+//				  			  	  +"ds.dutyTime.teachBuilding.build_id="+teachBuildingId;
+//		List<DutySchedule> dutySchedules=session.createQuery(selectDutySchedule).list();
+//		for(DutySchedule tmp:dutySchedules){
+//			String deleteChosen = "delete from DutySchedule ds where ds.id="+tmp.id;
+//		  	session.createQuery(deleteChosen).executeUpdate();
+//		}
+//		trans.commit();
+//		
+//		//所选的班
+//		String dc="(";
+//		for(int i=0,end=chosen.size();i<end;i++){
+//			dc+="d.time="+chosen.get(i).intValue();
+//			if(i<end-1)dc+=" or ";
+//			else dc+=")";
+//		}
+//		System.out.println(dc);
+//		//dutyTime数据库更新
+//		trans=session.beginTransaction();
+//		String updateDutyLeft="update DutyTime d set d.dutyLeft=d.dutyLeft-1 where d.teachBuilding.build_id="
+//								  +teachBuildingId+" and "+dc;
+//		int ret=session.createQuery(updateDutyLeft).executeUpdate();
+//		if(ret==0){
+//			log="something wrong during updating database";
+//			return "ajaxSuccess";
+//		}
+//		trans.commit();
+//		
+//		//dutySchedule数据库更新
+//		String selectDutyTime="from DutyTime d where d.teachBuilding.build_id="
+//							  +teachBuildingId+" and "+dc;
+//		List<DutyPiece> dutyChosen=session.createQuery(selectDutyTime).list();
+//		
+//		for(DutyPiece t:dutyChosen){
+//			try{
+//				trans=session.beginTransaction();
+//				DutySchedule temp =new DutySchedule();
+//				temp.student=s;
+//				temp.dutyPiece=t;
+//				session.save(temp);
+//				trans.commit();
+//			}
+//			catch(Exception e){
+//				log="fail";
+//				return "ajaxSuccess";
+//			}
+//		}
+//		session.close();
+//		log="success";
+//		return "ajaxSuccess";
+//	}
 	
 	
 	

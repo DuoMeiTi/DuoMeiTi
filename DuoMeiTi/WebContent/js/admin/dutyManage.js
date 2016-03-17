@@ -33,7 +33,7 @@
 
 
 
-$(document).on("click",".buildingSelect",function(){
+//$(document).on("click",".buildingSelect",function(){
 //	var id=parseInt($(this).val());
 //	
 //	var timetable=$(".time-table");
@@ -54,7 +54,7 @@ $(document).on("click",".buildingSelect",function(){
 //	else{
 //		timetable.addClass("hide");
 //	}
-});
+//});
 
 
 
