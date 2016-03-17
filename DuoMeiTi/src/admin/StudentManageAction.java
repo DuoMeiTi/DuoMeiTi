@@ -505,6 +505,7 @@ public String saveStudentInformation() throws Exception
 		
 		student_list = q.list();
 		score_list = new ArrayList<ExamStuScore>();
+		System.out.println(score_list);
 		for(int i = 0; i<student_list.size(); i++)
 		{
 			model.StudentProfile cnt_stu = (model.StudentProfile)student_list.get(i);
@@ -523,6 +524,7 @@ public String saveStudentInformation() throws Exception
 				score_list.add(s);
 			}
 		}
+		System.out.println(score_list);
 		Collections.reverse(student_list);
 		session.close();
 		
