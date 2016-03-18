@@ -7,9 +7,35 @@
 
 
 
-<div id="resourceFileTableDiv">
-	<%@ include file="/jsp/admin/HomepageModify/ResourceFileTable.jsp" %>
-</div>
+<!-- <div id="resourceFileTableDiv"> -->
+	<table class="table table-bordered" id="file_list_table">
+
+	<tr class="active">
+		<th colspan="2"> 文件列表 </th>
+	</tr>
+	
+	
+	
+	<s:iterator value="file_path_list" var="i" status="index" >  
+
+
+		<tr class="success" >
+			<td filePath='<s:property value="@util.Util@getFileNameFromPath(#i.filePath)"/>' style="text-align:left;" class="col-lg-10">  
+				 <a href="<s:property value="#i.filePath"/> "> 
+<%-- 						<s:property value="#i.filePath.split('/')"/> --%>
+					<s:property value="@util.Util@getFileNameFromPath(#i.filePath)"/>
+				 </a>  
+			</td>
+			<%-- <td class="col-lg-2">
+				<button type="button" class="btn btn-danger delete" filepath="<s:property value="#i.filePath"/>">删除</button>
+					
+				</button>
+			</td> --%>
+
+		</tr>
+	</s:iterator>  
+	</table>
+<!-- </div> -->
 
 
 
