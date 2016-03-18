@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
@@ -366,21 +367,30 @@ public String saveStudentInformation() throws Exception
 	{
 		
 		System.out.println("saveStudentInformation():");		
-		
-		edit_user.setFullName(fullName);
-		edit_user.setSex(sex);
-		edit_user.setPhoneNumber(phoneNumber);
-		edit_student.setStudentId(studentId);
-		edit_student.setCollege(college);
-		edit_student.setIsUpgradePrivilege(isUpgradePrivilege);
-		edit_student.setBankCard(bankCard);
-		edit_student.setIdCard(idCard);
-		
-		//更新学生数据
+		System.out.println("id:"+edit_student.getId());
+		 
+		//更新学生数据,hql只更新部分字段
 		Session session = model.Util.sessionFactory.openSession();
 		session.beginTransaction();
-		session.update(edit_user);
-		session.update(edit_student);
+		String hql = "update StudentProfile t set t.studentId = '"+studentId
+				+ "', t.college = '"+college
+				+ "', t.isUpgradePrivilege = '"+isUpgradePrivilege
+				+ "', t.bankCard = '"+bankCard
+				+ "', t.idCard = '"+idCard
+				+ "' where id = "+edit_student.getId();
+		System.out.println("hql:"+hql);
+		Query query = session.createQuery(hql);
+		query.executeUpdate(); 
+		
+		
+		String hql2 = "update User t set t.fullName = '"+fullName
+				+ "', t.sex = '"+sex
+				+ "', t.phoneNumber = '"+phoneNumber
+				+ "' where id = "+edit_student.getUser().getId();
+		System.out.println("hql:"+hql2);
+		Query query2 = session.createQuery(hql2);
+		query2.executeUpdate(); 
+		
 		Transaction t = session.getTransaction();
 		t.commit();
 		session.close();
@@ -395,24 +405,27 @@ public String saveStudentInformation() throws Exception
 		System.out.println("getStudentInformation():");
 		System.out.println("edit_student_id:"+rtID);
 		
-		//在学生列表中找到要编辑的学生
-		for(StudentProfile student : student_list){
-			if(student.getId()==Integer.parseInt(rtID)){
-				edit_student = student;
-				break;
-			}
-		}
+		
 		Session session=model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username",edit_student.getUser().getUsername())); //hibernate session创建查询
-		user_list=q.list();
-		Collections.reverse(user_list);
+		String hql = "SELECT rt FROM StudentProfile rt WHERE rt.id = " + rtID;
+		System.out.println(hql);
+		Query query = session.createQuery(hql);
+		student_list = query.list();
+		edit_student=student_list.get(0);
+		
+		
+		
+		String hql2 = "SELECT rt FROM User rt WHERE rt.id = " + edit_student.getUser().getId();
+		Query query2 = session.createQuery(hql2);
+		System.out.println(hql2);
+		user_list=query2.list();
+		edit_user = user_list.get(0);
 		session.close();
 		
-		edit_user = user_list.get(0);
 		
-		fullName = edit_student.getUser().getFullName();
-		sex = edit_student.getUser().getSex();
-		phoneNumber = edit_student.getUser().getPhoneNumber();
+		fullName = edit_user.getFullName();
+		sex = edit_user.getSex();
+		phoneNumber = edit_user.getPhoneNumber();
 		college = edit_student.getCollege();
 		studentId = edit_student.getStudentId();
 		isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
