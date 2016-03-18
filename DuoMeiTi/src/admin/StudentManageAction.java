@@ -524,6 +524,7 @@ public String saveStudentInformation() throws Exception
 			}
 		}
 		Collections.reverse(student_list);
+		Collections.reverse(score_list);
 		session.close();
 		
 		return ActionSupport.SUCCESS;
