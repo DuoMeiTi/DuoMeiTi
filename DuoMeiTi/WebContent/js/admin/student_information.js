@@ -79,7 +79,7 @@ $(document).on("click", ".edit", function() {
 
 	edit_Id = $(this).parents("tr").attr("id");// attr所选元素属性值
 	if(edit_Id == "search_information"){
-		/*alert("编辑：" + search_student);*/
+//		alert("编辑：" + search_student);
 		$.ajax({
 			url : 'get_student_information',
 			type : 'post',
@@ -90,7 +90,7 @@ $(document).on("click", ".edit", function() {
 	}
 	
 	else{
-		/*alert("id：" + edit_Id);*/
+//		alert("id：" + edit_Id);
 		$.ajax({
 			url : 'get_student_information',
 			type : 'post',

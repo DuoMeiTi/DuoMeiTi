@@ -256,6 +256,20 @@ public class StudentAction extends FileUploadBaseAction {
 		return "success";*/
 	}
 	
+	
+	/*
+	 * 判断学号是否重复，如果重复，返回true
+	 */
+	public static boolean isRepeat(String searchID){
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria q2= session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", searchID));
+		List u2 = q2.list();
+		session.close();
+		if(u2.isEmpty()){
+			return false;
+		}
+		return true;
+	}
 	public String studentRegisterSave() throws Exception
 	{
 		System.out.println("haha");
@@ -287,15 +301,11 @@ public class StudentAction extends FileUploadBaseAction {
 		
 		Session session = model.Util.sessionFactory.openSession();
 		//判断学号是否重复
-		Criteria q2= session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", studentId));
-		List u2 = q2.list();
-		if(!u2.isEmpty()){
+		if(isRepeat(studentId)){
 			System.out.println(studentId+"学号已经存在");
 			this.register_status="6";
 			return ActionSupport.SUCCESS;
-			
 		}
-		
 		Criteria q= session.createCriteria(User.class).add(Restrictions.eq("username", username));
 		List ul = q.list();
 		if(!ul.isEmpty())
