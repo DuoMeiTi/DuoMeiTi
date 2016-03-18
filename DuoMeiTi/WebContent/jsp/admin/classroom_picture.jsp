@@ -31,7 +31,7 @@
 		<br/>
 
 		<table>
-			<s:iterator begin="0" end="picture_list.size()-1" var="i" step="2">
+			<s:iterator begin="0" end="picture_list.size()-1" var="i" step="3">
 				<tr class="">
 					<s:iterator  var="j" begin="0" end="@@min(picture_list.size()-#i-1,2)" step="1">
 					<td height="480" width="400">
