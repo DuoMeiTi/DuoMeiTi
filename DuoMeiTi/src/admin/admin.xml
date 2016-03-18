@@ -241,7 +241,7 @@
         <!-- 保存学生信息 -->
 		<action name="student_information_save" class="admin.StudentManageAction" method="saveStudentInformation">
             <result name="success" type="json">
-            <param name="includeProperties">fullName,studentId,college,phoneNumber</param>
+            <param name="includeProperties">isRepeat,fullName,studentId,college,phoneNumber</param>
 			</result>        
         </action>
         

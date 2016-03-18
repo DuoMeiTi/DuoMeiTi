@@ -133,9 +133,14 @@ $(document).on("click", "#editSave", function() {
 	
 })
 
-function studentInformationSaveCallback() {
+function studentInformationSaveCallback(data) {
 	$('#student_edit').modal('hide');
+	if(data.isRepeat=="1"){
+		alert("修改失败，学号已存在！");
+	}else{
+		alert("修改成功！");
+	}
 	location.reload() 
-	alert("修改成功！");
+	
 	
 }

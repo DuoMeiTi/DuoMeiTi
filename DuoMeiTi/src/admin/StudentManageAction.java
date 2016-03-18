@@ -63,6 +63,7 @@ public class StudentManageAction extends ActionSupport{
 	private String status;
 	private List score_list;
 	private String studenttable_jsp;
+	private String isRepeat;//标记学号是否重复
 
 
 	public List getScore_list() {
@@ -368,7 +369,17 @@ public String saveStudentInformation() throws Exception
 		
 		System.out.println("saveStudentInformation():");		
 		System.out.println("id:"+edit_student.getId());
-		 
+		isRepeat="0";
+		if(!studentId.equals(edit_student.getStudentId())){
+			System.out.println("修改学号");
+			if(homepage.StudentAction.isRepeat(studentId)){
+				System.out.println("chongfu");
+				isRepeat="1";
+				return SUCCESS;
+			}
+		}
+		
+		
 		//更新学生数据,hql只更新部分字段
 		Session session = model.Util.sessionFactory.openSession();
 		session.beginTransaction();
@@ -1065,6 +1076,16 @@ public String saveStudentInformation() throws Exception
 
 	public void setIsException(String isException) {
 		this.isException = isException;
+	}
+
+
+	public String getIsRepeat() {
+		return isRepeat;
+	}
+
+
+	public void setIsRepeat(String isRepeat) {
+		this.isRepeat = isRepeat;
 	}
 
 
