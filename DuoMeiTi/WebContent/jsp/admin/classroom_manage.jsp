@@ -4,12 +4,12 @@
 <%-- <layout:override name="main_content"> --%>
 <!-- <script type='text/javascript' src="/js/admin/classroom_manage.js"></script> -->
 <!-- <script type="text/javascript"> -->
-// 	/* $(function () { 
-// 		$('#classroom-modal').modal({
-// 			backdrop: 'static', 
-// 			keyboard: false
-// 	 	})
-// 	 }); */
+<!-- // 	/* $(function () {  -->
+<!-- // 		$('#classroom-modal').modal({ -->
+<!-- // 			backdrop: 'static',  -->
+<!-- // 			keyboard: false -->
+<!-- // 	 	}) -->
+<!-- // 	 }); */ -->
 <!-- </script> -->
 
 

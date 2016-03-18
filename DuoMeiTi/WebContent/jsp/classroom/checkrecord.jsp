@@ -14,7 +14,13 @@
 			<tr>
 				<td width="20%"><s:property value="#checkrecord.checkman.fullName" /></td>
 				<td width="20%"><s:property value="#checkrecord.checkdetail" /></td>
-				<td width="20%"><s:property value="#checkrecord.checkdate" /></td>
+				<td width="20%">
+				
+
+					<s:property value="@util.Util@formatTimestamp(#checkrecord.checkdate)" />
+					
+
+				</td>
 			</tr>
 		</s:iterator>
 	</tbody>

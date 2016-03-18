@@ -142,6 +142,9 @@
 	</package>
 	
 	
+	
+	
+	
 <!-- 	用户注册请求 -->
 	<package name="user_request" namespace="/admin/user_request" extends="AdminDefault">
 		

@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -135,6 +137,13 @@ public class Util
 		return wrapperResponse.getContent();
 	}
 
+	
+	
+	private static final SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+	static public String formatTimestamp(Timestamp s)
+	{
+		return df.format(s);
+	}
 	
 	
 	

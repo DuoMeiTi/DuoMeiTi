@@ -21,6 +21,19 @@ public class Repair {
 		
 	}
 
+	
+	public Repair(String fullName, String rtType, String repairDetail, String classRoom,
+			String teachBuilding, Date repairDate) {
+		super();
+		this.studentId = null;
+		this.fullName = fullName;
+		this.rtType = rtType;
+		this.repairDetail = repairDetail;
+		this.classRoom = classRoom;
+		this.teachBuilding = teachBuilding;
+		this.repairDate = repairDate;
+	}
+	
 	public Repair(String studentId, String fullName, String rtType, String repairDetail, String classRoom,
 			String teachBuilding, Date repairDate) {
 		super();

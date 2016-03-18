@@ -65,6 +65,14 @@ public class RepairAction extends SuperAction {
 	private static final long serialVersionUID = 1L;
 	public String query() {
 		 RepairDAO rdao = new RepairDAOImpl();
+		 
+		 
+		 System.out.println("IIIIIIJJJJJJJJJj");
+		 System.out.println(request.getParameter("Type"));
+		 
+//		 System.out.println(request.getParameter("Type"));
+		 
+		 
 		 List<Repair> list = rdao.queryRepair(request.getParameter("Type"), request.getParameter("Value"));
 		 //放进session中
 		 System.out.println(list);

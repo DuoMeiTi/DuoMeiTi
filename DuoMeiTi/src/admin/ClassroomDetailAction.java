@@ -2,6 +2,7 @@ package admin;
 
 import java.io.File;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
@@ -375,9 +376,15 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 			User user = (User) user_criteria.uniqueResult();
 //System.out.println(stu.getUser().getUsername());
 			
-			Date checkdate = new Date(new java.util.Date().getTime());
-			System.out.println("好了没有啊"+classroomid);
-			/*int classroom_id = (int) ActionContext.getContext().getSession().get("classroom_id");*/
+			
+			
+//			Date checkdate = new Date(new java.util.Date().getTime());
+			Timestamp checkdate = new Timestamp(new java.util.Date().getTime());
+
+
+			
+
+			
 			Criteria classroom_criteria = session.createCriteria(Classroom.class);
 			classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(classroomid)));
 			Classroom classroom = (Classroom) classroom_criteria.uniqueResult();

@@ -24,7 +24,8 @@ public class CheckRecord {
 	@Column(length=200)
 	public String checkdetail;
 	
-	public java.sql.Date checkdate;
+	public java.sql.Timestamp checkdate;
+	
 	
 	
 	
@@ -75,12 +76,14 @@ public class CheckRecord {
 		this.checkdetail = checkdetail;
 	}
 
-	public java.sql.Date getCheckdate() {
+	public java.sql.Timestamp getCheckdate() {
 		return checkdate;
 	}
 
-	public void setCheckdate(java.sql.Date checkdate) {
+	public void setCheckdate(java.sql.Timestamp checkdate) {
 		this.checkdate = checkdate;
 	}
+
+
 	
 }

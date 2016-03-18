@@ -37,19 +37,40 @@ public class RepairDAOImpl implements RepairDAO{
 		try {
 			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
 			tx = session.beginTransaction();
+			
+			// 原来的hql 语句，只能查找学生的维修记录
+//			hql = "SELECT new model.Repair( "
+//							+ "sP.studentId, "
+//							+ "u.fullName, "
+//							+ "rR.device.rtType, "
+//							+ "rR.repairdetail, "
+//							+ "rR.device.classroom.classroom_num, "
+//							+ "rR.device.classroom.teachbuilding.build_name, "
+//							+ "rR.repairdate"
+//							+ ") "
+//				+ "FROM "
+//							+ "RepairRecord rR, StudentProfile sP, User u "
+//				+ "WHERE "
+//							+ "rR.repairman = sP.user and rR.repairman = u";
+
+			
 			hql = "SELECT new model.Repair( "
-							+ "sP.studentId, "
-							+ "u.fullName, "
-							+ "rR.device.rtType, "
-							+ "rR.repairdetail, "
-							+ "rR.device.classroom.classroom_num, "
-							+ "rR.device.classroom.teachbuilding.build_name, "
-							+ "rR.repairdate"
-							+ ") "
-				+ "FROM "
-							+ "RepairRecord rR, StudentProfile sP, User u "
-				+ "WHERE "
-							+ "rR.repairman = sP.user and rR.repairman = u";
+			+ "u.fullName, "
+			+ "rR.device.rtType, "
+			+ "rR.repairdetail, "
+			+ "rR.device.classroom.classroom_num, "
+			+ "rR.device.classroom.teachbuilding.build_name, "
+			+ "rR.repairdate"
+			+ ") "
++ "FROM "
+			+ "RepairRecord rR, User u "
++ "WHERE "
+			+ "rR.repairman = u";
+
+
+			
+			
+			
 			hql += cond;
 			System.out.println(hql);
 			Query query = session.createQuery(hql);
