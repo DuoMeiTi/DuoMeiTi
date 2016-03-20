@@ -31,10 +31,14 @@
 			<tbody>
 				<tr class="success">
 					
-										<td width="20%"><s:property value="#repairrecord.repairman.username"/></td>
-										<td><s:property value="#repairrecord.device.rtType"/></td>
-										<td><s:property value="#repairrecord.repairdetail"/></td>
-										<td><s:property value="#repairrecord.repairdate"/></td>
+				<td width="20%"><s:property value="#repairrecord.repairman.fullName"/></td>
+				<td><s:property value="#repairrecord.device.rtType"/></td>
+				<td><s:property value="#repairrecord.repairdetail"/></td>
+				<td>
+					<s:property value="@util.Util@formatTimestamp(#repairrecord.repairdate)"/>
+					
+<%-- 					<s:property value="#repairrecord.repairdate.toString()"/> --%>
+				</td>
 								
 				</tr>
 			</tbody>

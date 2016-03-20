@@ -7,13 +7,13 @@
 						<ul>
 						   <li>
 						      <span class="usoft-listview-item-date">
-						      		<s:property value="#i.checkdate.toString()"/>
+						      		<s:property 
+						      			value="@util.Util@formatTimestamp(#i.checkdate)"
+						      		/>
 						      </span>
 						      <span>
-						      	<a href="#" >
-<%-- 						      		<s:property value="#i.checkman.fullName"/> --%>
-<!-- 						      		: -->
-<%-- 						      		<s:property value="#i.checkdetail"/> --%>
+						      	<a >
+
 						      		
 						      		<s:property value="#i.checkman.fullName"/>检查<s:property value="#i.classroom.teachbuilding.build_name"/><s:property value="#i.classroom.classroom_num"/>
 							      		:

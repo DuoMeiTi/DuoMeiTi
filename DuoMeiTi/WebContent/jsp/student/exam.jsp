@@ -95,7 +95,7 @@
 		
 		function checkChangeCallback(data)
 		{
-			alert(data.status);
+// 			alert(data.status);
 		}
 		
 

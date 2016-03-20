@@ -7,7 +7,7 @@
 						<ul>
 						   <li>
 						      <span class="usoft-listview-item-date">
-						      		<s:property value="#i.repairdate.toString()"/>
+						      		<s:property value="@util.Util@formatTimestamp(#i.repairdate.toString())"/>
 						      </span>
 						      <span>
 						      	<a href="#" >

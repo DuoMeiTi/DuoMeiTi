@@ -85,10 +85,10 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 			System.out.println(hql);
 			Query query = session1.createQuery(hql);
 			rtClass = query.list();
-			for (int i = 0; i < rtClass.size(); i++) {
-				System.out.println("输出++++++++++++++++++++++++++++++++");
-				System.out.println(rtClass.get(i));
-			}
+//			for (int i = 0; i < rtClass.size(); i++) {
+//				System.out.println("输出++++++++++++++++++++++++++++++++");
+//				System.out.println(rtClass.get(i));
+//			}
 			tx.commit();
 		}
 		catch (Exception ex) {
@@ -103,46 +103,32 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 			}
 		}
 
-		//query at most 5 checkrecord
-		Criteria checkrecord_criteria = session.createCriteria(CheckRecord.class).setFetchMode("classroom", FetchMode.SELECT).setFetchMode("checkman", FetchMode.SELECT);
+		Criteria checkrecord_criteria = session.createCriteria(CheckRecord.class);
 		
 		checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
-		checkrecord_criteria.addOrder(Order.asc("checkdate"));
-		long check_rowCount = (Long) checkrecord_criteria.setProjection(  
-                Projections.rowCount()).uniqueResult();
-		int checkrecord_start = ((int) check_rowCount) > 5 ? ((int) check_rowCount) - 5 : 0;
-		checkrecord_criteria.setProjection(null);
-		checkrecord_criteria.setFirstResult(checkrecord_start);
-		checkrecord_criteria.setMaxResults(5);
+		checkrecord_criteria.addOrder(Order.desc("checkdate"));
+		
+		
 		checkrecords = checkrecord_criteria.list();
-//System.out.println("checksize:"+checkrecords.size());
 		
 		
 		
 		//query repairrecord
-		long repair_rowCount = (Long) session.createQuery("select count(*) from RepairRecord as rd left join rd.device as ry left join ry.classroom as cm where cm.id=" + classroomId).uniqueResult();
-		int repairrecord_start = ((int) repair_rowCount) > 5 ? ((int) repair_rowCount) - 5 : 0;
-//		System.out.println("s:"+repairrecord_start);
 		repairrecords = (List) session.createQuery("select rd "
 												+ "from RepairRecord as rd "
 												+ "left join rd.device as ry "
 												+ "left join ry.classroom as cm  "
-												+ "where cm.id=" + classroomId + " order by rd.repairdate").setFirstResult(repairrecord_start).setMaxResults(5).list();
-//		System.out.println("repairsize:"+repairrecords.size());
-//		for(RepairRecord r : repairrecords) {
-//			System.out.println(r.repairman);
-//		}
+												+ "where cm.id=" + classroomId + " order by rd.repairdate")
+				.list();
+		Collections.reverse(repairrecords);
 		
 		
+		classroom_repertory_list = session.createCriteria(model.Repertory.class)
+				.add(Restrictions.eq("classroom.id", classroomId)).list();
+
+
 		
 		
-//		List classroom_repertory_list;
-		
-		classroom_repertory_list = session.createCriteria(model.Repertory.class).add(Restrictions.eq("classroom.id", classroomId)).list();
-		
-		System.out.println("JJ");
-//		System.out.println(classroom.repertorys);
-		System.out.println(classroom_repertory_list);
 		
 		
 		ClassroomPicture();

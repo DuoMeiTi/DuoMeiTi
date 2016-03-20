@@ -69,6 +69,7 @@ public class ExamAction extends ActionSupport {
 		Criteria c = session.createCriteria(ExamStuScore.class).add(Restrictions.eq("stuPro.id", student_id))
 				.setProjection(Projections.rowCount());				
 		newNum = ((Long)c.uniqueResult()).intValue();
+//		newNum = c.list().size();
 		
 		newNum ++;
 		
@@ -167,14 +168,16 @@ public class ExamAction extends ActionSupport {
 		return SUCCESS;
 	}
 	public String submit() throws Exception {
-		System.out.println("JFJFJJFJJ");
+//		System.out.println("JFJFJJFJJ");
 		
 		Session session = model.Util.sessionFactory.openSession();
 		calNewNum(session);
-		System.out.println("JFJFJJFJJ");
+//		System.out.println("JFJFJJFJJ");
 		qtitle = session.createCriteria(ExamTitle.class).list();
+		
+		int sid = getStudentId();
 		score = 0;
-		System.out.println("BBBBBBBBBBB");
+//		System.out.println("BBBBBBBBBBB");
 		for(int i = 0; i < qtitle.size(); ++ i)
 		{
 			ExamTitle cntTitle = (ExamTitle)qtitle.get(i);
@@ -186,10 +189,12 @@ public class ExamAction extends ActionSupport {
 			{
 				ExamOption op = (ExamOption)cntOptions.get(j);
 				List checked = session.createCriteria(ExamStuOption.class)
+						.add(Restrictions.eq("stuPro.id", sid))
 						.add(Restrictions.eq("esNums", newNum))
 						.add(Restrictions.eq("emoption.emId", op.getEmId()))
 						.list();
 				
+//				System.out.println("CHECKED:######" + checked.size());
 				boolean ok = op.getEmCheck().equals("true") ^ !checked.isEmpty();
 				if(ok)
 				{
@@ -199,10 +204,11 @@ public class ExamAction extends ActionSupport {
 			}
 			if(isRight) score ++;
 		}
-		System.out.println("AAAAAAAAAAAA");
+//		System.out.println("AAAAAAAAAAAA");
+//		System.out.println(score);
 		
-		int student_id = getStudentId();
-		
+//		int student_id = getStudentId();
+//		
 		if(score * 100 >= qtitle.size() * 80)
 		{
 			this.status = "您已通过考试";
@@ -215,7 +221,7 @@ public class ExamAction extends ActionSupport {
 		}
 		else 
 		{
-			this.status = "您还未通过考试";
+			this.status = "您答题正确率不足，还未通过考试";
 		}
 		
 		
@@ -244,84 +250,84 @@ public class ExamAction extends ActionSupport {
 	
 	
 
-	public String insert() throws Exception {
-		
-		Session session = model.Util.sessionFactory.openSession();
-		session.beginTransaction();
-		int student_id = (int)ActionContext.getContext().getSession().get("student_id");
-		Criteria cstu =  session.createCriteria(model.StudentProfile.class);
-		List qstu = cstu.add((Restrictions.eq("id", student_id))).list();
-		
-		for(int i = 1 ; i < mergeList.size(); i += 2)
-		{
-			int len = Integer.parseInt((String)mergeList.get(i));
-			for(int j = 0; j < len; j++)
-			{
-				i++;
-				//System.out.println(j + "KKKKKKKKKKKKKKKKKKKKKKK" + mergeList.get(i));
-				Criteria cop = session.createCriteria(ExamOption.class);
-				List qop = cop.add(Restrictions.eq("emId", Integer.valueOf((String)mergeList.get(i)).intValue() )).list();
-				ExamStuOption eso = new ExamStuOption();
-				eso.setEmoption((model.ExamOption)qop.get(0));
-				eso.setStuPro((model.StudentProfile)qstu.get(0));
-				session.save(eso);
-			}
-		}
-		session.getTransaction().commit();
-		session.close();
-		this.countScore();
-		this.status = "1";
-		return SUCCESS;
-	}
+//	public String insert() throws Exception {
+//		
+//		Session session = model.Util.sessionFactory.openSession();
+//		session.beginTransaction();
+//		int student_id = (int)ActionContext.getContext().getSession().get("student_id");
+//		Criteria cstu =  session.createCriteria(model.StudentProfile.class);
+//		List qstu = cstu.add((Restrictions.eq("id", student_id))).list();
+//		
+//		for(int i = 1 ; i < mergeList.size(); i += 2)
+//		{
+//			int len = Integer.parseInt((String)mergeList.get(i));
+//			for(int j = 0; j < len; j++)
+//			{
+//				i++;
+//				//System.out.println(j + "KKKKKKKKKKKKKKKKKKKKKKK" + mergeList.get(i));
+//				Criteria cop = session.createCriteria(ExamOption.class);
+//				List qop = cop.add(Restrictions.eq("emId", Integer.valueOf((String)mergeList.get(i)).intValue() )).list();
+//				ExamStuOption eso = new ExamStuOption();
+//				eso.setEmoption((model.ExamOption)qop.get(0));
+//				eso.setStuPro((model.StudentProfile)qstu.get(0));
+//				session.save(eso);
+//			}
+//		}
+//		session.getTransaction().commit();
+//		session.close();
+//		this.countScore();
+//		this.status = "1";
+//		return SUCCESS;
+//	}
 
-	public String countScore() throws Exception{
-		Session session = model.Util.sessionFactory.openSession();
-		score = 0;
-		for(int i = 0; i < mergeList.size(); i++)
-		{
-			Criteria ct = session.createCriteria(ExamOption.class)
-					.add(Restrictions.eq("emTitle.emId", Integer.parseInt((String)mergeList.get(i))))
-					.add(Restrictions.eq("emCheck", "true"));
-			List temp = ct.list();
-			List<Integer> qOpTrue = new ArrayList();
-			for(int k = 0; k < temp.size(); k++)
-			{
-				qOpTrue.add(((ExamOption)temp.get(k)).getEmId());
-			}
-			
-			List<Integer> qOpStu = new ArrayList();
-			i++;
-		
-			int nu = Integer.valueOf(mergeList.get(i).toString()).intValue();
-			for(int j = 0; j < nu; j++)
-			{
-				++ i;
-				qOpStu.add(Integer.valueOf(mergeList.get(i).toString()));
-			}
-			Collections.sort(qOpTrue);
-			Collections.sort(qOpStu);
-			boolean flag = false;
-			if(qOpTrue.size() == qOpStu.size())
-			{
-				for(int k = 0; k < qOpTrue.size(); k++)
-				{
-					if(qOpTrue.get(k).equals(qOpStu.get(k)))
-					{
-						flag = true;
-					}
-					else
-					{
-						flag = false;
-						break;
-					}
-				}
-			}
-			if(flag == true) score++;
-		}
-		session.close();
-		this.status = "1";
-		return SUCCESS;
-	}
+//	public String countScore() throws Exception{
+//		Session session = model.Util.sessionFactory.openSession();
+//		score = 0;
+//		for(int i = 0; i < mergeList.size(); i++)
+//		{
+//			Criteria ct = session.createCriteria(ExamOption.class)
+//					.add(Restrictions.eq("emTitle.emId", Integer.parseInt((String)mergeList.get(i))))
+//					.add(Restrictions.eq("emCheck", "true"));
+//			List temp = ct.list();
+//			List<Integer> qOpTrue = new ArrayList();
+//			for(int k = 0; k < temp.size(); k++)
+//			{
+//				qOpTrue.add(((ExamOption)temp.get(k)).getEmId());
+//			}
+//			
+//			List<Integer> qOpStu = new ArrayList();
+//			i++;
+//		
+//			int nu = Integer.valueOf(mergeList.get(i).toString()).intValue();
+//			for(int j = 0; j < nu; j++)
+//			{
+//				++ i;
+//				qOpStu.add(Integer.valueOf(mergeList.get(i).toString()));
+//			}
+//			Collections.sort(qOpTrue);
+//			Collections.sort(qOpStu);
+//			boolean flag = false;
+//			if(qOpTrue.size() == qOpStu.size())
+//			{
+//				for(int k = 0; k < qOpTrue.size(); k++)
+//				{
+//					if(qOpTrue.get(k).equals(qOpStu.get(k)))
+//					{
+//						flag = true;
+//					}
+//					else
+//					{
+//						flag = false;
+//						break;
+//					}
+//				}
+//			}
+//			if(flag == true) score++;
+//		}
+//		session.close();
+//		this.status = "1";
+//		return SUCCESS;
+//	}
 	
 	
 	public List<ExamTitle> getQtitle() {

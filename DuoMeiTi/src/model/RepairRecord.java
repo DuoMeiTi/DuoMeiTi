@@ -25,8 +25,18 @@ public class RepairRecord {
 	public String repairdetail;
 	
 	
+//	@Column
+//	public java.sql.Date repairdate;
+	
 	@Column
-	public java.sql.Date repairdate;
+	public java.sql.Timestamp repairdate;
+	
+	
+	
+	
+	
+	
+
 	
 	
 	
@@ -42,8 +52,14 @@ public class RepairRecord {
 	
 	
 	
-	
-	
+
+	public java.sql.Timestamp getRepairdate() {
+		return repairdate;
+	}
+
+	public void setRepairdate(java.sql.Timestamp repairdate) {
+		this.repairdate = repairdate;
+	}
 
 	public int getId() {
 		return id;
@@ -77,13 +93,17 @@ public class RepairRecord {
 		this.repairdetail = repairdetail;
 	}
 
-	public java.sql.Date getRepairdate() {
-		return repairdate;
-	}
-
-	public void setRepairdate(java.sql.Date repairdate) {
-		this.repairdate = repairdate;
-	}
+//	public java.sql.Date getRepairdate() {
+//		return repairdate;
+//	}
+//
+//	public void setRepairdate(java.sql.Date repairdate) {
+//		this.repairdate = repairdate;
+//	}
+	
+	
+	
+	
 
 	@Override
 	public String toString() {

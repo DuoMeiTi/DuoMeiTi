@@ -1,6 +1,7 @@
 package admin;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import model.RepairRecord;
 import model.Repertory;
@@ -30,7 +31,7 @@ public class RepairRecordAction extends ActionSupport {
 			user_criteria.add(Restrictions.eq("id", user_id));
 			User repairman = (User) user_criteria.uniqueResult();
 			
-			Date repairdate = new Date(new java.util.Date().getTime());
+			Timestamp repairdate = new Timestamp(new java.util.Date().getTime());
 			
 			Criteria repertory_criteria = session.createCriteria(Repertory.class);
 			repertory_criteria.add(Restrictions.eq("rtId", deviceId));
