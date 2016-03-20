@@ -55,7 +55,7 @@
 						<td><s:property value="#item.fullName" /></td>
 						<td><s:property value="#item.rtType" /></td>
 						<td><s:property value="#item.repairDetail" /></td>
-						<td><s:property value="#item.repairDate" /></td>
+						<td><s:property value="@util.Util@formatTimestamp(#item.repairDate)" /></td>
 						<td><s:property value="#item.classRoom" /></td>
 						<td><s:property value="#item.teachBuilding" /></td>
 
