@@ -142,7 +142,7 @@
 			location.reload();
 			alert("删除成功！");
 		}
-		else alert("请先删除教室！");
+		else alert("无法删除！");
 	}
 	</script>
 </layout:override>
