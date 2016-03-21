@@ -20,9 +20,12 @@
 		<tr class="success" >
 			<td filePath='<s:property value="@util.Util@getFileNameFromPath(#i.filePath)"/>' style="text-align:left;" class="col-lg-10">  
 				 <a href="<s:property value="#i.filePath"/> "> 
-<%-- 						<s:property value="#i.filePath.split('/')"/> --%>
 					<s:property value="@util.Util@getFileNameFromPath(#i.filePath)"/>
-				 </a>  
+				 </a>
+<%-- 				 <video width="320" src="<s:property value="#i.filePath"/>"  controls="controls"> --%>
+				 
+<!-- 				 </video> -->
+				   
 			</td>
 			<td class="col-lg-2">
 				<button type="button" class="btn btn-danger delete" filepath="<s:property value="#i.filePath"/>">删除</button>

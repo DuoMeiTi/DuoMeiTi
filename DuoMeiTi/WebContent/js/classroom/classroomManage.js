@@ -84,7 +84,8 @@ function  classroomSearch() {
 }
 
 function classroomSearchCallback(data){
-	$(root).find('.classroomTableDiv').html(data.classroomHtml);
+//	alert(data.classroomHtml);
+	$("#classroom_table").html(data.classroomHtml);
 	
 }
 
@@ -200,6 +201,8 @@ function addClassroomCallback(data) {
 		$("#exist").text("教室号已存在");
 	}
 	else if(data.status == "ok") {
+		
+//		alert("GGGG");
 		$('#classroom_modal').modal('hide');
 		$(".classroomTableDiv").html(data.classroomHtml);
 	}
@@ -211,7 +214,7 @@ function addClassroomCallback(data) {
 	{
 		alert("发生严重错误，不知名原因");
 	}
-	location.reload(); 
+	window.location.reload(); 
 	
 }
 

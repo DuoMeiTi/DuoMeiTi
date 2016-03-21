@@ -18,18 +18,35 @@
 		         	
 		         	<s:iterator value="cmpShow" var="i" status="index" >
 		         	 	
-	         	 		<div class="usoft-listview-basic">
-						  <ul>
-						    <li>
-						      <span>
-						      		<span class="glyphicon glyphicon-star"></span></span><b><s:property value="#i.title"/> </b>
-						      		:
-						      		<s:property value="#i.content" escape="false"/>
-						      	</a>
-						      </span>
-						    </li>
-						  </ul>
-						</div>
+<!-- 	         	 		<div class="usoft-listview-basic"> -->
+<!-- 						  <ul> -->
+<!-- 						    <li> -->
+<!-- 						      <span> -->
+
+						      			 
+<!-- 					      			<div class="alert alert-success" role="alert"> -->
+							      		
+<!-- 									</div> -->
+						      			
+						      		<div class="alert alert-success" role="alert">
+						      			<div>
+							      			<span class="glyphicon glyphicon-star"></span>
+								      		</span>					      			
+						      				<s:property value="#i.title"/>
+					      				</div>
+					      				<div>
+					      				
+<!-- 						      				<span class="glyphicon glyphicon-ok"></span> -->
+<!-- 								      		</span>	 -->
+					      					<s:property value="#i.content" escape="false"/>
+					      				</div>
+									</div>
+						      		
+<!-- 						      	</a> -->
+<!-- 						      </span> -->
+<!-- 						    </li> -->
+<!-- 						  </ul> -->
+<!-- 						</div> -->
 		         	</s:iterator>	    
 
 

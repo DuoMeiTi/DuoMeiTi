@@ -15,7 +15,9 @@
 		
 		
 		<div class="alert alert-danger" role="alert">
-			课表名称的格式为：教学楼名称-教室号
+			<p>课表名称的格式为：教学楼名称-教室号 </p>
+			<p>课表上传后将会自动覆盖已有的课表</p>
+			
 		</div>	
 		<br/>
 		<div id="alert" class="alert alert-success" role="alert" style="display:none;">...</div>

@@ -73,14 +73,16 @@ public class BatchImportAction extends FileUploadBaseAction {
 		
 		model.Classroom classroom = (model.Classroom)l.get(0);
 		
-		File old_class_schedule = new File(util.Util.RootPath + classroom.getClass_schedule_path());
-    	if(!old_class_schedule.delete()) // 删除旧课表
-    	{
-    		this.status = "1";
-			this.message = "系统出现致命错误！！！！！！";
-			return SUCCESS;
-    	}
-    	 
+		if(classroom.getClass_schedule_path() != null)
+		{
+			File old_class_schedule = new File(util.Util.RootPath + classroom.getClass_schedule_path());		
+	    	if(!old_class_schedule.delete()) // 删除旧课表
+	    	{
+	    		this.status = "1";
+				this.message = "系统出现致命错误！！！！！！";
+				return SUCCESS;
+	    	}
+		} 
         
     	util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ClassroomSchedulePath);
     	String inserted_file_path = util.Util.ClassroomSchedulePath + fileFileName;

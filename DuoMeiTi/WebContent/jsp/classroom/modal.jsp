@@ -49,6 +49,13 @@
 	</div>
 </div>
 
+<script>
+		$("#check-record-modal").on("show.bs.modal", function(e){
+			$("#checkdetail").val("");
+		})
+</script>
+
+
 <!-- 维修记录 -->
 <div class="modal fade" id="repair-record-modal" tabindex="-1"
 	role="dialog" aria-labelledby="myModalLabel">
@@ -76,3 +83,9 @@
 		</div>
 	</div>
 </div>
+
+<script>
+		$("#repair-record-modal").on("show.bs.modal", function(e){
+			$("#repairdetail").val("");
+		})
+</script>
