@@ -139,7 +139,7 @@ public class Util
 
 	
 	
-	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
 	static public String formatTimestamp(Timestamp s)
 	{
 		return df.format(s);

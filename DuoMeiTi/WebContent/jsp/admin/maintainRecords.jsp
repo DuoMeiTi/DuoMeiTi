@@ -58,6 +58,7 @@ td,tr,th{
 					</div>
 				</div>
 				<script>
+				
 				$(function(){
 					$('#cost_device').hide();
 					$('#main_device').hide();
@@ -89,9 +90,16 @@ td,tr,th{
 
 				<div class="form-group" style="margin-bottom:-0.5%;">
 	    			<label for="startTime">开始时间</label>
-					<input id="startTime" type="date" value="2015-09-30"></input>
-					<label for="endTime">结束时间</label>
-					<input id="endTime" type="date" value="2015-10-01"></input>
+<!-- 					<input id="startTime" type="date" value="2015-09-30"> -->
+					<input id="startTime" type="date" value="">
+					
+					<label for="endTime">结束时间</label>					
+<!-- 					<input id="endTime" type="date" value="2015-10-01"> -->
+					<input id="endTime" type="date" value="">
+					
+
+					
+					
 				</div>
 
 			</div>
@@ -149,6 +157,8 @@ td,tr,th{
 				var optionval=null;
 			}
 			//alert(optionval);
+			
+			
 			sc_condition('2',optionval);
 		}
 		
@@ -184,6 +194,17 @@ td,tr,th{
 			$('#equipmentCondition').hide();
 			$('#timeCondition').hide();
 			$(objId).show();
+			
+			
+// 			if("timeCondition" == $(objId).attr("id"))
+// 			{
+// 				var now = new Date();
+// 				var now_s = now.getFullYear().toString() + "-" + now.getMonth().toString() + "-" + now.getDate().toString();
+// 				alert(now_s);
+// 				$("#startTime").val(now_s);
+				
+// 			}
+			
 			return true;
 		}
 		function hidediv(objId) {

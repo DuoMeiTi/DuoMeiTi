@@ -17,7 +17,7 @@
 						value="#repairrecord.repairman.fullName" /></td>
 				<td><s:property value="#repairrecord.device.rtType" /></td>
 				<td><s:property value="#repairrecord.repairdetail" /></td>
-				<td><s:property value="#repairrecord.repairdate" /></td>
+				<td><s:property value="@util.Util@formatTimestamp(#repairrecord.repairdate)" /></td>
 			</tr>
 		</s:iterator>
 	</tbody>

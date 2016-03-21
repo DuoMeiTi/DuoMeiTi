@@ -32,7 +32,7 @@ public class RepairDAOImpl implements RepairDAO{
 			cond += ("rR.device.rtType = \'" + val + "\'");
 		else if ("3".equals(type))		//时间
 			cond += ("rR.repairdate >= \'" + val.substring(0,val.indexOf(':')) + "\' and "+
-					"rR.repairdate <= \'" + val.substring(val.indexOf(':')+1) + "\'");
+					"rR.repairdate <= \'" + val.substring(val.indexOf(':')+1) + " 23:59:59\'");
 		System.out.println(cond);
 		try {
 			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
