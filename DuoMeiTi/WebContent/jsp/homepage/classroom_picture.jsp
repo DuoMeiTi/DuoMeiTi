@@ -2,26 +2,25 @@
 
 
 <!-- 	<div class="mycontent"> -->
-	
+<table>
+	<s:iterator begin="0" end="picture_list.size()-1" var="i" step="3">
+		<tr class="">
+			<s:iterator  var="j" begin="0" end="@@min(picture_list.size()-#i-1,2)" step="1">
+			<td>
+				<div  class="text" style=" text-align:center;">
+					<label>&nbsp;<s:property value="picture_list.get(#i+#j).remark"/>&nbsp;</label>
+				</div>
+				<div>
+					<img src="<s:property value="picture_list.get(#i+#j).path"/>" height="350px" width="270px" >  
+				</div>
+			</td>
+			</s:iterator>
+		</tr>
+	</s:iterator>
+</table>	
 	
 	
 		
-
-		<table class="table device-table-bordered" id="roompicture_table">
-			<tbody>
-				<s:iterator value="picture_list" var="picture" status="i">
-					<div class="form-group col-lg-offset-3">
-						<label for="username"><s:property value="#picture.remark"/>:</label>
-					</div>
-					<div class="form-group col-lg-offset-3">
-						<img src="<s:property value="#picture.path"/>"  width="100" height="100" />   
-					</div>
-					
-					<br/>
-				</s:iterator>
-			</tbody>
-		</table>	
-			
 			
 			
 			
