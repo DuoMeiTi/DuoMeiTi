@@ -2,7 +2,7 @@
 <layout:override name="main_content">
 
 <script type='text/javascript' src="/js/student/checkin.js"></script>
-<div >
+<div class="mycontent">
 	<h>学生签到</h>
 	<button type="button" class="btn btn-default"  style="margin:2px;" id="addbutton" onclick="checkin()">签&nbsp;&nbsp;到</button>
 	<div>

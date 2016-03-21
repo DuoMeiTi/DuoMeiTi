@@ -5,7 +5,13 @@
 <link rel="stylesheet" type="text/css" media="screen" href="/css/student/chooseclass.css"/> 
 
 <div class="mycontent">
-
+	
+	<div class="alert alert-success" role="alert">
+		注意：方格中的数字表示当前剩余的选班量，红色格子表示自己选中的时间段
+	</div>
+	
+	
+	
 
 	<h3>选择值班时间地点</h3>
 	<div class="teachbuilding-droplist">
@@ -53,7 +59,7 @@
 				</s:iterator>
 			</tbody>
 		</table>
-		<button type="button" class="btn btn-default" id="duty-choose-submit">提交</button>
+<!-- 		<button type="button" class="btn btn-default" id="duty-choose-submit">提交</button> -->
 	</div>
 </div>
 

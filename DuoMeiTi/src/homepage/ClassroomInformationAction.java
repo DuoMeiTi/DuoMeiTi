@@ -13,8 +13,8 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import page.PageBean;
-import page.PageMessage;
+//import page.PageBean;
+//import page.PageMessage;
 import model.Classroom;
 import model.Repertory;
 import model.StudentProfile;
@@ -78,10 +78,10 @@ public class ClassroomInformationAction extends ActionSupport implements Request
 		classroom_criteria.setProjection(null);
 		 
 		//获取分页信息
-		PageBean pageBean = PageMessage.getPageMessage(currPage, (int) rowCount);
+//		PageBean pageBean = PageMessage.getPageMessage(currPage, (int) rowCount);
 
-		classroom_criteria.setFirstResult(pageBean.getBeginIndex());
-		classroom_criteria.setMaxResults(pageBean.getPageSize());
+//		classroom_criteria.setFirstResult(pageBean.getBeginIndex());
+//		classroom_criteria.setMaxResults(pageBean.getPageSize());
 		/*
 		 * 
 		 *获取结果集,这里是和hibernate结合使用，所以参数需要传一个beginIndex
@@ -94,7 +94,7 @@ public class ClassroomInformationAction extends ActionSupport implements Request
 		path = sb.toString();
 //		request.put("users", list);
 		request.put("path", path) ;
-		request.put("pageBean", pageBean);
+//		request.put("pageBean", pageBean);
 		/////////////////////////
 
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
@@ -142,10 +142,10 @@ public class ClassroomInformationAction extends ActionSupport implements Request
 		classroom_criteria.setProjection(null);
 		 
 		//获取分页信息
-		PageBean pageBean = PageMessage.getPageMessage(currPage, (int) rowCount);
+//		PageBean pageBean = PageMessage.getPageMessage(currPage, (int) rowCount);
 
-		classroom_criteria.setFirstResult(pageBean.getBeginIndex());
-		classroom_criteria.setMaxResults(pageBean.getPageSize());
+//		classroom_criteria.setFirstResult(pageBean.getBeginIndex());
+//		classroom_criteria.setMaxResults(pageBean.getPageSize());
 		
 		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
 		if(query_condition != null && !query_condition.equals("")) {
