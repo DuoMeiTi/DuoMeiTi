@@ -11,7 +11,7 @@
 				<span><s:property value="building.build_name"/>&nbsp;&nbsp;<s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
 				<span>负责人:</span>
 				<span id="classroomid" style="visibility:hidden"><s:property value="classroom.id"/></span>
-				<span class="director-span"><s:property value="classroom.principal.user.username"/></span>
+				<span class="director-span"><s:property value="classroom.principal.user.fullName"/></span>
 			</div>
 		</div>
 		
@@ -50,15 +50,13 @@
 			<%@ include file="classroom_detail_repair.jsp" %>
 		</div>
 	
-		</div>
-		
-<!-- 		<br> -->
-<!-- 		<br> -->
-<!-- 		<br> -->
-		
+		</div>		
 		
 	</div>
 	
 </layout:override>
 
+<%-- <%@ include file="/jsp/homepage/new_home_base.jsp" %> --%>
+
 <%@ include file="base.jsp" %>
+
