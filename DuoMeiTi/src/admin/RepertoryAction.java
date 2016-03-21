@@ -126,7 +126,23 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 			return this.SUCCESS;
 		}
 		
-		Workbook rwb= Workbook.getWorkbook(this.file);
+	    String fileType = fileFileName.substring(fileFileName.lastIndexOf(".") + 1, fileFileName.length());
+	    
+	    Workbook rwb;
+//	    if (fileType.equals("xls")) 
+//	    {
+//	    	rwb = new HSSFWorkbook(this.file);
+//	    } 
+//	    else if (fileType.equals("xlsx")) 
+//	    {
+//	    	rwb = new XSSFWorkbook(stream);
+//	    } 
+//	    else
+//	    {
+//	        System.out.println("您输入的excel格式不正确");
+//	    }
+
+		rwb= Workbook.getWorkbook(this.file);
 		Sheet rs=rwb.getSheet(0);
 		int clos=rs.getColumns();
         int rows=rs.getRows();
@@ -154,6 +170,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         	String col9 = rs.getCell(9, i).getContents();
         	if(col9.equals(""))  rtReplacePeriod = 0;
         	else rtReplacePeriod = Integer.parseInt(col9);
+        	
         	
         	if(rtType == "" && rtNumber == "" && rtNumber == "" && rtVersion == "" 
         			&& rtProdDate == null && rtApprDate == null && rtFactorynum == "" && rtDeviceStatus == "")
