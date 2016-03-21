@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.catalina.core.ApplicationContext;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -44,16 +45,12 @@ public class CheckInAction extends PageGetBaseAction{
 		try {
 			 String role = (String) ActionContext.getContext().getSession().get("role");
 			 
-			 if(role!=util.Const.StudentRole){
-				 result="你不能签到";
-				 return SUCCESS;
-			 }
-			 
 			 Calendar calendar = Calendar.getInstance();
-			 
+			
 			 //检查当前时间是否可以签到
 			 if(!CheckInRule.isCheckInTime(calendar)){
 				 result="当前时间不能签到";
+				 System.out.println("1111111");
 				 return SUCCESS;
 			 }
 			 
@@ -62,6 +59,7 @@ public class CheckInAction extends PageGetBaseAction{
 			 int minute = calendar.get(Calendar.MINUTE);
 			 Timestamp starttime=null;
 			 Timestamp nowtime=null;
+			
 			 if(hour>=12){
 				 Time time = CheckInRule.getAmStartTime();
 				  starttime = TimeUtil.getTimestamp(time.hour,time.minute);
@@ -72,9 +70,12 @@ public class CheckInAction extends PageGetBaseAction{
 				 starttime = TimeUtil.getTimestamp(time.hour,time.minute);
 				 nowtime = TimeUtil.getNowTimestamp();
 			 }
+			
 			 int times = getCheckInRecordByIdandTime(starttime,nowtime);
+			
 			 if(times>0){
 				 result = "签到一次就够了";
+				 System.out.println("222222");
 				 return SUCCESS;
 			 }
 			username = (String) ServletActionContext.getContext().getSession().get("username");
@@ -85,21 +86,22 @@ public class CheckInAction extends PageGetBaseAction{
 			// TODO Auto-generated catch block
 			//ise.printStackTrace();
 			iae.printStackTrace();
+			System.out.println("444444");
 			result="签到失败";
+			return SUCCESS;
 		} 
+		System.out.println("333333");
 		return SUCCESS;
 	}
 	
 	public int getCheckInRecordByIdandTime(Timestamp starttime,Timestamp endtime){
 		Session session = model.Util.sessionFactory.openSession();
-		model.User user = (model.User)session.createCriteria(model.User.class)
-				 .add(Restrictions.eq("username", username)).uniqueResult();
-		StudentProfile student =(StudentProfile) session.createCriteria(model.StudentProfile.class)
-				 .add(Restrictions.eq("user.id", user.id))
-				 .uniqueResult();
-		Criteria criteria = session.createCriteria(CheckInRecord.class).add(Restrictions.eq("student.id",student.id ));
+		
+		int studentId = (int) ActionContext.getContext().getSession().get("student_id");
+		Criteria criteria = session.createCriteria(CheckInRecord.class).add(Restrictions.eq("student.id",studentId ));
 		criteria.add(Restrictions.between("recordtime", starttime, endtime));
 		int times = criteria.list().size();
+		
 		session.close();
 		return times;
 	}
@@ -172,7 +174,6 @@ public class CheckInAction extends PageGetBaseAction{
 		if(pagesize>MAX_PAGESIZE)pagesize=MAX_PAGESIZE;
 		if(startTime==null||startTime.isEmpty()||endTime==null||endTime.isEmpty())
 		{
-			System.out.println("HEHEHEHEHEE");
 			Calendar calendar = Calendar.getInstance();
 			endtime = TimeUtil.getCalendartoTimestamp(calendar);
 			calendar.set(Calendar.DATE,calendar.get(Calendar.DATE)-7);

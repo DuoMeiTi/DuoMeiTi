@@ -15,8 +15,8 @@ import java.util.Properties;
 
 public class CheckInRule {
 	static class Time{
-		int hour;
-		int minute;
+		volatile int hour;
+		volatile int minute;
 		void setHours(int hour){
 			this.hour=hour;
 		}
@@ -50,7 +50,8 @@ public class CheckInRule {
 	static{
 		System.out.println("CheckInRule init");
 		int[] time = new int[8];
-		Properties prop =  new  Properties();    
+		Properties prop =  new  Properties();  
+		//CheckInRule.class.getResourceAsStream(FILENAME);
 		InputStream in = CheckInRule.class.getResourceAsStream(FILENAME);
 		if(in==null){
 			System.out.println("InputStream null");
@@ -103,7 +104,27 @@ public class CheckInRule {
 	
 	public static boolean isCheckInTime(Calendar ca){
 		int hour = ca.get(Calendar.HOUR_OF_DAY);
-		Date startTime;
+		int minute = ca.get(Calendar.MINUTE);
+		System.out.println("签到时间 "+hour+" "+minute);
+		System.out.println("规定时间 "+pmStartTime.hour+"  "+pmEndTime.hour);
+		if(hour<=12){
+			if(hour<amStartTime.hour ||hour>amEndTime.hour) return false;
+			else if(hour==amStartTime.hour && minute<amStartTime.minute) return false;
+			else if(hour==amEndTime.hour && minute>amEndTime.minute) return false;
+		}
+		if(hour>12){
+			if(hour<pmStartTime.hour || hour > pmEndTime.hour) {
+				return false;
+			}
+			else if(hour == pmStartTime.hour && minute < pmStartTime.minute){
+				return false;
+			}
+			else if(hour == pmEndTime.hour && minute > pmEndTime.minute) {
+				return false;
+			}
+		}
+		return true;
+	/*	Date startTime;
 		Date endTime;
 		if(hour <= 12)
 		{
@@ -115,14 +136,19 @@ public class CheckInRule {
 			startTime = TimeUtil.getSqlDate(pmStartTime.hour, pmStartTime.minute);
 			endTime = TimeUtil.getSqlDate(pmEndTime.hour, pmEndTime.minute);
 		}
+		System.out.println("签到规定时间");
+		//System.out.println(startTime.getMinutes()+"  "+endTime.getMinutes());
+		System.out.println(ca.after(startTime));
+		System.out.println(ca.before(endTime));
 		if(ca.after(startTime)&&ca.before(endTime))
 		{
+		
 			return true;
 		}
 		else
 		{
 			return false;
-		}
+		}*/
 	}
 	
 	public static synchronized boolean SetAmTime(Date newStartTime,Date newEndTime)
@@ -131,7 +157,7 @@ public class CheckInRule {
 		cstart.setTime(newStartTime);
 		Calendar cend = Calendar.getInstance();
 		cend.setTime(newEndTime);
-		if(cend.get(Calendar.HOUR_OF_DAY)>amDeadLine||cstart.get(Calendar.HOUR_OF_DAY)>amDeadLine)
+		if(cend.get(Calendar.HOUR_OF_DAY)>=amDeadLine||cstart.get(Calendar.HOUR_OF_DAY)>=amDeadLine)
 		{
 			return false;
 		}
@@ -154,14 +180,21 @@ public class CheckInRule {
 	}
 	
 	public static synchronized boolean SetPmTime(Date newStartTime,Date newEndTime){
+		Calendar cstart = Calendar.getInstance();
+		cstart.setTime(newStartTime);
+		Calendar cend = Calendar.getInstance();
+		cend.setTime(newEndTime);
 		if(newStartTime.getHours()>=pmDeadLine||newEndTime.getHours()>=pmDeadLine)
 		{
 			return false;
 		}
 		if(newStartTime.before(newEndTime))
 		{
-			pmStartTime.hour=newStartTime.getHours();
-			pmEndTime.minute= newEndTime.getMinutes();
+			pmStartTime.hour = cstart.get(Calendar.HOUR_OF_DAY);
+			pmStartTime.minute = cstart.get(Calendar.MINUTE);
+			pmEndTime.hour = cend.get(Calendar.HOUR_OF_DAY);
+			pmEndTime.minute= cend.get(Calendar.MINUTE);
+			
 			try {
 				savePmTime();
 			} catch (IOException e) {
@@ -197,7 +230,7 @@ public class CheckInRule {
 		OutputStream fos=null;
 		try {
 			String path = CheckInRule.class.getResource(FILENAME).getPath();
-			if(path==null)path="FILENAME isnull";
+			if(path==null)path="FILENAME is null";
 			System.out.println(path);
 			fos = new FileOutputStream(CheckInRule.class.getResource(FILENAME).getPath());
 			pro.setProperty(KEY[0], String.valueOf(amStartTime.getHours()));
@@ -232,12 +265,16 @@ public class CheckInRule {
 		in.close();
 		OutputStream fos=null;
 		try {
-			fos = new FileOutputStream(CheckInRule.class.getClassLoader().getResource(FILENAME).getPath());
+			String path = CheckInRule.class.getResource(FILENAME).getPath();
+			if(path==null)path="FILENAME isnull";
+			System.out.println(path);
+			fos = new FileOutputStream(CheckInRule.class.getResource(FILENAME).getPath());
 			pro.setProperty(KEY[4], String.valueOf(pmStartTime.getHours()));
 			pro.setProperty(KEY[5], String.valueOf(pmStartTime.getMinutes()));
 			pro.setProperty(KEY[6],String.valueOf(pmEndTime.getHours()));
 			pro.setProperty(KEY[7], String.valueOf(pmEndTime.getMinutes()));
-			pro.store(fos, "update amTime");
+			pro.store(fos, "update pmTime");
+			System.out.println("修改下午签到时间成功");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
