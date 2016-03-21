@@ -140,6 +140,7 @@ public class TeachBuildingAction extends ActionSupport {
 	public String BuildingDelete() throws Exception{
 		
 		Session session = model.Util.sessionFactory.openSession();
+		System.out.println("BuildingDelete:");
 //		Transaction trans = 
 		session.beginTransaction();
 		Criteria q = session.createCriteria(Classroom.class);
@@ -154,17 +155,23 @@ public class TeachBuildingAction extends ActionSupport {
 		}
 		else {
 			status = 1;
+			return ActionSupport.SUCCESS;
 		}
-		Criteria b = session.createCriteria(TeachBuilding.class);
-		b.add(Restrictions.eq("build_id", buildId));
-		List L = b.list();
-		System.out.println(buildId);
-		System.out.println(L.get(0));
-		session.delete(L.get(0));
-		session.getTransaction().commit();
-		session.close();
-//		trans.commit();
-		
+		try{
+			Criteria b = session.createCriteria(TeachBuilding.class);
+			b.add(Restrictions.eq("build_id", buildId));
+			List L = b.list();
+			System.out.println(buildId);
+			System.out.println(L.get(0));
+			session.delete(L.get(0));
+			session.getTransaction().commit();
+		}catch(Exception e){
+			e.printStackTrace();
+            session.getTransaction().rollback();
+            System.out.println("删除失败");
+		}finally{
+			session.close();
+		}
 		System.out.println(status);
 		
 		return ActionSupport.SUCCESS;
@@ -229,5 +236,7 @@ public class TeachBuildingAction extends ActionSupport {
 	public void setCostDevice(String[] costDevice) {
 		this.costDevice = costDevice;
 	}
+
+	
 	
 }
