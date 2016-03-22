@@ -72,14 +72,7 @@
 		<script>
 		
 		$(document).on('click',"#change",function(){
-			/* var params = $('#admin_information_form').serialize(); //利用jquery将表单序列化 
-	        $.ajax({
-	          url: 'admin_information_change',
-	          type: 'post',
-	          dataType: 'json',
-	          data: params,
-	          success: adminRegisterCallback
-	        }); */
+			
 	        var f_id = $("#file_upload").val();
 	        var fd = new FormData();
 	        if(f_id.length != 0){
@@ -110,7 +103,7 @@
 		
 		function adminRegisterCallback(data)
 	    {    	
-			alert("changed");
+			alert("修改成功！");
 			location.reload();
 
 	    }	
