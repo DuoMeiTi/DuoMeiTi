@@ -200,7 +200,7 @@
 		
 		var id =  $("#hidden_id").val();
 		
-		alert("FJJFJFJFJJ-----")
+// 		alert("FJJFJFJFJJ-----")
 		
 		$.ajax({
 			url : '/admin/HomepageModify/notice/notice_add',
