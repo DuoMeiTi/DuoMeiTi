@@ -3,17 +3,20 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 <table class="table table-bordered">
 			
-			<tr class="row" >
-				<th >姓名</th>
-				<th>学号</th>
-				<th>签到时间</th>
-			</tr>
-			<s:iterator value="recordlist" var="i"  status="index"> 
-    			<tr class="row" id=<s:property value="#i.id"/>>
-					<td class="col-lg-1.5"> <s:property value="#i.student.user.fullName"/> </td>
-					<td class="col-lg-1.5"><s:property value="#i.student.studentId"/></td>
-					<td class="col-lg-1.5"> <s:property value="@util.Util@formatTimestamp(#i.recordtime)"/> </td>
-					<td></td>
+			<thead>
+				<tr >
+					<th>姓名</th>
+					<th>学号</th>
+					<th>签到时间</th>
 				</tr>
-			</s:iterator>
+			</thead>
+			<tbody>
+				<s:iterator value="recordlist" var="i"  status="index"> 
+	    			<tr id=<s:property value="#i.id"/>>
+						<td class="col-lg-1.5"> <s:property value="#i.student.user.fullName"/> </td>
+						<td class="col-lg-1.5"><s:property value="#i.student.studentId"/></td>
+						<td class="col-lg-1.5"> <s:property value="@util.Util@formatTimestamp(#i.recordtime)"/> </td>
+					</tr>
+				</s:iterator>
+			</tbody>
 		</table>
