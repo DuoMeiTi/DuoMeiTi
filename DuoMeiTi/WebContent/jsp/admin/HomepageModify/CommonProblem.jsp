@@ -33,9 +33,9 @@
 						<br>
 						<br>	
 										
-						<div id="notice_content" style="padding:0 auto">			
+						<div id="notice_content">			
 							<%@ include file="/jsp/admin/HomepageModify/UEditor/uediter.jsp"%>	
-						</div>
+						</div> 
 						<span  hidden="true" id="hidden_id"></span>
 					</div>
 				</form>
@@ -106,6 +106,7 @@
 
 
 	</table>
+	
 </div>
 
 

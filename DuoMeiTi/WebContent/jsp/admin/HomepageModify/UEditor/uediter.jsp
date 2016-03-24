@@ -4,7 +4,7 @@
 <script type='text/javascript' src="/js/admin/classroom_detail.js"></script>
 
 
-<div>
+<div >
     <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
 </div>
 
