@@ -70,7 +70,7 @@
         //,customDomain:false
 
         //常用配置项目
-        ,isShow : false    //默认显示编辑器
+        //,isShow : false    //默认显示编辑器
 
         //,textarea:'editorValue' // 提交表单时，服务器获取编辑器提交内容的所用的参数，多实例时可以给容器name属性，会将name给定的值最为每个实例的键值，不用每次实例化的时候都设置这个值
 
@@ -89,7 +89,7 @@
         //首行缩进距离,默认是2em
         //,indentValue:'2em'
 
-        ,initialFrameWidth:1000  //初始化编辑器宽度,默认1000
+        ,initialFrameWidth:800 //初始化编辑器宽度,默认1000
         ,initialFrameHeight:320  //初始化编辑器高度,默认320
 
         //,readonly : false //编辑器初始化结束后,编辑区域是否是只读的，默认是false

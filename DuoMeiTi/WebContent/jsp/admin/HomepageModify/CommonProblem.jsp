@@ -25,8 +25,7 @@
 				<div class="form-group">
 					
 					<label class="col-sm-2 text-left" for="notice_title">常见问题概述</label>
-					<br>
-					<br>
+					
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="notice_title" style="width: 400px">
 						<!-- <p class="help-block">字母，数字，汉字皆可</p> -->
@@ -43,11 +42,9 @@
 <!-- 					</div> -->
 					<br>
 					<br>					
-					<div id="notice_content">
-						<%@ include file="/bootstrap-wysiwyg/editor.jsp" %>				
+					<div id="notice_content">			
+						<%@ include file="/jsp/admin/HomepageModify/UEditor/uediter.jsp"%>	
 					</div>
-					
-					
 					
 					<span  hidden="true" id="hidden_id"></span>
 					<!-- <div style="text-align:center" class="col-sm-4 control-label">
@@ -127,14 +124,6 @@
 	</table>
 </div>
 
-<div class="detail-div" id="device_jsp">
-	<%@ include file="/jsp/admin/HomepageModify/UEditor/uediter.jsp"%>
-</div>
-
-
-
-
-
 
 	<script>
 	function notice_add(){
@@ -157,8 +146,10 @@
 		var title = $("#notice_title").val();
 // 		alert(title);
 
-		var content = $("#notice_content .editor").html();
-
+		//var content = $("#notice_content .editor").html();
+		
+		var content = UE.getEditor('editor').getContent();
+		
 		//var content = $("#notice_content").val();
 // 		alert(title + "//" + content + "//")
 		var id =  $("#hidden_id").val();
@@ -202,8 +193,11 @@
 		
 		$("#notice_title").val(select_notice_title);
 		//$("#notice_content").val(select_notice_content);
- 		$("#notice_content .editor").html(select_notice_content);
-		
+ 		//$("#notice_content .editor").html(select_notice_content);
+ 		//UE.getEditor('editor').execCommand('insertHtml', select_notice_content)
+ 		UE.getEditor('editor').setContent(select_notice_content, '');
+ 		
+ 		
 		$("#hidden_id").val(select_notice_id);
 		
 		$("#submit_type").attr("value", "update");

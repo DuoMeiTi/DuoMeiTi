@@ -2,14 +2,14 @@
 
 
 <script type='text/javascript' src="/js/admin/classroom_detail.js"></script>
-<div>
+
 
 <div>
-    <h1>完整demo</h1>
     <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
 </div>
+
 <div id="btns">
-    <div>
+    <!-- <div>
     	<button onclick="saveContent()">保存</button>
         <button onclick="getAllHtml()">获得整个html的内容</button>
         <button onclick="getContent()">获得内容</button>
@@ -36,17 +36,16 @@
     <div>
         <button onclick="getLocalData()" >获取草稿箱内容</button>
         <button onclick="clearLocalData()" >清空草稿箱</button>
-    </div>
+    </div> -->
 
 </div>
-<div>
+<!-- <div>
     <button onclick="createEditor()">
     创建编辑器</button>
     <button onclick="deleteEditor()">
     删除编辑器</button>
-</div>
+</div> -->
 
-</div>
 
 
 
@@ -56,29 +55,6 @@
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
     var ue = UE.getEditor('editor');
 	
-    //自己定义的函数
-    function saveContent(e){
-        alert("save:"+UE.getEditor('editor').getContent());
-        
-        $.ajax({
-			url : '/admin/HomepageModify/CommonProblem_add',
-			type : 'post',
-			dataType : 'json',
-			data : {//发送到服务器的数据
-				//"notice_id" : noticeId,
-				"title" : "test",
-				"content" : UE.getEditor('editor').getContent(),
-				"submit_type" : "add",
-				"id" : "2"
-			},
-			success : addNoticeCallback
-		});
-        
-        
-        
-        
-    }
-    
     
     
 
