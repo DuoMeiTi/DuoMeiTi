@@ -6,10 +6,11 @@
 
 <layout:override name="mycontent">
 
-<div class="modal fade" id="notice-modal" tabindex="-1" role="dialog"
-	aria-labelledby="noticeAddModalLabel"><!--aria-labelledby什么意思？？？？？  -->
-	<div class="modal-dialog" role="document" style="width: 60%; height:400px" >
+<div class="modal fade bs-example-modal-lg" id="notice-modal" tabindex="-1" role="dialog" aria-labelledby="noticeAddModalLabel">
+	<div class="modal-dialog modal-lg" role="document" style="width: 75%; height:400px" >
+		
 		<div class="modal-content">
+		
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
@@ -17,44 +18,27 @@
 				</button>
 				<h4 class="modal-title" id="myModalLabel">常见问题添加</h4>
 			</div>
+						
 			<div class="modal-body">
-			
-			
-			<form class="form-horizontal">
-				<input style="visibility:hidden" id="submit_type" value="add" />
-				<div class="form-group">
-					
-					<label class="col-sm-2 text-left" for="notice_title">常见问题概述</label>
-					
-					<div class="col-sm-5">
-						<input type="text" class="form-control" id="notice_title" style="width: 400px">
-						<!-- <p class="help-block">字母，数字，汉字皆可</p> -->
+				<form class="form-horizontal">
+					<input style="visibility:hidden" id="submit_type" value="add" />
+					<div class="form-group">
+						<label class="col-sm-2 text-left" for="notice_title">常见问题概述:</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="notice_title" style="width: 400px">
+						</div>
 					</div>
-					<!-- <div style="text-align:center" class="col-sm-4 control-label">
-						<span id="exist"></span>
-					</div> -->
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 text-left" for="notice_content">内容</label>
-<!-- 					<div class="col-sm-5"> -->
-<!-- 						<textarea class="form-control"  id="notice_content" rows="9" cols="2" style="width: 400px"></textarea> -->
-<!-- 						<input type="" class="form-control" id="input_principal_student_id" oninput="disable_add_btn()"> -->
-<!-- 					</div> -->
-					<br>
-					<br>					
-					<div id="notice_content">			
-						<%@ include file="/jsp/admin/HomepageModify/UEditor/uediter.jsp"%>	
+					<div class="form-group">
+						<label class="col-sm-2 text-left" for="notice_content">内容</label>
+						<br>
+						<br>	
+										
+						<div id="notice_content" style="padding:0 auto">			
+							<%@ include file="/jsp/admin/HomepageModify/UEditor/uediter.jsp"%>	
+						</div>
+						<span  hidden="true" id="hidden_id"></span>
 					</div>
-					
-					<span  hidden="true" id="hidden_id"></span>
-					<!-- <div style="text-align:center" class="col-sm-4 control-label">
-						<span id="input_principal_student_name">lz</span>
-					</div> -->
-					<!-- <div class="col-sm-3">
-						<button class="btn btn-primary" onclick="query_stu_name()">查询姓名</button>
-					</div> -->
-				</div>
-			</form>
+				</form>
 			
 			</div>
 			<div class="modal-footer">
@@ -129,29 +113,17 @@
 	function notice_add(){
 		
 		$("#notice_title").val("");
-		//$("#input_principal_student_name").text("");
-		
 		$("#notice_content .editor").html("");
 		$("#submit_type").attr("value", "add");
 		$("#notice_add_btn").text("确定添加");
 		$('#notice-modal').modal('show');
-		
-		
 	}	
 	
 	function notice_add_submit(){
 		
 		var submit_type = $("#submit_type").attr("value");//新增教室的时候是add
-// 		alert(submit_type);
 		var title = $("#notice_title").val();
-// 		alert(title);
-
-		//var content = $("#notice_content .editor").html();
-		
 		var content = UE.getEditor('editor').getContent();
-		
-		//var content = $("#notice_content").val();
-// 		alert(title + "//" + content + "//")
 		var id =  $("#hidden_id").val();
 		
 		$.ajax({
@@ -193,13 +165,11 @@
 		
 		$("#notice_title").val(select_notice_title);
 		//$("#notice_content").val(select_notice_content);
- 		//$("#notice_content .editor").html(select_notice_content);
- 		//UE.getEditor('editor').execCommand('insertHtml', select_notice_content)
+ 		//$("#notice_content .editor").html(select_notice_content)
  		UE.getEditor('editor').setContent(select_notice_content, '');
  		
  		
 		$("#hidden_id").val(select_notice_id);
-		
 		$("#submit_type").attr("value", "update");
 		$("#notice_add_btn").text("确定更新");
 		$('#notice-modal').modal('show');

@@ -4,7 +4,7 @@
   <div class="col-lg-6" style="width:98%; margin:10px">
     <!--news base template-->
 		<div class="">
-		  <div class="front-wrap" style="height:800px">
+		  <div class="front-wrap" style="height:8000px">
 		    <div class="home-news">
 		      <div class="usoft-listview-header">
 		        <h3>常见问题          <!-- <small>COMMONPROBLEM </small> --> </h3>
