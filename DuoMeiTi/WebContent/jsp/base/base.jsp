@@ -33,6 +33,8 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="/css/base/websocket.css">
 		
 		
+		<script type="text/javascript" src="/jsp/admin/HomepageModify/UEditor/ueditor.config.js"></script>
+		<script type="text/javascript" src="/jsp/admin/HomepageModify/UEditor/ueditor.all.min.js"> </script>
 		
 		
 		

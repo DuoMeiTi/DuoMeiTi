@@ -127,7 +127,9 @@
 	</table>
 </div>
 
-
+<div class="detail-div" id="device_jsp">
+	<%@ include file="/jsp/admin/HomepageModify/UEditor/uediter.jsp"%>
+</div>
 
 
 
