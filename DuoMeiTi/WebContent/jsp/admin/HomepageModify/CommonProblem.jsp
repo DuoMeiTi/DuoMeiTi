@@ -6,50 +6,8 @@
 
 <layout:override name="mycontent">
 
-<div class="modal fade bs-example-modal-lg" id="notice-modal" tabindex="-1" role="dialog" aria-labelledby="noticeAddModalLabel">
-	<div class="modal-dialog modal-lg" role="document" style="width: 75%; height:400px" >
-		
-		<div class="modal-content">
-		
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">常见问题添加</h4>
-			</div>
-						
-			<div class="modal-body">
-				<form class="form-horizontal">
-					<input style="visibility:hidden" id="submit_type" value="add" />
-					<div class="form-group">
-						<label class="col-sm-2 text-left" for="notice_title">常见问题概述:</label>
-						<div class="col-sm-5">
-							<input type="text" class="form-control" id="notice_title" style="width: 400px">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 text-left" for="notice_content">内容</label>
-						<br>
-						<br>	
-										
-						<div id="notice_content">			
-							<%@ include file="/jsp/admin/HomepageModify/UEditor/uediter.jsp"%>	
-						</div> 
-						<span  hidden="true" id="hidden_id"></span>
-					</div>
-				</form>
-			
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				<button type="button" class="btn btn-primary" id="notice_add_btn" onclick="notice_add_submit()">提交</button>
-			</div>
-		</div>
-	</div>
-</div>
+
 	
-	<br />
 
 	<form class="form-inline" action="notice_add" method="POST"
 		id="notice_form">
@@ -67,6 +25,44 @@
 		style="display: none">
 		<br />
 	</div>
+
+
+
+
+
+<!-- 编辑器，嵌入页面 -->
+<div id="ueditor" style="display:none" onMouseout="hidden();">
+<div class="modal-header">
+	<h4 class="modal-title" id="myModalLabel">常见问题添加</h4>
+</div>
+
+<div class="modal-body">
+	<form class="form-horizontal">
+		<input style="visibility:hidden" id="submit_type" value="add" />
+		<div class="form-group">
+			<label class="col-sm-2 text-left" for="notice_title">常见问题概述:</label>
+			<div class="col-sm-5">
+				<input type="text" class="form-control" id="notice_title" style="width: 400px">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 text-left" for="notice_content">内容</label>
+			<br>
+			<br>			
+			<div id="notice_content">			
+				<%@ include file="/jsp/admin/HomepageModify/UEditor/uediter.jsp"%>	
+			</div> 
+			<span  hidden="true" id="hidden_id"></span>
+		</div>
+	</form>
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" onclick="cancel()">取消</button>
+	<button type="button" class="btn btn-primary" id="notice_add_btn" onclick="notice_add_submit()">提交</button>
+</div>
+
+</div>
 
 
 
@@ -102,22 +98,23 @@
 			</tr>
 		</s:iterator>
 
-
-
-
 	</table>
 	
 </div>
 
 
 	<script>
+	function cancel(){
+		document.getElementById("ueditor").style.display="none";
+	}
+
 	function notice_add(){
-		
+		document.getElementById("ueditor").style.display="";
 		$("#notice_title").val("");
-		$("#notice_content .editor").html("");
+		//$("#notice_content .editor").html("");
+		UE.getEditor('editor').setContent("", '');
 		$("#submit_type").attr("value", "add");
 		$("#notice_add_btn").text("确定添加");
-		$('#notice-modal').modal('show');
 	}	
 	
 	function notice_add_submit(){
@@ -156,7 +153,6 @@
 	function edit_notice(index) {
 		//alert(index);
 		var select_notice_title = $("#notice_search_table").find("tr:eq(" + (index + 1) + ") td:eq(0)").text();
-//		var select_notice_time = $("#notice_search_table").find("tr:eq(" + (index + 1) + ") td:eq(1)");
 		var select_notice_time = $("#notice_search_table").find("tr:eq(" + (index + 1) + ")").attr("notice_time");
 		var select_notice_content = $("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_content");
 		var select_notice_id = $("#notice_search_table").find("tr:eq("+(index+1) +")").attr("notice_id");
@@ -165,15 +161,13 @@
 		
 		
 		$("#notice_title").val(select_notice_title);
-		//$("#notice_content").val(select_notice_content);
- 		//$("#notice_content .editor").html(select_notice_content)
  		UE.getEditor('editor').setContent(select_notice_content, '');
- 		
  		
 		$("#hidden_id").val(select_notice_id);
 		$("#submit_type").attr("value", "update");
 		$("#notice_add_btn").text("确定更新");
-		$('#notice-modal').modal('show');
+		document.getElementById("ueditor").style.display="";
+		//$('#notice-modal').modal('show');
 		
 		dismiss();
 	}
