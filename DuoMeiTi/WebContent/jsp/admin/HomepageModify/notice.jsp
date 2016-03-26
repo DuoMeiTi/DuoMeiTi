@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
-
+<br />
 
 
 	<form class="form-inline" action="notice_add" method="POST" id="notice_form">
@@ -53,12 +53,6 @@
 </div>
 
 </div>
-
-
-
-
-
-
 
 
 <div id="notice_search_table">
@@ -116,9 +110,6 @@
 	function cancel(){
 		document.getElementById("ueditor").style.display="none";
 	}
-	
-	
-	
 	
 	
 	function notice_add(){
@@ -217,7 +208,6 @@
 			} else {
 				alert("error");
 			}
-
 		}
 	</script>
 
