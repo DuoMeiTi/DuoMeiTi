@@ -2,6 +2,8 @@ package homepage;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,7 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import model.DutySchedule;
 import model.User;
 import util.PageGetBaseAction;
 
@@ -118,14 +121,100 @@ public class HomeAction extends PageGetBaseAction
 		file_path_list = this.makeCurrentPageList(q, 10); // 根据代表总体的Criteria 获取当前页元素的List，这个效率高，应尽量使用这个
 //		file_path_list = this.makeCurrentPageList(q.list(), 10); //根据代表总体的List 获取当前页元素的List
 		
-		
 		session.close();
-		
 		if(this.getIsAjaxTransmission()) // 这是ajax 传输
 		{
 			file_path_html = util.Util.getJspOutput("/jsp/admin/HomepageModify/ResourceFileTable.jsp");				
 			return "getPage";
 		}
+		return ActionSupport.SUCCESS;
+	}
+	
+	
+	
+//	static boolean eq(Object a, Object b)
+//	{
+//		return a.id == b.id;
+//		return true;
+//	}
+	ArrayList<ArrayList<ArrayList<DutySchedule>> > dutyShowList;
+	List dutyPlaceList;
+	public String dutyShow() throws Exception
+	{	
+		Session session = model.Util.sessionFactory.openSession();
+		
+		dutyPlaceList = session.createCriteria(model.DutyPlace.class).list();
+		List dutyScheduleList = session.createCriteria(model.DutySchedule.class).list();
+		
+		int place_size = dutyPlaceList.size();
+		
+		
+		
+		dutyShowList = new ArrayList<ArrayList<ArrayList<DutySchedule>> >();
+		
+		for(int i = 0; i < place_size; ++ i) 
+		{
+			ArrayList<ArrayList<DutySchedule>> tmp = new ArrayList<ArrayList<DutySchedule>>();
+			for(int j = 0; j < 35; ++ j)
+			{
+				ArrayList<DutySchedule> tmp_ds = new ArrayList<DutySchedule>();
+				tmp.add(tmp_ds);
+			}
+			dutyShowList.add(tmp);
+		}
+		
+		
+		
+//		
+//		ArrayList<DutySchedule> [][] dutyShowArray =
+//				
+//				new ArrayList<DutySchedule> [place_size][35];
+//
+		for(int i = 0; i < dutyScheduleList.size(); ++ i)
+		{
+			DutySchedule ds = (DutySchedule)dutyScheduleList.get(i);
+		
+			dutyShowList.get(dutyPlaceList.indexOf(ds.dutyPiece.dutyPlace) )
+						.get(ds.dutyPiece.time)
+						.add(ds);
+						
+		}
+//		
+//		
+//
+////		List <DutySchedule[]>  dutyShowList = Arrays.asList(dutyShowArray);
+//		
+//		dutyShowList = 
+//				new ArrayList<ArrayList<DutySchedule>>() ;
+//		
+//		for(int i = 0; i < dutyShowArray.length; ++ i)
+//		{
+//			DutySchedule[] tmp = dutyShowArray[i];
+//			dutyShowList.add ( (List<DutySchedule>) Arrays.asList(tmp));
+//			
+//		}
+		
+//		dutyShowList.forEach(action);
+//		dutyShowList.for
+		
+		
+
+		
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		session.close();
+//		String s = "我wo";
+//		System.out.println(s.length());
+
 		return ActionSupport.SUCCESS;
 	}
 
@@ -136,6 +225,40 @@ public class HomeAction extends PageGetBaseAction
 	
 	
 	
+	
+	
+	
+
+
+
+
+
+
+
+	public ArrayList<ArrayList<ArrayList<DutySchedule>>> getDutyShowList() {
+		return dutyShowList;
+	}
+
+
+
+	public void setDutyShowList(ArrayList<ArrayList<ArrayList<DutySchedule>>> dutyShowList) {
+		this.dutyShowList = dutyShowList;
+	}
+
+
+
+	public List getDutyPlaceList() {
+		return dutyPlaceList;
+	}
+
+
+
+	public void setDutyPlaceList(List dutyPlaceList) {
+		this.dutyPlaceList = dutyPlaceList;
+	}
+
+
+
 	public List getCheck_list() {
 		return check_list;
 	}

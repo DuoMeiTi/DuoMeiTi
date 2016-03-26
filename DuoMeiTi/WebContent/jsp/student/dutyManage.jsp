@@ -59,7 +59,11 @@
 				</s:iterator>
 			</tbody>
 		</table>
-<!-- 		<button type="button" class="btn btn-default" id="duty-choose-submit">提交</button> -->
+
+
+
+
+
 	</div>
 </div>
 

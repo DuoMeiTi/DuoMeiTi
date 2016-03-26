@@ -18,9 +18,7 @@ public class DutyPlace {
 	public String placeName;
 
 	
-	
-	
-	
+
 	
 	
 	

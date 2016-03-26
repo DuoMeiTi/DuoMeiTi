@@ -64,8 +64,8 @@
 			           <li class=""><a href="/contacts">通讯录</a></li>
 			           <li class=""><a href="/CommonProRecord">常见问题</a></li>
 			           
-<%-- 			           <s:property value="#session.fullName"/> --%>
-			           
+			           <li class=""><a href="/dutyShow">值班表</a></li>
+
 			           <li class="">
 				           <s:if test="#session.containsKey('role')">
 				           

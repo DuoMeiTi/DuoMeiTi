@@ -273,37 +273,35 @@
        	</result>
       </action>
      
-<!--         <action name="duty_manage" class="admin.StudentManageAction" method="dutyManager"> -->
-<!--         	<result>/jsp/admin/student_manage/dutyManage.jsp</result> -->
-<!--         </action> -->
+
 
 
                
         <!-- 获取值班表 -->
-        <action name="getDutyTable" class="admin.StudentManageAction" method="getDutyTable">
-        	<result type="json">
-        		<param name="includeProperties">
-        			dutySchedule\[\d+\]\.studentId,
-        			dutySchedule\[\d+\]\.studentName,
-        			dutySchedule\[\d+\]\.time,
-        			teachBuildingId,
-        		</param>
-        	</result>
-        </action>
+<!--         <action name="getDutyTable" class="admin.StudentManageAction" method="getDutyTable"> -->
+<!--         	<result type="json"> -->
+<!--         		<param name="includeProperties"> -->
+<!--         			dutySchedule\[\d+\]\.studentId, -->
+<!--         			dutySchedule\[\d+\]\.studentName, -->
+<!--         			dutySchedule\[\d+\]\.time, -->
+<!--         			teachBuildingId, -->
+<!--         		</param> -->
+<!--         	</result> -->
+<!--         </action> -->
         
         <!-- 改变开关状态 -->
-        <action name="switchStatuChange" class="admin.StudentManageAction" method="switchStatuChange">
-        	<result type="json">
-        		<param name="includeProperties">log</param>
-        	</result>
-        </action>
+<!--         <action name="switchStatuChange" class="admin.StudentManageAction" method="switchStatuChange"> -->
+<!--         	<result type="json"> -->
+<!--         		<param name="includeProperties">log</param> -->
+<!--         	</result> -->
+<!--         </action> -->
         
         <!-- 删除选班 -->
-        <action name="deleteDuty" class="admin.StudentManageAction" method="deleteDuty">
-        	<result type="json">
-        		<param name="includeProperties">log</param>
-        	</result>
-        </action>
+<!--         <action name="deleteDuty" class="admin.StudentManageAction" method="deleteDuty"> -->
+<!--         	<result type="json"> -->
+<!--         		<param name="includeProperties">log</param> -->
+<!--         	</result> -->
+<!--         </action> -->
        	<!-- 搜索学生 -->
        	<action name="searchStudent" class="admin.StudentManageAction" method="searchStudent">
        		<result type="json">
@@ -315,13 +313,13 @@
        		</result>
        	</action>
        	<!-- 添加值班 -->
-       	<action name="dutyAdd" class="admin.StudentManageAction" method="dutyAdd">
-       		<result type="json">
-       			<param name="includeProperties">
-       				log
-       			</param>
-       		</result>
-       	</action>
+<!--        	<action name="dutyAdd" class="admin.StudentManageAction" method="dutyAdd"> -->
+<!--        		<result type="json"> -->
+<!--        			<param name="includeProperties"> -->
+<!--        				log -->
+<!--        			</param> -->
+<!--        		</result> -->
+<!--        	</action> -->
        	
        	
 <!-- 学生值班管理 end -->

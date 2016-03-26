@@ -213,6 +213,7 @@ $(document).on("click","#dutyChooseSwitchIsOpen",function(){
 		success : 
 
 			function switchStatuChangeCallBack(data){
+// 			alert("JJJJ");
 			var btn=$("#dutyChooseSwitchIsOpen");
 				
 			if(btn.hasClass("btn-primary"))
@@ -286,7 +287,7 @@ $(document).on("click","#deleteDutyPlace",function() {
 	
 	var deletedDutyPlaceId = $(this).attr("deletedDutyPlaceId");
 	
-	alert(deletedDutyPlaceId);
+// 	alert(deletedDutyPlaceId);
 	
 	$.ajax({
 		url:"/admin/student_manage/duty_manage_deleteDutyPlace",
@@ -336,6 +337,7 @@ $(document).on("change",".buildingSelect",function(){
 	
 	
 	adjustBtnClose();
+// 	alert("SBSB");
 	$.ajax({
 		url:"/admin/student_manage/duty_manage_obtainDutyTable",
 		type : 'post',
@@ -351,16 +353,18 @@ $(document).on("change",".buildingSelect",function(){
 
 
 function obtainDutyTableCallBack(data) {
-	
+// 	alert("FFFF");
+// 	alert(ds_list);
 	
 	var ds_list =  data.obtainDutyTable_dutyScheduleList;
+	
 	
 	for(var i = 0; i < ds_list.length; ++ i)
 	{
 		var time = ds_list[i].dutyPiece.time;
 		var fullName = ds_list[i].student.user.fullName;
 		var dutyScheduleId = ds_list[i].id;
-		var dutyPieceId = ds_list[i].dutyPiece.id;		
+		var dutyPieceId = ds_list[i].dutyPiece.id;
 		$("[dutyPieceTime="+time+"]").append(
 				"<span  dutyScheduleId=" + dutyScheduleId +">"
 				+ fullName +
@@ -733,6 +737,8 @@ $(document).on("click","#updateDutyNumberButton",function() {
 
 
 <script type='text/javascript' src="/js/admin/dutyManage.js"></script>
+
+
 </layout:override>
 
 <%@ include file="base.jsp" %>

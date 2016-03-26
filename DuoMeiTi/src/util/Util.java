@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -150,6 +152,47 @@ public class Util
 	
 	
 	
+	// 与值班表相关的常量定义：
+	public static final List<String> dutyWeekList;
+	public static final List<String> dutyPeriodList;
+	static 
+	{
+		String[] tmpDutyWeekList = {"一", "二", "三", "四", "五", "六", "日"};
+		dutyWeekList = new ArrayList<String>();
+		for(int i = 0; i < tmpDutyWeekList.length; ++ i)
+		{
+			dutyWeekList.add(tmpDutyWeekList[i]);
+		}
+		
+		
+		String[] tmpDutyPeriodList = {"7:40~9:20", "9:50~11:30", "13:15~14:50", "15:20~17:00", "17:45~19:20"};
+		dutyPeriodList = new ArrayList<String>();
+		for(int i = 0; i < tmpDutyPeriodList.length; ++ i)
+		{
+			dutyPeriodList.add(tmpDutyPeriodList[i]);
+		}
+		
+	}
+	
+	
+	
+	public static String convertToMultiLine(String s, int limit)
+	{
+		StringBuffer ans = new StringBuffer();
+		ans.append("<nobr>");
+		for(int i = 0; i < s.length(); ++ i)
+		{			
+			ans.append(s.charAt(i));
+			if( (i + 1) % limit == 0)
+			{
+				ans.append("</nobr>\n");
+				ans.append("<nobr>");
+			}
+		}
+		ans.append("</nobr>");
+		return ans.toString();
+		
+	}
 	
 	
 	

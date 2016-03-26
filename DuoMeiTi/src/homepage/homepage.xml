@@ -40,16 +40,7 @@
 
     <package name="homepage" namespace="/" extends="HomepageDefault">
   	
-<!--     	<action name="home2"> -->
-<!--     		<result> /jsp/homepage/home2.jsp</result> -->
-<!--     	</action> -->
-    	
-<!--     	<action name="new_home"> -->
-<!--     		<result> /jsp/homepage/new_home.jsp</result> -->
-<!--     	</action> -->
-<!--       	<action name="old_home" > -->
-<!--         	<result>/jsp/homepage/home.jsp</result> -->
-<!--         </action> -->
+
     	
        	<action name="" class="homepage.HomeAction">
         	<result>/jsp/homepage/new_home.jsp</result>
@@ -58,50 +49,22 @@
         <action name="building_information" class="homepage.BuildingInformationAction">
         	<result>/jsp/homepage/building_information.jsp</result>
         </action>
+
         
-        <!-- <action name="build_delete" class="homepage.BuildingInformationAction" method="BuildingDelete">
-        	<result name="success" type="json">
-				<param name="includeProperties">status,buildId</param>
-			</result>	
-        </action> -->
         
-<!--         <action name="classroom_information" class="homepage.ClassroomInformationAction" method="classroomList"> -->
-<!--         	<result> -->
-<!--         		<param name="location">/jsp/homepage/classroom_information.jsp</param> -->
-<!-- 				<param name="build_id">${build_id}</param> -->
-<!-- 				<param name="build_name">${build_name}</param> -->
-<!--         	</result> -->
-<!--         </action> -->
         
-<!--         <action name="classroom_detail" class="homepage.ClassroomDetailAction"> -->
-<!-- 			<result> -->
-<!-- 				<param name="location">/jsp/homepage/classroom_detail.jsp</param> -->
-<!-- 				<param name="build_id">${classroom_id}</param> -->
-<!-- 				<param name="build_name">${classroom_num}</param> -->
-<!-- 				<param name="classroomselectIndex">${classroomId}</param> -->
-<!-- 				<param name="build_name">${build_name}</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-		
+
         <action name="ResourceFile" class="homepage.HomeAction" method="resourceFile">
-			<result>/jsp/homepage/ResourceFile.jsp</result>
-			
+			<result>/jsp/homepage/ResourceFile.jsp</result>			
+    	</action>	
+        <action name="dutyShow" class="homepage.HomeAction" method="dutyShow">
+			<result>/jsp/homepage/dutyShow.jsp</result>			
     	</action>
     	
         
         
         
-        <!--这个是原始的文件上传，最新的在admin账户下  -->
-<!--         <action name="file_upload" class="homepage.FileUploadAction"> -->
-<!--         	<result>/jsp/homepage/file_upload.jsp</result> -->
-<!--         </action> -->
-        
-        
-<!--         <action name="admin_eg"> -->
-<!--             <result> -->
-<!--                 /jsp/admin/admin_eg.jsp -->
-<!--             </result> -->
-<!--         </action> -->
+
         
       
     	<action name="not_login">
@@ -113,25 +76,7 @@
         </action>
         
                         
-<!--         <action name="register" class="homepage.UserAction" method="register"> -->
-<!--             <result name="success">                 -->
-<!--                 /jsp/homepage/register.jsp -->
-<!--             </result>             -->
-<!--         </action> -->
-        
-<!--         <action name="register_save" class="homepage.UserAction" method="save"> -->
-<!--             <result name="success" type="json"> -->
-<!--             	<param name="includeProperties">status, user_id, username, password, added_user_html</param>            -->
-<!-- 				<param name="excludeProperties"> user_list</param> -->
-<!--             </result>             -->
-<!--         </action> -->
-        
-<!--         <action name="register_delete" class="homepage.UserAction" method="delete"> -->
-<!--             <result name="success" type="json"> -->
-<!--             	<param name="includeProperties">status,user_id</param>            -->
-				
-<!--             </result>             -->
-<!--         </action> -->
+
         
         
         
@@ -141,22 +86,17 @@
         <action name="CommonProRecord" class="homepage.CommonProRecord" method="showRecord">
         	<result> /jsp/homepage/CommonProRecord.jsp</result>
         </action>
+        
         <!-- 通讯录action-->
         <action name="contacts" class="homepage.ContactsAction" method="wrContacts">
         	<result> /jsp/homepage/contacts.jsp</result>
         </action>
         
-<!--         <action name="contacts_add" class="homepage.ContactsAction" method="addContacts"> -->
-<!--             <result type="json"></result> -->
-<!--         </action> -->
-        
-<!--         <action name="contacts_delete" class="homepage.ContactsAction" method="deleteContacts"> -->
-<!--             <result type="json"></result> -->
-<!--         </action> -->
+
         
         
         
-        <!-- 登录 -->
+<!-- 登录 -->
         <action name="login" class="homepage.UserAction" method="login">
         	<result> /jsp/homepage/login.jsp </result>
         	
@@ -192,35 +132,7 @@
             <result name="success" type="json">
             </result> 
         </action>
-        
-
-
-<!--         <action name="admin_register" class="homepage.AdminAction" method="adminRegister"> -->
-        
-<!--         	<result> -->
-<!--         		/jsp/homepage/admin_register.jsp -->
-<!--         	</result> -->
-<!--         </action> -->
-
-<!--         <action name="admin_register_save" class="homepage.AdminAction" method="adminRegisterSave"> -->
-          
-          
-<!--             <result name="success" type="json"> -->
-<!--             </result>  -->
-
-<!--         </action> -->
-
-
-
-
-
-   
-		<!--游客访问教室信息  showBuildings;showClassRooms;showDevices -->
-<!-- 		<action name="classRoomInfo*" class="homepage.ClassRoomInfoAction" method="{1}"> -->
-<!-- 		<result>/jsp/homepage/{1}.jsp</result> -->
-<!-- 		</action> -->
-
-
+<!-- 登录 END-->
 
 </package>
 

@@ -49,15 +49,7 @@ public class DutyManageAction extends ActionSupport {
 			session.getTransaction().commit();
 		}
 		session.close();
-		// Session session = model.Util.sessionFactory.openSession();
-		// if(session.createCriteria(model.DutyTime.class).list().size() == 0)
-		// {
-		// session.beginTransaction();
-		//
-		//
-		// session.getTransaction().commit();
-		//
-		// }
+
 
 	}
 
@@ -183,9 +175,11 @@ public class DutyManageAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	int obtainDutyTable_dutyPlaceId;
-	List<DutySchedule> obtainDutyTable_dutyScheduleList;
-	List<DutyPiece> obtainDutyTable_dutyPieceList;
+	
+	
+	public int obtainDutyTable_dutyPlaceId;
+	public List<DutySchedule> obtainDutyTable_dutyScheduleList;
+	public List<DutyPiece> obtainDutyTable_dutyPieceList;
 
 	public String obtainDutyTable() throws Exception {
 		
@@ -206,17 +200,6 @@ public class DutyManageAction extends ActionSupport {
 
 		}
 		System.out.println(obtainDutyTable_dutyScheduleList);
-		
-		
-		
-//		obtainDutyTable_dutyPieceList 
-//		
-//		(List<DutyPiece>) session.createCriteria(model.DutyPiece.class)
-//		.add(Restrictions.eq("dutyPlace.id", id)).list();
-		
-
-
-
 		session.close();
 		return SUCCESS;
 	}
@@ -378,37 +361,6 @@ public class DutyManageAction extends ActionSupport {
 		session.close();
 		return SUCCESS;
 	}
-	
-	
-	
-	
-	
-	
-	
-
-	public int getUpdateDutyNumber_dutyNumber() {
-		return updateDutyNumber_dutyNumber;
-	}
-
-	public void setUpdateDutyNumber_dutyNumber(int updateDutyNumber_dutyNumber) {
-		this.updateDutyNumber_dutyNumber = updateDutyNumber_dutyNumber;
-	}
-
-	public int getUpdateDutyNumber_dutyPieceId() {
-		return updateDutyNumber_dutyPieceId;
-	}
-
-	public void setUpdateDutyNumber_dutyPieceId(int updateDutyNumber_dutyPieceId) {
-		this.updateDutyNumber_dutyPieceId = updateDutyNumber_dutyPieceId;
-	}
-
-	public int getObtainDutyTable_dutyPlaceId() {
-		return obtainDutyTable_dutyPlaceId;
-	}
-
-	public void setObtainDutyTable_dutyPlaceId(int obtainDutyTable_dutyPlaceId) {
-		this.obtainDutyTable_dutyPlaceId = obtainDutyTable_dutyPlaceId;
-	}
 
 	public List getDutyPlaceList() {
 		return dutyPlaceList;
@@ -434,12 +386,28 @@ public class DutyManageAction extends ActionSupport {
 		this.deletedDutyPlaceId = deletedDutyPlaceId;
 	}
 
+	public int getObtainDutyTable_dutyPlaceId() {
+		return obtainDutyTable_dutyPlaceId;
+	}
+
+	public void setObtainDutyTable_dutyPlaceId(int obtainDutyTable_dutyPlaceId) {
+		this.obtainDutyTable_dutyPlaceId = obtainDutyTable_dutyPlaceId;
+	}
+
 	public List<DutySchedule> getObtainDutyTable_dutyScheduleList() {
 		return obtainDutyTable_dutyScheduleList;
 	}
 
 	public void setObtainDutyTable_dutyScheduleList(List<DutySchedule> obtainDutyTable_dutyScheduleList) {
 		this.obtainDutyTable_dutyScheduleList = obtainDutyTable_dutyScheduleList;
+	}
+
+	public List<DutyPiece> getObtainDutyTable_dutyPieceList() {
+		return obtainDutyTable_dutyPieceList;
+	}
+
+	public void setObtainDutyTable_dutyPieceList(List<DutyPiece> obtainDutyTable_dutyPieceList) {
+		this.obtainDutyTable_dutyPieceList = obtainDutyTable_dutyPieceList;
 	}
 
 	public int getDeleteDutySchedule_id() {
@@ -490,14 +458,28 @@ public class DutyManageAction extends ActionSupport {
 		this.status = status;
 	}
 
-	public List<DutyPiece> getObtainDutyTable_dutyPieceList() {
-		return obtainDutyTable_dutyPieceList;
+	public int getUpdateDutyNumber_dutyNumber() {
+		return updateDutyNumber_dutyNumber;
 	}
 
-	public void setObtainDutyTable_dutyPieceList(List<DutyPiece> obtainDutyTable_dutyPieceList) {
-		this.obtainDutyTable_dutyPieceList = obtainDutyTable_dutyPieceList;
+	public void setUpdateDutyNumber_dutyNumber(int updateDutyNumber_dutyNumber) {
+		this.updateDutyNumber_dutyNumber = updateDutyNumber_dutyNumber;
 	}
 
+	public int getUpdateDutyNumber_dutyPieceId() {
+		return updateDutyNumber_dutyPieceId;
+	}
+
+	public void setUpdateDutyNumber_dutyPieceId(int updateDutyNumber_dutyPieceId) {
+		this.updateDutyNumber_dutyPieceId = updateDutyNumber_dutyPieceId;
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	
 	
