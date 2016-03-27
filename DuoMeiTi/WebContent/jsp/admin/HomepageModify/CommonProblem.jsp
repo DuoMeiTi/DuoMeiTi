@@ -9,14 +9,11 @@
 
 	
 
-	<form class="form-inline" action="notice_add" method="POST"
-		id="notice_form">
-<!-- 
-		<button type="button" class="btn btn-primary " data-toggle="modal"
-			data-target="notice-modal" id="notice_add" onclick="notice_add()">增加新公告</button> -->
+	<form class="form-inline" action="notice_add" method="POST" id="notice_form">
+	<br/>	
 	<button type="button" class="btn btn-primary" style="margin:2px;" id="add_button" onclick="notice_add()">常见问题添加</button>
 	</form>
-	<br />
+	<br/>
 
 
 

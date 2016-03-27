@@ -15,10 +15,6 @@
 
 
 
-
-<!-- 为了使用分页，include如下jsp -->
-<%@ include file="/jsp/base/widgets/pagination.jsp" %>
- 
 <script>
 
 // 你可以定义pageAddtionalData变量，这个变量应该是json变量，这个变量可以直接通过ajax 在选择页码的时候传到后台
