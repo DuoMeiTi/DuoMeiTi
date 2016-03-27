@@ -83,12 +83,39 @@
 									min-height:27px;
 									line-height:27px;
 									font-size:85%;
-									">
+									"
+								class="studentInfo"	
+								
+									>
 								
 								<s:property value="@util.Util@convertToMultiLine(
-												dutyShowList.get(#place).get(#i * 7 + #j).get(#k).student.user.fullName, 3)
-												" 
+												dutyShowList.get(#place).get(#i * 7 + #j).get(#k).student.user.fullName, 3)" 
 												escape="false"/>
+												
+								<div   style="display:none;">
+									
+									<div>									
+										<img src="<s:property value='dutyShowList.get(#place).get(#i * 7 + #j).get(#k).student.user.profilePhotoPath'/>"
+											height="120px"
+											width="100px"
+										>
+									</div>
+
+									<div>									
+										姓名：<s:property value="dutyShowList.get(#place).get(#i * 7 + #j).get(#k).student.user.fullName"/>
+									</div>
+									<div>									
+										学号：<s:property value="dutyShowList.get(#place).get(#i * 7 + #j).get(#k).student.studentId"/>
+									</div>
+									
+									<div>									
+										电话：<s:property value="dutyShowList.get(#place).get(#i * 7 + #j).get(#k).student.user.phoneNumber"/>
+									</div>
+
+									
+									
+								</div>
+								
 							</span>
 					
 						</s:iterator>		
@@ -120,13 +147,48 @@
 
 
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script>
 
-	var a = 199;
+
+
+$(document).on( "click",".studentInfo", function(){
 	
-// 	$("th").css("width", a + "px");
-// 	$(".multiSpan").attr("colspan", 3);
+	$('#myModal').modal('show')
+	$(".modal-body").html($(this).find("div").html());
+})
+
+// $('#myModal').on('show.bs.modal', function (e) {
+	
+	
+// 	alert("SB");
+// 	  // do something...
+// 	})
 
 
 </script>
