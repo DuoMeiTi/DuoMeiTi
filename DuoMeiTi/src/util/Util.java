@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -155,8 +156,23 @@ public class Util
 	// 与值班表相关的常量定义：
 	public static final List<String> dutyWeekList;
 	public static final List<String> dutyPeriodList;
+	public static final List<java.time.LocalTime> dutyPeriodBeginList;
+	public static final List<java.time.LocalTime> dutyPeriodEndList;
+	
+	
+	public static int getWeekFromDutyPieceTime(int time)
+	{
+		return time % 7;
+	}
+	public static int getPeriodFromDutyPieceTime(int time)
+	{
+		return time / 7;
+	}
 	static 
 	{
+//		java.time.LocalTime.now()
+		
+		
 		String[] tmpDutyWeekList = {"一", "二", "三", "四", "五", "六", "日"};
 		dutyWeekList = new ArrayList<String>();
 		for(int i = 0; i < tmpDutyWeekList.length; ++ i)
@@ -172,7 +188,34 @@ public class Util
 			dutyPeriodList.add(tmpDutyPeriodList[i]);
 		}
 		
+		dutyPeriodBeginList = new ArrayList<java.time.LocalTime>();
+		dutyPeriodBeginList.add(LocalTime.of(7, 40));
+		dutyPeriodBeginList.add(LocalTime.of(9, 50));
+		dutyPeriodBeginList.add(LocalTime.of(13, 15));
+		dutyPeriodBeginList.add(LocalTime.of(15, 20));
+		dutyPeriodBeginList.add(LocalTime.of(17, 45));
+		
+		
+		dutyPeriodEndList = new ArrayList<java.time.LocalTime>();
+		dutyPeriodEndList.add(LocalTime.of(9, 20));
+		dutyPeriodEndList.add(LocalTime.of(11, 30));
+		dutyPeriodEndList.add(LocalTime.of(14, 50));
+		dutyPeriodEndList.add(LocalTime.of(17, 00));
+		dutyPeriodEndList.add(LocalTime.of(19, 20));
+		
+		
+		
+		
+		
+
+		
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

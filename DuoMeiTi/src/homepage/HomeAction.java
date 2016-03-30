@@ -69,6 +69,8 @@ public class HomeAction extends PageGetBaseAction
 		
 	}
 
+	
+	List dutyStudentList;
 	public String execute() throws Exception
 	{ 
 		System.out.println("******************");
@@ -104,6 +106,37 @@ public class HomeAction extends PageGetBaseAction
 		
 		
 		
+		ArrayList<model.DutySchedule> allDutyList = 
+				(ArrayList<model.DutySchedule>)session.createCriteria(model.DutySchedule.class).list();
+		
+		
+		dutyStudentList = new ArrayList<model.StudentProfile>();
+		for(model.DutySchedule ds: allDutyList)
+		{
+			int period = util.Util.getPeriodFromDutyPieceTime(ds.dutyPiece.time);
+			
+			int cmpBegin = java.time.LocalTime.now().compareTo( util.Util.dutyPeriodBeginList.get(period));
+			int cmpEnd = java.time.LocalTime.now().compareTo( util.Util.dutyPeriodEndList.get(period));
+			
+			if(cmpBegin >= 0 && cmpEnd <= 0)
+			{
+				dutyStudentList.add(ds.student);
+				dutyStudentList.add(ds.student);
+//				dutyStudentList.add(ds.student);
+//				System.out.println((ds.student.user.fullName));
+			}
+
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		System.out.println("&&&&&&&&&&");
 
 		session.close();
@@ -132,11 +165,7 @@ public class HomeAction extends PageGetBaseAction
 	
 	
 	
-//	static boolean eq(Object a, Object b)
-//	{
-//		return a.id == b.id;
-//		return true;
-//	}
+
 	ArrayList<ArrayList<ArrayList<DutySchedule>> > dutyShowList;
 	List dutyPlaceList;
 	public String dutyShow() throws Exception
@@ -165,11 +194,6 @@ public class HomeAction extends PageGetBaseAction
 		
 		
 		
-//		
-//		ArrayList<DutySchedule> [][] dutyShowArray =
-//				
-//				new ArrayList<DutySchedule> [place_size][35];
-//
 		for(int i = 0; i < dutyScheduleList.size(); ++ i)
 		{
 			DutySchedule ds = (DutySchedule)dutyScheduleList.get(i);
@@ -179,23 +203,6 @@ public class HomeAction extends PageGetBaseAction
 						.add(ds);
 						
 		}
-//		
-//		
-//
-////		List <DutySchedule[]>  dutyShowList = Arrays.asList(dutyShowArray);
-//		
-//		dutyShowList = 
-//				new ArrayList<ArrayList<DutySchedule>>() ;
-//		
-//		for(int i = 0; i < dutyShowArray.length; ++ i)
-//		{
-//			DutySchedule[] tmp = dutyShowArray[i];
-//			dutyShowList.add ( (List<DutySchedule>) Arrays.asList(tmp));
-//			
-//		}
-		
-//		dutyShowList.forEach(action);
-//		dutyShowList.for
 		
 		
 
@@ -232,6 +239,18 @@ public class HomeAction extends PageGetBaseAction
 
 
 
+
+
+
+	public List getDutyStudentList() {
+		return dutyStudentList;
+	}
+
+
+
+	public void setDutyStudentList(List dutyStudentList) {
+		this.dutyStudentList = dutyStudentList;
+	}
 
 
 
