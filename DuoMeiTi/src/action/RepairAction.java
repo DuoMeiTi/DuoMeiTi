@@ -64,25 +64,25 @@ public class RepairAction extends SuperAction {
 
 	private static final long serialVersionUID = 1L;
 	public String query() {
-		 RepairDAO rdao = new RepairDAOImpl();
-		 
-		 
-		 System.out.println("IIIIIIJJJJJJJJJj");
-		 System.out.println(request.getParameter("Type"));
-		 
+//		 RepairDAO rdao = new RepairDAOImpl();
+//		 
+//		 
+//		 System.out.println("IIIIIIJJJJJJJJJj");
 //		 System.out.println(request.getParameter("Type"));
-		 
-		 
-		 List<Repair> list = rdao.queryRepair(request.getParameter("Type"), request.getParameter("Value"));
-		 //放进session中
-		 System.out.println(list);
-			if (list != null && list.size() > 0) {
-				session.setAttribute("maintainRecords_list",  list);
-			}
-			else
-			{
-				session.setAttribute("maintainRecords_list", null);
-			}
+//		 
+////		 System.out.println(request.getParameter("Type"));
+//		 
+//		 
+//		 List<Repair> list = rdao.queryRepair(request.getParameter("Type"), request.getParameter("Value"));
+//		 //放进session中
+//		 System.out.println(list);
+//			if (list != null && list.size() > 0) {
+//				session.setAttribute("maintainRecords_list",  list);
+//			}
+//			else
+//			{
+//				session.setAttribute("maintainRecords_list", null);
+//			}
 		return "query_repair";
 	}
 	
