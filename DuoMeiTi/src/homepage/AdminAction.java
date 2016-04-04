@@ -16,7 +16,7 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.AdminProfile;
-import model.EgFilePathSave;
+//import model.EgFilePathSave;
 import model.User;
 import util.Const;
 import util.FileUploadBaseAction;

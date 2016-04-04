@@ -68,6 +68,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public String execute() {
 		System.out.println("admin.classroomaction:");
 		Session session = model.Util.sessionFactory.openSession();
+		
 		//query current select classroom
 		Criteria classroom_criteria = session.createCriteria(Classroom.class);
 		Criteria building_criteria = session.createCriteria(TeachBuilding.class);
@@ -77,22 +78,16 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		building = (TeachBuilding) building_criteria.uniqueResult();
 		
 		ActionContext.getContext().getSession().remove("classroom_id");
-		//ActionContext.getContext().getSession().remove("classroom");
+
 		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
-		//ActionContext.getContext().getSession().put("classroom", classroom);
+
 		
-		/*String hql = "SELECT rt FROM Repertory rt WHERE rt.classroom = " + classroomId;
-		Query query = session.createQuery(hql);
-		rtClass = query.list();
-		for (int i = 0; i < rtClass.size(); i++) {
-			System.out.println("输出++++++++++++++++++++++++++++++++");
-			System.out.println(rtClass.get(i));
-		}*/
+
 		
 		Transaction tx = null;
 		String hql ="";
 		try {
-//			Session session1 = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+
 			tx = session.beginTransaction();
 			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + classroomId;
 			System.out.println(hql);
@@ -122,44 +117,36 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
 		checkrecord_criteria.addOrder(Order.desc("id"));
 		
-//		checkrecord_criteria.addOrder(Order.asc("checkdate"));
-//		long check_rowCount = (Long) checkrecord_criteria.setProjection(  
-//                Projections.rowCount()).uniqueResult();
-//		int checkrecord_start = ((int) check_rowCount) > 5 ? ((int) check_rowCount) - 5 : 0;
-//		checkrecord_criteria.setProjection(null);
-//		checkrecord_criteria.setFirstResult(checkrecord_start);
+
 		checkrecord_criteria.setMaxResults(5);
 		checkrecords = checkrecord_criteria.list();
-//System.out.println("checksize:"+checkrecords.size());
+
 		
 		
 		
 		//query repairrecord
-		long repair_rowCount = (Long) session.createQuery("select count(*) from RepairRecord as rd left join rd.device as ry left join ry.classroom as cm where cm.id=" + classroomId).uniqueResult();
-		int repairrecord_start = ((int) repair_rowCount) > 5 ? ((int) repair_rowCount) - 5 : 0;
-//		System.out.println("s:"+repairrecord_start);
+//		long repair_rowCount = (Long) session.createQuery("select count(*) from RepairRecord as rd left join rd.device as ry left join ry.classroom as cm where cm.id=" + classroomId).uniqueResult();
+//		int repairrecord_start = ((int) repair_rowCount) > 5 ? ((int) repair_rowCount) - 5 : 0;
+
 		repairrecords = (List) session.createQuery("select rd "
 												+ "from RepairRecord as rd "
 												+ "left join rd.device as ry "
 												+ "left join ry.classroom as cm  "
 												+ "where cm.id=" + classroomId + " order by rd.id desc")
 				
-//				.setFirstResult(repairrecord_start)
+
 				.setMaxResults(5).list();
-//		System.out.println("repairsize:"+repairrecords.size());
-//		for(RepairRecord r : repairrecords) {
-//			System.out.println(r.repairman);
-//		}
+
 		
 		
 		
 		
-//		List classroom_repertory_list;
+
 		
 		classroom_repertory_list = session.createCriteria(model.Repertory.class).add(Restrictions.eq("classroom.id", classroomId)).list();
 		
 		System.out.println("JJ");
-//		System.out.println(classroom.repertorys);
+
 		System.out.println(classroom_repertory_list);
 		
 		session.close();

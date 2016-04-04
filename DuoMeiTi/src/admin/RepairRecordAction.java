@@ -47,9 +47,7 @@ public class RepairRecordAction extends ActionSupport {
 		System.out.println("FFFssss");
 		Session session = model.Util.sessionFactory.openSession();
 		
-		Criteria c = session.createCriteria(model.RepairRecord.class);
-		
-//		System.out.println(util.Util.DeviceList.get(selectDevice));
+		Criteria c = session.createCriteria(model.RepairRecord.class);		
 		
 		System.out.println("FFFssss111");
 		if(selectDevice != -1)

@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 import org.omg.CORBA.PRIVATE_MEMBER;
 
 public class DatabaseOperation {
+	
 	//查询单个table多个字段所有数据的通用方法
 	private String tableName;
 	private List fields;

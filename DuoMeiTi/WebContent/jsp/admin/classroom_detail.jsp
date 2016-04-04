@@ -2,6 +2,7 @@
 
 
 <layout:override name="main_content">
+
 	<div class="mycontent">
 	
 	
@@ -18,7 +19,7 @@
 	
 	
 		<br>
-<!-- 		<ul class="nav  nav-pills"  style="position:relative;left:700px;"> -->
+
 		<ul class="nav  nav-pills"  >
 		
 		    <li role="presentation" class="active">
@@ -50,15 +51,11 @@
 			<div role="tabpanel" class="tab-pane " id="schedule">
 		    	<%@ include file="classroom_schedule.jsp" %>
 		    </div>
-		    
-		    
 	
-		</div>
-		
+		</div>		
 		<br>
 		<br>
 		<br>
-		
 		
 	</div>
 	

@@ -7,23 +7,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="/css/admin/classroom_detail.css" rel="stylesheet" />
 	<script type='text/javascript' src="/js/admin/classroom_detail.js"></script>
 
-	
-	
-	
-	
-	
-	
+
 	<!-- 添加设备 -->
 	<div class="container-fluid">
 		<div class="row col-lg-12">
 			<div class="col-lg-7">
-				<!-- <form action="#" method="post" id="addclassroomdevice"> -->
+
 				<div class="form-group">
 					<label for="zichanhao" style="float: left; vertical-align: middle;">添加设备:</label>
 					<input type="text" class="form-control" id="zichanhao"
 						style="width: 30%; float: left; margin-left: 5%;"
 						placeholder="请输入资产编号"></input>
-					<!-- <button type="submit" class="btn btn-info btn-sm" style="margin-left:5%">查询</button> -->
+
 					<button type="button" class="btn btn-primary btn-sm"
 						style="margin-left: 5%" onclick="add_classroomrt()">添加</button>
 					<button id="alterSearch" class="btn btn-primary btn-sm"
@@ -33,20 +28,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 			</div>
 			<div class="col-lg-2">
-				<!-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#schedule-modal">查看课表</button> -->
-				<%-- <a type="button" href="<%=path%>/schedule/校部第一教学馆1-101(10301).pdf" target="_black" class="btn btn-primary btn-sm" onclick="checkschedule()">查看课表</a> --%>
 			</div>
 			<div class="col-lg-2">
 				<button type="button" class="btn btn-primary btn-sm"
 					data-toggle="modal" data-target="#check-record-modal" 
 					class="inputCheckRecord">填写周检查记录
 				</button>
-					
-					
-				
-				
-				
 			</div>
+			
+			
 		</div>
 	</div>
 
@@ -62,10 +52,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- 检查记录与维修记录 -->
 		<div class="record">
 			<ul>
-				<li id="checkrecord_jsp"><%@ include
-						file="/jsp/classroom/checkrecord.jsp"%></li>
-				<li id="repairrecord_jsp"><%@ include
-						file="/jsp/classroom/repairrecord.jsp"%></li>
+				<li id="checkrecord_jsp">
+					<%@ include file="/jsp/classroom/checkrecord.jsp"%></li>
+				<li id="repairrecord_jsp">
+					<%@ include file="/jsp/classroom/repairrecord.jsp"%></li>
 			</ul>
 		</div>
 		
@@ -83,21 +73,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<%@ include file="/jsp/classroom/modal.jsp" %>
 	</div>
 	
-	
-	
-	
+	<div id="alter_table">
 
+		<iframe name="myFrame1" id="main" frameborder="0" scrolling="no" style="width:100%;" height="" >
+		</iframe>
+	</div>
+	<script>
 
-
-
-
-		<div id="alter_table">
-
-
-
-
-			<iframe name="myFrame1" id="main" frameborder="0" scrolling="no" style="width:100%;" height="" ></iframe>
-		</div>
-		<script>
-
-		</script>
+	</script>

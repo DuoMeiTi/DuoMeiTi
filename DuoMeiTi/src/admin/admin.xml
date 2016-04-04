@@ -390,8 +390,7 @@
 		
 		<action name="teachBuildingAction" class="admin.TeachBuildingAction">
 			<result>
-				/jsp/admin/teachbuilding.jsp
-				
+				/jsp/admin/teachbuilding.jsp				
 			</result>
 		</action>
 		
@@ -403,21 +402,19 @@
 		</action>
 		
 		<action name="classroom_manage" class="admin.ClassroomManageAction" method="classroomList">
-			<result>
-				<param name="location">/jsp/admin/classroom_manage.jsp</param>
-				<param name="build_id">${build_id}</param>
-				<param name="build_name">${build_name}</param>
-			</result>
+<!-- 			<result> -->
+<!-- 				<param name="location">/jsp/admin/classroom_manage.jsp</param> -->
+<!-- 				<param name="build_id">${build_id}</param> -->
+<!-- 				<param name="build_name">${build_name}</param> -->
+<!-- 			</result> -->
 		</action>
 		
 
 		<action name="classroom_detail" class="admin.ClassroomDetailAction">
 			<result>
-				<param name="location">/jsp/admin/classroom_detail.jsp</param>
-				<!-- <param name="build_id">${classroom_id}</param>
-				<param name="build_name">${classroom_num}</param> -->
-				<param name="classroomselectIndex">${classroomId}</param>
-				<param name="build_name">${build_name}</param>
+				<param name="location">/jsp/admin/classroom_detail.jsp</param>				
+<!-- 				<param name="classroomselectIndex">${classroomId}</param> -->
+<!-- 				<param name="build_name">${build_name}</param> -->
 			</result>
 		</action>
 		

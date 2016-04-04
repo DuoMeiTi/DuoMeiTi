@@ -18,7 +18,7 @@ import org.hibernate.service.ServiceRegistry;
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.opensymphony.xwork2.ActionSupport;
 
-import model.EgFilePathSave;
+//import model.EgFilePathSave;
 import util.FileUploadBaseAction;
 
 import model.StudentProfile;
