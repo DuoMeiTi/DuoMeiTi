@@ -114,14 +114,26 @@ public class HomeAction extends PageGetBaseAction
 		for(model.DutySchedule ds: allDutyList)
 		{
 			int period = util.Util.getPeriodFromDutyPieceTime(ds.dutyPiece.time);
+			int week = util.Util.getWeekFromDutyPieceTime(ds.dutyPiece.time);
 			
 			int cmpBegin = java.time.LocalTime.now().compareTo( util.Util.dutyPeriodBeginList.get(period));
 			int cmpEnd = java.time.LocalTime.now().compareTo( util.Util.dutyPeriodEndList.get(period));
 			
-			if(cmpBegin >= 0 && cmpEnd <= 0)
+			
+			
+			
+			int today_week = util.Util.getDayOfWeek(new java.util.Date());
+			
+
+
+			
+			if(cmpBegin >= 0 && cmpEnd <= 0 && today_week == week)
 			{
+				
 				dutyStudentList.add(ds.student);
-				dutyStudentList.add(ds.student);
+				
+				
+//				dutyStudentList.add(ds.student);
 //				dutyStudentList.add(ds.student);
 //				System.out.println((ds.student.user.fullName));
 			}

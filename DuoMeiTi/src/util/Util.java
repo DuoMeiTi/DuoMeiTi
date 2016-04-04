@@ -8,14 +8,18 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+import org.hibernate.Hibernate;
+import org.hibernate.Criteria;
 
 public class Util
 {
@@ -168,6 +172,26 @@ public class Util
 	{
 		return time / 7;
 	}
+	
+	// 获取今天是星期几
+	// 返回一个0~6之间的一个整数表示含义如下：
+	// 0: 星期一
+	// 1: 星期二
+	//...
+	// 6:星期日
+	public static int getDayOfWeek(java.util.Date d)
+	{
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		int day = c.get(Calendar.DAY_OF_WEEK);
+		day -= 2;
+		if(day == -1) day = 6;
+		return day;
+		
+	}
+	
+	
+	
 	static 
 	{
 //		java.time.LocalTime.now()
@@ -240,6 +264,68 @@ public class Util
 	
 	
 	
+	
+	
+    		
+	
+// 设备类型
+	
+	public static final List<String> DeviceList;
+	private static final String[] AllMainDevice = {    	
+    		"中控",
+    		"功放",
+    		"投影机",
+    		"计算机主机",
+    		"显示器",
+    		"机柜",
+    		"幕布",
+    		"麦克",
+    		"数字处理器",
+    };
+    private static final String[] AllCostDevice = {
+    		"灯泡",
+    		"翻页器",
+    		"鼠标",
+    		"键盘",
+    		"电池",
+    		"USB延长线",
+    		"光驱",
+    		"音频线",
+    		"视频线",
+    		"电源线",
+    		"网卡",
+    };
+	
+	
+	public static String judgeDeviceType(String deviceName)
+	{
+		for(String i:AllMainDevice)
+		{
+			if(i.equals(deviceName)) return "主要设备";
+		}
+		return "耗材设备";
+	}
+    static 
+    {
+    	DeviceList = new ArrayList<String>();
+    	for(String i: AllMainDevice) DeviceList.add(i);
+    	for(String i: AllCostDevice) DeviceList.add(i);
+    }
+    
+    public static List getAllTeachBuildingList()
+    {
+    	
+    	org.hibernate.Session s = model.Util.sessionFactory.openSession();
+    	
+    	List L = s.createCriteria(model.TeachBuilding.class).list();
+    	s.close();
+    	return L;
+    	
+    }
+    
+    
+    
+    
 	
 	
 	

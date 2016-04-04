@@ -336,6 +336,15 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 			repairrecord.setRepairdetail(repairdetail);
 			repairrecord.setRepairman(repairman);
 			
+
+			Classroom cl = (Classroom) 
+			session.createCriteria(model.Classroom.class).add(Restrictions.eq("id", classroomId)).uniqueResult();
+			
+			repairrecord.setClassroom(cl);
+			
+			
+			
+			
 			session.beginTransaction();
 			session.save(repairrecord);
 			session.getTransaction().commit();

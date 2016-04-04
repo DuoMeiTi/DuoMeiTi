@@ -14,11 +14,23 @@
 			</result>
 		</action>
 
-<!-- 		<action name="user_request"> -->
-<!-- 			<result> -->
-<!-- 				/jsp/admin/users_request.jsp -->
-<!-- 			</result> -->
-<!-- 		</action> -->
+
+<!-- 维修记录管理 -->
+		<action name="repairRecord" class="admin.RepairRecordAction">
+			<result>
+				/jsp/admin/repairRecord.jsp
+			</result>			
+		</action>
+		
+		<action name="repairRecord_*" class="admin.RepairRecordAction" method="{1}">
+			
+			<result name="success" type="json">
+				<param name="includeProperties">*</param>    
+			</result>			
+		</action>
+		
+<!-- 维修记录管理 END-->
+
 		
 		<action name="student_manage">
 			<result>
@@ -434,12 +446,7 @@
 			</result>
 		</action>
 		
-		<!--action name="classroom_select" class="admin.ClassroomManageAction" method="classroom_select">
-			<result type="redirectAction">
-				<param name="actionName">classroom_detail</param>
-				<param name="classroomselectIndex">${classroomselectIndex}</param>
-			</result>
-		</action-->
+
 		<action name="classroom_detail" class="admin.ClassroomDetailAction">
 			<result>
 				<param name="location">/jsp/admin/classroom_detail.jsp</param>

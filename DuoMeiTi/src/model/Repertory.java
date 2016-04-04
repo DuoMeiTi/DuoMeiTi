@@ -47,7 +47,6 @@ public class Repertory {
 	
 	@ManyToOne
 	@JoinColumn
-	@Fetch(FetchMode.SELECT)
 	public Classroom classroom;
 	
 	

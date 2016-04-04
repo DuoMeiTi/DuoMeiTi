@@ -44,10 +44,21 @@
 				
 					<s:iterator var="j" begin="0" end= "dutyPlaceList.size() - 1" step="1">
 					
-						<td >	
+						<td 
 						
-							<s:property value="@util.Util@convertToMultiLine(dutyPlaceList.get(#j).placeName, 3)" 
+						<s:if test="(#i *dutyPlaceList.size() + #j) % 2 == 0">
+	            			style="background-color:yellow;"
+	            		</s:if>
+	            		<s:else  >
+            				style="background-color:#66CDAA;"
+            			</s:else>
+						 
+						>	
+						
+								<b>
+									<s:property value="@util.Util@convertToMultiLine(dutyPlaceList.get(#j).placeName, 3)" 
 										escape="false"/>
+								</b>
 						</td>
 					
 					</s:iterator>
@@ -69,9 +80,32 @@
 			<s:iterator var="j" begin = "0" end="7 - 1" step="1">
 				
 				<s:iterator var="place" begin="0" end= "dutyPlaceList.size() - 1" step="1">
-			
-					<td >
-							
+				
+					
+					
+					
+<%-- 				<s:if test="#session.role.equals(@util.Const@AdminRole)"> --%>
+<!--             		(您是管理员) -->
+<%--             	</s:if> --%>
+<%--             	<s:elseif test="#session.role.equals(@util.Const@StudentRole)"> --%>
+<!--             		(您是在职学生) -->
+<%--             	</s:elseif> --%>
+<%--             	<s:else> --%>
+<!--             		(您是有管理员权限的在职学生) -->
+<%--             	</s:else> --%>
+					
+					
+					<td
+					
+						<s:if test="(#j *dutyPlaceList.size() + #place) % 2 == 0">
+	            			style="background-color:yellow;"
+	            		</s:if>
+	            		<s:else  >
+            				style="background-color:#66CDAA;"
+            			</s:else>
+					
+					
+					>							
 						<s:iterator var="k" begin="0" end="dutyShowList.get(#place).get(#i * 7 + #j).size() - 1" step="1">
 			
 							<span

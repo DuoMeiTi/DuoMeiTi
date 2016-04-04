@@ -13,25 +13,24 @@ public class RepairRecord {
 	
 	@ManyToOne
 	@JoinColumn
-	@Fetch(FetchMode.SELECT)
 	public Repertory device;
 		
 	@ManyToOne
 	@JoinColumn
-	@Fetch(FetchMode.SELECT)
 	public User repairman;
 	
-	@Column(length=100)
+	@Column
 	public String repairdetail;
 	
 	
-//	@Column
-//	public java.sql.Date repairdate;
 	
 	@Column
 	public java.sql.Timestamp repairdate;
 	
 	
+	@ManyToOne
+	@JoinColumn
+	public model.Classroom classroom;
 	
 	
 	
@@ -52,6 +51,14 @@ public class RepairRecord {
 	
 	
 	
+	
+	public model.Classroom getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(model.Classroom classroom) {
+		this.classroom = classroom;
+	}
 
 	public java.sql.Timestamp getRepairdate() {
 		return repairdate;
@@ -93,16 +100,7 @@ public class RepairRecord {
 		this.repairdetail = repairdetail;
 	}
 
-//	public java.sql.Date getRepairdate() {
-//		return repairdate;
-//	}
-//
-//	public void setRepairdate(java.sql.Date repairdate) {
-//		this.repairdate = repairdate;
-//	}
-	
-	
-	
+
 	
 
 	@Override
