@@ -28,7 +28,7 @@ public class Repertory {
 	@Column(length=200)
 	public String rtFactorynum;
 	
-	
+//	应该尽量弃用此字段
 	@Column(length=200)
 	public String rtDevice;
 	
