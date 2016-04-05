@@ -210,42 +210,62 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	
 	
 	//移入维修
-	public String move2repair(){
-		System.out.println("move2repair:");
-		System.out.println(move_device_id);
-		System.out.println(move_class_id);
+	public String move2repair()
+	{
+//		System.out.println("move2repair:");
+//		System.out.println(move_device_id);
+//		System.out.println(move_class_id);
 		
-		RepairDAO rdao = new RepairDAOImpl();
-		String ret = Integer.toString(rdao.m2alter(move_device_id, "0"));
+		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 		
-		Session session = null;
-		session = model.Util.sessionFactory.openSession();
+		util.Util.modifyDeviceStatus(
+									Integer.parseInt(move_device_id), 
+									user_id, 
+									util.Util.DeviceRepairStatus, 
+									-1);
+		
+		
+		
+//		RepairDAO rdao = new RepairDAOImpl();
+//		String ret = Integer.toString(rdao.m2alter(move_device_id, "0"));
+		
+		Session session = model.Util.sessionFactory.openSession();
 		
 
 		
-		Criteria classroom_criteria = session.createCriteria(Classroom.class);
-		classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(move_class_id)));
-		classroom = (Classroom) classroom_criteria.uniqueResult();
+//		Criteria classroom_criteria = session.createCriteria(Classroom.class);
+//		classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(move_class_id)));
+//		classroom = (Classroom) classroom_criteria.uniqueResult();
 		
-		System.out.println(classroom.id);
-		Transaction tx = null;
-		String hql ="";
-		try {
-			tx = session.beginTransaction();
-			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + move_class_id;
-			System.out.println(hql);
-			Query query = session.createQuery(hql);
-			rtClass = query.list();
-			for (int i = 0; i < rtClass.size(); i++) {
-				System.out.println("输出++++++++++++++++++++++++++++++++");
-				System.out.println(rtClass.get(i));
-			}
-			tx.commit();
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-			tx.commit();
-		}
+//		System.out.println(classroom.id);
+//		Transaction tx = null;
+//		String hql ="";
+//		try 
+//		{
+			
+			
+			
+//			tx = session.beginTransaction();
+//			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + move_class_id;
+//			System.out.println(hql);
+//			Query query = session.createQuery(hql);
+//			rtClass = query.list();
+//			for (int i = 0; i < rtClass.size(); i++) {
+//				System.out.println("输出++++++++++++++++++++++++++++++++");
+//				System.out.println(rtClass.get(i));
+//			}
+//			tx.commit();
+//		}
+//		catch (Exception ex) 
+//		{
+//			ex.printStackTrace();
+//			tx.rollback();
+//			tx.commit();
+//		}
+	
+		rtClass = session.createCriteria(model.Repertory.class)
+				 .add(Restrictions.eq("classroom.id", Integer.parseInt(move_class_id) ))
+				 .list();
 		
 		device_jsp = util.Util.getJspOutput("/jsp/classroom/device.jsp");
 		

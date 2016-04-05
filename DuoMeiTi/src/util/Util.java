@@ -19,6 +19,12 @@ import javax.websocket.Session;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.Hibernate;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+
+import model.Repertory;
+import model.User;
+
 import org.hibernate.Criteria;
 
 public class Util
@@ -323,6 +329,100 @@ public class Util
     	
     }
     
+    public final static String DeviceBackupStatus = "备用";
+    public final static String DeviceClassroomStatus = "教室";
+    public final static String DeviceRepairStatus = "维修";
+    public final static String DeviceScrappedStatus = "报废";
+
+    // 更改设备的状态
+    public static void modifyDeviceStatus(int device_id, int user_id, String newStatus, int classroom_id)
+    {
+    	org.hibernate.Session s = model.Util.sessionFactory.openSession();
+    	model.Repertory device = (model.Repertory) 
+    							 s.createCriteria(model.Repertory.class)
+    			 				  .add(Restrictions.eq("id", device_id))
+    			 				  .uniqueResult();
+    	 
+    	 
+    	model.DeviceStatusHistory dsh = new model.DeviceStatusHistory();
+    	dsh.setStatus(newStatus);
+    	dsh.setDate(new java.sql.Timestamp(System.currentTimeMillis()));
+    	
+    	model.Classroom classroom; 
+    	if(classroom_id < 0) classroom = null;
+    	else
+		{
+    		classroom =  new model.Classroom();
+    		classroom.setId(classroom_id);
+		}
+    	
+    	
+    	device.rtDeviceStatus = newStatus;
+    	device.classroom = classroom;    	
+    	
+    	dsh.setClassroom(classroom);    	
+    	dsh.setDevice(device);
+    	
+    	User user = new User();
+    	user.setId(user_id);    	
+    	dsh.setUser(user); 	
+    	
+    	
+    	s.beginTransaction();
+    	s.update(device);
+    	s.save(dsh);
+    	s.getTransaction().commit();    	
+    	s.close();    	
+    }
+    
+    
+//    // 获取此设备的当前状态，返回一个包含两个元素的数组，
+//    // 第一个元素为状态，类型为String，
+//    // 第二个元素为教室引用，类型为model.Classroom，
+//    //  如果状态为 “教室”状态则 教室引用不为空；否则为空
+//    public static Object[] getDeviceCurrentStatus(int device_id)
+//    {
+//    	Object[] res = new Object[2];
+//    	org.hibernate.Session s = model.Util.sessionFactory.openSession();
+//    	
+//    	model.DeviceStatusHistory dsh = (model.DeviceStatusHistory)
+//    									s.createCriteria(model.DeviceStatusHistory.class)
+//    			  						.add(Restrictions.eq("device.id", device_id))
+//    			  						.addOrder(Order.desc("id"))
+//    			  						.setMaxResults(1)
+//    			  						.uniqueResult();    	
+//    	
+//    	s.close();
+//    	res[0] = dsh.status;
+//    	res[1] = dsh.classroom;
+//    	return res;
+//    	
+//    }
+
+    
+    
+    
+    
+    
+//    public enum DeviceStatus
+//    {
+//    	String AAA = "sb";
+//    }
+    
+//    public static final ArrayList<String> DeviceStatusList;
+//    static 
+//    {
+//    	DeviceStatusList
+//    }
+//    
+//    public static final String[] deviceStatus = {
+//    		"备用",
+//    		"教室",
+//    		"维修",
+//    		"报废",
+//    };
+    
+
     
     
     

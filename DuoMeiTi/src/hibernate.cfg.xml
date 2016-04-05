@@ -66,6 +66,10 @@
 		<mapping class="model.DutyPlace"/>
 		<mapping class="model.DutyChooseSwitch"/>
 		
+		<mapping class="model.DeviceStatusHistory"/>
+		
+		
+		
 <!-- 		<mapping class="model.ChooseClassSwitch"/> -->
 		
 		
