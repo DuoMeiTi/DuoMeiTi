@@ -251,34 +251,34 @@ public class StudentManageAction extends ActionSupport{
 //		return SUCCESS;
 //	}
 
-	public String dutyAdd() throws Exception{
-		Session session=model.Util.sessionFactory.openSession();
-		//更新DutyTime
-		String selectDutyTime = "from DutyTime d where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
-		DutyPiece t=(DutyPiece)session.createQuery(selectDutyTime).list().get(0);
-		if(t.dutyLeft==0){
-			log="fail0";
-			return SUCCESS;
-		}
-		t.dutyLeft=t.dutyLeft-1;
-		try{
-			Transaction trans=session.beginTransaction();		
-			session.update(t);
-			String selectStudent = "from StudentProfile sp where sp.id="+student_Id;
-			StudentProfile s=(StudentProfile)session.createQuery(selectStudent).list().get(0);
-			System.out.println(s);
-			DutySchedule ds = new DutySchedule();
-			ds.student=s;
-			ds.dutyPiece=t;
-			session.save(ds);
-			trans.commit();
-			log="success";
-		}catch(Exception e){
-			log="fail1";
-		}
-		session.close();
-		return SUCCESS;
-	}
+//	public String dutyAdd() throws Exception{
+//		Session session=model.Util.sessionFactory.openSession();
+//		//更新DutyTime
+//		String selectDutyTime = "from DutyTime d where d.time="+dtime+" and "+"d.teachBuilding.build_id="+teachBuildingId;
+//		DutyPiece t=(DutyPiece)session.createQuery(selectDutyTime).list().get(0);
+//		if(t.dutyLeft==0){
+//			log="fail0";
+//			return SUCCESS;
+//		}
+//		t.dutyLeft=t.dutyLeft-1;
+//		try{
+//			Transaction trans=session.beginTransaction();		
+//			session.update(t);
+//			String selectStudent = "from StudentProfile sp where sp.id="+student_Id;
+//			StudentProfile s=(StudentProfile)session.createQuery(selectStudent).list().get(0);
+//			System.out.println(s);
+//			DutySchedule ds = new DutySchedule();
+//			ds.student=s;
+//			ds.dutyPiece=t;
+//			session.save(ds);
+//			trans.commit();
+//			log="success";
+//		}catch(Exception e){
+//			log="fail1";
+//		}
+//		session.close();
+//		return SUCCESS;
+//	}
 	
 	
 	/*
