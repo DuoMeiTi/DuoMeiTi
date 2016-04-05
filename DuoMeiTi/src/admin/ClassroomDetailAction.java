@@ -159,16 +159,24 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	
 	
 	//备用设备
-	public String alterdevice(){
+	public String alterdevice() {
+		
 		System.out.println("alterdevice:");
 		System.out.println(classroomid);
-		RepairDAO rdao = new RepairDAOImpl();
-		repertory_list = rdao.alterDevice(classroomid);
-		for (int i = 0; i < repertory_list.size(); i++) {
-			System.out.println("输出++++++++++++++++++++++++++++++++");
-			System.out.println(repertory_list.get(i).getRtDevice());
-		}
+//		RepairDAO rdao = new RepairDAOImpl();
+//		repertory_list = rdao.alterDevice(classroomid);
+//		for (int i = 0; i < repertory_list.size(); i++) {
+//			System.out.println("输出++++++++++++++++++++++++++++++++");
+//			System.out.println(repertory_list.get(i).getRtDevice());
+//		}
+		
+		Session session = model.Util.sessionFactory.openSession();
+		repertory_list = session.createCriteria(model.Repertory.class)
+				.add(Restrictions.eq("rtDeviceStatus", util.Util.DeviceBackupStatus ))
+				.list();
+		
 		alterdevice_jsp = util.Util.getJspOutput("/jsp/classroom/alterdevice.jsp");
+		session.close();
 		return ActionSupport.SUCCESS;
 	}
 	
@@ -177,30 +185,48 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		System.out.println("move2class");
 		System.out.println(classroomid+" "+ rtID);
 		
-		RepairDAO rdao = new RepairDAOImpl();
-		System.out.println("============");
-		System.out.println("设备id："+ rtID);
-		System.out.println("加入教室："+ classroomid);
+		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 		
-		String ret = Integer.toString(rdao.addalterIm(rtID, classroomid));
-
-		Session session = null;
-		session = model.Util.sessionFactory.openSession();		
-		Transaction tx = null;
-		String hql ="";
-		try {
-			tx = session.beginTransaction();
-			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + classroomid;
-			System.out.println(hql);
-			Query query = session.createQuery(hql);
-			rtClass = query.list();
-			tx.commit();
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-			tx.commit();
-		}
-		repertory_list = rdao.alterDevice(classroomid);
+		util.Util.modifyDeviceStatus(
+									Integer.parseInt(rtID), 
+									user_id, 
+									util.Util.DeviceClassroomStatus, 
+									Integer.parseInt(classroomid));
+		
+		Session session = model.Util.sessionFactory.openSession();
+		rtClass = session.createCriteria(model.Repertory.class)
+				 .add(Restrictions.eq("classroom.id", Integer.parseInt(classroomid) ))
+				 .list();
+		
+		repertory_list = session.createCriteria(model.Repertory.class)
+						.add(Restrictions.eq("rtDeviceStatus", util.Util.DeviceBackupStatus ))
+						.list();
+//		RepairDAO rdao = new RepairDAOImpl();
+//		System.out.println("============");
+//		System.out.println("设备id："+ rtID);
+//		System.out.println("加入教室："+ classroomid);
+//		
+//		String ret = Integer.toString(rdao.addalterIm(rtID, classroomid));
+//
+//		Session session = null;
+//		session = model.Util.sessionFactory.openSession();		
+//		Transaction tx = null;
+//		String hql ="";
+//		try {
+//			tx = session.beginTransaction();
+//			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + classroomid;
+//			System.out.println(hql);
+//			Query query = session.createQuery(hql);
+//			rtClass = query.list();
+//			tx.commit();
+//		}
+//		catch (Exception ex) {
+//			ex.printStackTrace();
+//			tx.commit();
+//		}
+		
+		
+//		repertory_list = rdao.alterDevice(classroomid);
 		
 		device_jsp = util.Util.getJspOutput("/jsp/classroom/device.jsp");
 		alterdevice_jsp = util.Util.getJspOutput("/jsp/classroom/alterdevice.jsp");

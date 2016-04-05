@@ -18,80 +18,80 @@ import Repair.RepairDAO;
 import db.MyHibernateSessionFactory;
 import model.*;
 
-public class RepairDAOImpl implements RepairDAO{
-	public List<Repair> queryRepair(String type, String val) {
-		// TODO Auto-generated method stub
-		
-		Transaction tx = null;
-		List<Repair> list = null;
-		String hql = "";
-		String cond = " and ";
-		if ("1".equals(type))		//教学楼
-			cond += ("rR.device.classroom.teachbuilding.build_id = \'" + val + "\'");
-		else if ("2".equals(type))		//设备
-			cond += ("rR.device.rtType = \'" + val + "\'");
-		else if ("3".equals(type))		//时间
-			cond += ("rR.repairdate >= \'" + val.substring(0,val.indexOf(':')) + "\' and "+
-					"rR.repairdate <= \'" + val.substring(val.indexOf(':')+1) + " 23:59:59\'");
-		System.out.println(cond);
-		try {
-			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
-			tx = session.beginTransaction();
-			
-			// 原来的hql 语句，只能查找学生的维修记录
+public class RepairDAOImpl implements RepairDAO {
+//	public List<Repair> queryRepair(String type, String val) {
+//		// TODO Auto-generated method stub
+//		
+//		Transaction tx = null;
+//		List<Repair> list = null;
+//		String hql = "";
+//		String cond = " and ";
+//		if ("1".equals(type))		//教学楼
+//			cond += ("rR.device.classroom.teachbuilding.build_id = \'" + val + "\'");
+//		else if ("2".equals(type))		//设备
+//			cond += ("rR.device.rtType = \'" + val + "\'");
+//		else if ("3".equals(type))		//时间
+//			cond += ("rR.repairdate >= \'" + val.substring(0,val.indexOf(':')) + "\' and "+
+//					"rR.repairdate <= \'" + val.substring(val.indexOf(':')+1) + " 23:59:59\'");
+//		System.out.println(cond);
+//		try {
+//			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+//			tx = session.beginTransaction();
+//			
+//			// 原来的hql 语句，只能查找学生的维修记录
+////			hql = "SELECT new model.Repair( "
+////							+ "sP.studentId, "
+////							+ "u.fullName, "
+////							+ "rR.device.rtType, "
+////							+ "rR.repairdetail, "
+////							+ "rR.device.classroom.classroom_num, "
+////							+ "rR.device.classroom.teachbuilding.build_name, "
+////							+ "rR.repairdate"
+////							+ ") "
+////				+ "FROM "
+////							+ "RepairRecord rR, StudentProfile sP, User u "
+////				+ "WHERE "
+////							+ "rR.repairman = sP.user and rR.repairman = u";
+//
+//			
 //			hql = "SELECT new model.Repair( "
-//							+ "sP.studentId, "
-//							+ "u.fullName, "
-//							+ "rR.device.rtType, "
-//							+ "rR.repairdetail, "
-//							+ "rR.device.classroom.classroom_num, "
-//							+ "rR.device.classroom.teachbuilding.build_name, "
-//							+ "rR.repairdate"
-//							+ ") "
-//				+ "FROM "
-//							+ "RepairRecord rR, StudentProfile sP, User u "
-//				+ "WHERE "
-//							+ "rR.repairman = sP.user and rR.repairman = u";
-
-			
-			hql = "SELECT new model.Repair( "
-			+ "u.fullName, "
-			+ "rR.device.rtType, "
-			+ "rR.repairdetail, "
-			+ "rR.device.classroom.classroom_num, "
-			+ "rR.device.classroom.teachbuilding.build_name, "
-			+ "rR.repairdate"
-			+ ") "
-+ "FROM "
-			+ "RepairRecord rR, User u "
-+ "WHERE "
-			+ "rR.repairman = u";
-
-
-			
-			
-			
-			hql += cond;
-			System.out.println(hql);
-			Query query = session.createQuery(hql);
-			
-			list = query.list();
-			tx.commit();
-			System.out.println(hql);
-			System.out.println("长度" + list.size());
-			return list;
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-			tx.commit();
-			return list;
-		}
-		finally {
-			if (tx != null) {
-				tx = null;
-			}
-		}
-	}
+//			+ "u.fullName, "
+//			+ "rR.device.rtType, "
+//			+ "rR.repairdetail, "
+//			+ "rR.device.classroom.classroom_num, "
+//			+ "rR.device.classroom.teachbuilding.build_name, "
+//			+ "rR.repairdate"
+//			+ ") "
+//+ "FROM "
+//			+ "RepairRecord rR, User u "
+//+ "WHERE "
+//			+ "rR.repairman = u";
+//
+//
+//			
+//			
+//			
+//			hql += cond;
+//			System.out.println(hql);
+//			Query query = session.createQuery(hql);
+//			
+//			list = query.list();
+//			tx.commit();
+//			System.out.println(hql);
+//			System.out.println("长度" + list.size());
+//			return list;
+//		}
+//		catch (Exception ex) {
+//			ex.printStackTrace();
+//			tx.commit();
+//			return list;
+//		}
+//		finally {
+//			if (tx != null) {
+//				tx = null;
+//			}
+//		}
+//	}
 	
 	@Override
 	public int add_rt(String id, String bh) {
