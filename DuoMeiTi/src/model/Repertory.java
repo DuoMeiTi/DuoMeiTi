@@ -11,36 +11,48 @@ public class Repertory {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int rtId;
 	
+//	设备名称
 	@Column(length=50)
 	public String rtType;
 	
+	
+//	资产编号
 	@Column(length=200)
 	public String rtNumber;
 	
+//	型号
 	@Column(length=200)
 	public String rtVersion;
 	
+//	出厂编号
 	@Column(length=200)
 	public String rtFactorynum;
+	
 	
 	@Column(length=200)
 	public String rtDevice;
 	
+//	设备状态
 	@Column(length=10)
 	public String rtDeviceStatus;
 	
+//	出厂日期
 	@Column
 	public java.sql.Date rtProdDate;	
 	
+//	审批日期
 	@Column
 	public java.sql.Date rtApprDate;
 	
+//	过滤网更换时间长度
 	@Column
 	public int rtFilterCleanPeriod;
 	
+//	被替换的时间长度
 	@Column
 	public int rtReplacePeriod;
 	
+//	频点
 	@Column(length=10)
 	public String rtFreqPoint;
 	
@@ -49,7 +61,7 @@ public class Repertory {
 	@JoinColumn
 	public Classroom classroom;
 	
-	
+//	被替换的时间点
 	@Column
 	public java.sql.Date rtDeadlineData;
 	
