@@ -39,7 +39,7 @@ public class Const
     		"耗材设备",
     };
     public static final String[] mainDevice = {
-    		"所有主要设备",
+    		"",
     		"中控",
     		"功放",
     		"投影机",
@@ -51,7 +51,7 @@ public class Const
     		"数字处理器",
     };
     public static final String[] costDevice = {
-    		"所有耗材设备",
+    		"",
     		"灯泡",
     		"翻页器",
     		"鼠标",

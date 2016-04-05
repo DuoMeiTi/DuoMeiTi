@@ -96,8 +96,8 @@
 			<result>
 <!-- 				<param name="location">/jsp/admin/classroomManage.jsp</param> -->
 				<param name="location">${classroomManageJsp}</param>
-				<param name="build_id">${build_id}</param>
-				<param name="build_name">${build_name}</param>
+<!-- 				<param name="build_id">${build_id}</param> -->
+<!-- 				<param name="build_name">${build_name}</param> -->
 			</result>
 		</action>
 		<action name="classroomManageNew_*" class="common.ClassroomManageAction" method="{1}">

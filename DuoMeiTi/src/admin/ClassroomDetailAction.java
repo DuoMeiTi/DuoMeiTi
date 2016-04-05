@@ -38,7 +38,8 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public String build_name;
 	public String remark;
 	public int picID;
-	public static int classroomId;
+//	public static int classroomId;
+	public int classroomId;
 	
 	public TeachBuilding building;
 	public Classroom classroom;
