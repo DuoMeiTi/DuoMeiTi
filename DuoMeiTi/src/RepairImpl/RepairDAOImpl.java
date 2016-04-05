@@ -93,66 +93,66 @@ public class RepairDAOImpl implements RepairDAO {
 //		}
 //	}
 	
-	@Override
-	public int add_rt(String id, String bh) {
-		// TODO Auto-generated method stub
-		Transaction tx = null;
-		String hql ="";
-		try {
-			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
-			tx = session.beginTransaction();
-			hql = "UPDATE Repertory repertory SET repertory.classroom = " + id + ", repertory.rtDeviceStatus = '教室'" +
-					" where repertory.rtNumber = \'" + bh + "\'" + " and repertory.rtDeviceStatus = '备用'";
-			System.out.println(hql);
-			Query queryupdate=session.createQuery(hql);
-			int ret=queryupdate.executeUpdate();
-			tx.commit();
-			System.out.println("这是"+ret);
-			return ret;
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-			tx.commit();
-			return 0;
-		}
-		finally {
-			if (tx != null) {
-				if (tx != null) {
-					tx = null;
-				}
-			}
-		}
-	}
+//	@Override
+//	public int add_rt(String id, String bh) {
+//		// TODO Auto-generated method stub
+//		Transaction tx = null;
+//		String hql ="";
+//		try {
+//			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+//			tx = session.beginTransaction();
+//			hql = "UPDATE Repertory repertory SET repertory.classroom = " + id + ", repertory.rtDeviceStatus = '教室'" +
+//					" where repertory.rtNumber = \'" + bh + "\'" + " and repertory.rtDeviceStatus = '备用'";
+//			System.out.println(hql);
+//			Query queryupdate=session.createQuery(hql);
+//			int ret=queryupdate.executeUpdate();
+//			tx.commit();
+//			System.out.println("这是"+ret);
+//			return ret;
+//		}
+//		catch (Exception ex) {
+//			ex.printStackTrace();
+//			tx.commit();
+//			return 0;
+//		}
+//		finally {
+//			if (tx != null) {
+//				if (tx != null) {
+//					tx = null;
+//				}
+//			}
+//		}
+//	}
 	
-	@Override
-	public List<Repertory> alterDevice(String classroom_id) {
-		List<Repertory> list = null;
-		Transaction tx = null;
-		String hql = "";
-		try {
-			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
-			tx = session.beginTransaction();
-			hql = "SELECT rt FROM Repertory as rt WHERE rt.rtDeviceStatus = '备用'"; //AND rt.classroom = " + classroom_id;
-			System.out.println(hql);
-			Query query = session.createQuery(hql);
-			
-			list = query.list();
-			tx.commit();
-			System.out.println(hql);
-			System.out.println("长度" + list.size());
-			return list;
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-			tx.commit();
-			return list;
-		}
-		finally {
-			if (tx != null) {
-				tx = null;
-			}
-		}
-	}
+//	@Override
+//	public List<Repertory> alterDevice(String classroom_id) {
+//		List<Repertory> list = null;
+//		Transaction tx = null;
+//		String hql = "";
+//		try {
+//			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+//			tx = session.beginTransaction();
+//			hql = "SELECT rt FROM Repertory as rt WHERE rt.rtDeviceStatus = '备用'"; //AND rt.classroom = " + classroom_id;
+//			System.out.println(hql);
+//			Query query = session.createQuery(hql);
+//			
+//			list = query.list();
+//			tx.commit();
+//			System.out.println(hql);
+//			System.out.println("长度" + list.size());
+//			return list;
+//		}
+//		catch (Exception ex) {
+//			ex.printStackTrace();
+//			tx.commit();
+//			return list;
+//		}
+//		finally {
+//			if (tx != null) {
+//				tx = null;
+//			}
+//		}
+//	}
 	
 	@Override
 	public int m2alter(String move, String opt) {
@@ -193,86 +193,86 @@ public class RepairDAOImpl implements RepairDAO {
 		}
 	}
 	
-	@Override
-	public int addalterIm(String rtid, String classroomid) {
-		Transaction tx = null;
-		String hql ="";
-		try {
-			/*int classroomid = (int) ActionContext.getContext().getSession().get("classroom_id");
-			Classroom classroom = (Classroom) ActionContext.getContext().getSession().get("classroom");*/
-			
-			Session session1 = model.Util.sessionFactory.openSession();
-			Criteria rt_criteria = session1.createCriteria(Repertory.class);
-			rt_criteria.add(Restrictions.eq("rtId", Integer.parseInt(rtid)));
-			Repertory rt_per = (Repertory) rt_criteria.uniqueResult();
-			session1.close();
-			
-			Session session2 = model.Util.sessionFactory.openSession();
-			Criteria cl_criteria = session2.createCriteria(Classroom.class);
-			cl_criteria.add(Restrictions.eq("id", Integer.parseInt(classroomid)));
-			Classroom classroom = (Classroom) cl_criteria.uniqueResult();
-			session2.close();
-			
-			Calendar cal=Calendar.getInstance();
-			Date date=cal.getTime();
-			cal.add(Calendar.DATE, rt_per.rtReplacePeriod);
-			date=cal.getTime();
-			java.sql.Date sqldate = new java.sql.Date(date.getTime());
-			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
-			tx = session.beginTransaction();
-			hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '教室', repertory.classroom =:classroom, repertory.rtDeadlineData =:deadline" +
-					" where repertory.rtId = " + rtid;
-			System.out.println(hql);
-			Query queryupdate=session.createQuery(hql);
-			queryupdate.setEntity("classroom", classroom);
-			queryupdate.setDate("deadline", sqldate);
-			int ret=queryupdate.executeUpdate();
-			tx.commit();
-			System.out.println("这是"+ret);
-			System.out.println("好了行不" +sqldate);
-			return ret;
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-			tx.commit();
-			return 0;
-		}
-		finally {
-			if (tx != null) {
-				if (tx != null) {
-					tx = null;
-				}
-			}
-		}
-	}
+//	@Override
+//	public int addalterIm(String rtid, String classroomid) {
+//		Transaction tx = null;
+//		String hql ="";
+//		try {
+//			/*int classroomid = (int) ActionContext.getContext().getSession().get("classroom_id");
+//			Classroom classroom = (Classroom) ActionContext.getContext().getSession().get("classroom");*/
+//			
+//			Session session1 = model.Util.sessionFactory.openSession();
+//			Criteria rt_criteria = session1.createCriteria(Repertory.class);
+//			rt_criteria.add(Restrictions.eq("rtId", Integer.parseInt(rtid)));
+//			Repertory rt_per = (Repertory) rt_criteria.uniqueResult();
+//			session1.close();
+//			
+//			Session session2 = model.Util.sessionFactory.openSession();
+//			Criteria cl_criteria = session2.createCriteria(Classroom.class);
+//			cl_criteria.add(Restrictions.eq("id", Integer.parseInt(classroomid)));
+//			Classroom classroom = (Classroom) cl_criteria.uniqueResult();
+//			session2.close();
+//			
+//			Calendar cal=Calendar.getInstance();
+//			Date date=cal.getTime();
+//			cal.add(Calendar.DATE, rt_per.rtReplacePeriod);
+//			date=cal.getTime();
+//			java.sql.Date sqldate = new java.sql.Date(date.getTime());
+//			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+//			tx = session.beginTransaction();
+//			hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '教室', repertory.classroom =:classroom, repertory.rtDeadlineData =:deadline" +
+//					" where repertory.rtId = " + rtid;
+//			System.out.println(hql);
+//			Query queryupdate=session.createQuery(hql);
+//			queryupdate.setEntity("classroom", classroom);
+//			queryupdate.setDate("deadline", sqldate);
+//			int ret=queryupdate.executeUpdate();
+//			tx.commit();
+//			System.out.println("这是"+ret);
+//			System.out.println("好了行不" +sqldate);
+//			return ret;
+//		}
+//		catch (Exception ex) {
+//			ex.printStackTrace();
+//			tx.commit();
+//			return 0;
+//		}
+//		finally {
+//			if (tx != null) {
+//				if (tx != null) {
+//					tx = null;
+//				}
+//			}
+//		}
+//	}
 	
-	@Override
-	public int delalterIm(String rtid){
-		Transaction tx = null;
-		String hql ="";
-		try {
-			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
-			tx = session.beginTransaction();
-			hql = "UPDATE Repertory repertory SET repertory.classroom = NULL" +
-					" where repertory.rtId = " + rtid;
-			System.out.println(hql);
-			Query queryupdate=session.createQuery(hql);
-			int ret=queryupdate.executeUpdate();
-			tx.commit();
-			System.out.println("这是"+ret);
-			return ret;
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-			tx.commit();
-			return 0;
-		}
-		finally {
-			if (tx != null) {
-				if (tx != null) {
-					tx = null;
-				}
-			}
-		}
-	}
+//	@Override
+//	public int delalterIm(String rtid){
+//		Transaction tx = null;
+//		String hql ="";
+//		try {
+//			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+//			tx = session.beginTransaction();
+//			hql = "UPDATE Repertory repertory SET repertory.classroom = NULL" +
+//					" where repertory.rtId = " + rtid;
+//			System.out.println(hql);
+//			Query queryupdate=session.createQuery(hql);
+//			int ret=queryupdate.executeUpdate();
+//			tx.commit();
+//			System.out.println("这是"+ret);
+//			return ret;
+//		}
+//		catch (Exception ex) {
+//			ex.printStackTrace();
+//			tx.commit();
+//			return 0;
+//		}
+//		finally {
+//			if (tx != null) {
+//				if (tx != null) {
+//					tx = null;
+//				}
+//			}
+//		}
+//	}
 }
