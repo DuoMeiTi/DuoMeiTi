@@ -26,7 +26,7 @@
 		
 		var fd = new FormData();
 		var file_list = document.getElementById('file_upload').files;
-		var file_name,file_suffix,flag=false;
+		var file_name,file_suffix;
 		var suffix = "rarziptar7zjar";
 		if(file_list.length != 0)
 		{
