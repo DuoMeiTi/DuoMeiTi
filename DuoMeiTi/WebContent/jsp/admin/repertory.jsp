@@ -173,6 +173,37 @@
 		
 		
 		
+		
+		
+		
+<!-- 		watchStatusHistory modal-->
+		<div class="modal fade" id="watchDeviceStatusHistoryModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h2 class="modal-title" id="modal-title">查看设备状态变化记录</h2>
+					</div>
+					
+					<div class="modal-body">
+						<div id="watchDeviceStatusHistoryDiv">
+						</div>
+					</div>
+
+
+					<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="rtClose">关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+<!-- 		watchStatusHistory modal  END-->
+		
+		
 		<br/>
 		
 

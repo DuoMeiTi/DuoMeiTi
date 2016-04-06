@@ -1,3 +1,27 @@
+
+
+$(document).on("click", ".watchDeviceStatusHistory", function() {
+	
+	var rtId = $(this).parents("tr").attr("rt_id");
+	
+	$.ajax({
+		url : 'repertory_watchDeviceStatusHistory',
+		type : 'post',
+		dataType : 'json',
+		data : {"rtId" : rtId,},
+		success : function(data)
+		{
+			$("#watchDeviceStatusHistoryDiv").html(data.deviceStatusHistoryTable);
+			$("#watchDeviceStatusHistoryModal").modal('show');
+			
+		}
+	});
+	
+//	alert($(this).parents("tr").attr("rt_id"));
+	
+})
+
+
 //insert
 function cleanValue() {
 	$("[name=rtDevice]").val("");

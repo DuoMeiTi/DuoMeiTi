@@ -12,6 +12,7 @@ import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import dto.T_Repertory;
@@ -59,6 +60,30 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	private String costDevice[];
 	private String deviceStatus[];
 
+	
+	
+	
+	List deviceStatusHistoryList;
+	
+	String deviceStatusHistoryTable;
+
+
+	public String watchDeviceStatusHistory() throws Exception
+	{
+		Session session = model.Util.sessionFactory.openSession();
+
+		deviceStatusHistoryList = 
+				session.createCriteria(model.DeviceStatusHistory.class)
+				.add(Restrictions.eq("device.id", rtId))
+				.addOrder(Order.asc("id"))
+				.list();
+		deviceStatusHistoryTable = util.Util.getJspOutput("/jsp/admin/widgets/deviceStatusHistoryTable.jsp");
+		session.close();
+		return SUCCESS;
+	}
+	
+	
+	
 	public static java.sql.Date addDays(java.util.Date d, int day)
 	{
 		return new java.sql.Date(d.getTime() + day * 24*60 *60*1000);
@@ -639,6 +664,29 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	
 	
 	
+	
+	public List getDeviceStatusHistoryList() {
+		return deviceStatusHistoryList;
+	}
+
+
+
+	public void setDeviceStatusHistoryList(List deviceStatusHistoryList) {
+		this.deviceStatusHistoryList = deviceStatusHistoryList;
+	}
+
+
+
+	public String getDeviceStatusHistoryTable() {
+		return deviceStatusHistoryTable;
+	}
+
+
+
+	public void setDeviceStatusHistoryTable(String deviceStatusHistoryTable) {
+		this.deviceStatusHistoryTable = deviceStatusHistoryTable;
+	}
+
 	
 
 }

@@ -10,7 +10,7 @@
  			<th>审批日期</th>
  			<th>出厂号</th>
  			<th>使用状态</th>
-			<th>更换时间</th>
+			<th>查看状态历史</th>
  			<th>删除</th>
 		</tr>
 		<s:iterator value="repertory_list" var="i" status="index">
@@ -22,7 +22,9 @@
 				<td class="click_me"> <s:property value="#i.rtApprDate.toString()"/> </td>
 				<td class="click_me"> <s:property value="#i.rtFactorynum"/> </td>
 				<td class="click_me"> <s:property value="#i.rtDeviceStatus"/> </td>
-				<td class="click_me"> <s:property value="#i.rtReplacePeriod"/>/天数 </td>
+				<td > 
+					<button type="button" class="btn btn-info watchDeviceStatusHistory" >状态历史</button> 
+				</td>
 				<td> <button type="button" class="btn btn-danger delete" >删除</button> </td>
 			</tr>
 		</s:iterator>
