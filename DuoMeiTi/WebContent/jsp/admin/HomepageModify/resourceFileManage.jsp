@@ -5,6 +5,9 @@
 	
 	<form method="post" action="" enctype="multipart/form-data">	
 		<br/>
+		<div class="alert alert-danger" role="alert">
+			<p>具有rar、zip、tar、7z、jar后缀的压缩文件不能上传！</p>
+		</div>
 		<input type="file" id="file_upload">
 		
 		<br/>
@@ -22,33 +25,42 @@
 	$(document).on("click", "#file_upload_button", function() {
 		
 		var fd = new FormData();
-		
-		
 		var file_list = document.getElementById('file_upload').files;
+		var file_name,file_suffix,flag=false;
+		var suffix = "rarziptar7zjar";
 		if(file_list.length != 0)
 		{
-			fd.append("file", file_list[0]);
+			file_name = file_list[0].name.split(".");
+			file_suffix = file_name[file_name.length-1].toLowerCase();
+			if(suffix.indexOf(file_suffix)>=0){
+				alert("不允许上传压缩文件！");
+				$("#file_upload").val("");
+			}else{
+				fd.append("file", file_list[0]);
+				
+				$.ajax({  
+			          url: "HomepageModify/FileUploadInsert" ,  
+			          type: "POST",  
+			          data: fd,  
+			          async: true,  
+			          cache: false,  
+			          contentType: false,  
+			          processData: false,  
+			          success: insertCallBack,
+//		 	          {
+//		 	        	  alert("GOOD");
+//		 	        	  window.location.reload() 
+//		 	          },  
+//		 	          error: function (returndata) {  
+//		 	              alert(returndata);  
+//		 	          }  
+			     });
+			}
 		}	
 			
 		
  		
-	    $.ajax({  
-	          url: "HomepageModify/FileUploadInsert" ,  
-	          type: "POST",  
-	          data: fd,  
-	          async: true,  
-	          cache: false,  
-	          contentType: false,  
-	          processData: false,  
-	          success: insertCallBack,
-// 	          {
-// 	        	  alert("GOOD");
-// 	        	  window.location.reload() 
-// 	          },  
-// 	          error: function (returndata) {  
-// 	              alert(returndata);  
-// 	          }  
-	     });  
+	      
 
 		
 		
