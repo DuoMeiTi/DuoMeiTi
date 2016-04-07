@@ -154,11 +154,16 @@ public class Util
 	
 	
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+	private static final SimpleDateFormat dfOnlyDate = new SimpleDateFormat("yyyy-MM-dd");
+	
 	static public String formatTimestamp(Timestamp s)
 	{
 		return df.format(s);
 	}
-	
+	static public String formatTimestampToOnlyDate(Timestamp s)
+	{
+		return dfOnlyDate.format(s);
+	}
 	
 	
 	
@@ -358,7 +363,7 @@ public class Util
     	
     	
     	device.rtDeviceStatus = newStatus;
-    	device.classroom = classroom;    	
+    	device.rtClassroom = classroom;    	
     	
     	dsh.setClassroom(classroom);    	
     	dsh.setDevice(device);

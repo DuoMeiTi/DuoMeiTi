@@ -12,71 +12,67 @@ public class Repertory {
 	public int rtId;
 	
 //	设备名称
-	@Column(length=50)
+	@Column 
 	public String rtType;
 	
 	
 //	资产编号
-	@Column(length=200)
+	@Column 
 	public String rtNumber;
+//	设备状态
+	@Column
+	public String rtDeviceStatus;
+//	仅仅当rtDeviceStatus == 教室时此值才有意义，否则为null	
+	@ManyToOne
+	@JoinColumn
+	public Classroom rtClassroom;
+
+	
 	
 //	型号
-	@Column(length=200)
+	@Column 
 	public String rtVersion;
 	
 //	出厂编号
-	@Column(length=200)
+	@Column 
 	public String rtFactorynum;
 	
 //	应该尽量弃用此字段
-	@Column(length=200)
+	@Column
 	public String rtDevice;
 	
-//	设备状态
-	@Column(length=10)
-	public String rtDeviceStatus;
 	
 //	出厂日期
 	@Column
-	public java.sql.Date rtProdDate;	
+	public java.sql.Timestamp rtProdDate;	
 	
 //	审批日期
 	@Column
-	public java.sql.Date rtApprDate;
+	public java.sql.Timestamp rtApprDate;
+	
+	
+
 	
 //	过滤网更换时间长度
 	@Column
 	public int rtFilterCleanPeriod;
+//	频点
+	@Column
+	public String rtFreqPoint;
+	
+	
 	
 //	被替换的时间长度
 	@Column
 	public int rtReplacePeriod;
-	
-//	频点
-	@Column(length=10)
-	public String rtFreqPoint;
-	
-	
-	@ManyToOne
-	@JoinColumn
-	public Classroom classroom;
-	
 //	被替换的时间点
 	@Column
-	public java.sql.Date rtDeadlineData;
+	public java.sql.Timestamp rtDeadlineDate;
 	
 	
 	
 	
 	
-	public java.sql.Date getRtDeadlineData() {
-		return rtDeadlineData;
-	}
-
-	public void setRtDeadlineData(java.sql.Date rtDeadlineData) {
-		this.rtDeadlineData = rtDeadlineData;
-	}
-
 	public int getRtId() {
 		return rtId;
 	}
@@ -101,6 +97,22 @@ public class Repertory {
 		this.rtNumber = rtNumber;
 	}
 
+	public String getRtDeviceStatus() {
+		return rtDeviceStatus;
+	}
+
+	public void setRtDeviceStatus(String rtDeviceStatus) {
+		this.rtDeviceStatus = rtDeviceStatus;
+	}
+
+	public Classroom getRtClassroom() {
+		return rtClassroom;
+	}
+
+	public void setRtClassroom(Classroom rtClassroom) {
+		this.rtClassroom = rtClassroom;
+	}
+
 	public String getRtVersion() {
 		return rtVersion;
 	}
@@ -116,7 +128,7 @@ public class Repertory {
 	public void setRtFactorynum(String rtFactorynum) {
 		this.rtFactorynum = rtFactorynum;
 	}
-	
+
 	public String getRtDevice() {
 		return rtDevice;
 	}
@@ -125,62 +137,28 @@ public class Repertory {
 		this.rtDevice = rtDevice;
 	}
 
-	public Classroom getClassroom() {
-		return classroom;
-	}
-
-	public void setClassroom(Classroom classroom) {
-		this.classroom = classroom;
-	}
-	
-	
-	public String getRtDeviceStatus() {
-		return rtDeviceStatus;
-	}
-
-	public void setRtDeviceStatus(String rtDeviceStatus) {
-		this.rtDeviceStatus = rtDeviceStatus;
-	}
-	
-	public java.sql.Date getRtProdDate() {
+	public java.sql.Timestamp getRtProdDate() {
 		return rtProdDate;
 	}
 
-	public void setRtProdDate(java.sql.Date rtProdDate) {
+	public void setRtProdDate(java.sql.Timestamp rtProdDate) {
 		this.rtProdDate = rtProdDate;
 	}
 
-	public java.sql.Date getRtApprDate() {
+	public java.sql.Timestamp getRtApprDate() {
 		return rtApprDate;
 	}
 
-	public void setRtApprDate(java.sql.Date rtApprDate) {
+	public void setRtApprDate(java.sql.Timestamp rtApprDate) {
 		this.rtApprDate = rtApprDate;
 	}
-	
 
-
-
-
-
-	
-	
-	
-	
 	public int getRtFilterCleanPeriod() {
 		return rtFilterCleanPeriod;
 	}
 
 	public void setRtFilterCleanPeriod(int rtFilterCleanPeriod) {
 		this.rtFilterCleanPeriod = rtFilterCleanPeriod;
-	}
-
-	public int getRtReplacePeriod() {
-		return rtReplacePeriod;
-	}
-
-	public void setRtReplacePeriod(int rtReplacePeriod) {
-		this.rtReplacePeriod = rtReplacePeriod;
 	}
 
 	public String getRtFreqPoint() {
@@ -191,8 +169,25 @@ public class Repertory {
 		this.rtFreqPoint = rtFreqPoint;
 	}
 
+	public int getRtReplacePeriod() {
+		return rtReplacePeriod;
+	}
+
+	public void setRtReplacePeriod(int rtReplacePeriod) {
+		this.rtReplacePeriod = rtReplacePeriod;
+	}
+
+	public java.sql.Timestamp getRtDeadlineDate() {
+		return rtDeadlineDate;
+	}
+
+	public void setRtDeadlineDate(java.sql.Timestamp rtDeadlineDate) {
+		this.rtDeadlineDate = rtDeadlineDate;
+	}
+
 	public String toString() {
 		return this.rtType + "," + this.rtNumber + "|";
 	}
+	
 	
 }

@@ -183,9 +183,18 @@ $(document).on("click", "#rtSave", function() {
  	fd.append("rtApprDate", $(cnt).find("[name=rtApprDate]").val());
  	fd.append("rtFactorynum", $(cnt).find("[name=rtFactorynum]").val());
  	fd.append("rtDeviceStatus", $(cnt).find("[name=rtDeviceStatus]").val());
- 	fd.append("rtReplacePeriod", $(cnt).find("[name=rtReplacePeriod]").val());
- 	fd.append("rtFilterCleanPeriod", $(cnt).find("[name=rtFilterCleanPeriod]").val());
  	fd.append("rtFreqPoint", $(cnt).find("[name=rtFreqPoint]").val());
+ 	
+ 	var rtReplacePeriod = parseInt($(cnt).find("[name=rtReplacePeriod]").val());
+ 	if(!rtReplacePeriod) rtReplacePeriod = 0; 	
+ 	fd.append("rtReplacePeriod", rtReplacePeriod);
+ 	
+ 	var rtFilterCleanPeriod = parseInt($(cnt).find("[name=rtFilterCleanPeriod]").val());
+ 	if(!rtFilterCleanPeriod) rtFilterCleanPeriod = 0;
+ 	fd.append("rtFilterCleanPeriod", rtFilterCleanPeriod );
+ 	
+ 	
+ 	
 	
 	if($(this).attr("mark") == "insert")
 	{
@@ -220,39 +229,46 @@ $(document).on("click", "#rtSave", function() {
 })
 
 function repertoryCallback(data) {
-	if (data.status == "1") {
-		$("#repertory_table tr:first").after(data.add_repertory_html);
-		var cnt = $(document).find("#repertory_table tr:eq(1)");
-		$(cnt).children().eq(0).text(data.rtType);
-		$(cnt).children().eq(1).text(data.rtNumber);
-		$(cnt).children().eq(2).text(data.rtVersion);
-		$(cnt).children().eq(3).text(data.rtProdDateString);
-		//$(cnt).children().eq(3).text(data.rtProdDate.substring(0,10));
-		$(cnt).children().eq(4).text(data.rtApprDateString);
-		$(cnt).children().eq(5).text(data.rtFactorynum);
-		$(cnt).children().eq(6).text(data.rtDeviceStatus);
-		$(cnt).children().eq(7).text(data.rtReplacePeriod + "/天数");
-		$(cnt).attr("rt_id", data.rtId);
-		$('#rtModal').modal('hide');
-		alert("保存成功！ ");
-
-	}
+	
+	alert("FFF");
+	$("#repertoryTableDiv").html(data.repertoryTable);
+	$('#rtModal').modal('hide');
+//	repertoryTable
+//	if (data.status == "1") {
+//		$("#repertory_table tr:first").after(data.add_repertory_html);
+//		var cnt = $(document).find("#repertory_table tr:eq(1)");
+//		$(cnt).children().eq(0).text(data.rtType);
+//		$(cnt).children().eq(1).text(data.rtNumber);
+//		$(cnt).children().eq(2).text(data.rtVersion);
+//		$(cnt).children().eq(3).text(data.rtProdDateString);
+//		//$(cnt).children().eq(3).text(data.rtProdDate.substring(0,10));
+//		$(cnt).children().eq(4).text(data.rtApprDateString);
+//		$(cnt).children().eq(5).text(data.rtFactorynum);
+//		$(cnt).children().eq(6).text(data.rtDeviceStatus);
+//		$(cnt).children().eq(7).text(data.rtReplacePeriod + "/天数");
+//		$(cnt).attr("rt_id", data.rtId);
+//		$('#rtModal').modal('hide');
+//		alert("保存成功！ ");
+//
+//	}
 }
 
 function updateCallback(data) {
-	if(data.status == "1") {
-		var line = $(document).find("#repertory_table tr[rt_id = " + data.rtId +"]");
-		$(line).children().eq(0).text(data.rtType);
-		$(line).children().eq(1).text(data.rtNumber);
-		$(line).children().eq(2).text(data.rtVersion);
-		$(line).children().eq(3).text(data.rtProdDateString);
-		$(line).children().eq(4).text(data.rtApprDateString);
-		$(line).children().eq(5).text(data.rtFactorynum);
-		$(line).children().eq(6).text(data.rtDeviceStatus);
-		$(line).children().eq(7).text(data.rtReplacePeriod + "/天数");
-		$('#rtModal').modal('hide');
-		alert("修改成功！ ");
-	}
+	$("#repertoryTableDiv").html(data.repertoryTable);
+	$('#rtModal').modal('hide');
+//	if(data.status == "1") {
+//		var line = $(document).find("#repertory_table tr[rt_id = " + data.rtId +"]");
+//		$(line).children().eq(0).text(data.rtType);
+//		$(line).children().eq(1).text(data.rtNumber);
+//		$(line).children().eq(2).text(data.rtVersion);
+//		$(line).children().eq(3).text(data.rtProdDateString);
+//		$(line).children().eq(4).text(data.rtApprDateString);
+//		$(line).children().eq(5).text(data.rtFactorynum);
+//		$(line).children().eq(6).text(data.rtDeviceStatus);
+//		$(line).children().eq(7).text(data.rtReplacePeriod + "/天数");
+//		$('#rtModal').modal('hide');
+//		alert("修改成功！ ");
+//	}
 }
 
 
