@@ -363,8 +363,9 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		
 		try		
 		{
-			session.evict(old_rt);
+			
 			session.beginTransaction();
+			session.evict(old_rt);
 			session.update(new_rt);
 			session.getTransaction().commit();
 		}
