@@ -1,5 +1,8 @@
 package admin;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,16 +13,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
+//import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+
+//import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;    
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 
 import dto.T_Repertory;
-import jxl.Sheet;
-import jxl.Workbook;
+import model.Classroom;
+//import jxl.Sheet;
+//import jxl.Workbook;
 import model.Repertory;
 import util.Const;
 
@@ -154,143 +165,170 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		return SUCCESS;
 	}
 	
-//	private String judgeDevice(String rtType)
-//	{
-//		boolean markde = false;
-//		for(int i = 1; i < Const.mainDevice.length; i++)
-//		{
-//			if(rtType.equals(Const.mainDevice[i]))
-//			{
-//				rtDevice = Const.device[1];
-//				markde = true;
-//				break;
-//			}
-//		}
-//		if(markde == false)
-//		{
-//			for(int j = 1; j < Const.costDevice.length; j++)
-//			{
-//				if(rtType.equals(Const.costDevice[j]))
-//				{
-//					rtDevice = Const.device[2];
-//					markde = true;
-//					break;
-//				}
-//			}
-//		}
-//		if(markde == false) return null;
-//		return rtDevice;
-//	}
+	static String getCellStringValue(Row row, int i)
+	{
+		 Cell res = row.getCell(i);
+		 
+		 if(res == null) return null;
+		 else return row.getCell(i).toString();
+		 
+	}
+	
+	static int getCellIntValue(Row row, int i)
+	{
+		String res = getCellStringValue(row, i);
+		if(res == null) return 0;
+		else return Integer.parseInt(res);
+	}
+
+	static java.util.Date getCellDateValue(Row row, int i)
+	{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String cnt = getCellStringValue(row, i);
+		if(cnt == null) return null;
+		
+		java.util.Date res;		
+		try
+    	{
+    		res = dateFormat.parse(cnt);
+    	}
+    	catch(ParseException e)
+    	{
+    		res = null;
+    	}
+		return res;
+	}
+	static java.sql.Timestamp getCellTimestampValue(Row row, int i)
+	{
+		java.util.Date res = getCellDateValue(row, i);
+		if(res == null) return null;
+		else return new java.sql.Timestamp(res.getTime());
+	}
+	
+	
+//	麦克:有频点
+//	投影机: 有过滤网时间段
+	static boolean isValidRepertory(Repertory r)
+	{		
+		if(r.rtType == null || r.rtDeviceStatus == null) return false;
+		System.out.println("SBSB*****");
+		if(util.Util.judgeDeviceType(r.rtType) == null) return false;
+		System.out.println("SBSB*****---");
+		if(!util.Util.isValidDeviceStatus(r.rtDeviceStatus)) return false;
+		System.out.println("SBSB*****||||s");
+		
+		
+		return true;
+	}
+	
+	
 	public String importExcel() throws Exception 
 	{
-//		if(this.file == null)
-//		{
-//			this.status = "0";
-//			return this.SUCCESS;
-//		}
-//		
-//	    String fileType = fileFileName.substring(fileFileName.lastIndexOf(".") + 1, fileFileName.length());
-//	    
-//	    Workbook rwb;
-//
-//		rwb= Workbook.getWorkbook(this.file);
-//		Sheet rs=rwb.getSheet(0);
-//		int clos=rs.getColumns();
-//        int rows=rs.getRows();
-//        
-//        Session session = model.Util.sessionFactory.openSession();
-//		session.beginTransaction();
-//        for (int i = 1; i < rows; i++) 
-//        {
-//        	rtType = rs.getCell(0, i).getContents();
-//        	rtDevice = this.judgeDevice(rtType);
-//        	rtNumber = rs.getCell(1, i).getContents();
-//        	rtVersion = rs.getCell(2, i).getContents();
-//        	
-//        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        	String col3 = rs.getCell(3, i).getContents();
-//        	if(col3 != "") rtProdDate = new java.sql.Date(sdf.parse(col3).getTime());
-//        	else rtProdDate = null;
-//        	String col4 = rs.getCell(4, i).getContents();
-//        	if(col4 != "") rtApprDate = new java.sql.Date(sdf.parse(col4).getTime());
-//        	else rtApprDate = null;
-//        	
-//        	rtFactorynum = rs.getCell(5, i).getContents();
-//        	rtDeviceStatus = rs.getCell(6, i).getContents();
-//        	
-//        	String col9 = rs.getCell(9, i).getContents();
-//        	if(col9.equals(""))  rtReplacePeriod = 0;
-//        	else rtReplacePeriod = Integer.parseInt(col9);
-//        	
-//        	
-//        	if(rtType == "" && rtNumber == "" && rtNumber == "" && rtVersion == "" 
-//        			&& rtProdDate == null && rtApprDate == null && rtFactorynum == "" && rtDeviceStatus == "")
-//        	{
-//        		break;
-//        	}
-//        	
-//        	Repertory rt = new Repertory();
-//    		rt.setRtDevice(rtDevice);
-//    		rt.setRtType(rtType);
-//    		rt.setRtNumber(rtNumber);
-//    		rt.setRtVersion(rtVersion);
-////    		rtProdDateString = rtProdDate.toString();
-//    		rt.setRtProdDate(rtProdDate);
-////    		rtApprDateString = rtApprDate.toString();
-//    		rt.setRtApprDate(rtApprDate);
-//    		rt.setRtFactorynum(rtFactorynum);
-//    		rt.setRtDeviceStatus(rtDeviceStatus);
-//    		rt.setRtReplacePeriod(rtReplacePeriod);
-//    		rt.setRtDeadlineData(addDays(new java.util.Date(), rtReplacePeriod));
-//    		if(rtDeviceStatus.equals("教室"))
-//        	{
-//    			String build_name = rs.getCell(7, i).getContents();
-//    			
-//    			List build_list = session.createCriteria(model.TeachBuilding.class)
-//    					.add(Restrictions.eq("build_name",   build_name )).list();
-//    			
-//    			if(build_list.isEmpty())
-//    			{
-//    				this.status = "2";//数据有误
-//        			return this.SUCCESS;
-//    			}
-//    			
-//    			
-//    			model.TeachBuilding build = (model.TeachBuilding)build_list.get(0);
-//        		String rtClassroom = rs.getCell(8, i).getContents();
-//        		List q = session.createCriteria(model.Classroom.class)
-//        						.add(Restrictions.eq("teachbuilding.id", build.getBuild_id()))
-//        						.add(Restrictions.eq("classroom_num", rtClassroom))        						
-//        						.list();
-//        		if(q.isEmpty())
-//        		{
-//        			this.status = "2";//数据有误
-//        			return this.SUCCESS;
-//        		}
-//        		else
-//        		{
-//        			model.Classroom classroom = (model.Classroom)q.get(0);
-//        			rt.setClassroom(classroom);
-//        		}
-//        	}
-//    		if(rtType.equals("麦克"))
-//    		{
-//    			rtFreqPoint = rs.getCell(10, i).getContents();
-//    			rt.setRtFreqPoint(rtFreqPoint);
-//    		}
-//    		else if(rtType.equals("投影机"))
-//    		{
-//    			String col11 = rs.getCell(11, i).getContents();
-//    			if(col11.equals("")) rtFilterCleanPeriod = 0;
-//    			else rtFilterCleanPeriod = Integer.parseInt(col11);
-//    			rt.setRtFilterCleanPeriod(rtFilterCleanPeriod);
-//    		}
-//    		session.save(rt);
-//        }
-//        session.getTransaction().commit();
-//		session.close();
-//		
-//		this.status = "1";		
+		System.out.println("SBSBSB****************");
+		if(this.file == null)
+		{
+			this.status = "0";
+			return this.SUCCESS;
+		}
+		
+
+
+		InputStream stream = new FileInputStream (this.file);
+		
+		String fileType = fileFileName.substring(fileFileName.lastIndexOf(".") + 1, fileFileName.length());
+
+		Workbook rwb;
+		if (fileType.equals("xls")) {    
+
+			rwb = new HSSFWorkbook(stream);
+        }    
+        else if (fileType.equals("xlsx")) {    
+        	rwb = new XSSFWorkbook(stream);    
+        }    
+        else {    
+            System.out.println("您输入的excel格式不正确");   
+            stream.close();
+            return ActionSupport.SUCCESS;
+        }    
+		
+		Sheet rs= rwb.getSheetAt(0);
+		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
+
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Session session = model.Util.sessionFactory.openSession();
+		
+		int i;
+        for (i = 1; ; i++) 
+        {
+        	Row row = rs.getRow(i);
+        	if(row == null) break;
+        	Repertory r = new Repertory();
+        	
+        	
+        	System.out.println("GGGG======");
+        	
+        	r.rtType = getCellStringValue(row, 0);
+        	r.rtDevice = util.Util.judgeDeviceType(r.rtType);
+        	r.rtNumber = getCellStringValue(row, 1);
+        	r.rtVersion = getCellStringValue(row, 2);
+        	
+
+        	r.rtProdDate = getCellTimestampValue(row, 3);
+        	r.rtApprDate = getCellTimestampValue(row, 4);
+        	r.rtFactorynum = getCellStringValue(row, 5);
+        	
+        	r.rtDeviceStatus = getCellStringValue(row, 6);
+        	String teachBuildingName = getCellStringValue(row, 7);
+        	String classroom_num = getCellStringValue(row, 8);      	
+
+        	r.rtClassroom = (model.Classroom)session.createCriteria(model.Classroom.class)
+        			.createAlias("teachbuilding", "teachbuilding")
+        			.add(Restrictions.eq("teachbuilding.build_name", teachBuildingName))
+        			.add(Restrictions.eq("classroom_num", classroom_num))
+        			.uniqueResult();
+        	
+//        	util.Util.modifyDeviceStatus(device_id, user_id, newStatus, classroom_id);
+
+
+
+
+        	
+        	r.rtReplacePeriod = getCellIntValue(row, 9);
+        	r.rtFreqPoint = getCellStringValue(row, 10);
+        	r.rtFilterCleanPeriod =  getCellIntValue(row, 11);
+//        	System.out.println("GGGG======222");
+        	if(!isValidRepertory(r)) break;
+//        	System.out.println("GGGG======333");
+        	session.beginTransaction();
+        	session.save(r);
+        	session.getTransaction().commit();
+        	
+        	int classroom_id = -1;        	
+        	if(r.rtClassroom != null) classroom_id = r.rtClassroom.id;
+        	System.out.println("SSSSSSSSSSSSS");
+        	System.out.println(r.rtId);
+        	try
+        	{
+        		util.Util.modifyDeviceStatus(session, r.rtId, user_id, r.rtDeviceStatus, classroom_id);	
+        	}
+        	catch(Exception e)
+        	{
+        		e.printStackTrace();
+        	}
+        	
+        	
+
+        	
+        }
+        
+        System.out.println("IIIIIIIIiPPPPPPPP");
+        
+		session.close();
+		rwb.close();
+		stream.close();
+		
+		this.status = "1";		
 		return SUCCESS;
 	}
 	
@@ -328,7 +366,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		}else {
 			c.add(Restrictions.eq("rtDeviceStatus", this.sDeviceStatus));
 		}
-		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
 		repertory_list = c.list();
 		if(repertory_list.isEmpty())
@@ -337,7 +375,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		}
 		else 
 		{
-			Collections.reverse(repertory_list);
+//			Collections.reverse(repertory_list);
 			this.status = "1";
 	        repertory_table = util.Util.getJspOutput("/jsp/admin/widgets/repertoryTable.jsp");
 	        //System.out.println(repertory_table);
@@ -444,9 +482,24 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		System.out.println(paramList);
 		if(paramList.isEmpty()){
 			this.status = "0";//error;
-		}else{
+		}
+		else
+		{
+			Repertory r = (Repertory)paramList.get(0);
+			List<model.DeviceStatusHistory> dsh_list = session.createCriteria(model.DeviceStatusHistory.class)
+							.add(Restrictions.eq("device.id", r.rtId))
+							.list();
+			
 			session.beginTransaction();
-			session.delete(paramList.get(0));
+			for(model.DeviceStatusHistory i: dsh_list)
+			{
+				session.delete(i);
+			}
+			
+			
+			
+			
+			session.delete(r);
 			session.getTransaction().commit();
 			
 			this.status = "1";//ok
@@ -584,35 +637,35 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		this.repertory_list = repertory_list;
 	}
 
-	public String getsDevice() {
+	public String getSDevice() {
 		return sDevice;
 	}
 
-	public void setsDevice(String sDevice) {
+	public void setSDevice(String sDevice) {
 		this.sDevice = sDevice;
 	}
 
-	public String getsMainDevice() {
+	public String getSMainDevice() {
 		return sMainDevice;
 	}
 
-	public void setsMainDevice(String sMainDevice) {
+	public void setSMainDevice(String sMainDevice) {
 		this.sMainDevice = sMainDevice;
 	}
 
-	public String getsCostDevice() {
+	public String getSCostDevice() {
 		return sCostDevice;
 	}
 
-	public void setsCostDevice(String sCostDevice) {
+	public void setSCostDevice(String sCostDevice) {
 		this.sCostDevice = sCostDevice;
 	}
 
-	public String getsDeviceStatus() {
+	public String getSDeviceStatus() {
 		return sDeviceStatus;
 	}
 
-	public void setsDeviceStatus(String sDeviceStatus) {
+	public void setSDeviceStatus(String sDeviceStatus) {
 		this.sDeviceStatus = sDeviceStatus;
 	}
 

@@ -165,6 +165,11 @@ public class Util
 		return dfOnlyDate.format(s);
 	}
 	
+//	static public java.sql.Timestamp fromTimestamp(String s)
+//	{
+//		
+//	}
+	
 	
 	
 	
@@ -313,8 +318,11 @@ public class Util
 		for(String i:AllMainDevice)
 		{
 			if(i.equals(deviceName)) return "主要设备";
-		}
-		return "耗材设备";
+		}		
+		for(String i: AllCostDevice)
+			if(i.equals(deviceName)) return "耗材设备";
+		
+		return null;
 	}
     static 
     {
@@ -338,17 +346,34 @@ public class Util
     public final static String DeviceClassroomStatus = "教室";
     public final static String DeviceRepairStatus = "维修";
     public final static String DeviceScrappedStatus = "报废";
-
-    // 更改设备的状态
-    public static void modifyDeviceStatus(int device_id, int user_id, String newStatus, int classroom_id)
+    
+    
+    public static boolean isValidDeviceStatus(String status)
     {
-    	org.hibernate.Session s = model.Util.sessionFactory.openSession();
+    	if(status.equals(DeviceBackupStatus)) return true;
+    	if(status.equals(DeviceClassroomStatus)) return true;
+    	if(status.equals(DeviceRepairStatus)) return true;
+    	if(status.equals(DeviceScrappedStatus)) return true;
+    	
+    	return false;
+    }
+    
+    // 更改设备的状态
+    public static void modifyDeviceStatus(org.hibernate.Session s, int device_id, int user_id, String newStatus, int classroom_id)
+    {
+//    	org.hibernate.Session s = model.Util.sessionFactory.openSession();
+    	s.beginTransaction();
     	model.Repertory device = (model.Repertory) 
     							 s.createCriteria(model.Repertory.class)
     			 				  .add(Restrictions.eq("id", device_id))
     			 				  .uniqueResult();
-    	 
-    	 
+//    	model.Repertory device = new model.Repertory();
+//    	device.rtId = device_id;
+    	if(device == null)
+    	{
+    		System.out.println("SSSSSSSSSJJJJJJCAOCAOCAO");
+    	}
+
     	model.DeviceStatusHistory dsh = new model.DeviceStatusHistory();
     	dsh.setStatus(newStatus);
     	dsh.setDate(new java.sql.Timestamp(System.currentTimeMillis()));
@@ -373,11 +398,19 @@ public class Util
     	dsh.setUser(user); 	
     	
     	
-    	s.beginTransaction();
+    	
     	s.update(device);
     	s.save(dsh);
     	s.getTransaction().commit();    	
+//    	s.close();    	
+    }
+    
+    public static void modifyDeviceStatus(int device_id, int user_id, String newStatus, int classroom_id)
+    {
+    	org.hibernate.Session s = model.Util.sessionFactory.openSession();
+    	modifyDeviceStatus(s, device_id, user_id, newStatus, classroom_id);
     	s.close();    	
+
     }
     
     
