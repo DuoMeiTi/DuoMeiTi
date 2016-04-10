@@ -1,92 +1,74 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 
-
+<style type="text/css">
+	.modal-header{
+		width:70%;
+		margin:0 auto;
+	}
+	h2{
+		background:rgb(0,114,227);
+		border-radius:5px;
+		color:#fff;
+		height:45px;
+		display:block;
+	}
+	.modal-body{
+		width:100%;
+		background:rgb(238,238,238);
+		border-radius:5px;
+		padding:10px 5%;
+	}
+	.modal-footer{
+		width:100%;
+		background:rgb(238,238,238);
+		border-top:none;
+	}
+	.form-group{
+		margin-bottom:0px;
+	}
+</style>
 
 
 <!-- Button trigger modal -->
-<button type="button" id="addExam" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#emModal">添加题目</button>
-<!-- Modal -->
+<button type="button" id="addExam" class="btn btn-primary btn-lg">添加题目</button>
 
-
-
-<div class="modal fade" id="emModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h2 class="modal-title" id="myModalLabel">添加题目</h2>
-      </div>
-      <div class="modal-body">
+<!-- 文本编辑框 -->
+<div id="emModal" style="display:none;">
+	<div class="modal-header">
+    	<h2 class="modal-title" id="myModalLabel">添加题目</h2>
+	</div>
+	
+	<div class="modal-body">
 		<b>题目描述 </b>
 		<form id="exam_form" titleId>
-			
-<!-- 			<textarea id="titleInput" class="form-control titleContent" rows="3" style="resize: vertical;display:none"></textarea> -->
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			<div id="titleInput">
 				<%@ include file="/bootstrap-wysiwyg/editor.jsp" %>				
 			</div>
 			
-			
-			
-			
-
-
-			
-			
-	
-
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			<br/>
-			
 			
 			<span style="color:red">请勾选正确选项</span>
 			
 			<div style="display:none" class="option">
-			
-			  <div class="form-inline form-group toc optionContent" id="optionLine">
-			  	<input type="checkbox" class="optionCheck">
-			    <label for="optionInput">选项:</label>
-			    <textarea class="form-control optionInput" id="optionInput" rows="2" cols="100" placeholder="选项内容"></textarea>
-			    <button type="button" class="btn btn-primary" id="optionRemove"> 移除</button>
-			  </div>
-			  
-			</div>
-			
+			 	<div class="form-inline form-group toc optionContent" id="optionLine">
+			  		<input type="checkbox" class="optionCheck">
+			    	<label for="optionInput">选项:</label>
+			    	<textarea class="form-control optionInput" id="optionInput" rows="2" cols="100" placeholder="选项内容"></textarea>
+			    	<button type="button" class="btn btn-primary" id="optionRemove"> 移除</button>
+			 	</div>
+			 </div>
 			<br>
 		</form>
-		
-      </div>
-      <div class="modal-footer">
-<!--       	<button type="button" class="btn btn-primary" id="testButton">test</button> -->
-		
-    	<button type="button" class="btn btn-primary" id="addOption">添加选项</button>
-      	
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary" id="examInsert" >保存</button>
-      </div>
-    </div>
-  </div>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" id="addOption">添加选项</button>
+    	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+    	<button type="button" class="btn btn-primary" id="examInsert" >保存</button>
+	</div>
 </div>
+
+
 
 
 <br/>
@@ -145,7 +127,7 @@
 	function emInsertCallback(data){
 		if(data.trStatus == "1") {
 			$(document).find("#examTableDiv").html(data.exam_table);
-			$('#emModal').modal('hide');
+			$('#emModal').css("display","none");
 			alert("插入成功！ ");
 		}
 	}
@@ -156,7 +138,9 @@
 		var temp = confirm("删除不可恢复！");
 		if(temp == true){
 			var temp = $(this).parents("tr");
+			console.log(temp);
 			delete_emId = temp.children().eq(0).text();
+			console.log(delete_emId);
 			$(temp).attr("emid", delete_emId);
 			$.ajax({
 				url : 'training_examDelete',
@@ -204,7 +188,7 @@
 				$(cntOption).find(".optionCheck").attr("checked",false);
 			}
 		})
-		$('#emModal').modal('show');
+		$('#emModal').css("display","block");
 		
 	})
 	
@@ -213,13 +197,11 @@
 	
 	// save edit Title
 	function editTitle() {
-		$('#emModal').modal('hide');
-		
+		$('#emModal').css("display","none");
 		var titleId = $("#exam_form").attr("titleId");		
 		
 		var params = getParams();
 		params = $.extend(params, {"emId": titleId});
-		
 		$.ajax({
 			url : 'training_examEdit',
 			type : 'post',
@@ -228,7 +210,6 @@
 			traditional : true,
 			success : editTitleCallBack
 		});
-
 	}
 	
 	function editTitleCallBack(data){
@@ -256,7 +237,8 @@
 	
 	
 	
-	$(document).on("click","#addExam",function(){		
+	$(document).on("click","#addExam",function(){
+		$('#emModal').css('display','block');
 		$('#emModal').find(".modal-title").html("新增题目");
 		clearModal();
 	})
@@ -300,5 +282,4 @@
 	
 	
 </script>
-
 
