@@ -87,59 +87,49 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		
 		Transaction tx = null;
 		String hql ="";
-		try {
+		try 
+		{
 
 			tx = session.beginTransaction();
 			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.rtClassroom = " + classroomId;
-			System.out.println(hql);
+
 			Query query = session.createQuery(hql);
 			rtClass = query.list();
-			for (int i = 0; i < rtClass.size(); i++) {
-				System.out.println("输出++++++++++++++++++++++++++++++++");
-				System.out.println(rtClass.get(i));
-			}
 			tx.commit();
 		}
-		catch (Exception ex) {
+		catch (Exception ex) 
+		{
 			ex.printStackTrace();
 			tx.commit();
 		}
-		finally {
-			if (tx != null) {
-				if (tx != null) {
-					tx = null;
-				}
-			}
-		}
+
 
 		//query at most 5 checkrecord
-		Criteria checkrecord_criteria = session.createCriteria(CheckRecord.class).setFetchMode("classroom", FetchMode.SELECT).setFetchMode("checkman", FetchMode.SELECT);
+		Criteria checkrecord_criteria = session.
+				createCriteria(CheckRecord.class);
+//				.setFetchMode("classroom", FetchMode.SELECT)
+//				.setFetchMode("checkman", FetchMode.SELECT);
 		
 		checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
 		checkrecord_criteria.addOrder(Order.desc("id"));
-		
-
 		checkrecord_criteria.setMaxResults(5);
 		checkrecords = checkrecord_criteria.list();
 
 		
 		
 
-
+		//query at most 5 repairrecords
 		repairrecords = (List) session.createQuery("select rd "
 												+ "from RepairRecord as rd "
 												+ "left join rd.device as ry "
 												+ "left join ry.rtClassroom as cm  "
 												+ "where cm.id=" + classroomId + " order by rd.id desc")
-									.setMaxResults(5).list();
+									.setMaxResults(5).list();		
 
 		
-		
-		
-		
-
-		
-		classroom_repertory_list = session.createCriteria(model.Repertory.class).add(Restrictions.eq("rtClassroom.id", classroomId)).list();
+		classroom_repertory_list = session.createCriteria(model.Repertory.class)
+				.add(Restrictions.eq("rtClassroom.id", classroomId))
+				.list();
 		
 
 		
