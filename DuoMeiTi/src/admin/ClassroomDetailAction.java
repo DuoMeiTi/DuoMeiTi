@@ -38,8 +38,8 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public String build_name;
 	public String remark;
 	public int picID;
-//	public static int classroomId;
-	public int classroomId;
+	public static int classroomId;
+//	public int classroomId;
 	
 	public TeachBuilding building;
 	public Classroom classroom;
@@ -90,7 +90,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		try {
 
 			tx = session.beginTransaction();
-			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + classroomId;
+			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.rtClassroom = " + classroomId;
 			System.out.println(hql);
 			Query query = session.createQuery(hql);
 			rtClass = query.list();
@@ -124,19 +124,14 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 
 		
 		
-		
-		//query repairrecord
-//		long repair_rowCount = (Long) session.createQuery("select count(*) from RepairRecord as rd left join rd.device as ry left join ry.classroom as cm where cm.id=" + classroomId).uniqueResult();
-//		int repairrecord_start = ((int) repair_rowCount) > 5 ? ((int) repair_rowCount) - 5 : 0;
+
 
 		repairrecords = (List) session.createQuery("select rd "
 												+ "from RepairRecord as rd "
 												+ "left join rd.device as ry "
-												+ "left join ry.classroom as cm  "
+												+ "left join ry.rtClassroom as cm  "
 												+ "where cm.id=" + classroomId + " order by rd.id desc")
-				
-
-				.setMaxResults(5).list();
+									.setMaxResults(5).list();
 
 		
 		
@@ -144,11 +139,9 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		
 
 		
-		classroom_repertory_list = session.createCriteria(model.Repertory.class).add(Restrictions.eq("classroom.id", classroomId)).list();
+		classroom_repertory_list = session.createCriteria(model.Repertory.class).add(Restrictions.eq("rtClassroom.id", classroomId)).list();
 		
-		System.out.println("JJ");
 
-		System.out.println(classroom_repertory_list);
 		
 		session.close();
 		ClassroomPicture();
@@ -164,12 +157,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		
 		System.out.println("alterdevice:");
 		System.out.println(classroomid);
-//		RepairDAO rdao = new RepairDAOImpl();
-//		repertory_list = rdao.alterDevice(classroomid);
-//		for (int i = 0; i < repertory_list.size(); i++) {
-//			System.out.println("输出++++++++++++++++++++++++++++++++");
-//			System.out.println(repertory_list.get(i).getRtDevice());
-//		}
+
 		
 		Session session = model.Util.sessionFactory.openSession();
 		repertory_list = session.createCriteria(model.Repertory.class)
@@ -196,38 +184,13 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		
 		Session session = model.Util.sessionFactory.openSession();
 		rtClass = session.createCriteria(model.Repertory.class)
-				 .add(Restrictions.eq("classroom.id", Integer.parseInt(classroomid) ))
+				 .add(Restrictions.eq("rtClassroom.id", Integer.parseInt(classroomid) ))
 				 .list();
 		
 		repertory_list = session.createCriteria(model.Repertory.class)
 						.add(Restrictions.eq("rtDeviceStatus", util.Util.DeviceBackupStatus ))
 						.list();
-//		RepairDAO rdao = new RepairDAOImpl();
-//		System.out.println("============");
-//		System.out.println("设备id："+ rtID);
-//		System.out.println("加入教室："+ classroomid);
-//		
-//		String ret = Integer.toString(rdao.addalterIm(rtID, classroomid));
-//
-//		Session session = null;
-//		session = model.Util.sessionFactory.openSession();		
-//		Transaction tx = null;
-//		String hql ="";
-//		try {
-//			tx = session.beginTransaction();
-//			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + classroomid;
-//			System.out.println(hql);
-//			Query query = session.createQuery(hql);
-//			rtClass = query.list();
-//			tx.commit();
-//		}
-//		catch (Exception ex) {
-//			ex.printStackTrace();
-//			tx.commit();
-//		}
-		
-		
-//		repertory_list = rdao.alterDevice(classroomid);
+
 		
 		device_jsp = util.Util.getJspOutput("/jsp/classroom/device.jsp");
 		alterdevice_jsp = util.Util.getJspOutput("/jsp/classroom/alterdevice.jsp");
@@ -239,10 +202,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	//移入维修
 	public String move2repair()
 	{
-//		System.out.println("move2repair:");
-//		System.out.println(move_device_id);
-//		System.out.println(move_class_id);
-		
+
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 		
 		util.Util.modifyDeviceStatus(
@@ -252,43 +212,11 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 									-1);
 		
 		
-		
-//		RepairDAO rdao = new RepairDAOImpl();
-//		String ret = Integer.toString(rdao.m2alter(move_device_id, "0"));
+
 		
 		Session session = model.Util.sessionFactory.openSession();
 		
 
-		
-//		Criteria classroom_criteria = session.createCriteria(Classroom.class);
-//		classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(move_class_id)));
-//		classroom = (Classroom) classroom_criteria.uniqueResult();
-		
-//		System.out.println(classroom.id);
-//		Transaction tx = null;
-//		String hql ="";
-//		try 
-//		{
-			
-			
-			
-//			tx = session.beginTransaction();
-//			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + move_class_id;
-//			System.out.println(hql);
-//			Query query = session.createQuery(hql);
-//			rtClass = query.list();
-//			for (int i = 0; i < rtClass.size(); i++) {
-//				System.out.println("输出++++++++++++++++++++++++++++++++");
-//				System.out.println(rtClass.get(i));
-//			}
-//			tx.commit();
-//		}
-//		catch (Exception ex) 
-//		{
-//			ex.printStackTrace();
-//			tx.rollback();
-//			tx.commit();
-//		}
 	
 		rtClass = session.createCriteria(model.Repertory.class)
 				 .add(Restrictions.eq("classroom.id", Integer.parseInt(move_class_id) ))
@@ -316,38 +244,12 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 									util.Util.DeviceScrappedStatus, 
 									-1);
 		
-//		RepairDAO rdao = new RepairDAOImpl();
-		//System.out.println("============");
-//		String ret = Integer.toString(rdao.m2alter(move_device_id, "1"));
-		
-		//System.out.println("怎么可能"+classroom_id);
+
 		
 		Session session = model.Util.sessionFactory.openSession();
 		
 		
-//		Criteria classroom_criteria = session.createCriteria(Classroom.class);
-//		classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(move_class_id)));
-//		classroom = (Classroom) classroom_criteria.uniqueResult();
-//		
-//		System.out.println(classroom.id);
-//		Transaction tx = null;
-//		String hql ="";
-//		try {
-//			tx = session.beginTransaction();
-//			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + move_class_id;
-//			System.out.println(hql);
-//			Query query = session.createQuery(hql);
-//			rtClass = query.list();
-//			for (int i = 0; i < rtClass.size(); i++) {
-//				System.out.println("输出++++++++++++++++++++++++++++++++");
-//				System.out.println(rtClass.get(i));
-//			}
-//			tx.commit();
-//		}
-//		catch (Exception ex) {
-//			ex.printStackTrace();
-//			tx.commit();
-//		}
+
 		
 		rtClass = session.createCriteria(model.Repertory.class)
 				 .add(Restrictions.eq("classroom.id", Integer.parseInt(move_class_id) ))
@@ -385,8 +287,10 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 			
 
 			Classroom cl = (Classroom) 
-			session.createCriteria(model.Classroom.class).add(Restrictions.eq("id", classroomId)).uniqueResult();
+					session.createCriteria(model.Classroom.class)
+					.add(Restrictions.eq("id", classroomId)).uniqueResult();
 			
+
 			repairrecord.setClassroom(cl);
 			
 			
@@ -396,16 +300,14 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 			session.save(repairrecord);
 			session.getTransaction().commit();
 			
+
+			
 			repairrecords = (List) session.createQuery("select rd "
 					+ "from RepairRecord as rd "
 					+ "left join rd.device as ry "
-					+ "left join ry.classroom as cm  "
+					+ "left join ry.rtClassroom as cm  "
 					+ "where cm.id=" + classroomId + " order by rd.id desc")
-			
-			//.setFirstResult(repairrecord_start)
-			.setMaxResults(5).list();
-			
-			System.out.println("repairsize:"+repairrecords.size());
+						.setMaxResults(5).list();
 			
 			repairrecord_jsp = util.Util.getJspOutput("/jsp/classroom/repairrecord.jsp");
 						
@@ -430,17 +332,9 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 			Criteria user_criteria = session.createCriteria(User.class);
 			user_criteria.add(Restrictions.eq("id", user_id));
 			User user = (User) user_criteria.uniqueResult();
-//System.out.println(stu.getUser().getUsername());
-			
-			
-			
-//			Date checkdate = new Date(new java.util.Date().getTime());
+
 			Timestamp checkdate = new Timestamp(new java.util.Date().getTime());
-
-
-			
-
-			
+	
 			Criteria classroom_criteria = session.createCriteria(Classroom.class);
 			classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(classroomid)));
 			Classroom classroom = (Classroom) classroom_criteria.uniqueResult();
@@ -459,7 +353,6 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 			checkrecord_criteria.addOrder(Order.desc("id"));
 			checkrecord_criteria.setMaxResults(5);
 			checkrecords = checkrecord_criteria.list();
-			//System.out.println("checkrecord:" + checkrecords);
 			
 			checkrecord_jsp = util.Util.getJspOutput("/jsp/classroom/checkrecord.jsp");
 			

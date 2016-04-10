@@ -413,7 +413,7 @@
 		<action name="classroom_detail" class="admin.ClassroomDetailAction">
 			<result>
 				<param name="location">/jsp/admin/classroom_detail.jsp</param>
-<!-- 				<param name="classroomIdss">${classroomIdss}</param>				 -->
+				<param name="classroomId">${classroomId}</param>				
 <!-- 				<param name="classroomselectIndex">${classroomId}</param> -->
 <!-- 				<param name="build_name">${build_name}</param> -->
 			</result>
