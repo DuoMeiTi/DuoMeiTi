@@ -22,10 +22,10 @@ public class T_Repertory extends Repertory
 				fs[i].set(this, fs[i].get(r));		
 			}
 			if(rtProdDate == null) rtProdDateString ="";
-			else rtProdDateString = rtProdDate.toString();
+			else rtProdDateString = util.Util.formatTimestampToOnlyDate(rtProdDate);
 			
 			if(rtApprDate == null) rtApprDateString = "";
-			else rtApprDateString = rtApprDate.toString();
+			else rtApprDateString = util.Util.formatTimestampToOnlyDate(rtApprDate);
 
 		} 
 		catch (Exception e) { e.printStackTrace(); }

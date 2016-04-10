@@ -238,14 +238,16 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		String fileType = fileFileName.substring(fileFileName.lastIndexOf(".") + 1, fileFileName.length());
 
 		Workbook rwb;
-		if (fileType.equals("xls")) {    
-
+		if (fileType.equals("xls")) 
+		{
 			rwb = new HSSFWorkbook(stream);
         }    
-        else if (fileType.equals("xlsx")) {    
+        else if (fileType.equals("xlsx")) 
+        {    
         	rwb = new XSSFWorkbook(stream);    
         }    
-        else {    
+        else 
+        {    
             System.out.println("您输入的excel格式不正确");   
             stream.close();
             return ActionSupport.SUCCESS;
@@ -288,8 +290,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         			.add(Restrictions.eq("classroom_num", classroom_num))
         			.uniqueResult();
         	
-//        	util.Util.modifyDeviceStatus(device_id, user_id, newStatus, classroom_id);
-
+ 
 
 
 
@@ -297,18 +298,14 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         	r.rtReplacePeriod = getCellIntValue(row, 9);
         	r.rtFreqPoint = getCellStringValue(row, 10);
         	r.rtFilterCleanPeriod =  getCellIntValue(row, 11);
-//        	System.out.println("GGGG======222");
-        	if(!isValidRepertory(r)) break;
-//        	System.out.println("GGGG======333");
-        	session.beginTransaction();
+         	if(!isValidRepertory(r)) break;
+          	session.beginTransaction();
         	session.save(r);
         	session.getTransaction().commit();
         	
         	int classroom_id = -1;        	
         	if(r.rtClassroom != null) classroom_id = r.rtClassroom.id;
-        	System.out.println("SSSSSSSSSSSSS");
-        	System.out.println(r.rtId);
-        	try
+         	try
         	{
         		util.Util.modifyDeviceStatus(session, r.rtId, user_id, r.rtDeviceStatus, classroom_id);	
         	}
