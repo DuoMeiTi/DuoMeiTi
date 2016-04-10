@@ -59,7 +59,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public String rtID;
 	public String repairdetail;
 	public String move_device_id;
-	public String move_class_id;
+//	public String move_class_id;
 	public String device_jsp;
 	public String alterdevice_jsp;
 
@@ -750,14 +750,14 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	}
 
 
-	public String getMove_class_id() {
-		return move_class_id;
-	}
-
-
-	public void setMove_class_id(String move_class_id) {
-		this.move_class_id = move_class_id;
-	}
+//	public String getMove_class_id() {
+//		return move_class_id;
+//	}
+//
+//
+//	public void setMove_class_id(String move_class_id) {
+//		this.move_class_id = move_class_id;
+//	}
 
 
 	public String getDevice_jsp() {
