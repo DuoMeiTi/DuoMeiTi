@@ -145,8 +145,8 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	//备用设备
 	public String alterdevice() {
 		
-		System.out.println("alterdevice:");
-		System.out.println(classroomid);
+//		System.out.println("alterdevice:");
+//		System.out.println(classroomid);
 
 		
 		Session session = model.Util.sessionFactory.openSession();
@@ -161,8 +161,8 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	
 	//加入教室
 	public String move2class(){
-		System.out.println("move2class");
-		System.out.println(classroomid+" "+ rtID);
+//		System.out.println("move2class");
+//		System.out.println(classroomid+" "+ rtID);
 		
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 		
@@ -221,10 +221,10 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	//移入报废
 	public String move2bad(){
 		
-		System.out.println("move2bad:");
-		
-		System.out.println(move_device_id);
-		System.out.println(move_class_id);
+//		System.out.println("move2bad:");
+//		
+//		System.out.println(move_device_id);
+//		System.out.println(move_class_id);
 		
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 		
