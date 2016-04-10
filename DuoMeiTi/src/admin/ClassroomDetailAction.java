@@ -38,8 +38,8 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public String build_name;
 	public String remark;
 	public int picID;
-	public static int classroomId;
-//	public int classroomId;
+//	public static int classroomId;
+	public int classroomId;
 	
 	public TeachBuilding building;
 	public Classroom classroom;
@@ -53,7 +53,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public String repairrecord_jsp;
 	public String checkdetail;
 	public String checkrecord_jsp;
-	public String classroomid;
+//	public String classroomid;
 	public String savestatus;
 	public int deviceId;
 	public String rtID;
@@ -83,25 +83,27 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
 
 		
-
 		
-		Transaction tx = null;
-		String hql ="";
-		try 
-		{
-
-			tx = session.beginTransaction();
-			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.rtClassroom = " + classroomId;
-
-			Query query = session.createQuery(hql);
-			rtClass = query.list();
-			tx.commit();
-		}
-		catch (Exception ex) 
-		{
-			ex.printStackTrace();
-			tx.commit();
-		}
+		rtClass = session.createCriteria(model.Repertory.class)
+						 .add(Restrictions.eq("rtClassroom.id", classroomId))
+						 .list();
+//		Transaction tx = null;
+//		String hql ="";
+//		try 
+//		{
+//
+//			tx = session.beginTransaction();
+//			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.rtClassroom = " + classroomId;
+//
+//			Query query = session.createQuery(hql);
+//			rtClass = query.list();
+//			tx.commit();
+//		}
+//		catch (Exception ex) 
+//		{
+//			ex.printStackTrace();
+//			tx.commit();
+//		}
 
 
 		//query at most 5 checkrecord
@@ -119,12 +121,17 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		
 
 		//query at most 5 repairrecords
-		repairrecords = (List) session.createQuery("select rd "
-												+ "from RepairRecord as rd "
-												+ "left join rd.device as ry "
-												+ "left join ry.rtClassroom as cm  "
-												+ "where cm.id=" + classroomId + " order by rd.id desc")
-									.setMaxResults(5).list();		
+//		repairrecords = (List) session.createQuery("select rd "
+//												+ "from RepairRecord as rd "
+//												+ "left join rd.device as ry "
+//												+ "left join ry.rtClassroom as cm  "
+//												+ "where cm.id=" + classroomId + " order by rd.id desc")
+//									.setMaxResults(5).list();
+		repairrecords= session.createCriteria(model.RepairRecord.class)
+							  .add(Restrictions.eq("classroom.id", classroomId))
+							  .addOrder(Order.desc("id"))
+							  .setMaxResults(5)
+							  .list();
 
 		
 		classroom_repertory_list = session.createCriteria(model.Repertory.class)
@@ -143,12 +150,8 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	
 	
 	//备用设备
-	public String alterdevice() {
-		
-//		System.out.println("alterdevice:");
-//		System.out.println(classroomid);
-
-		
+	public String alterdevice() 
+	{		
 		Session session = model.Util.sessionFactory.openSession();
 		repertory_list = session.createCriteria(model.Repertory.class)
 				.add(Restrictions.eq("rtDeviceStatus", util.Util.DeviceBackupStatus ))
@@ -170,11 +173,11 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 									Integer.parseInt(rtID), 
 									user_id, 
 									util.Util.DeviceClassroomStatus, 
-									Integer.parseInt(classroomid));
+									classroomId);
 		
 		Session session = model.Util.sessionFactory.openSession();
 		rtClass = session.createCriteria(model.Repertory.class)
-				 .add(Restrictions.eq("rtClassroom.id", Integer.parseInt(classroomid) ))
+				 .add(Restrictions.eq("rtClassroom.id", classroomId ))
 				 .list();
 		
 		repertory_list = session.createCriteria(model.Repertory.class)
@@ -193,10 +196,13 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public String move2repair()
 	{
 
+		System.out.println("移入维修！！！！！！！！！");
+		System.out.println(classroomId);
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 		
 		util.Util.modifyDeviceStatus(
 									Integer.parseInt(move_device_id), 
+//									classroomId,
 									user_id, 
 									util.Util.DeviceRepairStatus, 
 									-1);
@@ -209,7 +215,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 
 	
 		rtClass = session.createCriteria(model.Repertory.class)
-				 .add(Restrictions.eq("rtClassroom.id", Integer.parseInt(move_class_id) ))
+				 .add(Restrictions.eq("rtClassroom.id", classroomId ))
 				 .list();
 		
 		device_jsp = util.Util.getJspOutput("/jsp/classroom/device.jsp");
@@ -242,7 +248,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 
 		
 		rtClass = session.createCriteria(model.Repertory.class)
-				 .add(Restrictions.eq("rtClassroom.id", Integer.parseInt(move_class_id) ))
+				 .add(Restrictions.eq("rtClassroom.id", classroomId ))
 				 .list();
 		device_jsp = util.Util.getJspOutput("/jsp/classroom/device.jsp");
 		
@@ -259,19 +265,24 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		try	{
 			int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 			session = model.Util.sessionFactory.openSession();
-			Criteria user_criteria = session.createCriteria(User.class);
-			user_criteria.add(Restrictions.eq("id", user_id));
-			User repairman = (User) user_criteria.uniqueResult();
 			
-			Timestamp repairdate = new Timestamp(new java.util.Date().getTime());
+			User repairman = (User) session.createCriteria(User.class)
+								.add(Restrictions.eq("id", user_id))
+								.uniqueResult();
+
+
 			
-			Criteria repertory_criteria = session.createCriteria(Repertory.class);
-			repertory_criteria.add(Restrictions.eq("rtId", deviceId));
-			Repertory device = (Repertory) repertory_criteria.uniqueResult();
+//			Criteria repertory_criteria = session.createCriteria(Repertory.class);
+//			repertory_criteria.add(Restrictions.eq("rtId", deviceId));
+//			Repertory device = (Repertory) repertory_criteria.uniqueResult();
+			Repertory device = (Repertory)session.createCriteria(Repertory.class)
+								.add(Restrictions.eq("rtId", deviceId))
+								.uniqueResult();
+			
 			
 			RepairRecord repairrecord = new RepairRecord();
 			repairrecord.setDevice(device);
-			repairrecord.setRepairdate(repairdate);
+			repairrecord.setRepairdate(new Timestamp(new java.util.Date().getTime()));
 			repairrecord.setRepairdetail(repairdetail);
 			repairrecord.setRepairman(repairman);
 			
@@ -292,12 +303,19 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 			
 
 			
-			repairrecords = (List) session.createQuery("select rd "
-					+ "from RepairRecord as rd "
-					+ "left join rd.device as ry "
-					+ "left join ry.rtClassroom as cm  "
-					+ "where cm.id=" + classroomId + " order by rd.id desc")
-						.setMaxResults(5).list();
+//			repairrecords = (List) session.createQuery("select rd "
+//					+ "from RepairRecord as rd "
+//					+ "left join rd.device as ry "
+//					+ "left join ry.rtClassroom as cm  "
+//					+ "where cm.id=" + classroomId + " order by rd.id desc")
+//						.setMaxResults(5).list();
+			repairrecords= session.createCriteria(model.RepairRecord.class)
+					  .add(Restrictions.eq("classroom.id", classroomId))
+					  .addOrder(Order.desc("id"))
+					  .setMaxResults(5)
+					  .list();
+
+			
 			
 			repairrecord_jsp = util.Util.getJspOutput("/jsp/classroom/repairrecord.jsp");
 						
@@ -319,30 +337,40 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		try	{
 			int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 			session = model.Util.sessionFactory.openSession();
-			Criteria user_criteria = session.createCriteria(User.class);
-			user_criteria.add(Restrictions.eq("id", user_id));
-			User user = (User) user_criteria.uniqueResult();
+			
+			User user = (User)session.createCriteria(User.class)
+						.add(Restrictions.eq("id", user_id))
+						.uniqueResult();
 
-			Timestamp checkdate = new Timestamp(new java.util.Date().getTime());
+
+
+
 	
-			Criteria classroom_criteria = session.createCriteria(Classroom.class);
-			classroom_criteria.add(Restrictions.eq("id", Integer.parseInt(classroomid)));
-			Classroom classroom = (Classroom) classroom_criteria.uniqueResult();
+			Classroom classroom = (Classroom)session.createCriteria(Classroom.class)
+								 .add(Restrictions.eq("id", classroomId  ))
+								 .uniqueResult();
+			
+			
+			
 			CheckRecord checkrecord = new CheckRecord();
-			checkrecord.setCheckdate(checkdate);
+			checkrecord.setCheckdate(new Timestamp(new java.util.Date().getTime()));
 			checkrecord.setCheckdetail(checkdetail);
 			checkrecord.setCheckman(user);
 			checkrecord.setClassroom(classroom);
+			
 			session.beginTransaction();
 			session.save(checkrecord);
 			session.getTransaction().commit();
 			
-			Criteria checkrecord_criteria = session.createCriteria(CheckRecord.class).setFetchMode("classroom", FetchMode.SELECT).setFetchMode("checkman", FetchMode.SELECT);
-			
-			checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
-			checkrecord_criteria.addOrder(Order.desc("id"));
-			checkrecord_criteria.setMaxResults(5);
-			checkrecords = checkrecord_criteria.list();
+			checkrecords = session.createCriteria(CheckRecord.class)
+					.add(Restrictions.eq("classroom.id", classroomId))
+					.addOrder(Order.desc("id"))
+					.setMaxResults(5)
+					.list();
+//			checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
+//			checkrecord_criteria.addOrder(Order.desc("id"));
+//			checkrecord_criteria.setMaxResults(5);
+//			checkrecords = checkrecord_criteria.list();
 			
 			checkrecord_jsp = util.Util.getJspOutput("/jsp/classroom/checkrecord.jsp");
 			
@@ -629,16 +657,16 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		this.checkrecord_jsp = checkrecord_jsp;
 	}
 
-	public String getClassroomid() {
-		return classroomid;
-	}
-
-
-
-
-	public void setClassroomid(String classroomid) {
-		this.classroomid = classroomid;
-	}
+//	public String getClassroomid() {
+//		return classroomid;
+//	}
+//
+//
+//
+//
+//	public void setClassroomid(String classroomid) {
+//		this.classroomid = classroomid;
+//	}
 
 
 

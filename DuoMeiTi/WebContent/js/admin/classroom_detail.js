@@ -10,7 +10,8 @@ $(document).on('click','#submit_repair_record',function(){
 	/*alert(selectDeviceId+" "+repairdetail);*/
 	var params = {
 			"repairdetail" : repairdetail,
-			"deviceId" : selectDeviceId
+			"deviceId" : selectDeviceId,
+			"classroomId": $("#classroomid").text(),
 		};
 		
 		$.ajax({
@@ -50,7 +51,7 @@ $(document).on('click','.move2class',function(){
 	classroom_id = $("#classroomid").text();
 	/*alert(rtID+classroom_id);*/
 	var params = {
-			"classroomid" : classroom_id,
+			"classroomId" : classroom_id,
 			"rtID" : rtID
 	}
 	
@@ -99,11 +100,12 @@ function alterdeviceCallback(data){
 /*移入维修*/
 $(document).on('click','#move2repair',function(){
 	/*alert("move2repair!");*/
+	
 	class_Id = $("#classroomid").text();
 	move_device_id = $(this).parents("[device_id]").attr("device_id");// attr所选元素属性值
 	/*alert(class_Id+"  "+move_device_id);*/
 	var params = {
-			"move_class_id" : class_Id,
+			"classroomId" : class_Id,
 			"move_device_id" : move_device_id,
 			"opt" : 1,
 		};
@@ -126,7 +128,7 @@ $(document).on('click','#move2bad',function(){
 	move_device_id = $(this).parents("[device_id]").attr("device_id");// attr所选元素属性值
 	/*alert(class_Id+"  "+move_device_id);*/
 	var params = {
-			"move_class_id" : class_Id,
+			"classroomId" : class_Id,
 			"move_device_id" : move_device_id,
 			"opt" : 1,
 		};
@@ -153,7 +155,7 @@ function checkrecord_submit() {
 //	alert(checkrecord_detail);
 	var params = {
 		"checkdetail" : checkrecord_detail,
-		"classroomid": classroomid
+		"classroomId": classroomid
 	};
 	
 	$.ajax({
