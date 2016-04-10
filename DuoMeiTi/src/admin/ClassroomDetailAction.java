@@ -209,7 +209,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 
 	
 		rtClass = session.createCriteria(model.Repertory.class)
-				 .add(Restrictions.eq("classroom.id", Integer.parseInt(move_class_id) ))
+				 .add(Restrictions.eq("rtClassroom.id", Integer.parseInt(move_class_id) ))
 				 .list();
 		
 		device_jsp = util.Util.getJspOutput("/jsp/classroom/device.jsp");
@@ -242,7 +242,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 
 		
 		rtClass = session.createCriteria(model.Repertory.class)
-				 .add(Restrictions.eq("classroom.id", Integer.parseInt(move_class_id) ))
+				 .add(Restrictions.eq("rtClassroom.id", Integer.parseInt(move_class_id) ))
 				 .list();
 		device_jsp = util.Util.getJspOutput("/jsp/classroom/device.jsp");
 		
