@@ -47,7 +47,8 @@ function checktime()
 $(document).on("click", "#addbutton", function(){
 	var starttime = $("#startTime").val();
 	var endtime = $("#endTime").val();
-	var data = {"currentPageNum":1 , "isAjaxTransmission":true,"startTime":starttime,"endTime":endtime,"query":true};
+	var stuName = $("#stuName").val();
+	var data = {"currentPageNum":1 , "isAjaxTransmission":true,"startTime":starttime,"endTime":endtime,"query":true, "stuName" : stuName};
 	if(checkrecordtime(starttime,endtime))
 	{
 		$.ajax({
@@ -66,8 +67,35 @@ $(document).on("click", "#addbutton", function(){
 	
 })
 
+$(document).on("click", "#exportButton", function(){
+	var starttime = $("#startTime").val();
+	var endtime = $("#endTime").val();
+	var stuName = $("#stuName").val();
+	var data = {"sTime":starttime,"eTime":endtime, "stuName" : stuName};
+	var fd = new FormData();
+	fd.append("sTime" , starttime);
+	fd.append("eTime" , endtime);
+	fd.append("stuName" , stuName);
+	if(checkrecordtime(starttime,endtime))
+	{
+		$.ajax({
+	        url: '/admincheckin/checkinrecord_exportExcel',
+	        type: 'post',
+	        dataType: 'json',
+	        data: data,
+			success:exportExcel
+	      });
+	}
+	else
+		{
+			alert("导出失败");
+		}
+})
 
-
+function exportExcel(data) {
+	alert(data.checkInRecordExcelPath);
+	window.open(data.checkInRecordExcelPath);
+}
 
 function checkrecordtime(starttime,endtime)
 {

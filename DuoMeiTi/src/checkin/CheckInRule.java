@@ -9,9 +9,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
+
+import util.Util;
+
+import com.opensymphony.xwork2.ActionContext;
 
 public class CheckInRule {
 	static class Time{
@@ -37,6 +44,7 @@ public class CheckInRule {
 			return t;
 		}
 	}
+	private static int checkInTime;
 	private static Time amStartTime=new Time();
 	private static Time amEndTime=new Time();
 	private static Time pmStartTime=new Time();
@@ -62,6 +70,7 @@ public class CheckInRule {
 			{
 				time[i]=Integer.valueOf((String) prop.get(KEY[i]));
 			}
+			checkInTime = Integer.valueOf((String) prop.get("checkInTime"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,8 +110,35 @@ public class CheckInRule {
 		Time time =  (Time) pmEndTime.clone();
 		return time;
 	}
+	public static int getCheckInTime() {
+		return checkInTime;
+	}
+
+	public static void setCheckInTime(int checkInTime) {
+		CheckInRule.checkInTime = checkInTime;
+	}
+
+	/***********************上班时间版本************************/
+	//返回可签到的localtime
+	public static java.time.LocalDateTime isCheckInTime(Calendar ca, ArrayList<Integer> pieceList) {
+		int hour = ca.get(Calendar.HOUR_OF_DAY);
+		int minute = ca.get(Calendar.MINUTE);
+		final List<java.time.LocalTime> dutyPeriodBeginList = Util.dutyPeriodBeginList;
+		LocalTime localTime = LocalTime.of(hour, minute);
+		//最多提前一个点签到
+		for(Integer peroid : pieceList) {
+			if(dutyPeriodBeginList.get(peroid).minusHours(checkInTime).isBefore(localTime) && dutyPeriodBeginList.get(peroid).isAfter(localTime)) 
+				return java.time.LocalDateTime.of(java.time.LocalDate.of(ca.get(Calendar.YEAR), ca.get(Calendar.MONTH), ca.get(Calendar.DAY_OF_MONTH)), dutyPeriodBeginList.get(peroid));
+		}
+		return null;
+	}
+	/***********************上班时间版本************************/
 	
+	/***********************上下午时间段版本*********************/
+	/*
 	public static boolean isCheckInTime(Calendar ca){
+		
+		
 		int hour = ca.get(Calendar.HOUR_OF_DAY);
 		int minute = ca.get(Calendar.MINUTE);
 		System.out.println("签到时间 "+hour+" "+minute);
@@ -124,6 +160,8 @@ public class CheckInRule {
 			}
 		}
 		return true;
+		*/
+		/***********************上下午时间段版本*********************/
 	/*	Date startTime;
 		Date endTime;
 		if(hour <= 12)
@@ -148,8 +186,8 @@ public class CheckInRule {
 		else
 		{
 			return false;
-		}*/
-	}
+		}
+	}*/
 	
 	public static synchronized boolean SetAmTime(Date newStartTime,Date newEndTime)
 	{

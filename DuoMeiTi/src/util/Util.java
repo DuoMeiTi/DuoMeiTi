@@ -45,7 +45,10 @@ public class Util
 	
 	public static final String ClassroomSchedulePath = 
 			FileUploadPath + "ClassroomScheduleFile/";//相对于Rootpath
-
+	
+	public static final String CheckInExcelExportPath = 
+			FileUploadPath + "ExportFile/CheckInExcel/";//相对于Rootpath
+	
 	static 
 	{
 		

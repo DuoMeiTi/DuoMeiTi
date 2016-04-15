@@ -1,10 +1,23 @@
 package checkin;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import org.apache.catalina.core.ApplicationContext;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -40,49 +53,93 @@ public class CheckInAction extends PageGetBaseAction{
 	private final static int MAX_PAGESIZE = 100;//一页数据上限为100
 	private String amCheckIn;
 	private String pmCheckIn;
+	
+	private java.util.Date sTime;
+	private java.util.Date eTime;
+	
+	private String checkInRecordExcelPath;
+	private String stuName;
+	
+	private static ArrayList<Integer> getDutyPieceOfStu(Calendar calendar) {
+		int studentId = (int) ActionContext.getContext().getSession().get("student_id");
+		System.out.println("studentId:" + studentId);
+		Session session = model.Util.sessionFactory.openSession();
+		List<model.DutySchedule> L = 
+				(List<model.DutySchedule>)session.createCriteria(model.DutySchedule.class)
+				.add(Restrictions.eq("student.id", studentId))
+				.list();
+
+
+		ArrayList<Integer> pieceList = new ArrayList<Integer>();
+		int curdayofweek = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7;
+		System.out.println("*************************"+curdayofweek + " " + CheckInRule.getCheckInTime());
+		for(model.DutySchedule dp: L)
+		{
+			System.out.println(".." + dp.getDutyPiece().getTime());
+			if(Util.getWeekFromDutyPieceTime(dp.getDutyPiece().getTime()) == curdayofweek) {
+				
+				pieceList.add(Util.getPeriodFromDutyPieceTime(dp.getDutyPiece().getTime()));
+			}
+		}
+		return pieceList;
+	}
+	
+	
 	public String checkIn()
 	{
 		try {
 			 String role = (String) ActionContext.getContext().getSession().get("role");
 			 
 			 Calendar calendar = Calendar.getInstance();
-			
+			 
+			 ArrayList<Integer> pieceList = getDutyPieceOfStu(calendar);
+			 
+			 final List<java.time.LocalTime> dutyPeriodBeginList = Util.dutyPeriodBeginList;
+			 System.out.println("==========================");
+			 for(Integer i : pieceList) {
+				 System.out.println(dutyPeriodBeginList.get(i).toString());
+			 }
+			 System.out.println("==========================");
+			 java.time.LocalDateTime peroid;
+			 
 			 //检查当前时间是否可以签到
-			 if(!CheckInRule.isCheckInTime(calendar)){
+			 if((peroid = CheckInRule.isCheckInTime(calendar, pieceList)) == null){
 				 result="当前时间不能签到";
 				 System.out.println("1111111");
 				 return SUCCESS;
 			 }
 			 
 			 //检查之前是否已经签过了
-			 int hour = calendar.get(Calendar.HOUR_OF_DAY);
-			 int minute = calendar.get(Calendar.MINUTE);
-			 Timestamp starttime=null;
-			 Timestamp nowtime=null;
-			
-			 if(hour>=12){
-				 Time time = CheckInRule.getAmStartTime();
-				  starttime = TimeUtil.getTimestamp(time.hour,time.minute);
-				  nowtime = TimeUtil.getNowTimestamp();
-			 }
-			 else{
-				 Time time = CheckInRule.getPmStartTime();
-				 starttime = TimeUtil.getTimestamp(time.hour,time.minute);
-				 nowtime = TimeUtil.getNowTimestamp();
-			 }
-			
-			 int times = getCheckInRecordByIdandTime(starttime,nowtime);
+//			 int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//			 int minute = calendar.get(Calendar.MINUTE);
+//			 Timestamp starttime=null;
+//			 Timestamp nowtime=null;
+//			
+//			 if(hour>=12){
+//				 Time time = CheckInRule.getAmStartTime();
+//				  starttime = TimeUtil.getTimestamp(time.hour,time.minute);
+//				  nowtime = TimeUtil.getNowTimestamp();
+//			 }
+//			 else{
+//				 Time time = CheckInRule.getPmStartTime();
+//				 starttime = TimeUtil.getTimestamp(time.hour,time.minute);
+//				 nowtime = TimeUtil.getNowTimestamp();
+//			 }
+			 ZoneId zone = ZoneId.systemDefault();
+			 int times = getCheckInRecordByIdandTime(new Timestamp(peroid.minusHours(CheckInRule.getCheckInTime()).atZone(zone).toInstant().toEpochMilli()),
+					 									new Timestamp(peroid.atZone(zone).toInstant().toEpochMilli()));
 			
 			 if(times>0){
 				 result = "签到一次就够了";
 				 System.out.println("222222");
 				 return SUCCESS;
 			 }
+			 System.out.println("cao ni mei a");
 			username = (String) ServletActionContext.getContext().getSession().get("username");
 			CheckInRecordDao bd = (CheckInRecordDao) DAOFactory.getDao(CheckInRecord.class);
 			bd.checkIn(username);
 			result="签到成功";
-		} catch (IllegalAccessException | InstantiationException iae) {
+		} catch (Exception iae) {
 			// TODO Auto-generated catch block
 			//ise.printStackTrace();
 			iae.printStackTrace();
@@ -190,6 +247,12 @@ public class CheckInAction extends PageGetBaseAction{
 		Criteria criteria = session.createCriteria(CheckInRecord.class);
 		criteria.add(Restrictions.between("recordtime", starttime, endtime));
 		criteria.addOrder(Order.desc("recordtime"));
+		if(stuName != null && !stuName.equals("")) {
+			criteria
+			.createAlias("student", "student")
+			.createAlias("student.user", "user")
+			.add(Restrictions.eq("user.fullName", stuName));
+		}
 		System.out.println("starttime "+starttime.toString()+" endtime "+endtime.toString());
 		recordlist = this.makeCurrentPageList(criteria,10);
 		session.close();
@@ -202,6 +265,84 @@ public class CheckInAction extends PageGetBaseAction{
 		}
 		return SUCCESS;
 	}
+	
+		
+	public String exportExcel() {
+		System.out.println("cao");
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet("签到记录");
+		HSSFRow row = sheet.createRow((int) 0);  
+        HSSFCellStyle style = wb.createCellStyle();  
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 创建一个居中格式  
+  
+        HSSFCell cell = row.createCell(0, Cell.CELL_TYPE_STRING);  
+        cell.setCellValue("姓名");  
+        cell.setCellStyle(style);  
+        cell = row.createCell(1, Cell.CELL_TYPE_STRING);  
+        cell.setCellValue("学号");  
+        cell.setCellStyle(style);  
+        cell = row.createCell(2, Cell.CELL_TYPE_STRING);  
+        cell.setCellValue("签到时间");  
+        cell.setCellStyle(style);
+        System.out.println("*****************" + sTime + " "  + eTime);
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria c = session.createCriteria(CheckInRecord.class);
+		c
+		.add(Restrictions.between("recordtime", new Timestamp(sTime.getTime()), new Timestamp(eTime.getTime())))
+		.addOrder(Order.desc("recordtime"));
+		if(stuName != null && !stuName.equals("")) {
+			c
+			.createAlias("student", "student")
+			.createAlias("student.user", "user")
+			.add(Restrictions.eq("user.fullName", stuName));
+		}
+        
+        List<CheckInRecord> L = c.list();
+        System.out.println("==================="+L.size() + " " + stuName);
+		for(int i = 0; i < L.size(); ++i) {
+			System.out.println(L.get(i));
+			row = sheet.createRow((int) i + 1);  
+			CheckInRecord cr = (CheckInRecord) L.get(i);
+            row.createCell(0, Cell.CELL_TYPE_STRING).setCellValue(cr.getStudent().getUser().getFullName());  
+            row.createCell(1, Cell.CELL_TYPE_STRING).setCellValue(cr.getStudent().getStudentId());  
+            row.createCell(2, Cell.CELL_TYPE_STRING).setCellValue(new SimpleDateFormat("yyyy-mm-dd HH-mm-ss").format(new Date(cr.getRecordtime().getTime())));
+		}
+		
+		//获取当前时间，命名照片，防止照片重复
+		java.util.Date date = new java.util.Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddHHmmss");
+		String curdate = simpleDateFormat.format(date);
+		String fileName = stuName + "_" + curdate + "签到记录.xls";
+		
+		checkInRecordExcelPath = util.Util.CheckInExcelExportPath + fileName;
+		
+		try  
+        {
+			
+            FileOutputStream fout = new FileOutputStream(util.Util.RootPath + util.Util.CheckInExcelExportPath + fileName);  
+            wb.write(fout);  
+            fout.close();  
+        }
+		catch (Exception e)  
+        {  
+			checkInRecordExcelPath = "error";
+            e.printStackTrace();
+        }
+		finally
+		{
+			try {
+				wb.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return SUCCESS;
+	}
+	
+	
 
 	public String getUsername() {
 		return username;
@@ -334,6 +475,47 @@ public class CheckInAction extends PageGetBaseAction{
 	public void setPmCheckIn(String pmCheckIn) {
 		this.pmCheckIn = pmCheckIn;
 	}
-	
-	
+
+
+	public String getCheckInRecordExcelPath() {
+		return checkInRecordExcelPath;
+	}
+
+
+	public void setCheckInRecordExcelPath(String checkInRecordExcelPath) {
+		this.checkInRecordExcelPath = checkInRecordExcelPath;
+	}
+
+
+	public String getStuName() {
+		return stuName;
+	}
+
+
+	public void setStuName(String stuName) {
+		this.stuName = stuName;
+	}
+
+
+	public java.util.Date getSTime() {
+		return sTime;
+	}
+
+
+	public void setSTime(java.util.Date sTime) {
+		this.sTime = sTime;
+	}
+
+
+	public java.util.Date getETime() {
+		return eTime;
+	}
+
+
+	public void setETime(java.util.Date eTime) {
+		this.eTime = eTime;
+	}
+
+
+
 }
