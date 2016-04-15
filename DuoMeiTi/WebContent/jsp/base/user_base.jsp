@@ -2,32 +2,172 @@
 
 <layout:override name="base_content">
 	
-<a href="/">
-    <div id="headerpic" >
-        <ul class="nav navbar-right">
-            <li id="welcome_word">
-            	欢迎您: <span id="login_user_name">
+<!-- <a href="/"> -->
+<!--     <div id="headerpic" > -->
+    	
+<!--         <ul class="nav navbar-right"> -->
+<!--             <li id="welcome_word">            	 -->
+<!--             	欢迎您:  -->
+<!--             	<span id="login_user_name"> -->
 <%--             	<s:property value="#session.username"/>, --%>
-            	<s:property value="#session.fullName"/>
-            	</span>
+<%--             	<s:property value="#session.fullName"/> --%>
+<!--             	</span> -->
             	
             	
             	            	
-            	<s:if test="#session.role.equals(@util.Const@AdminRole)">
-            		(您是管理员)
-            	</s:if>
-            	<s:elseif test="#session.role.equals(@util.Const@StudentRole)">
-            		(您是在职学生)
-            	</s:elseif>
-            	<s:else>
-            		(您是有管理员权限的在职学生)
-            	</s:else>
+<%--             	<s:if test="#session.role.equals(@util.Const@AdminRole)"> --%>
+<!--             		(您是管理员) -->
+<%--             	</s:if> --%>
+<%--             	<s:elseif test="#session.role.equals(@util.Const@StudentRole)"> --%>
+<!--             		(您是在职学生) -->
+<%--             	</s:elseif> --%>
+<%--             	<s:else> --%>
+<!--             		(您是有管理员权限的在职学生) -->
+<%--             	</s:else> --%>
             	
             	
-            </li>
-        </ul>
-    </div>
-</a>
+<!--             </li> -->
+<!--         </ul> -->
+<!--     </div> -->
+<!-- </a> -->
+
+
+<div class="row pageHeader"  >
+   	
+   
+	  <div class="col-md-5  "  >
+			 <a href="/">
+			 	<div class="pageHeader" >			 	
+			 	</div>
+			 </a>
+	  </div>
+	  
+  
+	 	<div class="col-md-5"  >  	
+	       <ul class="nav navbar-right">
+	           <li id="welcome_word">            	
+		           	欢迎您: 
+		           	<span id="login_user_name">
+		           		<s:property value="#session.fullName"/>
+		           	</span>
+		           	            	
+		           	<s:if test="#session.role.equals(@util.Const@AdminRole)">
+		           		(您是管理员)
+		           	</s:if>
+		           	<s:elseif test="#session.role.equals(@util.Const@StudentRole)">
+		           		(您是在职学生)
+		           	</s:elseif>
+		           	<s:else>
+		           		(您是有管理员权限的在职学生)
+		           	</s:else>           	
+	           	
+	           </li>
+	       </ul>
+		</div>
+		
+<!--  	  <div class="col-md-1 "  > -->
+<!-- 	  </div> -->
+  
+	  <div class="col-md-2 pageHeader"  >	  	
+<!-- 	  	<br/> -->
+	  
+	  	
+<!-- 	  	<br/> -->
+			
+<!-- 			<div> -->
+<!-- 				<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> -->
+<!-- 			</div>	  		 -->
+
+
+			
+		  	<button type="button" class="btn btn-danger btn-lg" id="emergencyInfoButton"
+		  			style="margin-top:15px;">
+	  			 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+				紧急消息
+			</button>
+			
+			<button class="btn btn-default" id="testAnimate">
+				TEST
+			</button>
+
+
+
+	  </div>
+	
+</div>
+
+
+
+<div class="modal fade "   id="emergencyInfoModal" >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      
+      <div class="modal-body">
+      
+      	<div class="well">
+      		<h4>发布紧急消息 </h4>
+      		<div class="row">
+      			<div class="col-md-11">
+      				<textarea class="form-control" rows="3" id="publishEmergencyInfoTextarea" ></textarea>	
+      			</div>
+      			<div class="col-md-1">
+      				<br/>
+      				<button class="btn btn-info" id="publishEmergencyInfoButton" >发布</button>	
+      			</div>
+      		</div>     	
+      		
+      		<div class="row">
+      			<div class="col-md-4">
+      				<br/>
+      				<button class="btn btn-info"   id="watchAllEmergencyInfoButton" > 查看所有紧急消息</button>	
+      			</div>
+      			
+      			<div class="col-md-4">
+      				<br/>
+      				<button class="btn btn-info"   id="watchNotReadEmergencyInfoButton" > 查看新的未读消息</button>	
+      			</div>
+
+      		</div>	      		
+      	</div>
+      	
+
+      	
+        <div  class=" well" >
+
+			<div>
+  				<button class="btn btn-info" id="" >有新的紧急消息</button>
+      		</div> 
+<!--     		</div> -->
+        	
+        	<div id="emergencyInfoTableDiv">       
+
+        	</div> 
+        </div>
+        
+        
+        
+      </div>
+      
+      
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+
 
 
 

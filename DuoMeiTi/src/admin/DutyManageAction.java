@@ -16,7 +16,7 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import common.DutyInfo;
+//import common.DutyInfo;
 import model.AdminProfile;
 import model.Repertory;
 import model.Rules;

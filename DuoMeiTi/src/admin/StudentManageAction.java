@@ -28,7 +28,7 @@ import utility.DatabaseOperation;
 import model.DutyPiece;
 import model.ExamStuScore;
 import model.DutySchedule;
-import common.DutyInfo;
+//import common.DutyInfo;
 import model.ChooseClassSwitch;
 import model.User;
 import common.StudentInfo;
@@ -91,7 +91,7 @@ public class StudentManageAction extends ActionSupport{
 	
 	
 	private List<BuildingsInfo> teahBuildings;
-	private List<DutyInfo> dutySchedule; 
+//	private List<DutyInfo> dutySchedule; 
 	private List<StudentInfo> searchResult;
 	private int teachBuildingId;
 	private int student_Id;
@@ -1028,15 +1028,15 @@ public String saveStudentInformation() throws Exception
 		this.chooseClassSwitch = chooseClassSwitch;
 	}
 
-
-	public List<DutyInfo> getDutySchedule() {
-		return dutySchedule;
-	}
-
-
-	public void setDutySchedule(List<DutyInfo> dutySchedule) {
-		this.dutySchedule = dutySchedule;
-	}
+//
+//	public List<DutyInfo> getDutySchedule() {
+//		return dutySchedule;
+//	}
+//
+//
+//	public void setDutySchedule(List<DutyInfo> dutySchedule) {
+//		this.dutySchedule = dutySchedule;
+//	}
 
 
 	public int getTeachBuildingId() {
