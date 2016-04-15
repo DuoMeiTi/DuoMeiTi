@@ -33,6 +33,19 @@ import model.User;
 
 
 
+/*
+ * 在紧急消息提醒中，分为两部分，一部分称为紧急消息(EmergencyInfo)，一部分称为紧急消息评论(EmergencyComment)
+ * 但是在数据库中存储都叫EmergencyInfo
+ * 
+ * 
+ * EmergencyInfoRead表记录了当前对应人员user 对 紧急消息info已经阅读到了哪个位置，
+ * 对于一个紧急消息，无论其有多少条评论，在EmergencyInfoRead表中有且仅有一个记录，
+ * 对于EmergencyInfoRead的一个记录（user, info）表示
+ * info所对应的紧急消息+紧急消息评论的整个列表已经阅读到了所有id小于等于info.id的所有紧急消息或者评论
+ * 针对EmergencyInfoRead表的操作应该仅仅通过obtainLastEmergencyInfoRead， modifyEmergencyInfoRead
+ * 两个函数来操作，不应该直接操作EmergencyInfoRead表，因为很容易搞乱！！！
+ * 
+ */
 
 
 public class EmergencyPublishAction extends ActionSupport {
@@ -46,19 +59,18 @@ public class EmergencyPublishAction extends ActionSupport {
 	ArrayList<EmergencyInfo> emergencyCommentList;
 	int emergencyInfoId;
 	
+
 	
-	// 对于EmergencyInfoRead表，
-	// 每条记录表示对应的紧急消息和其所有评论的列表中当前EmergencyInfoRead.info位置以前的所有EmergencyInfo都已经阅读完毕
-	
-	// 获取人员user_id， 针对紧急消息em_id， 阅读读到的最后一个位置的记录，若没有则返回null
-	public static EmergencyInfoRead obtainLastEmergencyInfoRead(Session s, int user_id, int em_id)
+	// 获取人员user_id， 针对紧急消息info_id（一定不可以是评论，要保证info_id必须是紧急消息，而不是评论）
+	// 所代表的列表中所阅读到的位置的记录，若没有则返回null	
+	public static EmergencyInfoRead obtainLastEmergencyInfoRead(Session s, int user_id, int info_id)
 	{
 		return (EmergencyInfoRead)
 		s.createCriteria(model.EmergencyInfoRead.class)
 		.add(Restrictions.eq("user.id", user_id))
 		.createAlias("info", "info")
-		.add(Restrictions.or(Restrictions.eq("info.id", em_id), 
-							 Restrictions.eq("info.info.id", em_id)))
+		.add(Restrictions.or(Restrictions.eq("info.id", info_id), 
+							 Restrictions.eq("info.info.id", info_id)))
 		.uniqueResult();
 	}
 	
@@ -126,6 +138,7 @@ public class EmergencyPublishAction extends ActionSupport {
 	
 	String emergencyInfoTable;
 	ArrayList<EmergencyInfo> emergencyInfoList;
+	// 刷新紧急消息的Table
 	private void refreshEmergencyInfoTable( Session  s)
 	{
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
