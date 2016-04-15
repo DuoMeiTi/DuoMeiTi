@@ -23,12 +23,39 @@
 
 
 
-
+<style type="text/css">
+	.modal-header{
+		width:70%;
+		margin:0 auto;
+	}
+	h2{
+		background:rgb(0,114,227);
+		border-radius:5px;
+		color:#fff;
+		height:45px;
+		display:block;
+	}
+	.modal-body{
+		width:100%;
+		background:rgb(238,238,238);
+		text-align:center;
+		border-radius:5px;
+		padding:0 5%;
+	}
+	.modal-footer{
+		width:100%;
+		background:rgb(238,238,238);
+		border-top:none;
+	}
+	.form-group{
+		margin-bottom:0px;
+	}
+</style>
 
 
 
 <!-- 编辑器，嵌入页面 -->
-<div id="ueditor" style="display:none" onMouseout="hidden();"> 
+<div id="ueditor" style="display:none" onmouseout="hidden();"> 
 <div class="modal-header">
 	<h2 class="modal-title" id="myModalLabel">添加公告</h2>
 </div>

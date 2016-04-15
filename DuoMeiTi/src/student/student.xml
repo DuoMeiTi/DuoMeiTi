@@ -162,23 +162,22 @@
 	</package>
 	
     <package name="student_classroom_json" namespace="/student/student_classroom_json" extends="StudentDefault">
-		<action name="classroom_search" class="student.ClassroomManageAction" method="classroom_search">
-			<result type="json">
-				<!-- <param name="root">classrooms</param> -->
-				<!-- <param name="includeProperties">classroominfo_html, status</param> -->
-				<param name="includeProperties">
-					status, classroominfo_html,
-					classrooms\[\d+\]\.id,
-					classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity,
-					classrooms\[\d+\]\.principal_name,
-					classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys
-				</param>
-			</result>
-		</action>
+<!-- 		<action name="classroom_search" class="student.ClassroomManageAction" method="classroom_search"> -->
+<!-- 			<result type="json"> -->
+
+<!-- 				<param name="includeProperties"> -->
+<!-- 					status, classroominfo_html, -->
+<!-- 					classrooms\[\d+\]\.id, -->
+<!-- 					classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity, -->
+<!-- 					classrooms\[\d+\]\.principal_name, -->
+<!-- 					classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys -->
+<!-- 				</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		<!-- 维修记录 -->
 		<action name="repairrecord_save" class="admin.ClassroomDetailAction" method="repairrecordsave">
 			<result type="json">
-				<param name="includeProperties">savestatus,repairrecord_jsp</param>
+				<param name="includeProperties">*</param>
 			</result>
 		</action>
 		<!-- 检查记录 -->
@@ -213,10 +212,10 @@
 			</result>
 		</action>
 		
-		<action name="chooseclass" class="student.StudentAction"
-			method="chooseClass">
-			<result>/jsp/student/chooseClass.jsp</result>
-		</action>
+<!-- 		<action name="chooseclass" class="student.StudentAction" -->
+<!-- 			method="chooseClass"> -->
+<!-- 			<result>/jsp/student/chooseClass.jsp</result> -->
+<!-- 		</action> -->
 
 		
 

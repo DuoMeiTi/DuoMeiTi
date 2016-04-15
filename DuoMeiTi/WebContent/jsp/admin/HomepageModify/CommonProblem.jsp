@@ -23,7 +23,33 @@
 		<br />
 	</div>
 
-
+<style type="text/css">
+	.modal-header{
+		font-familiy:"微软雅黑";
+	}
+	.modal-body{
+		width:100%;
+		background:rgb(238,238,238);
+		text-align:center;
+		border-radius:5px;
+		padding:0 7%;
+		font-familiy:"微软雅黑";
+	}
+	.modal-footer{
+		width:100%;
+		background:rgb(238,238,238);
+		border-top:none;
+	}
+	.form-group{
+		margin-bottom:0px;
+	}
+	label{
+		float:left;
+		margin-right:20px;
+		height:34px;
+		line-height:34px;
+	}
+</style>
 
 
 
@@ -37,13 +63,15 @@
 	<form class="form-horizontal">
 		<input style="visibility:hidden" id="submit_type" value="add" />
 		<div class="form-group">
-			<label class="col-sm-2 text-left" for="notice_title">常见问题概述:</label>
+			<!--label class="col-sm-2 text-left" for="notice_title">常见问题概述:</label>
 			<div class="col-sm-5">
 				<input type="text" class="form-control" id="notice_title" style="width: 400px">
-			</div>
+			</div-->
+			<label class="text-left" for="notice_title">常见问题概述:</label>
+			<input type="text" class="form-control" id="notice_title" style="width: 400px">
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 text-left" for="notice_content">内容</label>
+			<label class="text-left" for="notice_content">内容:</label>
 			<br>
 			<br>			
 			<div id="notice_content">			

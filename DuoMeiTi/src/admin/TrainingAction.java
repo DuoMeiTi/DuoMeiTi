@@ -99,7 +99,7 @@ public class TrainingAction extends ActionSupport{
 			{
 				int last = oldOptionList.size() - 1;
 				session.delete(oldOptionList.get(last));
-				oldOptionList.remove(last);				
+				oldOptionList.remove(last);	
 			}
 			while(oldOptionList.size() < optionList.size()) 
 			{				
@@ -125,6 +125,7 @@ public class TrainingAction extends ActionSupport{
 //			}
 //			session.delete(qtitle.get(0));
 			session.getTransaction().commit();
+				
 			Criteria ctitle = session.createCriteria(ExamTitle.class);
 			qtitle = ctitle.list();
 			qoption.clear();
@@ -216,6 +217,7 @@ public class TrainingAction extends ActionSupport{
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria qt = session.createCriteria(ExamTitle.class).add(Restrictions.eq("emId", emId));
 		qtitle = qt.list();
+		System.out.println(qtitle);
 		if(qtitle.isEmpty())
 		{
 			this.trStatus = "0";
