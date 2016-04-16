@@ -2,35 +2,7 @@
 
 <layout:override name="base_content">
 	
-<!-- <a href="/"> -->
-<!--     <div id="headerpic" > -->
-    	
-<!--         <ul class="nav navbar-right"> -->
-<!--             <li id="welcome_word">            	 -->
-<!--             	欢迎您:  -->
-<!--             	<span id="login_user_name"> -->
-<%--             	<s:property value="#session.username"/>, --%>
-<%--             	<s:property value="#session.fullName"/> --%>
-<!--             	</span> -->
-            	
-            	
-            	            	
-<%--             	<s:if test="#session.role.equals(@util.Const@AdminRole)"> --%>
-<!--             		(您是管理员) -->
-<%--             	</s:if> --%>
-<%--             	<s:elseif test="#session.role.equals(@util.Const@StudentRole)"> --%>
-<!--             		(您是在职学生) -->
-<%--             	</s:elseif> --%>
-<%--             	<s:else> --%>
-<!--             		(您是有管理员权限的在职学生) -->
-<%--             	</s:else> --%>
-            	
-            	
-<!--             </li> -->
-<!--         </ul> -->
-<!--     </div> -->
-<!-- </a> -->
-
+ 
 
 <div class="row pageHeader"  >
    	
@@ -65,18 +37,9 @@
 	       </ul>
 		</div>
 		
-<!--  	  <div class="col-md-1 "  > -->
-<!-- 	  </div> -->
+
   
 	  <div class="col-md-2 pageHeader"  >	  	
-<!-- 	  	<br/> -->
-	  
-	  	
-<!-- 	  	<br/> -->
-			
-<!-- 			<div> -->
-<!-- 				<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> -->
-<!-- 			</div>	  		 -->
 
 
 			
@@ -141,7 +104,7 @@
 			<div>
   				<button class="btn btn-info" id="" >有新的紧急消息</button>
       		</div> 
-<!--     		</div> -->
+
         	
         	<div id="emergencyInfoTableDiv">       
 

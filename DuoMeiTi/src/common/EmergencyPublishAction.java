@@ -224,7 +224,13 @@ public class EmergencyPublishAction extends ActionSupport {
 		return this.SUCCESS;
 	}
 	
-	// 计算是否有新的紧急消息, 新的紧急消息列表放入emergencyInfoList
+	/*计算是否有新的紧急消息, 新的紧急消息列表放入emergencyInfoList,
+	 *这里的未读紧急消息包含三种情况：
+	 *1, 未读的紧急消息
+	 *2, 由当前用户发布的已读紧急消息，但是含有当前用户未读的评论
+	 *3, 不是由当前用户发布的 已读的紧急消息，但是当前用户曾经评论过次紧急消息，并且现在有了新的当前用户未读的评论
+	 */
+	 
 	private void refreshNotReadEmergencyInfoTable(Session s) throws Exception
 	{
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
@@ -373,9 +379,11 @@ public class EmergencyPublishAction extends ActionSupport {
 	
 	public String queryNewInfo() throws Exception
 	{
+		Session s = model.Util.sessionFactory.openSession();
+		refreshNotReadEmergencyInfoTable(s);
+		s.close();
 		
-
-		
+//		emergencyInfoList
 		
 		return this.SUCCESS;
 	}

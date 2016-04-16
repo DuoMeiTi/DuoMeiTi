@@ -308,26 +308,39 @@ $(document).on("click", "#emergencyInfoButton", function(){
 	
 	$("#publishEmergencyInfoTextarea").val("")
 
-//	$.ajax({
-////		url : '/emergencyPublish_queryNewInfo',
-//		url : '/emergencyPublish_obtainEmergencyInfoTable',
-//		type : 'post',
-//		dataType : 'json',
-//		data : {
-//			
-//		},
-//		success : function(data)
-//		{
-//			$("#emergencyInfoTableDiv").html(data.emergencyInfoTable);
-//
-//		}		
-//	})
 })
 
 
 
+var queryNewInfoInterval = setInterval("queryNewInfo()", 1000)
 
 
+function queryNewInfo()
+{
+	
+	
+	$.ajax({
+		url : '/emergencyPublish_queryNewInfo',
+		type : 'post',
+		dataType : 'json',
+		data : {
+			
+//			"emergencyInfoContent":$("#publishEmergencyInfoTextarea").val(),			
+		},
+		success : function(data)
+		{
+			if(data.emergencyInfoList.length == 0) return ;
+			cnt.animate({opacity:'0.0',},400);
+			cnt.animate({opacity:'1.0',},400);
+
+			
+//			$("#emergencyInfoTableDiv").html(data.emergencyInfoTable);
+//			$("#publishEmergencyInfoTextarea").val("")
+		}
+	})
+
+	
+}
 
 
 
@@ -366,9 +379,7 @@ $(document).on("click", ".emergencyInfo", function(){
 	var emergencyInfoId = $(root).attr("emergencyInfoId");
 	nowOpenedEmergencyInfoId = emergencyInfoId;
 	
-	
-//	alert(emergencyInfoId);
-	$.ajax({
+ 	$.ajax({
 		url : '/emergencyPublish_obtainEmergencyCommentTable',
 		type : 'post',
 		dataType : 'json',
