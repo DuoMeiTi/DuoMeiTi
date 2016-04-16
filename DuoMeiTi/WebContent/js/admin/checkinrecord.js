@@ -93,7 +93,7 @@ $(document).on("click", "#exportButton", function(){
 })
 
 function exportExcel(data) {
-	alert(data.checkInRecordExcelPath);
+//	alert(data.checkInRecordExcelPath);
 	window.open(data.checkInRecordExcelPath);
 }
 

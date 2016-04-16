@@ -33,6 +33,9 @@ public class Util
 	public static final String RootPath;
 	
 	public static final String FileUploadPath = "/FileUpload/"; //相对于Rootpath
+	
+	
+	
 	public static final String ProfilePhotoPath = 
 			FileUploadPath + "ProfilePhoto/";//相对于Rootpath
 	
@@ -47,13 +50,41 @@ public class Util
 			FileUploadPath + "ClassroomScheduleFile/";//相对于Rootpath
 	
 	public static final String CheckInExcelExportPath = 
-			FileUploadPath + "ExportFile/CheckInExcel/";//相对于Rootpath
+			FileUploadPath + "ExportCheckInFile/";//相对于Rootpath
+	
+	public static void makeDir(String path)
+	{
+		File file = new File(path);
+		if(!file.exists())
+		{
+			makeDir(file.getParent().toString());
+			file.mkdir();
+		}
+		
+	}
+	
 	
 	static 
-	{
-		
+	{	
 		ServletContext application = ServletActionContext.getServletContext();
 		RootPath = application.getRealPath("");
+		
+				
+		
+		makeDir(RootPath + ProfilePhotoPath);
+		makeDir(RootPath + ResourceFilePath);
+		makeDir(RootPath + ClassroomInfoFilePath);
+		makeDir(RootPath + ClassroomSchedulePath);
+		makeDir(RootPath + CheckInExcelExportPath);
+		
+
+		
+//		File file = new File(util.Util.RootPath + util.Util.CheckInExcelExportPath);
+//        if (!file.getParentFile().exists())
+//        	file.getParentFile().mkdirs();
+//        if (!file.exists())
+//        	file.mkdirs();
+
 	}
 	
 	static public String fileToString(String fileName) 

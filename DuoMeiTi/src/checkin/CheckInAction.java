@@ -305,7 +305,7 @@ public class CheckInAction extends PageGetBaseAction{
 			CheckInRecord cr = (CheckInRecord) L.get(i);
             row.createCell(0, Cell.CELL_TYPE_STRING).setCellValue(cr.getStudent().getUser().getFullName());  
             row.createCell(1, Cell.CELL_TYPE_STRING).setCellValue(cr.getStudent().getStudentId());  
-            row.createCell(2, Cell.CELL_TYPE_STRING).setCellValue(new SimpleDateFormat("yyyy-mm-dd HH-mm-ss").format(new Date(cr.getRecordtime().getTime())));
+            row.createCell(2, Cell.CELL_TYPE_STRING).setCellValue(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(cr.getRecordtime().getTime())));
 		}
 		
 		//获取当前时间，命名照片，防止照片重复
