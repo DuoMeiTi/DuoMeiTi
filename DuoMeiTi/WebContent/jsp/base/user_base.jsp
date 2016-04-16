@@ -43,15 +43,17 @@
 
 
 			
-		  	<button type="button" class="btn btn-danger btn-lg" id="emergencyInfoButton"
+		  	<button type="button" class="btn  btn-lg" id="emergencyInfoButton"
 		  			style="margin-top:15px;">
 	  			 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-				紧急消息
+	  			 <span id="emergencyInfoButtonSpan">紧急消息</span>
+	  			 	  			 
+				
 			</button>
 			
-			<button class="btn btn-default" id="testAnimate">
-				TEST
-			</button>
+<!-- 			<button class="btn btn-default" id="testAnimate"> -->
+<!-- 				TEST -->
+<!-- 			</button> -->
 
 
 
@@ -101,9 +103,9 @@
       	
         <div  class=" well" >
 
-			<div>
-  				<button class="btn btn-info" id="" >有新的紧急消息</button>
-      		</div> 
+<!-- 			<div> -->
+<!--   				<button class="btn btn-info" id="" >有新的紧急消息</button> -->
+<!--       		</div>  -->
 
         	
         	<div id="emergencyInfoTableDiv">       

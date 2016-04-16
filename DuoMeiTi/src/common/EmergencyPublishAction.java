@@ -63,7 +63,7 @@ public class EmergencyPublishAction extends ActionSupport {
 	
 	// 获取人员user_id， 针对紧急消息info_id（一定不可以是评论，要保证info_id必须是紧急消息，而不是评论）
 	// 所代表的列表中所阅读到的位置的记录，若没有则返回null	
-	public static EmergencyInfoRead obtainLastEmergencyInfoRead(Session s, int user_id, int info_id)
+	synchronized  public static EmergencyInfoRead obtainLastEmergencyInfoRead(Session s, int user_id, int info_id)
 	{
 		return (EmergencyInfoRead)
 		s.createCriteria(model.EmergencyInfoRead.class)
@@ -75,7 +75,7 @@ public class EmergencyPublishAction extends ActionSupport {
 	}
 	
 	//修改人员user，对于紧急消息info的阅读到的位置到new_info
-	public static void modifyEmergencyInfoRead(Session s, int user_id, int info_id , int new_info_id)  
+	synchronized public static void  modifyEmergencyInfoRead(Session s, int user_id, int info_id , int new_info_id)  
 	{
 		EmergencyInfo new_info = new EmergencyInfo();
 		new_info.id = new_info_id;
@@ -142,17 +142,32 @@ public class EmergencyPublishAction extends ActionSupport {
 	private void refreshEmergencyInfoTable( Session  s)
 	{
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
+		System.out.println("enter111111111");
 		// 获取所有的紧急消息
 		emergencyInfoList = (ArrayList<EmergencyInfo>)
 				s.createCriteria(model.EmergencyInfo.class)
 				.add(Restrictions.isNull("info"))
 				.addOrder(Order.desc("id"))
 				.list();
+		System.out.println("enter2222");
 		notReadList = new ArrayList<Boolean>();
 		for(EmergencyInfo i: emergencyInfoList)
 		{
-			EmergencyInfoRead tmp_read = obtainLastEmergencyInfoRead(s, user_id, i.id);
+			System.out.println("enter4444");
+			System.out.println(user_id);
+			System.out.println(i.id);
+			EmergencyInfoRead tmp_read = null;
+			try
+			{
+				 tmp_read = obtainLastEmergencyInfoRead(s, user_id, i.id);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
 
+			System.out.println("enter55555");
 			if(tmp_read == null)
 			{
 				notReadList.add(true);
@@ -215,11 +230,12 @@ public class EmergencyPublishAction extends ActionSupport {
 	{
 		Session s = model.Util.sessionFactory.openSession();
 		
+		System.out.println("GGG");
 		
 		refreshEmergencyInfoTable(s);
-		
+		System.out.println("GGG22222");
 		clearNotReadListForEmergencyInfo(s);
-		
+		System.out.println("GGG3333333333");
 		s.close();
 		return this.SUCCESS;
 	}

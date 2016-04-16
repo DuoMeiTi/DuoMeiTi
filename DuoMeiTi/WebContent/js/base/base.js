@@ -299,6 +299,78 @@ $(".mynavbar a").each(function(){
 
 
 
+
+
+
+var queryNotReadInfoInterval 
+//= setInterval("queryNewInfo()", 2000);
+
+function startQueryNotReadInfoInterval()
+{
+	queryNotReadInfoInterval = setInterval("queryNewInfo()", 2000);
+}
+
+function stopQueryNotReadInfoInterval()
+{
+	clearInterval(queryNotReadInfoInterval);
+}
+
+
+function setEmergencyInfoButtonStyle()
+{
+	$("#emergencyInfoButton").removeClass("btn-danger");
+	
+	var cnt=$("#emergencyInfoButtonSpan");
+	cnt.text("紧急消息")
+}
+function setNotReadEmergencyInfoButtonStyle()
+{
+	$("#emergencyInfoButton").addClass("btn-danger");
+	
+	var cnt=$("#emergencyInfoButtonSpan");
+	cnt.text("新消息！")
+}
+
+
+
+function queryNewInfo()
+{	
+	$.ajax({
+		url : '/emergencyPublish_queryNewInfo',
+		type : 'post',
+		dataType : 'json',
+		data : {},
+		
+		success : function(data)
+		{
+			if(data.emergencyInfoList.length == 0) return ;
+			stopQueryNotReadInfoInterval();
+			setNotReadEmergencyInfoButtonStyle();			
+		}
+	})	
+}
+
+
+
+
+
+
+
+startQueryNotReadInfoInterval();
+
+$('#emergencyInfoModal').on('show.bs.modal', function(e){
+	
+	setEmergencyInfoButtonStyle();
+	stopQueryNotReadInfoInterval();
+
+
+})
+
+
+$('#emergencyInfoModal').on('hide.bs.modal', function(e){
+	startQueryNotReadInfoInterval();
+})
+
 // 打开紧急消息modal 框
 $(document).on("click", "#emergencyInfoButton", function(){
 	
@@ -312,40 +384,9 @@ $(document).on("click", "#emergencyInfoButton", function(){
 
 
 
-var queryNewInfoInterval = setInterval("queryNewInfo()", 1000)
-
-
-function queryNewInfo()
-{
-	
-	
-	$.ajax({
-		url : '/emergencyPublish_queryNewInfo',
-		type : 'post',
-		dataType : 'json',
-		data : {
-			
-//			"emergencyInfoContent":$("#publishEmergencyInfoTextarea").val(),			
-		},
-		success : function(data)
-		{
-			if(data.emergencyInfoList.length == 0) return ;
-			cnt.animate({opacity:'0.0',},400);
-			cnt.animate({opacity:'1.0',},400);
-
-			
-//			$("#emergencyInfoTableDiv").html(data.emergencyInfoTable);
-//			$("#publishEmergencyInfoTextarea").val("")
-		}
-	})
-
-	
-}
-
-
 
 //发布紧急消息
-$(document).on("click", "#publishEmergencyInfoButton", function(){
+$(document).on("click", "#publishEmergencyInfoButton", function(){	
 	
 	$.ajax({
 		url : '/emergencyPublish_addEmergencyInfo',
@@ -426,6 +467,7 @@ $(document).on("click", ".publishEmergencyCommentButton", function(){
 	
 })
 
+// 查看所有紧急消息
 $(document).on("click", "#watchAllEmergencyInfoButton", function(){
 	
 	$.ajax({
@@ -433,9 +475,7 @@ $(document).on("click", "#watchAllEmergencyInfoButton", function(){
 		url : '/emergencyPublish_obtainEmergencyInfoTable',
 		type : 'post',
 		dataType : 'json',
-		data : {
-			
-		},
+		data : {},
 		success : function(data)
 		{
 			$("#emergencyInfoTableDiv").html(data.emergencyInfoTable);
