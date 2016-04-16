@@ -302,16 +302,20 @@ $(".mynavbar a").each(function(){
 
 
 
-var queryNotReadInfoInterval 
+var forbidUseQueryNotReadInfoInterval = true
+var queryNotReadInfoInterval; 
+
 //= setInterval("queryNewInfo()", 2000);
 
 function startQueryNotReadInfoInterval()
 {
+	if(forbidUseQueryNotReadInfoInterval) return ;
 	queryNotReadInfoInterval = setInterval("queryNewInfo()", 2000);
 }
 
 function stopQueryNotReadInfoInterval()
 {
+	if(forbidUseQueryNotReadInfoInterval) return ;
 	clearInterval(queryNotReadInfoInterval);
 }
 
