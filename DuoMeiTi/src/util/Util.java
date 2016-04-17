@@ -395,7 +395,7 @@ public class Util
     // 更改设备的状态
     public static void modifyDeviceStatus(org.hibernate.Session s, int device_id, int user_id, String newStatus, int classroom_id)
     {
-//    	org.hibernate.Session s = model.Util.sessionFactory.openSession();
+
     	s.beginTransaction();
     	model.Repertory device = (model.Repertory) 
     							 s.createCriteria(model.Repertory.class)
@@ -436,7 +436,7 @@ public class Util
     	s.update(device);
     	s.save(dsh);
     	s.getTransaction().commit();    	
-//    	s.close();    	
+
     }
     
     public static void modifyDeviceStatus(int device_id, int user_id, String newStatus, int classroom_id)
@@ -448,52 +448,8 @@ public class Util
     }
     
     
-//    // 获取此设备的当前状态，返回一个包含两个元素的数组，
-//    // 第一个元素为状态，类型为String，
-//    // 第二个元素为教室引用，类型为model.Classroom，
-//    //  如果状态为 “教室”状态则 教室引用不为空；否则为空
-//    public static Object[] getDeviceCurrentStatus(int device_id)
-//    {
-//    	Object[] res = new Object[2];
-//    	org.hibernate.Session s = model.Util.sessionFactory.openSession();
-//    	
-//    	model.DeviceStatusHistory dsh = (model.DeviceStatusHistory)
-//    									s.createCriteria(model.DeviceStatusHistory.class)
-//    			  						.add(Restrictions.eq("device.id", device_id))
-//    			  						.addOrder(Order.desc("id"))
-//    			  						.setMaxResults(1)
-//    			  						.uniqueResult();    	
-//    	
-//    	s.close();
-//    	res[0] = dsh.status;
-//    	res[1] = dsh.classroom;
-//    	return res;
-//    	
-//    }
 
-    
-    
-    
-    
-    
-//    public enum DeviceStatus
-//    {
-//    	String AAA = "sb";
-//    }
-    
-//    public static final ArrayList<String> DeviceStatusList;
-//    static 
-//    {
-//    	DeviceStatusList
-//    }
-//    
-//    public static final String[] deviceStatus = {
-//    		"备用",
-//    		"教室",
-//    		"维修",
-//    		"报废",
-//    };
-    
+
 
     
     

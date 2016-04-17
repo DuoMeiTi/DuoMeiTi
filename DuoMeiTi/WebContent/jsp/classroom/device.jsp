@@ -24,20 +24,21 @@
 				<tr>
 					<td>资产编号</td>
 					<td>型号</td>
-<!-- 					<td>名称</td> -->
 					<td>出厂号</td>
 					<td>出厂日期</td>
-					<td>更换日期</td>
+					<td>审批日期</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td><s:property value="#device.rtNumber" /></td>
 					<td><s:property value="#device.rtVersion" /></td>
-<%-- 					<td><s:property value="#device.rtType" /></td> --%>
 					<td><s:property value="#device.rtFactorynum" /></td>
-					<td><s:property value="#device.rtProdDate" /></td>
-					<td><s:property value="#device.rtDeadlineData" /></td>
+					
+					<td><s:property value="@util.Util@formatTimestampToOnlyDate(#device.rtProdDate)"/></td>
+					<td><s:property value="@util.Util@formatTimestampToOnlyDate(#device.rtApprDate)"/></td>
+<%-- 					<td><s:property value="#device.rtProdDate" /></td> --%>
+<%-- 					<td><s:property value="#device.rtDeadlineData" /></td> --%>
 				</tr>
 			</tbody>
 		</table>
