@@ -79,7 +79,7 @@ function alter_device() {
 	var classroomid = $("#classroomid").text();
 	/*alert(classroomid);*/
 	var params = {
-			"classroomid" : classroomid,
+			"classroomId" : classroomid,
 		};
 	$.ajax({
         url: '/admin/classroom_json/alterdevice',
