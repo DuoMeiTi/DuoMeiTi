@@ -95,13 +95,14 @@
 		</action>
 		
 <!-- 		批量导入 -->
-		<action name="batchImport" class="admin.BatchImportAction" >
-			<result>/jsp/admin/batchImport.jsp</result>
-		</action>
+<!-- 		<action name="batchImportSchedule" class="admin.BatchImportAction" > -->
+<!-- 			<result>/jsp/admin/batchImport.jsp</result> -->
+<!-- 		</action> -->
 		
-		<action name="batchImport_*" class="admin.BatchImportAction" method="{1}">
-			<result name="success" type="json"></result>
-		</action>
+<!-- 		<action name="batchImport_*" class="admin.BatchImportAction" method="{1}"> -->
+<!-- 			<result name="success" type="json"></result> -->
+<!-- 		</action> -->
+		
 <!-- 		end 批量导入 -->
 		
 	</package>
@@ -155,7 +156,33 @@
 	
 	</package>
 	
-	
+<!--    批量导入 -->
+	<package name="batchImport" namespace="/admin/batchImport" extends="AdminDefault">
+		
+		<action name="">
+			<result name="success" type="redirect">class_schedule_import</result>
+		</action>
+		
+		<action name="class_schedule_import" class="admin.BatchImportAction" method="upload">
+			<result>
+				/jsp/admin/class_schedule_import.jsp
+			</result>
+		</action>
+		
+		<action name="classroom_import" class="admin.BatchImportAction" method="classroomUpload">
+			<result>
+				/jsp/admin/classroom_import.jsp
+			</result>
+		</action>
+		
+		<action name="batchImport_*" class="admin.BatchImportAction" method="{1}">
+			<result name="success" type="json">
+				<param name="includeProperties">*</param>
+			</result>
+		</action>
+		
+	</package>	
+<!-- 		end 批量导入 -->
 	
 	
 	
