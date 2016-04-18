@@ -99,7 +99,9 @@ public class HomeAction extends PageGetBaseAction
 		java.sql.Date sql_now = new java.sql.Date(now.getTime());		
 		deviceReplaceList = session.createCriteria(model.Repertory.class)
 						.add(Restrictions.le("rtDeadlineDate", sql_now))
-						.add(Restrictions.eq("rtDeviceStatus", "教室"))
+						.add(Restrictions.eq("rtDeviceStatus", util.Util.DeviceClassroomStatus))
+
+						.add(Restrictions.eq("rtType", "灯泡"))
 						.setMaxResults(MaxRes)
 						.addOrder(Order.desc("id"))
 						.list();

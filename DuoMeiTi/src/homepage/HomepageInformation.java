@@ -103,7 +103,11 @@ public class HomepageInformation extends util.PageGetBaseAction {
 		
 		Criteria q = session.createCriteria(model.Repertory.class)
 					 .add(Restrictions.le("rtDeadlineDate", sql_now))
-					 .add(Restrictions.eq("rtDeviceStatus", "教室"))
+//					 .add(Restrictions.eq("rtDeviceStatus", "教室"))
+					.add(Restrictions.eq("rtDeviceStatus", util.Util.DeviceClassroomStatus))
+
+					.add(Restrictions.eq("rtType", "灯泡"))
+
 					 .addOrder(Order.desc("id"));
 		deviceReplaceList = this.makeCurrentPageList(q, 10);
 		
