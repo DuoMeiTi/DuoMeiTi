@@ -24,7 +24,8 @@ public class BatchImportAction extends FileUploadBaseAction {
 	List<Classroom> classroom_list;
 	int selectTeachBuilding;
 	String classroomcheckbox;
-	int[] classrooms;
+	List classrooms;
+//	String[] classroomsArr;
 	
 	public String execute() throws Exception
 	{
@@ -136,32 +137,38 @@ public class BatchImportAction extends FileUploadBaseAction {
 		this.status = "0";
 		return SUCCESS;
 	}
-	
-	public String classroomUpload() {	
+	public String classroom(){
 		classroom_list = new ArrayList<Classroom>();
+		return SUCCESS;
+	}
+	public String classroomUpload() {	
+		String[] classroomsarray = classrooms.get(0).toString().split(",");
 		try{
-		for(int i=0;i<classrooms.length;i++){
-			Session session = model.Util.sessionFactory.openSession();
-			RoomPicture nPicture = new RoomPicture();
-			nPicture.setClass_id(classrooms[i]);
+			if(file == null){
+				this.status = "1";
+				this.message = "文件未上传";
+				return SUCCESS;
+			}
+			for(int i=0;i<classroomsarray.length;i++){
+				Session session = model.Util.sessionFactory.openSession();
+				RoomPicture nPicture = new RoomPicture();
+				nPicture.setClass_id(Integer.parseInt(classroomsarray[i]));
 			
-			//获取当前时间，命名照片，防止照片重复
-			java.util.Date date = new java.util.Date();
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddHHmmss");
-			String curdate = simpleDateFormat.format(date);
-			String fileName = curdate+fileFileName.substring(fileFileName.length()-5, fileFileName.length());
-			if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
-	        {
-				util.Util.saveFile(file, fileName, util.Util.RootPath + util.Util.ClassroomInfoFilePath);
-				String inserted_file_path = util.Util.ClassroomInfoFilePath +fileName;
-				nPicture.setPath(inserted_file_path);
-	        }
-			
-			session.beginTransaction();
-			session.save(nPicture);
-			Transaction t = session.getTransaction();
-			t.commit();
-		}	
+				//获取当前时间，命名照片，防止照片重复
+				java.util.Date date = new java.util.Date();
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddHHmmss");
+				String curdate = simpleDateFormat.format(date);
+				String fileName = curdate+fileFileName.substring(fileFileName.length()-5, fileFileName.length())+i;
+				if (file != null){   //file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
+					util.Util.saveFile(file, fileName, util.Util.RootPath + util.Util.ClassroomInfoFilePath);
+					String inserted_file_path = util.Util.ClassroomInfoFilePath +fileName;
+					nPicture.setPath(inserted_file_path);
+				}
+				session.beginTransaction();
+				session.save(nPicture);
+				Transaction t = session.getTransaction();
+				t.commit();
+			}	
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -211,13 +218,19 @@ public class BatchImportAction extends FileUploadBaseAction {
 		this.classroom_list = classroom_list;
 	}
 
-	public int[] getClassrooms() {
+	public List getClassrooms() {
 		return classrooms;
 	}
 
-	public void setClassrooms(int[] classrooms) {
+	public void setClassrooms(List classrooms) {
 		this.classrooms = classrooms;
 	}
+
+
+
+
+
+	
 
 	
 	

@@ -169,7 +169,7 @@
 			</result>
 		</action>
 		
-		<action name="classroom_import" class="admin.BatchImportAction" method="classroomUpload">
+		<action name="classroom_import" class="admin.BatchImportAction" method="classroom">
 			<result>
 				/jsp/admin/classroom_import.jsp
 			</result>

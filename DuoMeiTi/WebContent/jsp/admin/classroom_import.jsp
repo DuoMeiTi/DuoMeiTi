@@ -11,8 +11,7 @@
 		
 		
 		<div class="alert alert-danger" role="alert"  style="margin-top:20px;">
-			<p>课表名称的格式为：教学楼名称-教室号 </p>
-			<p>课表上传后将会自动覆盖已有的课表</p>
+			<p>选择相应的教室，进行批量上传 </p>
 			
 		</div>	
 		<br/>
@@ -142,12 +141,15 @@ $(document).on("click","input[name='checkOne']",function(){
 	var cntFileNumber;
 	
 	$(document).on("click", "#button", function(){
+		classrooms = [];
 		var checkOnes = $("input[name='checkOne']");
 		for(var i=0;i<checkOnes.size();i++){
 			if($(checkOnes[i]).prop("checked") == true){
-				classrooms.push(parseInt($(checkOnes[i]).attr("id")));
+ 				classrooms.push(parseInt($(checkOnes[i]).attr("id")));
+// 				classrooms += $(checkOnes[i]).attr("id") + "-";
 			}
 		}
+		console.log("classrooms:"+classrooms);
 		file_list = document.getElementById('file_upload').files;		
 		if(file_list.length == 0) 
 		{
@@ -173,7 +175,9 @@ $(document).on("click","input[name='checkOne']",function(){
 		fd.append("classrooms",classrooms);
 	    $.ajax({  
 	          url: "batchImport_classroomUpload" ,  
-	          type: "POST",  
+	          type: "POST", 
+	          dataType: 'json',
+	          traditional:true,
 	          data: fd,  
 	          async: true,  
 	          cache: false,  
@@ -204,7 +208,6 @@ $(document).on("click","input[name='checkOne']",function(){
 		}
 		
 		sendFile();
-		
 		
 	}
 	
