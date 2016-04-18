@@ -9,12 +9,12 @@
 						<ul>
 						   <li>
 						      <span class="usoft-listview-item-date">
-						      		<s:property value="#i.rtDeadlineData.toString()"/>
+<%-- 						      		<s:property value="#i.rtDeadlineData.toString()"/> --%>
 						      </span>
 						      <span>
 						      	<a href="#" >
-						      		<s:property value="#i.classroom.teachbuilding.build_name"/>
-						      		<s:property value="#i.classroom.classroom_num"/>
+						      		<s:property value="#i.rtClassroom.teachbuilding.build_name"/>
+						      		<s:property value="#i.rtClassroom.classroom_num"/>
 						      		
 						      		<s:property value="#i.rtType"/>
 						      	</a>
