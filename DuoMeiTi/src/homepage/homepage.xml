@@ -166,6 +166,10 @@
     	<action name="more_equipment_replacement" class="homepage.HomepageInformation" method="MoreEquipmentReplacement">
     		<result>/jsp/homepage/more_equipment_replacement.jsp</result>
     	</action>
+    	
+    	<action name="more_notCheckClassroomStudent" class="homepage.HomepageInformation" method="notCheckClassroomStudent">
+    		<result>/jsp/homepage/more_notCheckClassroomStudent.jsp</result>
+    	</action>
     
     </package>
     

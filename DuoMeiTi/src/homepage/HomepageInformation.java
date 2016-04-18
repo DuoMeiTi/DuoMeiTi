@@ -1,5 +1,7 @@
 package homepage;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,6 +13,8 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.opensymphony.xwork2.ActionSupport;
+
+import model.Classroom;
 
 public class HomepageInformation extends util.PageGetBaseAction {
 	
@@ -65,6 +69,7 @@ public class HomepageInformation extends util.PageGetBaseAction {
 		Criteria q = session.createCriteria(model.CheckRecord.class).addOrder(Order.desc("id"));
 		check_list = this.makeCurrentPageList(q, 10);
 		
+		
 		session.close();
 		if(this.getIsAjaxTransmission())
 		{
@@ -97,7 +102,7 @@ public class HomepageInformation extends util.PageGetBaseAction {
 		java.sql.Date sql_now = new java.sql.Date(now.getTime());
 		
 		Criteria q = session.createCriteria(model.Repertory.class)
-					 .add(Restrictions.le("rtDeadlineData", sql_now))
+					 .add(Restrictions.le("rtDeadlineDate", sql_now))
 					 .add(Restrictions.eq("rtDeviceStatus", "教室"))
 					 .addOrder(Order.desc("id"));
 		deviceReplaceList = this.makeCurrentPageList(q, 10);
@@ -112,6 +117,54 @@ public class HomepageInformation extends util.PageGetBaseAction {
 		
 		return ActionSupport.SUCCESS;
 	}
+	ArrayList<Classroom> notCheckClassroomStudentList;
+	public String notCheckClassroomStudent() throws Exception{
+		
+		Session session = model.Util.sessionFactory.openSession();
+		ArrayList<Classroom> all_classroom = (ArrayList<Classroom>) 
+		 session.createCriteria(model.Classroom.class)
+				.add(Restrictions.isNotNull("principal"))
+				.list();
+		
+		java.util.Date lastMonday, cntMonday;
+		Calendar cal = Calendar.getInstance();		
+		cal.add(Calendar.DATE, -7);
+		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);		
+		lastMonday = cal.getTime();
+		
+		cal = Calendar.getInstance();	
+		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		cntMonday = cal.getTime();
+		System.out.println("上周一！！！！！！！！");
+		System.out.println(lastMonday);
+		System.out.println(cntMonday);
+		
+		notCheckClassroomStudentList = new ArrayList<Classroom>();
+		
+		System.out.println(all_classroom.size());
+		for(Classroom c: all_classroom)
+		{
+			model.StudentProfile st = c.principal;
+			
+			boolean empty = session.createCriteria(model.CheckRecord.class)
+				   .add(Restrictions.eq("checkman.id", c.principal.user.id))
+				   .add(Restrictions.eq("classroom.id", c.id))
+				   .add(Restrictions.between("checkdate", lastMonday, cntMonday))
+				   .list().isEmpty();
+			
+			System.out.println(empty);
+			if(empty)
+			{
+				notCheckClassroomStudentList.add(c);
+//				if(notCheckClassroomStudentList.size() >= MaxRes) break;
+			}
+		}
+		
+//		deviceReplaceList = this.makeCurrentPageList(q, 10);
+		
+		return ActionSupport.SUCCESS;
+	}
+	
 	
 	
 	
@@ -179,6 +232,14 @@ public class HomepageInformation extends util.PageGetBaseAction {
 
 	public void setDeviceReplaceList(List deviceReplaceList) {
 		this.deviceReplaceList = deviceReplaceList;
+	}
+
+	public ArrayList<Classroom> getNotCheckClassroomStudentList() {
+		return notCheckClassroomStudentList;
+	}
+
+	public void setNotCheckClassroomStudentList(ArrayList<Classroom> notCheckClassroomStudentList) {
+		this.notCheckClassroomStudentList = notCheckClassroomStudentList;
 	}
 	
 	

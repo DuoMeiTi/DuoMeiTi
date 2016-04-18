@@ -90,7 +90,7 @@ public class RepairRecordAction extends ActionSupport {
 		     calendar.add(calendar.DATE,1);//把日期往后增加一天.整数往后推,负数往前移动 
 		     inputEndDate=calendar.getTime();   //这个时间就是日期往后推一天的结果 
 
-			c.add(Restrictions.le("repairdate", inputEndDate));
+		     c.add(Restrictions.le("repairdate", inputEndDate));
 		}
 		
 		

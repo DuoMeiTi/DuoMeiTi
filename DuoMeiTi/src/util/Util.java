@@ -449,8 +449,30 @@ public class Util
     
     
 
+//    // 得到对于当前日期的上周某一个星期的日期
+//    // 参数calendar_day_of_week是Calendar类的一个指明星期几的一个字段
+//    public static java.util.Date getDayOfLastWeek(int calendar_day_of_week)
+//    {
+//		Calendar cal = Calendar.getInstance();
+//		//n为推迟的周数，1本周，-1向前推迟一周，2下周，依次类推
+//		int n = -1;
+//		cal.add(Calendar.DATE, n*7);
+//		//想周几，这里就传几Calendar.MONDAY（TUESDAY...）
+//		cal.set(Calendar.DAY_OF_WEEK, calendar_day_of_week);
+//		
+//		
+//		return cal.getTime();
+//
+//
+//		
+//    }
+    
 
-
+    
+    
+    
+    
+    
     
     
     

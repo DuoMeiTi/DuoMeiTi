@@ -2,8 +2,10 @@ package homepage;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +27,7 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import model.Classroom;
 import model.DutySchedule;
 import model.User;
 import util.PageGetBaseAction;
@@ -71,6 +74,7 @@ public class HomeAction extends PageGetBaseAction
 
 	
 	List dutyStudentList;
+	ArrayList<Classroom> notCheckClassroomStudentList;
 	public String execute() throws Exception
 	{ 
 		System.out.println("******************");
@@ -106,10 +110,9 @@ public class HomeAction extends PageGetBaseAction
 		
 		
 		
+		//确定当前值班同学：
 		ArrayList<model.DutySchedule> allDutyList = 
 				(ArrayList<model.DutySchedule>)session.createCriteria(model.DutySchedule.class).list();
-		
-		
 		dutyStudentList = new ArrayList<model.StudentProfile>();
 		for(model.DutySchedule ds: allDutyList)
 		{
@@ -118,27 +121,58 @@ public class HomeAction extends PageGetBaseAction
 			
 			int cmpBegin = java.time.LocalTime.now().compareTo( util.Util.dutyPeriodBeginList.get(period));
 			int cmpEnd = java.time.LocalTime.now().compareTo( util.Util.dutyPeriodEndList.get(period));
-			
-			
-			
-			
 			int today_week = util.Util.getDayOfWeek(new java.util.Date());
-			
-
-
-			
 			if(cmpBegin >= 0 && cmpEnd <= 0 && today_week == week)
-			{
-				
+			{	
 				dutyStudentList.add(ds.student);
-				
-				
-//				dutyStudentList.add(ds.student);
-//				dutyStudentList.add(ds.student);
-//				System.out.println((ds.student.user.fullName));
 			}
-
 		}
+		
+		
+		
+		
+		// 确定上一周未检查教室学生
+//		notCheckClassroomStudentList
+//		principal
+		ArrayList<Classroom> all_classroom = (ArrayList<Classroom>) 
+		session.createCriteria(model.Classroom.class)
+				.add(Restrictions.isNotNull("principal"))
+				.list();
+		
+		java.util.Date lastMonday, cntMonday;
+		Calendar cal = Calendar.getInstance();		
+		cal.add(Calendar.DATE, -7);
+		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);		
+		lastMonday = cal.getTime();
+		
+		cal = Calendar.getInstance();	
+		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		cntMonday = cal.getTime();
+		System.out.println("上周一！！！！！！！！");
+		System.out.println(lastMonday);
+		System.out.println(cntMonday);
+		
+		notCheckClassroomStudentList = new ArrayList<Classroom>();
+		
+		System.out.println(all_classroom.size());
+		for(Classroom c: all_classroom)
+		{
+			model.StudentProfile st = c.principal;
+			
+			boolean empty = session.createCriteria(model.CheckRecord.class)
+				   .add(Restrictions.eq("checkman.id", c.principal.user.id))
+				   .add(Restrictions.eq("classroom.id", c.id))
+				   .add(Restrictions.between("checkdate", lastMonday, cntMonday))
+				   .list().isEmpty();
+			
+			System.out.println(empty);
+			if(empty)
+			{
+				notCheckClassroomStudentList.add(c);
+				if(notCheckClassroomStudentList.size() >= MaxRes) break;
+			}
+		}
+		
 		
 		
 		
@@ -340,6 +374,18 @@ public class HomeAction extends PageGetBaseAction
 
 	public void setDeviceReplaceList(List deviceReplaceList) {
 		this.deviceReplaceList = deviceReplaceList;
+	}
+
+
+
+	public ArrayList<Classroom> getNotCheckClassroomStudentList() {
+		return notCheckClassroomStudentList;
+	}
+
+
+
+	public void setNotCheckClassroomStudentList(ArrayList<Classroom> notCheckClassroomStudentList) {
+		this.notCheckClassroomStudentList = notCheckClassroomStudentList;
 	}
 	
 	
