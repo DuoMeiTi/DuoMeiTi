@@ -7,8 +7,8 @@
 			<th>维修人</th>
 			<th>教学楼</th>
 			<th>教室</th>
-			<th>维修时间</th>
-			<th>维修内容</th>			
+			<th>维修内容</th>
+			<th>维修时间</th>			
 	</tr>
 	
 	<s:iterator value="repairRecordList" var="i" status="index">

@@ -30,7 +30,7 @@ public class RepairRecord {
 	
 	@ManyToOne
 	@JoinColumn
-	public model.Classroom classroom;
+	public model.Classroom classroom = null;
 	
 	
 	

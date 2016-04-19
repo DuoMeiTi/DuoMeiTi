@@ -108,6 +108,9 @@
   		<button class="btn btn-primary" id="searchButton">
   			检索维修记录
   		</button>
+  		<button class="btn btn-primary" id="exportButton">
+  			导出xls表格
+  		</button>
   </div>
 	
 
@@ -157,6 +160,29 @@
 
 	   });  
 	}) 
+	
+	$(document).on("click", "#exportButton",function(){
+		
+		$.ajax({
+			url:'/admin/repairRecord_export',
+			type: "POST",
+			data: {
+				"selectDevice":$("#selectDevice").val(),
+	        	"inputRepairman":$("#inputRepairman").val(),
+	        	"selectTeachBuilding":$("#selectTeachBuilding").val(),
+	        	"inputClassroom":$("#inputClassroom").val(),
+	        	"inputBeginDate":$("#inputBeginDate").val(),
+	        	"inputEndDate":$("#inputEndDate").val(),
+			},
+			
+			success: function(data){
+				$("#repairRecordTableDiv").html(data.repairRecordTable);
+				window.open(data.exportPath);
+				
+			}
+			
+		});
+	})
 
 </script>
 

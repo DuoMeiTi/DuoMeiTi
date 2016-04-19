@@ -45,6 +45,9 @@ public class Util
 	
 	public static final String ClassroomSchedulePath = 
 			FileUploadPath + "ClassroomScheduleFile/";//相对于Rootpath
+	
+	public static final String RecordExportPath = 
+			FileUploadPath + "RecordExportPath/";
 
 	static 
 	{
@@ -245,8 +248,11 @@ public class Util
 		
 		
 		
-		
-		
+		File savefile = new File(RootPath + RecordExportPath);
+        if (!savefile.getParentFile().exists())
+            savefile.getParentFile().mkdirs();
+        if (!savefile.exists())
+            savefile.mkdirs();
 
 		
 	}

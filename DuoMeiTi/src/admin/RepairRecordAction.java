@@ -6,9 +6,12 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+
 import model.RepairRecord;
 import model.Repertory;
 import model.User;
+import model.Classroom;
+import model.TeachBuilding;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -17,6 +20,23 @@ import org.hibernate.criterion.Restrictions;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+
+//import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import java.text.SimpleDateFormat;
+
 
 public class RepairRecordAction extends ActionSupport {
 	
@@ -40,8 +60,9 @@ public class RepairRecordAction extends ActionSupport {
 	java.util.Date inputEndDate;
 	
 	String repairRecordTable; 
-	
+	String exportPath;
 	List repairRecordList;
+	
 	public String search() throws Exception
 	{
 		System.out.println("FFFssss");
@@ -115,7 +136,61 @@ public class RepairRecordAction extends ActionSupport {
 	}
 	
 	
-	
+	public String export() throws Exception
+	{
+		System.out.println("abc");
+		this.search();
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		HSSFSheet sheet = workbook.createSheet();
+		try{
+			HSSFRow row0 = sheet.createRow(0);
+			HSSFCell cell = row0.createCell(0);
+			cell.setCellValue(new HSSFRichTextString("设备"));
+			cell = row0.createCell(1);
+			cell.setCellValue(new HSSFRichTextString("维修人"));
+			cell = row0.createCell(2);
+			cell.setCellValue(new HSSFRichTextString("教学楼"));
+			cell = row0.createCell(3);
+			cell.setCellValue(new HSSFRichTextString("教室"));
+			cell = row0.createCell(4);
+			cell.setCellValue(new HSSFRichTextString("维修内容"));
+			cell = row0.createCell(5);
+			cell.setCellValue(new HSSFRichTextString("维修时间"));
+			for(int i=0; i<repairRecordList.size(); i++){
+				HSSFRow row = sheet.createRow(i+1);
+				List<RepairRecord> RestrictionsList = repairRecordList;
+				RepairRecord r = RestrictionsList.get(i); 
+				cell = row.createCell(0);
+				cell.setCellValue(r.getDevice().getRtType().toString());
+				cell = row.createCell(1);
+				cell.setCellValue(r.getRepairman().getFullName().toString());
+				cell = row.createCell(2);
+				if(r.getClassroom() != null){
+					cell.setCellValue(r.getClassroom().getTeachbuilding().getBuild_name());
+				}
+				cell = row.createCell(3);
+				if(r.getClassroom() != null){
+					cell.setCellValue(r.getClassroom().getClassroom_num());
+				}
+				cell = row.createCell(4);
+				cell.setCellValue(r.getRepairdetail());
+				cell = row.createCell(5);
+				cell.setCellValue(r.getRepairdate().toString());
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		java.sql.Date now = new java.sql.Date(System.currentTimeMillis());
+		String FileName = now.toString() + "设备维修记录.xls"; 
+		exportPath = util.Util.RecordExportPath + FileName;
+		OutputStream out = new FileOutputStream(util.Util.RootPath + util.Util.RecordExportPath + FileName);
+		
+		workbook.write(out);
+		workbook.close();
+		out.close();
+		return SUCCESS;
+	}
 	
 	public int getSelectDevice() {
 		return selectDevice;
@@ -141,7 +216,6 @@ public class RepairRecordAction extends ActionSupport {
 	public void setInputClassroom(String inputClassroom) {
 		this.inputClassroom = inputClassroom;
 	}
-
 
 	
 	
@@ -187,7 +261,13 @@ public class RepairRecordAction extends ActionSupport {
 		this.repairRecordList = repairRecordList;
 	}
 	
+	public String getExportPath(){
+		return exportPath;
+	}
 	
+	public void setExportPath(String exportPath){
+		this.exportPath = exportPath;
+	}
 	
 	
 	
