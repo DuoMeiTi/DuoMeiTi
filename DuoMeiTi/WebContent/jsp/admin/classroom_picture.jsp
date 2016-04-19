@@ -65,6 +65,9 @@
 	        	/* alert("not empty"); */
 	        	fd.append("file", document.getElementById('picture_upload').files[0]);
 	        	fd.append("remark",$("#remark").val());
+	        	
+	        	fd.append("classroomId",$("#classroomid").text());
+	        	
 		       
 		        $.ajax({
 		          url: 'picture_upload',

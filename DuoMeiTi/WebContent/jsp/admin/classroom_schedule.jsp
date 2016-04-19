@@ -47,6 +47,8 @@
 					fd.append("file", document.getElementById('schedule_upload').files[0]);
 		        	fd.append("remark",$("#remark").val());
 		        	
+		        	fd.append("classroomId",$("#classroomid").text());
+		        	
 			        $.ajax({
 			          url: 'schedule_upload',
 			          type: 'post',

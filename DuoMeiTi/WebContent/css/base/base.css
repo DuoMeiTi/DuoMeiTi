@@ -10,6 +10,10 @@ body{
 	margin:0 auto;
 }
 
+.pageHeader{
+	height:80px;
+}
+
 #headerpic{
     height:80px;
 }
@@ -143,10 +147,10 @@ a:hover,a:focus{
     background-image:url(/static/images/banner.png);
 }*/
 #welcome_word{
-    font-size:25px;
+    font-size:22px;
     line-height:80px;
     color:rgb(255,87,90);
-    margin-right:20px;
+/*     margin-right:20px; */
 }
 
 .nav-left{

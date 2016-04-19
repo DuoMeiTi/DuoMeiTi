@@ -76,8 +76,10 @@ public class NoticeAction extends PageGetBaseAction {
 		Criteria q = session.createCriteria(model.Notice.class)
 				.addOrder(Order.desc("id"));
 		
-		notice = this.makeCurrentPageList(q, 10); // 根据代表总体的Criteria 获取当前页元素的List，这个效率高，应尽量使用这个
+//		notice = this.makeCurrentPageList(q, 10); // 根据代表总体的Criteria 获取当前页元素的List，这个效率高，应尽量使用这个
 //		file_path_list = this.makeCurrentPageList(q.list(), 10); //根据代表总体的List 获取当前页元素的List
+		
+		notice = q.list();
 		
 		
 		session.close();
@@ -93,13 +95,13 @@ public class NoticeAction extends PageGetBaseAction {
 		
 		
 		
-		if(this.getIsAjaxTransmission()) // 这是ajax 传输
-		{
-			file_path_html = util.Util.getJspOutput("/jsp/admin/HomepageModify/notice.jsp");
-			System.out.println("JJJJJJJJJJJ");
-			System.out.println(file_path_html);
-			return "getPage";
-		}
+//		if(this.getIsAjaxTransmission()) // 这是ajax 传输
+//		{
+//			file_path_html = util.Util.getJspOutput("/jsp/admin/HomepageModify/notice.jsp");
+//			System.out.println("JJJJJJJJJJJ");
+//			System.out.println(file_path_html);
+//			return "getPage";
+//		}
 		return ActionSupport.SUCCESS;
 	}
 	//没有分页时

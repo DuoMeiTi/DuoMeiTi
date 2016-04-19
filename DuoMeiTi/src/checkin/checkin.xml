@@ -31,5 +31,10 @@
 				<param name="includeProperties">result,amCheckIn,pmCheckIn</param>
 			</result>
 	</action>
+	<action name="checkinrecord_exportExcel" class="checkin.CheckInAction" method="exportExcel">
+		<result name="success" type="json">
+			<param name="includeProperties">checkInRecordExcelPath</param>
+		</result>
+	</action>
 </package>
 </struts>

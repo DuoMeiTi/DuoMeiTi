@@ -42,7 +42,8 @@
 		<b>题目描述 </b>
 		<form id="exam_form" titleId>
 			<div id="titleInput">
-				<%@ include file="/bootstrap-wysiwyg/editor.jsp" %>				
+				<%@ include file="/jsp/admin/HomepageModify/UEditor/uediter.jsp"%>
+				<!-- %@ include file="/bootstrap-wysiwyg/editor.jsp" %-->				
 			</div>
 			
 			<br/>
@@ -63,7 +64,7 @@
 
 	<div class="modal-footer">
 		<button type="button" class="btn btn-primary" id="addOption">添加选项</button>
-    	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+    	<button type="button" class="btn btn-default" id="close" data-dismiss="modal">关闭</button>
     	<button type="button" class="btn btn-primary" id="examInsert" >保存</button>
 	</div>
 </div>
@@ -92,8 +93,8 @@
 	// clear modal
 	function clearModal(){
 // 		$("#titleInput").val("");
-		$(".editor").html("");
-		
+		//$(".editor").html("");
+		UE.getEditor('editor').setContent("", '');
 		$(".optionContent").each(function(){
 			$(this).remove();
 		})
@@ -160,6 +161,12 @@
 		}
 	}
 	
+	//close
+	$(document).on("click","#close",function(){
+		clearModal();
+		$('#emModal').css("display","none");
+	})
+	
 	// open edit title
 	$(document).on("click", ".edit", function(){
 		clearModal();
@@ -169,8 +176,8 @@
 
 		optionList = $(optionList).find("div");
 // 		$("#titleInput").val($(tr).find(".titleContent").html());
-		$("#titleInput .editor").html($(tr).find(".titleContent").html());
-		
+		//$("#titleInput .editor").html($(tr).find(".titleContent").html());
+		UE.getEditor('editor').setContent($(tr).find(".titleContent").html(), '');
 		$("#exam_form").attr("titleId", $(tr).attr("titleId"));
 		$(optionList).each(function(){
 			
@@ -256,8 +263,8 @@
 	// from modal  get params
 	function getParams()
 	{
-		var emTextarea = $("#titleInput .editor").html();
-		
+		//var emTextarea = $("#titleInput .editor").html();
+		var emTextarea = UE.getEditor('editor').getContent();
 		var optionList = new Array();
 		$(".optionContent #optionInput").each(function(){
 			optionList.push($(this).val());

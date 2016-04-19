@@ -68,6 +68,10 @@
 		
 		<mapping class="model.DeviceStatusHistory"/>
 		
+		<mapping class="model.EmergencyInfo"/>
+		<mapping class="model.EmergencyInfoRead"/>
+		
+		
 		
 		
 <!-- 		<mapping class="model.ChooseClassSwitch"/> -->

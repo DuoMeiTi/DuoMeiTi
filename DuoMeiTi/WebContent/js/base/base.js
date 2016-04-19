@@ -292,3 +292,237 @@ $(".mynavbar a").each(function(){
         }
 });
 
+
+
+
+
+
+
+
+
+
+
+var forbidUseQueryNotReadInfoInterval = true
+var queryNotReadInfoInterval; 
+
+//= setInterval("queryNewInfo()", 2000);
+
+function startQueryNotReadInfoInterval()
+{
+	if(forbidUseQueryNotReadInfoInterval) return ;
+	queryNotReadInfoInterval = setInterval("queryNewInfo()", 2000);
+}
+
+function stopQueryNotReadInfoInterval()
+{
+	if(forbidUseQueryNotReadInfoInterval) return ;
+	clearInterval(queryNotReadInfoInterval);
+}
+
+
+function setEmergencyInfoButtonStyle()
+{
+	$("#emergencyInfoButton").removeClass("btn-danger");
+	
+	var cnt=$("#emergencyInfoButtonSpan");
+	cnt.text("紧急消息")
+}
+function setNotReadEmergencyInfoButtonStyle()
+{
+	$("#emergencyInfoButton").addClass("btn-danger");
+	
+	var cnt=$("#emergencyInfoButtonSpan");
+	cnt.text("新消息！")
+}
+
+
+
+function queryNewInfo()
+{	
+	$.ajax({
+		url : '/emergencyPublish_queryNewInfo',
+		type : 'post',
+		dataType : 'json',
+		data : {},
+		
+		success : function(data)
+		{
+			if(data.emergencyInfoList.length == 0) return ;
+			stopQueryNotReadInfoInterval();
+			setNotReadEmergencyInfoButtonStyle();			
+		}
+	})	
+}
+
+
+
+
+
+
+
+startQueryNotReadInfoInterval();
+
+$('#emergencyInfoModal').on('show.bs.modal', function(e){
+	
+	setEmergencyInfoButtonStyle();
+	stopQueryNotReadInfoInterval();
+
+
+})
+
+
+$('#emergencyInfoModal').on('hide.bs.modal', function(e){
+	startQueryNotReadInfoInterval();
+})
+
+// 打开紧急消息modal 框
+$(document).on("click", "#emergencyInfoButton", function(){
+	
+	
+//	window.open("http://www.baidu.com")
+	$('#emergencyInfoModal').modal("show")
+	
+	$("#publishEmergencyInfoTextarea").val("")
+
+})
+
+
+
+
+//发布紧急消息
+$(document).on("click", "#publishEmergencyInfoButton", function(){	
+	
+	$.ajax({
+		url : '/emergencyPublish_addEmergencyInfo',
+		type : 'post',
+		dataType : 'json',
+		data : {
+			
+			"emergencyInfoContent":$("#publishEmergencyInfoTextarea").val(),			
+		},
+		success : function(data)
+		{
+			$("#emergencyInfoTableDiv").html(data.emergencyInfoTable);
+			$("#publishEmergencyInfoTextarea").val("")
+		}
+	})
+})
+
+
+var nowOpenedEmergencyInfoId = -1;
+// 获取当前紧急消息的所有的评论
+$(document).on("click", ".emergencyInfo", function(){
+	
+	var root = $(this) ;
+	var all_comments = $(root).nextAll();
+	if(all_comments.length != 0)
+	{
+		$(all_comments).remove();
+		return ;
+	}	
+	$("[emergencyInfoId=" + nowOpenedEmergencyInfoId +"]").nextAll().remove();
+	var emergencyInfoId = $(root).attr("emergencyInfoId");
+	nowOpenedEmergencyInfoId = emergencyInfoId;
+	
+ 	$.ajax({
+		url : '/emergencyPublish_obtainEmergencyCommentTable',
+		type : 'post',
+		dataType : 'json',
+		data : {			
+			"emergencyInfoId":emergencyInfoId,
+		},
+		success : function(data)
+		{
+			$(root).after(data.emergencyCommentTable);
+		}
+		
+	})
+})
+
+
+
+// 发布紧急消息的评论
+$(document).on("click", ".publishEmergencyCommentButton", function(){	
+	
+	var root = $(this).parents("ul").first();
+	var em_info = $(root).find("[emergencyInfoId]");
+
+	var comment = $(root).find(".publishEmergencyCommentTextarea").val();
+	
+	var emergencyInfoId = $(em_info).attr('emergencyInfoId');
+
+
+	$.ajax({
+		url : '/emergencyPublish_addEmergencyInfo',
+		type : 'post',
+		dataType : 'json',
+		data : {			
+			"emergencyInfoContent":comment,
+			"emergencyInfoId":emergencyInfoId,
+		},
+		success : function(data)
+		{
+			$(em_info).nextAll().remove();
+			$(em_info).after(data.emergencyCommentTable);
+			
+		}
+		
+	})
+	
+})
+
+// 查看所有紧急消息
+$(document).on("click", "#watchAllEmergencyInfoButton", function(){
+	
+	$.ajax({
+//		url : '/emergencyPublish_queryNewInfo',
+		url : '/emergencyPublish_obtainEmergencyInfoTable',
+		type : 'post',
+		dataType : 'json',
+		data : {},
+		success : function(data)
+		{
+			$("#emergencyInfoTableDiv").html(data.emergencyInfoTable);
+
+		}		
+	})
+})
+
+$(document).on("click", "#watchNotReadEmergencyInfoButton", function(){
+	$.ajax({
+//		url : '/emergencyPublish_queryNewInfo',
+		url : '/emergencyPublish_obtainNotReadEmergencyInfoTable',
+		type : 'post',
+		dataType : 'json',
+		data : {
+			
+		},
+		success : function(data)
+		{
+			$("#emergencyInfoTableDiv").html(data.emergencyInfoTable);
+
+		}		
+	})
+
+})
+
+
+
+$(document).on("click", "#testAnimate", function(){
+	
+//	$("#emergencyInfoButton").click(function(){
+		  var cnt=$("#emergencyInfoButton");
+//		  cnt.animate({left:'100px'},"slow");
+		  cnt.animate({opacity:'0.0',},400);
+		  cnt.animate({opacity:'1.0',},400);
+//		});
+
+})
+
+
+
+
+
+
+
+

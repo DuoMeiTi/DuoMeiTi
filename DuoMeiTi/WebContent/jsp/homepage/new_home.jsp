@@ -137,19 +137,19 @@
 		  <div class="front-wrap">
 		    <div class="home-news">
 		      <div class="usoft-listview-header" >
-		        <h3>设备更换提醒      
+		        <h3>上一周未检查教室学生    
 		           <!-- <small>Equipment- replacement- reminder </small> -->
 		           <small> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
 						</small>
 		            </h3>
 		        <span class="usoft-listview-more">					          
-				<strong><a href="home/more_equipment_replacement">更多»</a></strong>						
+				<strong><a href="home/more_notCheckClassroomStudent">更多»</a></strong>						
 		        </span>
 		      </div>						      
 		      <div class="news-list">
 		        <div class="news-documents documents-list "> 
 		        
-		        	<%@ include file = "/jsp/homepage/widgets/more_equipment_replacementTable.jsp" %>
+		        	<%@ include file = "/jsp/homepage/widgets/more_notCheckClassroomStudentTable.jsp" %>
 		        
 		        </div><!--end news-documents-->
 		      </div><!--end news-list-->

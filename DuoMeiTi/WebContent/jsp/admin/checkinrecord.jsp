@@ -9,24 +9,27 @@
 					<input id="startTime" type="date"></input>
 					<label for="endTime">结束时间</label>
 					<input id="endTime" type="date"></input>
+					<label for="stuName">学生姓名：</label>
+					<input id="stuName" style="width:100px" placeholder="输入学生姓名"/>
 					<button type="button" class="btn btn-default"  id="addbutton" >查询</button>
-					<label for="changecheckinrule">&nbsp;&nbsp;修改签到时间</label>
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#changetime" id="addbutton">修&nbsp;&nbsp;改</button>
+<!-- 					<label for="changecheckinrule">&nbsp;&nbsp;修改签到时间</label> -->
+<!-- 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#changetime" id="addbutton">修&nbsp;&nbsp;改</button> -->
+					<button id="exportButton" type="button" class="btn btn-default">导&nbsp;&nbsp;出</button>
 					<br/>
-					<table>
-					<tr>
-					<td><label>上午签到时间&nbsp;&nbsp;</label></td><td ><input id="amCheckIn" disabled="true" class="form-control" value='<s:property value='amCheckIn'/>'></input></td>
-					<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td><label>下午签到时间&nbsp;&nbsp;</label></td><td ><input id="pmCheckIn" disabled="true" class="form-control" value='<s:property value='pmCheckIn'/>'></input></td>
-					</tr>
-					</table>
+<!-- 					<table> -->
+<!-- 					<tr> -->
+<%-- 					<td><label>上午签到时间&nbsp;&nbsp;</label></td><td ><input id="amCheckIn" disabled="true" class="form-control" value='<s:property value='amCheckIn'/>'></input></td> --%>
+<!-- 					<td>&nbsp;&nbsp;&nbsp;&nbsp;</td> -->
+<%-- 					<td><label>下午签到时间&nbsp;&nbsp;</label></td><td ><input id="pmCheckIn" disabled="true" class="form-control" value='<s:property value='pmCheckIn'/>'></input></td> --%>
+<!-- 					</tr> -->
+<!-- 					</table> -->
 	</div>
 	<div id="queryrecordstable">
 		<div class="student_table" id="recordstable">
 		<%@ include file="/jsp/admin/widgets/checkinrecordtable.jsp" %>
 		</div>
 		<div>
-		<%@ include file="/jsp/base/widgets/pagination.jsp" %>
+<%-- 		<%@ include file="/jsp/base/widgets/pagination.jsp" %> --%>
 		</div>
 	</div>
 	<!-- 模态框（Modal） -->

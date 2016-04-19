@@ -33,6 +33,9 @@ public class Util
 	public static final String RootPath;
 	
 	public static final String FileUploadPath = "/FileUpload/"; //相对于Rootpath
+	
+	
+	
 	public static final String ProfilePhotoPath = 
 			FileUploadPath + "ProfilePhoto/";//相对于Rootpath
 	
@@ -46,14 +49,48 @@ public class Util
 	public static final String ClassroomSchedulePath = 
 			FileUploadPath + "ClassroomScheduleFile/";//相对于Rootpath
 	
+
 	public static final String RecordExportPath = 
 			FileUploadPath + "RecordExportPath/";
 
-	static 
+	
+
+	public static final String CheckInExcelExportPath = 
+			FileUploadPath + "ExportCheckInFile/";//相对于Rootpath
+	
+	public static void makeDir(String path)
 	{
+		File file = new File(path);
+		if(!file.exists())
+		{
+			makeDir(file.getParent().toString());
+			file.mkdir();
+		}
 		
+	}
+	
+	
+	static 
+	{	
 		ServletContext application = ServletActionContext.getServletContext();
 		RootPath = application.getRealPath("");
+		
+				
+		
+		makeDir(RootPath + ProfilePhotoPath);
+		makeDir(RootPath + ResourceFilePath);
+		makeDir(RootPath + ClassroomInfoFilePath);
+		makeDir(RootPath + ClassroomSchedulePath);
+		makeDir(RootPath + CheckInExcelExportPath);
+		
+
+		
+//		File file = new File(util.Util.RootPath + util.Util.CheckInExcelExportPath);
+//        if (!file.getParentFile().exists())
+//        	file.getParentFile().mkdirs();
+//        if (!file.exists())
+//        	file.mkdirs();
+
 	}
 	
 	static public String fileToString(String fileName) 
@@ -367,7 +404,7 @@ public class Util
     // 更改设备的状态
     public static void modifyDeviceStatus(org.hibernate.Session s, int device_id, int user_id, String newStatus, int classroom_id)
     {
-//    	org.hibernate.Session s = model.Util.sessionFactory.openSession();
+
     	s.beginTransaction();
     	model.Repertory device = (model.Repertory) 
     							 s.createCriteria(model.Repertory.class)
@@ -408,7 +445,7 @@ public class Util
     	s.update(device);
     	s.save(dsh);
     	s.getTransaction().commit();    	
-//    	s.close();    	
+
     }
     
     public static void modifyDeviceStatus(int device_id, int user_id, String newStatus, int classroom_id)
@@ -420,53 +457,31 @@ public class Util
     }
     
     
-//    // 获取此设备的当前状态，返回一个包含两个元素的数组，
-//    // 第一个元素为状态，类型为String，
-//    // 第二个元素为教室引用，类型为model.Classroom，
-//    //  如果状态为 “教室”状态则 教室引用不为空；否则为空
-//    public static Object[] getDeviceCurrentStatus(int device_id)
+
+//    // 得到对于当前日期的上周某一个星期的日期
+//    // 参数calendar_day_of_week是Calendar类的一个指明星期几的一个字段
+//    public static java.util.Date getDayOfLastWeek(int calendar_day_of_week)
 //    {
-//    	Object[] res = new Object[2];
-//    	org.hibernate.Session s = model.Util.sessionFactory.openSession();
-//    	
-//    	model.DeviceStatusHistory dsh = (model.DeviceStatusHistory)
-//    									s.createCriteria(model.DeviceStatusHistory.class)
-//    			  						.add(Restrictions.eq("device.id", device_id))
-//    			  						.addOrder(Order.desc("id"))
-//    			  						.setMaxResults(1)
-//    			  						.uniqueResult();    	
-//    	
-//    	s.close();
-//    	res[0] = dsh.status;
-//    	res[1] = dsh.classroom;
-//    	return res;
-//    	
+//		Calendar cal = Calendar.getInstance();
+//		//n为推迟的周数，1本周，-1向前推迟一周，2下周，依次类推
+//		int n = -1;
+//		cal.add(Calendar.DATE, n*7);
+//		//想周几，这里就传几Calendar.MONDAY（TUESDAY...）
+//		cal.set(Calendar.DAY_OF_WEEK, calendar_day_of_week);
+//		
+//		
+//		return cal.getTime();
+//
+//
+//		
 //    }
+    
 
     
     
     
     
     
-//    public enum DeviceStatus
-//    {
-//    	String AAA = "sb";
-//    }
-    
-//    public static final ArrayList<String> DeviceStatusList;
-//    static 
-//    {
-//    	DeviceStatusList
-//    }
-//    
-//    public static final String[] deviceStatus = {
-//    		"备用",
-//    		"教室",
-//    		"维修",
-//    		"报废",
-//    };
-    
-
     
     
     

@@ -21,7 +21,7 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import common.ChooseClass;
+//import common.ChooseClass;
 
 //import model.StudentProfile;
 
