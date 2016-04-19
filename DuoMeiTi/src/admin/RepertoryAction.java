@@ -62,10 +62,10 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	private String status;
 	private List<Repertory> repertory_list;
 	//search tag's name
-	private String sDevice;
-	private String sMainDevice;
-	private String sCostDevice;
-	private String sDeviceStatus;
+//	private String sDevice;
+//	private String sMainDevice;
+//	private String sCostDevice;
+//	private String sDeviceStatus;
 	private List<T_Repertory> rtSearch_list = new ArrayList<T_Repertory>();
 	
 	private String repertory_table;
@@ -143,10 +143,9 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		
 		device = Const.device;
 		mainDevice = Const.mainDevice;
-		/*for(int i = 0; i < mainDevice.length; i++)
-			System.out.println(mainDevice[i]);*/
+
 		costDevice = Const.costDevice;
-//		deviceStatus = Const.deviceStatus;
+
 		deviceStatus = new String[5];
 		deviceStatus[0] = Const.deviceStatus[0];
 		deviceStatus[1] = Const.deviceStatus[1];
@@ -155,13 +154,12 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		deviceStatus[4] = Const.deviceStatus[2];
 		
 		
-		Session session = model.Util.sessionFactory.openSession();
-//		model.Util.sessionFactory.getCurrentSession();
-		Criteria c = session.createCriteria(Repertory.class);
-		repertory_list = c.list();
-		//System.out.println(repertory_list);
-//		Collections.reverse(repertory_list);
-		session.close();
+//		Session session = model.Util.sessionFactory.openSession();
+
+//		Criteria c = session.createCriteria(Repertory.class);
+//		repertory_list = c.list();
+
+//		session.close();
 		return SUCCESS;
 	}
 	
@@ -329,55 +327,43 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		return SUCCESS;
 	}
 	
+	int selectDeviceType;
 	
+	String selectDeviceStatus;
 	public String search() throws Exception{
-		/*status  0: empty select
-				1: keyword select*/
-		Session session = model.Util.sessionFactory.openSession();
-		Criteria c = session.createCriteria(Repertory.class);
-		//System.out.println(sDevice + "," + sMainDevice + "," + sCostDevice);
-		if(sDevice.equals("")) {
-			
-		}
-		else {
-			c.add(Restrictions.eq("rtDevice", this.sDevice));
-			if(sDevice.equals("主要设备")) {
-				if(sMainDevice.equals("")) {
-					
-				}
-				else {
-					c.add(Restrictions.eq("rtType", this.sMainDevice));
-				}
-			}
-			else if(sDevice.equals("耗材设备")) {
-				if(sCostDevice.equals("")) {
-					
-				}
-				else {
-					c.add(Restrictions.eq("rtType", this.sCostDevice));
-				}
-			}
-		}
-		if(sDeviceStatus.equals("")) {
-			
-		}else {
-			c.add(Restrictions.eq("rtDeviceStatus", this.sDeviceStatus));
-		}
-//		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
+		Session s = model.Util.sessionFactory.openSession();
+		Criteria c = s.createCriteria(Repertory.class);
+		
+		System.out.println("GG");
+		System.out.println(org.apache.struts2.ServletActionContext.getRequest().getRequestURI());
+		System.out.println(selectDeviceType);
+		System.out.println(selectDeviceStatus);
+		System.out.println("GG***************");
+		if(selectDeviceType >= 0)
+		{
+			c.add(Restrictions.eq("rtType", util.Util.DeviceList.get(selectDeviceType) ));
+		}
+		System.out.println("GG===========");
+		if(!selectDeviceStatus.equals("all"))
+		{
+			System.out.println("JJJJJJJ------------");
+			c.add(Restrictions.eq("rtDeviceStatus", selectDeviceStatus));
+			System.out.println("JJJJJJJ+++++++++++++");
+		}
+		System.out.println("JJJJJJJ");
+
 		repertory_list = c.list();
-		if(repertory_list.isEmpty())
-		{
-			this.status = "0";
-		}
-		else 
-		{
-//			Collections.reverse(repertory_list);
-			this.status = "1";
-	        repertory_table = util.Util.getJspOutput("/jsp/admin/widgets/repertoryTable.jsp");
-	        //System.out.println(repertory_table);
-		}
-		session.close();
+
+		
+		System.out.println("JJJJJJJ}}}}}}}}}}}}}}}}");
+		System.out.println(repertory_list);
+		repertory_table = util.Util.getJspOutput("/jsp/admin/widgets/repertoryTable.jsp");
+
+		
+		s.close();
+		
+
 		
 		return SUCCESS;
 	}
@@ -411,7 +397,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		
 		if(!old_rt.rtDeviceStatus.equals(new_rt.rtDeviceStatus))
 		{
-			util.Util.modifyDeviceStatus(rtId, user_id, new_rt.rtDeviceStatus, -1);
+			util.Util.modifyDeviceStatus(session, rtId, user_id, new_rt.rtDeviceStatus, -1);
 		}
 		
 
@@ -458,7 +444,10 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		session.beginTransaction();
 		session.save(rt);
 		session.getTransaction().commit();
-		util.Util.modifyDeviceStatus(rt.rtId, user_id, rt.rtDeviceStatus, -1);
+		
+		System.out.println("ssssssssssss");
+		System.out.println(rt.rtId);
+		util.Util.modifyDeviceStatus( session, rt.rtId, user_id, rt.rtDeviceStatus, -1);
 		
 		repertory_list = session.createCriteria(model.Repertory.class).list();
 
@@ -634,37 +623,37 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		this.repertory_list = repertory_list;
 	}
 
-	public String getSDevice() {
-		return sDevice;
-	}
-
-	public void setSDevice(String sDevice) {
-		this.sDevice = sDevice;
-	}
-
-	public String getSMainDevice() {
-		return sMainDevice;
-	}
-
-	public void setSMainDevice(String sMainDevice) {
-		this.sMainDevice = sMainDevice;
-	}
-
-	public String getSCostDevice() {
-		return sCostDevice;
-	}
-
-	public void setSCostDevice(String sCostDevice) {
-		this.sCostDevice = sCostDevice;
-	}
-
-	public String getSDeviceStatus() {
-		return sDeviceStatus;
-	}
-
-	public void setSDeviceStatus(String sDeviceStatus) {
-		this.sDeviceStatus = sDeviceStatus;
-	}
+//	public String getSDevice() {
+//		return sDevice;
+//	}
+//
+//	public void setSDevice(String sDevice) {
+//		this.sDevice = sDevice;
+//	}
+//
+//	public String getSMainDevice() {
+//		return sMainDevice;
+//	}
+//
+//	public void setSMainDevice(String sMainDevice) {
+//		this.sMainDevice = sMainDevice;
+//	}
+//
+//	public String getSCostDevice() {
+//		return sCostDevice;
+//	}
+//
+//	public void setSCostDevice(String sCostDevice) {
+//		this.sCostDevice = sCostDevice;
+//	}
+//
+//	public String getSDeviceStatus() {
+//		return sDeviceStatus;
+//	}
+//
+//	public void setSDeviceStatus(String sDeviceStatus) {
+//		this.sDeviceStatus = sDeviceStatus;
+//	}
 
 	public List<T_Repertory> getRtSearch_list() {
 		return rtSearch_list;
@@ -732,6 +721,22 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public int getSelectDeviceType() {
+		return selectDeviceType;
+	}
+
+	public void setSelectDeviceType(int selectDeviceType) {
+		this.selectDeviceType = selectDeviceType;
+	}
+
+	public String getSelectDeviceStatus() {
+		return selectDeviceStatus;
+	}
+
+	public void setSelectDeviceStatus(String selectDeviceStatus) {
+		this.selectDeviceStatus = selectDeviceStatus;
 	}
 
 

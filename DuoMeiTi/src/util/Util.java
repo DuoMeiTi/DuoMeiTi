@@ -448,7 +448,7 @@ public class Util
 
     }
     
-    public static void modifyDeviceStatus(int device_id, int user_id, String newStatus, int classroom_id)
+    private static void modifyDeviceStatus(int device_id, int user_id, String newStatus, int classroom_id)
     {
     	org.hibernate.Session s = model.Util.sessionFactory.openSession();
     	modifyDeviceStatus(s, device_id, user_id, newStatus, classroom_id);

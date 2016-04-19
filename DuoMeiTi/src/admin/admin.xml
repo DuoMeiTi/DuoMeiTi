@@ -50,6 +50,7 @@
             </result>           
         </action>
 		
+<!-- 		设备管理 -->
 		<action name="repertory" class="admin.RepertoryAction">
 			<result name="success">
 				/jsp/admin/repertory.jsp
@@ -60,7 +61,11 @@
 			<result name="success" type="json">
 
 			</result>
-		</action> 
+		</action>
+		
+<!-- 		设备管理 END-->		
+		
+		 
 		<!-- 修改密码 -->
 		<action name="modifypassword" class="admin.ModifyPasswordAction">
 			<result name="success">

@@ -1,6 +1,7 @@
 <%@ include file="/jsp/base/taglib.jsp"%>
 <link rel="stylesheet" type="text/css" media="screen" href="/css/admin/repertory.css"/>
 <layout:override name="main_content">
+
 	<div class="mycontent">
 
 		<div>
@@ -46,11 +47,16 @@
 									</span>
 									<input type="text" class="form-control" name="rtFactorynum" id="rtFactorynum" value="<s:property value="rtFactorynum"/>">
 								</div>
-								<div class="input-group">
+								<div class="input-group" >
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-default" style="width:120px;">更换时间(天数)</button>
 									</span>
-									<input placeholder="" type="text" class="form-control" name="rtReplacePeriod" id="rtReplacePeriod" value="<s:property value="rtReplacePeriod"/>">
+									<input placeholder="" type="text" class="form-control"
+									 name="rtReplacePeriod" 
+									 id="rtReplacePeriod"
+									 style="width:120px;" 
+									 value="<s:property value="rtReplacePeriod"/>">
+									 
 								</div>
 								
 							</div>
@@ -207,31 +213,96 @@
 		<br/>
 		
 
-		<form class="form-inline" id="repertory_search" name="repertory_search" method="post">
-			
-			<div class="form-group">
-				<label for="sDevice">设备类别</label>
-				<s:select list="Device" class="form-control" name="sDevice" id="sDevice"></s:select>
+
+
+		<div class="row">		
+			  <div class="col-lg-4">
+					<div class="input-group">			
+						<span class="input-group-addon">设备</span>
+						<select class="form-control" id="selectDeviceType"   style="width:200px;">			
+							<option value=-1>
+								所有设备
+							</option>
+							<s:iterator var = "i" begin="0" end="@util.Util@DeviceList.size() - 1" step="1">
+								<option  value= '<s:property value = "#i"/>' >					
+									<s:property value = "@util.Util@judgeDeviceType(@util.Util@DeviceList.get(#i))"/>
+									-
+									<s:property value = "@util.Util@DeviceList.get(#i)"/>
+								</option> 
+							</s:iterator>
+						</select>			
+					</div>
+			  </div>		  
+		  
+			<div class="col-lg-4">
+				<div class="input-group">			
+					<span class="input-group-addon">设备状态</span>
+					<select class="form-control" id="selectDeviceStatus"   style="width:200px;">			
+						<option value="all">所有状态</option>
+						<option >
+							<s:property value="@util.Util@DeviceBackupStatus" />
+						</option>
+						<option  >
+							<s:property value="@util.Util@DeviceClassroomStatus" />
+						</option>
+						<option  >
+							<s:property value="@util.Util@DeviceRepairStatus" />
+						</option>
+						<option  >
+							<s:property value="@util.Util@DeviceScrappedStatus" />
+						</option>
+				
+					</select>			
+				</div>
 			</div>
+		  	
+		  	
+		   <div class="col-lg-4">
+				<div class="input-group">			
+					<button class="btn btn-primary" id="searchDeviceButton"> 搜索 </button>
+							
+				</div>
+		  </div>
+		  	
+		  
+		  
+		</div>   <!-- row -->
+
+
+
+
+
+
+<!-- 		<form class="form-inline" id="repertory_search" name="repertory_search" method="post"> -->
+			
+<!-- 			<div class="form-group"> -->
+<!-- 				<label for="sDevice">设备类别</label> -->
+<%-- 				<s:select list="Device" class="form-control" name="sDevice" id="sDevice"></s:select> --%>
+<!-- 			</div> -->
 			<!-- <input type="text" class="" name="rtMainDevice" id="rtMainDevice" placeholder="设备"> -->
-			<div class="form-group" style="display:none" id="main">
-				<label for="sMainDevice">设备名称</label>
-				<s:select list="mainDevice" class="form-control" name="sMainDevice" id="sMainDevice"></s:select>
-			</div>
-			<div class="form-group" style="display:none" id="cost">
-				<label for="sCostDevice">设备名称</label>
-				<s:select list="costDevice" class="form-control" name="sCostDevice" id="sCostDevice"></s:select>
-			</div>
+<!-- 			<div class="form-group" style="display:none" id="main"> -->
+<!-- 				<label for="sMainDevice">设备名称</label> -->
+<%-- 				<s:select list="mainDevice" class="form-control" name="sMainDevice" id="sMainDevice"></s:select> --%>
+<!-- 			</div> -->
+<!-- 			<div class="form-group" style="display:none" id="cost"> -->
+<!-- 				<label for="sCostDevice">设备名称</label> -->
+<%-- 				<s:select list="costDevice" class="form-control" name="sCostDevice" id="sCostDevice"></s:select> --%>
+<!-- 			</div> -->
 			
-			<div class="form-group">
-				<label for="sDeviceStatus">使用状态</label>
-				<s:select list="deviceStatus" class="form-control" name="sDeviceStatus" id="sDeviceStatus"></s:select>
-			</div>
-			<div class="text-right">查询记录共&nbsp;<strong style="color:red" id="rtSearchLen"></strong>&nbsp;条</div>
-		</form>
+<!-- 			<div class="form-group"> -->
+<!-- 				<label for="sDeviceStatus">使用状态</label> -->
+<%-- 				<s:select list="deviceStatus" class="form-control" name="sDeviceStatus" id="sDeviceStatus"></s:select> --%>
+<!-- 			</div> -->
+<!-- 			<div class="text-right">查询记录共&nbsp;<strong style="color:red" id="rtSearchLen"></strong>&nbsp;条</div> -->
+<!-- 		</form> -->
+		
+		
+		
+		
+		
 
 		<div id="repertoryTableDiv">
-			<%@ include file="/jsp/admin/widgets/repertoryTable.jsp" %>
+<%-- 			<%@ include file="/jsp/admin/widgets/repertoryTable.jsp" %> --%>
 		</div>
 
 		

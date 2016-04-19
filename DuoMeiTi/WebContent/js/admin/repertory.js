@@ -230,7 +230,7 @@ $(document).on("click", "#rtSave", function() {
 
 function repertoryCallback(data) {
 	
-	alert("FFF");
+//	alert("FFF");
 	$("#repertoryTableDiv").html(data.repertoryTable);
 	$('#rtModal').modal('hide');
 //	repertoryTable
@@ -296,62 +296,102 @@ function deleteCallback(data) {
 	}
 }
 
-//search
-$(document).find("#sDevice").change(function() {
-	var selectvalue = $("#sDevice option:selected").attr("value");
-	if (selectvalue == "") {
-		$("#main").hide();
-		$("#cost").hide();
-		selectDevice();
-	} else if (selectvalue == "主要设备") {
-		$("#main").show();
-		$("#cost").hide();
-		$(document).find("#sMainDevice option:first").attr("selected","selected");
-		selectDevice();
-	} else if(selectvalue == "耗材设备") {
-		$("#main").hide();
-		$("#cost").show();	
-		$(document).find("#sCostDevice option:first").attr("selected","selected");
-		selectDevice();
-	}
-	
-})
-				   
-$(document).find("#sMainDevice").change(function() {
-	selectDevice();
-})
-$(document).find("#sCostDevice").change(function() {
-	selectDevice();
-})
-$(document).find("#sDeviceStatus").change(function() {
-	selectDevice();
-})
+//old search  
+//$(document).find("#sDevice").change(function() {
+//	var selectvalue = $("#sDevice option:selected").attr("value");
+//	if (selectvalue == "") {
+//		$("#main").hide();
+//		$("#cost").hide();
+//		selectDevice();
+//	} else if (selectvalue == "主要设备") {
+//		$("#main").show();
+//		$("#cost").hide();
+//		$(document).find("#sMainDevice option:first").attr("selected","selected");
+//		selectDevice();
+//	} else if(selectvalue == "耗材设备") {
+//		$("#main").hide();
+//		$("#cost").show();	
+//		$(document).find("#sCostDevice option:first").attr("selected","selected");
+//		selectDevice();
+//	}
+//	
+//})
+//				   
+//$(document).find("#sMainDevice").change(function() {
+//	selectDevice();
+//})
+//$(document).find("#sCostDevice").change(function() {
+//	selectDevice();
+//})
+//$(document).find("#sDeviceStatus").change(function() {
+//	selectDevice();
+//})
+//
+//function selectDevice() {
+//	var keyword = $("#repertory_search").serialize();
+//	//alert(decodeURIComponent(keyword,true));
+//	$.ajax({
+//		url : 'repertory_search',
+//		type : 'post',
+//		dataType : 'json',
+//		data : keyword,
+//		success : searchCallback
+//	});
+//}
+//
+//function searchCallback(data) {
+//	if (data.status == "1") {
+////		$("#repertory_table tr:not(:first)").remove();
+//		$(document).find("#noResult").text("");
+//		$(document).find("#rtSearchLen").text(data.repertory_list.length);
+//		$(document).find("#repertoryTableDiv").html(data.repertory_table);
+//
+//	} else if (data.status == "0") {
+//		$(document).find("#rtSearchLen").text(0);
+//		$(document).find("#repertory_table tr:not(:first)").remove();
+//		$(document).find("#noResult").text("无查询结果");
+//	}
+//}
 
-function selectDevice() {
-	var keyword = $("#repertory_search").serialize();
-	//alert(decodeURIComponent(keyword,true));
+
+
+// new search
+$(document).on( "click", "#searchDeviceButton",function() {
+	
+//	alert("SB");
+//	alert("|"  +$("#selectDeviceType").val()+"|"  +$("#selectDeviceStatus").val()+"|");
+	
+	
+	
 	$.ajax({
 		url : 'repertory_search',
 		type : 'post',
 		dataType : 'json',
-		data : keyword,
-		success : searchCallback
+		data : 
+			{
+				"selectDeviceType" :$("#selectDeviceType").val(),
+				"selectDeviceStatus" :$("#selectDeviceStatus").val(),
+			},
+		success : function(data){
+			
+//			alert("SB");
+//			alert(data.repertory_table);
+			$("#repertoryTableDiv").html(data.repertory_table);
+		}
 	});
-}
 
-function searchCallback(data) {
-	if (data.status == "1") {
-//		$("#repertory_table tr:not(:first)").remove();
-		$(document).find("#noResult").text("");
-		$(document).find("#rtSearchLen").text(data.repertory_list.length);
-		$(document).find("#repertoryTableDiv").html(data.repertory_table);
+	
+			  
+			  
+	
+			  
+			  
 
-	} else if (data.status == "0") {
-		$(document).find("#rtSearchLen").text(0);
-		$(document).find("#repertory_table tr:not(:first)").remove();
-		$(document).find("#noResult").text("无查询结果");
-	}
-}
+})
+
+
+
+
 
 
 //import excel

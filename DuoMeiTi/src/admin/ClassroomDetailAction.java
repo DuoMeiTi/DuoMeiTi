@@ -169,13 +169,15 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 		
+		Session session = model.Util.sessionFactory.openSession();
 		util.Util.modifyDeviceStatus(
+									session,
 									Integer.parseInt(rtID), 
 									user_id, 
 									util.Util.DeviceClassroomStatus, 
 									classroomId);
 		
-		Session session = model.Util.sessionFactory.openSession();
+		
 		rtClass = session.createCriteria(model.Repertory.class)
 				 .add(Restrictions.eq("rtClassroom.id", classroomId ))
 				 .list();
@@ -199,8 +201,9 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		System.out.println("移入维修！！！！！！！！！");
 		System.out.println(classroomId);
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
-		
+		Session session = model.Util.sessionFactory.openSession();
 		util.Util.modifyDeviceStatus(
+									session,
 									Integer.parseInt(move_device_id), 
 //									classroomId,
 									user_id, 
@@ -210,7 +213,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		
 
 		
-		Session session = model.Util.sessionFactory.openSession();
+		
 		
 
 	
@@ -233,8 +236,9 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 //		System.out.println(move_class_id);
 		
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
-		
+		Session session = model.Util.sessionFactory.openSession();
 		util.Util.modifyDeviceStatus(
+									session,
 									Integer.parseInt(move_device_id), 
 									user_id, 
 									util.Util.DeviceScrappedStatus, 
@@ -242,7 +246,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		
 
 		
-		Session session = model.Util.sessionFactory.openSession();
+		
 		
 		
 
