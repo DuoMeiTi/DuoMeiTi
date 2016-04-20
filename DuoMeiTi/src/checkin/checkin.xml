@@ -17,24 +17,24 @@
 	</action>
 </package>
 
-<package name="admincheckin" namespace="/admincheckin" extends="AdminDefault" >
-	<action name="checkinrecords" class="checkin.CheckInAction" method="getCheckInRecordByDate">
-		<result>/jsp/admin/checkinrecord.jsp</result>  
-	</action>
-	<action name="checkinrecordquery" class="checkin.CheckInAction" method="getCheckInRecordByDate">
-		<result name="success" type="json">
-				<param name="includeProperties">newtablestring</param>
-		</result>   
-	</action>
-	<action name="setcheckinrule" class="checkin.CheckInAction" method="setCheckInRule">
-		<result name="success" type="json">
-				<param name="includeProperties">result,amCheckIn,pmCheckIn</param>
-			</result>
-	</action>
-	<action name="checkinrecord_exportExcel" class="checkin.CheckInAction" method="exportExcel">
-		<result name="success" type="json">
-			<param name="includeProperties">checkInRecordExcelPath</param>
-		</result>
-	</action>
-</package>
+<!-- <package name="admincheckin" namespace="/admincheckin" extends="AdminDefault" > -->
+<!-- 	<action name="checkinrecords" class="checkin.CheckInAction" method="getCheckInRecordByDate"> -->
+<!-- 		<result>/jsp/admin/checkinrecord.jsp</result>   -->
+<!-- 	</action> -->
+<!-- 	<action name="checkinrecordquery" class="checkin.CheckInAction" method="getCheckInRecordByDate"> -->
+<!-- 		<result name="success" type="json"> -->
+<!-- 				<param name="includeProperties">newtablestring</param> -->
+<!-- 		</result>    -->
+<!-- 	</action> -->
+<!-- 	<action name="setcheckinrule" class="checkin.CheckInAction" method="setCheckInRule"> -->
+<!-- 		<result name="success" type="json"> -->
+<!-- 				<param name="includeProperties">result,amCheckIn,pmCheckIn</param> -->
+<!-- 			</result> -->
+<!-- 	</action> -->
+<!-- 	<action name="checkinrecord_exportExcel" class="checkin.CheckInAction" method="exportExcel"> -->
+<!-- 		<result name="success" type="json"> -->
+<!-- 			<param name="includeProperties">checkInRecordExcelPath</param> -->
+<!-- 		</result> -->
+<!-- 	</action> -->
+<!-- </package> -->
 </struts>

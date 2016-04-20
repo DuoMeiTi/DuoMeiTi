@@ -7,7 +7,19 @@
 
 
 
-    <package name="student" namespace="/student" extends="StudentDefault">    	
+    <package name="student" namespace="/student" extends="StudentDefault">
+    
+<!--     	签到管理 -->
+	   	<action name="checkinManage" class="student.CheckinManageAction" >
+    		<result>/jsp/student/checkin.jsp</result>
+    	</action>
+    	
+    	<action name="checkinManage_*" class="student.CheckinManageAction" >
+    		<result>/jsp/student/checkin.jsp</result>
+    	</action>
+    	
+<!--     	签到管理 END-->    
+        	
 		    	
     	<action name="">
     		<result type="redirect">/student/dutyManage</result>
