@@ -35,6 +35,10 @@ import com.opensymphony.xwork2.ActionContext;
 import dao.CheckInRecordDao;
 import dao.DAOFactory;
 
+
+/*
+ * 此类已经被弃用！！！
+ */
 public class CheckInAction extends PageGetBaseAction{
 	private String username = "";
 	private boolean query=false;

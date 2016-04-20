@@ -31,174 +31,221 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import checkin.TimeUtil;
 import model.CheckInRecord;
+import model.StudentProfile;
 import util.Util;
 
 
 
 
 public class CheckinManageAction extends ActionSupport{
-	
+	List checkinRecordList;
 	public String execute() throws Exception
 	{
-		return ActionSupport.SUCCESS;
-	}
-	
-	
-	java.util.Date startTime;
-	java.util.Date endTime;
-	String stuName;
-	
-	String checkinRecordTable;
-	List checkinRecordList;
-	public String search() throws Exception
-	{
-		
-		System.out.println("SB-------");
+		int student_id =(int) ActionContext.getContext().getSession().get("student_id" );
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria c = session.createCriteria(CheckInRecord.class)		
-							.addOrder(Order.desc("id"));
-				
-		
-		if(!stuName.equals(""))
-		{
-			c.createAlias("student", "student")
-			.createAlias("student.user", "user")
-			.add(Restrictions.eq("user.fullName", stuName));
-		}
-			
-		if(startTime != null)
-		{
-			c.add(Restrictions.ge("recordtime", startTime));
-		}
-		
-		if(endTime != null)
-		{
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(endTime);
-			cal.add(Calendar.DATE, 1);			
-			c.add(Restrictions.le("recordtime", cal.getTime()));
-		}
-		
-		checkinRecordList = c.list();
-
-		
-		checkinRecordTable = Util.getJspOutput("/jsp/admin/widgets/checkinRecordTable.jsp");
+		checkinRecordList = session
+							.createCriteria(CheckInRecord.class)
+							.add(Restrictions.eq("student.id", student_id))
+							.addOrder(Order.desc("id"))
+							.list();
 		session.close();
+		
+		 
 		return ActionSupport.SUCCESS;
 	}
 	
-	
-	String checkinRecordExcelPath;
-	public String exportExcel() throws Exception{
-
-		HSSFWorkbook wb = new HSSFWorkbook();
-		HSSFSheet sheet = wb.createSheet("签到记录");
-		HSSFRow row = sheet.createRow((int) 0);  
-        HSSFCellStyle style = wb.createCellStyle();  
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 创建一个居中格式  
-        
-        HSSFCell cell = row.createCell(0, Cell.CELL_TYPE_STRING);  
-        cell.setCellValue("姓名");  
-        cell.setCellStyle(style);  
-        cell = row.createCell(1, Cell.CELL_TYPE_STRING);  
-        cell.setCellValue("学号");  
-        cell.setCellStyle(style);  
-        cell = row.createCell(2, Cell.CELL_TYPE_STRING);  
-        cell.setCellValue("签到时间");  
-        cell.setCellStyle(style);
-
-        
-        this.search();        
-
-        
-		for(int i = 0; i < checkinRecordList.size(); ++i) {
-//			System.out.println(L.get(i));
-			row = sheet.createRow((int) i + 1);  
-			CheckInRecord cr = (CheckInRecord) checkinRecordList.get(i);
-            row.createCell(0, Cell.CELL_TYPE_STRING).setCellValue(cr.getStudent().getUser().getFullName());  
-            row.createCell(1, Cell.CELL_TYPE_STRING).setCellValue(cr.getStudent().getStudentId());            
-            row.createCell(2, Cell.CELL_TYPE_STRING).setCellValue(util.Util.formatTimestamp(cr.recordtime));
-		}
-				
-		checkinRecordExcelPath = util.Util.CheckInExcelExportPath + "签到记录.xls";
-		
-		try  
-        {
-			
-            FileOutputStream fout = new FileOutputStream(util.Util.RootPath + checkinRecordExcelPath);  
-            wb.write(fout);  
-            fout.close();
-            wb.close();
-        }
-		catch (Exception e)  
-        {
-			e.printStackTrace();
-        }
-
+	public String checkin() throws Exception
+	{
+		System.out.println("SB(((((((");
+		int student_id =(int) ActionContext.getContext().getSession().get("student_id" );
+		StudentProfile sp = new StudentProfile();
+		sp.id = student_id;
 		
 		
+		
+		Session s = model.Util.sessionFactory.openSession();
+		s.beginTransaction();
+		
+		CheckInRecord ci = new CheckInRecord();
+		ci.recordtime = new java.sql.Timestamp(new java.util.Date().getTime());
+		ci.student = sp;
+		s.save(ci);
+		
+		s.getTransaction().commit();
+//		checkinRecordList = session
+//							.createCriteria(CheckInRecord.class)
+//							.add(Restrictions.eq("student.id", student_id))
+//							.addOrder(Order.desc("id"))
+//							.list();
+		s.close();
 		return SUCCESS;
 	}
-
-	
-	
-	
-	
-
-	
-	public java.util.Date getStartTime() {
-		return startTime;
-	}
-
-
-	public void setStartTime(java.util.Date startTime) {
-		this.startTime = startTime;
-	}
-
-
-	public java.util.Date getEndTime() {
-		return endTime;
-	}
-
-
-	public void setEndTime(java.util.Date endTime) {
-		this.endTime = endTime;
-	}
-
-
-	public String getStuName() {
-		return stuName;
-	}
-
-
-	public void setStuName(String stuName) {
-		this.stuName = stuName;
-	}
-
-
-	public String getCheckinRecordTable() {
-		return checkinRecordTable;
-	}
-
-
-	public void setCheckinRecordTable(String checkinRecordTable) {
-		this.checkinRecordTable = checkinRecordTable;
-	}
-
 
 	public List getCheckinRecordList() {
 		return checkinRecordList;
 	}
 
-
 	public void setCheckinRecordList(List checkinRecordList) {
 		this.checkinRecordList = checkinRecordList;
 	}
-	public String getCheckinRecordExcelPath() {
-		return checkinRecordExcelPath;
-	}
-	public void setCheckinRecordExcelPath(String checkinRecordExcelPath) {
-		this.checkinRecordExcelPath = checkinRecordExcelPath;
-	}
 	
+	
+	
+//	java.util.Date startTime;
+//	java.util.Date endTime;
+//	String stuName;
+//	
+//	String checkinRecordTable;
+//	List checkinRecordList;
+//	public String search() throws Exception
+//	{
+//		
+//		System.out.println("SB-------");
+//		Session session = model.Util.sessionFactory.openSession();
+//		Criteria c = session.createCriteria(CheckInRecord.class)		
+//							.addOrder(Order.desc("id"));
+//				
+//		
+//		if(!stuName.equals(""))
+//		{
+//			c.createAlias("student", "student")
+//			.createAlias("student.user", "user")
+//			.add(Restrictions.eq("user.fullName", stuName));
+//		}
+//			
+//		if(startTime != null)
+//		{
+//			c.add(Restrictions.ge("recordtime", startTime));
+//		}
+//		
+//		if(endTime != null)
+//		{
+//			Calendar cal = Calendar.getInstance();
+//			cal.setTime(endTime);
+//			cal.add(Calendar.DATE, 1);			
+//			c.add(Restrictions.le("recordtime", cal.getTime()));
+//		}
+//		
+//		checkinRecordList = c.list();
+//
+//		
+//		checkinRecordTable = Util.getJspOutput("/jsp/admin/widgets/checkinRecordTable.jsp");
+//		session.close();
+//		return ActionSupport.SUCCESS;
+//	}
+//	
+//	
+//	String checkinRecordExcelPath;
+//	public String exportExcel() throws Exception{
+//
+//		HSSFWorkbook wb = new HSSFWorkbook();
+//		HSSFSheet sheet = wb.createSheet("签到记录");
+//		HSSFRow row = sheet.createRow((int) 0);  
+//        HSSFCellStyle style = wb.createCellStyle();  
+//        style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 创建一个居中格式  
+//        
+//        HSSFCell cell = row.createCell(0, Cell.CELL_TYPE_STRING);  
+//        cell.setCellValue("姓名");  
+//        cell.setCellStyle(style);  
+//        cell = row.createCell(1, Cell.CELL_TYPE_STRING);  
+//        cell.setCellValue("学号");  
+//        cell.setCellStyle(style);  
+//        cell = row.createCell(2, Cell.CELL_TYPE_STRING);  
+//        cell.setCellValue("签到时间");  
+//        cell.setCellStyle(style);
+//
+//        
+//        this.search();        
+//
+//        
+//		for(int i = 0; i < checkinRecordList.size(); ++i) {
+////			System.out.println(L.get(i));
+//			row = sheet.createRow((int) i + 1);  
+//			CheckInRecord cr = (CheckInRecord) checkinRecordList.get(i);
+//            row.createCell(0, Cell.CELL_TYPE_STRING).setCellValue(cr.getStudent().getUser().getFullName());  
+//            row.createCell(1, Cell.CELL_TYPE_STRING).setCellValue(cr.getStudent().getStudentId());            
+//            row.createCell(2, Cell.CELL_TYPE_STRING).setCellValue(util.Util.formatTimestamp(cr.recordtime));
+//		}
+//				
+//		checkinRecordExcelPath = util.Util.CheckInExcelExportPath + "签到记录.xls";
+//		
+//		try  
+//        {
+//			
+//            FileOutputStream fout = new FileOutputStream(util.Util.RootPath + checkinRecordExcelPath);  
+//            wb.write(fout);  
+//            fout.close();
+//            wb.close();
+//        }
+//		catch (Exception e)  
+//        {
+//			e.printStackTrace();
+//        }
+//
+//		
+//		
+//		return SUCCESS;
+//	}
+//
+//	
+//	
+//	
+//	
+//
+//	
+//	public java.util.Date getStartTime() {
+//		return startTime;
+//	}
+//
+//
+//	public void setStartTime(java.util.Date startTime) {
+//		this.startTime = startTime;
+//	}
+//
+//
+//	public java.util.Date getEndTime() {
+//		return endTime;
+//	}
+//
+//
+//	public void setEndTime(java.util.Date endTime) {
+//		this.endTime = endTime;
+//	}
+//
+//
+//	public String getStuName() {
+//		return stuName;
+//	}
+//
+//
+//	public void setStuName(String stuName) {
+//		this.stuName = stuName;
+//	}
+//
+//
+//	public String getCheckinRecordTable() {
+//		return checkinRecordTable;
+//	}
+//
+//
+//	public void setCheckinRecordTable(String checkinRecordTable) {
+//		this.checkinRecordTable = checkinRecordTable;
+//	}
+//
+//
+//	public List getCheckinRecordList() {
+//		return checkinRecordList;
+//	}
+//
+//
+//	public void setCheckinRecordList(List checkinRecordList) {
+//		this.checkinRecordList = checkinRecordList;
+//	}
+//	public String getCheckinRecordExcelPath() {
+//		return checkinRecordExcelPath;
+//	}
+//	public void setCheckinRecordExcelPath(String checkinRecordExcelPath) {
+//		this.checkinRecordExcelPath = checkinRecordExcelPath;
+//	}
+//	
 }

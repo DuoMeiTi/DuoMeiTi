@@ -14,8 +14,8 @@
     		<result>/jsp/student/checkin.jsp</result>
     	</action>
     	
-    	<action name="checkinManage_*" class="student.CheckinManageAction" >
-    		<result>/jsp/student/checkin.jsp</result>
+    	<action name="checkinManage_*" class="student.CheckinManageAction" method="{1}">
+    		<result type="json"></result>
     	</action>
     	
 <!--     	签到管理 END-->    

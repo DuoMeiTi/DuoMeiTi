@@ -10,7 +10,9 @@
 	    <a href="/student/classroomDevice/rules" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;查看规章制度</span></a>
 	    <a href="/student/train" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;技术培训</span></a>
 	    <a href="/student/exam" class="menu-button-middle"><span class="glyphicon glyphicon-pencil">&nbsp;考试系统</span></a>
-	    <a href="/studentcheckin/checkinrecord_name" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;签到</span></a>
+	    
+	    <a href="/student/checkinManage" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;签到</span></a>
+	    
 	    <a href="/student/student_information" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;个人信息</span></a>
 	    <a href="/student/modify_password" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;修改密码</span></a>
 	    <a href="/logout" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;安全退出</span></a>

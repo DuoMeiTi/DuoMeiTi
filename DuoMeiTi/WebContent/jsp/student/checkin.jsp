@@ -10,7 +10,7 @@
 	
 	
 		<div class="student_table" id="studnetcheckintable">
-			<%@ include file="/jsp/student/studentcheckintable.jsp" %>
+			<%@ include file="/jsp/admin/widgets/checkinRecordTable.jsp" %>
 		</div>
 <!-- 		<div> -->
 <%-- 			<%@ include file="/jsp/base/widgets/pagination.jsp" %> --%>
@@ -22,17 +22,25 @@
 <script>
 
 function checkin(){
+	
+	
 	$.ajax({
-		url: "/studentcheckin/checkinbyusername",
-		success: result,
-		error: result
-	});
+        url: '/student/checkinManage_checkin',
+        type: 'post',
+        dataType: 'json',
+        data: { },
+		success:function(data)
+		{
+			window.location.reload();
+
+		}
+	
+      });
+
+
 }
 
-function result(data){
-	alert(data.result);
-	location.reload();
-}
+
 
 
 
