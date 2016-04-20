@@ -3,11 +3,56 @@
 
 
 <div class="mycontent">
-	<h>学生签到</h>
-	<button type="button" class="btn btn-default"  style="margin:2px;" id="addbutton" onclick="checkin()">签&nbsp;&nbsp;到</button>
-	<div>
+
+	<div class="alert alert-success" role="alert">
+		只能在选择的班的开始的前一个小时内签到，也就是对于以下值班时间段的对应可签到时间段为：
+		
+		
+		<s:iterator var= "i" begin="0" end="@util.Util@dutyPeriodBeginList.size() - 1" >
+			<p>			
+				
+				
+				对于值班时间段
+					<s:property value="@util.Util@dutyPeriodBeginList.get(#i)"/>
+					~
+					<s:property value="@util.Util@dutyPeriodEndList.get(#i)"/>
+				 只能在时间段
+				 
+				 	<s:property value="@util.Util@dutyPeriodBeginList.get(#i).minusHours(1)"/>
+					~
+					<s:property value="@util.Util@dutyPeriodBeginList.get(#i)"/>
+				内签到
+				
+			</p>
+		</s:iterator>
+		
+	</div>
+
+	
+	<div class="well">
+		<h3>
+		<s:if test="status.charAt(0) == '0' ">
+		
+			<button type="button" class="btn btn-primary" id="addbutton" onclick="checkin()">
+				<s:property value= "status.substring(1)"/>
+<%-- 					<s:property value= "@util.Util@dutyPeriodList.get(currentPeriodId)"/> --%>
+				
+			</button>	
+		</s:if>
+		
+<%-- 		<s:elseif test="status.charAt(0) == '2'"> --%>
+<%-- 			<s:property value= "status.substring(1)"/> --%>
+<%-- 		</s:elseif> --%>
+		<s:elseif test="status.charAt(0) != '0'">
+			<s:property value= "status.substring(1)"/>
+		</s:elseif>
+		
+</h3>
+
 	</div>
 	
+
+
 	
 		<div class="student_table" id="studnetcheckintable">
 			<%@ include file="/jsp/admin/widgets/checkinRecordTable.jsp" %>

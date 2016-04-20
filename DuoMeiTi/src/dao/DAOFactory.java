@@ -11,7 +11,7 @@ public class DAOFactory {
 	static{
 		factorymap.put(StudentProfile.class, StudentProfileDao.class);
 		factorymap.put(User.class,UserDao.class);
-		factorymap.put(CheckInRecord.class, CheckInRecordDao.class);
+//		factorymap.put(CheckInRecord.class, CheckInRecordDao.class);
 	}
 	public static BaseDao getDao(Class modelClass) throws InstantiationException, IllegalAccessException
 	{

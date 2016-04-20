@@ -31,6 +31,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import checkin.TimeUtil;
 import model.CheckInRecord;
+import model.DutySchedule;
 import model.StudentProfile;
 import util.Util;
 
@@ -38,18 +39,132 @@ import util.Util;
 
 
 public class CheckinManageAction extends ActionSupport{
-	List checkinRecordList;
-	public String execute() throws Exception
+	List checkinRecordList;	
+	int currentPeriodId;
+	
+	public static int getCloseInDutyPeriodId(java.util.Date now)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(now);
+		
+		int period = -1;
+		for(int i = 0; i < util.Util.dutyPeriodBeginList.size(); i++)
+		{
+			java.time.LocalTime cnt = java.time.LocalTime.of(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
+			
+			java.time.LocalTime beg = util.Util.dutyPeriodBeginList.get(i).minusHours(1);
+			java.time.LocalTime end = util.Util.dutyPeriodBeginList.get(i);
+			
+			if(cnt.isAfter(beg) && cnt.isBefore(end)) 
+			{
+				period = i; break;
+			}
+		}
+		return period;
+	}
+	public static int makeCloseInDutyTime(java.util.Date now)
+	{		
+		int week = util.Util.getDayOfWeek(now);
+		int period = getCloseInDutyPeriodId(now);
+		
+		if(period == -1) return -1;		
+		return util.Util.makeDutyTime(week, period);
+
+	}
+	
+	private static boolean isSameDate(java.util.Date date1, java.util.Date date2) 
+	{
+	       Calendar cal1 = Calendar.getInstance();
+	       cal1.setTime(date1);
+
+	       Calendar cal2 = Calendar.getInstance();
+	       cal2.setTime(date2);
+
+	       boolean isSameYear = cal1.get(Calendar.YEAR) == cal2
+	               .get(Calendar.YEAR);
+	       boolean isSameMonth = isSameYear
+	               && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH);
+	       boolean isSameDate = isSameMonth
+	               && cal1.get(Calendar.DAY_OF_MONTH) == cal2
+	                       .get(Calendar.DAY_OF_MONTH);
+
+	       return isSameDate;
+	 }
+	
+	String status;
+	public String execute() throws Exception	
 	{
 		int student_id =(int) ActionContext.getContext().getSession().get("student_id" );
-		Session session = model.Util.sessionFactory.openSession();
-		checkinRecordList = session
-							.createCriteria(CheckInRecord.class)
-							.add(Restrictions.eq("student.id", student_id))
-							.addOrder(Order.desc("id"))
-							.list();
-		session.close();
+		java.util.Date now = new java.util.Date();
+		Session s = model.Util.sessionFactory.openSession();
 		
+		checkinRecordList = 
+				s.createCriteria(CheckInRecord.class)
+				.add(Restrictions.eq("student.id", student_id))
+				.addOrder(Order.desc("id"))
+				.list();
+		
+		
+		
+//		util.Util.dutyPeriodBeginList.get(0).format(formatter)
+		
+		currentPeriodId = getCloseInDutyPeriodId(now);	
+		
+		System.out.println("=========--------");
+		System.out.println(currentPeriodId);
+		// 0 表示可以签到
+		status = "0";
+		
+		
+		// 当前时间不能签到
+		if(currentPeriodId == -1)
+		{
+			status = "1当前时间不能签到";
+		}
+		else 
+		{
+			if(!checkinRecordList.isEmpty())
+			{
+				CheckInRecord checkInRecord = (CheckInRecord)checkinRecordList.get(0);
+				
+				if(isSameDate(now, checkInRecord.recordtime) &&
+						currentPeriodId == getCloseInDutyPeriodId(checkInRecord.recordtime))
+				{
+					// 已经签过了
+					status = "2值班时间段" + util.Util.dutyPeriodList.get(currentPeriodId) + "的已经签过了";
+//					status = "2当前时间段的选班已经签过了";
+				}				
+			}
+			
+			if(status.charAt(0) == '0')
+			{
+				int cntTime = makeCloseInDutyTime(now);
+				List ds_list = (List)
+								s.createCriteria(model.DutySchedule.class)
+								.add(Restrictions.eq("student.id", student_id))
+								.createAlias("dutyPiece", "dutyPiece")
+								.add(Restrictions.eq("dutyPiece.time", cntTime))
+								.list();
+				// 当前学生选择了此时间段的选班，可以进行签到
+				if(ds_list.size() > 0)
+				{
+					status = "0对于值班时间段"
+								+ util.Util.dutyPeriodList.get(currentPeriodId) 
+								+"进行签到";
+				}
+				else
+				{
+					// 当前学生没有选择此时间段的选班，不可以进行签到
+					status="3当前学生没有选择" 
+							+ util.Util.dutyPeriodList.get(currentPeriodId) 
+							+ "时间段的选班，不可以进行签到";
+				}
+			}
+			
+		}
+
+
+		s.close();
 		 
 		return ActionSupport.SUCCESS;
 	}
@@ -87,6 +202,20 @@ public class CheckinManageAction extends ActionSupport{
 
 	public void setCheckinRecordList(List checkinRecordList) {
 		this.checkinRecordList = checkinRecordList;
+	}
+
+	public int getCurrentPeriodId() {
+		return currentPeriodId;
+	}
+
+	public void setCurrentPeriodId(int currentPeriodId) {
+		this.currentPeriodId = currentPeriodId;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

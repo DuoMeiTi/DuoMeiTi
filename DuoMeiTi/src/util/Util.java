@@ -221,7 +221,10 @@ public class Util
 	
 	
 	// 与值班表相关的常量定义：
+	// 0-6 一共七天
 	public static final List<String> dutyWeekList;
+	
+	// 0-4 一共五个时间段
 	public static final List<String> dutyPeriodList;
 	public static final List<java.time.LocalTime> dutyPeriodBeginList;
 	public static final List<java.time.LocalTime> dutyPeriodEndList;
@@ -250,6 +253,18 @@ public class Util
 		day -= 2;
 		if(day == -1) day = 6;
 		return day;
+		
+	}
+	
+	public static int makeDutyTime(int week, int period)
+	{
+		return period * 7 + week;
+//		Calendar c = Calendar.getInstance();
+//		c.setTime(d);
+//		int day = c.get(Calendar.DAY_OF_WEEK);
+//		day -= 2;
+//		if(day == -1) day = 6;
+//		return day;
 		
 	}
 	
