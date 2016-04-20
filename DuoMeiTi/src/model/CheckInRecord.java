@@ -17,6 +17,19 @@ public class CheckInRecord {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
 	
+
+	@ManyToOne
+	@JoinColumn
+	public StudentProfile student;
+	
+	@Column
+	public Timestamp recordtime;
+	
+	
+	
+	
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -41,13 +54,6 @@ public class CheckInRecord {
 		this.recordtime = recordtime;
 	}
 
-	@ManyToOne
-	@JoinColumn
-	public StudentProfile student;
-	
-	@Column
-	public Timestamp recordtime;
-	
 	@Override
 	public String toString()
 	{

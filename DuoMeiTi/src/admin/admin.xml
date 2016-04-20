@@ -31,6 +31,25 @@
 		
 <!-- 维修记录管理 END-->
 
+
+<!-- 签到管理checkinManage -->
+		<action name="checkinManage" class="admin.CheckinManageAction">
+			<result>
+				/jsp/admin/checkinrecord.jsp
+			</result>			
+		</action>
+		
+		<action name="checkinManage_*" class="admin.CheckinManageAction" method="{1}">
+			
+			<result name="success" type="json">
+				<param name="includeProperties">*</param>    
+			</result>			
+		</action>
+		
+<!-- 签到管理checkin END-->
+
+
+
 		
 		<action name="student_manage">
 			<result>
