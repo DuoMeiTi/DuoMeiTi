@@ -7,10 +7,11 @@
  			
 			<th>资产编号</th>
  			<th>型号</th>
- 			<th>出厂号</th>
+ 			
  			
  			<th>出厂日期</th>
  			<th>审批日期</th>
+ 			<th>出厂号</th>
  			
  			<th>使用状态</th>
 			<th>查看状态历史</th>
@@ -23,10 +24,10 @@
 				
 				<td class="click_me"> <s:property value="#i.rtNumber"/> </td>
 				<td class="click_me"> <s:property value="#i.rtVersion"/> </td>
-				<td class="click_me"> <s:property value="#i.rtFactorynum"/> </td>				
+							
 				<td class="click_me"> <s:property value="@util.Util@formatTimestampToOnlyDate(#i.rtProdDate)"/> </td>
 				<td class="click_me"> <s:property value="@util.Util@formatTimestampToOnlyDate(#i.rtApprDate)"/> </td>
-								
+				<td class="click_me"> <s:property value="#i.rtFactorynum"/> </td>					
 				<td class="click_me"> <s:property value="#i.rtDeviceStatus"/> </td>
 				<td > 
 					<button type="button" class="btn btn-info watchDeviceStatusHistory" >状态历史</button> 

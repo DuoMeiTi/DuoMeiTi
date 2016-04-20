@@ -1,5 +1,28 @@
 
 
+
+
+$(document).on("click", "#rtExportExcel", function() {
+	
+	$.ajax({
+		url : 'repertory_exportExcel',
+		type : 'post',
+		dataType : 'json',
+		data :
+			{
+			"selectDeviceType" :$("#selectDeviceType").val(),
+			"selectDeviceStatus" :$("#selectDeviceStatus").val(),
+			},
+		success : function(data)
+		{
+			window.open(data.exportExcelPath);
+			
+			
+		}
+	});
+})
+
+
 $(document).on("click", ".watchDeviceStatusHistory", function() {
 	
 	var rtId = $(this).parents("tr").attr("rt_id");

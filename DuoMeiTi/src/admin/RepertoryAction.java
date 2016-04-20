@@ -1,7 +1,10 @@
 package admin;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,12 +26,17 @@ import com.opensymphony.xwork2.ActionSupport;
 
 //import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;    
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 
 import dto.T_Repertory;
 import model.Classroom;
+import model.RepairRecord;
 //import jxl.Sheet;
 //import jxl.Workbook;
 import model.Repertory;
@@ -143,9 +151,8 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		
 		device = Const.device;
 		mainDevice = Const.mainDevice;
-
 		costDevice = Const.costDevice;
-
+		
 		deviceStatus = new String[5];
 		deviceStatus[0] = Const.deviceStatus[0];
 		deviceStatus[1] = Const.deviceStatus[1];
@@ -219,6 +226,116 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		return true;
 	}
 	
+	
+	String exportExcelPath;	
+	public String exportExcel() throws Exception{
+		
+		
+		System.out.println("abc");
+		this.search();
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		HSSFSheet sheet = workbook.createSheet();
+		try{
+			
+			HSSFRow row = sheet.createRow(0);
+			for(int j = 0; j < 12; ++ j) 
+				row.createCell(j);
+			
+			row.getCell(0).setCellValue("设备类型");
+			row.getCell(1).setCellValue("资产编号");
+			row.getCell(2).setCellValue("型号");
+			row.getCell(3).setCellValue("出厂日期");
+			row.getCell(4).setCellValue("审批日期");
+			row.getCell(5).setCellValue("出厂号");
+			row.getCell(6).setCellValue("使用状态");
+			row.getCell(7).setCellValue("教学楼");
+			row.getCell(8).setCellValue("教室号");
+			row.getCell(9).setCellValue("更换时间段");
+			row.getCell(10).setCellValue("频点");
+			row.getCell(11).setCellValue("过滤网更换时间");
+			
+			
+			for(int i=0; i<repertory_list.size(); i++)
+			{
+				Repertory device = repertory_list.get(i);
+				
+				row = sheet.createRow(i+1);
+				for(int j = 0; j < 12; ++ j) 
+					row.createCell(j);
+				
+				row.getCell(0).setCellValue(device.rtType);
+				row.getCell(1).setCellValue(device.rtNumber);
+				row.getCell(2).setCellValue(device.rtVersion);
+				if(device.rtProdDate != null)
+					row.getCell(3).setCellValue(util.Util.formatTimestampToOnlyDate(device.rtProdDate));
+				
+				if(device.rtApprDate != null)
+					row.getCell(4).setCellValue(util.Util.formatTimestampToOnlyDate(device.rtApprDate));
+				row.getCell(5).setCellValue(device.rtFactorynum);
+				row.getCell(6).setCellValue(device.rtDeviceStatus);
+				if(device.rtClassroom != null)
+				{
+					row.getCell(7).setCellValue(device.rtClassroom.teachbuilding.build_name);
+					row.getCell(8).setCellValue(device.rtClassroom.classroom_num);
+				}
+				
+				if(device.rtType.equals("灯泡"))
+				{
+					row.getCell(9).setCellValue(device.rtReplacePeriod);
+				}
+				
+				if(device.rtType.equals("麦克"))
+				{
+					row.getCell(10).setCellValue(device.rtFreqPoint);
+				}
+				
+				if(device.rtType.equals("投影仪"))
+				{
+					row.getCell(11).setCellValue(device.rtFilterCleanPeriod);
+				}
+				
+			}
+			
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		for(int j = 0; j < 12; ++ j)			
+			sheet.autoSizeColumn(j);
+		
+//		String s;
+//		s.
+		
+		for(int j = 0; j < 12; ++ j)
+		{
+			sheet.setColumnWidth(j, 
+								sheet.getColumnWidth(j) * 2);
+		}
+//			sheet.setColumnWidth(j, 3000);
+//			sheet.autoSizeColumn(j, true);
+
+		
+		exportExcelPath = util.Util.ExportDeviceInfoPath + "设备信息.xls";
+		
+		String fullPath = util.Util.RootPath + exportExcelPath;
+		File file = new File(fullPath);
+		if(file.exists())
+		{
+			file.delete();
+		}
+		file.createNewFile();			
+		
+		OutputStream out = new FileOutputStream(file);
+		
+		workbook.write(out);
+		workbook.close();
+		out.close();
+
+		return this.SUCCESS;
+	}
 	
 	public String importExcel() throws Exception 
 	{
@@ -739,6 +856,14 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		this.selectDeviceStatus = selectDeviceStatus;
 	}
 
+	public String getExportExcelPath() {
+		return exportExcelPath;
+	}
+
+	public void setExportExcelPath(String exportExcelPath) {
+		this.exportExcelPath = exportExcelPath;
+	}
+	
 
 
 	

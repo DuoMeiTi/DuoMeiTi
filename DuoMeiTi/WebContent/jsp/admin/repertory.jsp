@@ -7,6 +7,9 @@
 		<div>
 			<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#rtModal" id="rtInsert" name="rtInsert">添加设备信息</button>
 			<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#rtModalImport" id="rtImport" name="rtImport">导入设备xls表</button>
+			<button class="btn btn-primary btn-lg"  id="rtExportExcel" name="rtExportExcel">导出设备xls表</button>
+			
+			
 		</div>
 		<div class="modal fade" id="rtModal">
 			<div class="modal-dialog">

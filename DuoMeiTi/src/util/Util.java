@@ -58,6 +58,10 @@ public class Util
 	public static final String CheckInExcelExportPath = 
 			FileUploadPath + "ExportCheckInFile/";//相对于Rootpath
 	
+	
+	public static final String ExportDeviceInfoPath = 
+			FileUploadPath + "ExportDeviceInfoPath/";//相对于Rootpath
+	
 	public static void makeDir(String path)
 	{
 		File file = new File(path);
@@ -82,6 +86,9 @@ public class Util
 		makeDir(RootPath + ClassroomInfoFilePath);
 		makeDir(RootPath + ClassroomSchedulePath);
 		makeDir(RootPath + CheckInExcelExportPath);
+		
+		makeDir(RootPath + RecordExportPath);
+		makeDir(RootPath + ExportDeviceInfoPath);
 		
 
 		

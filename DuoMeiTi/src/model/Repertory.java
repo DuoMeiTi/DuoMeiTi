@@ -56,7 +56,7 @@ public class Repertory {
 //	过滤网更换时间长度, 只有投影仪设备拥有此属性
 	@Column
 	public int rtFilterCleanPeriod;
-//	频点 ， 只有    设备拥有此属性
+//	频点 ， 只有  麦克 设备拥有此属性
 	@Column
 	public String rtFreqPoint;
 	

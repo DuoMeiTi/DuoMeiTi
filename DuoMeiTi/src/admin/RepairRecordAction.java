@@ -181,10 +181,15 @@ public class RepairRecordAction extends ActionSupport {
 		{
 			e.printStackTrace();
 		}
-		java.sql.Date now = new java.sql.Date(System.currentTimeMillis());
-		String FileName = now.toString() + "设备维修记录.xls"; 
-		exportPath = util.Util.RecordExportPath + FileName;
-		OutputStream out = new FileOutputStream(util.Util.RootPath + util.Util.RecordExportPath + FileName);
+//		java.sql.Date now = new java.sql.Date(System.currentTimeMillis());
+//		String FileName = now.toString() + "设备维修记录.xls"; 
+//		exportPath = util.Util.RecordExportPath + FileName;
+//		OutputStream out = new FileOutputStream(util.Util.RootPath + util.Util.RecordExportPath + FileName);
+		
+		
+		
+		exportPath = util.Util.RecordExportPath +  "设备维修记录.xls";
+		OutputStream out = new FileOutputStream(util.Util.RootPath + exportPath);
 		
 		workbook.write(out);
 		workbook.close();
