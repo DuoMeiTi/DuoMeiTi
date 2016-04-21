@@ -29,7 +29,7 @@
 
 
 
-			<%@ include file="/jsp/admin/widgets/checkinRecordTable.jsp" %>
+			<%@ include file="/jsp/admin/widgets/checkinTable.jsp" %>
 
 	</div>
 	<!-- 模态框（Modal） -->

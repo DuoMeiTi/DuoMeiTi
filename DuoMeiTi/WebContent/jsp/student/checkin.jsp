@@ -55,7 +55,7 @@
 
 	
 		<div class="student_table" id="studnetcheckintable">
-			<%@ include file="/jsp/admin/widgets/checkinRecordTable.jsp" %>
+			<%@ include file="/jsp/admin/widgets/checkinTable.jsp" %>
 		</div>
 <!-- 		<div> -->
 <%-- 			<%@ include file="/jsp/base/widgets/pagination.jsp" %> --%>
