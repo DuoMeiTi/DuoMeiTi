@@ -38,7 +38,7 @@
 		</action>
         <!-- 学生信息 -->
 
-		
+<!-- 		考试系统 -->
 		<action name="exam" class="student.ExamAction">
 			<result>/jsp/student/exam.jsp</result>
 			<result name="error">/jsp/student/examNotWatch.jsp</result>
@@ -47,7 +47,7 @@
 		<action name="exam_*" class="student.ExamAction" method="{1}">
 			<result type="json"></result>
 		</action>
-
+<!-- 		考试系统 END-->
 		<action name="student_information" class="student.InformationAction" method="studentInformation">
 			<result>/jsp/student/student_information.jsp</result>
 		</action>

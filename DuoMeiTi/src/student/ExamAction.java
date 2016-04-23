@@ -221,7 +221,7 @@ public class ExamAction extends ActionSupport {
 		}
 		else 
 		{
-			this.status = "您答题正确率不足，还未通过考试";
+			this.status = "您答题正确率不足，还未通过考试， 请继续答题";
 		}
 		
 		

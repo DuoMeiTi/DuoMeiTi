@@ -37,27 +37,29 @@ public class StudentProfile {
     @Column
     public java.sql.Date entryTime;    
 
-//    @OneToMany(mappedBy="principal", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-//    public Set<Classroom> classrooms;
+
     
     @Column(length = 10)
     public String status;
     
+    
+    //用于用户注册请求部分： isPassed： 0 未处理； 1 不通过；2 通过， 
     public static final int   Unhandled = 0;
     public static final int   NotPassed = 1;
     public static final int   Passed = 2;
-    
-    //isPassed： 0 未处理； 1 不通过；2 通过
     @Column(columnDefinition="INT default 0", nullable=false)
     public int isPassed;
+    //用于用户注册请求部分END
     
-    @Column(columnDefinition="INT default 0", nullable=false)
-    public int isUpgradePrivilege;
     
-    //isUpgradePrivilege: 0 在职学生； 1 管理教师； 2 离职学生；
+    //用于设置学生的权限：isUpgradePrivilege: 0 在职学生； 1 管理教师； 2 离职学生；    
     public static final int ServingStudent = 0;
     public static final int ManagedTeacher = 1;
     public static final int DepartureStudent = 2;
+    @Column(columnDefinition="INT default 0", nullable=false)
+    public int isUpgradePrivilege;
+    //用于设置学生的权限END
+    
     
 
 	public User getUser() {

@@ -72,14 +72,12 @@ public class TrainingAction extends ActionSupport{
 	
 	
 	
-	public String examEdit() throws Exception{
-		
-		
-		System.out.println("YEYYEE");
-		System.out.println(emId);
-		System.out.println("$$$$$$$$$$$$" + emId);
+	public String examEdit() throws Exception{		
+
 		Session session = model.Util.sessionFactory.openSession();
+		
 		Criteria qt = session.createCriteria(ExamTitle.class).add(Restrictions.eq("emId", emId));
+		
 		qtitle = qt.list();
 		if(qtitle.isEmpty())
 		{
@@ -88,16 +86,29 @@ public class TrainingAction extends ActionSupport{
 		else
 		{
 			System.out.println("$$$$$$$$$$$$" + emId);
+			
 			session.beginTransaction();
+			
 			ExamTitle et = (ExamTitle)qtitle.get(0);
 			et.setEmTitle(emTitle);
-			session.save(et);
+			session.update(et);
 			Criteria qo = session.createCriteria(ExamOption.class).add(Restrictions.eq("emTitle.emId", emId));
 			List<ExamOption> oldOptionList = qo.list();
 			
 			while(oldOptionList.size() > optionList.size()) 
 			{
 				int last = oldOptionList.size() - 1;
+				
+				ExamOption cntEmOp = oldOptionList.get(last);
+				List<model.ExamStuOption> studentSelectOptionList =
+						(List<model.ExamStuOption>) 
+				session.createCriteria(model.ExamStuOption.class)
+						.add(Restrictions.eq("emoption.id", cntEmOp.emId))
+						.list();
+				
+				for(model.ExamStuOption i: studentSelectOptionList)
+					session.delete(i);
+				
 				session.delete(oldOptionList.get(last));
 				oldOptionList.remove(last);	
 			}
@@ -229,6 +240,13 @@ public class TrainingAction extends ActionSupport{
 			List<ExamOption> qoList = qo.list();
 			for(int i = 0; i < qoList.size(); i++)
 			{
+				List<model.ExamStuOption> studentSelectOptionList =
+						(List<model.ExamStuOption>) 
+						session.createCriteria(model.ExamStuOption.class)
+								.add(Restrictions.eq("emoption.id", qoList.get(i).emId))
+								.list();
+				for(model.ExamStuOption eso: studentSelectOptionList)
+					session.delete(eso);
 				session.delete(qoList.get(i));
 			}
 			session.delete(qtitle.get(0));
@@ -238,6 +256,10 @@ public class TrainingAction extends ActionSupport{
 		session.close();
 		return SUCCESS;
 	}
+	
+	
+	
+	
 	
 	public String infoUpdate() throws Exception
 	{

@@ -27,6 +27,8 @@ public class ExamStuOption {
 	@Fetch(FetchMode.SELECT)
 	public ExamOption emoption;
 	
+	
+	// 弃用！
 	@Column
 	int esNums;
 
