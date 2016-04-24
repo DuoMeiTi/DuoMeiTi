@@ -22,90 +22,107 @@
 					</div>
 					<div class="modal-body">
 					<div class="alert alert-success" role="alert">若想要将此设备的状态设为教室，请在教室管理页面操作！</div>
-					<form class="form-inline well" id="repertory_form" method="post">
-						<div class="modal-body">
-							<div class="row">
-							<div class="col-lg-6">
-								<div class="input-group">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">设备类别<span style="color:red">*</span></button>
-									</span>
-									<s:select list="device" class="form-control" name="rtDevice" id="rtDevice"></s:select>
-								</div>
-								<div class="input-group">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">资产编号</button>
-									</span>
-									<input type="text" class="form-control" name="rtNumber" id="rtNumber" value="<s:property value="rtNumber"/>">
-								</div>
-								<div class="input-group">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">出厂日期</button>
-									</span>
-									<input type="date" class="form-control" name="rtProdDate" id="rtProdDate" value="<s:property value="rtProdDate"/>">
-								</div>
-								<div class="input-group">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">出厂号</button>
-									</span>
-									<input type="text" class="form-control" name="rtFactorynum" id="rtFactorynum" value="<s:property value="rtFactorynum"/>">
-								</div>
-								<div class="input-group" >
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default" style="width:120px;">更换时间(天数)</button>
-									</span>
-									<input placeholder="" type="text" class="form-control"
-									 name="rtReplacePeriod" 
-									 id="rtReplacePeriod"
-									 style="width:120px;" 
-									 value="<s:property value="rtReplacePeriod"/>">
-									 
-								</div>
-								
-							</div>
-							<div class="col-lg-6">
-								<div class="input-group">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">设备名称<span style="color:red">*</span></button>
-									</span>
-									<s:select list="mainDevice" class="form-control" name="rtType" id="rtType1" style="display:none"></s:select>
-									<s:select list="costDevice" class="form-control" name="rtType" id="rtType2" style="display:none"></s:select>
-								</div>
-								<div class="input-group">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">型号</button>
-									</span>
-									<input type="text" class="form-control" name="rtVersion" id="rtVersion" value="<s:property value="rtVersion"/>">
-								</div>
-								<div class="input-group">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">审批日期</button>
-									</span>
-									<input type="date" class="form-control" name="rtApprDate" id="rtApprDate" value="<s:property value="rtApprDate"/>">
-								</div>
-								<div class="input-group">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">使用状态<span style="color:red">*</span></button>
-									</span>
-									<s:select list="deviceStatus" class="form-control" name="rtDeviceStatus" id="rtDeviceStatus"></s:select>
-								</div>
-								<div class="input-group" style="display:none" id="freq">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default" >频点</button>
-									</span>
-									<input type="text" class="form-control" name="rtFreqPoint" id="rtFreqPoint" value="<s:property value="rtFreqPoint"/>">
-								</div>
-								<div class="input-group" style="display:none" id="filterclean">
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default" style="width:120px">过滤网更换时间</button>
-									</span>
-									<input type="text" class="form-control" name="rtFilterCleanPeriod" id="rtFilterCleanPeriod" style="width:120px" value="<s:property value="rtFilterCleanPeriod"/>">
-								</div>
-							</div>
-							<div class="text-right" style="color:red">(*为必填项)</div>
-							</div>
-						</div>
-					</form>
+					
+					
+					
+					
+					
+					
+<form class="form-inline well" id="repertory_form" method="post">
+	<div class="modal-body">
+		<div class="row">
+		<div class="col-lg-6">
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default">设备类别<span style="color:red">*</span></button>
+				</span>
+				<s:select list="device" class="form-control" name="rtDevice" id="rtDevice"></s:select>
+				
+			</div>
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default">资产编号</button>
+				</span>
+				<input type="text" class="form-control" name="rtNumber" id="rtNumber" value="<s:property value="rtNumber"/>">
+			</div>
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default">出厂日期</button>
+				</span>
+				<input type="date" class="form-control" name="rtProdDate" id="rtProdDate" value="<s:property value="rtProdDate"/>">
+			</div>
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default">出厂号</button>
+				</span>
+				<input type="text" class="form-control" name="rtFactorynum" id="rtFactorynum" value="<s:property value="rtFactorynum"/>">
+			</div>
+			
+			<div class="input-group"  style="display:none" id="rtReplacePeriodDiv">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" style="width:120px;">更换时间(天数)</button>
+				</span>
+				<input placeholder="" type="text" class="form-control"
+				 name="rtReplacePeriod" 
+				 id="rtReplacePeriod"
+				 style="width:120px;" 
+				 value="<s:property value="rtReplacePeriod"/>">									 
+			</div>
+			
+			<div class="input-group" style="display:none" id="freq">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" >频点</button>
+				</span>
+				<input type="text" class="form-control" name="rtFreqPoint" id="rtFreqPoint" value="<s:property value="rtFreqPoint"/>">
+			</div>
+			<div class="input-group" style="display:none" id="filterclean">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" style="width:120px">过滤网更换时间</button>
+				</span>
+				<input type="text" class="form-control" name="rtFilterCleanPeriod" id="rtFilterCleanPeriod" style="width:120px" value="<s:property value="rtFilterCleanPeriod"/>">
+			</div>
+			
+			
+			
+			
+		</div>
+		<div class="col-lg-6">
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default">设备名称<span style="color:red">*</span></button>
+				</span>
+				<s:select list="mainDevice" class="form-control" name="rtType" id="rtType1" style="display:none"></s:select>
+				<s:select list="costDevice" class="form-control" name="rtType" id="rtType2" style="display:none"></s:select>
+			</div>
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default">型号</button>
+				</span>
+				<input type="text" class="form-control" name="rtVersion" id="rtVersion" value="<s:property value="rtVersion"/>">
+			</div>
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default">审批日期</button>
+				</span>
+				<input type="date" class="form-control" name="rtApprDate" id="rtApprDate" value="<s:property value="rtApprDate"/>">
+			</div>
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default">使用状态<span style="color:red">*</span></button>
+				</span>
+				<s:select list="deviceStatus" class="form-control" name="rtDeviceStatus" id="rtDeviceStatus"></s:select>
+			</div>
+			
+		</div>
+		
+		<div class="text-right" style="color:red">(*为必填项)</div>
+		</div>
+	</div>
+</form>
+
+
+
+
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" id="rtSave" mark="">保存</button>
@@ -276,28 +293,7 @@
 
 
 
-<!-- 		<form class="form-inline" id="repertory_search" name="repertory_search" method="post"> -->
-			
-<!-- 			<div class="form-group"> -->
-<!-- 				<label for="sDevice">设备类别</label> -->
-<%-- 				<s:select list="Device" class="form-control" name="sDevice" id="sDevice"></s:select> --%>
-<!-- 			</div> -->
-			<!-- <input type="text" class="" name="rtMainDevice" id="rtMainDevice" placeholder="设备"> -->
-<!-- 			<div class="form-group" style="display:none" id="main"> -->
-<!-- 				<label for="sMainDevice">设备名称</label> -->
-<%-- 				<s:select list="mainDevice" class="form-control" name="sMainDevice" id="sMainDevice"></s:select> --%>
-<!-- 			</div> -->
-<!-- 			<div class="form-group" style="display:none" id="cost"> -->
-<!-- 				<label for="sCostDevice">设备名称</label> -->
-<%-- 				<s:select list="costDevice" class="form-control" name="sCostDevice" id="sCostDevice"></s:select> --%>
-<!-- 			</div> -->
-			
-<!-- 			<div class="form-group"> -->
-<!-- 				<label for="sDeviceStatus">使用状态</label> -->
-<%-- 				<s:select list="deviceStatus" class="form-control" name="sDeviceStatus" id="sDeviceStatus"></s:select> --%>
-<!-- 			</div> -->
-<!-- 			<div class="text-right">查询记录共&nbsp;<strong style="color:red" id="rtSearchLen"></strong>&nbsp;条</div> -->
-<!-- 		</form> -->
+
 		
 		
 		
@@ -305,7 +301,7 @@
 		
 
 		<div id="repertoryTableDiv">
-<%-- 			<%@ include file="/jsp/admin/widgets/repertoryTable.jsp" %> --%>
+			<%@ include file="/jsp/admin/widgets/repertoryTable.jsp" %>
 		</div>
 
 		

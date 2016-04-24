@@ -85,17 +85,37 @@ $(document).find("#rtDevice").change(function() {
 })
 $(document).find("#rtType1").change(function() {
 	var svalue = $("#rtType1 option:selected").attr("value");
+	
+	$("#filterclean").hide();
+	$("#freq").hide();
+	$("#rtReplacePeriodDiv").hide();
+	
 	if(svalue == "投影机") {
-		$("#filterclean").show();
-		$("#freq").hide();
+		$("#filterclean").show();	
 	}
 	else if(svalue == "麦克") {
-		$("#filterclean").hide();
+		
 		$("#freq").show();
 	}
-	else {
-		$("#freq").hide();
-		$("#filterclean").hide();
+	else 
+	{
+		
+	}
+})
+$(document).find("#rtType2").change(function() {
+	var svalue = $("#rtType2 option:selected").attr("value");
+	
+	$("#filterclean").hide();
+	$("#freq").hide();
+	$("#rtReplacePeriodDiv").hide();
+	
+	if(svalue =="灯泡")
+	{
+		$("#rtReplacePeriodDiv").show();
+	}
+	else 
+	{
+		
 	}
 })
 

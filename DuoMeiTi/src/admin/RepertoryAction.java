@@ -183,7 +183,19 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	{
 		String res = getCellStringValue(row, i);
 		if(res == null) return 0;
-		else return Integer.parseInt(res);
+		else 
+		{
+			int ans = -1;
+			try
+			{
+				ans = Integer.parseInt(res); 
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			return ans;
+		}
 	}
 
 	static java.util.Date getCellDateValue(Row row, int i)
@@ -213,6 +225,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	
 //	麦克:有频点
 //	投影机: 有过滤网时间段
+//
 	static boolean isValidRepertory(Repertory r)
 	{		
 		if(r.rtType == null || r.rtDeviceStatus == null) return false;
@@ -280,7 +293,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 				}
 				
 				if(device.rtType.equals("灯泡"))
-				{
+				{					
 					row.getCell(9).setCellValue(device.rtReplacePeriod);
 				}
 				
@@ -346,7 +359,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 			return this.SUCCESS;
 		}
 		
-
+		try{ // try begin
 
 		InputStream stream = new FileInputStream (this.file);
 		
@@ -420,15 +433,11 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         	
         	int classroom_id = -1;        	
         	if(r.rtClassroom != null) classroom_id = r.rtClassroom.id;
-         	try
-        	{
-        		util.Util.modifyDeviceStatus(session, r.rtId, user_id, r.rtDeviceStatus, classroom_id);	
-        	}
-        	catch(Exception e)
-        	{
-        		e.printStackTrace();
-        	}
         	
+         	
+    		util.Util.modifyDeviceStatus(session, r.rtId, user_id, r.rtDeviceStatus, classroom_id);	
+
+
         	
 
         	
@@ -439,6 +448,12 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		session.close();
 		rwb.close();
 		stream.close();
+		
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
 		this.status = "1";		
 		return SUCCESS;

@@ -62,7 +62,7 @@ public class Repertory {
 	
 	
 	
-//	被替换的时间长度
+//	被替换的时间长度, 只有灯泡需要此属性
 	@Column
 	public int rtReplacePeriod;
 //	被替换的时间点
