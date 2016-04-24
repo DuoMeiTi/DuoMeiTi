@@ -23,7 +23,7 @@ public class ExamStuScore {
 	public StudentProfile stuPro;
 	
 	@Column
-	int score;
+	public int score;
 
 	public int getId() {
 		return id;

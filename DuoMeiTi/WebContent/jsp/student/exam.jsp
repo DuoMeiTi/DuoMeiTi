@@ -5,8 +5,8 @@
 <link rel="stylesheet" type="text/css" media="screen" href="/css/student/train.css" />
 <div class="mycontent">
 	
-	<s:if test="newNum == 1">
-		<div id="showContent" newNum=<s:property value="newNum" /> > 
+
+		<div id="showContent"  > 
 		
 		<div class="panel panel-primary">
 			<div class="panel-heading center"><h2 style="font-weight:bold;">考试系统</h2></div>
@@ -22,42 +22,76 @@
 			
 		
 		<div id="showexamCont">
-			<div id="exCont" class="panel panel-default" newNum=<s:property value="newNum" /> >
+			<div id="exCont" class="panel panel-default"  >
 				<div class="panel-body ">
-	  			<s:iterator var="i" begin="0" end="qtitle.size()-1" step="1" status="index">
-					<ul class="exam_margin well" titleId=<s:property value="qtitle.get(#i).emId" /> >
-						<li class="margin_liTitle"><span><s:property value="#index.index+1"/>.&nbsp;</span><s:property value="qtitle.get(#i).emTitle" escape="false"/></li>
-						<s:iterator value='{"A","B","C","D","E","F","G"}' var="j" begin="0" end="qoption.get(#i).size() - 1" step="1" status ="L">
-						<li>
-							<div opId=<s:property value="qoption.get(#i).get(#L.index).emId" /> class="opToback">
-							
-								<input type="checkbox" class="checks checkOption "
-							 	<s:property value="qstuOption.get(#i).get(#L.index)" />
-								>
-								
-									<span class="">&nbsp;<s:property value="#j" />&nbsp;</span>
-									<s:property value="qoption.get(#i).get(#L.index).emOption" />
-							</div>
+				
+	  			<s:iterator var="i" begin="0" end="examTitleList.size()-1" step="1"  >
+					<ul class="exam_margin well" titleId=<s:property value="examTitleList.get(#i).emId" /> >
+						<li class="margin_liTitle">
+							<span><s:property value="#i + 1"/>.&nbsp;</span>
+							<s:property value="examTitleList.get(#i).emTitle" escape="false"/>
 						</li>
+						
+						<s:iterator var = "j" begin = "0" end = "examOptionList.get(#i).size() - 1">
+							<li>
+								<div opId=<s:property value="examOptionList.get(#i).get(#j).emId" /> 
+								     class="opToback">
+								
+								
+									<s:if test="status.charAt(0) != '0'">						
+										<input type="checkbox" class="checks checkOption "										 
+											<s:if test="studentOptoinList.get(#i).get(#j) == true">
+												checked
+											</s:if>									
+								 		 />
+									</s:if>
+									<s:else>
+									
+										 <s:if test="studentOptoinList.get(#i).get(#j) == true" >
+											<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+										</s:if>
+										<s:else>
+											<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+										</s:else>
+										 
+										 
+									</s:else>
+									
+									
+									<span class="">&nbsp;<s:property value="intToChar(#j)" />&nbsp;</span>
+									<s:property value="examOptionList.get(#i).get(#j).emOption" />								
+								</div>
+							</li>
+							
+						
+						
 						</s:iterator>
+						
+
 					</ul>
 				</s:iterator>
 				<div class="center-block" style="max-width:300px;">
-				<button type="button" class="btn btn-primary btn-lg btn-block center" id="examSubmit">我要交卷</button></div>
-				</div>			
-			  </div>
-		</div>
+					<s:if test="status.charAt(0) != '0'">
+						<button type="button" class="btn btn-primary btn-lg btn-block center" id="examSubmit">我要交卷</button>
+					</s:if>
+					<s:else>
+						<s:property value="status.substring(1)"/>
+					</s:else>
+				</div>
+			</div>			
+	  </div>
+	</div>
 		
 		
-		</div>
+	</div>
 		
-	</s:if>
+<%-- 	</s:if> --%>
 	
-	<s:else>
-		<div class="alert alert-success" role="alert">
-			<h2> 您已经通过考试，不需要答题了 </h2>
-		</div>	
-	</s:else>
+<%-- 	<s:else> --%>
+<!-- 		<div class="alert alert-success" role="alert"> -->
+<!-- 			<h2> 您已经通过考试，不需要答题了 </h2> -->
+<!-- 		</div>	 -->
+<%-- 	</s:else> --%>
 	
 	
 	
@@ -70,17 +104,12 @@
 			
 			var checked = $(this).parent().children("input")[0].checked;
 			
-			
-// 			if(checked)
-// 			{
-// 				alert("OK");
-// 			}
-// 			else alert("NO");
+// 			alert(checked);
 			
 			params = {
 					"checked":checked,
-					"newNum": Number($("#exCont").attr("newNum")),
-					"titleId":Number( $(this).parents("[titleId]").attr("titleId")),
+// 					"newNum": Number($("#exCont").attr("newNum")),
+// 					"titleId":Number( $(this).parents("[titleId]").attr("titleId")),
 					"opId":Number( $(this).parents("[opId]").attr("opId")),
 			}
 			$.ajax({
@@ -100,14 +129,13 @@
 		
 
 		$(document).on("click","#examSubmit", function(){
-			var params = {
-						
-			}
+
+// 			alert("SB");
 			$.ajax({
 				url : 'exam_submit',
 				type : 'post',
 				dataType : 'json',
-				data : params,
+				data : {},
 				traditional : true,
 				success : submitCallback
 			});
@@ -115,7 +143,9 @@
 		
 		function submitCallback(data)
 		{
-			alert("您答对了：" + data.score + "个题目" + "\n" + data.status);
+// 			alert("您答对了：" + data.score + "个题目" + "\n" + data.status);
+// 			alert("HEHE");
+			alert(data.status.substr(1));
 			window.location.reload();
 		}
 		
