@@ -190,33 +190,30 @@ window.onload = function () {
     });
 }
 
+//添加设备按照 资产编号
+
 function add_classroomrt() {
 	var classroomid = $("#classroomid").text();
 	var bh = $("#zichanhao").val();
 	var href="<%=path%>/admin/classroomDevice/add_action";
 	
-	alert(bh);
+//	move2classByRtNumber
+//	alert(bh);
 	$.ajax({
-		url : href,
+		url : '/admin/classroom_json/move2classByRtNumber',
 		type : 'post',
 		dataType : 'json',
 		data : {
-			"id" : classroomid,
-			"bh" : bh
+			"classroomId" : classroomid,
+			"rtNumber" : bh,
 		}, 
-		success : addcallback
+		success : function(data)
+		{
+			window.location.reload();
+		}
 	});
 }
 
-function addcallback(data) {
-	if (parseInt(data.ret)) {
-		alert("Ok, 添加成功");
-		location.reload();	
-	}
-		
-	else
-		alert("Sorry, 添加失败");
-}
 
 
 

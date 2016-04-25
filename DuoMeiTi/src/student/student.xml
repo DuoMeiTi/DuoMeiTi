@@ -224,6 +224,12 @@
 			</result>
 		</action>
 		
+		<!-- 加入教室 按照资产编号-->
+		<action name="move2classByRtNumber" class="admin.ClassroomDetailAction" method="move2classByRtNumber">
+			<result type="json">
+				<param name="includeProperties">*</param>
+			</result>
+		</action>
 <!-- 		<action name="chooseclass" class="student.StudentAction" -->
 <!-- 			method="chooseClass"> -->
 <!-- 			<result>/jsp/student/chooseClass.jsp</result> -->

@@ -137,10 +137,38 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		return ActionSupport.SUCCESS;
 	}
 	
+	
+//	按照资产编号加入教室
+	String rtNumber;
+	public String move2classByRtNumber()
+	{
+		System.out.println("JJJJJ=========");
+		
+		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
+		Session s = model.Util.sessionFactory.openSession();
+		
+		
+		List<Repertory> repertoryList = s.createCriteria(model.Repertory.class)
+										.add(Restrictions.eq("rtNumber", rtNumber))
+										.list();
+		for(int i = 0; i < repertoryList.size(); ++ i)
+		{
+					
+			util.Util.modifyDeviceStatus(
+					s,
+					repertoryList.get(i).rtId, 
+					user_id, 
+					util.Util.DeviceClassroomStatus, 
+					classroomId);
+
+		}
+
+		
+		return this.SUCCESS;
+	}
 	//加入教室
 	public String move2class(){
-//		System.out.println("move2class");
-//		System.out.println(classroomid+" "+ rtID);
+
 		
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 		
@@ -184,12 +212,6 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 									user_id, 
 									util.Util.DeviceRepairStatus, 
 									-1);
-		
-		
-
-		
-		
-		
 
 	
 		rtClass = session.createCriteria(model.Repertory.class)
@@ -205,11 +227,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	//移入报废
 	public String move2bad(){
 		
-//		System.out.println("move2bad:");
-//		
-//		System.out.println(move_device_id);
-//		System.out.println(move_class_id);
-		
+
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 		Session session = model.Util.sessionFactory.openSession();
 		util.Util.modifyDeviceStatus(
@@ -218,13 +236,6 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 									user_id, 
 									util.Util.DeviceScrappedStatus, 
 									-1);
-		
-
-		
-		
-		
-		
-
 		
 		rtClass = session.createCriteria(model.Repertory.class)
 				 .add(Restrictions.eq("rtClassroom.id", classroomId ))
@@ -249,11 +260,6 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 								.add(Restrictions.eq("id", user_id))
 								.uniqueResult();
 
-
-			
-//			Criteria repertory_criteria = session.createCriteria(Repertory.class);
-//			repertory_criteria.add(Restrictions.eq("rtId", deviceId));
-//			Repertory device = (Repertory) repertory_criteria.uniqueResult();
 			Repertory device = (Repertory)session.createCriteria(Repertory.class)
 								.add(Restrictions.eq("rtId", deviceId))
 								.uniqueResult();
@@ -774,6 +780,16 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 
 	public void setRtID(String rtID) {
 		this.rtID = rtID;
+	}
+
+
+	public String getRtNumber() {
+		return rtNumber;
+	}
+
+
+	public void setRtNumber(String rtNumber) {
+		this.rtNumber = rtNumber;
 	}
 	
 	
