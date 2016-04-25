@@ -25,8 +25,16 @@
 					<td> <s:property value="student_list.get(#i).bankCard"/> </td>
 					<td> <s:property value="student_list.get(#i).idCard"/> </td>
 					<td> 
-						<s:if test="student_list.get(#i).isUpgradePrivilege == 0">在职学生</s:if>
-						<s:else>管理教师</s:else>
+						<s:if test="student_list.get(#i).isUpgradePrivilege == @model.StudentProfile@ServingStudent">
+							在职学生
+						</s:if>
+						<s:elseif test="student_list.get(#i).isUpgradePrivilege == @model.StudentProfile@ManagedTeacher">
+							管理教师
+						</s:elseif>
+						<s:elseif test="student_list.get(#i).isUpgradePrivilege == @model.StudentProfile@DepartureStudent">
+							离职学生
+						</s:elseif>
+						<s:else>ERROR</s:else>
 					</td>
 					<td>
 						<s:if test="score_list.get(#i).score==-1">

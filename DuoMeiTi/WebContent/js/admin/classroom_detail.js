@@ -195,6 +195,7 @@ function add_classroomrt() {
 	var bh = $("#zichanhao").val();
 	var href="<%=path%>/admin/classroomDevice/add_action";
 	
+	alert(bh);
 	$.ajax({
 		url : href,
 		type : 'post',

@@ -175,7 +175,8 @@ public class RepairRecordAction extends ActionSupport {
 				cell = row.createCell(4);
 				cell.setCellValue(r.getRepairdetail());
 				cell = row.createCell(5);
-				cell.setCellValue(r.getRepairdate().toString());
+				
+				cell.setCellValue(util.Util.formatTimestamp(r.repairdate));
 			}
 		}catch(Exception e)
 		{
