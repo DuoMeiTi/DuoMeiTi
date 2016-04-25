@@ -120,7 +120,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 
 		
 		r.rtDeviceStatus = rtDeviceStatus;
-		r.rtClassroom = null;
+//		r.rtClassroom = null;
 		
 		
 		
