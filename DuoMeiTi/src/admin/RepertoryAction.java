@@ -56,9 +56,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	private String add_repertory_html;
 	private String rtDevice;
 	private java.util.Date rtProdDate;
-//	private String rtProdDateString = "";
 	private java.util.Date rtApprDate;
-//	private String rtApprDateString = "";
 	private String rtDeviceStatus;
 	private int rtReplacePeriod;
 	private int rtFilterCleanPeriod;
@@ -159,14 +157,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		deviceStatus[2] = Const.deviceStatus[3];
 		deviceStatus[3] = Const.deviceStatus[4];
 		deviceStatus[4] = Const.deviceStatus[2];
-		
-		
-//		Session session = model.Util.sessionFactory.openSession();
-
-//		Criteria c = session.createCriteria(Repertory.class);
-//		repertory_list = c.list();
-
-//		session.close();
+				
 		return SUCCESS;
 	}
 	
@@ -225,18 +216,31 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	
 //	麦克:有频点
 //	投影机: 有过滤网时间段
-//
-	static boolean isValidRepertory(Repertory r)
+//  灯泡：有更新时间段
+	static String isValidRepertory(Repertory r)
 	{		
-		if(r.rtType == null || r.rtDeviceStatus == null) return false;
-		System.out.println("SBSB*****");
-		if(util.Util.judgeDeviceType(r.rtType) == null) return false;
-		System.out.println("SBSB*****---");
-		if(!util.Util.isValidDeviceStatus(r.rtDeviceStatus)) return false;
+		if(r.rtType == null || r.rtDeviceStatus == null) 
+			return "1设备名称为空或者设备状态为空";
+		
+		if(util.Util.judgeDeviceType(r.rtType) == null) 
+			return "1错误的设备名称"; 
+		
+		if(!util.Util.isValidDeviceStatus(r.rtDeviceStatus)) 
+			return "1错误的设备状态名称"; 
+		
+		if(r.rtDeviceStatus.equals(util.Util.DeviceClassroomStatus) && r.rtClassroom == null)
+			return "1设备状态和设备所属教室不一致";
+		if(!r.rtDeviceStatus.equals(util.Util.DeviceClassroomStatus) && r.rtClassroom != null)
+			return "1设备状态和设备所属教室不一致";
+		
+		if(r.rtType.equals("灯泡") && r.rtReplacePeriod < 0)
+			return "1灯泡的更换时间段为负数！";
+
+		
 		System.out.println("SBSB*****||||s");
 		
 		
-		return true;
+		return "0";
 	}
 	
 	
@@ -246,89 +250,79 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		
 		System.out.println("abc");
 		this.search();
+		System.out.println("pppppppppp");
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		HSSFSheet sheet = workbook.createSheet();
 		try{
 			
-			HSSFRow row = sheet.createRow(0);
-			for(int j = 0; j < 12; ++ j) 
-				row.createCell(j);
-			
-			row.getCell(0).setCellValue("设备类型");
-			row.getCell(1).setCellValue("资产编号");
-			row.getCell(2).setCellValue("型号");
-			row.getCell(3).setCellValue("出厂日期");
-			row.getCell(4).setCellValue("审批日期");
-			row.getCell(5).setCellValue("出厂号");
-			row.getCell(6).setCellValue("使用状态");
-			row.getCell(7).setCellValue("教学楼");
-			row.getCell(8).setCellValue("教室号");
-			row.getCell(9).setCellValue("更换时间段");
-			row.getCell(10).setCellValue("频点");
-			row.getCell(11).setCellValue("过滤网更换时间");
-			
-			
-			for(int i=0; i<repertory_list.size(); i++)
-			{
-				Repertory device = repertory_list.get(i);
-				
-				row = sheet.createRow(i+1);
-				for(int j = 0; j < 12; ++ j) 
-					row.createCell(j);
-				
-				row.getCell(0).setCellValue(device.rtType);
-				row.getCell(1).setCellValue(device.rtNumber);
-				row.getCell(2).setCellValue(device.rtVersion);
-				if(device.rtProdDate != null)
-					row.getCell(3).setCellValue(util.Util.formatTimestampToOnlyDate(device.rtProdDate));
-				
-				if(device.rtApprDate != null)
-					row.getCell(4).setCellValue(util.Util.formatTimestampToOnlyDate(device.rtApprDate));
-				row.getCell(5).setCellValue(device.rtFactorynum);
-				row.getCell(6).setCellValue(device.rtDeviceStatus);
-				if(device.rtClassroom != null)
-				{
-					row.getCell(7).setCellValue(device.rtClassroom.teachbuilding.build_name);
-					row.getCell(8).setCellValue(device.rtClassroom.classroom_num);
-				}
-				
-				if(device.rtType.equals("灯泡"))
-				{					
-					row.getCell(9).setCellValue(device.rtReplacePeriod);
-				}
-				
-				if(device.rtType.equals("麦克"))
-				{
-					row.getCell(10).setCellValue(device.rtFreqPoint);
-				}
-				
-				if(device.rtType.equals("投影仪"))
-				{
-					row.getCell(11).setCellValue(device.rtFilterCleanPeriod);
-				}
-				
-			}
-			
-			
-		}
-		catch(Exception e)
+		HSSFRow row = sheet.createRow(0);
+		for(int j = 0; j < 12; ++ j) 
+			row.createCell(j, Cell.CELL_TYPE_STRING);
+		
+		row.getCell(0).setCellValue("设备类型");
+		row.getCell(1).setCellValue("资产编号");
+		row.getCell(2).setCellValue("型号");
+		row.getCell(3).setCellValue("出厂日期");
+		row.getCell(4).setCellValue("审批日期");
+		row.getCell(5).setCellValue("出厂号");
+		row.getCell(6).setCellValue("使用状态");
+		row.getCell(7).setCellValue("教学楼");
+		row.getCell(8).setCellValue("教室号");
+		row.getCell(9).setCellValue("更换时间段");
+		row.getCell(10).setCellValue("频点");
+		row.getCell(11).setCellValue("过滤网更换时间");
+		
+		
+		for(int i = 0; i < repertory_list.size(); i++)
 		{
-			e.printStackTrace();
+			Repertory device = repertory_list.get(i);
+			
+			row = sheet.createRow(i + 1);
+			for(int j = 0; j < 12; ++ j) 
+				row.createCell(j, Cell.CELL_TYPE_STRING);
+			
+			
+//					row.createCell(j);
+			System.out.println("pppppppppp222222");
+			row.getCell(0).setCellValue(device.rtType);
+			row.getCell(1).setCellValue(device.rtNumber);
+			row.getCell(2).setCellValue(device.rtVersion);
+
+			row.getCell(3).setCellValue(device.rtProdDate != null ? util.Util.formatTimestampToOnlyDate(device.rtProdDate) : "");
+			row.getCell(4).setCellValue(device.rtApprDate != null ? util.Util.formatTimestampToOnlyDate(device.rtApprDate) : "");
+			
+			
+			row.getCell(5).setCellValue(device.rtFactorynum);
+			row.getCell(6).setCellValue(device.rtDeviceStatus);
+
+
+			row.getCell(7).setCellValue(device.rtClassroom != null ? device.rtClassroom.teachbuilding.build_name : "");
+			row.getCell(8).setCellValue(device.rtClassroom != null ? device.rtClassroom.classroom_num : "");
+
+			row.getCell(9).setCellValue(device.rtType.equals("灯泡") ? Integer.toString(device.rtReplacePeriod) : "");
+			row.getCell(10).setCellValue(device.rtType.equals("麦克") ? device.rtFreqPoint : "");
+			row.getCell(11).setCellValue(device.rtType.equals("投影仪") ? Integer.toString(device.rtFilterCleanPeriod) : "");
+
+			
+			for(int j = 0; j < 12; ++ j) 
+				row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+			
+			System.out.println("pppppppppp333333333");
+			System.out.println(i);
+			
 		}
+			
+			
+		
 		
 		for(int j = 0; j < 12; ++ j)			
 			sheet.autoSizeColumn(j);
 		
-//		String s;
-//		s.
-		
+
 		for(int j = 0; j < 12; ++ j)
 		{
-			sheet.setColumnWidth(j, 
-								sheet.getColumnWidth(j) * 2);
+			sheet.setColumnWidth(j, (int)(sheet.getColumnWidth(j) * 1.5));
 		}
-//			sheet.setColumnWidth(j, 3000);
-//			sheet.autoSizeColumn(j, true);
 
 		
 		exportExcelPath = util.Util.ExportDeviceInfoPath + "设备信息.xls";
@@ -346,7 +340,13 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		workbook.write(out);
 		workbook.close();
 		out.close();
-
+		
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		return this.SUCCESS;
 	}
 	
@@ -376,7 +376,8 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         }    
         else 
         {    
-            System.out.println("您输入的excel格式不正确");   
+
+            this.status = "1您输入的excel格式不正确";
             stream.close();
             return ActionSupport.SUCCESS;
         }    
@@ -392,7 +393,11 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         for (i = 1; ; i++) 
         {
         	Row row = rs.getRow(i);
-        	if(row == null) break;
+        	if(row == null) 
+    		{
+        		this.status = "0全部设备信息导入成功";
+        		break;
+    		}
         	Repertory r = new Repertory();
         	
         	
@@ -426,36 +431,36 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         	r.rtReplacePeriod = getCellIntValue(row, 9);
         	r.rtFreqPoint = getCellStringValue(row, 10);
         	r.rtFilterCleanPeriod =  getCellIntValue(row, 11);
-         	if(!isValidRepertory(r)) break;
+        	String validStatus = isValidRepertory(r);
+        	if(validStatus.charAt(0) != '0')
+        	{
+        		this.status = "1成功导入" + (i - 1) + "个设备信息，第" + i + "设备信息有错误：" + validStatus.substring(1);
+        		break;
+        	}
+
           	session.beginTransaction();
         	session.save(r);
-        	session.getTransaction().commit();
-        	
+        	session.getTransaction().commit();        	
         	int classroom_id = -1;        	
         	if(r.rtClassroom != null) classroom_id = r.rtClassroom.id;
-        	
-         	
     		util.Util.modifyDeviceStatus(session, r.rtId, user_id, r.rtDeviceStatus, classroom_id);	
 
-
-        	
-
-        	
         }
         
-        System.out.println("IIIIIIIIiPPPPPPPP");
+        System.out.println("import END---------------");
         
 		session.close();
 		rwb.close();
 		stream.close();
 		
 		
-		}catch(Exception e)
+		}
+		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 		
-		this.status = "1";		
+//		this.status = "1";		
 		return SUCCESS;
 	}
 	

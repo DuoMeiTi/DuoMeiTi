@@ -126,8 +126,7 @@ var old_DeviceStatus
 $(document).on("click",".click_me", function() {
 	rtId = $(this).parent().attr("rt_id");
 	cleanValue();
-//	$(this).attr("data-toggle","modal");
-//	$(this).attr("data-target","#rtModal");
+
 	$("#rtSave").attr("mark","update");
 	$("#modal-title").html("修改设备信息");
 	$(document).find('#rtModal').modal('toggle');
@@ -139,38 +138,50 @@ $(document).on("click",".click_me", function() {
 		success : fetchCallback
 	});
 })
-function fetchCallback(data) {
-	if(data.status == "0") {
+function fetchCallback(data) 
+{
+	if(data.status == "0") 
+	{
 		alert("error");
 		return;
 	}
-	else if(data.status == "1") {
+	else if(data.status == "1") 
+	{
 		var temp = data.rtSearch_list[0];
 		$(document).find("#rtDevice").val(temp.rtDevice);
-		if(temp.rtDevice == "主要设备") {
+		
+		$("#filterclean").hide();
+		$("#freq").hide();
+		$("#rtReplacePeriodDiv").hide();
+		$("#rtType1").hide();
+		$("#rtType2").hide();
+
+		if(temp.rtDevice == "主要设备") {			
 			$(document).find("#rtType1").val(temp.rtType);
 			$("#rtType1").show();
-			$("#rtType2").hide();
-			if(temp.rtType == "投影机") {
-				$("#filterclean").show();
-				$(document).find("#rtFilterCleanPeriod").val(temp.rtFilterCleanPeriod);
-				$("#freq").hide();
-			}
-			else if(temp.rtType == "麦克") {
-				$("#filterclean").hide();
-				$("#freq").show();
-				$(document).find("#rtFreqPoint").val(temp.rtFreqPoint);
-			}
-			else {
-				$("#freq").hide();
-				$("#filterclean").hide();
-			}
 		}
 		else if(temp.rtDevice == "耗材设备") {
-			$(document).find("#rtType2").val(temp.rtType);
-			$("#rtType1").hide();
+			$(document).find("#rtType2").val(temp.rtType);			
 			$("#rtType2").show();
 		}
+		
+		
+		if(temp.rtType == "投影机") {
+			$("#filterclean").show();
+			$(document).find("#rtFilterCleanPeriod").val(temp.rtFilterCleanPeriod);		
+		}
+		else if(temp.rtType == "麦克") {		
+			$("#freq").show();
+			$(document).find("#rtFreqPoint").val(temp.rtFreqPoint);
+		}
+		else if(temp.rtType =="灯泡"){
+			$("#rtReplacePeriodDiv").show();
+			$(document).find("#rtReplacePeriodDiv").val(temp.rtReplacePeriod);
+		}
+		
+		
+		
+		
 		$(document).find("#rtNumber").val(temp.rtNumber);
 		$(document).find("#rtVersion").val(temp.rtVersion);
 		$(document).find("#rtProdDate").val(temp.rtProdDateString);
@@ -271,47 +282,16 @@ $(document).on("click", "#rtSave", function() {
 
 })
 
-function repertoryCallback(data) {
-	
-//	alert("FFF");
+function repertoryCallback(data) {	
+
 	$("#repertoryTableDiv").html(data.repertoryTable);
 	$('#rtModal').modal('hide');
-//	repertoryTable
-//	if (data.status == "1") {
-//		$("#repertory_table tr:first").after(data.add_repertory_html);
-//		var cnt = $(document).find("#repertory_table tr:eq(1)");
-//		$(cnt).children().eq(0).text(data.rtType);
-//		$(cnt).children().eq(1).text(data.rtNumber);
-//		$(cnt).children().eq(2).text(data.rtVersion);
-//		$(cnt).children().eq(3).text(data.rtProdDateString);
-//		//$(cnt).children().eq(3).text(data.rtProdDate.substring(0,10));
-//		$(cnt).children().eq(4).text(data.rtApprDateString);
-//		$(cnt).children().eq(5).text(data.rtFactorynum);
-//		$(cnt).children().eq(6).text(data.rtDeviceStatus);
-//		$(cnt).children().eq(7).text(data.rtReplacePeriod + "/天数");
-//		$(cnt).attr("rt_id", data.rtId);
-//		$('#rtModal').modal('hide');
-//		alert("保存成功！ ");
-//
-//	}
 }
 
 function updateCallback(data) {
 	$("#repertoryTableDiv").html(data.repertoryTable);
 	$('#rtModal').modal('hide');
-//	if(data.status == "1") {
-//		var line = $(document).find("#repertory_table tr[rt_id = " + data.rtId +"]");
-//		$(line).children().eq(0).text(data.rtType);
-//		$(line).children().eq(1).text(data.rtNumber);
-//		$(line).children().eq(2).text(data.rtVersion);
-//		$(line).children().eq(3).text(data.rtProdDateString);
-//		$(line).children().eq(4).text(data.rtApprDateString);
-//		$(line).children().eq(5).text(data.rtFactorynum);
-//		$(line).children().eq(6).text(data.rtDeviceStatus);
-//		$(line).children().eq(7).text(data.rtReplacePeriod + "/天数");
-//		$('#rtModal').modal('hide');
-//		alert("修改成功！ ");
-//	}
+
 }
 
 
@@ -339,72 +319,14 @@ function deleteCallback(data) {
 	}
 }
 
-//old search  
-//$(document).find("#sDevice").change(function() {
-//	var selectvalue = $("#sDevice option:selected").attr("value");
-//	if (selectvalue == "") {
-//		$("#main").hide();
-//		$("#cost").hide();
-//		selectDevice();
-//	} else if (selectvalue == "主要设备") {
-//		$("#main").show();
-//		$("#cost").hide();
-//		$(document).find("#sMainDevice option:first").attr("selected","selected");
-//		selectDevice();
-//	} else if(selectvalue == "耗材设备") {
-//		$("#main").hide();
-//		$("#cost").show();	
-//		$(document).find("#sCostDevice option:first").attr("selected","selected");
-//		selectDevice();
-//	}
-//	
-//})
-//				   
-//$(document).find("#sMainDevice").change(function() {
-//	selectDevice();
-//})
-//$(document).find("#sCostDevice").change(function() {
-//	selectDevice();
-//})
-//$(document).find("#sDeviceStatus").change(function() {
-//	selectDevice();
-//})
-//
-//function selectDevice() {
-//	var keyword = $("#repertory_search").serialize();
-//	//alert(decodeURIComponent(keyword,true));
-//	$.ajax({
-//		url : 'repertory_search',
-//		type : 'post',
-//		dataType : 'json',
-//		data : keyword,
-//		success : searchCallback
-//	});
-//}
-//
-//function searchCallback(data) {
-//	if (data.status == "1") {
-////		$("#repertory_table tr:not(:first)").remove();
-//		$(document).find("#noResult").text("");
-//		$(document).find("#rtSearchLen").text(data.repertory_list.length);
-//		$(document).find("#repertoryTableDiv").html(data.repertory_table);
-//
-//	} else if (data.status == "0") {
-//		$(document).find("#rtSearchLen").text(0);
-//		$(document).find("#repertory_table tr:not(:first)").remove();
-//		$(document).find("#noResult").text("无查询结果");
-//	}
-//}
+
 
 
 
 // new search
 $(document).on( "click", "#searchDeviceButton",function() {
 	
-//	alert("SB");
-//	alert("|"  +$("#selectDeviceType").val()+"|"  +$("#selectDeviceStatus").val()+"|");
-	
-	
+
 	
 	$.ajax({
 		url : 'repertory_search',
@@ -417,8 +339,7 @@ $(document).on( "click", "#searchDeviceButton",function() {
 			},
 		success : function(data){
 			
-//			alert("SB");
-//			alert(data.repertory_table);
+
 			$("#repertoryTableDiv").html(data.repertory_table);
 		}
 	});
@@ -456,18 +377,19 @@ $(document).on("click","#rtUpload",function() {
 
 function importCallback(data) {
 	
-	if(data.status == "1") 
+	var status = data.status;
+	var cmd = status.substr(0, 1);
+	var info = status.substr(1);
+	if(cmd == "0") 
 	{
-		alert("导入成功！");
-		window.location.reload();
+		alert(info);
+		
 	}
-	else if(data.status == "0")
+	else 
 	{
-		alert("导入失败！可能文件格式有误！");
+		alert(info);
 	}
-	else if(data.status == "2")
-	{
-		alert("导入数据有误！");
-	}
+	window.location.reload();
+	
 }
 
