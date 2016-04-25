@@ -183,7 +183,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 			return ans;
 		}
@@ -245,19 +245,20 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 	
 	
 	String exportExcelPath;	
+	final static int ColumnNumber = 12;
+	
 	public String exportExcel() throws Exception{
 		
-		
-		System.out.println("abc");
+		try{
+
 		this.search();
-		System.out.println("pppppppppp");
+
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		HSSFSheet sheet = workbook.createSheet();
-		try{
 			
 		HSSFRow row = sheet.createRow(0);
-		for(int j = 0; j < 12; ++ j) 
-			row.createCell(j, Cell.CELL_TYPE_STRING);
+		for(int j = 0; j < ColumnNumber; ++ j) 
+			row.createCell(j );
 		
 		row.getCell(0).setCellValue("设备类型");
 		row.getCell(1).setCellValue("资产编号");
@@ -273,16 +274,22 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		row.getCell(11).setCellValue("过滤网更换时间");
 		
 		
+		CellStyle cellStyle = workbook.createCellStyle();
+        DataFormat format = workbook.createDataFormat();            
+        cellStyle.setDataFormat(format.getFormat("@"));
+		
 		for(int i = 0; i < repertory_list.size(); i++)
 		{
 			Repertory device = repertory_list.get(i);
 			
 			row = sheet.createRow(i + 1);
-			for(int j = 0; j < 12; ++ j) 
+			
+            
+			
+			for(int j = 0; j < ColumnNumber; ++ j) 
 				row.createCell(j, Cell.CELL_TYPE_STRING);
 			
-			
-//					row.createCell(j);
+
 			System.out.println("pppppppppp222222");
 			row.getCell(0).setCellValue(device.rtType);
 			row.getCell(1).setCellValue(device.rtNumber);
@@ -302,24 +309,42 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 			row.getCell(9).setCellValue(device.rtType.equals("灯泡") ? Integer.toString(device.rtReplacePeriod) : "");
 			row.getCell(10).setCellValue(device.rtType.equals("麦克") ? device.rtFreqPoint : "");
 			row.getCell(11).setCellValue(device.rtType.equals("投影仪") ? Integer.toString(device.rtFilterCleanPeriod) : "");
+			
+			
+			
+			for(int j = 0; j < ColumnNumber; ++ j) 
+			{
+				
+//	            CellStyle cellStyle = workbook.createCellStyle();
+//	            DataFormat format = workbook.createDataFormat();
+//	            
+//	            cellStyle.setDataFormat(format.getFormat("@"));
+	            row.getCell(j).setCellStyle(cellStyle);
+	            
 
-			
-			for(int j = 0; j < 12; ++ j) 
-				row.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
-			
-			System.out.println("pppppppppp333333333");
-			System.out.println(i);
+			}
+
+//			CellStyle cellStyle = workbook.createCellStyle();
+//            DataFormat format = workbook.createDataFormat();            
+//            cellStyle.setDataFormat(format.getFormat("@"));
+//            row.setRowStyle(cellStyle);
 			
 		}
-			
-			
+//			
+//		CellStyle cellStyle = workbook.createCellStyle();
+//        DataFormat format = workbook.createDataFormat();            
+//        cellStyle.setDataFormat(format.getFormat("@"));
+//        
+//        for(int j = 0; j < ColumnNumber; ++ j)	
+//        	sheet.setDefaultColumnStyle(j, cellStyle);
+
 		
 		
-		for(int j = 0; j < 12; ++ j)			
+		for(int j = 0; j < ColumnNumber; ++ j)			
 			sheet.autoSizeColumn(j);
 		
 
-		for(int j = 0; j < 12; ++ j)
+		for(int j = 0; j < ColumnNumber; ++ j)
 		{
 			sheet.setColumnWidth(j, (int)(sheet.getColumnWidth(j) * 1.5));
 		}
@@ -328,14 +353,15 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		exportExcelPath = util.Util.ExportDeviceInfoPath + "设备信息.xls";
 		
 		String fullPath = util.Util.RootPath + exportExcelPath;
-		File file = new File(fullPath);
-		if(file.exists())
-		{
-			file.delete();
-		}
-		file.createNewFile();			
+//		File file = new File(fullPath);
+//		
+//		if(file.exists())
+//		{
+//			file.delete();
+//		}
+//		file.createNewFile();			
 		
-		OutputStream out = new FileOutputStream(file);
+		OutputStream out = new FileOutputStream(fullPath);
 		
 		workbook.write(out);
 		workbook.close();
