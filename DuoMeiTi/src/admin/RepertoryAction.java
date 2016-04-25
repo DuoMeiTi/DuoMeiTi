@@ -94,6 +94,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		return new java.sql.Timestamp(d.getTime() + day * 24*60 *60*1000);
 	}
 
+	// 按照成员字段构建一个Repertory 对象
 	Repertory makeRepertory()
 	{
 		Repertory r = new Repertory();
@@ -118,13 +119,9 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		r.rtFreqPoint = rtFreqPoint;
 
 
-		
+		// 新的设备状态一定不会是 ‘教室’状态，所以设置rtClassroom字段为null
 		r.rtDeviceStatus = rtDeviceStatus;
-//		r.rtClassroom = null;
-		
-		
-		
-		
+		r.rtClassroom = null;
 		return r;
 	}
 	
@@ -353,13 +350,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		exportExcelPath = util.Util.ExportDeviceInfoPath + "设备信息.xls";
 		
 		String fullPath = util.Util.RootPath + exportExcelPath;
-//		File file = new File(fullPath);
-//		
-//		if(file.exists())
-//		{
-//			file.delete();
-//		}
-//		file.createNewFile();			
+
 		
 		OutputStream out = new FileOutputStream(fullPath);
 		
@@ -448,12 +439,8 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         			.add(Restrictions.eq("teachbuilding.build_name", teachBuildingName))
         			.add(Restrictions.eq("classroom_num", classroom_num))
         			.uniqueResult();
-        	
- 
 
 
-
-        	
         	r.rtReplacePeriod = getCellIntValue(row, 9);
         	r.rtFreqPoint = getCellStringValue(row, 10);
         	r.rtFilterCleanPeriod =  getCellIntValue(row, 11);
@@ -542,8 +529,13 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 							.add(Restrictions.eq("rtId", rtId))
 							.uniqueResult();
 		
-
 		Repertory new_rt = makeRepertory();
+		
+		if(old_rt.rtDeviceStatus.equals(this.rtDeviceStatus))
+		{
+			new_rt.rtDeviceStatus = old_rt.rtDeviceStatus;
+			new_rt.rtClassroom = old_rt.rtClassroom;
+		}
 		
 		try		
 		{
