@@ -12,16 +12,16 @@ public class RoomPicture {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
 
-	@Column(length = 50)
+	@Column
 	public String unitInfo;
 
-	@Column(length=50)
+	@Column
 	public String remark;
     
-    @Column(length=50)
+    @Column
     public String path;
 	
-    @Column(length=50)
+    @Column
     public int class_id;
 	
 

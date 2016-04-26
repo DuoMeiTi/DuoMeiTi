@@ -143,7 +143,7 @@ public class BatchImportAction extends FileUploadBaseAction {
 	}
 	
 	
-	// 教室信息批量上传
+	// 教室信息照片批量上传
 	public String classroomUpload() {	
 		String[] classroomsarray = classrooms.get(0).toString().split(",");
 		try{
@@ -152,21 +152,33 @@ public class BatchImportAction extends FileUploadBaseAction {
 				this.message = "文件未上传";
 				return SUCCESS;
 			}
-			for(int i=0;i<classroomsarray.length;i++){
+			for(int i = 0; i < classroomsarray.length; i ++) {
+				
 				Session session = model.Util.sessionFactory.openSession();
 				RoomPicture nPicture = new RoomPicture();
 				nPicture.setClass_id(Integer.parseInt(classroomsarray[i]));
 			
 				//获取当前时间，命名照片，防止照片重复
 				java.util.Date date = new java.util.Date();
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddHHmmss");
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd-HH-mm-ss-SSS");
 				String curdate = simpleDateFormat.format(date);
-				String fileName = curdate+fileFileName.substring(fileFileName.length()-5, fileFileName.length())+i;
-				if (file != null){   //file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
-					util.Util.saveFile(file, fileName, util.Util.RootPath + util.Util.ClassroomInfoFilePath);
-					String inserted_file_path = util.Util.ClassroomInfoFilePath +fileName;
-					nPicture.setPath(inserted_file_path);
-				}
+				
+				
+				System.out.println("jjjjjj----------");
+				System.out.println(curdate);
+//				return this.SUCCESS;
+//				date.getTime();
+				
+				String[] splitedFileName = util.Util.splitFileName(this.fileFileName);
+				
+				String fileName = Integer.toString(i) +"-"+ curdate + "."+ splitedFileName[1];
+				
+
+				util.Util.saveFile(file, fileName, util.Util.RootPath + util.Util.ClassroomInfoFilePath);
+				String inserted_file_path = util.Util.ClassroomInfoFilePath +fileName;
+				nPicture.setPath(inserted_file_path);
+				nPicture.setRemark(splitedFileName[0]);
+				
 				session.beginTransaction();
 				session.save(nPicture);
 				Transaction t = session.getTransaction();

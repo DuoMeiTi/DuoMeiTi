@@ -11,7 +11,7 @@
 		
 		
 		<div class="alert alert-danger" role="alert"  style="margin-top:20px;">
-			<p>选择相应的教室，进行批量上传 </p>
+			<p>选择相应的教室，进行批量上传, 以文件名称作为对上传照片的描述</p>
 			
 		</div>	
 		<br/>
@@ -139,6 +139,8 @@ $(document).on("click","input[name='checkOne']",function(){
 	var file_list;
 	var classrooms = [];
 	var cntFileNumber;
+	
+// 	var remark_list = [];
 	
 	$(document).on("click", "#button", function(){
 		classrooms = [];

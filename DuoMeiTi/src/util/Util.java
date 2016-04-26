@@ -482,8 +482,28 @@ public class Util
 
 
     
+    // 返回文件名称中的真实名称与 扩展名称
+	static public String[] splitFileName(String s)
+	{
+		int lastPos = s.lastIndexOf('.');
+		String[] res = new String[2];
+		if(lastPos == -1)
+		{			
+			res[0] = s;
+			res[1] = "";
+			
+		}
+		else 
+		{
+			res[0] = s.substring(0, lastPos);
+			res[1] = s.substring(lastPos + 1);
+		}
+		
+		return  res;
+	}
     
-	
+    
+    
 	
 	
 	
