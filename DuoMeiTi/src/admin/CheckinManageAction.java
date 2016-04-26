@@ -78,7 +78,7 @@ public class CheckinManageAction extends ActionSupport{
 		checkinRecordList = c.list();
 
 		
-		checkinRecordTable = Util.getJspOutput("/jsp/admin/widgets/checkinRecordTable.jsp");
+		checkinRecordTable = Util.getJspOutput("/jsp/admin/widgets/checkinTable.jsp");
 		session.close();
 		return ActionSupport.SUCCESS;
 	}
