@@ -199,15 +199,23 @@ public class HomeAction extends PageGetBaseAction
 		
 		Criteria q = session.createCriteria(model.ResourceFilePath.class);
 		
-		file_path_list = this.makeCurrentPageList(q, 10); // 根据代表总体的Criteria 获取当前页元素的List，这个效率高，应尽量使用这个
+		
+		file_path_list = q.list();
+		
+//		System.out.println("resourceFile========");
+//		System.out.println(this.getCurrentPageNum());
+//		file_path_list = this.makeCurrentPageList(q, 10); // 根据代表总体的Criteria 获取当前页元素的List，这个效率高，应尽量使用这个
 //		file_path_list = this.makeCurrentPageList(q.list(), 10); //根据代表总体的List 获取当前页元素的List
 		
 		session.close();
-		if(this.getIsAjaxTransmission()) // 这是ajax 传输
-		{
-			file_path_html = util.Util.getJspOutput("/jsp/admin/HomepageModify/ResourceFileTable.jsp");				
-			return "getPage";
-		}
+		System.out.println("resourceFile========22222222");
+//		if(this.getIsAjaxTransmission()) // 这是ajax 传输
+//		{
+//			System.out.println("ENTER?");
+////			file_path_html = util.Util.getJspOutput("/jsp/admin/HomepageModify/ResourceFileTable.jsp");				
+//			return "getPage";
+//		}
+		
 		return ActionSupport.SUCCESS;
 	}
 	

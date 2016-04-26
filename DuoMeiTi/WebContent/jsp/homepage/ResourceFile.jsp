@@ -7,7 +7,7 @@
 
 
 
-<!-- <div id="resourceFileTableDiv"> -->
+<div id="resourceFileTableDiv">
 	<table class="table table-bordered" id="file_list_table">
 
 	<tr class="active">
@@ -35,23 +35,23 @@
 		</tr>
 	</s:iterator>  
 	</table>
-<!-- </div> -->
+</div>
 
 
 
 
 
 <!-- 为了使用分页，include如下jsp -->
-<%@ include file="/jsp/base/widgets/pagination.jsp" %>
+<%-- <%@ include file="/jsp/base/widgets/pagination.jsp" %> --%>
 
 <script>
 
 // 你可以定义pageAddtionalData变量，这个变量应该是json变量，这个变量可以直接通过ajax 在选择页码的时候传到后台
 // 你应该重写下面这个函数，使其在回调的时候可以做你自己做的事情
-function requestPageCallback(data){
+// function requestPageCallback(data){
 	
-	$("#resourceFileTableDiv").html(data.file_path_html);
-}
+// 	$("#resourceFileTableDiv").html(data.file_path_html);
+// }
 </script>
 
 
