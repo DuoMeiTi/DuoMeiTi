@@ -58,21 +58,30 @@ public class ClassroomManageAction extends ActionSupport {
 	public String classroomDelete() throws Exception{
 		System.out.println("classroomDelete"+deleteID);
 		//
+		try{
+			
+		
+		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria repertory_criteria = session.createCriteria(Repertory.class);
-		repertory_criteria.add(Restrictions.eq("classroom.id", Integer.parseInt(deleteID)));
+		repertory_criteria.add(Restrictions.eq("rtClassroom.id", Integer.parseInt(deleteID)));
 		List<Repertory> repertory_list= repertory_criteria.list();
 		
 		//先将教室里的设备改为备用状态
 		System.out.println(repertory_list);
-		RepairDAO rdao = new RepairDAOImpl();
+//		RepairDAO rdao = new RepairDAOImpl();
 		for(Repertory repertory: repertory_list){//将所有设备改为备用
-			String move_device_id=Integer.toString(repertory.rtId);
-			System.out.println("设备ID："+move_device_id);
-			String ret = Integer.toString(rdao.m2alter(move_device_id, "2"));
+			util.Util.modifyDeviceStatus(session, 
+										repertory.rtId, 
+										user_id, 
+										util.Util.DeviceBackupStatus, 
+										-1 );
+//			String move_device_id=Integer.toString(repertory.rtId);
+//			System.out.println("设备ID："+move_device_id);
+//			String ret = Integer.toString(rdao.m2alter(move_device_id, "2"));
 		}
 		repertory_criteria.add(Restrictions.eq("classroom.id", Integer.parseInt(deleteID)));
-		List<Repertory> repertory_list2= repertory_criteria.list();
+//		List<Repertory> repertory_list2= repertory_criteria.list();
 		
 		//删除对应的教室照片与数据库
 		Criteria picture_criteria = session.createCriteria(RoomPicture.class);
@@ -112,6 +121,11 @@ public class ClassroomManageAction extends ActionSupport {
 		
 		status = "1";
 		session.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		return SUCCESS;
 	}
 	

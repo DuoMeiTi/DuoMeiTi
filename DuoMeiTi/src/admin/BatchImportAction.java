@@ -141,7 +141,9 @@ public class BatchImportAction extends FileUploadBaseAction {
 		classroom_list = new ArrayList<Classroom>();
 		return SUCCESS;
 	}
-	// 课表批量上传
+	
+	
+	// 教室信息批量上传
 	public String classroomUpload() {	
 		String[] classroomsarray = classrooms.get(0).toString().split(",");
 		try{

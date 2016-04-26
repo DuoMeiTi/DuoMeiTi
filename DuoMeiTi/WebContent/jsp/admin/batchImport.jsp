@@ -14,7 +14,7 @@
         		</div>
         
        			<div class="col-lg-6 nopadding" >
-           			<a href="/admin/batchImport/classroom_import" class="navbar-button">教室导入</a> 
+           			<a href="/admin/batchImport/classroom_import" class="navbar-button">教室照片导入</a> 
         		</div>
     
     		</div>
