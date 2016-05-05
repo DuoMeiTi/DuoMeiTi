@@ -66,7 +66,11 @@ public class ExamAction extends ActionSupport {
 		.list()
 		.get(0);
 	}
-
+	
+	private static  boolean isPassExam(int studentScore, int examTitleNum)
+	{
+		return studentScore * 100 >= examTitleNum * 80;
+	}
 
 
 	public String execute() throws Exception
@@ -102,7 +106,7 @@ public class ExamAction extends ActionSupport {
 		examOptionList =  new ArrayList< ArrayList<ExamOption>>();
 		studentOptoinList = new ArrayList< ArrayList<Boolean>>();
 		
-		s.beginTransaction();
+//		s.beginTransaction();
 		for(int i = 0; i < examTitleList.size(); i++)
 		{
 			ArrayList<ExamOption> L = (ArrayList<ExamOption>)
@@ -127,23 +131,29 @@ public class ExamAction extends ActionSupport {
 			studentOptoinList.add(cntChecked);
 		}	
 		
-		s.getTransaction().commit();
+//		s.getTransaction().commit();
 			
 		s.close();
 		
-		if(!stuScoreList.isEmpty() 
-				&& stuScoreList.get(0).getScore() * 100 >= examOptionList.size() * 80)
-		{
-			
-			this.status = "0您答对了" + stuScoreList.get(0).getScore() + "道题目，您已通过考试";
-			
-			
-		}
-		else this.status = "1";
+		System.out.println(stuScoreList);
 		
-		}
-		catch(Exception e)
+		int stuScoreListSize = stuScoreList.size();
+		if(!stuScoreList.isEmpty() 
+				&& isPassExam(stuScoreList.get(stuScoreListSize - 1).score, examTitleList.size()) 
+				)
 		{
+			
+			this.status = "0您答对了" + stuScoreList.get(stuScoreListSize - 1).score + "道题目，您已通过考试";			
+			
+		}
+		else 
+		{
+			this.status = "1";
+		}
+		
+		
+		
+		}catch(Exception e){ // catch
 			e.printStackTrace();
 		}
 		
@@ -244,24 +254,37 @@ public class ExamAction extends ActionSupport {
 			}
 			if(isRight) score ++;
 		}
-
-		if(score * 100 >= examTitleList.size() * 80)
+		
+		
+		if(isPassExam(score, examTitleList.size()) )
 		{
-			this.status = "0您答对了" + score + "道题目，您已通过考试";
-			
-			ExamStuScore stuScore = new ExamStuScore();
-			stuScore.setScore(score);
-			stuScore.setStuPro(getStudent(s));
-			
-			
-			s.beginTransaction();
-			s.save(stuScore);
-			s.getTransaction().commit();
+			this.status = "0您答对了" + score + "道题目，您已通过考试";			
 		}
 		else 
 		{
-			this.status = "1您答对了" + score + "道题目，正确率不足，还未通过考试， 请继续答题";
+			this.status = "1您答对了" + score + "道题目，正确率不足，还未通过考试， 请重新答题";
+			List<ExamStuOption> opList = (List<ExamStuOption>)
+					s.createCriteria(ExamStuOption.class)
+					.add(Restrictions.eq("stuPro.id", sid))					
+					.list();
+			s.beginTransaction();
+			for(ExamStuOption eso: opList)
+			{
+				s.delete(eso);
+			}
+			s.getTransaction().commit();
+
 		}
+		
+		ExamStuScore stuScore = new ExamStuScore();
+		stuScore.setScore(score);
+		stuScore.setStuPro(getStudent(s));		
+		
+		s.beginTransaction();
+		s.save(stuScore);
+		s.getTransaction().commit();
+		
+
 		s.close();
 		return SUCCESS;
 	}

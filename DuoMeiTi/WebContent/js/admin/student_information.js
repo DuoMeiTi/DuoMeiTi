@@ -20,16 +20,12 @@ $(document).on("click", "#student_search", function() {
       });
 })
 
-var search_student;
-function searchCallback(data) {
-	if(data.isEmpty == "1"){
-		search_student = data.student_profile_id;
-		$("#student_information_table").html(data.studenttable_jsp);
-	}	
-	else{
-		alert("查找的学生不存在！");
-		location.reload();
-	}
+//var search_student;
+function searchCallback(data) 
+{
+	
+	$("#student_information_table").html(data.studenttable_jsp);
+
 }
 
 
@@ -37,25 +33,28 @@ function searchCallback(data) {
 var delete_Id;
 $(document).on("click", ".delete", function() {
 	var temp = confirm("删除不可恢复！");
-	if (temp == true) {
+	
+	if (temp == true) 
+	{
 		delete_Id = $(this).parents("tr").attr("id");// attr所选元素属性值
-		/*alert(delete_Id);*/
-		if(delete_Id == "search_information"){
-			alert(search_student);
+//		/*alert(delete_Id);*/
+//		if(delete_Id == "search_information"){
+//			alert(search_student);
+//			$.ajax({
+//				url : 'student_manage_delete',
+//				type : 'post',
+//				dataType : 'json',
+//				data : {"studentDatabaseId" : search_student,},// {"后台",""}
+//				success : deleteCallback
+//			});
+//		}
+//		else
+		{
 			$.ajax({
-				url : 'student_manage_delete',
+				url : 'student_information_delete',
 				type : 'post',
 				dataType : 'json',
-				data : {"rtID" : search_student,},// {"后台",""}
-				success : deleteCallback
-			});
-		}
-		else{
-			$.ajax({
-				url : 'student_manage_delete',
-				type : 'post',
-				dataType : 'json',
-				data : {"rtID" : delete_Id,},// {"后台",""}
+				data : {"studentDatabaseId" : delete_Id,},// {"后台",""}
 				success : deleteCallback
 			});
 		}
@@ -78,24 +77,25 @@ var edit_Id;
 $(document).on("click", ".edit", function() {
 
 	edit_Id = $(this).parents("tr").attr("id");// attr所选元素属性值
-	if(edit_Id == "search_information"){
-//		alert("编辑：" + search_student);
-		$.ajax({
-			url : 'get_student_information',
-			type : 'post',
-			dataType : 'json',
-			data : {"rtID" : search_student,},// {"后台",""}
-			success : getInformationCallback
-		});
-	}
-	
-	else{
+//	if(edit_Id == "search_information"){
+////		alert("编辑：" + search_student);
+//		$.ajax({
+//			url : 'get_student_information',
+//			type : 'post',
+//			dataType : 'json',
+//			data : {"studentDatabaseId" : search_student,},// {"后台",""}
+//			success : getInformationCallback
+//		});
+//	}
+//	
+//	else
+	{
 //		alert("id：" + edit_Id);
 		$.ajax({
-			url : 'get_student_information',
+			url : 'student_information_obtain',
 			type : 'post',
 			dataType : 'json',
-			data : {"rtID" : edit_Id,},// {"后台",""}
+			data : {"studentDatabaseId" : edit_Id,},// {"后台",""}
 			success : getInformationCallback
 		});
 	}
@@ -118,16 +118,32 @@ function getInformationCallback(data) {
 }
 
 
+
+
 //save
 $(document).on("click", "#editSave", function() {
 	/*alert("save");*/
-	var params = $('#edit_student_form').serialize(); //利用jquery将表单序列化 
+	var params = $('#edit_student_form').serializeArray(); //利用jquery将表单序列化
+
+	var data = {"studentDatabaseId" : edit_Id };
+	
+	
+	for(var i = 0; i < params.length; ++ i)
+	{
+		var cnt = params[i];
+		data[cnt.name] = cnt.value || '';
+	}
+
+//	data = $.extend({}, data, {"studentDatabaseId" : edit_Id })
+
+//	alert(JSON.stringify(data));
+//	return ;
 	/*alert(params);*/
 	$.ajax({
         url: 'student_information_save',
         type: 'post',
         dataType: 'json',
-        data: params,
+        data: data,
         success: studentInformationSaveCallback
       });
 	

@@ -75,7 +75,9 @@
 						<button type="button" class="btn btn-primary btn-lg btn-block center" id="examSubmit">我要交卷</button>
 					</s:if>
 					<s:else>
-						<s:property value="status.substring(1)"/>
+						<h4>
+							<s:property value="status.substring(1)"/>
+						</h4>
 					</s:else>
 				</div>
 			</div>			

@@ -258,12 +258,7 @@
 		</action>
 		
 		
-		<!-- 学生信息 -->
-		<action name="student_information" class="admin.StudentManageAction" method="studentInformation">
-			<result>
-				/jsp/admin/student_manage/student_information.jsp
-			</result>
-		</action>
+		
 		
 		<!-- 规章制度 -->
 		<action name="rule_show" class="admin.StudentManageAction" method="showRules">
@@ -289,35 +284,49 @@
 		</action> 
 		
 		
-
-		<!-- 获取学生信息 -->
-		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation">
-           <result name="success" type="json">
-            	<param name="includeProperties">fullName,sex,studentId,college,phoneNumber,isUpgradePrivilege,bankCard,idCard</param>           
-           </result>           
-        </action>
 		
-        
-        <!-- 删除学生信息 -->
-		<action name="student_manage_delete" class="admin.StudentManageAction" method="studentInformationDelete">
+		
+		<!-- 学生信息 -->
+		<action name="student_information" class="admin.StudentManageAction" method="studentInformation">
+			<result>
+				/jsp/admin/student_manage/student_information.jsp
+			</result>
+		</action>
+		<!-- 学生信息操作！！ -->
+		<action name="student_information_*" class="admin.StudentManageAction" method="{1}">
 			<result name="success" type="json">
-            	<param name="includeProperties">isException,fullName,studentId,college,phoneNumber</param>           
+<!--             	<param name="includeProperties">isException,fullName,studentId,college,phoneNumber</param>            -->
            </result>       
         </action>
+		
+		<!-- 获取单个学生信息 -->
+<!-- 		<action name="get_student_information" class="admin.StudentManageAction" method="getStudentInformation"> -->
+<!--            <result name="success" type="json"> -->
+<!--             	<param name="includeProperties">fullName,sex,studentId,college,phoneNumber,isUpgradePrivilege,bankCard,idCard</param>            -->
+<!--            </result>            -->
+<!--         </action> -->
+		
         
-        <!-- 保存学生信息 -->
-		<action name="student_information_save" class="admin.StudentManageAction" method="saveStudentInformation">
-            <result name="success" type="json">
-            <param name="includeProperties">isRepeat,fullName,studentId,college,phoneNumber</param>
-			</result>        
-        </action>
+<!--         删除学生信息 -->
+<!-- 		<action name="student_manage_delete" class="admin.StudentManageAction" method="studentInformationDelete"> -->
+<!-- 			<result name="success" type="json"> -->
+<!--             	<param name="includeProperties">isException,fullName,studentId,college,phoneNumber</param>            -->
+<!--            </result>        -->
+<!--         </action> -->
         
-        <!-- 检索学生信息 -->
-        <action name="student_information_search" class="admin.StudentManageAction" method="searchStudentInformation">
-            <result name="success" type="json">
-            <param name="includeProperties">studenttable_jsp,isEmpty</param>
-			</result>        
-        </action>
+<!--         保存学生信息 -->
+<!-- 		<action name="student_information_save" class="admin.StudentManageAction" method="saveStudentInformation"> -->
+<!--             <result name="success" type="json"> -->
+<!--             <param name="includeProperties">isRepeat,fullName,studentId,college,phoneNumber</param> -->
+<!-- 			</result>         -->
+<!--         </action> -->
+        
+<!--         检索学生信息 -->
+<!--         <action name="student_information_search" class="admin.StudentManageAction" method="searchStudentInformation"> -->
+<!--             <result name="success" type="json"> -->
+<!--             <param name="includeProperties">studenttable_jsp,isEmpty</param> -->
+<!-- 			</result>         -->
+<!--         </action> -->
         
         
         
