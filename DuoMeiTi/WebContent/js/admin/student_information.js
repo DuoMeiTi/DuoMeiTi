@@ -1,5 +1,10 @@
 
 
+
+
+
+
+
 //search
 var name_id;
 $(document).on("click", "#student_search", function() {
@@ -157,6 +162,30 @@ function studentInformationSaveCallback(data) {
 		alert("修改成功！");
 	}
 	location.reload() 
-	
-	
+		
 }
+
+
+
+$(document).on("click", ".watchScore", function() {
+	$('#watchScoreModal').modal('show');
+	var studentDatabaseId = $(this).parents("tr").attr("id");// attr所选元素属性值
+	data = {"studentDatabaseId": studentDatabaseId}
+	$.ajax({
+        url: 'student_information_watchScore',
+        type: 'post',
+        dataType: 'json',
+        data: data,
+        success: function(data)
+        {
+        	$("#watchScoreTableDiv").html(data.studentScoreJsp);
+        }
+	
+	
+      });
+})
+	
+	
+	
+	
+

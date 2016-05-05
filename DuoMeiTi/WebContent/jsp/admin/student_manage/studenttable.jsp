@@ -1,7 +1,7 @@
 <%@ include file="/jsp/base/taglib.jsp"%>
 
 <table class="table table-bordered table-hover" id="student_information_table">
-			<tr class="row" id="search_infor">
+			<tr   id="search_infor">
 				<th>姓名</th>
 				<th>性别</th>
 				<th>学号</th>
@@ -16,7 +16,7 @@
 			</tr>
 	
 			<s:iterator var="i" begin="0" end="student_list.size()-1" step="1" status="index">
-				<tr class="row" id=<s:property value="student_list.get(#i).id"/>>
+				<tr   id=<s:property value="student_list.get(#i).id"/>>
 					<td> <s:property value="student_list.get(#i).user.fullName"/> </td>
 					<td> <s:property value="student_list.get(#i).user.sex"/>  </td>
 					<td> <s:property value="student_list.get(#i).studentId"/> </td>
@@ -37,12 +37,7 @@
 						<s:else>ERROR</s:else>
 					</td>
 					<td>
-						<s:if test="score_list.get(#i).score==-1">
-							未提交
-						</s:if>
-						<s:else>
-							<s:property value="score_list.get(#i).score"/>
-						</s:else>
+						<button type="button" class="btn btn-primary btn-sm watchScore">查看</button>
 					</td>
 					<td>
 						<button type="button" class="btn btn-primary btn-sm edit" data-toggle="modal" data-target="#student_edit" id="edit-button" name="edit-button" >编辑</button>

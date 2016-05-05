@@ -143,6 +143,35 @@
 			</div>
 			<!-- /.modal-dialog -->
 		</div>
+		
+		
+		
+		
+		
+		
+		
+		<div class="modal fade" id="watchScoreModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h2 class="modal-title" id="modal-title">查看学生历史分数</h2>
+					</div>
+					<div class="modal-body">
+						<div id = "watchScoreTableDiv">
+						</div>
+					</div>
+					<div class="modal-footer">
+<!-- 						<button type="button" class="btn btn-primary"  data-dismiss="modal">保存</button> -->
+						<button type="button" class="btn btn-default" data-dismiss="modal" >关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
 
 		<script type='text/javascript' src="/js/admin/student_information.js"></script>
 

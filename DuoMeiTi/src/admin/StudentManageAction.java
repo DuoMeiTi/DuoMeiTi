@@ -49,40 +49,22 @@ public class StudentManageAction extends ActionSupport{
 	public java.sql.Date entryTime;
 	private String fullName;
 	private String college;
-//	private String passwordAgain;
-//	private String strValue;
+	private int isUpgradePrivilege;
+
+	
 	private String name_id;
 	private String search_select;
-//	private String isEmpty;
-//	private String test1;
-	private int isPassed;
-//	private int userid;
-//	private int student_profile_id;
-	private int isUpgradePrivilege;
-//	private int score;
-//	private String status;
-//	private List score_list;
-	private String studenttable_jsp;
-	private String isRepeat; //标记学号是否重复
-
-
-//	public List getScore_list() {
-//		return score_list;
-//	}
-//
-//
-//	public void setScore_list(List score_list) {
-//		this.score_list = score_list;
-//	}
-//
 
 	private  List<StudentProfile> student_list;
-//	private  List<User> user_list;
-//	private  StudentProfile edit_student;
-//	private   User edit_user;
+	private String studenttable_jsp;
+	
+	List<model.ExamStuScore> studentScoreList;
+	private String studentScoreJsp;
+	
+	private String isRepeat; //标记学号是否重复
+	private String isException;
 	
 	
-//	private String isUpgradePrivilegelist[];
 	
 	private String ruleText;//规章制度的内容,jsp页面传过来的内容
 	private String textShow;//规章制度的内容，显示给jsp页面的内容
@@ -90,46 +72,11 @@ public class StudentManageAction extends ActionSupport{
 	
 	
 	
-	
-	
-//	private List<BuildingsInfo> teahBuildings;
-//	private List<DutyInfo> dutySchedule; 
-	private List<StudentInfo> searchResult;
-//	private int teachBuildingId;
-//	private int student_Id;
-//	private int dtime;//值班时间
-//	private boolean chooseClassSwitch;
-//	private String log;
-	private String studentName;
-	private String isException;
-	
-	
-
 
 
 	
 	
-	
-	
-	
-	
-//	public String searchStudent() throws Exception{
-//		
-//
-//		String conditions;
-//		if(studentName.length()>0&&studentId.length()>0)
-//			conditions="where s.studentId="+studentId+" and "+"s.user.fullName='"+studentName+"'";
-//		else if(studentName.length()>0)
-//			conditions="where s.user.fullName='"+studentName+"'";
-//		else 
-//			conditions="where s.studentId="+studentId;
-//		
-//		String hql="select new common.StudentInfo(s.id,s.user.fullName,s.studentId) from StudentProfile s "+conditions;
-//		Session session = model.Util.sessionFactory.openSession();
-//		searchResult=session.createQuery(hql).list();
-//		session.close();
-//		return SUCCESS;
-//	}
+
 
 	//排除注册未通过学生
 	public static List<StudentProfile> searchStudentByStudentId(Session s, String studentId)
@@ -153,56 +100,22 @@ public class StudentManageAction extends ActionSupport{
 					.list();
 	}
 
-	/*
-	 * 学生查找方法
-	 * 如果姓名和学号都为空，返回空
-	 * 如果姓名和学号都不为空，优先按学号搜索
-	 * 结果通过list返回，如果isEmpty，说明没有找到
-	 */
-//	public static List<StudentProfile> studentSearch(String name, String studentID)
-//	{
-//		List<StudentProfile> reList=new ArrayList<StudentProfile>();
-//		
-//		if(name.length() == 0 && studentID.length() == 0)
-//		{
-//			return reList;
-//		}
-//		
-//		
-//		Session s = model.Util.sessionFactory.openSession();
-//		Criteria q = s.createCriteria(StudentProfile.class)				
-//					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
-//		
-//		if(studentID.length() !=0 )
-//		{//按学号查找
-//			q.add(Restrictions.eq("studentId", studentID));
-//			
-////			Criteria q = session.createCriteria(StudentProfile.class)
-////					.add(Restrictions.eq("studentId", studentID))
-////					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
-////			reList=q.list();
-//		}
-//		else
-//		{//按姓名查找
-//			q.add(Restrictions.eq("fullName", name));
-////			Criteria q1 = session.createCriteria(User.class).add(Restrictions.eq("fullName", name));
-////			List<User> userList=q1.list();
-////			List<Integer> idList=new ArrayList<Integer>();
-////			if(!userList.isEmpty()){
-////				for(User user: userList){
-////					idList.add(user.getId());
-////				}
-////				Criteria q2 = session.createCriteria(StudentProfile.class)
-////						.add(Restrictions.in("user.id", idList))//查找所有符合要求d
-////						.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));			
-////				reList=q2.list();
-////			}
-//		}
-//		reList = q.list();
-//		s.close();
-//		return reList;
-//	}
-
+	
+	
+	public String watchScore() throws Exception
+	{
+		Session s = model.Util.sessionFactory.openSession();
+		
+		 studentScoreList =
+				s.createCriteria(model.ExamStuScore.class)
+				.add(Restrictions.eq("stuPro.id", this.studentDatabaseId))
+				.list();		
+		 studentScoreJsp = util.Util.getJspOutput("/jsp/admin/student_manage/studentScoreTable.jsp");
+		 
+		 s.close();
+		
+		return SUCCESS;
+	}
 	public String search() throws Exception
 	{
 		System.out.println("searchStudentInformation():");
@@ -222,7 +135,7 @@ public class StudentManageAction extends ActionSupport{
 			student_list = searchStudentByFullname(s, name_id);
 		}
 		
-
+		Collections.reverse(student_list);
 		studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
 		s.close();
 
@@ -324,8 +237,7 @@ public class StudentManageAction extends ActionSupport{
 		String hql2 = "SELECT rt FROM User rt WHERE rt.id = " + edit_student.getUser().getId();
 		Query query2 = session.createQuery(hql2);
 		System.out.println(hql2);
-//		user_list=query2.list();
-//		edit_user = user_list.get(0);
+
 		session.close();
 		
 		
@@ -362,10 +274,7 @@ public class StudentManageAction extends ActionSupport{
 			//查找student对应的user
 			User user = (User)session.createCriteria(User.class)
 					.add(Restrictions.eq("id",edit_student.user.id))
-					.uniqueResult();
-
-
-			
+					.uniqueResult();		
 			
 			//必须同时删除student和user
 			session.beginTransaction();
@@ -386,22 +295,14 @@ public class StudentManageAction extends ActionSupport{
 		
 		return SUCCESS;
 	}
-	
-	
-//	public String studentInformationEdit() throws Exception
-//	{
-//		
-//		System.out.println("studentInformationEdit():");
-//		System.out.println(studentDatabaseId);
-//		return SUCCESS;
-//
-//	}
+
+
 	
 	
 	// 页面显示
 	public String studentInformation() throws Exception{
 		
-		System.out.println("JJJJJJJJJJ");
+
 		collegeSelect = Const.collegeSelect;
 		sexSelect = Const.sexSelect;
 		
@@ -411,27 +312,8 @@ public class StudentManageAction extends ActionSupport{
 		
 		
 		student_list = q.list();
-//		score_list = new ArrayList<ExamStuScore>();
-//		for(int i = 0; i<student_list.size(); i++)
-//		{
-//			model.StudentProfile cnt_stu = (model.StudentProfile)student_list.get(i);
-//			Criteria sc = session.createCriteria(model.ExamStuScore.class)
-//						   .add(Restrictions.eq("stuPro.id",cnt_stu.id ))
-//						   .addOrder(Order.desc("id"));
-//			List<ExamStuScore> temp = sc.list();
-//			if(temp.size()>0)
-//			{
-//				score_list.add(temp.get(0));
-//			}
-//			else
-//			{
-//				ExamStuScore s = new ExamStuScore();
-//				s.setScore(-1);
-//				score_list.add(s);
-//			}
-//		}
+
 		Collections.reverse(student_list);
-//		Collections.reverse(score_list);
 		session.close();
 		
 		return ActionSupport.SUCCESS;
@@ -465,8 +347,7 @@ public class StudentManageAction extends ActionSupport{
 			session.getTransaction().commit();
 			session.close();
 		}
-//		Criteria q = session.createCriteria(Rules.class).add(Restrictions.eq("id",
-//					 1));//默认只有一条数据
+
 		
 		return ActionSupport.SUCCESS;
 	}
@@ -507,51 +388,9 @@ public class StudentManageAction extends ActionSupport{
 		this.search_select = search_select;
 	}
 
-
-//	public String getIsEmpty() {
-//		return isEmpty;
-//	}
-//
-//
-//	public void setIsEmpty(String isEmpty) {
-//		this.isEmpty = isEmpty;
-//	}
-
-
 	public void setName_id(String name_id) {
 		this.name_id = name_id;
 	}
-
-
-
-
-//	public String getTest1() {
-//		return test1;
-//	}
-//
-//
-//
-//
-//
-//	public void setTest1(String test1) {
-//		this.test1 = test1;
-//	}
-
-
-
-
-
-//	public String[] getIsUpgradePrivilegelist() {
-//		return isUpgradePrivilegelist;
-//	}
-//
-//
-//
-//	public void setIsUpgradePrivilegelist(String[] isUpgradePrivilegelist) {
-//		this.isUpgradePrivilegelist = isUpgradePrivilegelist;
-//	}
-
-
 
 	public int getIsUpgradePrivilege() {
 		return isUpgradePrivilege;
@@ -562,44 +401,6 @@ public class StudentManageAction extends ActionSupport{
 	public void setIsUpgradePrivilege(int isUpgradePrivilege) {
 		this.isUpgradePrivilege = isUpgradePrivilege;
 	}
-
-
-
-//	public static List<User> getUser_list() {
-//		return user_list;
-//	}
-//
-//
-//
-//	public static void setUser_list(List<User> user_list) {
-//		StudentManageAction.user_list = user_list;
-//	}
-//
-//
-//
-//	public static StudentProfile getEdit_student() {
-//		return edit_student;
-//	}
-//
-//
-//
-//	public static void setEdit_student(StudentProfile edit_student) {
-//		StudentManageAction.edit_student = edit_student;
-//	}
-//
-//
-//
-//	public static User getEdit_user() {
-//		return edit_user;
-//	}
-//
-//
-//
-//	public static void setEdit_user(User edit_user) {
-//		StudentManageAction.edit_user = edit_user;
-//	}
-
-
 
 	public String[] getCollegeSelect() {
 		return collegeSelect;
@@ -658,21 +459,6 @@ public class StudentManageAction extends ActionSupport{
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-
-
-
-//	public String getRtID() {
-//		return studentDatabaseId;
-//	}
-//
-//
-//
-//	public void setRtID(String rtID) {
-//		this.studentDatabaseId = rtID;
-//	}
-
-
-
 	public String getStudentId() {
 		return studentId;
 	}
@@ -742,21 +528,6 @@ public class StudentManageAction extends ActionSupport{
 	public void setCollege(String college) {
 		this.college = college;
 	}
-
-
-
-//	public String getPasswordAgain() {
-//		return passwordAgain;
-//	}
-//
-//
-//
-//	public void setPasswordAgain(String passwordAgain) {
-//		this.passwordAgain = passwordAgain;
-//	}
-//
-
-
 	public List<StudentProfile> getStudent_list() {
 		return student_list;
 	}
@@ -766,62 +537,6 @@ public class StudentManageAction extends ActionSupport{
 	public void setStudent_list(List<StudentProfile> student_list) {
 		this.student_list = student_list;
 	}
-
-
-
-//	public String getStrValue() {
-//		return strValue;
-//	}
-//
-//
-//
-//	public void setStrValue(String strValue) {
-//		this.strValue = strValue;
-//	}
-
-
-
-	public int getIsPassed() {
-		return isPassed;
-	}
-
-
-
-	public void setIsPassed(int isPassed) {
-		this.isPassed = isPassed;
-	}
-
-
-
-//	public int getUserid() {
-//		return userid;
-//	}
-//
-//
-//
-//	public void setUserid(int userid) {
-//		this.userid = userid;
-//	}
-//
-
-
-//	public String getStatus() {
-//		return status;
-//	}
-//
-//
-//
-//	public void setStatus(String status) {
-//		this.status = status;
-//	}
-	
-	
-
-
-
-	
-	
-
 	public String getRuleText() {
 		return ruleText;
 	}
@@ -850,109 +565,8 @@ public class StudentManageAction extends ActionSupport{
 	public void setTextShow(String textShow) {
 		this.textShow = textShow;
 	}
-	
-	
-	
-	
-	
-//	public int getScore() {
-//		return score;
-//	}
-//
-//
-//	public void setScore(int score) {
-//		this.score = score;
-//	}
 
 
-	public List<StudentInfo> getSearchResult() {
-		return searchResult;
-	}
-
-
-	public void setSearchResult(List<StudentInfo> searchResult) {
-		this.searchResult = searchResult;
-	}
-
-
-	public String getStudentName() {
-		return studentName;
-	}
-
-
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
-	}
-
-
-//	public int getDtime() {
-//		return dtime;
-//	}
-//
-//
-//	public void setDtime(int dtime) {
-//		this.dtime = dtime;
-//	}
-
-
-//	public int getStudent_Id() {
-//		return student_Id;
-//	}
-//
-//
-//	public void setStudent_Id(int student_Id) {
-//		this.student_Id = student_Id;
-//	}
-
-
-//	public String getLog() {
-//		return log;
-//	}
-//
-//
-//	public void setLog(String log) {
-//		this.log = log;
-//	}
-
-
-//	public boolean isChooseClassSwitch() {
-//		return chooseClassSwitch;
-//	}
-//
-//
-//	public void setChooseClassSwitch(boolean chooseClassSwitch) {
-//		this.chooseClassSwitch = chooseClassSwitch;
-//	}
-
-//
-//	public List<DutyInfo> getDutySchedule() {
-//		return dutySchedule;
-//	}
-//
-//
-//	public void setDutySchedule(List<DutyInfo> dutySchedule) {
-//		this.dutySchedule = dutySchedule;
-//	}
-
-
-//	public int getTeachBuildingId() {
-//		return teachBuildingId;
-//	}
-//
-//
-//	public void setTeachBuildingId(int teachBuildingId) {
-//		this.teachBuildingId = teachBuildingId;
-//	}
-
-
-//	public List<BuildingsInfo> getTeahBuildings() {
-//		return teahBuildings;
-//	}
-//
-//
-//	public void setTeahBuildings(List<BuildingsInfo> teahBuildings) {
-//		this.teahBuildings = teahBuildings;
-//	}
 
 
 	public String getStudenttable_jsp() {
@@ -983,53 +597,24 @@ public class StudentManageAction extends ActionSupport{
 	public void setIsRepeat(String isRepeat) {
 		this.isRepeat = isRepeat;
 	}
-
-
-
-//	public List<User> getUser_list() {
-//		return user_list;
-//	}
-//
-//
-//
-//	public void setUser_list(List<User> user_list) {
-//		this.user_list = user_list;
-//	}
-
-
-
-//	public StudentProfile getEdit_student() {
-//		return edit_student;
-//	}
-//
-//
-//
-//	public void setEdit_student(StudentProfile edit_student) {
-//		this.edit_student = edit_student;
-//	}
-
-
-
-//	public User getEdit_user() {
-//		return edit_user;
-//	}
-//
-//
-//
-//	public void setEdit_user(User edit_user) {
-//		this.edit_user = edit_user;
-//	}
-
-
-
 	public int getStudentDatabaseId() {
 		return studentDatabaseId;
 	}
 
-
-
 	public void setStudentDatabaseId(int studentDatabaseId) {
 		this.studentDatabaseId = studentDatabaseId;
+	}
+	public List<model.ExamStuScore> getStudentScoreList() {
+		return studentScoreList;
+	}
+	public void setStudentScoreList(List<model.ExamStuScore> studentScoreList) {
+		this.studentScoreList = studentScoreList;
+	}
+	public String getStudentScoreJsp() {
+		return studentScoreJsp;
+	}
+	public void setStudentScoreJsp(String studentScoreJsp) {
+		this.studentScoreJsp = studentScoreJsp;
 	}
 	
 	
