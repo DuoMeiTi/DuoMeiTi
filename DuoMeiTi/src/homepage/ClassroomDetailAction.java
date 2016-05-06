@@ -81,7 +81,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		try {
 			Session session1 = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
 			tx = session1.beginTransaction();
-			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.classroom = " + classroomId;
+			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.rtClassroom = " + classroomId;
 			System.out.println(hql);
 			Query query = session1.createQuery(hql);
 			rtClass = query.list();
@@ -117,14 +117,14 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		repairrecords = (List) session.createQuery("select rd "
 												+ "from RepairRecord as rd "
 												+ "left join rd.device as ry "
-												+ "left join ry.classroom as cm  "
+												+ "left join ry.rtClassroom as cm  "
 												+ "where cm.id=" + classroomId + " order by rd.repairdate")
 				.list();
 		Collections.reverse(repairrecords);
 		
 		
 		classroom_repertory_list = session.createCriteria(model.Repertory.class)
-				.add(Restrictions.eq("classroom.id", classroomId)).list();
+				.add(Restrictions.eq("rtClassroom.id", classroomId)).list();
 
 
 		
