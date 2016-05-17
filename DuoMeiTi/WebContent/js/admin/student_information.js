@@ -1,6 +1,28 @@
 
 
 
+//获取所有离职学生信息
+
+$(document).on("click", "#obtainDepartureStudent", function() {
+	
+	
+	$.ajax({
+        url: 'student_information_obtainDepartureStudent',
+        type: 'post',
+        dataType: 'json',
+        data : {},
+        success: function(data)
+        {
+//        	alert("FFF");
+        	$("#studentTableDiv").html(data.studenttable_jsp)
+//        	studenttable_jsp
+        }
+        
+      });
+	
+
+})
+
 
 
 

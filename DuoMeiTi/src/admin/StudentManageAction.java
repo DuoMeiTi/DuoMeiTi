@@ -161,6 +161,8 @@ public class StudentManageAction extends ActionSupport{
 	
 	public String save() throws Exception
 	{
+		
+		
 	try{
 		
 		
@@ -296,8 +298,39 @@ public class StudentManageAction extends ActionSupport{
 		return SUCCESS;
 	}
 
+//获取离职学生！
+	public String obtainDepartureStudent() throws Exception
+	{
+		
+		try
+		{
+			
+		Session session = model.Util.sessionFactory.openSession();
+		
+		Criteria q = session.createCriteria(model.StudentProfile.class)
+				.add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
+				.addOrder(Order.desc("id"))
+				
+//				.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent))
+				
+				.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent))
+				
+				;
+		
+		
+		student_list = q.list();
+		studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
 
-	
+		session.close();
+		
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return ActionSupport.SUCCESS;
+	}
 	
 	// 页面显示
 	public String studentInformation() throws Exception{
@@ -307,18 +340,24 @@ public class StudentManageAction extends ActionSupport{
 		sexSelect = Const.sexSelect;
 		
 		Session session = model.Util.sessionFactory.openSession();
+		
 		Criteria q = session.createCriteria(model.StudentProfile.class)
-				.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
+				.add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
+				.addOrder(Order.desc("id"))
+//				.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent))
+				
+				.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)))
+				
+				;
 		
 		
 		student_list = q.list();
 
-		Collections.reverse(student_list);
 		session.close();
 		
 		return ActionSupport.SUCCESS;
-	
 	}
+	
 	//编辑规章制度
 	public String editRules() throws Exception{
 		System.out.println("StudentManageAction.editRules()");

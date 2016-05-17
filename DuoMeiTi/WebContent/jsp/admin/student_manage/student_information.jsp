@@ -29,12 +29,19 @@
 						<button type="button" class="btn btn-primary" style="margin: 2px;"
 							id="student_search">查&nbsp;&nbsp;询</button>
 					</div>
+					
+					<div class="col-lg-1">
+						<button type="button" class="btn btn-danger" style="margin: 2px;" 
+							id = "obtainDepartureStudent">
+							所有离职学生
+						</button>
+					</div>
 				</div>
 			</div>
 		</form>
 
 
-		<div class="student_table">
+		<div class="student_table" id="studentTableDiv">
 			<%@ include file="studenttable.jsp"%>
 		</div>
 
