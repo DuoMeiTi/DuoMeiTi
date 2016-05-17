@@ -30,12 +30,21 @@
 							id="student_search">查&nbsp;&nbsp;询</button>
 					</div>
 					
+					<div class="col-lg-2">
+						<button type="button" class="btn btn-warning" style="margin: 2px;" 
+							id = "obtainWorkingStudent">
+							所有在职学生
+						</button>
+					</div>
+					
+					
 					<div class="col-lg-1">
 						<button type="button" class="btn btn-danger" style="margin: 2px;" 
 							id = "obtainDepartureStudent">
 							所有离职学生
 						</button>
 					</div>
+					
 				</div>
 			</div>
 		</form>

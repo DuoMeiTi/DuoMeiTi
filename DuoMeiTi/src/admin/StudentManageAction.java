@@ -298,6 +298,40 @@ public class StudentManageAction extends ActionSupport{
 		return SUCCESS;
 	}
 
+//所有在职学生（包括有管理员权限的）
+
+	public String obtainWorkingStudent() throws Exception{
+		
+		try
+		{
+			
+		Session session = model.Util.sessionFactory.openSession();
+		
+		Criteria q = session.createCriteria(model.StudentProfile.class)
+				.add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
+				.addOrder(Order.desc("id"))
+				
+//				.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent))
+				
+				.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)))
+				
+				;
+		
+		
+		student_list = q.list();
+		studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
+
+		session.close();
+		
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return ActionSupport.SUCCESS;
+
+	}
 //获取离职学生！
 	public String obtainDepartureStudent() throws Exception
 	{

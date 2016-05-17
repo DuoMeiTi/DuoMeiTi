@@ -1,8 +1,23 @@
 
 
 
-//获取所有离职学生信息
+//获取所有在职学生信息
+$(document).on("click", "#obtainWorkingStudent", function() {
+	$.ajax({
+        url: 'student_information_obtainWorkingStudent',
+        type: 'post',
+        dataType: 'json',
+        data : {},
+        success: function(data)
+        {
+        	$("#studentTableDiv").html(data.studenttable_jsp)
 
+        }
+        
+      });
+})
+
+//获取所有离职学生信息
 $(document).on("click", "#obtainDepartureStudent", function() {
 	
 	
