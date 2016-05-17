@@ -10,7 +10,7 @@
 						      		<s:property value="@util.Util@formatTimestamp(#i.repairdate.toString())"/>
 						      </span>
 						      <span>
-						      	<a href="#" >
+<!-- 						      	<a href="#" > -->
 						      		<s:property value="#i.repairman.fullName"/>
 						      		维修
 						      		<s:property value="#i.device.classroom.teachbuilding.build_name"/>
@@ -19,7 +19,7 @@
 						      		<s:property value="#i.device.rtType"/>
 						      		:
 						      		<s:property value="#i.repairdetail"/>
-						      	</a>
+<!-- 						      	</a> -->
 						      </span>
 						    </li>
 						  </ul>	

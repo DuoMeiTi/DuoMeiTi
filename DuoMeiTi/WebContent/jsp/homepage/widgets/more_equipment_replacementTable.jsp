@@ -12,12 +12,12 @@
 <%-- 						      		<s:property value="#i.rtDeadlineData.toString()"/> --%>
 						      </span>
 						      <span>
-						      	<a href="#" >
+<!-- 						      	<a href="#" > -->
 						      		<s:property value="#i.rtClassroom.teachbuilding.build_name"/>
 						      		<s:property value="#i.rtClassroom.classroom_num"/>
 						      		
 						      		<s:property value="#i.rtType"/>
-						      	</a>
+<!-- 						      	</a> -->
 						      </span>
 						    </li>
 						  </ul>	

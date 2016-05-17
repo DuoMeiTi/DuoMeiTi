@@ -11,11 +11,10 @@
 						      		<s:property value="#i.time.toString()"/>
 						      </span>
 						      <span>
-						      	<a >
-<%-- 						      		<s:property value="#i.title"/> --%>
-<!-- 						      		: -->
+<!-- 						      	<a >						      	 -->
+
 						      		<s:property value="#i.content" escape="false"/>
-						      	</a>
+<!-- 						      	</a> -->
 						      	
 						      	<hr/>
 

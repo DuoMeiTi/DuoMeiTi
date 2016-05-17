@@ -12,14 +12,14 @@
 <%-- 						      		<s:property value="#i.rtDeadlineData.toString()"/> --%>
 						      </span>
 						      <span>
-						      	<a href="#" >
+<!-- 						      	<a href="#" > -->
 						      		<s:property value="#i.principal.user.fullName"/>
 						      		未检查
 						      		<s:property value="#i.teachbuilding.build_name"/>
 						      		<s:property value="#i.classroom_num"/>
 						      		
 						      		
-						      	</a>
+<!-- 						      	</a> -->
 						      </span>
 						    </li>
 						  </ul>	
