@@ -7,6 +7,7 @@ import java.util.List;
 
 import model.Classroom;
 import model.RoomPicture;
+import model.StudentProfile;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -24,6 +25,8 @@ public class BatchImportAction extends FileUploadBaseAction {
 	List<Classroom> classroom_list;
 	int selectTeachBuilding;
 	String classroomcheckbox;
+	
+	// 所有的选中的教室ID列表
 	List classrooms;
 //	String[] classroomsArr;
 	
@@ -57,18 +60,17 @@ public class BatchImportAction extends FileUploadBaseAction {
 	
 	
 	
+	
 	public String upload() throws Exception
 	{
-//		classroom_list = new ArrayList<Classroom>();
-//		System.out.println("|||||"+util.Util.RootPath);
-//		System.out.println(fileFileName);
+
 		if(file == null)
 		{
 			this.status = "1";
 			this.message = "文件未上传";
 			return SUCCESS;
 		}
-//		System.out.println("***************");
+
 		
 		int end = fileFileName.indexOf(".");
 		String cnt = fileFileName;
@@ -88,8 +90,7 @@ public class BatchImportAction extends FileUploadBaseAction {
 		List l = session.createCriteria(model.TeachBuilding.class)
 			            .add(Restrictions.eq("build_name", buildName)).list();
 		
-//		System.out.println("COA");
-//		System.out.println(fileFileName);
+
 		if(l.isEmpty())
 		{
 			this.status = "1";
@@ -124,10 +125,7 @@ public class BatchImportAction extends FileUploadBaseAction {
         
     	util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ClassroomSchedulePath);
     	String inserted_file_path = util.Util.ClassroomSchedulePath + fileFileName;
-    	
-    	
 
-    	
     	classroom.class_schedule_path = inserted_file_path;
     	
         session.beginTransaction();
@@ -141,6 +139,10 @@ public class BatchImportAction extends FileUploadBaseAction {
 		classroom_list = new ArrayList<Classroom>();
 		return SUCCESS;
 	}
+	
+	
+
+	
 	
 	
 	// 教室信息照片批量上传
@@ -162,13 +164,7 @@ public class BatchImportAction extends FileUploadBaseAction {
 				java.util.Date date = new java.util.Date();
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd-HH-mm-ss-SSS");
 				String curdate = simpleDateFormat.format(date);
-				
-				
-				System.out.println("jjjjjj----------");
-				System.out.println(curdate);
-//				return this.SUCCESS;
-//				date.getTime();
-				
+
 				String[] splitedFileName = util.Util.splitFileName(this.fileFileName);
 				
 				String fileName = Integer.toString(i) +"-"+ curdate + "."+ splitedFileName[1];
@@ -197,6 +193,161 @@ public class BatchImportAction extends FileUploadBaseAction {
 	
 	
 	
+	
+//以下是教室负责人导入****************************************
+	
+	
+	//教室负责人导入
+	public String classroomPrincipalShow()
+	{
+		
+//		classroomPrincipalCheckbox.jsp
+		
+		
+		Session s = model.Util.sessionFactory.openSession();
+		Criteria classroom_criteria = s.createCriteria(Classroom.class);	
+		if(selectTeachBuilding > 0)
+		{
+			classroom_list = 
+			s.createCriteria(Classroom.class)
+				.add(Restrictions.eq("teachbuilding.id", selectTeachBuilding))
+				.addOrder(Order.asc("classroom_num"))
+				.list();
+
+		}
+		else
+			classroom_list = new ArrayList<Classroom>();
+
+		s.close();
+		return SUCCESS;
+	}
+	
+	
+	
+	public String classroomPrincipalChangeBuilding() throws Exception {	
+		
+		System.out.println("*****LLLLLLLLLLLLLLLL");
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria classroom_criteria = session.createCriteria(Classroom.class);	
+		if(selectTeachBuilding != -1)
+		{
+			classroom_criteria.add(Restrictions.eq("teachbuilding.id", selectTeachBuilding));
+			classroom_criteria.addOrder(Order.asc("classroom_num"));
+			classroom_list = classroom_criteria.list();
+
+		}
+		classroomcheckbox = util.Util.getJspOutput("/jsp/admin/widgets/classroomPrincipalCheckbox.jsp");
+		session.close();
+		
+		return SUCCESS;
+	}
+
+	
+	//学号
+	String studentNumber; 
+	List<Integer>  classroomIdList ;
+	public String classroomPrincipalDetermineSetting() throws Exception {
+		
+		try
+		{
+			
+			
+		System.out.println("SFSFSFSF-------------");
+		
+		Session s = model.Util.sessionFactory.openSession();
+		
+		List<StudentProfile> spList = admin.StudentManageAction.searchStudentByStudentNumber(s, studentNumber);
+		
+		System.out.println("--------" + spList.size());
+		for(int i = 0; i < spList.size(); ++ i)
+		{
+			System.out.println(spList.get(i).user.fullName);			
+		}
+		
+		System.out.println("|||||||||||||||||||");
+		
+		System.out.println(classroomIdList);
+		
+		if(classroomIdList == null || classroomIdList.size() == 0)
+		{
+			status = "2您还未选中教室";
+		}
+		else if(spList.isEmpty())
+		{
+			status = "1查无此学生";
+		}
+		else 
+		{
+			s.beginTransaction();
+			for(int i = 0; i < classroomIdList.size(); ++ i)
+			{
+				int classroom_id = ((Integer)classroomIdList.get(i)).intValue();
+				System.out.println(classroom_id);
+				Classroom cnt = (Classroom)
+							s.createCriteria(model.Classroom.class)
+							.add(Restrictions.eq("id", classroom_id ))
+							.uniqueResult();
+				cnt.principal = spList.get(0);
+				s.update(cnt);
+			}
+			s.getTransaction().commit();
+			status = "0设置成功";
+			
+		}
+		
+		
+
+		s.close();
+		
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return SUCCESS;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String getStudentNumber() {
+		return studentNumber;
+	}
+
+	public void setStudentNumber(String studentNumber) {
+		this.studentNumber = studentNumber;
+	}
+
+
+
+	public List<Integer> getClassroomIdList() {
+		return classroomIdList;
+	}
+
+	public void setClassroomIdList(List<Integer> classroomIdList) {
+		this.classroomIdList = classroomIdList;
+	}
+
 	public String getMessage() {
 		return message;
 	}

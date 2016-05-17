@@ -78,8 +78,8 @@ public class StudentManageAction extends ActionSupport{
 	
 
 
-	//排除注册未通过学生
-	public static List<StudentProfile> searchStudentByStudentId(Session s, String studentId)
+	//排除注册未通过学生,通过学号查询
+	public static List<StudentProfile> searchStudentByStudentNumber(Session s, String studentId)
 	{
 		
 		return s.createCriteria(StudentProfile.class)				
@@ -127,7 +127,7 @@ public class StudentManageAction extends ActionSupport{
 		if(search_select.equals("2"))
 		{
 			//按学号查找
-			student_list = searchStudentByStudentId(s, name_id);
+			student_list = searchStudentByStudentNumber(s, name_id);
 
 		}
 		else
@@ -137,6 +137,8 @@ public class StudentManageAction extends ActionSupport{
 		
 		Collections.reverse(student_list);
 		studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
+		
+		
 		s.close();
 
 		}catch(Exception e)

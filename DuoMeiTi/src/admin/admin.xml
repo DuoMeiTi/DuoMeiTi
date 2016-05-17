@@ -199,6 +199,13 @@
 			</result>
 		</action>
 		
+		<action name="classroomPrincipalImport" class="admin.BatchImportAction" method="classroomPrincipalShow">
+			<result>
+				/jsp/admin/classroomPrincipalImport.jsp
+			</result>
+		</action>
+<!-- 		principal -->
+		
 		<action name="batchImport_*" class="admin.BatchImportAction" method="{1}">
 			<result name="success" type="json">
 				<param name="includeProperties">*</param>

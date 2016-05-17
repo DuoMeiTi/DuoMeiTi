@@ -281,15 +281,26 @@ function judgesuffix(str1,str2){
     }
     return true;
 }
+
 $(".mynavbar a").each(function(){
 	
     var myhref=$(this).attr("href");
 //    alert(str);
 //    alert(myhref);
-    if(judgesuffix(str,myhref))
-        {
-            $(this).addClass("highlight");
-        }
+    
+    
+//    原来的写法
+//    if(judgesuffix(str,myhref))
+    var all_href = window.location.href;
+    
+    var questionMarkPos = all_href.indexOf("?");
+    if(questionMarkPos >= 0)
+    	all_href = all_href.substring(0, questionMarkPos);
+    
+    if(judgesuffix(all_href,myhref))
+    {
+        $(this).addClass("highlight");
+    }
 });
 
 
