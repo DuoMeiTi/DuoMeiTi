@@ -62,7 +62,9 @@
     	</action>
     	
         
-        
+        <action name="classroomPincipalShow" class="homepage.HomeAction" method="classroomPincipalShow">
+			<result>/jsp/homepage/classroomPincipalShow.jsp</result>			
+    	</action>
         
 
         

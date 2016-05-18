@@ -94,18 +94,7 @@ $(document).on("change","#selectTeachBuilding",function(){
 	
 	window.location.href = "classroomPrincipalImport?selectTeachBuilding=" + selectTeachBuilding;
 	
-// // 	alert("COCOOOO");
-// // 	selectTeachBuilding
-// 	$.ajax({  
-//         url:'/admin/batchImport/batchImport_classroomPrincipalChangeBuilding' ,  
-//         type: "POST",  
-//         data: {
-//         	"selectTeachBuilding":selectTeachBuilding,
-//         },           
-//         success: function(data) {
-//         	$("#classrooms").html(data.classroomcheckbox);
-//         }
-//    });  
+
 });
 
 

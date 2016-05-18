@@ -29,6 +29,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import model.Classroom;
 import model.DutySchedule;
+import model.StudentProfile;
 import model.User;
 import util.PageGetBaseAction;
 
@@ -261,22 +262,8 @@ public class HomeAction extends PageGetBaseAction
 		}
 		
 		
-
-		
-
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		session.close();
-//		String s = "我wo";
-//		System.out.println(s.length());
+
 
 		return ActionSupport.SUCCESS;
 	}
@@ -287,6 +274,59 @@ public class HomeAction extends PageGetBaseAction
 	
 	
 	
+/*	
+ * 教室负责人表：
+ */
+	List<Classroom> classroomList;
+	ArrayList<ArrayList<Classroom> > classroomByPrinicpalList; 
+	
+	public String classroomPincipalShow() throws Exception
+	{
+		
+		Session s = model.Util.sessionFactory.openSession();
+		classroomList = 
+				s.createCriteria(model.Classroom.class)
+				.addOrder(Order.desc("principal"))
+				.add(Restrictions.isNotNull("principal"))
+				.list();
+		
+		
+		classroomByPrinicpalList = new ArrayList<ArrayList<Classroom> >();
+		
+		for(int i = 0, j; i < classroomList.size(); i = j)
+		{
+			for(j = i + 1; j < classroomList.size(); ++ j)
+			{
+				StudentProfile spi = classroomList.get(i).principal;
+				StudentProfile spj = classroomList.get(j).principal;
+				
+				if( (spi == null) ^ (spj == null) == true ||
+						(spi != null && spi.id != spj.id)
+
+						
+						)
+				break;
+			}
+			
+			ArrayList<Classroom> cntList = new ArrayList<Classroom>();
+			for(int k = i; k < j; ++ k)
+			{
+				cntList.add(classroomList.get(k));
+			}
+			classroomByPrinicpalList.add(cntList);
+			
+		}
+		
+		
+		
+		
+		
+		s.close();
+		return SUCCESS;
+	}
+	
+	
+	
 	
 	
 	
@@ -295,6 +335,30 @@ public class HomeAction extends PageGetBaseAction
 
 
 
+
+
+
+	public ArrayList<ArrayList<Classroom>> getClassroomByPrinicpalList() {
+		return classroomByPrinicpalList;
+	}
+
+
+
+	public void setClassroomByPrinicpalList(ArrayList<ArrayList<Classroom>> classroomByPrinicpalList) {
+		this.classroomByPrinicpalList = classroomByPrinicpalList;
+	}
+
+
+
+	public List<Classroom> getClassroomList() {
+		return classroomList;
+	}
+
+
+
+	public void setClassroomList(List<Classroom> classroomList) {
+		this.classroomList = classroomList;
+	}
 
 
 

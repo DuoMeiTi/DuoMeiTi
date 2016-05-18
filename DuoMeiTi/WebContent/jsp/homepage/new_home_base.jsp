@@ -65,6 +65,7 @@
 			           <li class=""><a href="/CommonProRecord">常见问题</a></li>
 			           
 			           <li class=""><a href="/dutyShow">值班表</a></li>
+			           <li class=""><a href="/classroomPincipalShow">教室负责人</a></li>
 
 			           <li class="">
 				           <s:if test="#session.containsKey('role')">
