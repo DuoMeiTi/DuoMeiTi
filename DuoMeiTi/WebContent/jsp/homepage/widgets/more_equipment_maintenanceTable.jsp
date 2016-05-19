@@ -13,9 +13,11 @@
 <!-- 						      	<a href="#" > -->
 						      		<s:property value="#i.repairman.fullName"/>
 						      		维修
-						      		<s:property value="#i.device.classroom.teachbuilding.build_name"/>
-						      		教室
-						      		<s:property value="#i.device.classroom.classroom_num"/>
+						      		<strong>
+						      		<s:property value="#i.classroom.teachbuilding.build_name"/>
+<!-- 						      		教室 -->
+						      		<s:property value="#i.classroom.classroom_num"/>
+						      		</strong>
 						      		<s:property value="#i.device.rtType"/>
 						      		:
 						      		<s:property value="#i.repairdetail"/>

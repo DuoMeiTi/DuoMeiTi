@@ -75,39 +75,47 @@ public class HomeAction extends PageGetBaseAction
 
 	
 	List dutyStudentList;
-	ArrayList<Classroom> notCheckClassroomStudentList;
+	List<Classroom> notCheckClassroomStudentList;
 	public String execute() throws Exception
 	{ 
 		System.out.println("******************");
 		System.out.println(util.Util.RootPath);
 		Session session = model.Util.sessionFactory.openSession();
-		
+		Session s = session;
 		final int MaxRes = 8;
-		check_list = session.createCriteria(model.CheckRecord.class)
-							.setMaxResults(MaxRes)
-							.addOrder(Order.desc("id"))
-							.list();
-		notice_list = session.createCriteria(model.Notice.class)
-							 .setMaxResults(MaxRes)
-							 .addOrder(Order.desc("id"))
-							 .list();
-		repair_list = session.createCriteria(model.RepairRecord.class)
-							 .setMaxResults(MaxRes)
-							 .addOrder(Order.desc("id"))
-							 .list();
 		
-		java.util.Date now = new java.util.Date();
-		java.sql.Date sql_now = new java.sql.Date(now.getTime());		
-		deviceReplaceList = session.createCriteria(model.Repertory.class)
-						.add(Restrictions.le("rtDeadlineDate", sql_now))
-						.add(Restrictions.eq("rtDeviceStatus", util.Util.DeviceClassroomStatus))
-
-						.add(Restrictions.eq("rtType", "灯泡"))
-						.setMaxResults(MaxRes)
-						.addOrder(Order.desc("id"))
-						.list();
+//		check_list = session.createCriteria(model.CheckRecord.class)
+//							.setMaxResults(MaxRes)
+//							.addOrder(Order.desc("id"))
+//							.list();
+		
+//		notice_list = session.createCriteria(model.Notice.class)
+//							 .setMaxResults(MaxRes)
+//							 .addOrder(Order.desc("id"))
+//							 .list();
+//		repair_list = session.createCriteria(model.RepairRecord.class)
+//							 .setMaxResults(MaxRes)
+//							 .addOrder(Order.desc("id"))
+//							 .list();
+		check_list = HomepageInformation.obtainAllCheckClassroomRecordCriteria(s).setMaxResults(MaxRes).list();
+		notice_list = HomepageInformation.obtainAllNoticeCriteria(s).setMaxResults(MaxRes).list();
+		repair_list = HomepageInformation.obtainAllRepairRecordCriteria(s).setMaxResults(MaxRes).list();
+		deviceReplaceList = HomepageInformation.obtainAllReplaceDeviceCriteria(s).setMaxResults(MaxRes).list();
+		
+//		java.util.Date now = new java.util.Date();
+//		java.sql.Date sql_now = new java.sql.Date(now.getTime());		
+//		deviceReplaceList = session.createCriteria(model.Repertory.class)
+//						.add(Restrictions.le("rtDeadlineDate", sql_now))
+//						.add(Restrictions.eq("rtDeviceStatus", util.Util.DeviceClassroomStatus))
+//
+//						.add(Restrictions.eq("rtType", "灯泡"))
+//						.setMaxResults(MaxRes)
+//						.addOrder(Order.desc("id"))
+//						.list();
 		
 
+		
+		
 		
 		
 		
@@ -137,48 +145,50 @@ public class HomeAction extends PageGetBaseAction
 		// 确定上一周未检查教室学生
 //		notCheckClassroomStudentList
 //		principal
-		ArrayList<Classroom> all_classroom = (ArrayList<Classroom>) 
-		session.createCriteria(model.Classroom.class)
-				.add(Restrictions.isNotNull("principal"))
-				.list();
-		
-		java.util.Date lastMonday, cntMonday;
-		Calendar cal = Calendar.getInstance();		
-		cal.add(Calendar.DATE, -7);
-		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);		
-		lastMonday = cal.getTime();
-		
-		cal = Calendar.getInstance();	
-		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		cntMonday = cal.getTime();
-		System.out.println("上周一！！！！！！！！");
-		System.out.println(lastMonday);
-		System.out.println(cntMonday);
-		
-		notCheckClassroomStudentList = new ArrayList<Classroom>();
-		
-		System.out.println(all_classroom.size());
-		for(Classroom c: all_classroom)
-		{
-			model.StudentProfile st = c.principal;
-			
-			boolean empty = session.createCriteria(model.CheckRecord.class)
-				   .add(Restrictions.eq("checkman.id", c.principal.user.id))
-				   .add(Restrictions.eq("classroom.id", c.id))
-				   .add(Restrictions.between("checkdate", lastMonday, cntMonday))
-				   .list().isEmpty();
-			
-			System.out.println(empty);
-			if(empty)
-			{
-				notCheckClassroomStudentList.add(c);
-				if(notCheckClassroomStudentList.size() >= MaxRes) break;
-			}
-		}
-		
-		
+//		ArrayList<Classroom> all_classroom = (ArrayList<Classroom>) 
+//		session.createCriteria(model.Classroom.class)
+//				.add(Restrictions.isNotNull("principal"))
+//				.list();
+//		
+//		java.util.Date lastMonday, cntMonday;
+//		Calendar cal = Calendar.getInstance();		
+//		cal.add(Calendar.DATE, -7);
+//		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);		
+//		lastMonday = cal.getTime();
+//		
+//		cal = Calendar.getInstance();	
+//		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+//		cntMonday = cal.getTime();
+//		System.out.println("上周一！！！！！！！！");
+//		System.out.println(lastMonday);
+//		System.out.println(cntMonday);
+//		
+//		notCheckClassroomStudentList = new ArrayList<Classroom>();
+//		
+//		System.out.println(all_classroom.size());
+//		for(Classroom c: all_classroom)
+//		{
+//			model.StudentProfile st = c.principal;
+//			
+//			boolean empty = session.createCriteria(model.CheckRecord.class)
+//				   .add(Restrictions.eq("checkman.id", c.principal.user.id))
+//				   .add(Restrictions.eq("classroom.id", c.id))
+//				   .add(Restrictions.between("checkdate", lastMonday, cntMonday))
+//				   .list().isEmpty();
+//			
+//			System.out.println(empty);
+//			if(empty)
+//			{
+//				notCheckClassroomStudentList.add(c);
+//				if(notCheckClassroomStudentList.size() >= MaxRes) break;
+//			}
+//		}
 		
 		
+		// 确定上一周未检查教室学生
+		notCheckClassroomStudentList = HomepageInformation.obtainLastWeekNotCheckClassroomStudentList(session);		
+		
+		notCheckClassroomStudentList = notCheckClassroomStudentList.subList(0, Math.min(notCheckClassroomStudentList.size(), MaxRes));
 		
 		
 		
@@ -452,15 +462,27 @@ public class HomeAction extends PageGetBaseAction
 
 
 
-	public ArrayList<Classroom> getNotCheckClassroomStudentList() {
+	public List<Classroom> getNotCheckClassroomStudentList() {
 		return notCheckClassroomStudentList;
 	}
 
 
 
-	public void setNotCheckClassroomStudentList(ArrayList<Classroom> notCheckClassroomStudentList) {
+	public void setNotCheckClassroomStudentList(List<Classroom> notCheckClassroomStudentList) {
 		this.notCheckClassroomStudentList = notCheckClassroomStudentList;
 	}
+
+
+
+//	public ArrayList<Classroom> getNotCheckClassroomStudentList() {
+//		return notCheckClassroomStudentList;
+//	}
+//
+//
+//
+//	public void setNotCheckClassroomStudentList(ArrayList<Classroom> notCheckClassroomStudentList) {
+//		this.notCheckClassroomStudentList = notCheckClassroomStudentList;
+//	}
 	
 	
 	

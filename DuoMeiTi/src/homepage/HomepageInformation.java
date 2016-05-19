@@ -18,118 +18,20 @@ import model.Classroom;
 
 public class HomepageInformation extends util.PageGetBaseAction {
 	
-	
-	public List notice_list;
-	public List check_list;
-	public List repair_list;
-	public List deviceReplaceList;
-	public String notice_list_html;
-	public String check_list_html;
-	public String repair_list_html;
-	public String device_list_html;
+	/*
+	 * 一些static公用方法
+	 */
+	//获取上一周未检查教室的学生列表
+	static ArrayList<Classroom> obtainLastWeekNotCheckClassroomStudentList(Session s)
+	{
 		
-	/*public String execute() throws Exception{
+		ArrayList<Classroom> notCheckClassroomStudentList;
 		
-		Session session = model.Util.sessionFactory.openSession();
-		notice_list = session.createCriteria(model.Notice.class).list();
-		check_list = session.createCriteria(model.CheckRecord.class).list();
-		repair_list = session.createCriteria(model.RepairRecord.class).list();
-		
-		java.util.Date now = new java.util.Date();
-		java.sql.Date sql_now = new java.sql.Date(now.getTime());
-		
-		deviceReplaceList = session.createCriteria(model.Repertory.class)
-							.add(Restrictions.le("rtDeadlineData", sql_now))
-							.add(Restrictions.eq("rtDeviceStatus", "教室"))
-							.list();
-		Collections.reverse(notice_list);
-		Collections.reverse(check_list);
-		Collections.reverse(repair_list);
-		session.close();
-		return ActionSupport.SUCCESS;
-	}*/
-	public String  MoreAnnouncement() throws Exception{
-		
-		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(model.Notice.class).addOrder(Order.desc("id"));
-		notice_list = this.makeCurrentPageList(q, 10);
-		
-		session.close();
-		if(this.getIsAjaxTransmission()) // 这是ajax 传输
-		{
-			notice_list_html = util.Util.getJspOutput("/jsp/homepage/widgets/more_announcementTable.jsp");				
-			return "getPage";
-		}
-		return ActionSupport.SUCCESS;
-	}
-	
-	public String MoreCheckClassroom() throws Exception{
-		
-		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(model.CheckRecord.class).addOrder(Order.desc("id"));
-		check_list = this.makeCurrentPageList(q, 10);
-		
-		
-		session.close();
-		if(this.getIsAjaxTransmission())
-		{
-			check_list_html =util.Util.getJspOutput("/jsp/homepage/widgets/more_classroomTable.jsp");
-			return "getPage";
-		}
-		return ActionSupport.SUCCESS;
-	}
-	
-	public String MoreEquipmentMaintenance() throws Exception{
-		
-		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(model.RepairRecord.class).addOrder(Order.desc("id"));
-		repair_list = this.makeCurrentPageList(q, 10);
-		
-		session.close();
-		if(this.getIsAjaxTransmission())
-		{
-			repair_list_html = util.Util.getJspOutput("/jsp/homepage/widgets/more_equipment_maintenanceTable.jsp");
-			return "getPage";
-		}
-		return ActionSupport.SUCCESS;
-	}
-	
-	public String MoreEquipmentReplacement() throws Exception{
-		
-		Session session = model.Util.sessionFactory.openSession();
-		
-		java.util.Date now = new java.util.Date();
-		java.sql.Date sql_now = new java.sql.Date(now.getTime());
-		
-		Criteria q = session.createCriteria(model.Repertory.class)
-					 .add(Restrictions.le("rtDeadlineDate", sql_now))
-//					 .add(Restrictions.eq("rtDeviceStatus", "教室"))
-					.add(Restrictions.eq("rtDeviceStatus", util.Util.DeviceClassroomStatus))
-
-					.add(Restrictions.eq("rtType", "灯泡"))
-
-					 .addOrder(Order.desc("id"));
-		deviceReplaceList = this.makeCurrentPageList(q, 10);
-		
-		session.close();
-		
-		if(this.getIsAjaxTransmission())
-		{
-			device_list_html = util.Util.getJspOutput("/jsp/homepage/widgets/more_equipment_replacementTable.jsp");
-			return "getPage";
-		}
-		
-		return ActionSupport.SUCCESS;
-	}
-	ArrayList<Classroom> notCheckClassroomStudentList;
-	public String notCheckClassroomStudent() throws Exception{
-		
-		Session session = model.Util.sessionFactory.openSession();
 		ArrayList<Classroom> all_classroom = (ArrayList<Classroom>) 
-		 session.createCriteria(model.Classroom.class)
-				.add(Restrictions.isNotNull("principal"))
-				.list();
-		
+				 s.createCriteria(model.Classroom.class)
+						.add(Restrictions.isNotNull("principal"))
+						.list();
+				
 		java.util.Date lastMonday, cntMonday;
 		Calendar cal = Calendar.getInstance();		
 		cal.add(Calendar.DATE, -7);
@@ -150,7 +52,7 @@ public class HomepageInformation extends util.PageGetBaseAction {
 		{
 			model.StudentProfile st = c.principal;
 			
-			boolean empty = session.createCriteria(model.CheckRecord.class)
+			boolean empty = s.createCriteria(model.CheckRecord.class)
 				   .add(Restrictions.eq("checkman.id", c.principal.user.id))
 				   .add(Restrictions.eq("classroom.id", c.id))
 				   .add(Restrictions.between("checkdate", lastMonday, cntMonday))
@@ -160,11 +62,182 @@ public class HomepageInformation extends util.PageGetBaseAction {
 			if(empty)
 			{
 				notCheckClassroomStudentList.add(c);
-//				if(notCheckClassroomStudentList.size() >= MaxRes) break;
 			}
 		}
+			
+		return notCheckClassroomStudentList;
+
+	}
+	
+	static Criteria obtainAllNoticeCriteria(Session s)
+	{
+		return s.createCriteria(model.Notice.class)
+				.addOrder(Order.desc("id"));
+	}
+	static Criteria obtainAllCheckClassroomRecordCriteria(Session s)
+	{
+		return  s .createCriteria(model.CheckRecord.class).addOrder(Order.desc("id"));
+	}
+	static Criteria obtainAllRepairRecordCriteria(Session s)
+	{
+		return s.createCriteria(model.RepairRecord.class).addOrder(Order.desc("id"));
+	}
+	
+	static Criteria obtainAllReplaceDeviceCriteria(Session s)
+	{
+		java.util.Date now = new java.util.Date();
+		java.sql.Date sql_now = new java.sql.Date(now.getTime());
 		
+		Criteria q = s.createCriteria(model.Repertory.class)
+				 .add(Restrictions.le("rtDeadlineDate", sql_now))
+				 .add(Restrictions.eq("rtDeviceStatus", util.Util.DeviceClassroomStatus))
+				 .add(Restrictions.eq("rtType", "灯泡"))
+				 .addOrder(Order.desc("id"));
+		return q;
+	}
+
+// 以上是一些common 方法	
+	
+	
+	public List notice_list;
+	public List check_list;
+	public List repair_list;
+	public List deviceReplaceList;
+	public String notice_list_html;
+	public String check_list_html;
+	public String repair_list_html;
+	public String device_list_html;
+		
+
+	public String  MoreAnnouncement() throws Exception{
+		
+		Session session = model.Util.sessionFactory.openSession();
+//		Criteria q = session.createCriteria(model.Notice.class).addOrder(Order.desc("id"));
+		
+		
+		notice_list = obtainAllNoticeCriteria(session).list();
+		
+//		notice_list = this.makeCurrentPageList(obtainAllNoticeCriteria(session), 10);
+//		
+		session.close();
+//		if(this.getIsAjaxTransmission()) // 这是ajax 传输
+//		{
+//			notice_list_html = util.Util.getJspOutput("/jsp/homepage/widgets/more_announcementTable.jsp");				
+//			return "getPage";
+//		}
+		return ActionSupport.SUCCESS;
+	}
+	
+	public String MoreCheckClassroom() throws Exception {
+		
+		Session session = model.Util.sessionFactory.openSession();
+		
+//		Criteria q = session.createCriteria(model.CheckRecord.class).addOrder(Order.desc("id"));
+//		check_list = this.makeCurrentPageList(q, 10);
+		check_list = obtainAllCheckClassroomRecordCriteria(session).list();
+		
+		session.close();
+//		if(this.getIsAjaxTransmission())
+//		{
+//			check_list_html =util.Util.getJspOutput("/jsp/homepage/widgets/more_classroomTable.jsp");
+//			return "getPage";
+//		}
+		return ActionSupport.SUCCESS;
+	}
+	
+	public String MoreEquipmentMaintenance() throws Exception{
+		
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(model.RepairRecord.class).addOrder(Order.desc("id"));
+//		repair_list = this.makeCurrentPageList(q, 10);
+		repair_list = obtainAllRepairRecordCriteria(session).list();
+		session.close();
+//		if(this.getIsAjaxTransmission())
+//		{
+//			repair_list_html = util.Util.getJspOutput("/jsp/homepage/widgets/more_equipment_maintenanceTable.jsp");
+//			return "getPage";
+//		}
+		return ActionSupport.SUCCESS;
+	}
+	
+	public String MoreEquipmentReplacement() throws Exception{
+		
+		Session session = model.Util.sessionFactory.openSession();
+		
+//		java.util.Date now = new java.util.Date();
+//		java.sql.Date sql_now = new java.sql.Date(now.getTime());
+//		
+//		Criteria q = session.createCriteria(model.Repertory.class)
+//					 .add(Restrictions.le("rtDeadlineDate", sql_now))
+////					 .add(Restrictions.eq("rtDeviceStatus", "教室"))
+//					.add(Restrictions.eq("rtDeviceStatus", util.Util.DeviceClassroomStatus))
+//
+//					.add(Restrictions.eq("rtType", "灯泡"))
+//
+//					 .addOrder(Order.desc("id"));
 //		deviceReplaceList = this.makeCurrentPageList(q, 10);
+		deviceReplaceList = obtainAllReplaceDeviceCriteria(session).list();
+		
+		session.close();
+		
+//		if(this.getIsAjaxTransmission())
+//		{
+//			device_list_html = util.Util.getJspOutput("/jsp/homepage/widgets/more_equipment_replacementTable.jsp");
+//			return "getPage";
+//		}
+		
+		return ActionSupport.SUCCESS;
+	}
+	
+	
+	ArrayList<Classroom> notCheckClassroomStudentList;
+	public String notCheckClassroomStudent() throws Exception
+	{
+		
+		Session s = model.Util.sessionFactory.openSession();
+		
+		notCheckClassroomStudentList = obtainLastWeekNotCheckClassroomStudentList(s);
+		s.close();
+//		ArrayList<Classroom> all_classroom = (ArrayList<Classroom>) 
+//		 session.createCriteria(model.Classroom.class)
+//				.add(Restrictions.isNotNull("principal"))
+//				.list();
+//		
+//		java.util.Date lastMonday, cntMonday;
+//		Calendar cal = Calendar.getInstance();		
+//		cal.add(Calendar.DATE, -7);
+//		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);		
+//		lastMonday = cal.getTime();
+//		
+//		cal = Calendar.getInstance();	
+//		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+//		cntMonday = cal.getTime();
+//		System.out.println("上周一！！！！！！！！");
+//		System.out.println(lastMonday);
+//		System.out.println(cntMonday);
+//		
+//		notCheckClassroomStudentList = new ArrayList<Classroom>();
+//		
+//		System.out.println(all_classroom.size());
+//		for(Classroom c: all_classroom)
+//		{
+//			model.StudentProfile st = c.principal;
+//			
+//			boolean empty = session.createCriteria(model.CheckRecord.class)
+//				   .add(Restrictions.eq("checkman.id", c.principal.user.id))
+//				   .add(Restrictions.eq("classroom.id", c.id))
+//				   .add(Restrictions.between("checkdate", lastMonday, cntMonday))
+//				   .list().isEmpty();
+//			
+//			System.out.println(empty);
+//			if(empty)
+//			{
+//				notCheckClassroomStudentList.add(c);
+////				if(notCheckClassroomStudentList.size() >= MaxRes) break;
+//			}
+//		}
+//		
+////		deviceReplaceList = this.makeCurrentPageList(q, 10);
 		
 		return ActionSupport.SUCCESS;
 	}
