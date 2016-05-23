@@ -46,7 +46,7 @@
 			<s:iterator var="i" begin="0" end = "classroomByPrinicpalList.size() - 1" step="2">
 			
 				<tr>
-					<td>
+					<td style="background-color:yellow;"> 
 						<s:property value="classroomByPrinicpalList.get(#i).get(0).principal.user.fullName"/>
 					</td>
 				
@@ -76,7 +76,7 @@
 					
 					
 					<s:if test="#i+1<classroomByPrinicpalList.size() " >
-						<td>
+						<td style="background-color:yellow;">
 							<s:property value="classroomByPrinicpalList.get(#i + 1).get(0).principal.user.fullName"/>
 						</td>
 					

@@ -10,7 +10,8 @@
 					<s:iterator var="j" begin="0" end="@@min(contacts_list.size()-#i-1,4)" step="1"> 
 						<td> 
 							<div>
-								<img src="<s:property value="contacts_list.get(#i+#j).user.profilePhotoPath"/>" height="120px" width="100px" >  
+								<img src="<s:property value="contacts_list.get(#i+#j).user.profilePhotoPath"/>" 
+								height="120px" width="100px" >  
 							</div>
 							<div>
 								<s:property value="contacts_list.get(#i+#j).user.fullName"/>  

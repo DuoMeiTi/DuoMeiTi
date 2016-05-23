@@ -14,6 +14,13 @@
 						</h3>
 					</div>
 					<br />
+					
+					<div>
+					
+						<h3>
+							在职学生总人数：<s:property value="contacts_list.size()" />人
+						</h3>
+					</div>
 					<div id="contactsDiv">
 						<%@ include file="/jsp/homepage/widgets/contactsTable.jsp"%>
 					</div>
