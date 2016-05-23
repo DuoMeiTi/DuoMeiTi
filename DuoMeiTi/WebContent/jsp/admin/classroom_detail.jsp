@@ -40,7 +40,12 @@
 		<div class="tab-content">
 		
 		    <div role="tabpanel" class="tab-pane active" id="profile">
-				<%@ include file="classroom_information.jsp" %>
+		    
+		    
+<%-- 				<%@ include file="classroom_information.jsp" %> --%>
+
+				<%@ include file="/jsp/classroom/classroomInformation.jsp" %>
+				
 			</div>
 			
 		    <div role="tabpanel" class="tab-pane " id="home">

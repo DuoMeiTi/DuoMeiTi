@@ -348,7 +348,21 @@
 	
 	
 	
-	<package name="classroom_json" namespace="/admin/classroom_json" extends="AdminDefault">
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<!-- 	<package name="classroom_json" namespace="/admin/classroom_json" extends="AdminDefault"> -->
+	
+	
 <!-- 		<action name="classroom_search" class="admin.ClassroomManageAction" method="classroom_search"> -->
 <!-- 			<result type="json"> -->
 <!-- 				<param name="includeProperties"> -->
@@ -359,51 +373,51 @@
 <!-- 		</action> -->
 
 		<!-- 检查记录 -->
-		<action name="checkrecord_save" class="admin.ClassroomDetailAction" method="checkrecordsave">
-			<result type="json">
-				<param name="includeProperties">savestatus,checkrecord_jsp</param>
-			</result>
-		</action>
+<!-- 		<action name="checkrecord_save" class="admin.ClassroomDetailAction" method="checkrecordsave"> -->
+<!-- 			<result type="json"> -->
+<!-- 				<param name="includeProperties">savestatus,checkrecord_jsp</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		<!-- 维修记录 -->
-		<action name="repairrecord_save" class="admin.ClassroomDetailAction" method="repairrecordsave">
-			<result type="json">
-				<param name="includeProperties">savestatus,repairrecord_jsp</param>
-			</result>
-		</action>
+<!-- 		<action name="repairrecord_save" class="admin.ClassroomDetailAction" method="repairrecordsave"> -->
+<!-- 			<result type="json"> -->
+<!-- 				<param name="includeProperties">savestatus,repairrecord_jsp</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		<!-- 移入维修move2repair -->
-		<action name="move2repair" class="admin.ClassroomDetailAction" method="move2repair">
-			<result type="json">
-				<param name="includeProperties">savestatus,device_jsp</param>
-			</result>
-		</action>
+<!-- 		<action name="move2repair" class="admin.ClassroomDetailAction" method="move2repair"> -->
+<!-- 			<result type="json"> -->
+<!-- 				<param name="includeProperties">savestatus,device_jsp</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		
 		<!-- 移入报废move2bad -->
-		<action name="move2bad" class="admin.ClassroomDetailAction" method="move2bad">
-			<result type="json">
-				<param name="includeProperties">savestatus,device_jsp</param>
-			</result>
-		</action>
+<!-- 		<action name="move2bad" class="admin.ClassroomDetailAction" method="move2bad"> -->
+<!-- 			<result type="json"> -->
+<!-- 				<param name="includeProperties">savestatus,device_jsp</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		
 		<!-- 备用设备 -->
-		<action name="alterdevice" class="admin.ClassroomDetailAction" method="alterdevice">
-			<result type="json">
-				<param name="includeProperties">device_jsp,alterdevice_jsp</param>
-			</result>
-		</action>
+<!-- 		<action name="alterdevice" class="admin.ClassroomDetailAction" method="alterdevice"> -->
+<!-- 			<result type="json"> -->
+<!-- 				<param name="includeProperties">device_jsp,alterdevice_jsp</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		
 		<!-- 加入教室 -->
-		<action name="move2class" class="admin.ClassroomDetailAction" method="move2class">
-			<result type="json">
-				<param name="includeProperties">device_jsp,alterdevice_jsp</param>
-			</result>
-		</action>
+<!-- 		<action name="move2class" class="admin.ClassroomDetailAction" method="move2class"> -->
+<!-- 			<result type="json"> -->
+<!-- 				<param name="includeProperties">device_jsp,alterdevice_jsp</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		
 		<!-- 加入教室 按照资产编号-->
-		<action name="move2classByRtNumber" class="admin.ClassroomDetailAction" method="move2classByRtNumber">
-			<result type="json">
-				<param name="includeProperties">*</param>
-			</result>
-		</action>
+<!-- 		<action name="move2classByRtNumber" class="admin.ClassroomDetailAction" method="move2classByRtNumber"> -->
+<!-- 			<result type="json"> -->
+<!-- 				<param name="includeProperties">*</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		
 		
 		
@@ -428,7 +442,11 @@
 <!-- 				<param name="includeProperties">add_status</param> -->
 <!-- 			</result> -->
 <!-- 		</action> -->
-	</package>
+<!-- 	</package> -->
+	
+	
+	
+	
 	
 	<!-- 教室管理 -->
 	<package name="classroom" namespace="/admin/classroom" extends="AdminDefault">
@@ -449,21 +467,14 @@
 			</result>
 		</action>
 		
-<!-- 		<action name="classroom_manage" class="admin.ClassroomManageAction" method="classroomList"> -->
-<!-- 			<result> -->
-<!-- 				<param name="location">/jsp/admin/classroom_manage.jsp</param> -->
-<!-- 				<param name="build_id">${build_id}</param> -->
-<!-- 				<param name="build_name">${build_name}</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
+
 		
 
 		<action name="classroom_detail" class="admin.ClassroomDetailAction">
 			<result>
 				<param name="location">/jsp/admin/classroom_detail.jsp</param>
 				<param name="classroomId">${classroomId}</param>				
-<!-- 				<param name="classroomselectIndex">${classroomId}</param> -->
-<!-- 				<param name="build_name">${build_name}</param> -->
+
 			</result>
 		</action>
 		

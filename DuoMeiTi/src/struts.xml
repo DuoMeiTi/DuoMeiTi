@@ -107,6 +107,20 @@
 	</package>
 	
 	
+<!-- 	教室信息管理 json NEW -->
+	<package name="classroomInfomationNew" namespace="/common/classroomInfomationNew" extends="Default">
+		<action name="*" class="common.ClassroomInformationAction" method="{1}">
+			<result type="json"> </result>
+		</action>		
+	</package>
+<!-- 	教室信息里管理 NEW END-->	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	<package name="emergencyPublish"  namespace="/"  extends="Default">

@@ -17,8 +17,12 @@
 				 	nowrap="nowrap"
 			 	>
 			 		
-			 		<a href="classroom_detail?classroomId=<s:property value="classroom_list.get(#i+#j).id"/>"
-			 		 class="btn btn-success btn-sm">
+			 		<a 
+			 			href="classroom_detail?classroomId=<s:property value="classroom_list.get(#i+#j).id"/>"
+<%-- 			 			href="classroom_detail?classroomId=<s:property value="classroom_list.get(#i+#j).id"/>" --%>
+			 			
+			 		 	class="btn btn-success btn-sm"
+			 		 >
 			 		
 			 			<s:property value="classroom_list.get(#i+#j).classroom_num"/>
 
