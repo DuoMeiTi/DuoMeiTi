@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 
-ul {
+.classroomInformation ul {
 	padding: 10px;
 	list-style: none;
 }
@@ -28,9 +28,12 @@ ul {
 /* .btn-div {
 	margin: 20px 20% 20px 60%;
 } */
-.detail-div {
-	margin: 0;
-}
+
+
+
+/* .detail-div { */
+/* 	margin: 0; */
+/* } */
 
 .device {
 	position: relative;
