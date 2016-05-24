@@ -34,11 +34,11 @@ ul {
 
 .device {
 	position: relative;
-	width: 60%;
+	width: 50%;
 	float: left;
 }
 
 .record {
-	width: 40%;
+	width: 50%;
 	float: right;
 }

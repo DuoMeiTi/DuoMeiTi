@@ -13,7 +13,7 @@
 	<tbody>
 		<s:iterator value="repairrecords" var="repairrecord" status="i">
 			<tr>
-				<td width="20%"><s:property
+				<td><s:property
 						value="#repairrecord.repairman.fullName" /></td>
 				<td><s:property value="#repairrecord.device.rtType" /></td>
 				<td><s:property value="#repairrecord.repairdetail" /></td>

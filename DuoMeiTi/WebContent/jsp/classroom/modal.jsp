@@ -35,12 +35,12 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">填写周检查记录</h4>
+				<h3 class="modal-title">填写周检查记录</h3>
 			</div>
 			<div class="modal-body">
 			
-				这是否是一个无问题的检查记录？<input type="checkbox" id="noProblem"/>
-				<textarea class="form-control" rows="3" id="checkdetail"></textarea>
+				<h4>这是否是一个无问题的检查记录？<input type="checkbox" id="noProblem"/> </h4>				
+				<textarea class="form-control" rows="4" id="checkdetail"></textarea>
 				
 				
 				

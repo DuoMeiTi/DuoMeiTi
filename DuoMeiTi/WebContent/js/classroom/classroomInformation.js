@@ -168,29 +168,38 @@ $(document).on("click", "#noProblem", function(){
 		$("#checkdetail").show();
 })
 
+$(document).on("click", "[checkRecordId]", function(){
+	var cnt = $(this);
+	var checkRecordId = $(cnt).attr("checkRecordId");
+	alert(checkRecordId);
+	
+	$.ajax({
+		url : '/common/classroomInfomationNew/deleteCheckRecord',
+		type : 'post',
+		dataType : 'json',
+		data : {"checkRecordId": checkRecordId},
+		success : function(){
+			alert("删除成功")
+			window.location.reload();
+		}
+	});
+})
+
+
 /*填写周检查记录*/
 function checkrecord_submit() {
 	var classroomid = $("#classroomid").text();
-
 	var noProblem = document.getElementById("noProblem").checked
 	
-	var checkdetail;
-	
+	var checkdetail;	
 	if(noProblem) 
 		checkdetail = "无问题"
 	else
-		checkdetail = $("#checkdetail").val()
-		
+		checkdetail = $("#checkdetail").val()		
 	var params = {
 		"checkdetail" : checkdetail,
 		"classroomId": classroomid
 	};
-	
-	
-//	var hasProblem = document.getElementById("hasProblem").checked 
-//	alert(hasProblem)	
-	
-//	return ;
 	$.ajax({
 		url : '/common/classroomInfomationNew/checkrecord_save',
 		type : 'post',

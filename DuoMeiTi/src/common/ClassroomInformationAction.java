@@ -36,7 +36,7 @@ import RepairImpl.RepairDAOImpl;
 import db.MyHibernateSessionFactory;
 
 public class ClassroomInformationAction extends FileUploadBaseAction{
-	public String build_name;
+//	public String build_name;
 	public String remark;
 	
 //	public int picID;
@@ -145,7 +145,32 @@ public class ClassroomInformationAction extends FileUploadBaseAction{
 	
 	
 	
-	
+	//检查记录删除
+	public int checkRecordId;
+	public String deleteCheckRecord() 
+	{		
+		System.out.println("deleteCheckRecord:" + checkRecordId);
+		try
+		{
+			Session s = model.Util.sessionFactory.openSession();
+			CheckRecord cr = (CheckRecord)
+					s.createCriteria(model.CheckRecord.class)
+					 .add(Restrictions.eq("id", checkRecordId))
+					 .uniqueResult();
+			
+			s.beginTransaction();
+			s.delete(cr);
+			s.getTransaction().commit();
+			s.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		
+		}
+		
+		return ActionSupport.SUCCESS;
+	}
 	
 	
 	//备用设备
@@ -728,13 +753,13 @@ public class ClassroomInformationAction extends FileUploadBaseAction{
 
 
 
-	public String getBuild_name() {
-		return build_name;
-	}
-
-	public void setBuild_name(String build_name) {
-		this.build_name = build_name;
-	}
+//	public String getBuild_name() {
+//		return build_name;
+//	}
+//
+//	public void setBuild_name(String build_name) {
+//		this.build_name = build_name;
+//	}
 
 	public int getClassroomId() {
 		return classroomId;
@@ -828,6 +853,16 @@ public class ClassroomInformationAction extends FileUploadBaseAction{
 
 	public void setClassroom(Classroom classroom) {
 		this.classroom = classroom;
+	}
+
+
+	public int getCheckRecordId() {
+		return checkRecordId;
+	}
+
+
+	public void setCheckRecordId(int checkRecordId) {
+		this.checkRecordId = checkRecordId;
 	}
 	
 	
