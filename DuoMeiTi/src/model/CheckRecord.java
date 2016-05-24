@@ -21,9 +21,22 @@ public class CheckRecord {
 	@Fetch(FetchMode.SELECT)
 	public User checkman;
 	
+	
+	/*
+	 * 如果checkdetail == hasProblem，表示此CheckRecord 无问题
+	 * 否则，有问题
+	 */
+	public static final String NoProblem = "无问题";
+	
 	@Column(length=200)
 	public String checkdetail;
 	
+	
+	
+	
+	
+	
+	@Column
 	public java.sql.Timestamp checkdate;
 	
 	

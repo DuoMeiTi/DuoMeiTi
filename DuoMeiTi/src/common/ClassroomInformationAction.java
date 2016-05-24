@@ -44,14 +44,14 @@ public class ClassroomInformationAction extends FileUploadBaseAction{
 	
 	public int classroomId;
 	
-	public TeachBuilding building;
+//	public TeachBuilding building;
 	public Classroom classroom;
 //	public String schedulePath;
 	public List<CheckRecord> checkrecords;
 	public List<RepairRecord> repairrecords;
 	public List<Repertory> repertory_list;
 //	public List<RoomPicture>picture_list;
-	public List classroom_repertory_list;
+//	public List classroom_repertory_list;
 	
 	public String repairrecord_jsp;
 	public String checkdetail;
@@ -71,25 +71,40 @@ public class ClassroomInformationAction extends FileUploadBaseAction{
 	
 	public List<Repertory> rtClass;
 	
-	public String execute() {
-		System.out.println("admin.classroomaction:");
+
+	
+	
+	
+/*	获取页面所需要的所有信息
+ * 0是classroom
+ * 1是rtClass 此教室设备列表
+ * 2是checkrecords 此教室检查记录列表
+ * 3是repairrecords 此教室维修记录列表
+ * 
+ */
+//	
+	public static Object[] obtainAllInfo(Session s, int classroomId)
+	{
+		Object[] ans = new Object[4];
+		
+//		System.out.println("admin.classroomaction:");
 		Session session = model.Util.sessionFactory.openSession();
 		
 		//query current select classroom
 		Criteria classroom_criteria = session.createCriteria(Classroom.class);
 		Criteria building_criteria = session.createCriteria(TeachBuilding.class);
 		classroom_criteria.add(Restrictions.eq("id", classroomId));
-		classroom = (Classroom) classroom_criteria.uniqueResult();
-		building_criteria.add(Restrictions.eq("build_id", classroom.teachbuilding.build_id));
-		building = (TeachBuilding) building_criteria.uniqueResult();
+		Classroom classroom = (Classroom) classroom_criteria.uniqueResult();
+//		building_criteria.add(Restrictions.eq("build_id", classroom.teachbuilding.build_id));
+//		building = (TeachBuilding) building_criteria.uniqueResult();
 		
-		ActionContext.getContext().getSession().remove("classroom_id");
+//		ActionContext.getContext().getSession().remove("classroom_id");
+//
+//		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
 
-		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
-
 		
 		
-		rtClass = session.createCriteria(model.Repertory.class)
+		List rtClass = session.createCriteria(model.Repertory.class)
 						 .add(Restrictions.eq("rtClassroom.id", classroomId))
 						 .list();
 
@@ -101,32 +116,36 @@ public class ClassroomInformationAction extends FileUploadBaseAction{
 		checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
 		checkrecord_criteria.addOrder(Order.desc("id"));
 		checkrecord_criteria.setMaxResults(5);
-		checkrecords = checkrecord_criteria.list();
+		List checkrecords = checkrecord_criteria.list();
 
 		
 		
 
 		//query at most 5 repairrecords
-		repairrecords= session.createCriteria(model.RepairRecord.class)
+		List repairrecords= session.createCriteria(model.RepairRecord.class)
 							  .add(Restrictions.eq("classroom.id", classroomId))
 							  .addOrder(Order.desc("id"))
 							  .setMaxResults(5)
 							  .list();
 
-		
-		classroom_repertory_list = session.createCriteria(model.Repertory.class)
-				.add(Restrictions.eq("rtClassroom.id", classroomId))
-				.list();
-		
-
-		
 		session.close();
-//		ClassroomPicture();
 		
 		
-		
-		return ActionSupport.SUCCESS;
+		ans[0] = classroom;
+		ans[1] = rtClass;
+		ans[2] = checkrecords;
+		ans[3] = repairrecords;
+		return ans;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//备用设备
@@ -366,7 +385,8 @@ public class ClassroomInformationAction extends FileUploadBaseAction{
 			checkrecord_jsp = util.Util.getJspOutput("/jsp/classroom/checkrecord.jsp");
 			
 			this.savestatus = "success";
-		} catch(Exception e)	{
+		} catch(Exception e)	
+		{
 			this.savestatus = "fail";
 			e.printStackTrace();
 		} finally {
@@ -524,18 +544,18 @@ public class ClassroomInformationAction extends FileUploadBaseAction{
 
 
 
-
-	public TeachBuilding getBuilding() {
-		return building;
-	}
-
-
-
-
-	public void setBuilding(TeachBuilding building) {
-		this.building = building;
-	}
-
+//
+//	public TeachBuilding getBuilding() {
+//		return building;
+//	}
+//
+//
+//
+//
+//	public void setBuilding(TeachBuilding building) {
+//		this.building = building;
+//	}
+//
 
 
 
@@ -609,16 +629,16 @@ public class ClassroomInformationAction extends FileUploadBaseAction{
 
 
 
-	public List getClassroom_repertory_list() {
-		return classroom_repertory_list;
-	}
-
-
-
-
-	public void setClassroom_repertory_list(List classroom_repertory_list) {
-		this.classroom_repertory_list = classroom_repertory_list;
-	}
+//	public List getClassroom_repertory_list() {
+//		return classroom_repertory_list;
+//	}
+//
+//
+//
+//
+//	public void setClassroom_repertory_list(List classroom_repertory_list) {
+//		this.classroom_repertory_list = classroom_repertory_list;
+//	}
 
 
 

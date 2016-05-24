@@ -68,54 +68,64 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public List<Repertory> rtClass;
 	
 	public String execute() {
-		System.out.println("admin.classroomaction:");
+		
+		
+		System.out.println("admin detail Action:");
 		Session session = model.Util.sessionFactory.openSession();
-		
-		//query current select classroom
-		Criteria classroom_criteria = session.createCriteria(Classroom.class);
-		Criteria building_criteria = session.createCriteria(TeachBuilding.class);
-		classroom_criteria.add(Restrictions.eq("id", classroomId));
-		classroom = (Classroom) classroom_criteria.uniqueResult();
-		building_criteria.add(Restrictions.eq("build_id", classroom.teachbuilding.build_id));
-//		building = (TeachBuilding) building_criteria.uniqueResult();
-		
-		ActionContext.getContext().getSession().remove("classroom_id");
-
-		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
-
+		Object[] ans = common.ClassroomInformationAction.obtainAllInfo(session, classroomId);
 		
 		
-		rtClass = session.createCriteria(model.Repertory.class)
-						 .add(Restrictions.eq("rtClassroom.id", classroomId))
-						 .list();
+		classroom = (Classroom)ans[0];
+		rtClass = (List)ans[1];
+		checkrecords = (List)ans[2];
+		repairrecords = (List)ans[3];
 
-
-
-		//query at most 5 checkrecord
-		Criteria checkrecord_criteria = session.
-				createCriteria(CheckRecord.class);		
-		checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
-		checkrecord_criteria.addOrder(Order.desc("id"));
-		checkrecord_criteria.setMaxResults(5);
-		checkrecords = checkrecord_criteria.list();
-
-		
-		
-
-		//query at most 5 repairrecords
-		repairrecords= session.createCriteria(model.RepairRecord.class)
-							  .add(Restrictions.eq("classroom.id", classroomId))
-							  .addOrder(Order.desc("id"))
-							  .setMaxResults(5)
-							  .list();
-
-		
-		classroom_repertory_list = session.createCriteria(model.Repertory.class)
-				.add(Restrictions.eq("rtClassroom.id", classroomId))
-				.list();
-		
-
-		
+//		
+//		//query current select classroom
+//		Criteria classroom_criteria = session.createCriteria(Classroom.class);
+//		Criteria building_criteria = session.createCriteria(TeachBuilding.class);
+//		classroom_criteria.add(Restrictions.eq("id", classroomId));
+//		classroom = (Classroom) classroom_criteria.uniqueResult();
+//		building_criteria.add(Restrictions.eq("build_id", classroom.teachbuilding.build_id));
+////		building = (TeachBuilding) building_criteria.uniqueResult();
+//		
+//		ActionContext.getContext().getSession().remove("classroom_id");
+//
+//		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
+//
+//		
+//		
+//		rtClass = session.createCriteria(model.Repertory.class)
+//						 .add(Restrictions.eq("rtClassroom.id", classroomId))
+//						 .list();
+//
+//
+//
+//		//query at most 5 checkrecord
+//		Criteria checkrecord_criteria = session.
+//				createCriteria(CheckRecord.class);		
+//		checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
+//		checkrecord_criteria.addOrder(Order.desc("id"));
+//		checkrecord_criteria.setMaxResults(5);
+//		checkrecords = checkrecord_criteria.list();
+//
+//		
+//		
+//
+//		//query at most 5 repairrecords
+//		repairrecords= session.createCriteria(model.RepairRecord.class)
+//							  .add(Restrictions.eq("classroom.id", classroomId))
+//							  .addOrder(Order.desc("id"))
+//							  .setMaxResults(5)
+//							  .list();
+//
+//		
+//		classroom_repertory_list = session.createCriteria(model.Repertory.class)
+//				.add(Restrictions.eq("rtClassroom.id", classroomId))
+//				.list();
+//		
+//
+//		
 		session.close();
 		ClassroomPicture();
 		
@@ -129,8 +139,9 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	
 	
 	public void ClassroomPicture(){
-		System.out.println("ClassroomPicture");
-		System.out.println(classroomId);
+		
+//		System.out.println("ClassroomPicture");
+//		System.out.println(classroomId);
 		
 		
 		Session session = model.Util.sessionFactory.openSession();
@@ -144,8 +155,8 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		session.close();
 		
 		
-		System.out.println(picture_list);
-		System.out.println(schedulePath);
+//		System.out.println(picture_list);
+//		System.out.println(schedulePath);
 	}
 	
 	public String PictureUpload() {

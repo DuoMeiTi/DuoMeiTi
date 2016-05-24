@@ -1,29 +1,29 @@
 <%@ include file="/jsp/base/taglib.jsp"%>
 
 
-<div class="modal fade" id="schedule-modal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title">课表</h4>
-			</div>
-			<div class="modal-body">
+<!-- <div class="modal fade" id="schedule-modal" tabindex="-1" role="dialog" -->
+<!-- 	aria-labelledby="myModalLabel"> -->
+<!-- 	<div class="modal-dialog" role="document"> -->
+<!-- 		<div class="modal-content"> -->
+<!-- 			<div class="modal-header"> -->
+<!-- 				<button type="button" class="close" data-dismiss="modal" -->
+<!-- 					aria-label="Close"> -->
+<!-- 					<span aria-hidden="true">&times;</span> -->
+<!-- 				</button> -->
+<!-- 				<h4 class="modal-title">课表</h4> -->
+<!-- 			</div> -->
+<!-- 			<div class="modal-body"> -->
 
-				<iframe name="myFrame" frameborder="0" scrolling="no"
-					style="width: 100%;" height="200px"
-					src="/schedule/校部第一教学馆1-101(10301).html"></iframe>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-			</div>
-		</div>
-	</div>
-</div>
+<!-- 				<iframe name="myFrame" frameborder="0" scrolling="no" -->
+<!-- 					style="width: 100%;" height="200px" -->
+<!-- 					src="/schedule/校部第一教学馆1-101(10301).html"></iframe> -->
+<!-- 			</div> -->
+<!-- 			<div class="modal-footer"> -->
+<!-- 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </div> -->
 
 <!-- 检查记录 -->
 <div class="modal fade" id="check-record-modal" tabindex="-1"
@@ -38,8 +38,14 @@
 				<h4 class="modal-title">填写周检查记录</h4>
 			</div>
 			<div class="modal-body">
+			
+				这是否是一个无问题的检查记录？<input type="checkbox" id="noProblem"/>
 				<textarea class="form-control" rows="3" id="checkdetail"></textarea>
+				
+				
+				
 			</div>
+			
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary"
 					onclick="checkrecord_submit()">提交</button>
@@ -50,10 +56,16 @@
 </div>
 
 <script>
-		$("#check-record-modal").on("show.bs.modal", function(e){
-			$("#checkdetail").val("");
-		})
+// 		$("#check-record-modal").on("show.bs.modal", function(e){
+// 			$("#checkdetail").val("");
+// 		})
 </script>
+
+
+
+
+
+
 
 
 <!-- 维修记录 -->

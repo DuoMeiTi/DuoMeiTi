@@ -149,19 +149,48 @@ function moveCallback(data){
 	$("#device_jsp").html(data.device_jsp);
 }
 
-//周检查记录
+
+
+/*周检查记录相关-------*/
+
+$("#check-record-modal").on("show.bs.modal", function(e){
+	$("#checkdetail").val("");
+	document.getElementById("noProblem").checked = false;
+})
+$(document).on("click", "#noProblem", function(){
+	
+	var noProblem = document.getElementById("noProblem").checked
+	
+//	alert(typeof noProblem)
+	if(noProblem)
+		$("#checkdetail").hide();
+	else 
+		$("#checkdetail").show();
+})
+
+/*填写周检查记录*/
 function checkrecord_submit() {
-	var checkrecord_detail = $("#checkdetail").val();
 	var classroomid = $("#classroomid").text();
-	var checkrecord_detail = $("#checkdetail").val();
-//	alert(checkrecord_detail);
+
+	var noProblem = document.getElementById("noProblem").checked
+	
+	var checkdetail;
+	
+	if(noProblem) 
+		checkdetail = "无问题"
+	else
+		checkdetail = $("#checkdetail").val()
+		
 	var params = {
-		"checkdetail" : checkrecord_detail,
+		"checkdetail" : checkdetail,
 		"classroomId": classroomid
 	};
 	
-//	alert("CAO");
 	
+//	var hasProblem = document.getElementById("hasProblem").checked 
+//	alert(hasProblem)	
+	
+//	return ;
 	$.ajax({
 		url : '/common/classroomInfomationNew/checkrecord_save',
 		type : 'post',
@@ -179,6 +208,13 @@ function checkrecord_save_callback(data) {
 	}
 	$('#check-record-modal').modal('hide');
 }
+
+
+
+
+
+
+
 
 
 window.onload = function () {
