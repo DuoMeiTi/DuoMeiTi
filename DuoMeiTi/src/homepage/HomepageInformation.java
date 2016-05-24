@@ -76,7 +76,12 @@ public class HomepageInformation extends util.PageGetBaseAction {
 	}
 	static Criteria obtainAllCheckClassroomRecordCriteria(Session s)
 	{
-		return  s .createCriteria(model.CheckRecord.class).addOrder(Order.desc("id"));
+		return  s 
+				.createCriteria(model.CheckRecord.class)
+				.addOrder(Order.desc("id"))
+				.add(Restrictions.not(Restrictions.eq("checkdetail", model.CheckRecord.NoProblem)))
+						
+				;
 	}
 	static Criteria obtainAllRepairRecordCriteria(Session s)
 	{
