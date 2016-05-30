@@ -77,7 +77,10 @@ public class StudentManageAction extends ActionSupport{
 	
 	
 
-
+	
+	
+	
+	
 	//排除注册未通过学生,通过学号查询
 	public static List<StudentProfile> searchStudentByStudentNumber(Session s, String studentId)
 	{
@@ -393,6 +396,15 @@ public class StudentManageAction extends ActionSupport{
 		
 		return ActionSupport.SUCCESS;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//编辑规章制度
 	public String editRules() throws Exception{

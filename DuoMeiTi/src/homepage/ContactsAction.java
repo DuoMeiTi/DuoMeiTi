@@ -102,45 +102,47 @@ public class ContactsAction extends util.PageGetBaseAction {
 		
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(model.StudentProfile.class)
-				.add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
+				.add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
+				.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)))
+				;
 		contacts_list=q.list();
 		session.close();
 		
-		if(this.getIsAjaxTransmission())
-		{
-			contacts_list_html =util.Util.getJspOutput("/jsp/homepage/widgets/contactsTable.jsp");
-			return "getPage";
-		}
+//		if(this.getIsAjaxTransmission())
+//		{
+//			contacts_list_html =util.Util.getJspOutput("/jsp/homepage/widgets/contactsTable.jsp");
+//			return "getPage";
+//		}
 		return ActionSupport.SUCCESS;
 	}
-	//将前台传入的姓名和电话数据写入数据库
-	public String addContacts(){
-		System.out.println("add_contacts()");
-		Session session = model.Util.sessionFactory.openSession();
-		Contacts contacts3 = new Contacts();
-		contacts3.setUsername(username);
-		contacts3.setTelnumber(telnumber);
-		session.beginTransaction();
-		session.save(contacts3);
-		session.getTransaction().commit();
-		status ="ok";
-		return ActionSupport.SUCCESS;
-	}
-    //定向删除数据库中的某条数据
-	public String deleteContacts(){
-		System.out.println("delete_contacts()");
-		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(Contacts.class).add(Restrictions.eq("id", id));
-		List paramList = q.list();
-		if (paramList.isEmpty()){
-			status = "1";//删除的数据不存在，删除失败
-		}
-		else{
-			session.beginTransaction();
-			session.delete(paramList.get(0));
-			session.getTransaction().commit();
-			status = "0";//删除成功
-		}
-		return ActionSupport.SUCCESS;
-	}
+//	//将前台传入的姓名和电话数据写入数据库
+//	public String addContacts(){
+//		System.out.println("add_contacts()");
+//		Session session = model.Util.sessionFactory.openSession();
+//		Contacts contacts3 = new Contacts();
+//		contacts3.setUsername(username);
+//		contacts3.setTelnumber(telnumber);
+//		session.beginTransaction();
+//		session.save(contacts3);
+//		session.getTransaction().commit();
+//		status ="ok";
+//		return ActionSupport.SUCCESS;
+//	}
+//    //定向删除数据库中的某条数据
+//	public String deleteContacts(){
+//		System.out.println("delete_contacts()");
+//		Session session = model.Util.sessionFactory.openSession();
+//		Criteria q = session.createCriteria(Contacts.class).add(Restrictions.eq("id", id));
+//		List paramList = q.list();
+//		if (paramList.isEmpty()){
+//			status = "1";//删除的数据不存在，删除失败
+//		}
+//		else{
+//			session.beginTransaction();
+//			session.delete(paramList.get(0));
+//			session.getTransaction().commit();
+//			status = "0";//删除成功
+//		}
+//		return ActionSupport.SUCCESS;
+//	}
 }
