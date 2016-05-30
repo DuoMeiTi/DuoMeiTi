@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="modal fade" id="student_edit">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
@@ -65,89 +65,128 @@
 						<h2 class="modal-title" id="modal-title">编辑学生信息</h2>
 					</div>
 					<div class="modal-body">
+					
+					
+					
+					
+					
+					
+					
+					
 						<form class="form-inline well" id="edit_student_form"
 							method="post">
-							<div class="modal-body">
+							
+							
 								<div class="row">
 									<div class="col-lg-6">
 										<div class="input-group">
-											<span class="input-group-btn">
-												<button type="button" class="btn btn-default">姓名</button>
-											</span> <input type="text" class="form-control" id="fullName"
+											<div class="input-group-addon"> 用户名</div> 
+											<input type="text" class="form-control"  id="username"  readOnly="true">
+										</div>
+									</div>
+
+									<div class="col-lg-6">
+										<div class="input-group">
+											<div class="input-group-addon">
+												密码
+											</div>
+											<input type="text" class="form-control"  id="password" readOnly="true">
+										</div>
+									</div>
+								</div> 								
+								<br/>		
+								
+													
+
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="input-group">
+
+											<div class="input-group-addon"> 姓名</div> 
+											<input type="text" class="form-control" id="fullName"
 												name="fullName" value="">
 										</div>
 									</div>
 
 									<div class="col-lg-6">
 										<div class="input-group">
-											<span class="input-group-btn">
-												<button type="button" class="btn btn-default">性别</button>
-											</span>
+											<div class="input-group-addon"> 性别</div> 
 											<s:select list="sexSelect" class="form-control" name="sex"></s:select>
 										</div>
 									</div>
-
+								</div> 								
+								<br/>
+								
+								<div class="row">
 									<div class="col-lg-6">
 										<div class="input-group">
-											<span class="input-group-btn">
-												<button type="button" class="btn btn-default">学号</button>
-											</span> <input type="text" class="form-control" id="studentId"
-												name="studentId" value="">
+
+											<div class="input-group-addon"> 学号</div> 
+											<input type="text" class="form-control" id="studentId" name="studentId" value="">
+										</div>
+									</div>
+
+									<div class="col-lg-6">
+										<div class="input-group">											
+											<div class="input-group-addon"> 电话号码</div> 
+											<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="">
+										</div>
+									</div>
+								</div>
+								<br/>
+								
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="input-group">
+											<div class="input-group-addon"> 学院</div> 
+											<s:select list="collegeSelect" class="form-control" name="college"></s:select>
 										</div>
 									</div>
 
 									<div class="col-lg-6">
 										<div class="input-group">
-											<span class="input-group-btn">
-												<button type="button" class="btn btn-default">电话</button>
-											</span> <input type="text" class="form-control" id="phoneNumber"
-												name="phoneNumber" value="">
-										</div>
-									</div>
 
-									<div class="col-lg-6">
-										<div class="input-group">
-											<span class="input-group-btn">
-												<button type="button" class="btn btn-default">学院</button>
-											</span>
-											<s:select list="collegeSelect" class="form-control"
-												name="college"></s:select>
-										</div>
-									</div>
-
-									<div class="col-lg-6">
-										<div class="input-group">
-											<span class="input-group-btn">
-												<button type="button" class="btn btn-default">权限</button>
-											</span>
-											<!-- <input type="text" class="form-control" id="isUpgradePrivilege"  name="isUpgradePrivilege" value=""> -->
+											<div class="input-group-addon">权限</div>											
+											
 											<s:select list="#{'0':'在职学生','1':'管理教师','2':'离职学生'}"
 												class="form-control" name="isUpgradePrivilege"
-												id="isUpgradePrivilege"></s:select>
+												id="isUpgradePrivilege">
+												
+											</s:select>
 										</div>
 									</div>
-
+								</div>
+								<br/>
+								
+								<div class="row">
 									<div class="col-lg-6">
 										<div class="input-group">
-											<span class="input-group-btn">
-												<button type="button" class="btn btn-default">银行卡号</button>
-											</span> <input type="text" class="form-control" id="bankCard"
+
+											<div class="input-group-addon">银行卡号</div>
+											<input type="text" class="form-control" id="bankCard"
 												name="bankCard" value="">
 										</div>
 									</div>
 
 									<div class="col-lg-6">
 										<div class="input-group">
-											<span class="input-group-btn">
-												<button type="button" class="btn btn-default">身份证号</button>
-											</span> <input type="text" class="form-control" id="idCard"
+											<div class="input-group-addon">身份证号</div> 
+											<input type="text" class="form-control" id="idCard"
 												name="idCard" value="">
 										</div>
 									</div>
 
 								</div>
-							</div>
+
+
+
+
+
 						</form>
+						
+						
+						
+						
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" id="editSave">保存</button>
@@ -180,7 +219,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-<!-- 						<button type="button" class="btn btn-primary"  data-dismiss="modal">保存</button> -->
+
 						<button type="button" class="btn btn-default" data-dismiss="modal" >关闭</button>
 					</div>
 				</div>

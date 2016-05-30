@@ -39,7 +39,10 @@ public class StudentManageAction extends ActionSupport{
 	private static String sexSelect[];
 
 	
-	private String username;
+	private String username;	
+	public String password;
+	
+	
 	private String idCard;
 	private String sex;
 	private int studentDatabaseId; // 学生ID
@@ -256,6 +259,8 @@ public class StudentManageAction extends ActionSupport{
 		isUpgradePrivilege = edit_student.getIsUpgradePrivilege();
 		bankCard = edit_student.getBankCard();
 		idCard = edit_student.getIdCard();
+		username = edit_student.user.username;
+		password = edit_student.user.password;
 		
 		return SUCCESS;
 	}
@@ -702,6 +707,12 @@ public class StudentManageAction extends ActionSupport{
 	}
 	public void setStudentScoreJsp(String studentScoreJsp) {
 		this.studentScoreJsp = studentScoreJsp;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	

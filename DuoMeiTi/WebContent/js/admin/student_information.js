@@ -149,6 +149,9 @@ function getInformationCallback(data) {
 
 	/*alert(data.fullName);
 	alert("getInformationCallback");*/
+	$("#username").val(""+data.username);
+	$("#password").val(""+data.password);
+	
 	$("#fullName").val(""+data.fullName);
 	$("#sex").val(""+data.sex);
 	$("#studentId").val(""+data.studentId);
