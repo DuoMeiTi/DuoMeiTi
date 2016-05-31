@@ -212,10 +212,10 @@ public class Util
 		return dfOnlyDate.format(s);
 	}
 	
-//	static public java.sql.Timestamp fromTimestamp(String s)
-//	{
-//		
-//	}
+	static public String formatUtilDateToOnlyDate(java.util.Date s)
+	{
+		return dfOnlyDate.format(s);
+	}
 	
 	
 	

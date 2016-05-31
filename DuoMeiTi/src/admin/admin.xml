@@ -556,24 +556,34 @@
 			</result>			
 		</action>
 	
-<!--公告的action设置 
-		<action name="notice" class="admin.NoticeAction">
-			<result name="success">
-			/jsp/admin/HomepageModify/notice.jsp
-			</result>
-		</action> -->
-		<!-- 尝试分页 -->
+<!--公告的action设置  -->
+		
 		<action name="notice" class="admin.NoticeAction" method="resourceFile">
 			<result name="success">
 			/jsp/admin/HomepageModify/noticePage.jsp
 			</result>
 		</action> 
         <action name="notice_*" class="admin.NoticeAction" method="{1}">
-       		 <result name="success" type="json">
-<!--             	<param name="includeProperties">status,notice_id</param>            -->
-				
-          	</result> 
+       		 <result name="success" type="json"> </result> 
         </action>
+        
+        
+<!--         一些全局设置，目前包括：本学期的第一周设置 -->
+        <action name="globalSetting" class="admin.GlobalSettingAction">
+       		 <result name="success">
+					/jsp/admin/HomepageModify/globalSetting.jsp
+			</result>
+        </action>
+        
+        <action name="globalSetting_*" class="admin.GlobalSettingAction" method="{1}">
+       		 <result name="success" type="json">				
+          	 </result> 
+        </action>
+        
+<!--         一些全局设置END -->
+        
+        
+        
     </package>
     
     

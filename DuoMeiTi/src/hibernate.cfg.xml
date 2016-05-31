@@ -72,7 +72,7 @@
 		<mapping class="model.EmergencyInfo"/>
 		<mapping class="model.EmergencyInfoRead"/>
 		
-		
+		<mapping class="model.SemesterFirstWeek"/>
 		
 		
 <!-- 		<mapping class="model.ChooseClassSwitch"/> -->
