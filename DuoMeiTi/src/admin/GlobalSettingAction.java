@@ -46,7 +46,10 @@ public class GlobalSettingAction extends ActionSupport{
 				s.createCriteria(model.SemesterFirstWeek.class)
 				.uniqueResult();
 		
-		date = new java.util.Date(ins.date.getTime());
+		if(ins.date != null)
+			date = new java.util.Date(ins.date.getTime());
+		else 
+			date = null;
 		
 		System.out.println("DATE::::");
 		System.out.println(date);
@@ -74,8 +77,10 @@ public class GlobalSettingAction extends ActionSupport{
 				s.createCriteria(model.SemesterFirstWeek.class)
 				.uniqueResult();
 		
-
-		ins.date = new java.sql.Date(date.getTime());
+		if(date == null)
+			ins.date = null;
+		else
+			ins.date = new java.sql.Date(date.getTime());
 		s.update(ins);
 		s.getTransaction().commit();
 

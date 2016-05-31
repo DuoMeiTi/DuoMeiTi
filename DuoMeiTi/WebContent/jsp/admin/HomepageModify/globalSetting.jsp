@@ -23,6 +23,10 @@
 		<button type="button" class="btn btn-primary" id="setFirstWeekDate">
 			确定设置
 		</button>
+		<button type="button" class="btn btn-danger" id="setFirstWeekDateEmtpy">
+			现在是假期
+		</button>
+		
 	</div>
 </div>
 
@@ -50,6 +54,26 @@ $(document).on( "click","#setFirstWeekDate", function(){
 		}
 	});
 })
+
+$(document).on( "click","#setFirstWeekDateEmtpy", function(){
+
+	$.ajax({
+		url : 'globalSetting_save',
+		type : 'post',
+		dataType : 'json',
+		data : 
+		{
+			"date":"",
+		},
+		success : function(data)
+		{
+			window.location.reload();	
+		}
+	});
+})
+
+
+
 
 </script>
 
