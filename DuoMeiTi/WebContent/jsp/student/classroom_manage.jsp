@@ -27,10 +27,10 @@
       <s:iterator value="classrooms" var="classroom" status="i">  
 			<tr class="success" classroom_id=<s:property value="#classroom.id"/> >
 				<td>   <s:property value="#classroom.classroom_num"/>    </td>				
-				<td studId="<s:property value="#classroom.principal_stuId"/>">
-					<s:property value="#classroom.principal_name"/>    
+				<td studId="<s:property value="#classroom.principal.id"/>">
+					<s:property value="#classroom.principal.user.fullName"/>    
 				</td>				
-				<td >   
+				<td>   
 					<a href="/student/classroom/classroom_detail?classroomId=<s:property value="#classroom.id"/>" 
 					class="btn btn-info">详&nbsp;&nbsp;细</a>    
 				</td>			

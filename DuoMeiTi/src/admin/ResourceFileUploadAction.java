@@ -136,13 +136,13 @@ public class ResourceFileUploadAction extends util.FileUploadBaseAction
     	System.out.println(filePath);
     	System.out.println(q.list().get(0));
     	
-    	/*List<ResourceFilePath> file_list = q.list();
+    	List<ResourceFilePath> file_list = q.list();
     	for(ResourceFilePath file:file_list){
     		System.out.println("22222222");
     		System.out.println(file);
     		System.out.println(util.Util.RootPath+file.getFilePath());    	
     		util.Util.deleteFile(util.Util.RootPath+file.getFilePath());
-    	}*/
+    	}
     		
     	session.delete(q.list().get(0));
     	session.getTransaction().commit();

@@ -1,16 +1,16 @@
-package repairTest;
-
-import java.util.List;
-
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.junit.Test;
-import model.*;
-import Repair.RepairDAO;
-import RepairImpl.RepairDAOImpl;
-import action.SuperAction;
-import db.MyHibernateSessionFactory;
+//package repairTest;
+//
+//import java.util.List;
+//
+//import org.hibernate.Query;
+//import org.hibernate.Session;
+//import org.hibernate.Transaction;
+//import org.junit.Test;
+//import model.*;
+//import Repair.RepairDAO;
+////import RepairImpl.RepairDAOImpl;
+//import action.SuperAction;
+//import db.MyHibernateSessionFactory;
 
 //public class RepairDAOTest extends SuperAction{
 //

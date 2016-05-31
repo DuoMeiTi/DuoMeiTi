@@ -31,9 +31,9 @@ import util.FileUploadBaseAction;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import Repair.RepairDAO;
-import RepairImpl.RepairDAOImpl;
-import db.MyHibernateSessionFactory;
+//import Repair.RepairDAO;
+//import RepairImpl.RepairDAOImpl;
+//import db.MyHibernateSessionFactory;
 
 public class ClassroomInformationAction extends FileUploadBaseAction{
 //	public String build_name;

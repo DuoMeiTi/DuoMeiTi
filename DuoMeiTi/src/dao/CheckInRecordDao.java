@@ -1,21 +1,21 @@
-package dao;
-
-import java.sql.Timestamp;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
-
-//import checkin.CheckInAction;
-import util.PageGetBaseAction;
-import model.CheckInRecord;
-import model.StudentProfile;
-import model.Util;
+//package dao;
+//
+//import java.sql.Timestamp;
+//import java.util.LinkedList;
+//import java.util.List;
+//
+//import org.hibernate.Criteria;
+//import org.hibernate.HibernateException;
+//import org.hibernate.Session;
+//import org.hibernate.Transaction;
+//import org.hibernate.criterion.Order;
+//import org.hibernate.criterion.Restrictions;
+//
+////import checkin.CheckInAction;
+//import util.PageGetBaseAction;
+//import model.CheckInRecord;
+//import model.StudentProfile;
+//import model.Util;
 
 //public class CheckInRecordDao extends BaseDaoHibernate<CheckInRecord>{ 
 //	BaseDaoHibernate<CheckInRecord> checkindao = new BaseDaoHibernate<CheckInRecord>();

@@ -16,14 +16,14 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import common.BuildingsInfo;
+//import common.BuildingsInfo;
 import model.AdminProfile;
 import model.Repertory;
 import model.Rules;
 import model.StudentProfile;
 import model.User;
 import util.Const;
-import utility.DatabaseOperation;
+//import utility.DatabaseOperation;
 
 import model.DutyPiece;
 import model.ExamStuScore;
@@ -31,7 +31,7 @@ import model.DutySchedule;
 //import common.DutyInfo;
 import model.ChooseClassSwitch;
 import model.User;
-import common.StudentInfo;
+//import common.StudentInfo;
 
 public class StudentManageAction extends ActionSupport{
 	

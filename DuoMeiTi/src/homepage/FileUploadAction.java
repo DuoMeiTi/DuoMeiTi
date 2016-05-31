@@ -1,23 +1,23 @@
-package homepage;
-
-
-
-
-import java.io.File;
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
-
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.inject.Inject;
-
-//import model.EgFilePathSave;
-import model.User;
+//package homepage;
+//
+//
+//
+//
+//import java.io.File;
+//import java.util.List;
+//
+//import org.apache.commons.io.FileUtils;
+//import org.apache.struts2.ServletActionContext;
+//import org.hibernate.Criteria;
+//import org.hibernate.Session;
+//import org.hibernate.criterion.Restrictions;
+//
+//import com.opensymphony.xwork2.ActionContext;
+//import com.opensymphony.xwork2.ActionSupport;
+//import com.opensymphony.xwork2.inject.Inject;
+//
+////import model.EgFilePathSave;
+//import model.User;
 
 //
 //public class FileUploadAction extends ActionSupport{

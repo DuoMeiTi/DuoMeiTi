@@ -28,7 +28,7 @@ import util.FileUploadBaseAction;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import db.MyHibernateSessionFactory;
+//import db.MyHibernateSessionFactory;
 
 public class ClassroomDetailAction extends FileUploadBaseAction{
 	public String build_name;
@@ -79,7 +79,8 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		Transaction tx = null;
 		String hql ="";
 		try {
-			Session session1 = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+			
+			Session session1 = model.Util.sessionFactory.openSession();
 			tx = session1.beginTransaction();
 			hql = "SELECT rt FROM Repertory rt WHERE rt.rtDeviceStatus = '教室' AND rt.rtClassroom = " + classroomId;
 			System.out.println(hql);

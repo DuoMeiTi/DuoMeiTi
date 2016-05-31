@@ -18,8 +18,8 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import Repair.RepairDAO;
-import RepairImpl.RepairDAOImpl;
+//import Repair.RepairDAO;
+//import RepairImpl.RepairDAOImpl;
 import model.CheckRecord;
 import model.Classroom;
 import model.Repertory;

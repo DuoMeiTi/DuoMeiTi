@@ -151,26 +151,26 @@
 <!-- 			</result> -->
 <!-- 		</action> -->
 		
-		<action name="*_action" class="action.RepairAction" method="{1}">
-			<result name="query_repair">
-				/jsp/admin/record_query.jsp
-			</result>
-			<result type="json" name="adddevice">
-				<param name="includeProperties">ret</param>
-			</result>
-			<result name="alternative">
-				/jsp/admin/alternative.jsp
-			</result>
-			<result name="move2alter" type="redirect">
-				../classroom/classroom_detail.action?classroomId=${classroom_id}
-			</result>
-			<result name="addalter" type="redirect">
-				../classroom/classroom_detail.action?classroomId=${classroom_id}
-			</result>
-			<result name="delalter" type="redirectAction">
-				alter_action?classroomid=${classroom_id}
-			</result>
-		</action>
+<!-- 		<action name="*_action" class="action.RepairAction" method="{1}"> -->
+<!-- 			<result name="query_repair"> -->
+<!-- 				/jsp/admin/record_query.jsp -->
+<!-- 			</result> -->
+<!-- 			<result type="json" name="adddevice"> -->
+<!-- 				<param name="includeProperties">ret</param> -->
+<!-- 			</result> -->
+<!-- 			<result name="alternative"> -->
+<!-- 				/jsp/admin/alternative.jsp -->
+<!-- 			</result> -->
+<!-- 			<result name="move2alter" type="redirect"> -->
+<!-- 				../classroom/classroom_detail.action?classroomId=${classroom_id} -->
+<!-- 			</result> -->
+<!-- 			<result name="addalter" type="redirect"> -->
+<!-- 				../classroom/classroom_detail.action?classroomId=${classroom_id} -->
+<!-- 			</result> -->
+<!-- 			<result name="delalter" type="redirectAction"> -->
+<!-- 				alter_action?classroomid=${classroom_id} -->
+<!-- 			</result> -->
+<!-- 		</action> -->
 		
 		<action name="equipmentQueryAndEdit">
 			<result>
@@ -360,7 +360,7 @@
 	
 	
 	
-<!-- 	<package name="classroom_json" namespace="/admin/classroom_json" extends="AdminDefault"> -->
+	<package name="classroom_json" namespace="/admin/classroom_json" extends="AdminDefault">
 	
 	
 <!-- 		<action name="classroom_search" class="admin.ClassroomManageAction" method="classroom_search"> -->
@@ -437,12 +437,12 @@
 <!-- 				<param name="includeProperties">add_status</param> -->
 <!-- 			</result> -->
 <!-- 		</action> -->
-<!-- 		<action name="addTeachBuilding" class="admin.TeachBuildingAction" method="addTeachBuilding"> -->
-<!-- 			<result type="json"> -->
-<!-- 				<param name="includeProperties">add_status</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-<!-- 	</package> -->
+		<action name="addTeachBuilding" class="admin.TeachBuildingAction" method="addTeachBuilding">
+			<result type="json">
+				<param name="includeProperties">add_status</param>
+			</result>
+		</action>
+	</package>
 	
 	
 	
@@ -569,10 +569,10 @@
 			</result>
 		</action> 
         <action name="notice_*" class="admin.NoticeAction" method="{1}">
-        <result name="success" type="json">
+       		 <result name="success" type="json">
 <!--             	<param name="includeProperties">status,notice_id</param>            -->
 				
-          </result> 
+          	</result> 
         </action>
     </package>
     

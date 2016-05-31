@@ -1,24 +1,24 @@
-package RepairImpl;
+//package RepairImpl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+//import java.text.ParseException;
+//import java.text.SimpleDateFormat;
+//import java.util.Calendar;
+//import java.util.Date;
+//import java.util.List;
+//
+//import org.hibernate.Criteria;
+//import org.hibernate.Query;
+//import org.hibernate.Session;
+//import org.hibernate.Transaction;
+//import org.hibernate.criterion.Restrictions;
+//
+//import com.opensymphony.xwork2.ActionContext;
+//
+//import Repair.RepairDAO;
+//import db.MyHibernateSessionFactory;
+//import model.*;
 
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
-
-import com.opensymphony.xwork2.ActionContext;
-
-import Repair.RepairDAO;
-import db.MyHibernateSessionFactory;
-import model.*;
-
-public class RepairDAOImpl implements RepairDAO {
+//public class RepairDAOImpl implements RepairDAO {
 //	public List<Repair> queryRepair(String type, String val) {
 //		// TODO Auto-generated method stub
 //		
@@ -154,44 +154,52 @@ public class RepairDAOImpl implements RepairDAO {
 //		}
 //	}
 	
-	@Override
-	public int m2alter(String move, String opt) {
-		Transaction tx = null;
-		String hql ="";
-		try {
-			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
-			tx = session.beginTransaction();
-			if (opt.equals("0")) {
-				hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '维修', repertory.classroom = NULL" +
-						" where repertory.rtId = " + move;
-			}
-			else if(opt.equals("1")){//移入报废 1
-				hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '报废', repertory.classroom = NULL" +
-						" where repertory.rtId = " + move;
-			}else{
-				hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '备用', repertory.classroom = NULL" +
-						" where repertory.rtId = " + move;
-			}
-			System.out.println(hql);
-			Query queryupdate=session.createQuery(hql);
-			int ret=queryupdate.executeUpdate();
-			tx.commit();
-			System.out.println("这是"+ret);
-			return ret;
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-			tx.commit();
-			return 0;
-		}
-		finally {
-			if (tx != null) {
-				if (tx != null) {
-					tx = null;
-				}
-			}
-		}
-	}
+	
+	
+//	@Override
+//	public int m2alter(String move, String opt) {
+//		Transaction tx = null;
+//		String hql ="";
+//		try {
+//			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+//			tx = session.beginTransaction();
+//			if (opt.equals("0")) {
+//				hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '维修', repertory.classroom = NULL" +
+//						" where repertory.rtId = " + move;
+//			}
+//			else if(opt.equals("1")){//移入报废 1
+//				hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '报废', repertory.classroom = NULL" +
+//						" where repertory.rtId = " + move;
+//			}else{
+//				hql = "UPDATE Repertory repertory SET repertory.rtDeviceStatus = '备用', repertory.classroom = NULL" +
+//						" where repertory.rtId = " + move;
+//			}
+//			System.out.println(hql);
+//			Query queryupdate=session.createQuery(hql);
+//			int ret=queryupdate.executeUpdate();
+//			tx.commit();
+//			System.out.println("这是"+ret);
+//			return ret;
+//		}
+//		catch (Exception ex) {
+//			ex.printStackTrace();
+//			tx.commit();
+//			return 0;
+//		}
+//		finally {
+//			if (tx != null) {
+//				if (tx != null) {
+//					tx = null;
+//				}
+//			}
+//		}
+//	}
+	
+	
+	
+	
+	
+	
 	
 //	@Override
 //	public int addalterIm(String rtid, String classroomid) {
@@ -275,4 +283,4 @@ public class RepairDAOImpl implements RepairDAO {
 //			}
 //		}
 //	}
-}
+//}

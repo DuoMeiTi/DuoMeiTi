@@ -1,14 +1,14 @@
-package model;
-
-
-
-
-
-import org.hibernate.cfg.*;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.*;
-
+//package model;
+//
+//
+//
+//
+//
+//import org.hibernate.cfg.*;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.*;
+//
 
 
 //@Entity

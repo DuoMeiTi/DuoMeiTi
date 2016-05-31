@@ -1,4 +1,4 @@
-package common;
+//package common;
 
 //public class DutyInfo {
 //	public int studentId;

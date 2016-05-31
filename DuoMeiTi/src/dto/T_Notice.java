@@ -1,4 +1,4 @@
-package dto;
+//package dto;
 
 //public class T_Notice {
 //	private  int id;

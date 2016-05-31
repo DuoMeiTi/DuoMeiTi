@@ -1,15 +1,15 @@
-package common;
+//package common;
 
-import java.util.List;
-
-
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
-
-import model.DutyPiece;
-import model.TeachBuilding;
-import model.ChooseClassSwitch;
+//import java.util.List;
+//
+//
+//import org.hibernate.Session;
+//import org.hibernate.Transaction;
+//import org.hibernate.criterion.Restrictions;
+//
+//import model.DutyPiece;
+//import model.TeachBuilding;
+//import model.ChooseClassSwitch;
 
 //public class ChooseClass {
 //	

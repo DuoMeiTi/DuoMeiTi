@@ -18,15 +18,15 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import utility.DatabaseOperation;
+//import utility.DatabaseOperation;
 
 import com.opensymphony.xwork2.ActionContext;
 
-import common.BuildingsInfo;
+//import common.BuildingsInfo;
 
 public class StudentAction extends ActionSupport{
 	
-	private List<BuildingsInfo> teahBuildings;
+//	private List<BuildingsInfo> teahBuildings;
 	private int teachBuildingId;
 	private List<DutyPiece> duties;
 	private String log;
@@ -68,13 +68,13 @@ public class StudentAction extends ActionSupport{
 		this.duties = duties;
 	}
 
-	public List<BuildingsInfo> getTeahBuildings() {
-		return teahBuildings;
-	}
-
-	public void setTeahBuildings(List<BuildingsInfo> teahBuildings) {
-		this.teahBuildings = teahBuildings;
-	}
+//	public List<BuildingsInfo> getTeahBuildings() {
+//		return teahBuildings;
+//	}
+//
+//	public void setTeahBuildings(List<BuildingsInfo> teahBuildings) {
+//		this.teahBuildings = teahBuildings;
+//	}
 
 	public int getTeachBuildingId() {
 		return teachBuildingId;
