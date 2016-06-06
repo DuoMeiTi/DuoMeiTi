@@ -8,6 +8,7 @@
 			<td>教室状况</td>
 			<td>检查时间</td>
 			
+<!-- 			<td> 删除</td> -->
 		</tr>
 	</thead>
 	<tbody>
@@ -18,13 +19,13 @@
 				<td>
 					<s:property value="@util.Util@formatTimestamp(#checkrecord.checkdate)" />
 				</td>
-				<td> 
-					<button type="button"
-							class="btn btn-primary btn-sm" 
-							checkRecordId = '<s:property value="#checkrecord.id"/>'  >
-						删除   
-					</button> 
-				</td>
+<!-- 				<td>  -->
+<!-- 					<button type="button" -->
+<!-- 							class="btn btn-primary btn-sm"  -->
+<%-- 							checkRecordId = '<s:property value="#checkrecord.id"/>'  > --%>
+<!-- 						删除    -->
+<!-- 					</button>  -->
+<!-- 				</td> -->
 			</tr>
 		</s:iterator>
 	</tbody>
