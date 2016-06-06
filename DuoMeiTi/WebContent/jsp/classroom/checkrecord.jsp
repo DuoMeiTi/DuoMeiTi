@@ -7,7 +7,7 @@
 			<td>检查人</td>
 			<td>教室状况</td>
 			<td>检查时间</td>
-			<td> 删除</td>
+			
 		</tr>
 	</thead>
 	<tbody>
