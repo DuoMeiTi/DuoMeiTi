@@ -3,6 +3,9 @@ package homepage;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.naming.java.javaURLContextFactory;
@@ -15,59 +18,199 @@ import org.hibernate.criterion.Restrictions;
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.Classroom;
+import model.StudentProfile;
 
 public class HomepageInformation extends util.PageGetBaseAction {
+	
+	//获取上一周未检查教室的学生列表
+//	static ArrayList<Classroom> obtainLastWeekNotCheckClassroomStudentList(Session s)
+//	{
+//		
+//		ArrayList<Classroom> notCheckClassroomStudentList;
+//		
+//		ArrayList<Classroom> all_classroom = (ArrayList<Classroom>) 
+//				 s.createCriteria(model.Classroom.class)
+//						.add(Restrictions.isNotNull("principal"))
+//						.list();
+//				
+//		java.util.Date lastMonday, cntMonday;
+//		Calendar cal = Calendar.getInstance();		
+//		cal.add(Calendar.DATE, -7);
+//		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);		
+//		lastMonday = cal.getTime();
+//		
+//		cal = Calendar.getInstance();	
+//		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+//		cntMonday = cal.getTime();
+//		System.out.println("上周一！！！！！！！！");
+//		System.out.println(lastMonday);
+//		System.out.println(cntMonday);
+//		
+//		notCheckClassroomStudentList = new ArrayList<Classroom>();
+//		
+//		System.out.println(all_classroom.size());
+//		for(Classroom c: all_classroom)
+//		{
+//			model.StudentProfile st = c.principal;
+//			
+//			boolean empty = s.createCriteria(model.CheckRecord.class)
+//				   .add(Restrictions.eq("checkman.id", c.principal.user.id))
+//				   .add(Restrictions.eq("classroom.id", c.id))
+//				   .add(Restrictions.between("checkdate", lastMonday, cntMonday))
+//				   .list().isEmpty();
+//			
+//			System.out.println(empty);
+//			if(empty)
+//			{
+//				notCheckClassroomStudentList.add(c);
+//			}
+//		}
+//			
+//		return notCheckClassroomStudentList;
+//
+//	}
+	
 	
 	/*
 	 * 一些static公用方法
 	 */
-	//获取上一周未检查教室的学生列表
-	static ArrayList<Classroom> obtainLastWeekNotCheckClassroomStudentList(Session s)
+
+//	根据参数日期，得到本周的周一的日期，其中一周的第一天为周一, 并且将返回的日期改为的时间部分（时分秒）全都设置为0
+	static java.util.Date getCntWeekMonday(java.util.Date u)
 	{
+		Calendar cd = Calendar.getInstance();
+		cd.setTime(u);
+//		System.out.println("enter getCntWeekMonday");
+//		System.out.println(u);
+		int dayOfWeek = cd.get(Calendar.DAY_OF_WEEK); // 因为按中国礼拜一作为第一天所以这里减1
 		
-		ArrayList<Classroom> notCheckClassroomStudentList;
-		
-		ArrayList<Classroom> all_classroom = (ArrayList<Classroom>) 
-				 s.createCriteria(model.Classroom.class)
-						.add(Restrictions.isNotNull("principal"))
-						.list();
-				
-		java.util.Date lastMonday, cntMonday;
-		Calendar cal = Calendar.getInstance();		
-		cal.add(Calendar.DATE, -7);
-		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);		
-		lastMonday = cal.getTime();
-		
-		cal = Calendar.getInstance();	
-		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		cntMonday = cal.getTime();
-		System.out.println("上周一！！！！！！！！");
-		System.out.println(lastMonday);
-		System.out.println(cntMonday);
-		
-		notCheckClassroomStudentList = new ArrayList<Classroom>();
-		
-		System.out.println(all_classroom.size());
-		for(Classroom c: all_classroom)
+		if(dayOfWeek != Calendar.SUNDAY)
 		{
-			model.StudentProfile st = c.principal;
-			
-			boolean empty = s.createCriteria(model.CheckRecord.class)
-				   .add(Restrictions.eq("checkman.id", c.principal.user.id))
-				   .add(Restrictions.eq("classroom.id", c.id))
-				   .add(Restrictions.between("checkdate", lastMonday, cntMonday))
-				   .list().isEmpty();
-			
-			System.out.println(empty);
-			if(empty)
-			{
-				notCheckClassroomStudentList.add(c);
-			}
+			cd.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 		}
+		else
+		{
+			cd.add(Calendar.DATE, -6);
+		}
+		cd.set(Calendar.HOUR, 0);
+		cd.set(Calendar.MINUTE, 0);
+		cd.set(Calendar.SECOND, 0);
+		cd.set(Calendar.MILLISECOND, 0);
+		return cd.getTime();
+	}
+	
+	
+//	判断两个日期是否是一天
+	public static boolean isSameDay(java.util.Date date1, java.util.Date date2) 
+	{
+       Calendar c1 = Calendar.getInstance();
+       c1.setTime(date1);
+
+       Calendar c2 = Calendar.getInstance();
+       c2.setTime(date2);
+
+       return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR) && 
+    		  c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) && 
+    		  c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH);
+	   }
+
+	
+//	获取 所有周的未填写教室检查记录的同学，是逆序返回的，即从当前周到第一周
+	static 
+	ArrayList<ArrayList<StudentProfile> >
+	obtainLastWeekNotCheckClassroomStudentList(Session s)
+	{					
+		ArrayList<ArrayList<StudentProfile> > allNotCheckStudentList = new ArrayList<ArrayList<StudentProfile>>();		
+		
+		model.SemesterFirstWeek firstWeek = (model.SemesterFirstWeek)
+				s.createCriteria(model.SemesterFirstWeek.class).uniqueResult();
+		
+		if(firstWeek.date == null) return allNotCheckStudentList;		
+		
+		java.util.Date firstWeekMonday = getCntWeekMonday(firstWeek.date);		
+		java.util.Date nowMonday = getCntWeekMonday(new java.util.Date());
+		
+
+		if(nowMonday.before(firstWeekMonday))
+			return allNotCheckStudentList;
+		
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(firstWeekMonday);
+		
+		
+		
+//		得到从第一周到当前周的所有的周一 列表
+		ArrayList<java.util.Date> mondayList = new ArrayList<java.util.Date>() ; 
+		for(;;)
+		{
+			java.util.Date cnt = cal.getTime();			
+			mondayList.add(cnt);
+			if(isSameDay(cnt, nowMonday)) break;
+			cal.add(Calendar.DATE, 7);			
+		}
+		
+//		遍历周一列表   获取每一周未填写检查记录的学生
+		ArrayList<Classroom> all_classroom = (ArrayList<Classroom>) 
+								 s.createCriteria(model.Classroom.class)
+								.add(Restrictions.isNotNull("principal"))
+								.list();
+		
+		
+		for(int i = 0; i < mondayList.size() - 1; ++ i)
+		{
+			ArrayList<StudentProfile> notCheckStudentList = new ArrayList<StudentProfile>();
 			
-		return notCheckClassroomStudentList;
+			HashSet<StudentProfile> set = new HashSet<StudentProfile>();			
+			
+			for(Classroom c: all_classroom)
+			{
+				model.StudentProfile st = c.principal;
+				
+				boolean empty = s.createCriteria(model.CheckRecord.class)
+					   .add(Restrictions.eq("checkman.id", c.principal.user.id))
+					   .add(Restrictions.eq("classroom.id", c.id))
+					   .add(Restrictions.between("checkdate", mondayList.get(i), mondayList.get(i + 1)))
+					   .list().isEmpty();
+				
+				
+				
+				if(empty)
+				{
+					set.add(st);
+				}
+			}
+			notCheckStudentList.addAll(set);
+			Collections.sort(notCheckStudentList,new Comparator<StudentProfile>()
+			{
+	            public int compare(StudentProfile a, StudentProfile b) 
+	            {
+	            	if(a.id > b.id) return 1;
+	            	if(a.id == b.id) return 0;
+	            	return -1;
+	            }
+	        });
+			
+
+			
+			
+			
+			
+			
+			allNotCheckStudentList.add(notCheckStudentList);
+		}
+		Collections.reverse(allNotCheckStudentList);
+		
+		return allNotCheckStudentList;
 
 	}
+
+	
+	
+
+			
+			
+			
 	
 	static Criteria obtainAllNoticeCriteria(Session s)
 	{
@@ -101,7 +244,7 @@ public class HomepageInformation extends util.PageGetBaseAction {
 		return q;
 	}
 
-// 以上是一些common 方法	
+// 以上是一些common static方法	
 	
 	
 	public List notice_list;
@@ -117,12 +260,11 @@ public class HomepageInformation extends util.PageGetBaseAction {
 	public String  MoreAnnouncement() throws Exception{
 		
 		Session session = model.Util.sessionFactory.openSession();
-//		Criteria q = session.createCriteria(model.Notice.class).addOrder(Order.desc("id"));
 		
 		
 		notice_list = obtainAllNoticeCriteria(session).list();
 		
-//		notice_list = this.makeCurrentPageList(obtainAllNoticeCriteria(session), 10);
+
 //		
 		session.close();
 //		if(this.getIsAjaxTransmission()) // 这是ajax 传输
@@ -196,53 +338,16 @@ public class HomepageInformation extends util.PageGetBaseAction {
 	
 	
 	ArrayList<Classroom> notCheckClassroomStudentList;
+	ArrayList<ArrayList<StudentProfile>> allNotCheckStudentList;
 	public String notCheckClassroomStudent() throws Exception
 	{
 		
 		Session s = model.Util.sessionFactory.openSession();
 		
-		notCheckClassroomStudentList = obtainLastWeekNotCheckClassroomStudentList(s);
+//		notCheckClassroomStudentList = obtainLastWeekNotCheckClassroomStudentList(s);
+		allNotCheckStudentList = obtainLastWeekNotCheckClassroomStudentList(s);
 		s.close();
-//		ArrayList<Classroom> all_classroom = (ArrayList<Classroom>) 
-//		 session.createCriteria(model.Classroom.class)
-//				.add(Restrictions.isNotNull("principal"))
-//				.list();
-//		
-//		java.util.Date lastMonday, cntMonday;
-//		Calendar cal = Calendar.getInstance();		
-//		cal.add(Calendar.DATE, -7);
-//		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);		
-//		lastMonday = cal.getTime();
-//		
-//		cal = Calendar.getInstance();	
-//		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-//		cntMonday = cal.getTime();
-//		System.out.println("上周一！！！！！！！！");
-//		System.out.println(lastMonday);
-//		System.out.println(cntMonday);
-//		
-//		notCheckClassroomStudentList = new ArrayList<Classroom>();
-//		
-//		System.out.println(all_classroom.size());
-//		for(Classroom c: all_classroom)
-//		{
-//			model.StudentProfile st = c.principal;
-//			
-//			boolean empty = session.createCriteria(model.CheckRecord.class)
-//				   .add(Restrictions.eq("checkman.id", c.principal.user.id))
-//				   .add(Restrictions.eq("classroom.id", c.id))
-//				   .add(Restrictions.between("checkdate", lastMonday, cntMonday))
-//				   .list().isEmpty();
-//			
-//			System.out.println(empty);
-//			if(empty)
-//			{
-//				notCheckClassroomStudentList.add(c);
-////				if(notCheckClassroomStudentList.size() >= MaxRes) break;
-//			}
-//		}
-//		
-////		deviceReplaceList = this.makeCurrentPageList(q, 10);
+
 		
 		return ActionSupport.SUCCESS;
 	}
@@ -322,6 +427,14 @@ public class HomepageInformation extends util.PageGetBaseAction {
 
 	public void setNotCheckClassroomStudentList(ArrayList<Classroom> notCheckClassroomStudentList) {
 		this.notCheckClassroomStudentList = notCheckClassroomStudentList;
+	}
+
+	public ArrayList<ArrayList<StudentProfile>> getAllNotCheckStudentList() {
+		return allNotCheckStudentList;
+	}
+
+	public void setAllNotCheckStudentList(ArrayList<ArrayList<StudentProfile>> allNotCheckStudentList) {
+		this.allNotCheckStudentList = allNotCheckStudentList;
 	}
 	
 	

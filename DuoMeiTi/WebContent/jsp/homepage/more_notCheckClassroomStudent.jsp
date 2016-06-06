@@ -12,7 +12,7 @@
 		    <div class="home-news">
 		      
 		      <div class="usoft-listview-header">
-		        <h3>设备更换提醒          <small>Equipment-Replacement-Reminder </small> </h3> 
+		        <h3>未检查教室        <small> NOT-CHECK-CLASSROOM  </small> </h3> 
 		      </div>
 		      <br/>
 		      

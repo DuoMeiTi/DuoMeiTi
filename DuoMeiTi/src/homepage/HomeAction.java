@@ -76,6 +76,8 @@ public class HomeAction extends PageGetBaseAction
 	
 	List dutyStudentList;
 	List<Classroom> notCheckClassroomStudentList;
+	
+	ArrayList<ArrayList<StudentProfile>> allNotCheckStudentList;
 	public String execute() throws Exception
 	{ 
 		System.out.println("******************");
@@ -121,9 +123,12 @@ public class HomeAction extends PageGetBaseAction
 		
 		
 		// 确定上一周未检查教室学生
-		notCheckClassroomStudentList = HomepageInformation.obtainLastWeekNotCheckClassroomStudentList(session);		
+//		notCheckClassroomStudentList = HomepageInformation.obtainLastWeekNotCheckClassroomStudentList(session);	
+
+		allNotCheckStudentList = HomepageInformation.obtainLastWeekNotCheckClassroomStudentList(session);
 		
-		notCheckClassroomStudentList = notCheckClassroomStudentList.subList(0, Math.min(notCheckClassroomStudentList.size(), MaxRes));
+		
+//		notCheckClassroomStudentList = notCheckClassroomStudentList.subList(0, Math.min(notCheckClassroomStudentList.size(), MaxRes));
 		
 		
 		
@@ -409,16 +414,20 @@ public class HomeAction extends PageGetBaseAction
 
 
 
-//	public ArrayList<Classroom> getNotCheckClassroomStudentList() {
-//		return notCheckClassroomStudentList;
-//	}
-//
-//
-//
-//	public void setNotCheckClassroomStudentList(ArrayList<Classroom> notCheckClassroomStudentList) {
-//		this.notCheckClassroomStudentList = notCheckClassroomStudentList;
-//	}
+	public ArrayList<ArrayList<StudentProfile>> getAllNotCheckStudentList() {
+		return allNotCheckStudentList;
+	}
+
+
+
+	public void setAllNotCheckStudentList(ArrayList<ArrayList<StudentProfile>> allNotCheckStudentList) {
+		this.allNotCheckStudentList = allNotCheckStudentList;
+	}
 	
+	
+	
+
+
 	
 	
 	
