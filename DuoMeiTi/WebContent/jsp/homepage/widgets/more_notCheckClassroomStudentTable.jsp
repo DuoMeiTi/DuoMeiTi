@@ -12,11 +12,14 @@
 	      
 	      <span>
 	      	<strong>第<s:property value="allNotCheckStudentList.size() - #i"/>周未检查教室的学生: </strong>
-	      	[ 
+<!-- 	      	[  -->
 	      		<s:iterator  var="j"  begin="0" end = "allNotCheckStudentList.get(#i).size()-1" >
-	      			<s:property value="allNotCheckStudentList.get(#i).get(#j).user.fullName"/>,
+	      			<s:if test="#j > 0">
+	      			,
+	      			</s:if>
+	      			<s:property value="allNotCheckStudentList.get(#i).get(#j).user.fullName"/>
       			</s:iterator>
-      			]
+<!--       			] -->
 <%--  	      		<s:property value="#i.principal.user.fullName"/> --%>
 <!-- 	      		未检查 -->
 <%-- 	      		<s:property value="#i.teachbuilding.build_name"/> --%>
