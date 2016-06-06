@@ -42,10 +42,33 @@ public class HomeAction extends PageGetBaseAction
 	public List file_path_list;
 	public String file_path_html;
 	public List deviceReplaceList;
+	
+	
+	
+//初始化SemesterFirstWeek表，保证SemesterFirstWeek里恰好有一条记录
+	static
+	{
+		Session s = model.Util.sessionFactory.openSession();
+		
+		List L = s.createCriteria(model.SemesterFirstWeek.class)
+				 .list();
+		if(L.size() == 0)
+		{
+			s.beginTransaction();
+			model.SemesterFirstWeek ins = new model.SemesterFirstWeek();
+			
+			ins.date = new java.sql.Date(new java.util.Date().getTime());
+			s.save(ins);
+			s.getTransaction().commit();
+		}
+		s.close();
+	}
+	
+	
 	static
 	{
 		Session session = model.Util.sessionFactory.openSession();		
-		
+
 		
 		List L = session.createCriteria(model.AdminProfile.class).list();
 		if(L.size() == 0)

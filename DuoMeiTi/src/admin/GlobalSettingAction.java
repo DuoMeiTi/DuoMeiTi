@@ -19,26 +19,26 @@ import model.User;
 
 public class GlobalSettingAction extends ActionSupport{
 	
-	java.util.Date date;
-	static
-	{
-		Session s = model.Util.sessionFactory.openSession();
-		
-		List L = s.createCriteria(model.SemesterFirstWeek.class)
-				 .list();
-		if(L.size() == 0)
-		{
-			s.beginTransaction();
-			model.SemesterFirstWeek ins = new model.SemesterFirstWeek();
-			
-			ins.date = new java.sql.Date(new java.util.Date().getTime());
-			s.save(ins);
-			s.getTransaction().commit();
-		}
-		s.close();
-
-	}
 	
+//	static
+//	{
+//		Session s = model.Util.sessionFactory.openSession();
+//		
+//		List L = s.createCriteria(model.SemesterFirstWeek.class)
+//				 .list();
+//		if(L.size() == 0)
+//		{
+//			s.beginTransaction();
+//			model.SemesterFirstWeek ins = new model.SemesterFirstWeek();
+//			
+//			ins.date = new java.sql.Date(new java.util.Date().getTime());
+//			s.save(ins);
+//			s.getTransaction().commit();
+//		}
+//		s.close();
+//
+//	}
+	java.util.Date date;
 	public String execute() throws Exception
 	{
 		Session s = model.Util.sessionFactory.openSession();
