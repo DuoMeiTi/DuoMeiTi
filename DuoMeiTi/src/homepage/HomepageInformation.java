@@ -115,6 +115,26 @@ public class HomepageInformation extends util.PageGetBaseAction {
 	   }
 
 	
+	static boolean isEmptyInCheckRecordList(List<model.CheckRecord> L, int stu_user_id, int classroom_id, 
+										java.util.Date beg, java.util.Date end)
+	{
+		for(model.CheckRecord cr: L)
+		{
+			if(cr.checkman.id == stu_user_id && 
+			   cr.classroom.id == classroom_id &&
+			   cr.checkdate.after(beg) &&
+			   cr.checkdate.before(end)
+			   )
+			{
+				return false;
+			}
+				
+		}
+		return true;
+
+
+	}
+	
 //	获取 所有周的未填写教室检查记录的同学，是逆序返回的，即从当前周到第一周
 	static 
 	ArrayList<ArrayList<StudentProfile> >
@@ -150,13 +170,19 @@ public class HomepageInformation extends util.PageGetBaseAction {
 			cal.add(Calendar.DATE, 7);			
 		}
 		
-//		遍历周一列表   获取每一周未填写检查记录的学生
+
 		ArrayList<Classroom> all_classroom = (ArrayList<Classroom>) 
 								 s.createCriteria(model.Classroom.class)
 								.add(Restrictions.isNotNull("principal"))
 								.list();
 		
-		
+//		得到所有大于起始周的所有检查记录
+		ArrayList<model.CheckRecord> checkRecordList = 
+									(ArrayList<model.CheckRecord>) 
+									s.createCriteria(model.CheckRecord.class)
+									.add(Restrictions.ge("checkdate", firstWeekMonday))
+									.list();
+//		遍历周一列表   获取每一周未填写检查记录的学生	
 		for(int i = 0; i < mondayList.size() - 1; ++ i)
 		{
 			ArrayList<StudentProfile> notCheckStudentList = new ArrayList<StudentProfile>();
@@ -167,13 +193,14 @@ public class HomepageInformation extends util.PageGetBaseAction {
 			{
 				model.StudentProfile st = c.principal;
 				
-				boolean empty = s.createCriteria(model.CheckRecord.class)
-					   .add(Restrictions.eq("checkman.id", c.principal.user.id))
-					   .add(Restrictions.eq("classroom.id", c.id))
-					   .add(Restrictions.between("checkdate", mondayList.get(i), mondayList.get(i + 1)))
-					   .list().isEmpty();
+//				boolean empty = s.createCriteria(model.CheckRecord.class)
+//					   .add(Restrictions.eq("checkman.id", c.principal.user.id))
+//					   .add(Restrictions.eq("classroom.id", c.id))
+//					   .add(Restrictions.between("checkdate", mondayList.get(i), mondayList.get(i + 1)))
+//					   .list().isEmpty();
 				
-				
+				boolean empty = isEmptyInCheckRecordList(checkRecordList, c.principal.user.id, c.id,
+						mondayList.get(i), mondayList.get(i + 1));
 				
 				if(empty)
 				{
