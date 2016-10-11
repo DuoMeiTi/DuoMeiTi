@@ -86,8 +86,7 @@ public class StudentManageAction extends ActionSupport{
 	
 	//排除注册未通过学生,通过学号查询
 	public static List<StudentProfile> searchStudentByStudentNumber(Session s, String studentId)
-	{
-		
+	{		
 		return s.createCriteria(StudentProfile.class)				
 					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
 					
@@ -97,6 +96,7 @@ public class StudentManageAction extends ActionSupport{
 	//排除注册未通过学生
 	public static List<StudentProfile> searchStudentByFullname(Session s, String fullName)
 	{
+		
 //		StudentProfile sp;
 //		sp.user.fullName
 		return s.createCriteria(StudentProfile.class)				
@@ -116,12 +116,34 @@ public class StudentManageAction extends ActionSupport{
 				s.createCriteria(model.ExamStuScore.class)
 				.add(Restrictions.eq("stuPro.id", this.studentDatabaseId))
 				.list();		
-		 studentScoreJsp = util.Util.getJspOutput("/jsp/admin/student_manage/studentScoreTable.jsp");
-		 
+		 studentScoreJsp = util.Util.getJspOutput("/jsp/admin/student_manage/studentScoreTable.jsp");		 
 		 s.close();
 		
 		return SUCCESS;
 	}
+	
+	
+	public String searchByFullNameOrStudentId() throws Exception {
+		Session s = model.Util.sessionFactory.openSession();
+		
+		
+		
+		
+		if(!studentId.isEmpty())
+		{
+			student_list = searchStudentByStudentNumber(s, studentId); 
+		}
+		else 
+		{
+			student_list = searchStudentByFullname(s, fullName); 
+		}
+		
+		s.close();
+		
+//		student_list = searchStudentByFullname(s, name_id);
+		return SUCCESS;
+	}
+	
 	public String search() throws Exception
 	{
 		System.out.println("searchStudentInformation():");
@@ -130,22 +152,22 @@ public class StudentManageAction extends ActionSupport{
 		try{
 			
 			
-		if(search_select.equals("2"))
-		{
-			//按学号查找
-			student_list = searchStudentByStudentNumber(s, name_id);
-
-		}
-		else
-		{//按姓名查找
-			student_list = searchStudentByFullname(s, name_id);
-		}
-		
-		Collections.reverse(student_list);
-		studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
-		
-		
-		s.close();
+			if(search_select.equals("2"))
+			{
+				//按学号查找
+				student_list = searchStudentByStudentNumber(s, name_id);
+	
+			}
+			else
+			{//按姓名查找
+				student_list = searchStudentByFullname(s, name_id);
+			}
+			
+			Collections.reverse(student_list);
+			studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
+			
+			
+			s.close();
 
 		}catch(Exception e)
 		{

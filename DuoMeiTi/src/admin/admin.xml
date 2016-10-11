@@ -329,13 +329,13 @@
 
                
        	<!-- 搜索学生 -->
-       	<action name="searchStudent" class="admin.StudentManageAction" method="searchStudent">
+       	<action name="searchByFullNameOrStudentId" class="admin.StudentManageAction" method="searchByFullNameOrStudentId">
        		<result type="json">
-       			<param name="includeProperties">
-       				searchResult\[\d+\]\.id,
-       				searchResult\[\d+\]\.studentName,
-       				searchResult\[\d+\]\.studentId,
-       			</param>
+<!--        			<param name="includeProperties"> -->
+<!--        				searchResult\[\d+\]\.id, -->
+<!--        				searchResult\[\d+\]\.studentName, -->
+<!--        				searchResult\[\d+\]\.studentId, -->
+<!--        			</param> -->
        		</result>
        	</action>
        	

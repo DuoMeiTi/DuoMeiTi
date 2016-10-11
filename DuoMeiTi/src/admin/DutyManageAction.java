@@ -226,7 +226,7 @@ public class DutyManageAction extends ActionSupport {
 		{
 			DutyPiece dp = ds.dutyPiece;
 			session.delete(ds);		
-			dp.dutyLeft--;
+			dp.dutyLeft++;
 			session.update(dp);
 			
 		}
@@ -243,7 +243,7 @@ public class DutyManageAction extends ActionSupport {
 	
 	
 	int addDutySchedule_dutyPlaceId;
-	int addDutySchedule_studentId;
+	int addDutySchedule_studentId; // database id
 	int addDutySchedule_dutyPieceTime;
 	int addDutySchedule_addeddutyScheduleId;
 	String status;	// 0 OK， 1 已经添加过，2学生不合法，3其他故障 不成功

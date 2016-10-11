@@ -503,10 +503,10 @@ $(document).on("click","#searchButton",function(){
 	if(name==""&&id=="")logdiv.html("请至少填写一个字段");
 	else{
 		$.ajax({
-			url:"/admin/student_manage/searchStudent",
+			url:"/admin/student_manage/searchByFullNameOrStudentId",
 			type : 'post',
 			dataType : 'json',
-			data : {"studentName":name,"studentId":id},
+			data : {"fullName":name,"studentId":id},
 			success : SearchStudentCallBack
 		});
 	}
@@ -515,7 +515,7 @@ $(document).on("click","#searchButton",function(){
 
 var cntStudentId;
 function SearchStudentCallBack(data){
-	var students=data.searchResult;
+	var students=data.student_list;
 	var logdiv=$(".log");
 	var nameInput=$("#studentName");
 	var idInput=$("#studentId");
@@ -524,8 +524,8 @@ function SearchStudentCallBack(data){
 	if(students.length==0)logdiv.html("查无此人");
 	if(students.length==1)
 	{
-		if(nameInput.val()=="") nameInput.val(students[0].studentName);
-		if(idInput.val()=="")idInput.val(students[0].studentId);
+		nameInput.val(students[0].user.fullName);
+		idInput.val(students[0].studentId);
 		cntStudentId = students[0].id;
 
 		logdiv.html("可以添加");
