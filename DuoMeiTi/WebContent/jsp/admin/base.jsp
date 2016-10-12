@@ -16,7 +16,7 @@
 
 	    <a href="/admin/HomepageModify/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;主页管理</span></a>
 	    <a href="/admin/batchImport/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;批量导入</span></a>
-	    <a href="/admin/asdf" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;远程控制</span></a>
+
 	    
 
 	    
