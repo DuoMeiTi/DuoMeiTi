@@ -17,6 +17,14 @@
 	    <a href="/admin/HomepageModify/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;主页管理</span></a>
 	    <a href="/admin/batchImport/" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;批量导入</span></a>
 	    <a href="/admin/asdf" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;远程控制</span></a>
+	    
+
+	    
+	    <a href="liexplorer://D:\exe_chrome\remoteControl" class="menu-button-middle">
+	    	<span class="glyphicon glyphicon-list-alt">&nbsp;远程控制</span>
+	    </a>
+	    
+	    
 	    <a href="/admin/checkinManage" class="menu-button-middle"><span class="glyphicon glyphicon-list-alt">&nbsp;签到管理</span></a>
 	    
 	    <s:if test="!#session.role.equals(@util.Const@StudentToAdminRole)">
@@ -32,6 +40,8 @@
 	    
 	    <div class="menu-blank"></div>
 	</div>
+	
+	
 	
 	 
  </layout:override>
