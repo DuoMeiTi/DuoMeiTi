@@ -9,7 +9,7 @@
 	
 		<div class="row">
 			<div class="col-lg-6 col-lg-offset-3 classbuilding">
-				<span><s:property value="building.build_name"/></span>&nbsp;&nbsp;<span><s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
+				<span><s:property value="classroom.teachbuilding.build_name"/></span>&nbsp;&nbsp;<span><s:property value="classroom.classroom_num"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
 				<span>负责人:</span>
 				<span id="classroomid" style="visibility:hidden"><s:property value="classroom.id"/></span>
 				<span class="director-span"><s:property value="classroom.principal.user.fullName"/></span>
