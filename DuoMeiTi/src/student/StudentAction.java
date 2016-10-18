@@ -7,7 +7,7 @@ import model.TeachBuilding;
 import model.DutyPiece;
 import model.DutySchedule;
 import model.StudentProfile;
-import model.ChooseClassSwitch;
+//import model.ChooseClassSwitch;
 
 import java.util.ArrayList;
 import java.util.Iterator;

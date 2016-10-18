@@ -39,7 +39,7 @@
 		<mapping class="model.StudentProfile"/>
 		<mapping class="model.AdminProfile"/>
 		<mapping class="model.Classroom"/>
-		<mapping class="model.Contacts"/>
+<!-- 		<mapping class="model.Contacts"/> -->
 		<mapping class="model.Commonproblem"/>
 		<mapping class="model.Repertory"/>
 		
