@@ -10,6 +10,9 @@ public class T_Repertory extends Repertory
 
 	public String rtProdDateString;
 	public String rtApprDateString;
+	
+	// 这个字段只有两个值： 主要设备，耗材设备
+	public String rtDevice;
 //	public T_Repertory(){}
 	
 	public T_Repertory(Repertory r)
@@ -29,7 +32,12 @@ public class T_Repertory extends Repertory
 			else rtApprDateString = util.Util.formatTimestampToOnlyDate(rtApprDate);
 
 		} 
-		catch (Exception e) { e.printStackTrace(); }
+		catch (Exception e) { 
+			e.printStackTrace(); 
+		}
+		
+		rtDevice = util.Util.judgeDeviceType(r.getRtType());
+		
 
 		
 				
@@ -50,13 +58,17 @@ public class T_Repertory extends Repertory
 	public void setRtApprDateString(String rtApprDateString) {
 		this.rtApprDateString = rtApprDateString;
 	}
+
+	public String getRtDevice() {
+		return rtDevice;
+	}
+
+	public void setRtDevice(String rtDevice) {
+		this.rtDevice = rtDevice;
+	}
 	
-//	public void tran()
-//	{
-//		rtProdDateString = repertory.rtProdDate.toString();		
-//		rtApprDateString = repertory.rtApprDate.toString();
-//				
-//	}
 	
+	
+
 	
 }

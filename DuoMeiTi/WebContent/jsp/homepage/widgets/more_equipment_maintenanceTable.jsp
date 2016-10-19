@@ -3,27 +3,27 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 
 <s:iterator value="repair_list" var="i" status="index" >
-	         	 	<div class="usoft-listview-basic">
-						<ul>
-						   <li>
-						      <span class="usoft-listview-item-date">
-						      		<s:property value="@util.Util@formatTimestamp(#i.repairdate.toString())"/>
-						      </span>
-						      <span>
-<!-- 						      	<a href="#" > -->
-						      		<s:property value="#i.repairman.fullName"/>
-						      		维修
-						      		<strong>
-						      		<s:property value="#i.classroom.teachbuilding.build_name"/>
-<!-- 						      		教室 -->
-						      		<s:property value="#i.classroom.classroom_num"/>
-						      		</strong>
-						      		<s:property value="#i.device.rtType"/>
-						      		:
-						      		<s:property value="#i.repairdetail"/>
-<!-- 						      	</a> -->
-						      </span>
-						    </li>
-						  </ul>	
-					</div>
-		        </s:iterator>
+  	 <div class="usoft-listview-basic">
+		<ul>
+		   <li>
+		      <span class="usoft-listview-item-date">
+		      		<s:property value="@util.Util@formatTimestamp(#i.repairdate.toString())"/>
+		      </span>
+		      <span>
+
+		      		<s:property value="#i.repairmanFullName"/>
+		      		维修		      		
+		      		<strong>
+			      		<s:property value="#i.teachingBuildingName"/>
+			      		<s:property value="#i.classroomName"/>
+		      		</strong>
+		      		
+		      		<s:property value="#i.deviceType"/>
+		      		:
+		      		<s:property value="#i.repairdetail"/>
+
+		      </span>
+		    </li>
+		  </ul>	
+	</div>
+</s:iterator>

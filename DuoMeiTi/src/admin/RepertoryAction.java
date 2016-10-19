@@ -103,7 +103,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		r.rtNumber = rtNumber;
 		r.rtVersion = rtVersion;
 		r.rtFactorynum = rtFactorynum;
-//		r.rtDevice = rtDevice;
+
 		
 		if(rtProdDate != null)
 		r.rtProdDate = new java.sql.Timestamp(rtProdDate.getTime());
