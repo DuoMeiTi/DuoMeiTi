@@ -18,6 +18,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 //import common.BuildingsInfo;
 import model.AdminProfile;
+import model.Classroom;
 import model.Repertory;
 import model.Rules;
 import model.StudentProfile;
@@ -65,7 +66,7 @@ public class StudentManageAction extends ActionSupport{
 	private String studentScoreJsp;
 	
 	private String isRepeat; //标记学号是否重复
-	private String isException;
+//	private String isException;
 	
 	
 	
@@ -273,35 +274,141 @@ public class StudentManageAction extends ActionSupport{
 	
 	
 	
+	private int delete_studentDatabaseId;
+	private String delete_status;
 	
 	public String delete() throws Exception
 	{
 		
 		System.out.println("studentInformationDelete():");
-		System.out.println(studentDatabaseId);
-		isException="0";
-		Session session = model.Util.sessionFactory.openSession();	
-		
-		StudentProfile edit_student = getStudentById(session, studentDatabaseId);
+		System.out.println(delete_studentDatabaseId);
+		Session session = model.Util.sessionFactory.openSession();		
 		
 		try{
-			
-			//查找student对应的user
-			User user = (User)session.createCriteria(User.class)
-					.add(Restrictions.eq("id",edit_student.user.id))
-					.uniqueResult();		
-			
-			//必须同时删除student和user
 			session.beginTransaction();
-			session.delete(edit_student);
-			session.delete(user);
-		    session.getTransaction().commit();;
+			StudentProfile edit_student = getStudentById(session, delete_studentDatabaseId);
+			
+			//删除学生的对应值班选择
+			for(DutySchedule ds : 
+					(List<DutySchedule>)
+					session.createCriteria(model.DutySchedule.class)
+						   .add(Restrictions.eq("student.id", delete_studentDatabaseId))
+						   .list())
+			{
+				util.Util.deleteDutySchedule(session, ds.id);
+			}
+			
+			// 删除学生的负责教室
+			for(Classroom classroom:
+					(List<Classroom>)
+					session.createCriteria(model.Classroom.class)
+						   .add(Restrictions.isNotNull("principal.id"))
+						   .list())
+			
+			{
+				classroom.setPrincipal(null);
+				session.update(classroom);
+			}
+						
+			// 删除学生的考试题目选项
+			for(model.ExamStuOption eso:
+					(List<model.ExamStuOption>)
+					session.createCriteria(model.ExamStuOption.class)
+						   .add(Restrictions.eq("stuPro.id", delete_studentDatabaseId))
+						   .list())
+			{
+				session.delete(eso);
+			}
+			
+			// 删除学生的考试得分记录
+			for(model.ExamStuScore ess:
+					(List<model.ExamStuScore>)
+					session.createCriteria(model.ExamStuScore.class)
+						   .add(Restrictions.eq("stuPro.id", delete_studentDatabaseId))
+						   .list())
+			{
+				session.delete(ess);
+			}
+			
+			// 删除学生的签到记录
+			for(model.CheckInRecord checkInRecord:
+					(List<model.CheckInRecord>)
+					session.createCriteria(model.CheckInRecord.class)
+						   .add(Restrictions.eq("student.id", delete_studentDatabaseId))
+						   .list())
+			{
+				session.delete(checkInRecord);
+			}
+			
+			// 删除学生的签到记录
+			for(model.CheckInRecord checkInRecord:
+					(List<model.CheckInRecord>)
+					session.createCriteria(model.CheckInRecord.class)
+						   .add(Restrictions.eq("student.id", delete_studentDatabaseId))
+						   .list())
+			{
+				session.delete(checkInRecord);
+			}
+
+			// 删除学生的紧急消息记录
+			for(model.EmergencyInfo ei:
+					(List<model.EmergencyInfo>)
+					session.createCriteria(model.EmergencyInfo.class)
+						   .add(Restrictions.eq("user.id", edit_student.user.id))
+						   .list())
+			{
+				session.delete(ei);
+			}
+			
+			// 删除学生的紧急消息记录的阅读记录
+			for(model.EmergencyInfoRead eir:
+					(List<model.EmergencyInfoRead>)
+					session.createCriteria(model.EmergencyInfoRead.class)
+						   .add(Restrictions.eq("user.id", edit_student.user.id))
+						   .list())
+			{
+				session.delete(eir);
+			}
+
+			
+			// 删除学生对应的周检查记录
+			for(model.CheckRecord cr:
+					(List<model.CheckRecord>)
+					session.createCriteria(model.CheckRecord.class)
+						   .add(Restrictions.eq("checkman.id", edit_student.user.id))
+						   .list())
+			{
+				session.delete(cr);
+			}
+			
+			// 删除学生对应的设备状态历史记录
+			for(model.DeviceStatusHistory dsh:
+					(List<model.DeviceStatusHistory>)
+					session.createCriteria(model.DeviceStatusHistory.class)
+						   .add(Restrictions.eq("user.id", edit_student.user.id))
+						   .list())
+			{
+				session.delete(dsh);
+			}
+
+			
+
+			// 删除学生信息
+			session.delete(edit_student);			
+			//删除student对应的user
+			session.delete(
+					session.createCriteria(User.class)
+						   .add(Restrictions.eq("id", edit_student.user.id))
+						   .uniqueResult());
+			
+			
+		    session.getTransaction().commit();
+		    delete_status = "删除成功";
 			 
 		}catch(Exception e){
 			e.printStackTrace();
             session.getTransaction().rollback();
-            System.out.println("删除失败");
-            isException="1";
+            delete_status = "删除失败";
 		}
 		finally{
 			session.close();
@@ -673,17 +780,6 @@ public class StudentManageAction extends ActionSupport{
 		this.studenttable_jsp = studenttable_jsp;
 	}
 
-
-	public String getIsException() {
-		return isException;
-	}
-
-
-	public void setIsException(String isException) {
-		this.isException = isException;
-	}
-
-
 	public String getIsRepeat() {
 		return isRepeat;
 	}
@@ -717,6 +813,19 @@ public class StudentManageAction extends ActionSupport{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public int getDelete_studentDatabaseId() {
+		return delete_studentDatabaseId;
+	}
+	public void setDelete_studentDatabaseId(int delete_studentDatabaseId) {
+		this.delete_studentDatabaseId = delete_studentDatabaseId;
+	}
+	public String getDelete_status() {
+		return delete_status;
+	}
+	public void setDelete_status(String delete_status) {
+		this.delete_status = delete_status;
+	}
+	
 	
 	
 

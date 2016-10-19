@@ -74,41 +74,27 @@ function searchCallback(data)
 //delete
 var delete_Id;
 $(document).on("click", ".delete", function() {
-	var temp = confirm("删除不可恢复！");
+	var temp = confirm("删除不可恢复，而且将会删除与此学生相关联的所有数据！");
 	
 	if (temp == true) 
 	{
 		delete_Id = $(this).parents("tr").attr("id");// attr所选元素属性值
-//		/*alert(delete_Id);*/
-//		if(delete_Id == "search_information"){
-//			alert(search_student);
-//			$.ajax({
-//				url : 'student_manage_delete',
-//				type : 'post',
-//				dataType : 'json',
-//				data : {"studentDatabaseId" : search_student,},// {"后台",""}
-//				success : deleteCallback
-//			});
-//		}
-//		else
-		{
-			$.ajax({
-				url : 'student_information_delete',
-				type : 'post',
-				dataType : 'json',
-				data : {"studentDatabaseId" : delete_Id,},// {"后台",""}
-				success : deleteCallback
-			});
-		}
+		
+		alert(delete_Id);
+		$.ajax({
+			url : 'student_information_delete',
+			type : 'post',
+			dataType : 'json',
+			data : {"delete_studentDatabaseId" : delete_Id,},// {"后台",""}
+			success : deleteCallback
+		});
+
 	}
 })
 
 function deleteCallback(data) {
-	if(data.isException=="1"){
-		alert("学生存在关联数据，无法删除！")
-	}else{
-		alert("删除成功！");
-	}
+	
+	alert(data.delete_status);
 	location.reload() 
 }
 
