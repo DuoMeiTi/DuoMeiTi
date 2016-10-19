@@ -75,15 +75,6 @@ public class StudentManageAction extends ActionSupport{
 	
 	
 	
-
-
-	
-	
-
-	
-	
-	
-	
 	//排除注册未通过学生,通过学号查询
 	public static List<StudentProfile> searchStudentByStudentNumber(Session s, String studentId)
 	{		
@@ -95,10 +86,7 @@ public class StudentManageAction extends ActionSupport{
 	}
 	//排除注册未通过学生
 	public static List<StudentProfile> searchStudentByFullname(Session s, String fullName)
-	{
-		
-//		StudentProfile sp;
-//		sp.user.fullName
+	{		
 		return s.createCriteria(StudentProfile.class)				
 					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
 					.createAlias("user", "user")
@@ -106,8 +94,6 @@ public class StudentManageAction extends ActionSupport{
 					.list();
 	}
 
-	
-	
 	public String watchScore() throws Exception
 	{
 		Session s = model.Util.sessionFactory.openSession();
@@ -126,9 +112,6 @@ public class StudentManageAction extends ActionSupport{
 	public String searchByFullNameOrStudentId() throws Exception {
 		Session s = model.Util.sessionFactory.openSession();
 		
-		
-		
-		
 		if(!studentId.isEmpty())
 		{
 			student_list = searchStudentByStudentNumber(s, studentId); 
@@ -139,8 +122,6 @@ public class StudentManageAction extends ActionSupport{
 		}
 		
 		s.close();
-		
-//		student_list = searchStudentByFullname(s, name_id);
 		return SUCCESS;
 	}
 	
