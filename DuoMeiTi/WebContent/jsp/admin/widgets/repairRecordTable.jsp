@@ -15,10 +15,10 @@
 	
 		<tr class="warning" repairRecordId="<s:property value="#i.id"/>">
 				
-			<td  > <s:property value="#i.device.rtType"/> </td>
-			<td  > <s:property value="#i.repairman.fullName"/> </td>
-			<td  > <s:property value="#i.classroom.teachbuilding.build_name"/> </td>
-			<td  > <s:property value="#i.classroom.classroom_num"/> </td>
+			<td  > <s:property value="#i.deviceType"/> </td>
+			<td  > <s:property value="#i.repairmanFullName"/> </td>
+			<td  > <s:property value="#i.teachingBuildingName"/> </td>
+			<td  > <s:property value="#i.classroomName"/> </td>
 			<td  > <s:property value="#i.repairdetail"/> </td>
 			<td  > <s:property value="@util.Util@formatTimestamp(#i.repairdate)"/> </td>
 

@@ -13,9 +13,8 @@
 	<tbody>
 		<s:iterator value="repairrecords" var="repairrecord" status="i">
 			<tr>
-				<td><s:property
-						value="#repairrecord.repairman.fullName" /></td>
-				<td><s:property value="#repairrecord.device.rtType" /></td>
+				<td><s:property value="#repairrecord.repairmanFullName" /> </td>
+				<td><s:property value="#repairrecord.deviceType" /></td>
 				<td><s:property value="#repairrecord.repairdetail" /></td>
 				<td><s:property value="@util.Util@formatTimestamp(#repairrecord.repairdate)" /></td>
 			</tr>

@@ -11,36 +11,21 @@ public class Repertory {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int rtId;
 	
-//	设备名称
+//	设备名称(设备类型)
 	@Column 
-	public String rtType;
-	
+	public String rtType;	
 	
 //	资产编号
 	@Column 
-	public String rtNumber;
-//	设备状态
-	@Column
-	public String rtDeviceStatus;
-//	仅仅当rtDeviceStatus == 教室时此值才有意义，否则为null	
-	@ManyToOne
-	@JoinColumn
-	public Classroom rtClassroom;
-
-	
+	public String rtNumber;	
 	
 //	型号
 	@Column 
 	public String rtVersion;
-	
+
 //	出厂编号
 	@Column 
 	public String rtFactorynum;
-	
-//	应该尽量弃用此字段
-	@Column
-	public String rtDevice;
-	
 	
 //	出厂日期
 	@Column
@@ -49,8 +34,28 @@ public class Repertory {
 //	审批日期
 	@Column
 	public java.sql.Timestamp rtApprDate;
+
 	
 	
+	
+////	应该尽量弃用此字段
+//	@Column
+//	public String rtDevice;
+	
+	
+	
+	
+	
+//	设备状态
+	@Column
+	public String rtDeviceStatus;
+	
+
+//	仅仅当rtDeviceStatus == 教室时此值才有意义，否则为null	
+	@ManyToOne
+	@JoinColumn
+	public Classroom rtClassroom;
+
 
 	
 //	过滤网更换时间长度, 只有投影仪设备拥有此属性
@@ -129,13 +134,13 @@ public class Repertory {
 		this.rtFactorynum = rtFactorynum;
 	}
 
-	public String getRtDevice() {
-		return rtDevice;
-	}
-
-	public void setRtDevice(String rtDevice) {
-		this.rtDevice = rtDevice;
-	}
+//	public String getRtDevice() {
+//		return rtDevice;
+//	}
+//
+//	public void setRtDevice(String rtDevice) {
+//		this.rtDevice = rtDevice;
+//	}
 
 	public java.sql.Timestamp getRtProdDate() {
 		return rtProdDate;

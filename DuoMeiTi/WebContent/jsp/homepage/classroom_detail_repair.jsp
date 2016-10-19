@@ -25,14 +25,13 @@
 
 
 		<s:iterator value="repairrecords" var="repairrecord" status="i">
-			<%-- <li id="device-<s:property value="#i.index"/>" /> --%>
 			
 
 			<tbody>
 				<tr class="success">
 					
-				<td width="20%"><s:property value="#repairrecord.repairman.fullName"/></td>
-				<td><s:property value="#repairrecord.device.rtType"/></td>
+				<td width="20%"><s:property value="#repairrecord.repairmanFullName"/></td>
+				<td><s:property value="#repairrecord.deviceType"/></td>
 				<td><s:property value="#repairrecord.repairdetail"/></td>
 				<td>
 					<s:property value="@util.Util@formatTimestamp(#repairrecord.repairdate)"/>

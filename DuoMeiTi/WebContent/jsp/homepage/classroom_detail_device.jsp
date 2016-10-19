@@ -3,10 +3,11 @@
 
 
 	<div class="container-fluid">
-
-		<br>
-		<a class="btn btn-primary btn-lg" href="<s:property value="class_schedule_path"/>">课表
+		
+		<a class="btn btn-primary btn-lg" href="<s:property value="class_schedule_path"/>">
+			课表
 		</a>
+
 		<table class=" table table-bordered table-striped ">
 			<thead>
 				<tr>
@@ -19,16 +20,7 @@
 				</tr>
 			</thead>
 
-
-			<s:iterator value="rtClass" var="device" status="i">
-<!-- 				<div style="margin-bottom: 5px"> -->
-
-<%-- 					<span style="visibility: hidden" class="device-id-span"><s:property --%>
-<%-- 							value="#device.rtId" /></span> <span style="visibility: hidden" --%>
-<%-- 						class="device-num-span"><s:property --%>
-<%-- 							value="#device.rtNumber" /></span> --%>
-<!-- 				</div> -->
-
+			<s:iterator value="classroom_device_list" var="device" status="i">
 
 				<tbody>
 					<tr class="success">
@@ -40,12 +32,9 @@
 						<td><s:property value="#device.rtDeadlineData" /></td>
 					</tr>
 				</tbody>
-
-
 			</s:iterator>
 		</table>
 
-		<br> <br> <br>
 
 
 	</div>

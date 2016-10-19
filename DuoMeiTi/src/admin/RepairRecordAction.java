@@ -52,7 +52,7 @@ public class RepairRecordAction extends ActionSupport {
 	
 	int selectDevice;
 	String inputRepairman;
-	int selectTeachBuilding;
+	String selectTeachingBuildingName;
 	String inputClassroom;
 	
 	
@@ -72,26 +72,25 @@ public class RepairRecordAction extends ActionSupport {
 		
 		System.out.println("FFFssss111");
 		if(selectDevice != -1)
-			c.createAlias("device", "device")			
-			.add(Restrictions.eq("device.rtType", util.Util.DeviceList.get(selectDevice)));
-		
-		if(!inputRepairman.equals(""))
 		{
-			c.createAlias("repairman", "repairman")
-			.add(Restrictions.eq("repairman.fullName", inputRepairman));
+			c.add(Restrictions.eq("deviceType", util.Util.DeviceList.get(selectDevice)));		
+//			c.createAlias("device", "device").add(Restrictions.eq("device.rtType", util.Util.DeviceList.get(selectDevice)));			
+		}
+			
+		
+		if(!inputRepairman.isEmpty())
+		{
+			c.add(Restrictions.eq("repairmanFullName", inputRepairman));
 		}
 		
-		if(selectTeachBuilding != -1)
+		if(!selectTeachingBuildingName.isEmpty())
 		{
-			c.createAlias("classroom", "classroom")
-			 .createAlias("classroom.teachbuilding", "teachbuilding")
-			.add(Restrictions.eq("teachbuilding.id", selectTeachBuilding));			 
+			c.add(Restrictions.eq("teachingBuildingName", selectTeachingBuildingName));
 		}
 		
-		if(!inputClassroom.equals(""))
+		if(!inputClassroom.isEmpty())
 		{
-			c.createAlias("classroom", "classroom")			 
-			 .add(Restrictions.eq("classroom.classroom_num", inputClassroom));		
+			c.add(Restrictions.eq("classroomName", inputClassroom));		
 		}
 		
 		System.out.println("SBSB&&&&&&");
@@ -160,28 +159,30 @@ public class RepairRecordAction extends ActionSupport {
 				HSSFRow row = sheet.createRow(i+1);
 				List<RepairRecord> RestrictionsList = repairRecordList;
 				RepairRecord r = RestrictionsList.get(i); 
+				
 				cell = row.createCell(0);
-				cell.setCellValue(r.getDevice().getRtType().toString());
+				cell.setCellValue(r.getDeviceType());
+				
 				cell = row.createCell(1);
-				cell.setCellValue(r.getRepairman().getFullName().toString());
+				cell.setCellValue(r.getRepairmanFullName());
+				
 				cell = row.createCell(2);
-				if(r.getClassroom() != null){
-					cell.setCellValue(r.getClassroom().getTeachbuilding().getBuild_name());
-				}
+				cell.setCellValue(r.getTeachingBuildingName());
+				
 				cell = row.createCell(3);
-				if(r.getClassroom() != null){
-					cell.setCellValue(r.getClassroom().getClassroom_num());
-				}
+				cell.setCellValue(r.getClassroomName());
+
 				cell = row.createCell(4);
 				cell.setCellValue(r.getRepairdetail());
-				cell = row.createCell(5);
 				
+				cell = row.createCell(5);				
 				cell.setCellValue(util.Util.formatTimestamp(r.repairdate));
 			}
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 		}
+		
 //		java.sql.Date now = new java.sql.Date(System.currentTimeMillis());
 //		String FileName = now.toString() + "设备维修记录.xls"; 
 //		exportPath = util.Util.RecordExportPath + FileName;
@@ -210,12 +211,23 @@ public class RepairRecordAction extends ActionSupport {
 	public void setInputRepairman(String inputRepairman) {
 		this.inputRepairman = inputRepairman;
 	}
-	public int getSelectTeachBuilding() {
-		return selectTeachBuilding;
+	
+public String getSelectTeachingBuildingName() {
+		return selectTeachingBuildingName;
 	}
-	public void setSelectTeachBuilding(int selectTeachBuilding) {
-		this.selectTeachBuilding = selectTeachBuilding;
+
+
+	public void setSelectTeachingBuildingName(String selectTeachingBuildingName) {
+		this.selectTeachingBuildingName = selectTeachingBuildingName;
 	}
+
+
+	//	public int getSelectTeachBuilding() {
+//		return selectTeachBuilding;
+//	}
+//	public void setSelectTeachBuilding(int selectTeachBuilding) {
+//		this.selectTeachBuilding = selectTeachBuilding;
+//	}
 	public String getInputClassroom() {
 		return inputClassroom;
 	}

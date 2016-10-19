@@ -103,7 +103,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
 		r.rtNumber = rtNumber;
 		r.rtVersion = rtVersion;
 		r.rtFactorynum = rtFactorynum;
-		r.rtDevice = rtDevice;
+//		r.rtDevice = rtDevice;
 		
 		if(rtProdDate != null)
 		r.rtProdDate = new java.sql.Timestamp(rtProdDate.getTime());
@@ -421,7 +421,7 @@ public class RepertoryAction extends util.FileUploadBaseAction{
         	System.out.println("GGGG======");
         	
         	r.rtType = getCellStringValue(row, 0);
-        	r.rtDevice = util.Util.judgeDeviceType(r.rtType);
+//        	r.rtDevice = util.Util.judgeDeviceType(r.rtType);
         	r.rtNumber = getCellStringValue(row, 1);
         	r.rtVersion = getCellStringValue(row, 2);
         	

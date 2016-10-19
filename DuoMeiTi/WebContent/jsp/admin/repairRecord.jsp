@@ -47,7 +47,7 @@
 		<div class="input-group">
 					
 			<span class="input-group-addon">教学楼</span>
-			<select class="form-control" id="selectTeachBuilding"   >
+			<select class="form-control" id="selectTeachingBuildingName"   >
 			
 				<option value=-1>	
 					所有教学楼
@@ -60,7 +60,7 @@
 				
 				<s:iterator var = "i" begin="0" end="#teachBuildingList.size() - 1" step="1">
 				
-					<option  value= '<s:property value = "#teachBuildingList.get(#i).build_id"/>' >					
+					<option  value= '<s:property value = "#teachBuildingList.get(#i).build_name"/>' >
 						<s:property value = "#teachBuildingList.get(#i).build_name"/>
 					</option> 
 				
@@ -130,21 +130,20 @@
 <script>
 
 	$(document).on("click", "#searchButton", function() {
-// 		alert($("#selectDevice").val());
-// 		alert($("#inputRepairman").val());
-// 		alert($("#selectTeachBuilding").val());
-// 		alert($("#inputClassroom").val());
-// 		alert($("#inputBeginDate").val());
-// 		alert($("#inputEndDate").val());
+
+// 		alert($("#selectTeachingBuildingName").val());
 		
-// 		return ;
+		var selectTeachingBuildingName = $("#selectTeachingBuildingName").val();
+		if (selectTeachingBuildingName == "-1") selectTeachingBuildingName =""; 
+		
+		
 		$.ajax({  
 	        url:'/admin/repairRecord_search' ,  
 	        type: "POST",  
 	        data: {
 	        	"selectDevice":$("#selectDevice").val(),
 	        	"inputRepairman":$("#inputRepairman").val(),
-	        	"selectTeachBuilding":$("#selectTeachBuilding").val(),
+	        	"selectTeachingBuildingName":selectTeachingBuildingName,
 	        	"inputClassroom":$("#inputClassroom").val(),
 	        	"inputBeginDate":$("#inputBeginDate").val(),
 	        	"inputEndDate":$("#inputEndDate").val(),

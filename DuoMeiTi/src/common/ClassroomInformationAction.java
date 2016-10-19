@@ -31,40 +31,25 @@ import util.FileUploadBaseAction;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-//import Repair.RepairDAO;
-//import RepairImpl.RepairDAOImpl;
-//import db.MyHibernateSessionFactory;
-
 public class ClassroomInformationAction extends FileUploadBaseAction{
-//	public String build_name;
+
 	public String remark;
-	
-//	public int picID;
-//	public static int classroomId;
-	
-	public int classroomId;
-	
-//	public TeachBuilding building;
+	public int classroomId;	
+
 	public Classroom classroom;
-//	public String schedulePath;
 	public List<CheckRecord> checkrecords;
 	public List<RepairRecord> repairrecords;
 	public List<Repertory> repertory_list;
-//	public List<RoomPicture>picture_list;
-//	public List classroom_repertory_list;
 	
 	public String repairrecord_jsp;
 	public String checkdetail;
 	public String checkrecord_jsp;
-//	public String classroomid;
-	
 	
 	public String savestatus;
 	public int deviceId;
 	public String rtID;
 	public String repairdetail;
 	public String move_device_id;
-//	public String move_class_id;
 	public String device_jsp;
 	public String alterdevice_jsp;
 
@@ -83,52 +68,52 @@ public class ClassroomInformationAction extends FileUploadBaseAction{
  * 
  */
 //	
-	public static Object[] obtainAllInfo(Session s, int classroomId)
+	public static Classroom obtainClassroom(Session s, int classroomId)
 	{
-		Object[] ans = new Object[4];
-		
-//		System.out.println("admin.classroomaction:");
-		Session session = model.Util.sessionFactory.openSession();
-		
+		return (Classroom)s.createCriteria(Classroom.class)
+				.add(Restrictions.eq("id", classroomId))
+				.uniqueResult();
+	}
+	public static Criteria obtainClassroomDeviceListCriteria(Session s, int classroomId)
+	{
+		return s.createCriteria(model.Repertory.class)
+				.add(Restrictions.eq("rtClassroom.id", classroomId));
+	}
+	
+	public static Criteria obtainCheckRecordListCriteria(Session s, int classroomId)
+	{
+		return s.createCriteria(model.CheckRecord.class)
+				.add(Restrictions.eq("classroom.id", classroomId))
+				.addOrder(Order.desc("id"));
+	}
+	public static Criteria obtainRepairRecordListCriteria(Session s, Classroom classroom)
+	{
+		return s.createCriteria(model.RepairRecord.class)
+		  .add(Restrictions.eq("teachingBuildingName", classroom.getTeachbuilding().getBuild_name()))
+		  .add(Restrictions.eq("classroomName", classroom.getClassroom_num()))
+		  .addOrder(Order.desc("id"));
+	}
+	
+	
+	public static Object[] obtainAllInfo(Session session, int classroomId)
+	{
+		Object[] ans = new Object[4];		
+
 		//query current select classroom
-		Criteria classroom_criteria = session.createCriteria(Classroom.class);
-		Criteria building_criteria = session.createCriteria(TeachBuilding.class);
-		classroom_criteria.add(Restrictions.eq("id", classroomId));
-		Classroom classroom = (Classroom) classroom_criteria.uniqueResult();
-//		building_criteria.add(Restrictions.eq("build_id", classroom.teachbuilding.build_id));
-//		building = (TeachBuilding) building_criteria.uniqueResult();
+		Classroom classroom = obtainClassroom(session, classroomId);
 		
-//		ActionContext.getContext().getSession().remove("classroom_id");
-//
-//		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
-
-		
-		
-		List rtClass = session.createCriteria(model.Repertory.class)
-						 .add(Restrictions.eq("rtClassroom.id", classroomId))
-						 .list();
+		//all devices in this classroom
+		List rtClass = obtainClassroomDeviceListCriteria(session, classroomId).list(); 
 
 
-
-		//query at most 5 checkrecord
-		Criteria checkrecord_criteria = session.
-				createCriteria(CheckRecord.class);		
-		checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
-		checkrecord_criteria.addOrder(Order.desc("id"));
-		checkrecord_criteria.setMaxResults(5);
-		List checkrecords = checkrecord_criteria.list();
-
-		
-		
+		//query at most 5 checkrecord		
+		List checkrecords = obtainCheckRecordListCriteria(session, classroomId).setMaxResults(5).list(); 
+//				checkrecord_criteria.list();
 
 		//query at most 5 repairrecords
-		List repairrecords= session.createCriteria(model.RepairRecord.class)
-							  .add(Restrictions.eq("classroom.id", classroomId))
-							  .addOrder(Order.desc("id"))
-							  .setMaxResults(5)
-							  .list();
+		List repairrecords = obtainRepairRecordListCriteria(session, classroom).setMaxResults(5).list(); 
 
-		session.close();
+
 		
 		
 		ans[0] = classroom;
@@ -316,18 +301,29 @@ public class ClassroomInformationAction extends FileUploadBaseAction{
 			
 			
 			RepairRecord repairrecord = new RepairRecord();
-			repairrecord.setDevice(device);
+			
+//			repairrecord.setDevice(device);
+			repairrecord.setDeviceType(device.getRtType());
+			repairrecord.setDeviceNumber(device.getRtNumber());
+			repairrecord.setDeviceVersion(device.getRtVersion());
+			repairrecord.setDeviceFactorynum(device.getRtFactorynum());
+			repairrecord.setDeviceProdDate(device.getRtProdDate());
+			repairrecord.setDeviceApprDate(device.getRtApprDate());
+			
+			
 			repairrecord.setRepairdate(new Timestamp(new java.util.Date().getTime()));
 			repairrecord.setRepairdetail(repairdetail);
-			repairrecord.setRepairman(repairman);
 			
-
-			Classroom cl = (Classroom) 
+			repairrecord.setRepairmanFullName(repairman.getFullName());
+			repairrecord.setRepairmanPhoneNumber(repairman.getPhoneNumber());
+			
+			Classroom classroom = (Classroom) 
 					session.createCriteria(model.Classroom.class)
-					.add(Restrictions.eq("id", classroomId)).uniqueResult();
-			
+					.add(Restrictions.eq("id", classroomId)).uniqueResult();			
 
-			repairrecord.setClassroom(cl);
+			repairrecord.setClassroomName(classroom.getClassroom_num());
+			repairrecord.setTeachingBuildingName(classroom.getTeachbuilding().getBuild_name());
+			
 			
 			
 			
@@ -345,7 +341,8 @@ public class ClassroomInformationAction extends FileUploadBaseAction{
 //					+ "where cm.id=" + classroomId + " order by rd.id desc")
 //						.setMaxResults(5).list();
 			repairrecords= session.createCriteria(model.RepairRecord.class)
-					  .add(Restrictions.eq("classroom.id", classroomId))
+					  .add(Restrictions.eq("teachingBuildingName", classroom.getTeachbuilding().getBuild_name()))
+					  .add(Restrictions.eq("classroomName", classroom.getClassroom_num()))
 					  .addOrder(Order.desc("id"))
 					  .setMaxResults(5)
 					  .list();

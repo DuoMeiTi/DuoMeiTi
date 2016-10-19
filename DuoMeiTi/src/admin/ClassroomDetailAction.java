@@ -30,19 +30,16 @@ import util.FileUploadBaseAction;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-//import Repair.RepairDAO;
-//import RepairImpl.RepairDAOImpl;
-//import db.MyHibernateSessionFactory;
 
 public class ClassroomDetailAction extends FileUploadBaseAction{
-//	public String build_name;
+
 	public String remark;
 	
 	public int picID;
-//	public static int classroomId;
+
 	public int classroomId;
 	
-//	public TeachBuilding building;
+
 	public Classroom classroom;
 	public String schedulePath;
 	public List<CheckRecord> checkrecords;
@@ -51,86 +48,23 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	public List<RoomPicture>picture_list;
 	public List classroom_repertory_list;
 	
-//	public String repairrecord_jsp;
-//	public String checkdetail;
-//	public String checkrecord_jsp;
-//	public String classroomid;
-//	public String savestatus;
-//	public int deviceId;
-//	public String rtID;
-//	public String repairdetail;
-//	public String move_device_id;
-//	public String move_class_id;
-//	public String device_jsp;
-//	public String alterdevice_jsp;
+
 
 	
 	public List<Repertory> rtClass;
 	
 	public String execute() {
-		
-		
 		System.out.println("admin detail Action:");
 		Session session = model.Util.sessionFactory.openSession();
 		Object[] ans = common.ClassroomInformationAction.obtainAllInfo(session, classroomId);
-		
 		
 		classroom = (Classroom)ans[0];
 		rtClass = (List)ans[1];
 		checkrecords = (List)ans[2];
 		repairrecords = (List)ans[3];
 
-//		
-//		//query current select classroom
-//		Criteria classroom_criteria = session.createCriteria(Classroom.class);
-//		Criteria building_criteria = session.createCriteria(TeachBuilding.class);
-//		classroom_criteria.add(Restrictions.eq("id", classroomId));
-//		classroom = (Classroom) classroom_criteria.uniqueResult();
-//		building_criteria.add(Restrictions.eq("build_id", classroom.teachbuilding.build_id));
-////		building = (TeachBuilding) building_criteria.uniqueResult();
-//		
-//		ActionContext.getContext().getSession().remove("classroom_id");
-//
-//		ActionContext.getContext().getSession().put("classroom_id", classroom.id);
-//
-//		
-//		
-//		rtClass = session.createCriteria(model.Repertory.class)
-//						 .add(Restrictions.eq("rtClassroom.id", classroomId))
-//						 .list();
-//
-//
-//
-//		//query at most 5 checkrecord
-//		Criteria checkrecord_criteria = session.
-//				createCriteria(CheckRecord.class);		
-//		checkrecord_criteria.add(Restrictions.eq("classroom.id", classroomId));
-//		checkrecord_criteria.addOrder(Order.desc("id"));
-//		checkrecord_criteria.setMaxResults(5);
-//		checkrecords = checkrecord_criteria.list();
-//
-//		
-//		
-//
-//		//query at most 5 repairrecords
-//		repairrecords= session.createCriteria(model.RepairRecord.class)
-//							  .add(Restrictions.eq("classroom.id", classroomId))
-//							  .addOrder(Order.desc("id"))
-//							  .setMaxResults(5)
-//							  .list();
-//
-//		
-//		classroom_repertory_list = session.createCriteria(model.Repertory.class)
-//				.add(Restrictions.eq("rtClassroom.id", classroomId))
-//				.list();
-//		
-//
-//		
 		session.close();
 		ClassroomPicture();
-		
-		
-		
 		return ActionSupport.SUCCESS;
 	}
 	
@@ -139,11 +73,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	
 	
 	public void ClassroomPicture(){
-		
-//		System.out.println("ClassroomPicture");
-//		System.out.println(classroomId);
-		
-		
+
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c1 = session.createCriteria(RoomPicture.class).add(Restrictions.eq("class_id",classroomId)); //hibernate session创建查询
 		picture_list = c1.list();
@@ -152,11 +82,7 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 		List<Classroom> class_list = q.list();
 		Collections.reverse(class_list);
 		schedulePath = class_list.get(0).getClass_schedule_path();
-		session.close();
-		
-		
-//		System.out.println(picture_list);
-//		System.out.println(schedulePath);
+		session.close();		
 	}
 	
 	public String PictureUpload() {
