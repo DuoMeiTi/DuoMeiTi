@@ -214,23 +214,28 @@ public class DutyManageAction extends ActionSupport {
 		int id = deleteDutySchedule_id;
 		System.out.println(id);
 		
+		
+		
+		
 		Session session = model.Util.sessionFactory.openSession();
 		
-		session.beginTransaction();
-		DutySchedule ds = (DutySchedule)session
-						.createCriteria(model.DutySchedule.class)
-						.add(Restrictions.eq("id", id))
-						.uniqueResult();
-		
-		if(ds != null)
-		{
-			DutyPiece dp = ds.dutyPiece;
-			session.delete(ds);		
-			dp.dutyLeft++;
-			session.update(dp);
-			
-		}
-		session.getTransaction().commit();
+		util.Util.deleteDutySchedule(session, id);
+//		
+//		session.beginTransaction();
+//		DutySchedule ds = (DutySchedule)session
+//						.createCriteria(model.DutySchedule.class)
+//						.add(Restrictions.eq("id", id))
+//						.uniqueResult();
+//		
+//		if(ds != null)
+//		{
+//			DutyPiece dp = ds.dutyPiece;
+//			session.delete(ds);		
+//			dp.dutyLeft++;
+//			session.update(dp);
+//			
+//		}
+//		session.getTransaction().commit();
 		
 		
 		session.close();

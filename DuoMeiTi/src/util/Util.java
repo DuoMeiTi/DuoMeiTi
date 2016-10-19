@@ -22,6 +22,8 @@ import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import model.DutyPiece;
+import model.DutySchedule;
 import model.Repertory;
 import model.User;
 
@@ -501,6 +503,29 @@ public class Util
 		
 		return  res;
 	}
+	
+	
+	
+	//删除一个dutySchedule，保证dutySchedule和duty剩余量的一致性！
+	// 在调用此函数时应该其放在一个transaction中
+	public static void deleteDutySchedule(org.hibernate.Session session, int dutyScheduleId) throws Exception{		
+//		session.beginTransaction();
+		DutySchedule ds = (DutySchedule)session
+						.createCriteria(model.DutySchedule.class)
+						.add(Restrictions.eq("id", dutyScheduleId))
+						.uniqueResult();
+		
+		if(ds != null)
+		{
+			DutyPiece dp = ds.dutyPiece;
+			session.delete(ds);		
+			dp.dutyLeft++;
+			session.update(dp);
+			
+		}
+//		session.getTransaction().commit();
+	}
+
 	
 	
 	

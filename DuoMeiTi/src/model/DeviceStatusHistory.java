@@ -5,29 +5,6 @@ import javax.persistence.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-//@Entity
-//public class Classroom {
-//	
-//	@Id
-//	@GeneratedValue(strategy=GenerationType.AUTO)
-//	public int id;
-//	
-//	@ManyToOne
-//	@JoinColumn
-//	public TeachBuilding teachbuilding;
-//	
-//	@Column(length = 50)
-//	public String classroom_num;
-//	
-//	@ManyToOne
-//	@JoinColumn
-//	public StudentProfile principal;
-//	@Column(length = 100)
-//	public String class_schedule_path;
-//
-//	
-//	
-//}
 
 @Entity
 public class DeviceStatusHistory {
