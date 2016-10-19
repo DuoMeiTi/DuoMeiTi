@@ -13,17 +13,30 @@ public class CheckRecord {
 		
 	@ManyToOne
 	@JoinColumn
-	@Fetch(FetchMode.SELECT)
+	@Deprecated
 	public Classroom classroom;
+//	@Column public String classroomName;	
+//	@Column public String teachingBuildingName;
 	
 	@ManyToOne
 	@JoinColumn
-	@Fetch(FetchMode.SELECT)
+	@Deprecated
 	public User checkman;
+//	@Column public String checkmanFullName;
+//	@Column public String checkmanPhoneNumber;
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/*
-	 * 如果checkdetail == hasProblem，表示此CheckRecord 无问题
+	 * 如果checkdetail == NoProblem，表示此CheckRecord 无问题
 	 * 否则，有问题
 	 */
 	public static final String NoProblem = "无问题";
@@ -96,6 +109,39 @@ public class CheckRecord {
 	public void setCheckdate(java.sql.Timestamp checkdate) {
 		this.checkdate = checkdate;
 	}
+
+//	public String getClassroomName() {
+//		return classroomName;
+//	}
+//
+//	public void setClassroomName(String classroomName) {
+//		this.classroomName = classroomName;
+//	}
+//
+//	public String getTeachingBuildingName() {
+//		return teachingBuildingName;
+//	}
+//
+//	public void setTeachingBuildingName(String teachingBuildingName) {
+//		this.teachingBuildingName = teachingBuildingName;
+//	}
+//
+//	public String getCheckmanFullName() {
+//		return checkmanFullName;
+//	}
+//
+//	public void setCheckmanFullName(String checkmanFullName) {
+//		this.checkmanFullName = checkmanFullName;
+//	}
+//
+//	public String getCheckmanPhoneNumber() {
+//		return checkmanPhoneNumber;
+//	}
+//
+//	public void setCheckmanPhoneNumber(String checkmanPhoneNumber) {
+//		this.checkmanPhoneNumber = checkmanPhoneNumber;
+//	}
+	
 
 
 	

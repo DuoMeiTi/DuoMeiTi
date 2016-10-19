@@ -88,10 +88,6 @@ public class HomeAction extends PageGetBaseAction
 			session.getTransaction().commit();
 		}
 		
-		
-		
-		
-		
 		session.close();
 		
 	}

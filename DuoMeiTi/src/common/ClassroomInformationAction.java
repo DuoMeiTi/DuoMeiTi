@@ -31,6 +31,41 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ClassroomInformationAction extends FileUploadBaseAction {
+	
+	
+	static
+	{
+//		Session session = model.Util.sessionFactory.openSession();
+//
+//		List<CheckRecord> checkRecordList = session.createCriteria(model.CheckRecord.class).list();
+//		
+//		for(CheckRecord cr : checkRecordList)
+//		{
+//			if(cr.getCheckman() != null)
+//			{
+//				cr.setCheckmanFullName(cr.getCheckman().getFullName());
+//				cr.setCheckmanPhoneNumber(cr.getCheckman().getPhoneNumber());
+//				
+//				cr.setCheckman(null);
+//			}
+//			
+//			if(cr.getClassroom() != null)
+//			{
+//				
+//			}
+//		}
+//			   
+//		
+//		
+//		
+//		session.close();
+	}
+	
+	
+	
+	
+	
+	
 
 	public String remark;
 	public int classroomId;
