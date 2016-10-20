@@ -34,16 +34,14 @@ import model.DutySchedule;
 import model.User;
 //import common.StudentInfo;
 
-public class StudentManageAction extends ActionSupport{
-	
+public class StudentManageAction extends ActionSupport {
+
 	private String collegeSelect[];
 	private static String sexSelect[];
 
-	
-	private String username;	
+	private String username;
 	public String password;
-	
-	
+
 	private String idCard;
 	private String sex;
 	private int studentDatabaseId; // 学生ID
@@ -55,206 +53,179 @@ public class StudentManageAction extends ActionSupport{
 	private String college;
 	private int isUpgradePrivilege;
 
-	
 	private String name_id;
 	private String search_select;
 
-	private  List<StudentProfile> student_list;
+	private List<StudentProfile> student_list;
 	private String studenttable_jsp;
-	
+
 	List<model.ExamStuScore> studentScoreList;
 	private String studentScoreJsp;
-	
-	private String isRepeat; //标记学号是否重复
-//	private String isException;
-	
-	
-	
-	private String ruleText;//规章制度的内容,jsp页面传过来的内容
-	private String textShow;//规章制度的内容，显示给jsp页面的内容
-	private Date time;//规章制度的修改时间
-	
-	
-	
-	//排除注册未通过学生,通过学号查询
-	public static List<StudentProfile> searchStudentByStudentNumber(Session s, String studentId)
-	{		
-		return s.createCriteria(StudentProfile.class)				
-					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
-					
-					.add(Restrictions.eq("studentId", studentId))
-					.list();
-	}
-	//排除注册未通过学生
-	public static List<StudentProfile> searchStudentByFullname(Session s, String fullName)
-	{		
-		return s.createCriteria(StudentProfile.class)				
-					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
-					.createAlias("user", "user")
-					.add(Restrictions.eq("user.fullName", fullName))
-					.list();
+
+	private String isRepeat; // 标记学号是否重复
+	// private String isException;
+
+	private String ruleText;// 规章制度的内容,jsp页面传过来的内容
+	private String textShow;// 规章制度的内容，显示给jsp页面的内容
+	private Date time;// 规章制度的修改时间
+
+	// 排除注册未通过学生,通过学号查询
+	public static List<StudentProfile> searchStudentByStudentNumber(Session s, String studentId) {
+		return s.createCriteria(StudentProfile.class).add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
+
+		.add(Restrictions.eq("studentId", studentId)).list();
 	}
 
-	public String watchScore() throws Exception
-	{
+	// 排除注册未通过学生
+	public static List<StudentProfile> searchStudentByFullname(Session s, String fullName) {
+		return s.createCriteria(StudentProfile.class).add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
+				.createAlias("user", "user").add(Restrictions.eq("user.fullName", fullName)).list();
+	}
+
+	public String watchScore() throws Exception {
 		Session s = model.Util.sessionFactory.openSession();
-		
-		 studentScoreList =
-				s.createCriteria(model.ExamStuScore.class)
-				.add(Restrictions.eq("stuPro.id", this.studentDatabaseId))
-				.list();		
-		 studentScoreJsp = util.Util.getJspOutput("/jsp/admin/student_manage/studentScoreTable.jsp");		 
-		 s.close();
-		
+
+		studentScoreList = s.createCriteria(model.ExamStuScore.class)
+				.add(Restrictions.eq("stuPro.id", this.studentDatabaseId)).list();
+		studentScoreJsp = util.Util.getJspOutput("/jsp/admin/student_manage/studentScoreTable.jsp");
+		s.close();
+
 		return SUCCESS;
 	}
-	
-	
+
 	public String searchByFullNameOrStudentId() throws Exception {
 		Session s = model.Util.sessionFactory.openSession();
-		
-		if(!studentId.isEmpty())
-		{
-			student_list = searchStudentByStudentNumber(s, studentId); 
+
+		if (!studentId.isEmpty()) {
+			student_list = searchStudentByStudentNumber(s, studentId);
+		} else {
+			student_list = searchStudentByFullname(s, fullName);
 		}
-		else 
-		{
-			student_list = searchStudentByFullname(s, fullName); 
-		}
-		
+
 		s.close();
 		return SUCCESS;
 	}
-	
-	public String search() throws Exception
-	{
+
+	public String search() throws Exception {
 		System.out.println("searchStudentInformation():");
 		Session s = model.Util.sessionFactory.openSession();
 
-		try{
-			
-			
-			if(search_select.equals("2"))
-			{
-				//按学号查找
+		try {
+
+			if (search_select.equals("2")) {
+				// 按学号查找
 				student_list = searchStudentByStudentNumber(s, name_id);
-	
-			}
-			else
-			{//按姓名查找
+
+			} else {// 按姓名查找
 				student_list = searchStudentByFullname(s, name_id);
 			}
-			
+
 			Collections.reverse(student_list);
 			studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
-			
-			
+
 			s.close();
 
-		}catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		return SUCCESS;
 	}
-	
-	
 
-
-	public static StudentProfile getStudentById(Session s, int id)
-	{
-		return (StudentProfile)
-				s.createCriteria(model.StudentProfile.class)
-				.add(Restrictions.eq("id", id))
+	public static StudentProfile getStudentById(Session s, int id) {
+		return (StudentProfile) s.createCriteria(model.StudentProfile.class).add(Restrictions.eq("id", id))
 				.uniqueResult();
 	}
-	
-	public String save() throws Exception
-	{
-		
-		
-	try{
-		
-		
-		System.out.println("saveStudentInformation():");		
 
-
+	public String save() throws Exception {
 		Session session = model.Util.sessionFactory.openSession();
-		StudentProfile edit_student = getStudentById(session, studentDatabaseId);
-		
-		System.out.println(edit_student == null);
-		isRepeat="0";
-		if(!studentId.equals(edit_student.studentId))
-		{
-			System.out.println("修改学号");
-			if(homepage.StudentAction.isRepeat(studentId)){
-				System.out.println("chongfu");
-				isRepeat="1";
+		try {
+
+			System.out.println("saveStudentInformation():");
+
+			
+			StudentProfile edit_student = getStudentById(session, studentDatabaseId);
+
+			System.out.println(edit_student == null);
+
+			if (studentId.isEmpty()) {
+				isRepeat = "修改失败，学号为空！";
+				session.close();
 				return SUCCESS;
 			}
-		}
-		
-		
-		//更新学生数据,hql只更新部分字段		
-		session.beginTransaction();
-		String hql = "update StudentProfile t set t.studentId = '"+studentId
-				+ "', t.college = '"+college
-				+ "', t.isUpgradePrivilege = '"+isUpgradePrivilege
-				+ "', t.bankCard = '"+bankCard
-				+ "', t.idCard = '"+idCard
-				+ "' where id = "+edit_student.getId();
-		System.out.println("hql:"+hql);
-		Query query = session.createQuery(hql);
-		query.executeUpdate(); 
-		
-		
-		String hql2 = "update User t set t.fullName = '"+fullName
-				+ "', t.sex = '"+sex
-				+ "', t.phoneNumber = '"+phoneNumber
-				+ "' where id = "+edit_student.getUser().getId();
-		System.out.println("hql:"+hql2);
-		Query query2 = session.createQuery(hql2);
-		query2.executeUpdate(); 
-		
-		Transaction t = session.getTransaction();
-		t.commit();
-		session.close();
-		
-		
-		
-		}catch(Exception e){
+			if (!studentId.equals(edit_student.studentId)) {
+				// System.out.println("修改学号");
+				if (homepage.StudentAction.isRepeat(session, studentId)) {
+					// System.out.println("chongfu");
+					isRepeat = "修改失败，学号已存在！";
+					session.close();
+					return SUCCESS;
+				}
+			}
+
+			session.beginTransaction();
+			User edit_user = edit_student.getUser();
+			edit_user.setFullName(fullName);
+			edit_user.setPhoneNumber(phoneNumber);
+			edit_user.setSex(sex);
+			
+			edit_student.setStudentId(studentId);
+			edit_student.setCollege(college);
+			edit_student.setIsUpgradePrivilege(isUpgradePrivilege);
+			edit_student.setBankCard(bankCard);
+			edit_student.setIdCard(idCard);
+
+			session.update(edit_user);
+			session.update(edit_student);
+			
+			session.getTransaction().commit();
+//			// 更新学生数据,hql只更新部分字段
+//			session.beginTransaction();
+//			String hql = "update StudentProfile t set t.studentId = '" + studentId + "', t.college = '" + college
+//					+ "', t.isUpgradePrivilege = '" + isUpgradePrivilege + "', t.bankCard = '" + bankCard
+//					+ "', t.idCard = '" + idCard + "' where id = " + edit_student.getId();
+//			System.out.println("hql:" + hql);
+//			Query query = session.createQuery(hql);
+//			query.executeUpdate();
+//
+//			String hql2 = "update User t set t.fullName = '" + fullName + "', t.sex = '" + sex + "', t.phoneNumber = '"
+//					+ phoneNumber + "' where id = " + edit_student.getUser().getId();
+//			System.out.println("hql:" + hql2);
+//			Query query2 = session.createQuery(hql2);
+//			query2.executeUpdate();
+//
+//			Transaction t = session.getTransaction();
+//			t.commit();
+			
+
+		} catch (Exception e) {
+			session.getTransaction().rollback();
 			e.printStackTrace();
 		}
+		
+		session.close();
+		isRepeat = "修改成功";
 		return SUCCESS;
 	}
-	
-	
-	
-	public String obtain() throws Exception
-	{
-		
+
+	public String obtain() throws Exception {
+
 		System.out.println("getStudentInformation():");
-		System.out.println("edit_student_id:"+studentDatabaseId);
-		
-		
-		Session session=model.Util.sessionFactory.openSession();
+		System.out.println("edit_student_id:" + studentDatabaseId);
+
+		Session session = model.Util.sessionFactory.openSession();
 		String hql = "SELECT rt FROM StudentProfile rt WHERE rt.id = " + studentDatabaseId;
 		System.out.println(hql);
 		Query query = session.createQuery(hql);
 		student_list = query.list();
-		StudentProfile edit_student=student_list.get(0);
-		
-		
-		
+		StudentProfile edit_student = student_list.get(0);
+
 		String hql2 = "SELECT rt FROM User rt WHERE rt.id = " + edit_student.getUser().getId();
 		Query query2 = session.createQuery(hql2);
 		System.out.println(hql2);
 
 		session.close();
-		
-		
+
 		fullName = edit_student.user.fullName;
 		sex = edit_student.user.sex;
 		phoneNumber = edit_student.user.getPhoneNumber();
@@ -265,283 +236,214 @@ public class StudentManageAction extends ActionSupport{
 		idCard = edit_student.getIdCard();
 		username = edit_student.user.username;
 		password = edit_student.user.password;
-		
+
 		return SUCCESS;
 	}
-	
-	
-	
-	
-	
-	
+
 	private int delete_studentDatabaseId;
 	private String delete_status;
-	
-	public String delete() throws Exception
-	{
-		
+
+	public String delete() throws Exception {
+
 		System.out.println("studentInformationDelete():");
 		System.out.println(delete_studentDatabaseId);
-		Session session = model.Util.sessionFactory.openSession();		
-		
-		try{
+		Session session = model.Util.sessionFactory.openSession();
+
+		try {
 			session.beginTransaction();
 			StudentProfile edit_student = getStudentById(session, delete_studentDatabaseId);
-			
-			//删除学生的对应值班选择
-			for(DutySchedule ds : 
-					(List<DutySchedule>)
-					session.createCriteria(model.DutySchedule.class)
-						   .add(Restrictions.eq("student.id", delete_studentDatabaseId))
-						   .list())
-			{
+
+			// 删除学生的对应值班选择
+			for (DutySchedule ds : (List<DutySchedule>) session.createCriteria(model.DutySchedule.class)
+					.add(Restrictions.eq("student.id", delete_studentDatabaseId)).list()) {
 				util.Util.deleteDutySchedule(session, ds.id);
 			}
-			
+
 			// 删除学生的负责教室
-			for(Classroom classroom:
-					(List<Classroom>)
-					session.createCriteria(model.Classroom.class)
-						   .add(Restrictions.isNotNull("principal.id"))
-						   .list())
-			
+			for (Classroom classroom : (List<Classroom>) session.createCriteria(model.Classroom.class)
+					.add(Restrictions.isNotNull("principal.id")).list())
+
 			{
 				classroom.setPrincipal(null);
 				session.update(classroom);
 			}
-						
+
 			// 删除学生的考试题目选项
-			for(model.ExamStuOption eso:
-					(List<model.ExamStuOption>)
-					session.createCriteria(model.ExamStuOption.class)
-						   .add(Restrictions.eq("stuPro.id", delete_studentDatabaseId))
-						   .list())
-			{
+			for (model.ExamStuOption eso : (List<model.ExamStuOption>) session.createCriteria(model.ExamStuOption.class)
+					.add(Restrictions.eq("stuPro.id", delete_studentDatabaseId)).list()) {
 				session.delete(eso);
 			}
-			
+
 			// 删除学生的考试得分记录
-			for(model.ExamStuScore ess:
-					(List<model.ExamStuScore>)
-					session.createCriteria(model.ExamStuScore.class)
-						   .add(Restrictions.eq("stuPro.id", delete_studentDatabaseId))
-						   .list())
-			{
+			for (model.ExamStuScore ess : (List<model.ExamStuScore>) session.createCriteria(model.ExamStuScore.class)
+					.add(Restrictions.eq("stuPro.id", delete_studentDatabaseId)).list()) {
 				session.delete(ess);
 			}
-			
+
 			// 删除学生的签到记录
-			for(model.CheckInRecord checkInRecord:
-					(List<model.CheckInRecord>)
-					session.createCriteria(model.CheckInRecord.class)
-						   .add(Restrictions.eq("student.id", delete_studentDatabaseId))
-						   .list())
-			{
+			for (model.CheckInRecord checkInRecord : (List<model.CheckInRecord>) session
+					.createCriteria(model.CheckInRecord.class)
+					.add(Restrictions.eq("student.id", delete_studentDatabaseId)).list()) {
 				session.delete(checkInRecord);
 			}
-			
+
 			// 删除学生的签到记录
-			for(model.CheckInRecord checkInRecord:
-					(List<model.CheckInRecord>)
-					session.createCriteria(model.CheckInRecord.class)
-						   .add(Restrictions.eq("student.id", delete_studentDatabaseId))
-						   .list())
-			{
+			for (model.CheckInRecord checkInRecord : (List<model.CheckInRecord>) session
+					.createCriteria(model.CheckInRecord.class)
+					.add(Restrictions.eq("student.id", delete_studentDatabaseId)).list()) {
 				session.delete(checkInRecord);
 			}
 
 			// 删除学生的紧急消息记录
-			for(model.EmergencyInfo ei:
-					(List<model.EmergencyInfo>)
-					session.createCriteria(model.EmergencyInfo.class)
-						   .add(Restrictions.eq("user.id", edit_student.user.id))
-						   .list())
-			{
+			for (model.EmergencyInfo ei : (List<model.EmergencyInfo>) session.createCriteria(model.EmergencyInfo.class)
+					.add(Restrictions.eq("user.id", edit_student.user.id)).list()) {
 				session.delete(ei);
 			}
-			
+
 			// 删除学生的紧急消息记录的阅读记录
-			for(model.EmergencyInfoRead eir:
-					(List<model.EmergencyInfoRead>)
-					session.createCriteria(model.EmergencyInfoRead.class)
-						   .add(Restrictions.eq("user.id", edit_student.user.id))
-						   .list())
-			{
+			for (model.EmergencyInfoRead eir : (List<model.EmergencyInfoRead>) session
+					.createCriteria(model.EmergencyInfoRead.class).add(Restrictions.eq("user.id", edit_student.user.id))
+					.list()) {
 				session.delete(eir);
 			}
 
-			
 			// 删除学生对应的周检查记录
-			for(model.CheckRecord cr:
-					(List<model.CheckRecord>)
-					session.createCriteria(model.CheckRecord.class)
-						   .add(Restrictions.eq("checkman.id", edit_student.user.id))
-						   .list())
-			{
+			for (model.CheckRecord cr : (List<model.CheckRecord>) session.createCriteria(model.CheckRecord.class)
+					.add(Restrictions.eq("checkman.id", edit_student.user.id)).list()) {
 				session.delete(cr);
 			}
-			
+
 			// 删除学生对应的设备状态历史记录
-			for(model.DeviceStatusHistory dsh:
-					(List<model.DeviceStatusHistory>)
-					session.createCriteria(model.DeviceStatusHistory.class)
-						   .add(Restrictions.eq("user.id", edit_student.user.id))
-						   .list())
-			{
+			for (model.DeviceStatusHistory dsh : (List<model.DeviceStatusHistory>) session
+					.createCriteria(model.DeviceStatusHistory.class)
+					.add(Restrictions.eq("user.id", edit_student.user.id)).list()) {
 				session.delete(dsh);
 			}
 
-			
-
 			// 删除学生信息
-			session.delete(edit_student);			
-			//删除student对应的user
+			session.delete(edit_student);
+			// 删除student对应的user
 			session.delete(
-					session.createCriteria(User.class)
-						   .add(Restrictions.eq("id", edit_student.user.id))
-						   .uniqueResult());
-			
-			
-		    session.getTransaction().commit();
-		    delete_status = "删除成功";
-			 
-		}catch(Exception e){
+					session.createCriteria(User.class).add(Restrictions.eq("id", edit_student.user.id)).uniqueResult());
+
+			session.getTransaction().commit();
+			delete_status = "删除成功";
+
+		} catch (Exception e) {
 			e.printStackTrace();
-            session.getTransaction().rollback();
-            delete_status = "删除失败";
-		}
-		finally{
+			session.getTransaction().rollback();
+			delete_status = "删除失败";
+		} finally {
 			session.close();
 		}
-		
-		
+
 		return SUCCESS;
 	}
 
-//所有在职学生（包括有管理员权限的）
+	// 所有在职学生（包括有管理员权限的）
 
-	public String obtainWorkingStudent() throws Exception{
-		
-		try
-		{
-			
-		Session session = model.Util.sessionFactory.openSession();
-		
-		Criteria q = session.createCriteria(model.StudentProfile.class)
-				.add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
-				.addOrder(Order.desc("id"))
-				
-//				.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent))
-				
-				.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)))
-				
-				;
-		
-		
-		student_list = q.list();
-		studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
+	public String obtainWorkingStudent() throws Exception {
 
-		session.close();
-		
-		}
-		catch(Exception e)
-		{
+		try {
+
+			Session session = model.Util.sessionFactory.openSession();
+
+			Criteria q = session.createCriteria(model.StudentProfile.class)
+					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed)).addOrder(Order.desc("id"))
+
+			// .add(Restrictions.eq("isUpgradePrivilege",
+			// model.StudentProfile.DepartureStudent))
+
+			.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)))
+
+			;
+
+			student_list = q.list();
+			studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
+
+			session.close();
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return ActionSupport.SUCCESS;
 
 	}
-//获取离职学生！
-	public String obtainDepartureStudent() throws Exception
-	{
-		
-		try
-		{
-			
-		Session session = model.Util.sessionFactory.openSession();
-		
-		Criteria q = session.createCriteria(model.StudentProfile.class)
-				.add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
-				.addOrder(Order.desc("id"))
-				
-//				.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent))
-				
-				.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent))
-				
-				;
-		
-		
-		student_list = q.list();
-		studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
 
-		session.close();
-		
-		}
-		catch(Exception e)
-		{
+	// 获取离职学生！
+	public String obtainDepartureStudent() throws Exception {
+
+		try {
+
+			Session session = model.Util.sessionFactory.openSession();
+
+			Criteria q = session.createCriteria(model.StudentProfile.class)
+					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed)).addOrder(Order.desc("id"))
+
+			// .add(Restrictions.eq("isUpgradePrivilege",
+			// model.StudentProfile.DepartureStudent))
+
+			.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent))
+
+			;
+
+			student_list = q.list();
+			studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
+
+			session.close();
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return ActionSupport.SUCCESS;
 	}
-	
+
 	// 页面显示
-	public String studentInformation() throws Exception{
-		
+	public String studentInformation() throws Exception {
 
 		collegeSelect = Const.collegeSelect;
 		sexSelect = Const.sexSelect;
-		
+
 		Session session = model.Util.sessionFactory.openSession();
-		
+
 		Criteria q = session.createCriteria(model.StudentProfile.class)
-				.add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
-				.addOrder(Order.desc("id"))
-//				.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent))
-				
-				.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)))
-				
-				;
-		
-		
+				.add(Restrictions.eq("isPassed", model.StudentProfile.Passed)).addOrder(Order.desc("id"))
+				// .add(Restrictions.eq("isUpgradePrivilege",
+				// model.StudentProfile.DepartureStudent))
+
+		.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)))
+
+		;
+
 		student_list = q.list();
 
 		session.close();
-		
+
 		return ActionSupport.SUCCESS;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//编辑规章制度
-	public String editRules() throws Exception{
+
+	// 编辑规章制度
+	public String editRules() throws Exception {
 		System.out.println("StudentManageAction.editRules()");
-		
+
 		Session session = model.Util.sessionFactory.openSession();
-		//将前台传过来的文字 更新到数据库
+		// 将前台传过来的文字 更新到数据库
 		Criteria q = session.createCriteria(Rules.class);
 		Rules rules = new Rules();
-		
-		if (q.list().size() == 0 ) {//如果现在表是空的，就插入到数据库中
+
+		if (q.list().size() == 0) {// 如果现在表是空的，就插入到数据库中
 			rules.setText(ruleText);
 			rules.setTime(new Date(new java.util.Date().getTime()));
 			session.beginTransaction();
 			session.save(rules);
 			session.getTransaction().commit();
 			session.close();
-			
-		}
-		else {//如果不是空的，就更新数据库
-			q.add(Restrictions.eq("id",1));//默认就一条数据，所以id设为1
-			rules = (Rules)q.uniqueResult();
+
+		} else {// 如果不是空的，就更新数据库
+			q.add(Restrictions.eq("id", 1));// 默认就一条数据，所以id设为1
+			rules = (Rules) q.uniqueResult();
 			rules.setText(ruleText);
 			rules.setTime(new Date(new java.util.Date().getTime()));
 			session.beginTransaction();
@@ -550,41 +452,33 @@ public class StudentManageAction extends ActionSupport{
 			session.close();
 		}
 
-		
 		return ActionSupport.SUCCESS;
 	}
-	//显示规章制度
-	public String showRules() throws Exception{
+
+	// 显示规章制度
+	public String showRules() throws Exception {
 		System.out.println("StudentManageAction.showRules()");
-		
+
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(Rules.class);
 		Rules temp;
 		if (q.list().size() > 0) {
-			temp = (Rules)q.list().get(0);//
+			temp = (Rules) q.list().get(0);//
 			textShow = temp.getText();
-		}
-		else {
-			textShow =" ";
+		} else {
+			textShow = " ";
 		}
 		session.close();
 		return SUCCESS;
 	}
-	
-	
-	
-	
-	
+
 	public String getName_id() {
 		return name_id;
 	}
 
-
-
 	public String getSearch_select() {
 		return search_select;
 	}
-
 
 	public void setSearch_select(String search_select) {
 		this.search_select = search_select;
@@ -598,8 +492,6 @@ public class StudentManageAction extends ActionSupport{
 		return isUpgradePrivilege;
 	}
 
-
-
 	public void setIsUpgradePrivilege(int isUpgradePrivilege) {
 		this.isUpgradePrivilege = isUpgradePrivilege;
 	}
@@ -608,173 +500,125 @@ public class StudentManageAction extends ActionSupport{
 		return collegeSelect;
 	}
 
-
-
 	public void setCollegeSelect(String[] collegeSelect) {
 		this.collegeSelect = collegeSelect;
 	}
-
-
 
 	public String[] getSexSelect() {
 		return sexSelect;
 	}
 
-
-
 	public void setSexSelect(String[] sexSelect) {
 		this.sexSelect = sexSelect;
 	}
-
-
 
 	public String getUsername() {
 		return username;
 	}
 
-
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-
 
 	public String getIdCard() {
 		return idCard;
 	}
 
-
-
 	public void setIdCard(String idCard) {
 		this.idCard = idCard;
 	}
-
-
 
 	public String getSex() {
 		return sex;
 	}
 
-
-
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+
 	public String getStudentId() {
 		return studentId;
 	}
-
-
 
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
 
-
-
 	public String getBankCard() {
 		return bankCard;
 	}
-
-
 
 	public void setBankCard(String bankCard) {
 		this.bankCard = bankCard;
 	}
 
-
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-
-
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
-
-
 	public java.sql.Date getEntryTime() {
 		return entryTime;
 	}
-
-
 
 	public void setEntryTime(java.sql.Date entryTime) {
 		this.entryTime = entryTime;
 	}
 
-
-
 	public String getFullName() {
 		return fullName;
 	}
-
-
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
 
-
-
 	public String getCollege() {
 		return college;
 	}
 
-
-
 	public void setCollege(String college) {
 		this.college = college;
 	}
+
 	public List<StudentProfile> getStudent_list() {
 		return student_list;
 	}
 
-
-
 	public void setStudent_list(List<StudentProfile> student_list) {
 		this.student_list = student_list;
 	}
+
 	public String getRuleText() {
 		return ruleText;
 	}
-
 
 	public void setRuleText(String ruleText) {
 		this.ruleText = ruleText;
 	}
 
-
 	public Date getTime() {
 		return time;
 	}
-
 
 	public void setTime(Date time) {
 		this.time = time;
 	}
 
-
 	public String getTextShow() {
 		return textShow;
 	}
-
 
 	public void setTextShow(String textShow) {
 		this.textShow = textShow;
 	}
 
-
-
-
 	public String getStudenttable_jsp() {
 		return studenttable_jsp;
 	}
-
 
 	public void setStudenttable_jsp(String studenttable_jsp) {
 		this.studenttable_jsp = studenttable_jsp;
@@ -784,10 +628,10 @@ public class StudentManageAction extends ActionSupport{
 		return isRepeat;
 	}
 
-
 	public void setIsRepeat(String isRepeat) {
 		this.isRepeat = isRepeat;
 	}
+
 	public int getStudentDatabaseId() {
 		return studentDatabaseId;
 	}
@@ -795,41 +639,45 @@ public class StudentManageAction extends ActionSupport{
 	public void setStudentDatabaseId(int studentDatabaseId) {
 		this.studentDatabaseId = studentDatabaseId;
 	}
+
 	public List<model.ExamStuScore> getStudentScoreList() {
 		return studentScoreList;
 	}
+
 	public void setStudentScoreList(List<model.ExamStuScore> studentScoreList) {
 		this.studentScoreList = studentScoreList;
 	}
+
 	public String getStudentScoreJsp() {
 		return studentScoreJsp;
 	}
+
 	public void setStudentScoreJsp(String studentScoreJsp) {
 		this.studentScoreJsp = studentScoreJsp;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public int getDelete_studentDatabaseId() {
 		return delete_studentDatabaseId;
 	}
+
 	public void setDelete_studentDatabaseId(int delete_studentDatabaseId) {
 		this.delete_studentDatabaseId = delete_studentDatabaseId;
 	}
+
 	public String getDelete_status() {
 		return delete_status;
 	}
+
 	public void setDelete_status(String delete_status) {
 		this.delete_status = delete_status;
 	}
-	
-	
-	
 
-
-
-	
 }
