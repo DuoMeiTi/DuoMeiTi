@@ -281,7 +281,7 @@ $(document).on("click",".addBtn",function() {
 	
 	
 	$("#selectAddStudentType").val("studentFullName");
-	$("#studentFullNameOrIdListString").val("");
+	$("#studentFullNameOrStudentIdListString").val("");
 	$("#myModal").modal();
 });
 
