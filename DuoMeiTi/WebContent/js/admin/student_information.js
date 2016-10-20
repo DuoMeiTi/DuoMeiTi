@@ -80,7 +80,7 @@ $(document).on("click", ".delete", function() {
 	{
 		delete_Id = $(this).parents("tr").attr("id");// attr所选元素属性值
 		
-		alert(delete_Id);
+//		alert(delete_Id);
 		$.ajax({
 			url : 'student_information_delete',
 			type : 'post',
