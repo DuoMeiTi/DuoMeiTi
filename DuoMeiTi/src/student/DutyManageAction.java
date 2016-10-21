@@ -75,6 +75,8 @@ public class DutyManageAction {
 		return dcs.isOpen;
 		
 	}
+	
+	/** TODO: make it better！ */
 	public String deleteSchedule() throws Exception {
 		
 		Session session = model.Util.sessionFactory.openSession();
@@ -120,9 +122,13 @@ public class DutyManageAction {
 	}
 
 	
+	
+	
+	
 	int addSchedule_dutyPieceId;
 	int addSchedule_studentId;
 	int addSchedule_dutyLeft;
+	/** TODO: make it better！ */
 	public String addSchedule() throws Exception {
 		
 		Session session = model.Util.sessionFactory.openSession();
