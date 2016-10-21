@@ -184,14 +184,30 @@
 	<package name="batchImport" namespace="/admin/batchImport" extends="AdminDefault">
 		
 		<action name="">
-			<result name="success" type="redirect">class_schedule_import</result>
+			<result name="success" type="redirect">classScheduleImport</result>
 		</action>
 		
-		<action name="class_schedule_import" class="admin.BatchImportAction" method="upload">
+<!-- 		<action name="class_schedule_import" class="admin.BatchImportAction" method="upload"> -->
+<!-- 			<result> -->
+<!-- 				/jsp/admin/class_schedule_import.jsp -->
+<!-- 			</result> -->
+<!-- 		</action> -->
+
+
+<!-- 课表批量导入 -->
+		<action name="classScheduleImport" class="admin.batchimport.ClassScheduleAction" >
 			<result>
 				/jsp/admin/class_schedule_import.jsp
 			</result>
 		</action>
+		<action name="classScheduleImport_*" class="admin.batchimport.ClassScheduleAction" method="{1}">
+			<result name="success" type="json"></result>
+		</action>
+<!-- 课表批量导入 END-->		
+		
+		
+
+
 		
 		<action name="classroom_import" class="admin.BatchImportAction" method="classroom">
 			<result>

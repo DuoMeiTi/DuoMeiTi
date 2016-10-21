@@ -10,7 +10,7 @@
     		<div class="row nomargin">
         
         		<div class="col-lg-4 nopadding">
-           			<a href="/admin/batchImport/class_schedule_import" class="navbar-button navbar-button-left">课表导入</a> 
+           			<a href="/admin/batchImport/classScheduleImport" class="navbar-button navbar-button-left">课表导入</a> 
         		</div>
         
        			<div class="col-lg-4 nopadding" >

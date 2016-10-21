@@ -4,23 +4,19 @@
 <layout:override name="mycontent">
 <div class="mycontent">
 
-
-
-
-
-
 <form method="post" action="" enctype="multipart/form-data">
 		
-		
-		
-		
 		<div class="alert alert-danger" role="alert" style="margin-top:20px;">
-			<p>课表名称的格式为：教学楼名称-教室号 </p>
-			<p>课表上传后将会自动覆盖已有的课表</p>
-			
+			<p>选择一个教学楼之后才能上传课表，课表名称中应该包含所对应的教室号的子串</p>
+			<p>课表上传后将会自动覆盖已有的课表</p>			
 		</div>	
+<!-- 		<br/> -->
+		<div id="alert" class="alert alert-success" role="alert" style="display:none;">...</div>		
+		
 		<br/>
-		<div id="alert" class="alert alert-success" role="alert" style="display:none;">...</div>
+		<output id="list"></output>
+		<br/>
+		
 		<span class="btn btn-success btn-lg btn-file">
 		    浏览文件 <input  type="file" id="file_upload" multiple>
 		</span>
@@ -30,63 +26,123 @@
 		&nbsp;
 		&nbsp;
 		<button class="btn btn-primary btn-lg" type="button" id="button" > 上传</button>
+		<br/>
+			<br/>
+				
+		<select class="form-control" id="selectTeachBuilding" style="width:300px;"  >			
+			<option value=-1> 所有教学楼 </option>
+						
+			<s:set name="teachBuildingList" value="@util.Util@getAllTeachBuildingList()" > 
+			</s:set>
+			
+			<s:iterator var = "i" begin="0" end="#teachBuildingList.size() - 1" step="1">	
+				<option  value= '<s:property value = "#teachBuildingList.get(#i).build_id"/>'
+					<s:if test="execute_SelectTeachBuilding == #teachBuildingList.get(#i).build_id">
+							selected="selected"
+					</s:if> >					
+					
+					<s:property value = "#teachBuildingList.get(#i).build_name"/>
+				</option>
+			</s:iterator>
+		</select>
 		
 		<br/>
-		<output id="list"></output>
-		<br/>
-		<br/>
 		
+		<div class="row">
+			
+			<div class="col-lg-12" id="classrooms">
+					<table class="table table-bordered table-striped" id="classroom_table" >
+						<s:iterator begin="0" end="executeClassroomList.size()-1" var="i" step="6">
+							<tr>
+								<s:iterator  var="j" begin="0" end="@@min(executeClassroomList.size()-#i-1,5)" step="1">
+									<td  >
+<!-- 										<span> -->
+											<a href='<s:property value="executeClassroomList.get(#i+#j).class_schedule_path" />'
+											   class="btn btn-info"
+												>
+												<s:property value="executeClassroomList.get(#i+#j).classroom_num"/>
+											</a>
+<!-- 										</span> -->
+										<span class="label label-success" 
+											  classroomNumber='<s:property value="executeClassroomList.get(#i+#j).classroom_num"/>'
+											  style="display: none;"
+											  >
+											上传成功
+										</span>										
+									</td>
+								</s:iterator>
+							</tr>
+						</s:iterator>
+					</table>
+
+			</div>
+			
+			
+		</div>
 		
 		
 </form>	
 	
-<script>
+<script>	
+
+	$(document).on("change", "#selectTeachBuilding", function(){
+		selectTeachBuilding = $("#selectTeachBuilding").val();
+		
+		window.location.href = "classScheduleImport?execute_SelectTeachBuilding=" + selectTeachBuilding;
+		
+		
+		
+	})
 
 	
-// 	var file_list = document.getElementById('file_upload').files;
+
+
+
+
+
 	var file_list;
+	var cntFileNumber;
+	var uploadSuccessNumber = 0;
+
 	$(document).on("change", "#file_upload", function(){
-	
-// 		alert("DOUBI");
 		file_list = document.getElementById('file_upload').files;
 		var output = [];
 	    for (var i = 0, f; i < file_list.length; i++) 
 	    {
-// 	    	alert("YYY");
 	    	f = file_list[i];
 	      	output.push('<li><strong>', f.name, '</strong> (', f.type || 'n/a', ') - ',
 	                  f.size, ' bytes');
 	    }
 	    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-
 		
 	})
 
 	
-	
-	var file_list;
-	var cntFileNumber;
-	
 	$(document).on("click", "#button", function(){
-// 		alert("enter");
-		file_list = document.getElementById('file_upload').files;		
-		if(file_list.length == 0) 
+		file_list = document.getElementById('file_upload').files;
+		
+		selectTeachBuilding = $("#selectTeachBuilding").val();
+		if(selectTeachBuilding == -1)
 		{
-			$("#alert").hide();
-			$("#alert").html("您还没有选中文件啊");
-			$("#alert").show(500);
+			alert("您还没有选中教学楼，不能上传");
 			return ;
 		}
 		
+		$("[classroomNumber]").hide();		
 		cntFileNumber = 0;
+		
+		uploadSuccessNumber = 0;
 		sendFile();
 	});
 	
-	function sendFile() {		
-		var fd = new FormData();		
+	function sendFile() {
+		var fd = new FormData();
 		fd.append("file", file_list[cntFileNumber]);
+		
+		selectTeachBuilding = $("#selectTeachBuilding").val();
+		fd.append("upload_SelectTeachBuilding", selectTeachBuilding);
 	    $.ajax({  
-	          url: "batchImport_upload" ,  
+	          url: "classScheduleImport_upload" ,  
 	          type: "POST",  
 	          data: fd,  
 	          async: true,  
@@ -99,27 +155,20 @@
 	
 	function sendFileCallback(data)
 	{
+		var classroomNumber = data.upload_classroomNumber;
+		var status = data.upload_status;
+		var cmd = status.charAt(0);
+		var classroomNumberSpan = "[classroomNumber='"+classroomNumber + "']";
+		
+		$(classroomNumberSpan).show();		
+		if(cmd == 0) uploadSuccessNumber ++;
 		cntFileNumber ++;
-// 		alert(data.status);
-// 		alert(data.message);
-		if(data.status == "1") {
-			
-			$("#alert").html("成功上传前" +(cntFileNumber-1) +"个文件， "+"第" + cntFileNumber + "个文件上传失败:" + data.message);
-			$("#alert").show();
-			return ;
-		}
-		
-
-		$("#alert").html("已经成功上传了" + cntFileNumber + "个文件");
-		$("#alert").show();
 		if(cntFileNumber >= file_list.length)
-		{
+		{		
+			alert("成功上传了 " + uploadSuccessNumber + "张课程表")
 			return ;
 		}
-		
 		sendFile();
-		
-		
 	}
 	
 	
