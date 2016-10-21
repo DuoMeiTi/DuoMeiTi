@@ -40,28 +40,6 @@ public class ClassScheduleAction extends FileUploadBaseAction {
 		return res.toString().trim();
 	}
 	
-	// 返回值表示是否存储成功
-	public static boolean saveClassroomScheduleFile(Session session, Classroom classroom, File scheduleFile, String scheduleFileName)
-	{
-		if(classroom.getClass_schedule_path() != null)
-		{
-			File old_class_schedule = new File(util.Util.RootPath + classroom.getClass_schedule_path());
-	    	if(!old_class_schedule.delete()) // 删除旧课表
-	    	{
-	    	}
-		}
-		
-    	util.Util.saveFile(scheduleFile, scheduleFileName, util.Util.RootPath + util.Util.ClassroomSchedulePath);
-    	String inserted_file_path = util.Util.ClassroomSchedulePath + scheduleFileName;
-    	classroom.class_schedule_path = inserted_file_path;
-    	
-        session.beginTransaction();
-        session.update(classroom);
-        session.getTransaction().commit();    
-
-        return true;
-	}
-	
 	
 	public int execute_SelectTeachBuilding = -1;
 	public List<Classroom> executeClassroomList;
@@ -105,15 +83,15 @@ public class ClassScheduleAction extends FileUploadBaseAction {
 			System.out.println(fileFileName_noBracket  + "---" + classroomNum_noBracket);
 			if(fileFileName_noBracket.contains(classroomNum_noBracket))
 			{
-				String ClassroomScheduleFileName = classroom.teachbuilding.build_name + "-" + classroom.classroom_num;
+//				String ClassroomScheduleFileName = classroom.teachbuilding.build_name + "-" + classroom.classroom_num;
+//				
+//				int lastDotIndex = fileFileName.lastIndexOf(".");
+//				if(lastDotIndex != -1)
+//				{
+//					ClassroomScheduleFileName += fileFileName.substring(lastDotIndex);
+//				}			
 				
-				int lastDotIndex = fileFileName.lastIndexOf(".");
-				if(lastDotIndex != -1)
-				{
-					ClassroomScheduleFileName += fileFileName.substring(lastDotIndex);
-				}			
-				
-				saveClassroomScheduleFile(s, classroom, file, ClassroomScheduleFileName);
+				util.Util.saveClassroomScheduleFile(s, classroom, file, fileFileName);
 				upload_classroomNumber = classroom.getClassroom_num();
 				upload_status = "0";
 				s.close();

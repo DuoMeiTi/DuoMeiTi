@@ -22,6 +22,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import model.Classroom;
 import model.DutyPiece;
 import model.DutySchedule;
 import model.Repertory;
@@ -526,7 +527,40 @@ public class Util
 //		session.getTransaction().commit();
 	}
 
+	// 返回值表示是否存储成功
+	public static boolean saveClassroomScheduleFile(org.hibernate.Session session, 
+			Classroom classroom, File scheduleFile, String scheduleFileName)
+	{
+		if(classroom.getClass_schedule_path() != null)
+		{
+			File old_class_schedule = new File(util.Util.RootPath + classroom.getClass_schedule_path());
+	    	if(!old_class_schedule.delete()) // 删除旧课表
+	    	{
+	    		
+	    	}
+		}
+		
+		
+		String newScheduleFileName = classroom.teachbuilding.build_name + "-" + classroom.classroom_num;
+		
+		int lastDotIndex = scheduleFileName.lastIndexOf(".");
+		if(lastDotIndex != -1)
+		{
+			newScheduleFileName += scheduleFileName.substring(lastDotIndex);
+		}
+		
+    	util.Util.saveFile(scheduleFile, newScheduleFileName, util.Util.RootPath + util.Util.ClassroomSchedulePath);
+    	String inserted_file_path = util.Util.ClassroomSchedulePath + newScheduleFileName;
+    	classroom.class_schedule_path = inserted_file_path;
+    	
+        session.beginTransaction();
+        session.update(classroom);
+        session.getTransaction().commit();
+
+        return true;
+	}
 	
+
 	
 	
 	

@@ -145,41 +145,51 @@ public class ClassroomDetailAction extends FileUploadBaseAction{
 	
 	public String ScheduleUpload(){
 		System.out.println("ScheduleUpload:");
-		System.out.println("calssid" + classroomId);
-		System.out.println("fileFileName" + fileFileName);
+		System.out.println("classroomId:" + classroomId);
+		System.out.println("fileFileName:" + fileFileName);
 		
-		Session session = model.Util.sessionFactory.openSession();		
-		Criteria q = session.createCriteria(Classroom.class).add(Restrictions.eq("id",classroomId)); //hibernate session创建查询
-		List<Classroom> class_list = q.list();
-		Collections.reverse(class_list);
-		Classroom nClass = class_list.get(0);
-
-		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
-        {
-			File old_class_schedule = new File(util.Util.RootPath + nClass.getClass_schedule_path());
-	    	if(!old_class_schedule.delete()) // 删除旧课表
-	    	{
-//	    		this.status = "1";
-//				this.message = "系统出现致命错误！！！！！！";
-	    		System.out.println("系统出现致命错误！！！！！！");
-//				return SUCCESS;
-	    	}
-	    	System.out.println("**"+nClass.getClassroom_num()+"**");
-			String newFileName = nClass.getTeachbuilding().getBuild_name() + "-" + nClass.getClassroom_num() 
-								 + fileFileName.substring(fileFileName.lastIndexOf("."));
-			
-			util.Util.saveFile(file, newFileName,  util.Util.RootPath + util.Util.ClassroomSchedulePath);
-			String inserted_file_path = util.Util.ClassroomSchedulePath +newFileName;
-			nClass.setClass_schedule_path(inserted_file_path);
-			System.out.println("inserted_file_path" + inserted_file_path);
-        }
-	
-		session.beginTransaction();
-		session.update(nClass);
-		Transaction t = session.getTransaction();
-		t.commit();
+		Session session = model.Util.sessionFactory.openSession();
+		
+		Classroom classroom = (Classroom)session
+						.createCriteria(Classroom.class)
+						.add(Restrictions.eq("id",classroomId) )
+						.uniqueResult();
+		
+		
+		util.Util.saveClassroomScheduleFile(session, classroom, file, fileFileName);
 		session.close();
 		return ActionSupport.SUCCESS;
+		
+//		Criteria q = session.createCriteria(Classroom.class).add(Restrictions.eq("id",classroomId)); //hibernate session创建查询
+//		List<Classroom> class_list = q.list();
+//		Collections.reverse(class_list);
+//		Classroom nClass = class_list.get(0);
+//
+//		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
+//        {
+//			File old_class_schedule = new File(util.Util.RootPath + nClass.getClass_schedule_path());
+//	    	if(!old_class_schedule.delete()) // 删除旧课表
+//	    	{
+////	    		this.status = "1";
+////				this.message = "系统出现致命错误！！！！！！";
+//	    		System.out.println("系统出现致命错误！！！！！！");
+////				return SUCCESS;
+//	    	}
+//	    	System.out.println("**"+nClass.getClassroom_num()+"**");
+//			String newFileName = nClass.getTeachbuilding().getBuild_name() + "-" + nClass.getClassroom_num() 
+//								 + fileFileName.substring(fileFileName.lastIndexOf("."));
+//			
+//			util.Util.saveFile(file, newFileName,  util.Util.RootPath + util.Util.ClassroomSchedulePath);
+//			String inserted_file_path = util.Util.ClassroomSchedulePath +newFileName;
+//			nClass.setClass_schedule_path(inserted_file_path);
+//			System.out.println("inserted_file_path" + inserted_file_path);
+//        }
+//	
+//		session.beginTransaction();
+//		session.update(nClass);
+//		Transaction t = session.getTransaction();
+//		t.commit();
+		
 	}
 
 
