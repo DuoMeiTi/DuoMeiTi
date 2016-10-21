@@ -20,7 +20,7 @@ public class Classroom {
 	@Fetch(FetchMode.SELECT)
 	public TeachBuilding teachbuilding;
 	
-	@Column(length = 50)
+	@Column
 	public String classroom_num;
 	
 	@ManyToOne
@@ -28,7 +28,7 @@ public class Classroom {
 	@Fetch(FetchMode.SELECT)
 	public StudentProfile principal;
 	
-	@Column(length = 100)
+	@Column
 	public String class_schedule_path;
 	
 	
