@@ -5,19 +5,19 @@
 <div class="mycontent">
 
 <form method="post" action="" enctype="multipart/form-data">
-		
-		<div class="alert alert-danger" role="alert" style="margin-top:20px;">
-			<p>选择一个教学楼之后才能上传课表，课表名称中应该包含所对应的教室号的子串</p>
-			<p>课表上传后将会自动覆盖已有的课表</p>			
+		<br/>
+		<div class="alert alert-danger" role="alert"  >
+			<p>选择一个教学楼之后才能上传课表，课表名称中应该包含所对应的教室号的子串; 课表上传后将会自动覆盖已有的课表</p>			
 			<p>有按钮的教室表示此教室含有课程表，点击可以下载其课程表； 否则表示此教室不含有课程表</p>
 		</div>	
-<!-- 		<br/> -->
-<!-- 		<div id="alert" class="alert alert-success" role="alert" style="display:none;">...</div>		 -->
-		
-<!-- 		<br/> -->
+
 		<output id="list"></output>
-<!-- 		<br/> -->
+
 		
+		<div id="uploadedFileNumber" class="alert alert-success" role="alert"
+			style="display:none;"
+		 >
+		</div>
 		<span class="btn btn-success btn-lg btn-file">
 		    浏览文件 <input  type="file" id="file_upload" multiple>
 		</span>
@@ -30,22 +30,38 @@
 		<br/>
 			<br/>
 				
-		<select class="form-control" id="selectTeachBuilding" style="width:300px;"  >			
-			<option value=-1> 所有教学楼 </option>
+				
+	 <div class="row">
+	 	<div class="col-md-4">
+			<select
+				 class="form-control" 
+				id="selectTeachBuilding"    >			
+				<option value=-1> 所有教学楼 </option>
+							
+				<s:set name="teachBuildingList" value="@util.Util@getAllTeachBuildingList()" > 
+				</s:set>
+				
+				<s:iterator var = "i" begin="0" end="#teachBuildingList.size() - 1" step="1">	
+					<option  value= '<s:property value = "#teachBuildingList.get(#i).build_id"/>'
+						<s:if test="execute_SelectTeachBuilding == #teachBuildingList.get(#i).build_id">
+								selected="selected"
+						</s:if> >					
 						
-			<s:set name="teachBuildingList" value="@util.Util@getAllTeachBuildingList()" > 
-			</s:set>
-			
-			<s:iterator var = "i" begin="0" end="#teachBuildingList.size() - 1" step="1">	
-				<option  value= '<s:property value = "#teachBuildingList.get(#i).build_id"/>'
-					<s:if test="execute_SelectTeachBuilding == #teachBuildingList.get(#i).build_id">
-							selected="selected"
-					</s:if> >					
-					
-					<s:property value = "#teachBuildingList.get(#i).build_name"/>
-				</option>
-			</s:iterator>
-		</select>
+						<s:property value = "#teachBuildingList.get(#i).build_name"/>
+					</option>
+				</s:iterator>
+			</select>
+		</div>
+		<div class="col-md-4">
+			<p style="vertical-align:middle;">
+				本教学楼一共有<s:property value="executeClassroomList.size()"/>个教室 
+			</p>
+		</div>
+	 </div>
+		
+		
+		
+		
 		
 		<br/>
 		
@@ -122,6 +138,13 @@
 	                  f.size, ' bytes');
 	    }
 	    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+	    
+	    
+	    $("#uploadedFileNumber").hide();
+	    $("#uploadedFileNumber").html("选中了" + file_list.length + "个课程表");
+	    
+	    $("#uploadedFileNumber").show(500);
+	    
 		
 	})
 
