@@ -602,6 +602,17 @@ public class Util
 				.add(Restrictions.eq("id", id))
 				.uniqueResult();
 	}
+	
+	/** 获取教室，根据教室所在的教学楼ID和其教室号 */
+	public static Classroom getClassroom(org.hibernate.Session s, int teachBuildingId, String classroomNum) {
+		return (Classroom) 
+				
+				s.createCriteria(Classroom.class)
+				.add(Restrictions.eq("teachbuilding.build_id", teachBuildingId))
+				.add(Restrictions.eq("classroom_num", classroomNum))
+				.uniqueResult();
+	}
+
 
 	
 	

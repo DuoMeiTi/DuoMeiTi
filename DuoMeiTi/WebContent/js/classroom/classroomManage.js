@@ -206,6 +206,19 @@ $(document).on("click", "#addClassroom", function (){
 
 
 function addClassroomCallback(data) {
+	
+	var status = data.addClassroom_status;
+	
+	if(status != "")
+	{
+		alert(status);
+	}
+	else 
+	{
+		window.location.reload(); 
+	}
+	
+	
 //	if(data.status == "exist") {
 //		$("#exist").text("教室号已存在");
 //	}
@@ -223,7 +236,7 @@ function addClassroomCallback(data) {
 //	{
 //		alert("发生严重错误，不知名原因");
 //	}
-	window.location.reload(); 
+	
 	
 }
 

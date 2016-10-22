@@ -38,8 +38,7 @@
 				id="selectTeachBuilding"    >			
 				<option value=-1> 所有教学楼 </option>
 							
-				<s:set name="teachBuildingList" value="@util.Util@getAllTeachBuildingList()" > 
-				</s:set>
+				<s:set name="teachBuildingList" value="@util.Util@getAllTeachBuildingList()" >  </s:set>
 				
 				<s:iterator var = "i" begin="0" end="#teachBuildingList.size() - 1" step="1">	
 					<option  value= '<s:property value = "#teachBuildingList.get(#i).build_id"/>'
@@ -52,11 +51,15 @@
 				</s:iterator>
 			</select>
 		</div>
-		<div class="col-md-4">
-			<p style="vertical-align:middle;">
-				本教学楼一共有<s:property value="executeClassroomList.size()"/>个教室 
-			</p>
-		</div>
+		
+		<s:if test="execute_SelectTeachBuilding != -1">
+			<div class="col-md-4">
+<!-- 				<p > -->
+					本教学楼一共有<s:property value="executeClassroomList.size()"/>个教室 
+<!-- 				</p> -->
+			</div>
+		</s:if>
+		
 	 </div>
 		
 		
@@ -158,6 +161,13 @@
 			alert("您还没有选中教学楼，不能上传");
 			return ;
 		}
+		
+		if(file_list == null || file_list.length == 0)
+		{
+			alert("您还没有选择课程表文件，不能上传");
+			return ;
+		}
+		
 		
 		$("[classroomNumber]").hide();		
 		cntFileNumber = 0;

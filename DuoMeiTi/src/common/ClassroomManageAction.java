@@ -199,42 +199,44 @@ public class ClassroomManageAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	
+	// 若非空表示有错误信息
+	String addClassroom_status="";
+	
 	public String addClassroom() throws Exception {
-		System.out.println("addClassroom:");
+		
 		add_classroom_num = add_classroom_num.trim();
 		
-		Session session = model.Util.sessionFactory.openSession();
+		if(add_classroom_num.isEmpty())
+		{
+			addClassroom_status = "新的教室号为空,操作不成功";
+			return SUCCESS;
+		}
 		
-		
-//		Criteria classroom_criteria = session.createCriteria(Classroom.class);
-////		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
-//		classroom_criteria.add(Restrictions.eq("classroom_num", add_classroom_num));		
-//		classroom_list = classroom_criteria.list();
-		
-		
-//		util.Util.obtainClassroomListCriteria(session, build_id)
-//					.add(Restrictions.eq("classroom_num", add_classroom_num)).uniqueResult()
-		
+		Session session = model.Util.sessionFactory.openSession();		
 		StudentProfile principalStudent = util.Util.getStudentByStudentId(session, studentNumber);
 		if(submit_type.equals("add"))
 		{
-			for(String addedClassroomNum : add_classroom_num.split(" "))
+			for(String splitedAddedClassroomNum : add_classroom_num.split(" "))
 			{
-				addedClassroomNum = addedClassroomNum.trim();
-				if(addedClassroomNum.isEmpty()) continue;
+				splitedAddedClassroomNum = splitedAddedClassroomNum.trim();
+				if(splitedAddedClassroomNum.isEmpty()) continue;
 				
-				Classroom classroom = (Classroom)util.Util.obtainClassroomListCriteria(session, build_id)
-						 			.add(Restrictions.eq("classroom_num", addedClassroomNum)).uniqueResult();
+//				Classroom classroom = (Classroom)util.Util.obtainClassroomListCriteria(session, build_id)
+//						 			.add(Restrictions.eq("classroom_num", splitedAddedClassroomNum)).uniqueResult();
+				
+				Classroom classroom = util.Util.getClassroom(session, build_id, splitedAddedClassroomNum);
 				if(classroom != null)
 				{
-					//此教室已经存在，忽略之
+					//此教室已经存在
+					addClassroom_status = addClassroom_status + splitedAddedClassroomNum + "教室已存在，无法添加\n"; 
 					continue;
 				}
 				
 				classroom = new Classroom();				
 				classroom.teachbuilding = new TeachBuilding();
 				classroom.teachbuilding.build_id = build_id;
-				classroom.classroom_num = addedClassroomNum;
+				classroom.classroom_num = splitedAddedClassroomNum;
 				classroom.principal = principalStudent;
 				session.beginTransaction();
 				session.save(classroom);
@@ -245,16 +247,31 @@ public class ClassroomManageAction extends ActionSupport {
 		{
 			Classroom classroom = util.Util.getClassroomById(session, classroomId);
 			if(classroom == null)
-			{
+			{				
 				// 出现错误，无法编辑classroom
+				addClassroom_status = "未找到对应教室ID，无法编辑";
 			}
 			else
 			{
-				classroom.classroom_num = add_classroom_num;
-				classroom.principal = principalStudent;
-				session.beginTransaction();
-				session.update(classroom);
-				session.getTransaction().commit();
+				
+				Classroom existClassroom = util.Util.getClassroom(session, classroom.teachbuilding.build_id, add_classroom_num);
+				
+				if(existClassroom != null && existClassroom.id != classroomId)
+				{
+					// 教室号已存在,无法设置新的教室号
+					addClassroom_status = "新的教室号已经存在，无法编辑";
+				}
+				else 
+				{
+					classroom.classroom_num = add_classroom_num;
+					classroom.principal = principalStudent;
+					session.beginTransaction();
+					session.update(classroom);
+					session.getTransaction().commit();
+				}
+				
+				
+				
 			}
 			
 		}
@@ -461,5 +478,15 @@ public class ClassroomManageAction extends ActionSupport {
 	public void setClassroomManageJsp(String classroomManageJsp) {
 		this.classroomManageJsp = classroomManageJsp;
 	}
+
+	public String getAddClassroom_status() {
+		return addClassroom_status;
+	}
+
+	public void setAddClassroom_status(String addClassroom_status) {
+		this.addClassroom_status = addClassroom_status;
+	}
+	
+	
 	
 }

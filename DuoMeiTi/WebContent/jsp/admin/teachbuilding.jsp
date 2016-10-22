@@ -58,10 +58,15 @@
 	  
   	  <div class="col-md-4">
   	  
-  	  		
-  	  		<button type="button" class="btn btn-default btn-lg"  >
-		 	 	共有<s:property value="builds.size()"/>个教学楼
-			</button>
+<!--   	  		<i class="glyphicon glyphicon-envelope"> -->
+<%--   	  		共有<s:property value="builds.size()"/>个教学楼 --%>
+<!--   	  		</i> -->
+<!--   	  		<button type="button" class="btn btn-default btn-lg"  > -->
+			<div style="font-size:20px;">
+				共有<s:property value="builds.size()"/>个教学楼
+			</div>
+		 	 	
+<!-- 			</button> -->
 			
 	  </div>
 	  
