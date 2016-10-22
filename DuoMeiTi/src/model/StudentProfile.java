@@ -22,7 +22,7 @@ public class StudentProfile {
     @GeneratedValue(strategy=GenerationType.AUTO)
 	public int id;
     
-    @Column(length = 20)
+    @Column(length = 30, nullable = false, unique = true)
     public String studentId;
     
     @Column(length = 50)

@@ -4,7 +4,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="classroom_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -13,29 +13,49 @@
 		
 		<div class="modal-body">
 			<form class="form-horizontal">
-<!-- 				<input style="visibility:hidden" id="submit_type" value="add" /> -->
+				
+				<div class="alert alert-success" role="alert" id="addClassroomNotice">
+					可以一次添加多个教室号，每个教室号使用空格分割
+				</div>
+				
+				
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="input_classroom_num">教室号</label>
-					<div class="col-sm-5">
+					<label class="control-label col-sm-2" for="input_classroom_num">教室号</label>
+					<div class="col-sm-10">
 						<input type="text" class="form-control" id="input_classroom_num">
 					</div>
-					<div style="text-align:center" class="col-sm-4 control-label">
-						<span id="exist"></span>
-					</div>
 				</div>
+				
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="input_principal_student_number">负责人学号</label>
-					<div class="col-sm-5">
+					<label class="control-label col-sm-2" for="input_principal_student_number">负责人学号</label>
+					<div class="col-sm-10">
 						<input type="text" class="form-control" id="input_principal_student_number">
 					</div>
-					<div style="text-align:center" class="col-sm-4 control-label">
-						<strong>负责人姓名:</strong>  
-						<span id="input_principal_student_full_name">
-						</span>
-					</div>
-
 				</div>
+				
 			</form>
+			
+			<div class="well">
+			
+				<div  class=" row ">
+				
+					    <div class="   col-md-2   ">
+      						<label class="control-label " for ="input_principal_student_full_name">负责人姓名:</label>
+    					</div>
+    					
+					    <div class=" col-md-5   " >
+      						<span  id="input_principal_student_full_name"> </span> 
+    					</div>
+				</div>
+				 
+	
+				<div  class="row">
+					<span class="  col-md-5" id="exist"></span>
+				</div>
+			
+			 </div>
+			 
+			 
 		</div>
 	      
 		<div class="modal-footer">

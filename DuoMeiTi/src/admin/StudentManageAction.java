@@ -132,10 +132,10 @@ public class StudentManageAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public static StudentProfile getStudentById(Session s, int id) {
-		return (StudentProfile) s.createCriteria(model.StudentProfile.class).add(Restrictions.eq("id", id))
-				.uniqueResult();
-	}
+//	public static StudentProfile getStudentById(Session s, int id) {
+//		return (StudentProfile) s.createCriteria(model.StudentProfile.class).add(Restrictions.eq("id", id))
+//				.uniqueResult();
+//	}
 
 	public String save() throws Exception {
 		Session session = model.Util.sessionFactory.openSession();
@@ -144,7 +144,7 @@ public class StudentManageAction extends ActionSupport {
 			System.out.println("saveStudentInformation():");
 
 			
-			StudentProfile edit_student = getStudentById(session, studentDatabaseId);
+			StudentProfile edit_student = util.Util.getStudentByDatabaseId(session, studentDatabaseId);
 
 			System.out.println(edit_student == null);
 
@@ -251,7 +251,7 @@ public class StudentManageAction extends ActionSupport {
 
 		try {
 			session.beginTransaction();
-			StudentProfile edit_student = getStudentById(session, delete_studentDatabaseId);
+			StudentProfile edit_student = util.Util.getStudentByDatabaseId(session, delete_studentDatabaseId);
 
 			// 删除学生的对应值班选择
 			for (DutySchedule ds : (List<DutySchedule>) session.createCriteria(model.DutySchedule.class)

@@ -140,8 +140,7 @@ var submit_type;
 var classroomId;
 $(document).on("click", ".update", function (){
 	clearModal();
-	$(".modal-title").text("编辑教室");
-	$('#classroom_modal').modal('show');
+	$(".modal-title").text("编辑教室");	
 	submit_type = "update";
 	classroomId = $(this).parents("[classroomId]").attr('classroomId');
 	//alert(classroomId);
@@ -149,14 +148,24 @@ $(document).on("click", ".update", function (){
 	$("#input_principal_student_full_name").text($(this).parents("[studentFullName]").attr('studentFullName'))
 	$("#input_classroom_num").val($(this).parents("[classroomNum]").attr('classroomNum'));
 	
+	$("#exist").text("");
+	$("#addClassroomNotice").hide();
+	$('#classroom_modal').modal('show');
 })
 
 $(document).on("click", ".add", function (){
 	clearModal();
 	$(".modal-title").text("添加教室");	
-	$('#classroom_modal').modal('show');
+	
 	submit_type = "add";
 	classroomId = "";
+	
+	$("#exist").text("");	
+	$("#input_principal_student_number").val("")
+	$("#input_principal_student_full_name").text("")
+	$("#input_classroom_num").val("");
+	$("#addClassroomNotice").show();
+	$('#classroom_modal').modal('show');
 	
 })
 
@@ -197,23 +206,23 @@ $(document).on("click", "#addClassroom", function (){
 
 
 function addClassroomCallback(data) {
-	if(data.status == "exist") {
-		$("#exist").text("教室号已存在");
-	}
-	else if(data.status == "ok") {
-		
-//		alert("GGGG");
-		$('#classroom_modal').modal('hide');
-		$(".classroomTableDiv").html(data.classroomHtml);
-	}
-	else if(data.status == "no_principal")
-	{
-		$("#exist").text("负责人学号不正确，添加失败");
-	}
-	else
-	{
-		alert("发生严重错误，不知名原因");
-	}
+//	if(data.status == "exist") {
+//		$("#exist").text("教室号已存在");
+//	}
+//	else if(data.status == "ok") {
+//		
+////		alert("GGGG");
+//		$('#classroom_modal').modal('hide');
+//		$(".classroomTableDiv").html(data.classroomHtml);
+//	}
+//	else if(data.status == "no_principal")
+//	{
+//		$("#exist").text("负责人学号不正确，添加失败");
+//	}
+//	else
+//	{
+//		alert("发生严重错误，不知名原因");
+//	}
 	window.location.reload(); 
 	
 }

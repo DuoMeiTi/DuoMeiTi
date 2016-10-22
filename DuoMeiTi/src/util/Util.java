@@ -26,6 +26,7 @@ import model.Classroom;
 import model.DutyPiece;
 import model.DutySchedule;
 import model.Repertory;
+import model.StudentProfile;
 import model.User;
 
 import org.hibernate.Criteria;
@@ -560,10 +561,48 @@ public class Util
         return true;
 	}
 	
+	/** 获取一个教学楼内的所有教室Criteria*/
+	public static Criteria obtainClassroomListCriteria(org.hibernate.Session s, int selectTeachBuildingId)
+	{
+		return s.createCriteria(Classroom.class)
+				.add(Restrictions.eq("teachbuilding.build_id", selectTeachBuildingId))
+				.addOrder(Order.asc("classroom_num"));
+	}
+	
+	/** 获取一个教学楼内的所有教室列表*/
+	@SuppressWarnings("unchecked")
+	public static List<Classroom> obtainClassroomList(org.hibernate.Session s, int selectTeachBuildingId)
+	{
+		return (List<Classroom>)obtainClassroomListCriteria(s, selectTeachBuildingId).list();
+	}
+
+
+	/** 获取学生账户，根据学生在数据库中存储的ID. */
+	public static StudentProfile getStudentByDatabaseId(org.hibernate.Session s, int id) {
+		return (StudentProfile) 
+				s.createCriteria(model.StudentProfile.class)
+				.add(Restrictions.eq("id", id))
+				.uniqueResult();
+	}
 
 	
 	
-	
+	/** 获取学生账户，根据学生的学号. */
+	public static StudentProfile getStudentByStudentId(org.hibernate.Session s, String studentId) {
+		return (StudentProfile) 
+				s.createCriteria(model.StudentProfile.class)
+				.add(Restrictions.eq("studentId", studentId))
+				.uniqueResult();
+	}
+
+	/** 获取教室，根据教室的ID. */
+	public static Classroom getClassroomById(org.hibernate.Session s, int id) {
+		return (Classroom) 
+				s.createCriteria(model.Classroom.class)
+				.add(Restrictions.eq("id", id))
+				.uniqueResult();
+	}
+
 	
 	
 

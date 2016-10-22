@@ -12,14 +12,14 @@ import util.FileUploadBaseAction;
 
 public class ClassScheduleAction extends FileUploadBaseAction {	
 	
-	// 获取所有教室列表
-	public static List<Classroom> obtainClassroomList(Session s, int selectTeachBuildingId)
-	{
-		return s.createCriteria(Classroom.class)
-				.add(Restrictions.eq("teachbuilding.id", selectTeachBuildingId))
-				.addOrder(Order.asc("classroom_num"))
-				.list();	
-	}
+//	// 获取所有教室列表
+//	public static List<Classroom> obtainClassroomList(Session s, int selectTeachBuildingId)
+//	{
+//		return s.createCriteria(Classroom.class)
+//				.add(Restrictions.eq("teachbuilding.id", selectTeachBuildingId))
+//				.addOrder(Order.asc("classroom_num"))
+//				.list();	
+//	}
 	
 	// 去除字符串中的括号部分（包括中文括号，和英文括号）以及之后的所有字符
 	// 当第一次遇到左括号时就去掉左括号之后的所有字符
@@ -46,7 +46,7 @@ public class ClassScheduleAction extends FileUploadBaseAction {
 	public String execute() throws Exception {
 		
 		Session s = model.Util.sessionFactory.openSession();
-		executeClassroomList = obtainClassroomList(s, execute_SelectTeachBuilding);	
+		executeClassroomList = util.Util.obtainClassroomList(s, execute_SelectTeachBuilding);	
 		s.close();
 		
 		return SUCCESS;
@@ -77,7 +77,7 @@ public class ClassScheduleAction extends FileUploadBaseAction {
 		
 		Session s = model.Util.sessionFactory.openSession();
 		String fileFileName_noBracket = removeBracket(fileFileName);
-		for(Classroom classroom : obtainClassroomList(s, upload_SelectTeachBuilding))
+		for(Classroom classroom : util.Util.obtainClassroomList(s, upload_SelectTeachBuilding))
 		{
 			String classroomNum_noBracket = removeBracket(classroom.getClassroom_num());
 			System.out.println(fileFileName_noBracket  + "---" + classroomNum_noBracket);

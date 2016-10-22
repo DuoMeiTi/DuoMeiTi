@@ -141,10 +141,12 @@ public class ClassroomManageAction extends ActionSupport {
 			classroomManageJsp = "/jsp/homepage/classroomManage.jsp";
 		
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria classroom_criteria = session.createCriteria(Classroom.class);		
-		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
-		classroom_criteria.addOrder(Order.asc("classroom_num"));
-		classroom_list= classroom_criteria.list();
+		
+		classroom_list = util.Util.obtainClassroomList(session, build_id);
+//		Criteria classroom_criteria = session.createCriteria(Classroom.class);		
+//		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
+//		classroom_criteria.addOrder(Order.asc("classroom_num"));
+//		classroom_list= classroom_criteria.list();
 		session.close();
 		System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH "+"  "+classroom_list.size());
 		return SUCCESS;
@@ -202,69 +204,126 @@ public class ClassroomManageAction extends ActionSupport {
 		add_classroom_num = add_classroom_num.trim();
 		
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria classroom_criteria = session.createCriteria(Classroom.class);
-		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
-		classroom_criteria.add(Restrictions.eq("classroom_num", add_classroom_num));
-		classroom_list = classroom_criteria.list();
-		System.out.println("size:" + classroom_list.size());
-		if(classroom_list.size() > 0 && submit_type.equals("add")) {
-			this.status = "exist";
-			
-		}
-		else {
-			Criteria build_criteria = session.createCriteria(TeachBuilding.class);
-			build_criteria.add(Restrictions.eq("build_id", build_id));
-			TeachBuilding build = (TeachBuilding) build_criteria.uniqueResult();
-			
-			Criteria stu_criteria = session.createCriteria(StudentProfile.class);
-			stu_criteria.add(Restrictions.eq("studentId", studentNumber));
-			
-			List stu_list = stu_criteria.list();
-			
-			if(!studentNumber.equals("") && stu_list.isEmpty())
+		
+		
+//		Criteria classroom_criteria = session.createCriteria(Classroom.class);
+////		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
+//		classroom_criteria.add(Restrictions.eq("classroom_num", add_classroom_num));		
+//		classroom_list = classroom_criteria.list();
+		
+		
+//		util.Util.obtainClassroomListCriteria(session, build_id)
+//					.add(Restrictions.eq("classroom_num", add_classroom_num)).uniqueResult()
+		
+		StudentProfile principalStudent = util.Util.getStudentByStudentId(session, studentNumber);
+		if(submit_type.equals("add"))
+		{
+			for(String addedClassroomNum : add_classroom_num.split(" "))
 			{
-				this.status = "no_principal";
-				System.out.println("IIIII************************");
-				session.close();
-				return SUCCESS;
+				addedClassroomNum = addedClassroomNum.trim();
+				if(addedClassroomNum.isEmpty()) continue;
+				
+				Classroom classroom = (Classroom)util.Util.obtainClassroomListCriteria(session, build_id)
+						 			.add(Restrictions.eq("classroom_num", addedClassroomNum)).uniqueResult();
+				if(classroom != null)
+				{
+					//此教室已经存在，忽略之
+					continue;
+				}
+				
+				classroom = new Classroom();				
+				classroom.teachbuilding = new TeachBuilding();
+				classroom.teachbuilding.build_id = build_id;
+				classroom.classroom_num = addedClassroomNum;
+				classroom.principal = principalStudent;
+				session.beginTransaction();
+				session.save(classroom);
+				session.getTransaction().commit();
+			}
+		}
+		else 
+		{
+			Classroom classroom = util.Util.getClassroomById(session, classroomId);
+			if(classroom == null)
+			{
+				// 出现错误，无法编辑classroom
+			}
+			else
+			{
+				classroom.classroom_num = add_classroom_num;
+				classroom.principal = principalStudent;
+				session.beginTransaction();
+				session.update(classroom);
+				session.getTransaction().commit();
 			}
 			
-			StudentProfile stu = null;
-			if(!stu_list.isEmpty())
-			stu = (StudentProfile)stu_list.get(0);
-
-			System.out.println("addClassroom: update***&&" + add_classroom_num);
-			
-			Classroom classroom = null;
-			if(submit_type.equals("add"))
-				classroom = new Classroom();
-			else if(submit_type.equals("update")) 
-				classroom = (Classroom) session.createCriteria(Classroom.class).add(Restrictions.eq("id", classroomId)).uniqueResult();
-			
-			System.out.println("addClassroom: classroomId***&&" + classroomId);
-			classroom.setTeachbuilding(build);
-			classroom.setPrincipal(stu);	
-			classroom.setClassroom_num(add_classroom_num);
-			session.beginTransaction();
-			if(submit_type.equals("add"))
-				session.save(classroom);
-			else if(submit_type.equals("update"))
-				session.update(classroom);
-			
-			session.getTransaction().commit();
-			
-			this.status = "ok";
 		}
 		
 		
-		classroom_criteria = session.createCriteria(Classroom.class);		
-		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
-		classroom_criteria.addOrder(Order.asc("classroom_num"));
-		classroom_list= classroom_criteria.list();
-		classroomHtml = util.Util.getJspOutput("/jsp/classroom/classroomTable.jsp");
-
+		
+		
+		
 		session.close();
-		System.out.println("add ok!");
+		
+//		System.out.println("size:" + classroom_list.size());
+//		if(classroom_list.size() > 0 && submit_type.equals("add")) {
+//			this.status = "exist";
+//			
+//		}
+//		else {
+//			Criteria build_criteria = session.createCriteria(TeachBuilding.class);
+//			build_criteria.add(Restrictions.eq("build_id", build_id));
+//			TeachBuilding build = (TeachBuilding) build_criteria.uniqueResult();
+//			
+//			Criteria stu_criteria = session.createCriteria(StudentProfile.class);
+//			stu_criteria.add(Restrictions.eq("studentId", studentNumber));
+//			
+//			List stu_list = stu_criteria.list();
+//			
+//			if(!studentNumber.equals("") && stu_list.isEmpty())
+//			{
+//				this.status = "no_principal";
+//				System.out.println("IIIII************************");
+//				session.close();
+//				return SUCCESS;
+//			}
+//			
+//			StudentProfile stu = null;
+//			if(!stu_list.isEmpty())
+//			stu = (StudentProfile)stu_list.get(0);
+//
+//			System.out.println("addClassroom: update***&&" + add_classroom_num);
+//			
+//			Classroom classroom = null;
+//			if(submit_type.equals("add"))
+//				classroom = new Classroom();
+//			else if(submit_type.equals("update")) 
+//				classroom = (Classroom) session.createCriteria(Classroom.class).add(Restrictions.eq("id", classroomId)).uniqueResult();
+//			
+//			System.out.println("addClassroom: classroomId***&&" + classroomId);
+//			classroom.setTeachbuilding(build);
+//			classroom.setPrincipal(stu);	
+//			classroom.setClassroom_num(add_classroom_num);
+//			session.beginTransaction();
+//			if(submit_type.equals("add"))
+//				session.save(classroom);
+//			else if(submit_type.equals("update"))
+//				session.update(classroom);
+//			
+//			session.getTransaction().commit();
+//			
+//			this.status = "ok";
+//		}
+		
+		
+//		classroom_criteria = session.createCriteria(Classroom.class);		
+//		classroom_criteria.add(Restrictions.eq("teachbuilding.build_id", build_id));
+//		classroom_criteria.addOrder(Order.asc("classroom_num"));
+//		classroom_list= classroom_criteria.list();
+//		classroomHtml = util.Util.getJspOutput("/jsp/classroom/classroomTable.jsp");
+//
+//		session.close();
+//		System.out.println("add ok!");
 		
 //		classroomList();
 		return SUCCESS;
