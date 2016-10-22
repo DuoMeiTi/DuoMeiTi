@@ -95,9 +95,18 @@
 				<div class="col-lg-1">
 				    <button  class="btn btn-primary search" style="margin:2px;">查询</button>
 				</div>
-				<div class="col-lg-2">
+				<div class="col-lg-1">
 				  	<button class="btn btn-primary all" style="margin:2px;">所有教室</button>
 				</div>
+				
+		  	  <div class="col-lg-2">
+  	  
+		  	  		<button type="button" class="btn btn-default "   style="margin:2px;"
+						 	 >
+				 	 	共有<s:property value="classroom_list.size()"/>个教室
+					</button>
+			
+	  			</div>
 				
 				
 				<s:if test="makeUrl().contains(@util.Const@AdminRole)">

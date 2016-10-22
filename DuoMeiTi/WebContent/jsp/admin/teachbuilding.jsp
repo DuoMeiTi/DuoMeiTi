@@ -43,18 +43,28 @@
 	
 	
 	<div class="row">
-	  <div class="col-md-6">
+	  <div class="col-md-4">
 			<button type="button" class="btn btn-primary btn-lg" onclick="add()">
 		 		 新增教学楼
 			</button>
 	  </div>
 	  
-	  <div class="col-md-6">
+	  <div class="col-md-4">
 			<button type="button" class="btn btn-danger btn-lg" id = "editAllTeachBuilding" 
 				 	show="true">
 		 	 	编辑所有教学楼
 			</button>
 	  </div>
+	  
+  	  <div class="col-md-4">
+  	  
+  	  		
+  	  		<button type="button" class="btn btn-default btn-lg"  >
+		 	 	共有<s:property value="builds.size()"/>个教学楼
+			</button>
+			
+	  </div>
+	  
 	</div>
 	<br/>
 	
