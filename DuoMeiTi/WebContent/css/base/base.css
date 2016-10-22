@@ -185,3 +185,9 @@ a:hover,a:focus{
     display: block;
 }
 
+.alert {
+	border-radius:5px;
+	
+}
+
+

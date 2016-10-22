@@ -9,13 +9,14 @@
 		<div class="alert alert-danger" role="alert" style="margin-top:20px;">
 			<p>选择一个教学楼之后才能上传课表，课表名称中应该包含所对应的教室号的子串</p>
 			<p>课表上传后将会自动覆盖已有的课表</p>			
+			<p>有按钮的教室表示此教室含有课程表，点击可以下载其课程表； 否则表示此教室不含有课程表</p>
 		</div>	
 <!-- 		<br/> -->
-		<div id="alert" class="alert alert-success" role="alert" style="display:none;">...</div>		
+<!-- 		<div id="alert" class="alert alert-success" role="alert" style="display:none;">...</div>		 -->
 		
-		<br/>
+<!-- 		<br/> -->
 		<output id="list"></output>
-		<br/>
+<!-- 		<br/> -->
 		
 		<span class="btn btn-success btn-lg btn-file">
 		    浏览文件 <input  type="file" id="file_upload" multiple>
@@ -56,13 +57,20 @@
 							<tr>
 								<s:iterator  var="j" begin="0" end="@@min(executeClassroomList.size()-#i-1,5)" step="1">
 									<td  >
-<!-- 										<span> -->
+										
+										<s:if test="executeClassroomList.get(#i+#j).class_schedule_path != null">
 											<a href='<s:property value="executeClassroomList.get(#i+#j).class_schedule_path" />'
 											   class="btn btn-info"
 												>
 												<s:property value="executeClassroomList.get(#i+#j).classroom_num"/>
 											</a>
-<!-- 										</span> -->
+										</s:if>
+										<s:else>
+											<span class="label label-default">
+												<s:property value="executeClassroomList.get(#i+#j).classroom_num"/>
+											</span>
+										</s:else>
+
 										<span class="label label-success" 
 											  classroomNumber='<s:property value="executeClassroomList.get(#i+#j).classroom_num"/>'
 											  style="display: none;"
