@@ -54,7 +54,15 @@ $(document).on("click","#dutyChooseSwitchIsOpen",function(){
 
 
 
-
+$('#newDutyPlace').bind('keypress',function(event){
+//	alert("SS");
+    if(event.keyCode == "13")
+	{
+//    	alert("22");
+    	$("#addDutyPlace").click();
+	}
+//    alert("33");
+})
 
 $(document).on("click","#addDutyPlace",function() {
 
@@ -62,15 +70,28 @@ $(document).on("click","#addDutyPlace",function() {
 		url:"/admin/student_manage/duty_manage_addDutyPlace",
 		type : 'post',
 		dataType : 'json',
-		data : {"newDutyPlace": $("#newDutyPlace").val() },
-		success : addDutyPlaceCallBack
+		data : {"addDutyPlace_placeName": $("#newDutyPlace").val() },
+		success : function (data)
+		{
+			status = data.addDutyPlace_status;
+			if(status == "")
+			{
+				window.location.reload();
+			}
+			else 
+			{
+				alert(status);
+			}
+			
+			
+		}
 	})
 
 
 });
-function addDutyPlaceCallBack(data){
-	window.location.reload();
-}
+//function addDutyPlaceCallBack(data){
+//	window.location.reload();
+//}
 
 
 

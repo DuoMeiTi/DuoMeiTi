@@ -18,19 +18,19 @@
   	
 	<h3> 值班地点管理 </h3>	
  	
-	<form class="form-inline" method="POST">
+	<div class="form-inline" >
 		
 		
 		<div class="form-group">
 
 				<input type="text" class="form-control" style="width:200px;" id="newDutyPlace"> 
- 			</div>
+ 		</div>
 		
 		
 		<button type="button" class="btn btn-default" id="addDutyPlace"> 添加</button>
 		
 		
-	</form>
+	</div>
 	
 	<br/>
 		

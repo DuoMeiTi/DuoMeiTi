@@ -14,7 +14,7 @@ public class DutyPlace {
 	public int id;
 	
 	//地点名称
-	@Column	
+	@Column(unique = true)
 	public String placeName;
 
 	

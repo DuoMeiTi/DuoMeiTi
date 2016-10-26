@@ -52,7 +52,7 @@ public class DutyManageAction extends ActionSupport {
 	}
 
 	List dutyPlaceList;
-	String newDutyPlace = "";
+//	String newDutyPlace = "";
 	boolean dutyChooseSwitchIsOpen;
 
 	public boolean getDutyChooseSwitchIsOpen() {
@@ -64,7 +64,7 @@ public class DutyManageAction extends ActionSupport {
 	}
 
 	public String execute() throws Exception {
-		System.out.println("GGGG");
+//		System.out.println("GGGG");
 		// if(ServletActionContext.getRequest().getMethod().equalsIgnoreCase("get"))
 		// {
 		// return ActionSupport.SUCCESS;
@@ -73,7 +73,7 @@ public class DutyManageAction extends ActionSupport {
 
 		dutyPlaceList = session.createCriteria(model.DutyPlace.class).list();
 
-		System.out.println(this.newDutyPlace);
+//		System.out.println(this.newDutyPlace);
 
 		model.DutyChooseSwitch dutyChooseSwitch = (model.DutyChooseSwitch) session
 				.createCriteria(model.DutyChooseSwitch.class).list().get(0);
@@ -100,33 +100,51 @@ public class DutyManageAction extends ActionSupport {
 
 	}
 
+	
+	String addDutyPlace_placeName; //in
+	String addDutyPlace_status; //out
 	public String addDutyPlace() throws Exception {
 
-		System.out.println(this.newDutyPlace);
-
-		if (this.newDutyPlace.equals("")) {
+		String newDutyPlace = addDutyPlace_placeName;
+		
+		if (newDutyPlace.isEmpty()) {
+			addDutyPlace_status = "输入的新值班地点名称为空";
 			return SUCCESS;
 		}
-
-		model.DutyPlace dp = new model.DutyPlace();
-		dp.setPlaceName(this.newDutyPlace);
-
+			
+		
 		Session session = model.Util.sessionFactory.openSession();
-		session.beginTransaction();
-		session.save(dp);
-
-		for (int i = 0; i < model.DutyPiece.TimeNumber; ++i) {
-			DutyPiece dt = new DutyPiece();
-			dt.setNumberOfDuty(4); // 当前时间段的值班个数容纳总量
-			dt.setDutyLeft(4);// 当前时间段的值班个数的剩余量
-			dt.setDutyPlace(dp);
-			dt.setTime(i);
-			session.save(dt);
+		boolean isExist = util.Util.isExistWithOneEqualRestriction(session, DutyPlace.class, "placeName",  newDutyPlace);
+		
+		if(isExist)
+		{
+			addDutyPlace_status = "输入的新值班地点已经存在";
 		}
+		else
+		{
+			model.DutyPlace dp = new model.DutyPlace();
+			dp.setPlaceName(newDutyPlace);
+			session.beginTransaction();
+			session.save(dp);
 
-		session.getTransaction().commit();
+			for (int i = 0; i < model.DutyPiece.TimeNumber; ++i) {
+				DutyPiece dt = new DutyPiece();
+				dt.setNumberOfDuty(4); // 当前时间段的值班个数容纳总量
+				dt.setDutyLeft(4); // 当前时间段的值班个数的剩余量
+				dt.setDutyPlace(dp);
+				dt.setTime(i);
+				session.save(dt);
+			}
 
-		session.close();
+			session.getTransaction().commit();
+			session.close();
+			
+			addDutyPlace_status ="";
+
+		}
+		
+		
+
 
 		return SUCCESS;
 	}
@@ -198,9 +216,9 @@ public class DutyManageAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public static void addDutySchedule(Session session, int studentDatabaseId, int dutyPieceId) {
-
-	}
+//	public static void addDutySchedule(Session session, int studentDatabaseId, int dutyPieceId) {
+//
+//	}
 
 	
 	
@@ -344,13 +362,13 @@ public class DutyManageAction extends ActionSupport {
 		this.dutyPlaceList = dutyPlaceList;
 	}
 
-	public String getNewDutyPlace() {
-		return newDutyPlace;
-	}
-
-	public void setNewDutyPlace(String newDutyPlace) {
-		this.newDutyPlace = newDutyPlace;
-	}
+//	public String getNewDutyPlace() {
+//		return newDutyPlace;
+//	}
+//
+//	public void setNewDutyPlace(String newDutyPlace) {
+//		this.newDutyPlace = newDutyPlace;
+//	}
 
 	public int getDeletedDutyPlaceId() {
 		return deletedDutyPlaceId;
@@ -496,5 +514,22 @@ public class DutyManageAction extends ActionSupport {
 			String addDutySchedule_studentFullNameOrStudentIdListString) {
 		this.addDutySchedule_studentFullNameOrStudentIdListString = addDutySchedule_studentFullNameOrStudentIdListString;
 	}
+
+	public String getAddDutyPlace_placeName() {
+		return addDutyPlace_placeName;
+	}
+
+	public void setAddDutyPlace_placeName(String addDutyPlace_placeName) {
+		this.addDutyPlace_placeName = addDutyPlace_placeName;
+	}
+
+	public String getAddDutyPlace_status() {
+		return addDutyPlace_status;
+	}
+
+	public void setAddDutyPlace_status(String addDutyPlace_status) {
+		this.addDutyPlace_status = addDutyPlace_status;
+	}
+	
 	
 }

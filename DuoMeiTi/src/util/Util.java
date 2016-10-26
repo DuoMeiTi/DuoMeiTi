@@ -632,5 +632,28 @@ public class Util
 
 	
 	
+	
+	
+	public static <T> List<T> getListWithOneEqualRestriction(
+			org.hibernate.Session s, Class<T> classInfo, String propertyName, Object propertyValue) {		
+		return (List<T>)s.createCriteria(classInfo).add(Restrictions.eq(propertyName, propertyValue)).list();
+	}
+	
+	public static <T> T getUniqueResultWithOneEqualRestriction(
+			org.hibernate.Session s, Class<T> classInfo, String propertyName, Object propertyValue) {		
+		return (T)s.createCriteria(classInfo).add(Restrictions.eq(propertyName, propertyValue)).uniqueResult();
+	}
+
+	public static boolean isExistWithOneEqualRestriction(
+			org.hibernate.Session s, Class classInfo, String propertyName, Object propertyValue) {
+		return !getListWithOneEqualRestriction(s, classInfo, propertyName, propertyValue).isEmpty();
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }
