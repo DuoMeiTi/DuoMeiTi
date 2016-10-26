@@ -15,7 +15,7 @@ public class User
 	@GeneratedValue(strategy=GenerationType.AUTO) 
 	public int id;
 	
-	@Column(length=50)
+	@Column(length=50, unique=true)
 	public String username;
 	
 	@Column(length=50)
@@ -25,7 +25,7 @@ public class User
     public String fullName;
 
 	@Column(length=10)
-    public String sex;    
+    public String sex;
 
     @Column(length = 100)
     public String profilePhotoPath;

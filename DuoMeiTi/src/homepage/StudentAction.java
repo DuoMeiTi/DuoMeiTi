@@ -56,6 +56,160 @@ public class StudentAction extends FileUploadBaseAction {
 	private String profilePhotoPath;
 	
 	
+	
+	public String studentRegister() throws Exception
+	{
+		collegeSelect=Const.collegeSelect;
+		sexSelect=Const.sexSelect;
+		
+		try{
+			Session session=model.Util.sessionFactory.openSession();
+			Criteria q=session.createCriteria(StudentProfile.class);
+			student_list=q.list();
+			Collections.reverse(student_list);
+			session.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return ActionSupport.SUCCESS;
+//		statusSelect=Const.statusSelect;
+		
+		/*System.out.println("jkjk");
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria q = session.createCriteria(User.class);//把查询条件封装成一个Criteria对象
+		List ul = q.list();
+		Collections.reverse(ul);
+		session.close();	
+		return "success";*/
+	}
+	
+	
+	
+	
+//	/*
+//	 * 判断学号是否重复，如果重复，返回true
+//	 */
+	public static boolean isRepeat(Session session, String searchID){
+//		Session session = model.Util.sessionFactory.openSession();
+		Criteria q2= session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", searchID));
+		List u2 = q2.list();
+//		session.close();
+		if(u2.isEmpty()){
+			return false;
+		}
+		return true;
+	}
+	
+	
+	
+	/*
+	 * status 0: OK
+	 * 		  1: username 或者password 或者fullName 或者studentId 为空
+	 * 		  2: username 已经存在
+	 * 		  3: password两次不一致
+	 * 		  6: 学号已经存在
+	 */
+	public String studentRegisterSave() throws Exception
+	{
+		System.out.println("haha");
+		System.out.println(username);
+		System.out.println(phoneNumber);
+		if(username.equals("") || password.equals("") || fullName.equals("") || studentId.equals(""))
+		{
+			this.register_status = "含有未填项";
+			return ActionSupport.SUCCESS;
+		}
+		
+		if(username.contains(" "))
+		{
+			this.register_status = "用户名中含有空格";
+			return ActionSupport.SUCCESS;
+		}
+		
+		if(fullName.contains(" "))
+		{
+			this.register_status = "真实姓名中含有空格";
+			return ActionSupport.SUCCESS;
+		}
+		
+		if(studentId.contains(" "))
+		{
+			this.register_status = "学号中含有空格";
+			return ActionSupport.SUCCESS;
+		}
+
+		
+		
+
+		if(!password.equals(passwordAgain))
+		{
+			System.out.println(!password.equals(passwordAgain));
+			System.out.println(password);
+			System.out.println(passwordAgain);
+			this.register_status= "两次密码不一致";
+			return ActionSupport.SUCCESS;
+		}
+		
+		Session session = model.Util.sessionFactory.openSession();
+		
+		//判断学号是否重复		
+		if(util.Util.isExistWithOneEqualRestriction(session, StudentProfile.class, "studentId", studentId))
+		{
+			this.register_status="学号有重复";
+			return ActionSupport.SUCCESS;
+		}		
+		//判断用户名是否重复
+		if(util.Util.isExistWithOneEqualRestriction(session, User.class, "username", username))
+		{
+			this.register_status = "用户名有重复";
+			return ActionSupport.SUCCESS;
+		}
+		
+		
+		
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setPhoneNumber(phoneNumber);
+		user.setSex(sex);
+		user.setFullName(fullName);
+		
+		
+		StudentProfile studentProfile=new StudentProfile();
+		studentProfile.setUser(user);
+		studentProfile.setIdCard(idCard);
+		studentProfile.setBankCard(bankCard);
+		studentProfile.setStudentId(studentId);
+		studentProfile.setCollege(college);
+		
+		java.util.Date now = new java.util.Date();
+		java.sql.Date sql_now = new java.sql.Date(now.getTime());
+		studentProfile.setEntryTime(sql_now);
+		
+		if (file != null)
+		{
+			fileFileName = username;
+			util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
+			String inserted_file_path = util.Util.ProfilePhotoPath + fileFileName;
+			user.setProfilePhotoPath(inserted_file_path);
+		}
+		
+		
+		session.beginTransaction();
+		
+		session.save(user);//因为user是外键，所以commit StudentProfile之前需要先save user；
+		session.save(studentProfile);
+		
+		session.getTransaction().commit();
+		this.register_status = "";
+			
+		session.close();
+		return ActionSupport.SUCCESS;
+	}
+	
 	public String getProfilePhotoPath() {
 		return profilePhotoPath;
 	}
@@ -216,147 +370,5 @@ public class StudentAction extends FileUploadBaseAction {
 	public void setCollegeSelect(String[] collegeSelect) {
 		this.collegeSelect = collegeSelect;
 	}
-	
-	/*
-	 * status 0: OK
-	 * 		  1: username 或者password 为空
-	 * 		  2: username 重复
-	 * 		  3: password两次不一致
-	 * 		  4:姓名为空
-	 * 		  5：学号为空
-	 * 		  6:学号已经存在
-	 */
-	
-	public String studentRegister() throws Exception
-	{
-		collegeSelect=Const.collegeSelect;
-		sexSelect=Const.sexSelect;
-		
-		try{
-			Session session=model.Util.sessionFactory.openSession();
-			Criteria q=session.createCriteria(StudentProfile.class);
-			student_list=q.list();
-			Collections.reverse(student_list);
-			session.close();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		return ActionSupport.SUCCESS;
-//		statusSelect=Const.statusSelect;
-		
-		/*System.out.println("jkjk");
-		Session session = model.Util.sessionFactory.openSession();
-		Criteria q = session.createCriteria(User.class);//把查询条件封装成一个Criteria对象
-		List ul = q.list();
-		Collections.reverse(ul);
-		session.close();	
-		return "success";*/
-	}
-	
-	
-	/*
-	 * 判断学号是否重复，如果重复，返回true
-	 */
-	public static boolean isRepeat(Session session, String searchID){
-//		Session session = model.Util.sessionFactory.openSession();
-		Criteria q2= session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", searchID));
-		List u2 = q2.list();
-//		session.close();
-		if(u2.isEmpty()){
-			return false;
-		}
-		return true;
-	}
-	public String studentRegisterSave() throws Exception
-	{
-		System.out.println("haha");
-		System.out.println(username);
-		System.out.println(phoneNumber);
-		if(username.equals("") || password.equals("") || fullName.equals("") || studentId.equals(""))
-		{
-			this.register_status = "1";
-			return ActionSupport.SUCCESS;
-		}
-		/*if(studentId.equals(""))
-		{
-			this.register_status="5";
-			return ActionSupport.SUCCESS;
-		}
-		if(fullName.equals(""))
-		{
-			this.register_status="4";
-			return ActionSupport.SUCCESS;
-		}*/
-		if(!password.equals(passwordAgain))
-		{
-			System.out.println(!password.equals(passwordAgain));
-			System.out.println(password);
-			System.out.println(passwordAgain);
-			this.register_status="3";
-			return ActionSupport.SUCCESS;
-		}
-		
-		Session session = model.Util.sessionFactory.openSession();
-		//判断学号是否重复
-		if(isRepeat(session, studentId)){
-			System.out.println(studentId+"学号已经存在");
-			this.register_status="6";
-			return ActionSupport.SUCCESS;
-		}
-		Criteria q= session.createCriteria(User.class).add(Restrictions.eq("username", username));
-		List ul = q.list();
-		if(!ul.isEmpty())
-		{
-			System.out.println("err");
-			this.register_status = "2";
-			return ActionSupport.SUCCESS;
-		}
-		else
-		{
-			User um = new User();
-			um.setUsername(username);
-			um.setPassword(password);
-			um.setPhoneNumber(phoneNumber);
-			um.setSex(sex);
-			um.setFullName(fullName);
-			session.save(um);//因为user是外键，所以commit StudentProfile之前需要先save user；
-			
-			StudentProfile stupro=new StudentProfile();
-			stupro.setUser(um);
-			stupro.setIdCard(idCard);
-			stupro.setBankCard(bankCard);
-			
-			stupro.setStudentId(studentId);
-			stupro.setCollege(college);
-			
-			java.util.Date now = new java.util.Date();
-			java.sql.Date sql_now = new java.sql.Date(now.getTime());
-			stupro.setEntryTime(sql_now);
-//			stupro.setEntryTime(entryTime);
-			
-			
-			if (file != null)
-			{
-				util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
-				String inserted_file_path = util.Util.ProfilePhotoPath + fileFileName;
-				um.setProfilePhotoPath(inserted_file_path);
-			}
-			
-			
-			session.beginTransaction();
-			session.save(stupro);
-			
-			Transaction t = session.getTransaction();
-			t.commit();
-			this.register_status = "0";
-	//		this.user_id = um.getId();
-	//		this.added_user_html = util.Util.fileToString("/jsp/homepage/widgets/added_user.html");
-		}
-		session.close();
-		return ActionSupport.SUCCESS;
-	}
-	
+
 }

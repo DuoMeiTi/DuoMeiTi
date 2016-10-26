@@ -153,7 +153,7 @@
         fd.append("college",$("#college").val());
         fd.append("bankCard",$("#bankCard").val());
         fd.append("idCard",$("#idCard").val());
-        fd.append("entryTime",$("#entryTime").val());
+//         fd.append("entryTime",$("#entryTime").val());
         fd.append("phoneNumber",$("#phoneNumber").val());
         
 //         alert("1111");
@@ -174,16 +174,25 @@
     });
     
     function checkUsername(){
-    	var username = $("#username").val(); 
-    	 if(username=="")
+    	var username = $("#username").val();
+    	if(username.indexOf(' ') != -1)
+   		{
+    		$("#username_msg").text("用户名中不可以含有空格");
+   		}
+    	else if(username=="")
     		$("#username_msg").text("不能为空"); 
-    	 else
-    		 $("#username_msg").text("");
+   	 	else
+    		$("#username_msg").text("");
     }
     
     function checkFullName(){
     	var fullName=$('#fullName').val();
-    	if(fullName=="")
+    	
+    	if(username.indexOf(' ') != -1)
+    	{
+    		$('#fullName_msg').text("真实姓名中不可以含有空格");
+    	}
+    	else if(fullName=="")
     		$('#fullName_msg').text("不能为空");
     	else
     		$('#fullName_msg').text("");
@@ -208,7 +217,12 @@
     
     function checkStudentId(){
     	var studentId=$('#studentId').val();
-    	if(studentId=="")
+    	
+    	if(username.indexOf(' ') != -1)
+   		{
+    		$("#username_msg").text("学号中不可以含有空格");
+   		}
+    	else if(studentId=="")
     		$('#studentId_msg').text("不能为空");
     	else
     		$('#studentId_msg').text("");
@@ -224,35 +238,36 @@
     
     function studentRegisterCallback(data)
     {    	
-    	if(data.register_status == "0")
+    	if(data.register_status == "")
     	{    		
     		alert("注册成功, 您现在可以登录了");
     		window.location.href = "/login";
     	}
-    	else if(data.register_status == "1")
-    	{
-    		alert("有未填项，注册失败");
-    	}
-    	else if(data.register_status == "2")
-   		{
-    		alert("注册用户名重复");
-   		}
-    	/* else if(data.register_status == "4")
-    	{
-    		alert("姓名不能为空");
-    	}*/
-    	else if(data.register_status == "3")
-    	{
-    		alert("两次密码不一致");
-    	} 
-    	else if(data.register_status == "6")
-    	{
-    		alert("学号已经存在！");
-    	} 
     	else 
-   		{
-    		alert("error with status：" + data.register_status);
-   		}
+    	{
+    		alert(data.register_status);
+    	}
+    	
+//     	else if(data.register_status == "1")
+//     	{
+// //     		alert("有未填项，注册失败");
+//     	}
+//     	else if(data.register_status == "2")
+//    		{
+// //     		alert("注册用户名已经存在");
+//    		}
+//     	else if(data.register_status == "3")
+//     	{
+//     		alert("两次密码不一致");
+//     	} 
+//     	else if(data.register_status == "6")
+//     	{
+//     		alert("学号已经存在！");
+//     	} 
+//     	else 
+//    		{
+//     		alert("error with status：" + data.register_status);
+//    		}
 
 		
     }
