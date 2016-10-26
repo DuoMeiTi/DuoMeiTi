@@ -52,7 +52,7 @@
 		<mapping class="model.TeachBuilding"/>
 		<mapping class="model.RepairRecord"/>
 		<mapping class="model.CheckRecord"/>
-		<mapping class="model.Message"/>
+<!-- 		<mapping class="model.Message"/> -->
 <!-- 		<mapping class="model.EgFilePathSave"/> -->
 		<mapping class="model.Notice"/>
 		<mapping class="model.RoomPicture"/>	
