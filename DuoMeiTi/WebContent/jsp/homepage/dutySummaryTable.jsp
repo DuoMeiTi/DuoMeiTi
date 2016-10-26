@@ -30,28 +30,10 @@
 				<s:iterator var="j" begin = "0" end="7 - 1" step="1"> 
 				
 					<s:iterator var="place" begin="0" end= "dutyPlaceList.size() - 1" step="1">
-					
 						<td  
-
-							<s:if test="(#j *dutyPlaceList.size() + #place) % 4 == 0">
-		            			style="background-color:yellow;"
-		            		</s:if>
-		            		
-		            		<s:elseif test="(#j *dutyPlaceList.size() + #place) % 4 == 1">
-		            			style="background-color:#AE00AE;"
-		            		</s:elseif>
-		            		
-		            		<s:elseif test="(#j *dutyPlaceList.size() + #place) % 4 == 2">
-		            			style="background-color:#00A600;"
-		            		</s:elseif>
-		            		
-		            		
-		            		<s:else  >
-	            				style="background-color:#66CDAA;"
-	            			</s:else>
-							
-						>	
-						
+							style="background-color:
+								<s:property value = '@util.Util@getDutySummaryTableColumnColor(#j *dutyPlaceList.size() + #place)'/>;"
+						>
 							<b>
 								<s:property value="@util.Util@convertToMultiLine(dutyPlaceList.get(#place).placeName, 3)" 
 									escape="false"/>
@@ -75,25 +57,9 @@
 					
 					<s:iterator var="place" begin="0" end= "dutyPlaceList.size() - 1" step="1">
 						
-						<td
-						
-							<s:if test="(#j *dutyPlaceList.size() + #place) % 4 == 0">
-		            			style="background-color:yellow;"
-		            		</s:if>
-		            		
-		            		<s:elseif test="(#j *dutyPlaceList.size() + #place) % 4 == 1">
-		            			style="background-color:#AE00AE;"
-		            		</s:elseif>
-		            		
-		            		<s:elseif test="(#j *dutyPlaceList.size() + #place) % 4 == 2">
-		            			style="background-color:#00A600;"
-		            		</s:elseif>
-		            		
-		            		
-		            		<s:else  >
-	            				style="background-color:#66CDAA;"
-	            			</s:else>
-						
+						<td						
+							style="background-color:
+								<s:property value = '@util.Util@getDutySummaryTableColumnColor(#j *dutyPlaceList.size() + #place)'/>;"
 						
 						>							
 							<s:iterator var="k" begin="0" end="dutyShowList.get(#place).get(#i * 7 + #j).size() - 1" step="1">
@@ -116,7 +82,7 @@
 													dutyShowList.get(#place).get(#i * 7 + #j).get(#k).student.user.fullName, 3)" 
 													escape="false"/>
 													
-									<div   style="display:none;">
+									<div  style="display:none;">
 										
 										<div>									
 											<img src="<s:property value='dutyShowList.get(#place).get(#i * 7 + #j).get(#k).student.user.profilePhotoPath'/>"
@@ -134,10 +100,7 @@
 										
 										<div>									
 											电话：<s:property value="dutyShowList.get(#place).get(#i * 7 + #j).get(#k).student.user.phoneNumber"/>
-										</div>
-	
-										
-										
+										</div>									
 									</div>
 									
 								</span>

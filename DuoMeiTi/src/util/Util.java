@@ -613,6 +613,22 @@ public class Util
 				.uniqueResult();
 	}
 
+	/** 获取值班总表每一列的颜色，列编号从0开始，第0列为第一周第一个教学楼所在列 */
+	public static String getDutySummaryTableColumnColor(int column)
+	{
+		String color;
+		if(column % 4 == 0)
+			color = "yellow";
+		else if(column % 4 == 1)
+			color = "#0080FF";
+		else if(column % 4 == 2)
+			color = "#00A600";
+		else
+			color = "#66CDAA";
+		
+		return color;
+	}
+	
 
 	
 	

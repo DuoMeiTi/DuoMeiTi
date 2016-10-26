@@ -64,7 +64,7 @@
 			           <li class=""><a href="/contacts">通讯录</a></li>
 			           <li class=""><a href="/CommonProRecord">常见问题</a></li>
 			           
-			           <li class=""><a href="/dutyShow">值班表</a></li>
+			           <li class=""><a href="/dutySummaryTable">值班表</a></li>
 			           <li class=""><a href="/classroomPincipalShow">教室负责人</a></li>
 
 			           <li class="">
@@ -143,7 +143,7 @@
 				<div style="width:45%;background-color:#f2dede;border-color: #d6e9c6;" id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						  <div style="border: 1px solid #fc6;text-align:center;">
 						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						    <h3>欢迎您使用创新创业管理平台</h3>
+						    <h3>欢迎您使用多媒体管理平台</h3>
 						  </div>
 						  <div>
 						    <div style="font-size:20px;padding:20px;margin-bottom:0px;">

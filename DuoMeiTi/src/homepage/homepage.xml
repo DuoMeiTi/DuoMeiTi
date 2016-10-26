@@ -57,8 +57,8 @@
         <action name="ResourceFile" class="homepage.HomeAction" method="resourceFile">
 			<result>/jsp/homepage/ResourceFile.jsp</result>			
     	</action>	
-        <action name="dutyShow" class="homepage.HomeAction" method="dutyShow">
-			<result>/jsp/homepage/dutyShow.jsp</result>			
+        <action name="dutySummaryTable" class="homepage.HomeAction" method="dutyShow">
+			<result>/jsp/homepage/dutySummaryTable.jsp</result>			
     	</action>
     	
         
