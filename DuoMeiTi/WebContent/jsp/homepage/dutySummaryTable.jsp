@@ -67,7 +67,7 @@
 								<span
 									style="display:block;
 										text-align:center;
-										background-color:#ddd;
+/* 										background-color:#ddd; */
 										margin:2px 0;
 										cursor:pointer;
 										min-height:27px;
