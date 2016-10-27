@@ -40,11 +40,8 @@ public class Util
 	
 	public static final String FileUploadPath = "/FileUpload/"; //相对于Rootpath
 	
-	
-	
 	public static final String ProfilePhotoPath = 
-			FileUploadPath + "ProfilePhoto/";//相对于Rootpath
-	
+			FileUploadPath + "ProfilePhoto/";//相对于Rootpath	
 	
 	public static final String ResourceFilePath = 
 			FileUploadPath + "ResourceFile/";//相对于Rootpath
@@ -53,17 +50,14 @@ public class Util
 			FileUploadPath + "ClassroomInfoFile/";//相对于Rootpath
 	
 	public static final String ClassroomSchedulePath = 
-			FileUploadPath + "ClassroomScheduleFile/";//相对于Rootpath
-	
+			FileUploadPath + "ClassroomScheduleFile/";//相对于Rootpath	
 
 	public static final String RecordExportPath = 
 			FileUploadPath + "RecordExportPath/";
-
 	
 
 	public static final String CheckInExcelExportPath = 
-			FileUploadPath + "ExportCheckInFile/";//相对于Rootpath
-	
+			FileUploadPath + "ExportCheckInFile/";//相对于Rootpath	
 	
 	public static final String ExportDeviceInfoPath = 
 			FileUploadPath + "ExportDeviceInfoPath/";//相对于Rootpath
@@ -76,16 +70,13 @@ public class Util
 			makeDir(file.getParent().toString());
 			file.mkdir();
 		}
-		
 	}
 	
 	
 	static 
 	{	
 		ServletContext application = ServletActionContext.getServletContext();
-		RootPath = application.getRealPath("");
-		
-				
+		RootPath = application.getRealPath("");		
 		
 		makeDir(RootPath + ProfilePhotoPath);
 		makeDir(RootPath + ResourceFilePath);
@@ -95,14 +86,6 @@ public class Util
 		
 		makeDir(RootPath + RecordExportPath);
 		makeDir(RootPath + ExportDeviceInfoPath);
-		
-
-		
-//		File file = new File(util.Util.RootPath + util.Util.CheckInExcelExportPath);
-//        if (!file.getParentFile().exists())
-//        	file.getParentFile().mkdirs();
-//        if (!file.exists())
-//        	file.mkdirs();
 
 	}
 	
@@ -166,11 +149,7 @@ public class Util
 	static public String getFileNameFromPath(String path)
 	{
 		String []  list = path.split("/");
-//		System.out.println("LIST");
-		
-		
 		int n = list.length;
-//		System.out.println(list[n - 1]);
 		return list[n - 1];
 	}
 	
@@ -223,6 +202,12 @@ public class Util
 		return dfOnlyDate.format(s);
 	}
 	
+	static public String formatSqlDateToOnlyDate(java.sql.Date s)
+	{
+		
+		return dfOnlyDate.format(new java.util.Date(s.getTime()));
+	}
+
 	
 	
 	

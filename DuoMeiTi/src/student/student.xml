@@ -49,7 +49,7 @@
 <!-- 		考试系统 END-->
 
 <!-- 学生信息 -->
-		<action name="student_information" class="student.InformationAction" method="studentInformation">
+		<action name="student_information" class="student.InformationAction" method="execute">
 			<result>/jsp/student/student_information.jsp</result>
 		</action>
 
