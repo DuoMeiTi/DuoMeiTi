@@ -22,10 +22,10 @@ public class InformationAction extends FileUploadBaseAction{
 	private String sexSelect[];
 	private String collegeSelect[];
 	public List<User>user_list;
-	private static User now_user;
+//	private static User now_user;
 	private int user_id;
 	public List<StudentProfile>student_list;
-	private static StudentProfile now_student;
+//	private static StudentProfile now_student;
 	
 	private String bankCard;
 	private String idCard;
@@ -44,6 +44,97 @@ public class InformationAction extends FileUploadBaseAction{
 	
 	
 	
+
+	public String studentInformation() throws Exception
+	{
+		
+		sexSelect = Const.sexSelect;
+		collegeSelect = Const.collegeSelect;
+		Session session = model.Util.sessionFactory.openSession();
+		Criteria c1 = session.createCriteria(User.class).add(Restrictions.eq("username", ActionContext.getContext().getSession().get("username")));
+		
+		user_list = c1.list();
+		User now_user = user_list.get(0);
+		
+		user_id = now_user.getId();
+		
+		System.out.println(user_id);
+		
+		Criteria c2=session.createCriteria(StudentProfile.class).add(Restrictions.eq("user.id", user_id));
+		student_list=c2.list();
+		StudentProfile now_student=student_list.get(0);
+		session.close();
+		
+		
+		
+		//从数据库读取当前用户的各个属性
+		username=now_user.getUsername();
+		fullName=now_user.getFullName();
+		phoneNumber=now_user.getPhoneNumber();
+		profilePhotoPath=now_user.getProfilePhotoPath();
+		remark=now_user.getRemark();
+		sex=now_user.getSex();
+		
+		bankCard=now_student.getBankCard();
+		idCard=now_student.getIdCard();
+		studentId=now_student.getStudentId();
+		entryTime=now_student.getEntryTime();
+		college=now_student.getCollege();
+		if(entryTime != null){
+			time = entryTime.toString();
+		}
+		System.out.println("time:"+entryTime);
+
+		
+		return ActionSupport.SUCCESS;
+	}
+	
+	public String studentInformationChange() throws Exception
+	{
+		Session session = model.Util.sessionFactory.openSession();
+		
+		User now_user = util.Util.getUniqueResultWithOneEqualRestriction(
+				session, User.class, "username", ActionContext.getContext().getSession().get("username"));
+		
+		StudentProfile now_student = util.Util.getUniqueResultWithOneEqualRestriction(
+				session, StudentProfile.class, "user.id", now_user.id);
+				
+		
+		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
+        {
+			fileFileName = now_user.username;
+			util.Util.deleteFile(util.Util.RootPath + now_user.getProfilePhotoPath());
+			util.Util.saveFile(file, now_user.getId() + fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
+			String inserted_file_path = util.Util.ProfilePhotoPath + now_user.getId() + fileFileName;
+            now_user.setProfilePhotoPath(inserted_file_path);
+        }
+		
+		now_user.setUsername(username);
+		now_user.setFullName(fullName);
+		now_user.setSex(sex);
+		now_student.setStudentId(studentId);
+		now_student.setIdCard(idCard);
+		now_student.setBankCard(bankCard);
+		now_student.setCollege(college);
+		now_user.setPhoneNumber(phoneNumber);
+		now_student.setEntryTime(entryTime);
+		now_user.setRemark(remark);
+		
+		
+		session.beginTransaction();
+		session.update(now_user);
+		session.update(now_student);
+		Transaction t = session.getTransaction();
+		t.commit();
+		session.close();
+		
+		return ActionSupport.SUCCESS;
+	}
+	
+	
+	
+	
+
 	
 
 
@@ -143,13 +234,13 @@ public class InformationAction extends FileUploadBaseAction{
 		this.username = username;
 	}
 
-	public static StudentProfile getNow_student() {
-		return now_student;
-	}
+//	public static StudentProfile getNow_student() {
+//		return now_student;
+//	}
 
-	public static void setNow_student(StudentProfile now_student) {
-		InformationAction.now_student = now_student;
-	}
+//	public static void setNow_student(StudentProfile now_student) {
+//		InformationAction.now_student = now_student;
+//	}
 
 	public List<StudentProfile> getStudent_list() {
 		return student_list;
@@ -167,13 +258,13 @@ public class InformationAction extends FileUploadBaseAction{
 		this.user_id = user_id;
 	}
 
-	public static User getNow_user() {
-		return now_user;
-	}
+//	public static User getNow_user() {
+//		return now_user;
+//	}
 
-	public static void setNow_user(User now_user) {
-		InformationAction.now_user = now_user;
-	}
+//	public static void setNow_user(User now_user) {
+//		InformationAction.now_user = now_user;
+//	}
 
 	public List<User> getUser_list() {
 		return user_list;
@@ -199,81 +290,7 @@ public class InformationAction extends FileUploadBaseAction{
 		this.collegeSelect = collegeSelect;
 	}
 
-
-	public String studentInformation() throws Exception
-	{
-		
-		sexSelect = Const.sexSelect;
-		collegeSelect = Const.collegeSelect;
-		Session session = model.Util.sessionFactory.openSession();
-		Criteria c1 = session.createCriteria(User.class).add(Restrictions.eq("username", ActionContext.getContext().getSession().get("username")));
-		
-		user_list = c1.list();
-		now_user = user_list.get(0);
-		
-		user_id = now_user.getId();
-		
-		System.out.println(user_id);
-		
-		Criteria c2=session.createCriteria(StudentProfile.class).add(Restrictions.eq("user.id", user_id));
-		student_list=c2.list();
-		now_student=student_list.get(0);
-		session.close();
-		
-		
-		
-		//从数据库读取当前用户的各个属性
-		username=now_user.getUsername();
-		fullName=now_user.getFullName();
-		phoneNumber=now_user.getPhoneNumber();
-		profilePhotoPath=now_user.getProfilePhotoPath();
-		remark=now_user.getRemark();
-		sex=now_user.getSex();
-		
-		bankCard=now_student.getBankCard();
-		idCard=now_student.getIdCard();
-		studentId=now_student.getStudentId();
-		entryTime=now_student.getEntryTime();
-		college=now_student.getCollege();
-		if(entryTime != null){
-			time = entryTime.toString();
-		}
-		System.out.println("time:"+entryTime);
-
-		
-		return ActionSupport.SUCCESS;
-	}
 	
-	public String studentInformationChange() throws Exception
-	{
-		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
-        {
-			util.Util.deleteFile(util.Util.RootPath + now_user.getProfilePhotoPath());
-			util.Util.saveFile(file, now_user.getId() + fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
-			String inserted_file_path = util.Util.ProfilePhotoPath + now_user.getId() + fileFileName;
-            now_user.setProfilePhotoPath(inserted_file_path);
-        }
-		
-		now_user.setUsername(username);
-		now_user.setFullName(fullName);
-		now_user.setSex(sex);
-		now_student.setStudentId(studentId);
-		now_student.setIdCard(idCard);
-		now_student.setBankCard(bankCard);
-		now_student.setCollege(college);
-		now_user.setPhoneNumber(phoneNumber);
-		now_student.setEntryTime(entryTime);
-		now_user.setRemark(remark);
-		
-		Session session = model.Util.sessionFactory.openSession();
-		session.beginTransaction();
-		session.update(now_user);
-		session.update(now_student);
-		Transaction t = session.getTransaction();
-		t.commit();
-		session.close();
-		
-		return ActionSupport.SUCCESS;
-	}
+	
 }
 
