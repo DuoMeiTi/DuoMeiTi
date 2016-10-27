@@ -20,67 +20,16 @@ import util.FileUploadBaseAction;
 
 public class InformationAction extends FileUploadBaseAction{
 	
-	private String sexSelect[];
-	private String collegeSelect[];
-//	public List<User>user_list;
-//	private static User now_user;
-//	private int user_id;
-//	public List<StudentProfile>student_list;
-//	private static StudentProfile now_student;
-	
-//	private String bankCard;
-//	private String idCard;
-//	private String studentId;
-//	private java.sql.Date entryTime;
-//	private String college;
-//	
-//	private String fullName;
-//	private String phoneNumber;
-//	private String profilePhotoPath;
-//	private String remark;
-//	private String sex;
-//	private String username;
-//	
-//	private String time;
-	
-	
 	
 	StudentProfile execute_currentStudentProfile;
 	public String execute() throws Exception
 	{	
-		sexSelect = Const.sexSelect;
-		collegeSelect = Const.collegeSelect;
 		Session session = model.Util.sessionFactory.openSession();
 		StudentProfile currentStudentProfile = util.Util.getUniqueResultWithOneEqualRestriction(
-				session, StudentProfile.class, "user.username", ActionContext.getContext().getSession().get("username"));
-		
+				session, StudentProfile.class, "user.username", ActionContext.getContext().getSession().get("username"));		
 		session.close();
-		
-//		System.out.println(currentStudentProfile.entryTime + "============");
-		
-		
 		execute_currentStudentProfile = currentStudentProfile;
 		return ActionSupport.SUCCESS;
-
-		
-		//从数据库读取当前用户的各个属性
-//		username=now_user.getUsername();
-//		fullName=now_user.getFullName();
-//		phoneNumber=now_user.getPhoneNumber();
-//		profilePhotoPath=now_user.getProfilePhotoPath();
-//		remark=now_user.getRemark();
-//		sex=now_user.getSex();
-//		
-//		bankCard=now_student.getBankCard();
-//		idCard=now_student.getIdCard();
-//		studentId=now_student.getStudentId();
-//		entryTime=now_student.getEntryTime();
-//		college=now_student.getCollege();
-//		if(entryTime != null){
-//			time = entryTime.toString();
-//		}
-//		System.out.println("time:"+entryTime);
-
 	}
 	
 	
@@ -119,232 +68,20 @@ public class InformationAction extends FileUploadBaseAction{
 		
 		return ActionSupport.SUCCESS;
 	}
-	
-	
-	
-	
-
-	
-
-//
-//	public String getTime() {
-//		return time;
-//	}
-//
-//	public void setTime(String time) {
-//		this.time = time;
-//	}
-//
-//	public String getCollege() {
-//		return college;
-//	}
-//
-//	public void setCollege(String college) {
-//		this.college = college;
-//	}
-//
-//	public java.sql.Date getEntryTime() {
-//		return entryTime;
-//	}
-//
-//	public void setEntryTime(java.sql.Date entryTime) {
-//		this.entryTime = entryTime;
-//	}
-//
-//	public String getBankCard() {
-//		return bankCard;
-//	}
-//
-//	public void setBankCard(String bankCard) {
-//		this.bankCard = bankCard;
-//	}
-//
-//	public String getIdCard() {
-//		return idCard;
-//	}
-//
-//	public void setIdCard(String idCard) {
-//		this.idCard = idCard;
-//	}
-//
-//	public String getStudentId() {
-//		return studentId;
-//	}
-//
-//	public void setStudentId(String studentId) {
-//		this.studentId = studentId;
-//	}
-//
-//	public String getFullName() {
-//		return fullName;
-//	}
-//
-//	public void setFullName(String fullName) {
-//		this.fullName = fullName;
-//	}
-//
-//	public String getPhoneNumber() {
-//		return phoneNumber;
-//	}
-//
-//	public void setPhoneNumber(String phoneNumber) {
-//		this.phoneNumber = phoneNumber;
-//	}
-//
-//	public String getProfilePhotoPath() {
-//		return profilePhotoPath;
-//	}
-//
-//	public void setProfilePhotoPath(String profilePhotoPath) {
-//		this.profilePhotoPath = profilePhotoPath;
-//	}
-//
-//	public String getRemark() {
-//		return remark;
-//	}
-//
-//	public void setRemark(String remark) {
-//		this.remark = remark;
-//	}
-//
-//	public String getSex() {
-//		return sex;
-//	}
-//
-//	public void setSex(String sex) {
-//		this.sex = sex;
-//	}
-//
-//	public String getUsername() {
-//		return username;
-//	}
-//
-//	public void setUsername(String username) {
-//		this.username = username;
-//	}
-
-//	public static StudentProfile getNow_student() {
-//		return now_student;
-//	}
-
-//	public static void setNow_student(StudentProfile now_student) {
-//		InformationAction.now_student = now_student;
-//	}
-//
-//	public List<StudentProfile> getStudent_list() {
-//		return student_list;
-//	}
-//
-//	public void setStudent_list(List<StudentProfile> student_list) {
-//		this.student_list = student_list;
-//	}
-//
-//	public int getUser_id() {
-//		return user_id;
-//	}
-//
-//	public void setUser_id(int user_id) {
-//		this.user_id = user_id;
-//	}
-
-//	public static User getNow_user() {
-//		return now_user;
-//	}
-
-//	public static void setNow_user(User now_user) {
-//		InformationAction.now_user = now_user;
-//	}
-
-//	public List<User> getUser_list() {
-//		return user_list;
-//	}
-//
-//	public void setUser_list(List<User> user_list) {
-//		this.user_list = user_list;
-//	}
-
-	public String[] getSexSelect() {
-		return sexSelect;
-	}
-
-	public void setSexSelect(String[] sexSelect) {
-		this.sexSelect = sexSelect;
-	}
-
-	public String[] getCollegeSelect() {
-		return collegeSelect;
-	}
-
-	public void setCollegeSelect(String[] collegeSelect) {
-		this.collegeSelect = collegeSelect;
-	}
-
-
-
-
-
-
-
-
-	public StudentProfile getModify_newStudentProfile() {
-		return modify_newStudentProfile;
-	}
-
-
-
-
-
-
-
-
-	public void setModify_newStudentProfile(StudentProfile modify_newStudentProfile) {
-		this.modify_newStudentProfile = modify_newStudentProfile;
-	}
-
-
-
-
-
-
-
-
 	public StudentProfile getExecute_currentStudentProfile() {
 		return execute_currentStudentProfile;
 	}
-
-
-
-
-
-
-
-
 	public void setExecute_currentStudentProfile(StudentProfile execute_currentStudentProfile) {
 		this.execute_currentStudentProfile = execute_currentStudentProfile;
 	}
-
-
-
-
-
-
-
-//
-//	public StudentProfile getNewStudentProfile() {
-//		return newStudentProfile;
-//	}
-//
-//
-//
-//
-//
-//
-//
-//
-//	public void setNewStudentProfile(StudentProfile newStudentProfile) {
-//		this.newStudentProfile = newStudentProfile;
-//	}
-//
+	public StudentProfile getModify_newStudentProfile() {
+		return modify_newStudentProfile;
+	}
+	public void setModify_newStudentProfile(StudentProfile modify_newStudentProfile) {
+		this.modify_newStudentProfile = modify_newStudentProfile;
+	}
+	
+	
 	
 	
 }
