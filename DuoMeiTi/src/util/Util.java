@@ -653,7 +653,7 @@ public class Util
 	}
 	
 	
-	
+	/** 把src中对应的fieldListString 中的字段复制到dst中*/
 	public static void copyWithSpecificFields(Object src, Object dst, List<String> fieldListString) 
 	{	
 		for(String fieldString : fieldListString)
@@ -683,12 +683,10 @@ public class Util
 			{
 				e.printStackTrace();
 			}
-		}
-
-		
-		
+		}		
 	}
 	
+	/** 把src中对应的fieldListString 中的字段复制到dst中*/
 	public static void copyWithSpecificFields(Object src, Object dst, String[] fieldStringArray)
 	{
 		List<String> list = new ArrayList<String>();
@@ -697,6 +695,20 @@ public class Util
 		
 		copyWithSpecificFields(src, dst,list );
 		
+	}
+	
+	/** 
+	 * 设置user的用户头像为file所表示的图片，其文件名为{@code fileFileName}
+	 * 此函数不会对数据库操作， 只会对文件进行复制保存，并且设置user中的profilePhotoPath字段
+	 *  
+	 * */
+	public static void setUserProfilePhoto(User user, File file, String fileFileName)
+	{
+		fileFileName = user.username + "_" + fileFileName;
+		util.Util.deleteFile(util.Util.RootPath + user.profilePhotoPath);
+		util.Util.saveFile(file,  fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
+		user.profilePhotoPath = util.Util.ProfilePhotoPath +  fileFileName;
+
 	}
 	
 	

@@ -53,21 +53,19 @@ public class InformationAction extends FileUploadBaseAction{
 				currentStudentProfile,
 				studentProfileList   );
 		
-		if (file != null) //file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
+		if (file != null) // file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
 	    {
-			fileFileName = currentStudentProfile.user.username + "_" + fileFileName;
-			util.Util.deleteFile(util.Util.RootPath + currentStudentProfile.user.profilePhotoPath);
-			util.Util.saveFile(file,  fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
-			currentStudentProfile.user.profilePhotoPath = util.Util.ProfilePhotoPath +  fileFileName;
+			util.Util.setUserProfilePhoto(currentStudentProfile.user, file, fileFileName);
 	    }		
 		session.beginTransaction();
-		session.update(currentStudentProfile.user);
 		session.update(currentStudentProfile);
-		session.getTransaction().commit();;
+		session.getTransaction().commit();
 		session.close();
 		
 		return ActionSupport.SUCCESS;
 	}
+	
+	
 	public StudentProfile getExecute_currentStudentProfile() {
 		return execute_currentStudentProfile;
 	}
