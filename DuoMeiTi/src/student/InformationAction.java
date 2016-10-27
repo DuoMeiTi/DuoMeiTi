@@ -1,5 +1,6 @@
 package student;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -89,43 +90,38 @@ public class InformationAction extends FileUploadBaseAction{
 		return ActionSupport.SUCCESS;
 	}
 	
-	public String studentInformationChange() throws Exception
-	{
+	
+	StudentProfile modify_newStudentProfile;
+	public String modify() throws Exception
+	{	
+		
+		StudentProfile newStudentProfile = modify_newStudentProfile;
+		
 		Session session = model.Util.sessionFactory.openSession();
 		
-		User now_user = util.Util.getUniqueResultWithOneEqualRestriction(
-				session, User.class, "username", ActionContext.getContext().getSession().get("username"));
 		
-		StudentProfile now_student = util.Util.getUniqueResultWithOneEqualRestriction(
-				session, StudentProfile.class, "user.id", now_user.id);
-				
+		StudentProfile currentStudentProfile = util.Util.getUniqueResultWithOneEqualRestriction(
+				session, StudentProfile.class, "user.username", ActionContext.getContext().getSession().get("username"));
 		
-		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
-        {
-			fileFileName = now_user.username;
-			util.Util.deleteFile(util.Util.RootPath + now_user.getProfilePhotoPath());
-			util.Util.saveFile(file, now_user.getId() + fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
-			String inserted_file_path = util.Util.ProfilePhotoPath + now_user.getId() + fileFileName;
-            now_user.setProfilePhotoPath(inserted_file_path);
-        }
+		String[] studentProfileList = {"studentId", "idCard", "college", "bankCard", "entryTime",
+									    "user.fullName", "user.sex", "user.remark", "user.phoneNumber"};
 		
-		now_user.setUsername(username);
-		now_user.setFullName(fullName);
-		now_user.setSex(sex);
-		now_student.setStudentId(studentId);
-		now_student.setIdCard(idCard);
-		now_student.setBankCard(bankCard);
-		now_student.setCollege(college);
-		now_user.setPhoneNumber(phoneNumber);
-		now_student.setEntryTime(entryTime);
-		now_user.setRemark(remark);
+		util.Util.copyWithSpecificFields(
+				newStudentProfile, 
+				currentStudentProfile,
+				studentProfileList   );
 		
-		
+		if (file != null) //file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
+	    {
+			fileFileName = currentStudentProfile.user.username + "_" + fileFileName;
+			util.Util.deleteFile(util.Util.RootPath + currentStudentProfile.user.profilePhotoPath);
+			util.Util.saveFile(file,  fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
+			currentStudentProfile.user.profilePhotoPath = util.Util.ProfilePhotoPath +  fileFileName;
+	    }		
 		session.beginTransaction();
-		session.update(now_user);
-		session.update(now_student);
-		Transaction t = session.getTransaction();
-		t.commit();
+		session.update(currentStudentProfile.user);
+		session.update(currentStudentProfile);
+		session.getTransaction().commit();;
 		session.close();
 		
 		return ActionSupport.SUCCESS;
@@ -290,6 +286,50 @@ public class InformationAction extends FileUploadBaseAction{
 		this.collegeSelect = collegeSelect;
 	}
 
+
+
+
+
+
+
+
+	public StudentProfile getModify_newStudentProfile() {
+		return modify_newStudentProfile;
+	}
+
+
+
+
+
+
+
+
+	public void setModify_newStudentProfile(StudentProfile modify_newStudentProfile) {
+		this.modify_newStudentProfile = modify_newStudentProfile;
+	}
+
+
+
+
+
+
+
+//
+//	public StudentProfile getNewStudentProfile() {
+//		return newStudentProfile;
+//	}
+//
+//
+//
+//
+//
+//
+//
+//
+//	public void setNewStudentProfile(StudentProfile newStudentProfile) {
+//		this.newStudentProfile = newStudentProfile;
+//	}
+//
 	
 	
 }

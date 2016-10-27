@@ -4,11 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -635,19 +637,97 @@ public class Util
 	
 	
 	public static <T> List<T> getListWithOneEqualRestriction(
-			org.hibernate.Session s, Class<T> classInfo, String propertyName, Object propertyValue) {		
-		return (List<T>)s.createCriteria(classInfo).add(Restrictions.eq(propertyName, propertyValue)).list();
+			org.hibernate.Session s, Class<T> classInfo, String propertyName, Object propertyValue) {
+		
+		Criteria c = s.createCriteria(classInfo);
+		if(propertyName.contains("."))
+		{
+			String [] splittedPropertyNameArray = propertyName.split("\\.");
+			for(int i = 0; i < splittedPropertyNameArray.length - 1; ++ i )
+			{				
+				
+				
+				String splittedPropertyName = splittedPropertyNameArray[i];
+				c.createAlias(splittedPropertyName, splittedPropertyName);
+			}
+		}
+		
+		return (List<T>)c.add(Restrictions.eq(propertyName, propertyValue)).list();
 	}
 	
 	public static <T> T getUniqueResultWithOneEqualRestriction(
-			org.hibernate.Session s, Class<T> classInfo, String propertyName, Object propertyValue) {		
-		return (T)s.createCriteria(classInfo).add(Restrictions.eq(propertyName, propertyValue)).uniqueResult();
+			org.hibernate.Session s, Class<T> classInfo, String propertyName, Object propertyValue) {
+		return (T)getListWithOneEqualRestriction(s, classInfo, propertyName, propertyValue).get(0);
+		
+//		return (T)s.createCriteria(classInfo).add(Restrictions.eq(propertyName, propertyValue)).uniqueResult();
 	}
 
 	public static boolean isExistWithOneEqualRestriction(
 			org.hibernate.Session s, Class classInfo, String propertyName, Object propertyValue) {
 		return !getListWithOneEqualRestriction(s, classInfo, propertyName, propertyValue).isEmpty();
 	}
+	
+	
+	
+	public static void copyWithSpecificFields(Object src, Object dst, List<String> fieldListString) 
+	{	
+		for(String fieldString : fieldListString)
+		{
+			try 
+			{
+				
+				int dotPos = fieldString.indexOf('.');
+				if(dotPos == -1)
+				{
+					Field field = dst.getClass().getField(fieldString);
+					field.setAccessible(true);
+					field.set(dst, field.get(src));
+				}
+				else
+				{
+					List<String> nextField = new ArrayList<String>();
+					nextField.add(fieldString.substring(dotPos + 1));
+					
+					Field field = dst.getClass().getField(fieldString.substring(0, dotPos));
+					field.setAccessible(true);
+					copyWithSpecificFields(field.get(src), field.get(dst), nextField);
+
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+
+		
+		
+	}
+	
+	public static void copyWithSpecificFields(Object src, Object dst, String[] fieldStringArray)
+	{
+		List<String> list = new ArrayList<String>();
+		
+		Collections.addAll(list, fieldStringArray);
+		
+		copyWithSpecificFields(src, dst,list );
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

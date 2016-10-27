@@ -36,7 +36,6 @@
 		<action name="password_update" class="student.ModifyPasswordAction" method="updatePsw">
 		    <result type="json"></result>
 		</action>
-        <!-- 学生信息 -->
 
 <!-- 		考试系统 -->
 		<action name="exam" class="student.ExamAction">
@@ -48,18 +47,17 @@
 			<result type="json"></result>
 		</action>
 <!-- 		考试系统 END-->
+
+<!-- 学生信息 -->
 		<action name="student_information" class="student.InformationAction" method="studentInformation">
 			<result>/jsp/student/student_information.jsp</result>
 		</action>
 
-		<action name="student_information_change" class="student.InformationAction"
-			method="studentInformationChange">
-			<result name="success" type="json">
-				<param name="includeProperties">username,fullName,phoneNumber,sex,studentId,idCard,bankCard,college,entryTime,remark</param>
-			</result>
+		<action name="student_information_*" class="student.InformationAction" method="{1}">
+			<result name="success" type="json"> </result>
 		</action>
-		
-		
+
+
 <!-- 	选班管理 -->
 		<action name="dutyManage" class="student.DutyManageAction"
 			method="dutyManage">
