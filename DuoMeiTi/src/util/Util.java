@@ -802,6 +802,21 @@ public class Util
 	
 	
 	
+	public static Criteria getRegisterPassedStudentProfileCriteria(org.hibernate.Session s)
+	{
+		return s.createCriteria(StudentProfile.class).add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
+	}
+	
+	// 根据key和value查询满足条件的学生列表，排除了注册未通过的学生
+	public static List<StudentProfile> getRegisterPassedStudentProfileList(org.hibernate.Session s, String queryKey, Object queryValue)
+	{
+		Criteria c = getRegisterPassedStudentProfileCriteria( s);
+		return util.Util.addOneEqualRestriction(c, queryKey, queryValue).list();
+	}
+
+	
+	
+	
 	
 	
 	

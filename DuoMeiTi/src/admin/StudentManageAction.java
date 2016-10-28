@@ -70,17 +70,17 @@ public class StudentManageAction extends ActionSupport {
 	private Date time;// 规章制度的修改时间
 
 	
-	public static Criteria getRegisterPassedStudentProfileCriteria(Session s)
-	{
-		return s.createCriteria(StudentProfile.class).add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
-	}
-	
-	// 根据key和value查询满足条件的
-	public static List<StudentProfile> getRegisterPassedStudentProfileList(Session s, String queryKey, Object queryValue)
-	{
-		Criteria c = getRegisterPassedStudentProfileCriteria( s);
-		return util.Util.addOneEqualRestriction(c, queryKey, queryValue).list();
-	}
+//	public static Criteria getRegisterPassedStudentProfileCriteria(Session s)
+//	{
+//		return s.createCriteria(StudentProfile.class).add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
+//	}
+//	
+//	// 根据key和value查询满足条件的学生列表，排除了注册未通过的学生
+//	public static List<StudentProfile> getRegisterPassedStudentProfileList(Session s, String queryKey, Object queryValue)
+//	{
+//		Criteria c = getRegisterPassedStudentProfileCriteria( s);
+//		return util.Util.addOneEqualRestriction(c, queryKey, queryValue).list();
+//	}
 	
 	
 	String query_key; // in
@@ -89,7 +89,7 @@ public class StudentManageAction extends ActionSupport {
 	/**for ajax 传输，只获取注册通过的学生*/
 	public String query() throws Exception {
 		Session s = model.Util.sessionFactory.openSession();
-		query_studentProfileList = getRegisterPassedStudentProfileList(s, query_key, query_value);
+		query_studentProfileList = util.Util.getRegisterPassedStudentProfileList(s, query_key, query_value);
 		s.close();
 		return SUCCESS;
 	}
@@ -102,7 +102,7 @@ public class StudentManageAction extends ActionSupport {
 	public String queryUniqueStudent() throws Exception 
 	{
 		Session s = model.Util.sessionFactory.openSession();
-		List<StudentProfile> tmp = getRegisterPassedStudentProfileList(s, queryUniqueStudent_key, queryUniqueStudent_value);
+		List<StudentProfile> tmp = util.Util.getRegisterPassedStudentProfileList(s, queryUniqueStudent_key, queryUniqueStudent_value);
 				
 		queryUniqueStudent_student = null;
 		if(tmp.size() == 1)
@@ -128,14 +128,14 @@ public class StudentManageAction extends ActionSupport {
 	
 	// 排除注册未通过学生,通过学号查询
 	public static List<StudentProfile> searchStudentByStudentNumber(Session s, String studentId) {
-		return  getRegisterPassedStudentProfileCriteria( s)
+		return  util.Util.getRegisterPassedStudentProfileCriteria( s)
 
 		.add(Restrictions.eq("studentId", studentId)).list();
 	}
 
 	// 排除注册未通过学生
 	public static List<StudentProfile> searchStudentByFullname(Session s, String fullName) {
-		return getRegisterPassedStudentProfileCriteria( s)
+		return util.Util.getRegisterPassedStudentProfileCriteria( s)
 				.createAlias("user", "user").add(Restrictions.eq("user.fullName", fullName)).list();
 	}
 
@@ -378,7 +378,7 @@ public class StudentManageAction extends ActionSupport {
 
 			Session session = model.Util.sessionFactory.openSession();
 
-			Criteria q = getRegisterPassedStudentProfileCriteria( session).addOrder(Order.desc("id"))
+			Criteria q = util.Util.getRegisterPassedStudentProfileCriteria( session).addOrder(Order.desc("id"))
 			.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)));
 
 			student_list = q.list();
@@ -401,7 +401,7 @@ public class StudentManageAction extends ActionSupport {
 
 			Session session = model.Util.sessionFactory.openSession();
 
-			Criteria q = getRegisterPassedStudentProfileCriteria( session).addOrder(Order.desc("id"))
+			Criteria q = util.Util.getRegisterPassedStudentProfileCriteria( session).addOrder(Order.desc("id"))
 			.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent));
 
 			student_list = q.list();
@@ -424,7 +424,7 @@ public class StudentManageAction extends ActionSupport {
 
 		Session session = model.Util.sessionFactory.openSession();
 
-		Criteria q =  getRegisterPassedStudentProfileCriteria( session).addOrder(Order.desc("id"))
+		Criteria q =  util.Util.getRegisterPassedStudentProfileCriteria( session).addOrder(Order.desc("id"))
 				// .add(Restrictions.eq("isUpgradePrivilege",
 				// model.StudentProfile.DepartureStudent))
 
