@@ -105,6 +105,7 @@ public class StudentAction extends FileUploadBaseAction {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			session.getTransaction().rollback();
 			save_status = "数据库错误";
 		}
 
