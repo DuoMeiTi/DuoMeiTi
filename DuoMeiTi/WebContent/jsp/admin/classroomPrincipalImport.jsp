@@ -20,14 +20,6 @@
 		<div class="row">
 			
 			<div class="col-lg-3">
-<!-- 				<se -->
-<!-- 				<div class="input-group">					 -->
-<!-- 					<span class="input-group-addon">请输入学生的学号：</span>						 -->
-					
-<!-- 					<input type="text" class="form-control" id="studentNumberInput"/> -->
-					
-<!-- 					<input type="text" class="form-control" id="studentNumberInput"/> -->
-<!-- 				</div>  -->
 				<select class="form-control"  id="selectQueryType">
 					<option value="user.fullName"> 学生姓名</option>
 					<option value="studentId"> 学生学号</option>
