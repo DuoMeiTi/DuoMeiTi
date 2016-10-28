@@ -6,35 +6,36 @@
     <!--news base template-->
 		<div class="">
 			<div>
-				<div class="home-news">
-					<div class="usoft-listview-header">
+<!-- 				<div class="home-news"> -->
+<!-- 					<div class="usoft-listview-header"> -->
 						<h3>
 							通讯录
-							<!-- <small>Contacts </small> -->
 						</h3>
-					</div>
-					<br />
-					
+<!-- 					</div> -->
 					<div>
 					
-						<h3>
-							在职学生总人数：<s:property value="contacts_list.size()" />人
-						</h3>
+						<h4>
+							在职学生总人数：<s:property value="contacts_list.size()" />人							
+						</h4>
+						<h5>
+							注：学生按照学号长度排序，先是研究生，然后是本科生
+						</h5>
 					</div>
 					<div id="contactsDiv">
 						<%@ include file="/jsp/homepage/widgets/contactsTable.jsp"%>
 					</div>
-				</div>
+					
+					
 			</div>
 		</div>
 	</div>
 </div>
 
 <script>
-	function requestPageCallback(data)
-	{
-		$("#contactsDiv").html(data.contacts_list_html);
-	}
+// 	function requestPageCallback(data)
+// 	{
+// 		$("#contactsDiv").html(data.contacts_list_html);
+// 	}
 </script>
 
 </layout:override>

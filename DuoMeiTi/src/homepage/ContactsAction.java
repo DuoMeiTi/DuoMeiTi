@@ -1,5 +1,7 @@
 package homepage;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -11,85 +13,12 @@ import model.StudentProfile;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.inject.Inject;
 public class ContactsAction extends util.PageGetBaseAction {
-	public String username;
-	public String telnumber;
-	public int id;
-//	public List<Contacts> contacts;
-	public String status;
-	public List contacts_list;
-	public String contacts_list_html;
-    
-	
-	public String getContacts_list_html() {
-		return contacts_list_html;
-	}
 
+	public List<StudentProfile> contacts_list;
+//	
+//	public List postGraduateStudentList;
 
-	public void setContacts_list_html(String contacts_list_html) {
-		this.contacts_list_html = contacts_list_html;
-	}
-
-
-	public List getContacts_list() {
-		return contacts_list;
-	}
-
-
-	public void setContacts_list(List contacts_list) {
-		this.contacts_list = contacts_list;
-	}
-
-
-	public String getUsername() {
-		return username;
-	}
-
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-
-	public String getTelnumber() {
-		return telnumber;
-	}
-
-
-	public void setTelnumber(String telnumber) {
-		this.telnumber = telnumber;
-	}
-
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-//	public List<Contacts> getContacts() {
-//		return contacts;
-//	}
-//
-//
-//	public void setContacts(List<Contacts> contacts) {
-//		this.contacts = contacts;
-//	}
-
-
-	public String getStatus() {
-		return status;
-	}
-
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-    //建立数据库查询
+	    //建立数据库查询
 	public String wrContacts() throws Exception {
 		
 		Session session = model.Util.sessionFactory.openSession();
@@ -98,7 +27,38 @@ public class ContactsAction extends util.PageGetBaseAction {
 				.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)))
 				;
 		contacts_list=q.list();
+		
+		
+		
+		
+		
+//		postGraduateStudentList = new ArrayList<model.StudentProfile>();
+//		
+//		postGraduateStudentList.addAll(contacts_list);
+//		
+//		postGraduateStudentList.remove(0);
+		
 		session.close();
+		
+		
+		Collections.sort(contacts_list, new Comparator<StudentProfile>() {
+
+			@Override
+			public int compare(StudentProfile o1, StudentProfile o2) {
+				if(o1.studentId.length() != o2.studentId.length())
+				{
+					if(o1.studentId.length() < o2.studentId.length()) return -1;
+					else return 1;
+				}
+				return 0;
+			}
+			
+			
+			
+		});
+		
+		
+		
 		
 //		if(this.getIsAjaxTransmission())
 //		{
@@ -107,5 +67,34 @@ public class ContactsAction extends util.PageGetBaseAction {
 //		}
 		return ActionSupport.SUCCESS;
 	}
+
+	public List<StudentProfile> getContacts_list() {
+		return contacts_list;
+	}
+
+	public void setContacts_list(List<StudentProfile> contacts_list) {
+		this.contacts_list = contacts_list;
+	}
 	
+	
+	
+
+
+	
+	
+	
+//
+//	public List getPostGraduateStudentList() {
+//		return postGraduateStudentList;
+//	}
+//
+//
+//
+//	public void setPostGraduateStudentList(List postGraduateStudentList) {
+//		this.postGraduateStudentList = postGraduateStudentList;
+//	}
+	
+	
+
+
 }
