@@ -9,7 +9,8 @@
 <form class="form-inline" action="student_register" method="POST" id="student_register_form">
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="username">用&nbsp;&nbsp;户&nbsp;&nbsp;名</label>
-	  	<input type="text" class="form-control" name="username" id="username" onblur=checkUsername() value="<s:property value="username"/>" placeholder="用作登录的用户名">	
+	  	<input type="text" class="form-control" name="user.username" id="username"
+	  		onblur=checkUsername()  placeholder="用作登录的用户名">	
 	  </div>
 	  <div class="form-group">
 	  	<span style="color:red" id="username_msg">*</span>
@@ -19,7 +20,7 @@
 	  
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-	  	<input type="password" class="form-control" name="password" id="password" onblur="checkPassword()" value="<s:property value="password"/>" placeholder="">
+	  	<input type="password" class="form-control" name="user.password" id="password" onblur="checkPassword()"  >
 	  </div>
 	  <div class="form-group">
 	  	<span style="color:red" id="password_msg">*</span>
@@ -29,7 +30,7 @@
 	  
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="passwordAgain">确认密码</label>
-	  	<input type="password" class="form-control" id="passwordAgain" name="passwordAgain" onblur="confirmPassword()" value="<s:property value="passwordAgain"/>" placeholder="">
+	  	<input type="password" class="form-control" name="passwordAgain"  id="passwordAgain" onblur="confirmPassword()"    >
 	  </div>
 	  <div class="form-group">
 	  	<span style="color:red" id="confirm_msg">*</span>
@@ -39,7 +40,7 @@
 	  
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="fullName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
-	  	<input type="text" class="form-control" name="fullName" id="fullName" onblur="checkFullName()" value="<s:property value="fullName"/>" placeholder="您的真实姓名">	
+	  	<input type="text" class="form-control" name="user.fullName" id="fullName" onblur="checkFullName()" placeholder="您的真实姓名">	
 	  </div>
 	  <div class="form-group">
 	  	<span style="color:red" id="fullName_msg">*</span>
@@ -49,8 +50,7 @@
 	  
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
-	  	<%-- <s:select list="{'男','女'}"  class="form-control" id="sex" name="sex" style="width:180px"></s:select> --%>
-	  	<s:select list="sexSelect" class="form-control" name="sex" id="sex" onblur="checkSex()"></s:select>
+	  	<s:select list="@util.Const@sexSelect" class="form-control" name="user.sex" id="sex" onblur="checkSex()"></s:select>
 	  </div>
 	  <div class="form-group">
 	  	<span style="color:red" id="sex_msg">*</span>
@@ -60,25 +60,17 @@
 	  
 	  <div class="form-group col-lg-offset-4">
 		<label for="profilePhotoPath">上传头像</label> 
-	    <input type="file" class ="pull-right "name="profilePhotoPath" id="file_upload"  placeholder="图片地址"> 
+	    <input type="file" class ="pull-right "name="user.profilePhotoPath" id="file_upload"  placeholder="图片地址"> 
 	   <br>
-			 <s:fielderror/>
+<%-- 			 <s:fielderror/> --%>
 	  </div>
 	  
 	  <br><br>
 	  
-	  <%-- <div class="form-group col-lg-offset-4">
-	  	<label for="profilePhotoPath">上传头像</label>
-	  	<input type="file" class ="pull-right "name="profilePhotoPath" id="file_upload"  placeholder="图片地址">
-	  <br>
-			 <s:fielderror/>
-	  </div>
-	  
-	  <br><br> --%>
 	  
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="studentId">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
-	  	<input type="text" class="form-control" name="studentId" id="studentId" onblur="checkStudentId()" value="<s:property value="studentId"/>" placeholder="">
+	  	<input type="text" class="form-control" name="studentId"  id="studentId" onblur="checkStudentId()" >
 	  </div>
 	  <div class="form-group">
 	  	<span style="color:red" id="studentId_msg">*</span>
@@ -88,43 +80,32 @@
 	  
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="college">院系信息</label>
-	  	<s:select list="collegeSelect" class="form-control" id="college" name="college"></s:select>
+	  	<s:select list="@util.Const@collegeSelect" class="form-control" name="college" id="college"></s:select>
 	  </div>
 	  
 	  <br><br>
 	   
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="phoneNumber">联系方式</label>
-	  	<input type="text" class="form-control" name="phoneNumber" id="phoneNumber" value="<s:property value="phoneNumber"/>" placeholder="">	
+	  	<input type="text" class="form-control" name="user.phoneNumber" id="user.phoneNumber" >	
 	  </div>
 	  
 	  <br><br>
 	  
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="bankCard">银行卡号</label>
-	  	<input type="text" class="form-control" id="bankCard" name="bankCard" value="<s:property value="bankCard"/>" placeholder="">
+	  	<input type="text" class="form-control" name="bankCard"  id="bankCard"  >
 	  </div>
 	  
 	  <br><br>
 	  
 	  <div class="form-group col-lg-offset-4">
 	  	<label for="idCard">身&nbsp;&nbsp;份&nbsp;&nbsp;证</label>
-	  	<input type="text" class="form-control" name="idCard" id="idCard" value="<s:property value="idCard"/>" placeholder="">
+	  	<input type="text" class="form-control" name="idCard"  id="idCard"  >
 	  </div>
-	  <!-- <div class="form-group">
-	  	<span style="color:red">*</span>
-	  </div> -->
-	  
 	  <br><br>
 	  
-<!-- 	  <div class="form-group col-lg-offset-4 date"> -->
-<!-- 	  	<label for="entryTime">入职时间</label> -->
-<%-- 	  	<input type="date" class="form-control" id="entryTime" name="entryTime" value="<s:property value="entryTime"/>" placeholder=""> --%>
-<!-- 	  </div>  -->
-<!-- 	  <div class="form-group"> -->
-<!-- 	  	<span style="color:red">*</span> -->
-<!-- 	  </div> -->
-	  
+
 	  <br> <br>
 	 
 	  <div class="form-group col-lg-offset-5">
@@ -143,22 +124,22 @@
         if(document.getElementById('file_upload').files.length != 0)
     		fd.append("file", document.getElementById('file_upload').files[0]);
         
-        fd.append("username",$("#username").val());
-        fd.append("password",$("#password").val());
-        fd.append("passwordAgain",$("#passwordAgain").val());
-        fd.append("fullName",$("#fullName").val());
-        fd.append("sex",$("#sex").val());
-        fd.append("profilePhotoPath",$("#profilePhotoPath").val());
-        fd.append("studentId",$("#studentId").val());
-        fd.append("college",$("#college").val());
-        fd.append("bankCard",$("#bankCard").val());
-        fd.append("idCard",$("#idCard").val());
-//         fd.append("entryTime",$("#entryTime").val());
-        fd.append("phoneNumber",$("#phoneNumber").val());
         
-//         alert("1111");
-//         alert($("#username").val());
-//		   alert($("#phoneNumber").val());
+        var params = $('#student_register_form').serializeArray();
+        
+        for(var i = 0; i < params.length; ++ i)
+        {
+        	var cnt = params[i];
+        	if(cnt.name == "passwordAgain")
+        	{
+        		cnt.name = "save_"+cnt.name;
+        	}
+        	else
+        	{
+        		cnt.name = "save_newStudentProfile."+cnt.name;
+        	}
+        	fd.append(cnt.name, cnt.value);
+        }
         
         $.ajax({
           url: 'student_register_save',
@@ -172,6 +153,23 @@
         });
 
     });
+    
+    function studentRegisterCallback(data)
+    {    	
+    	if(data.save_status == "")
+    	{    		
+    		alert("注册成功, 您现在可以登录了");
+    		window.location.href = "/login";
+    	}
+    	else 
+    	{
+    		alert(data.save_status);
+    	}
+    	
+
+		
+    }
+
     
     function checkUsername(){
     	var username = $("#username").val();
@@ -188,7 +186,7 @@
     function checkFullName(){
     	var fullName=$('#fullName').val();
     	
-    	if(username.indexOf(' ') != -1)
+    	if(fullName.indexOf(' ') != -1)
     	{
     		$('#fullName_msg').text("真实姓名中不可以含有空格");
     	}
@@ -236,41 +234,6 @@
     		$('#sex_msg').text("");
     }
     
-    function studentRegisterCallback(data)
-    {    	
-    	if(data.register_status == "")
-    	{    		
-    		alert("注册成功, 您现在可以登录了");
-    		window.location.href = "/login";
-    	}
-    	else 
-    	{
-    		alert(data.register_status);
-    	}
-    	
-//     	else if(data.register_status == "1")
-//     	{
-// //     		alert("有未填项，注册失败");
-//     	}
-//     	else if(data.register_status == "2")
-//    		{
-// //     		alert("注册用户名已经存在");
-//    		}
-//     	else if(data.register_status == "3")
-//     	{
-//     		alert("两次密码不一致");
-//     	} 
-//     	else if(data.register_status == "6")
-//     	{
-//     		alert("学号已经存在！");
-//     	} 
-//     	else 
-//    		{
-//     		alert("error with status：" + data.register_status);
-//    		}
-
-		
-    }
 </script>
 
 </layout:override>

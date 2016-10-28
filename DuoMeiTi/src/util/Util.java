@@ -24,6 +24,8 @@ import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import com.opensymphony.xwork2.ActionSupport;
+
 import model.Classroom;
 import model.DutyPiece;
 import model.DutySchedule;
@@ -712,6 +714,64 @@ public class Util
 	}
 	
 	
+	/**
+	 * 检查studentProfile信息是否有错误
+	 * 若有错误这返回错误列表，否则返回空列表 
+	 */	
+	public static List<String> validate(org.hibernate.Session s, User user)
+	{
+		List<String> ans = new ArrayList<String>();
+		
+		if(user.username.isEmpty() || user.password.isEmpty() || user.fullName.isEmpty()  )
+		{
+			ans.add( "含有未填项");
+		}
+		if(user.username.contains(" "))
+		{
+			ans.add( "用户名中含有空格");
+		}
+		if(user.fullName.contains(" "))
+		{
+			ans.add("真实姓名中含有空格");
+		}
+		
+		
+		//判断用户名是否重复
+		if(util.Util.isExistWithOneEqualRestriction(s, User.class, "username", user.username))
+		{
+			ans.add("用户名有重复");
+		}
+		return ans;
+
+
+	}
+	
+	/**
+	 * 检查studentProfile信息是否有错误
+	 * 若有错误这返回错误列表，否则返回空列表 
+	 */
+	public static List<String> validate(org.hibernate.Session s, StudentProfile studentProfile)
+	{
+		List<String> ans = new ArrayList<String>();
+		ans.addAll(validate(s,studentProfile.user));
+		
+		if(studentProfile.studentId.isEmpty())
+		{
+			ans.add("学号为空");
+		}
+
+		if(studentProfile.studentId.contains(" "))
+		{
+			ans.add("学号中含有空格");
+		}		
+		//判断学号是否重复		
+		if(util.Util.isExistWithOneEqualRestriction(s, StudentProfile.class, "studentId", studentProfile.studentId))
+		{
+			ans.add("学号有重复");
+		}
+		return ans;
+
+	}
 	
 	
 	

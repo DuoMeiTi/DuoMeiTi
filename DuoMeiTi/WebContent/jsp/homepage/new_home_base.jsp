@@ -237,9 +237,14 @@
     
     <!-- 百度推广JS -->
     <script type="text/javascript">
-  var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F467a2b45543928de4d32a9f7c3bfc175' type='text/javascript'%3E%3C/script%3E"));
-    </script><script src=" http://hm.baidu.com/h.js?467a2b45543928de4d32a9f7c3bfc175" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=467a2b45543928de4d32a9f7c3bfc175" target="_blank"><img border="0" src="http://eiv.baidu.com/hmt/icon/21.gif" width="20" height="20"></a>
+// 		  var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+// 		document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F467a2b45543928de4d32a9f7c3bfc175' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	
+<!--     <script src=" http://hm.baidu.com/h.js?467a2b45543928de4d32a9f7c3bfc175" type="text/javascript"></script> -->
+<!--     <a href="http://tongji.baidu.com/hm-web/welcome/ico?s=467a2b45543928de4d32a9f7c3bfc175" target="_blank"> -->
+<!--     <img border="0" src="http://eiv.baidu.com/hmt/icon/21.gif" width="20" height="20"> -->
+<!--     </a> -->
     <!-- 百度推广JS END -->
   
 
