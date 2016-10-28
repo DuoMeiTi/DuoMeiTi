@@ -1,10 +1,10 @@
 <%@ include file="/jsp/base/taglib.jsp" %>
 <layout:override name="main_content">      
 
-<div class="row news_frame">
-	<div class="col-lg-6" style="width:98%; margin:10px">
+<div class="mycontent">
+<!-- 	<div class="col-lg-6" style="width:98%; margin:10px"> -->
     <!--news base template-->
-		<div class="">
+<!-- 		<div class=""> -->
 			<div>
 <!-- 				<div class="home-news"> -->
 <!-- 					<div class="usoft-listview-header"> -->
@@ -27,8 +27,8 @@
 					
 					
 			</div>
-		</div>
-	</div>
+<!-- 		</div> -->
+<!-- 	</div> -->
 </div>
 
 <script>
