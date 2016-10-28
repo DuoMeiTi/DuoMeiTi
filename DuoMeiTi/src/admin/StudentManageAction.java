@@ -69,16 +69,22 @@ public class StudentManageAction extends ActionSupport {
 	private String textShow;// 规章制度的内容，显示给jsp页面的内容
 	private Date time;// 规章制度的修改时间
 
+	
+	public static Criteria getRegisterPassedStudentProfileCriteria(Session s)
+	{
+		return s.createCriteria(StudentProfile.class).add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
+	}
+	
 	// 排除注册未通过学生,通过学号查询
 	public static List<StudentProfile> searchStudentByStudentNumber(Session s, String studentId) {
-		return s.createCriteria(StudentProfile.class).add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
+		return  getRegisterPassedStudentProfileCriteria( s)
 
 		.add(Restrictions.eq("studentId", studentId)).list();
 	}
 
 	// 排除注册未通过学生
 	public static List<StudentProfile> searchStudentByFullname(Session s, String fullName) {
-		return s.createCriteria(StudentProfile.class).add(Restrictions.eq("isPassed", model.StudentProfile.Passed))
+		return getRegisterPassedStudentProfileCriteria( s)
 				.createAlias("user", "user").add(Restrictions.eq("user.fullName", fullName)).list();
 	}
 
@@ -93,18 +99,7 @@ public class StudentManageAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String searchByFullNameOrStudentId() throws Exception {
-		Session s = model.Util.sessionFactory.openSession();
 
-		if (!studentId.isEmpty()) {
-			student_list = searchStudentByStudentNumber(s, studentId);
-		} else {
-			student_list = searchStudentByFullname(s, fullName);
-		}
-
-		s.close();
-		return SUCCESS;
-	}
 
 	public String search() throws Exception {
 		System.out.println("searchStudentInformation():");
@@ -179,23 +174,7 @@ public class StudentManageAction extends ActionSupport {
 			session.update(edit_student);
 			
 			session.getTransaction().commit();
-//			// 更新学生数据,hql只更新部分字段
-//			session.beginTransaction();
-//			String hql = "update StudentProfile t set t.studentId = '" + studentId + "', t.college = '" + college
-//					+ "', t.isUpgradePrivilege = '" + isUpgradePrivilege + "', t.bankCard = '" + bankCard
-//					+ "', t.idCard = '" + idCard + "' where id = " + edit_student.getId();
-//			System.out.println("hql:" + hql);
-//			Query query = session.createQuery(hql);
-//			query.executeUpdate();
-//
-//			String hql2 = "update User t set t.fullName = '" + fullName + "', t.sex = '" + sex + "', t.phoneNumber = '"
-//					+ phoneNumber + "' where id = " + edit_student.getUser().getId();
-//			System.out.println("hql:" + hql2);
-//			Query query2 = session.createQuery(hql2);
-//			query2.executeUpdate();
-//
-//			Transaction t = session.getTransaction();
-//			t.commit();
+
 			
 
 		} catch (Exception e) {
@@ -348,15 +327,8 @@ public class StudentManageAction extends ActionSupport {
 
 			Session session = model.Util.sessionFactory.openSession();
 
-			Criteria q = session.createCriteria(model.StudentProfile.class)
-					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed)).addOrder(Order.desc("id"))
-
-			// .add(Restrictions.eq("isUpgradePrivilege",
-			// model.StudentProfile.DepartureStudent))
-
-			.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)))
-
-			;
+			Criteria q = getRegisterPassedStudentProfileCriteria( session).addOrder(Order.desc("id"))
+			.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)));
 
 			student_list = q.list();
 			studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
@@ -378,15 +350,8 @@ public class StudentManageAction extends ActionSupport {
 
 			Session session = model.Util.sessionFactory.openSession();
 
-			Criteria q = session.createCriteria(model.StudentProfile.class)
-					.add(Restrictions.eq("isPassed", model.StudentProfile.Passed)).addOrder(Order.desc("id"))
-
-			// .add(Restrictions.eq("isUpgradePrivilege",
-			// model.StudentProfile.DepartureStudent))
-
-			.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent))
-
-			;
+			Criteria q = getRegisterPassedStudentProfileCriteria( session).addOrder(Order.desc("id"))
+			.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent));
 
 			student_list = q.list();
 			studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
@@ -408,8 +373,7 @@ public class StudentManageAction extends ActionSupport {
 
 		Session session = model.Util.sessionFactory.openSession();
 
-		Criteria q = session.createCriteria(model.StudentProfile.class)
-				.add(Restrictions.eq("isPassed", model.StudentProfile.Passed)).addOrder(Order.desc("id"))
+		Criteria q =  getRegisterPassedStudentProfileCriteria( session).addOrder(Order.desc("id"))
 				// .add(Restrictions.eq("isUpgradePrivilege",
 				// model.StudentProfile.DepartureStudent))
 

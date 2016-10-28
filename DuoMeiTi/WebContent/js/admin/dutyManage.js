@@ -310,43 +310,7 @@ $(document).on("click",".addBtn",function() {
 
 
 
-//// 检索学生
-//$(document).on("click","#searchButton",function(){
-//	var name=$("#studentName").val();
-//	var id=$("#studentId").val();
-//	var logdiv=$(".log");
-//	if(name==""&&id=="")logdiv.html("请至少填写一个字段");
-//	else{
-//		$.ajax({
-//			url:"/admin/student_manage/searchByFullNameOrStudentId",
-//			type : 'post',
-//			dataType : 'json',
-//			data : {"fullName":name,"studentId":id},
-//			success : SearchStudentCallBack
-//		});
-//	}
-//})
 
-
-//var cntStudentId;
-//function SearchStudentCallBack(data){
-//	var students=data.student_list;
-//	var logdiv=$(".log");
-//	var nameInput=$("#studentName");
-//	var idInput=$("#studentId");
-//
-//	
-//	if(students.length==0)logdiv.html("查无此人");
-//	if(students.length==1)
-//	{
-//		nameInput.val(students[0].user.fullName);
-//		idInput.val(students[0].studentId);
-//		cntStudentId = students[0].id;
-//
-//		logdiv.html("可以添加");
-//	}
-//	if(students.length>1)logdiv.html("有多名学生同名，请输入学号重新检索");
-//}
 
 
 
