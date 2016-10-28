@@ -244,23 +244,23 @@ public class BatchImportAction extends FileUploadBaseAction {
 	
 	
 	
-	public String classroomPrincipalChangeBuilding() throws Exception {	
-		
-		System.out.println("*****LLLLLLLLLLLLLLLL");
-		Session session = model.Util.sessionFactory.openSession();
-		Criteria classroom_criteria = session.createCriteria(Classroom.class);	
-		if(selectTeachBuilding != -1)
-		{
-			classroom_criteria.add(Restrictions.eq("teachbuilding.id", selectTeachBuilding));
-			classroom_criteria.addOrder(Order.asc("classroom_num"));
-			classroom_list = classroom_criteria.list();
-
-		}
-		classroomcheckbox = util.Util.getJspOutput("/jsp/admin/widgets/classroomPrincipalCheckbox.jsp");
-		session.close();
-		
-		return SUCCESS;
-	}
+//	public String classroomPrincipalChangeBuilding() throws Exception {	
+//		
+//		System.out.println("*****LLLLLLLLLLLLLLLL");
+//		Session session = model.Util.sessionFactory.openSession();
+//		Criteria classroom_criteria = session.createCriteria(Classroom.class);	
+//		if(selectTeachBuilding != -1)
+//		{
+//			classroom_criteria.add(Restrictions.eq("teachbuilding.id", selectTeachBuilding));
+//			classroom_criteria.addOrder(Order.asc("classroom_num"));
+//			classroom_list = classroom_criteria.list();
+//
+//		}
+//		classroomcheckbox = util.Util.getJspOutput("/jsp/admin/widgets/classroomPrincipalCheckbox.jsp");
+//		session.close();
+//		
+//		return SUCCESS;
+//	}
 
 	
 	//学号

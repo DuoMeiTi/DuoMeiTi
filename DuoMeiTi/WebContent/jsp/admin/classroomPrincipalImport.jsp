@@ -13,18 +13,30 @@
 		<br/>
 		
 		<div class="alert alert-success" role="alert" style="border-radius:5px;"  >
-			<p>选择相应的教室， 批量设置一些教室的教室负责人</p>			
+			<p>选择相应的教室， 批量设置一些教室的教室负责人</p>
+			<p>可以按照学生姓名或者学生学号添加学生</p>			
 		</div>	
 
 		<div class="row">
 			
-			<div class="col-lg-4">
-				<div class="input-group">					
-					<span class="input-group-addon">请输入学生的学号：</span>						
-					<input type="text" class="form-control" id="studentNumberInput"/>
-				</div> 
+			<div class="col-lg-3">
+<!-- 				<se -->
+<!-- 				<div class="input-group">					 -->
+<!-- 					<span class="input-group-addon">请输入学生的学号：</span>						 -->
+					
+<!-- 					<input type="text" class="form-control" id="studentNumberInput"/> -->
+					
+<!-- 					<input type="text" class="form-control" id="studentNumberInput"/> -->
+<!-- 				</div>  -->
+				<select class="form-control"  id="selectQueryType">
+					<option value="user.fullName"> 学生姓名</option>
+					<option value="studentId"> 学生学号</option>
+				</select>
+				
 			</div>
-			
+			<div class="col-lg-3">
+				<input type="text" class="form-control" id="queryValueInput"/>
+			</div>
 			<div class="col-lg-4">
 				<button class="btn btn-primary" type="button" id="determineSetting">确定设置</button>
 			</div>
@@ -127,10 +139,61 @@ $(document).on("click","input[name='checkOne']",function(){
 
 
 
-
 $(document).on("click","#determineSetting",function(){
+	
+	query_key = $("#selectQueryType").val(),
+	query_value =  $("#queryValueInput").val();
+	
+	query_value = query_value.trim();
+	
+	if(query_key == "studentId")
+	{
+		setClassroomPrincipal(query_value);
+		return ;
+	}
+	
+
+	
+
+
+	$.ajax({  
+        url:'/admin/student_manage/student_information_queryUniqueStudent',
+        type: "POST",  
+        traditional: true,
+        data: {
+        	"queryUniqueStudent_key": query_key,
+        	"queryUniqueStudent_value": query_value,
+        },           
+        success: function(data) {
+        	
+        	var studentProfile= data.queryUniqueStudent_student;
+        	var status = data.queryUniqueStudent_status;
+			
+        	if(status != "")
+       		{
+       			alert(status);
+       		}			
+        	else
+       		{
+        		setClassroomPrincipal(studentProfile.studentId);
+       		}
+			
+        }
+   });  
+
+})
+
+
+function setClassroomPrincipal(studentId){
 
 // 	alert("FFF");
+
+	
+
+
+
+
+
 	classroomList = new Array();
 	var checkOnes = $("input[name='checkOne']");
 	for(var i=0;i<checkOnes.size();i++)
@@ -150,7 +213,7 @@ $(document).on("click","#determineSetting",function(){
         type: "POST",  
         traditional: true,
         data: {
-        	"studentNumber":$("#studentNumberInput").val(),
+        	"studentNumber": studentId,
         	"classroomIdList": classroomList,
         },           
         success: function(data) {
@@ -173,7 +236,7 @@ $(document).on("click","#determineSetting",function(){
 
 	
 	
-})
+}
 
 	
 

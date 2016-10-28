@@ -75,6 +75,57 @@ public class StudentManageAction extends ActionSupport {
 		return s.createCriteria(StudentProfile.class).add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
 	}
 	
+	// 根据key和value查询满足条件的
+	public static List<StudentProfile> getRegisterPassedStudentProfileList(Session s, String queryKey, Object queryValue)
+	{
+		Criteria c = getRegisterPassedStudentProfileCriteria( s);
+		return util.Util.addOneEqualRestriction(c, queryKey, queryValue).list();
+	}
+	
+	
+	String query_key; // in
+	String query_value; // in
+	List<StudentProfile> query_studentProfileList; // out
+	/**for ajax 传输，只获取注册通过的学生*/
+	public String query() throws Exception {
+		Session s = model.Util.sessionFactory.openSession();
+		query_studentProfileList = getRegisterPassedStudentProfileList(s, query_key, query_value);
+		s.close();
+		return SUCCESS;
+	}
+	
+	String queryUniqueStudent_key; // in
+	String queryUniqueStudent_value; // in
+	StudentProfile queryUniqueStudent_student; //out
+	String queryUniqueStudent_status; //out
+	/** 如果有超过一个或者没有，则queryUniqueStudent_status为有相应提示信息，否则为空*/
+	public String queryUniqueStudent() throws Exception 
+	{
+		Session s = model.Util.sessionFactory.openSession();
+		List<StudentProfile> tmp = getRegisterPassedStudentProfileList(s, queryUniqueStudent_key, queryUniqueStudent_value);
+				
+		queryUniqueStudent_student = null;
+		if(tmp.size() == 1)
+		{
+			queryUniqueStudent_student = tmp.get(0);
+			queryUniqueStudent_status = "";
+		}
+		else if(tmp.isEmpty())
+		{
+			queryUniqueStudent_status = "无此学生";
+		}
+		else 
+		{
+			queryUniqueStudent_status = "超过一个学生";
+		}		
+				
+		s.close();
+		return SUCCESS;
+	}
+	
+	
+	
+	
 	// 排除注册未通过学生,通过学号查询
 	public static List<StudentProfile> searchStudentByStudentNumber(Session s, String studentId) {
 		return  getRegisterPassedStudentProfileCriteria( s)
@@ -100,7 +151,7 @@ public class StudentManageAction extends ActionSupport {
 	}
 
 
-
+	// 仅仅为了界面搜索使用
 	public String search() throws Exception {
 		System.out.println("searchStudentInformation():");
 		Session s = model.Util.sessionFactory.openSession();
@@ -644,4 +695,61 @@ public class StudentManageAction extends ActionSupport {
 		this.delete_status = delete_status;
 	}
 
+	public String getQuery_key() {
+		return query_key;
+	}
+
+	public void setQuery_key(String query_key) {
+		this.query_key = query_key;
+	}
+
+	public String getQuery_value() {
+		return query_value;
+	}
+
+	public void setQuery_value(String query_value) {
+		this.query_value = query_value;
+	}
+
+	public List<StudentProfile> getQuery_studentProfileList() {
+		return query_studentProfileList;
+	}
+
+	public void setQuery_studentProfileList(List<StudentProfile> query_studentProfileList) {
+		this.query_studentProfileList = query_studentProfileList;
+	}
+
+	public String getQueryUniqueStudent_key() {
+		return queryUniqueStudent_key;
+	}
+
+	public void setQueryUniqueStudent_key(String queryUniqueStudent_key) {
+		this.queryUniqueStudent_key = queryUniqueStudent_key;
+	}
+
+	public String getQueryUniqueStudent_value() {
+		return queryUniqueStudent_value;
+	}
+
+	public void setQueryUniqueStudent_value(String queryUniqueStudent_value) {
+		this.queryUniqueStudent_value = queryUniqueStudent_value;
+	}
+
+	public StudentProfile getQueryUniqueStudent_student() {
+		return queryUniqueStudent_student;
+	}
+
+	public void setQueryUniqueStudent_student(StudentProfile queryUniqueStudent_student) {
+		this.queryUniqueStudent_student = queryUniqueStudent_student;
+	}
+
+	public String getQueryUniqueStudent_status() {
+		return queryUniqueStudent_status;
+	}
+
+	public void setQueryUniqueStudent_status(String queryUniqueStudent_status) {
+		this.queryUniqueStudent_status = queryUniqueStudent_status;
+	}
+	
+	
 }

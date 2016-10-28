@@ -620,6 +620,31 @@ public class Util
 	
 
 	
+	/**添加一个等于的限制条件**/
+	public static Criteria addOneEqualRestriction(Criteria c, String propertyName, Object propertyValue)
+	{
+		if(propertyName.contains("."))
+		{
+			String [] splittedPropertyNameArray = propertyName.split("\\.");
+			for(int i = 0; i < splittedPropertyNameArray.length - 1; ++ i )
+			{
+				String splittedPropertyName = splittedPropertyNameArray[i];
+				c.createAlias(splittedPropertyName, splittedPropertyName);
+			}
+		}
+		return c.add(Restrictions.eq(propertyName, propertyValue));
+	}
+	
+	
+//	public static Criteria addMultiEqualRestrictions(Criteria c, java.util.Map<String, Object> propertyList)
+//	{	
+//		for(java.util.Map.Entry<String, Object> entry : propertyList.entrySet())
+//		{
+//			c = addOneEqualRestriction(c, entry.getKey(), entry.getValue());
+//		}
+//		return c;
+//	}
+//	
 	
 	
 	
@@ -627,19 +652,21 @@ public class Util
 			org.hibernate.Session s, Class<T> classInfo, String propertyName, Object propertyValue) {
 		
 		Criteria c = s.createCriteria(classInfo);
-		if(propertyName.contains("."))
-		{
-			String [] splittedPropertyNameArray = propertyName.split("\\.");
-			for(int i = 0; i < splittedPropertyNameArray.length - 1; ++ i )
-			{				
-				
-				
-				String splittedPropertyName = splittedPropertyNameArray[i];
-				c.createAlias(splittedPropertyName, splittedPropertyName);
-			}
-		}
 		
-		return (List<T>)c.add(Restrictions.eq(propertyName, propertyValue)).list();
+		return addOneEqualRestriction(c, propertyName, propertyValue).list();
+//		if(propertyName.contains("."))
+//		{
+//			String [] splittedPropertyNameArray = propertyName.split("\\.");
+//			for(int i = 0; i < splittedPropertyNameArray.length - 1; ++ i )
+//			{				
+//				
+//				
+//				String splittedPropertyName = splittedPropertyNameArray[i];
+//				c.createAlias(splittedPropertyName, splittedPropertyName);
+//			}
+//		}
+//		
+//		return (List<T>)c.add(Restrictions.eq(propertyName, propertyValue)).list();
 	}
 	
 	public static <T> T getUniqueResultWithOneEqualRestriction(
