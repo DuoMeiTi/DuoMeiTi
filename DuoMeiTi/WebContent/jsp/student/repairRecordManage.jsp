@@ -51,9 +51,9 @@ var execute_selectClassroom = getParameterByName('execute_selectClassroom');
 			
 			<div class="col-lg-12" id="classrooms">
 					<table class="table table-bordered table-striped" id="classroom_table" >
-						<s:iterator begin="0" end="execute_classroomList.size()-1" var="i" step="6">
+						<s:iterator begin="0" end="execute_classroomList.size()-1" var="i" step="10">
 							<tr>
-								<s:iterator  var="j" begin="0" end="@@min(execute_classroomList.size()-#i-1,5)" step="1">
+								<s:iterator  var="j" begin="0" end="@@min(execute_classroomList.size()-#i-1,9)" step="1">
 									<td>
 										<button 
 											    <s:if test="execute_selectClassroom==execute_classroomList.get(#i+#j).id">
