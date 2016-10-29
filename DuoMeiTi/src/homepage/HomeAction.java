@@ -246,14 +246,14 @@ public class HomeAction extends PageGetBaseAction
 /*	
  * 教室负责人表：
  */
-	List<Classroom> classroomList;
+//	List<Classroom> classroomList;
 	ArrayList<ArrayList<Classroom> > classroomByPrinicpalList; 
 	
 	public String classroomPincipalShow() throws Exception
 	{
 		
 		Session s = model.Util.sessionFactory.openSession();
-		classroomList = 
+		List<Classroom> classroomList = 
 				s.createCriteria(model.Classroom.class)
 				.addOrder(Order.desc("principal"))
 				.add(Restrictions.isNotNull("principal"))
@@ -319,16 +319,16 @@ public class HomeAction extends PageGetBaseAction
 
 
 
-	public List<Classroom> getClassroomList() {
-		return classroomList;
-	}
-
-
-
-	public void setClassroomList(List<Classroom> classroomList) {
-		this.classroomList = classroomList;
-	}
-
+//	public List<Classroom> getClassroomList() {
+//		return classroomList;
+//	}
+//
+//
+//
+//	public void setClassroomList(List<Classroom> classroomList) {
+//		this.classroomList = classroomList;
+//	}
+//
 
 
 	public List getDutyStudentList() {

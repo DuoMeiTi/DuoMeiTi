@@ -7,118 +7,106 @@
 <div   class="table-responsive"> 
 
 	
-	<h3>教室负责人总表</h3>
+<h3>教室负责人总表</h3>
 	
-	
-	
+<table class="table table-bordered table-condensed" 	
+style="table-layout:fixed;">
 
+	<thead>
+		<tr>
+			<th style="width:80px!important;">
+				负责人
+			</th>							
+			<th>
+				教室
+			</th>
+			
+			<th style="width:80px!important;">
+				负责人
+			</th>							
+			<th>
+				教室
+			</th>
+			
+
+		</tr>
+		
+	</thead>
 	
 	
-	
-	
-	<table class="table table-bordered table-condensed" 	
-	style="table-layout:fixed;">
-	
-		<thead>
+	<tbody>
+		
+		<s:iterator var="i" begin="0" end = "classroomByPrinicpalList.size() - 1" step="2">
+		
 			<tr>
-				<th style="width:80px!important;">
-					负责人
-				</th>							
-				<th>
-					教室
-				</th>
+				<td style="background-color:yellow;"> 
+					<s:property value="classroomByPrinicpalList.get(#i).get(0).principal.user.fullName"/>
+				</td>
+			
+				<td>
+					<table class="table table-bordered table-condensed" style="border-collapse: collapse;font-size:15px!important;">						
+						<tbody>								
+							<s:iterator var="j" begin="0" end="classroomByPrinicpalList.get(#i).size() - 1" step="4">
+								<tr>
+								 	<s:iterator var="k" begin="0" end="@@min(3, classroomByPrinicpalList.get(#i).size() - 1 - #j + 1 - 1)" step="1">
+								 		
+										<td >
+											<s:property value="classroomByPrinicpalList.get(#i).get(#j + #k).teachbuilding.build_name"/>
+											<s:property value="classroomByPrinicpalList.get(#i).get(#j + #k).classroom_num"/>
+										</td>
+									</s:iterator>
+								 </tr>
+							</s:iterator>
+						</tbody>
+					</table>
+				</td>
 				
-				<th style="width:80px!important;">
-					负责人
-				</th>							
-				<th>
-					教室
-				</th>
 				
-
-			</tr>
-			
-		</thead>
-		
-		
-		<tbody>
-			
-			<s:iterator var="i" begin="0" end = "classroomByPrinicpalList.size() - 1" step="2">
-			
-				<tr>
-					<td style="background-color:yellow;"> 
-						<s:property value="classroomByPrinicpalList.get(#i).get(0).principal.user.fullName"/>
+				
+				
+				<s:if test="#i+1<classroomByPrinicpalList.size()" >
+					<td style="background-color:yellow;">
+						<s:property value="classroomByPrinicpalList.get(#i + 1).get(0).principal.user.fullName"/>
 					</td>
 				
-					<td>
-						<table class="table table-bordered table-condensed" style="border-collapse: collapse;font-size:15px!important;">						
+				
+					<td >
+						<table class="table table-bordered table-condensed" >						
 							<tbody>								
-								<s:iterator var="j" begin="0" end="classroomByPrinicpalList.get(#i).size() - 1" step="4">
+								<s:iterator var="j" begin="0" end="classroomByPrinicpalList.get(#i + 1).size() - 1" step="4">
 									<tr>
-									 	<s:iterator var="k" begin="0" end="@@min(3, classroomByPrinicpalList.get(#i).size() - 1 - #j + 1 - 1)" step="1">
-									 		
-												<td >
-<!-- 													<span class="label label-success"> -->
-														<s:property value="classroomByPrinicpalList.get(#i).get(#j + #k).teachbuilding.build_name"/>
-														<s:property value="classroomByPrinicpalList.get(#i).get(#j + #k).classroom_num"/>
-<!-- 													</span> -->
-												</td>
-											
-										</s:iterator>
+								 	<s:iterator var="k" begin="0" end="@@min(3, classroomByPrinicpalList.get(#i + 1).size() - 1 - #j + 1 - 1)" step="1">	
+											<td style="font-size:15px!important;">
+
+												<s:property value="classroomByPrinicpalList.get(#i + 1).get(#j + #k).teachbuilding.build_name"/>
+												<s:property value="classroomByPrinicpalList.get(#i + 1).get(#j + #k).classroom_num"/>
+											</td>
+										
+									</s:iterator>
 									 </tr>
 								</s:iterator>
 								
 							</tbody>
 						</table>
 					</td>
-					
-					
-					
-					
-					<s:if test="#i+1<classroomByPrinicpalList.size() " >
-						<td style="background-color:yellow;">
-							<s:property value="classroomByPrinicpalList.get(#i + 1).get(0).principal.user.fullName"/>
-						</td>
-					
-					
-						<td >
-							<table class="table table-bordered table-condensed" >						
-								<tbody>								
-									<s:iterator var="j" begin="0" end="classroomByPrinicpalList.get(#i + 1).size() - 1" step="4">
-										<tr>
-										 	<s:iterator var="k" begin="0" end="@@min(3, classroomByPrinicpalList.get(#i + 1).size() - 1 - #j + 1 - 1)" step="1">	
-													<td style="font-size:15px!important;">
-<!-- 														<span class="label label-success"> -->
-															<s:property value="classroomByPrinicpalList.get(#i + 1).get(#j + #k).teachbuilding.build_name"/>
-															<s:property value="classroomByPrinicpalList.get(#i + 1).get(#j + #k).classroom_num"/>
-<!-- 														</span> -->
-													</td>
-												
-											</s:iterator>
-										 </tr>
-									</s:iterator>
-									
-								</tbody>
-							</table>
-						</td>
 
-						
 					
-					
-					
-					
-					
-					
-					
-					
-					</s:if>
 				
-
-
-
-				</tr>
 				
-			</s:iterator>
+				
+				
+				
+				
+				
+				
+				</s:if>
+			
+
+
+
+			</tr>
+			
+		</s:iterator>
 			
 			
 		</tbody>
