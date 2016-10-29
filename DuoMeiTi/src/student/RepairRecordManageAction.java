@@ -117,7 +117,7 @@ public class RepairRecordManageAction extends ActionSupport{
 			s.beginTransaction();
 			s.save(repairRecord);
 			s.getTransaction().commit();
-			
+			s.close();
 			
 			
 
@@ -125,7 +125,7 @@ public class RepairRecordManageAction extends ActionSupport{
 			e.printStackTrace();
 		}
 		
-		s.close();
+		
 		
 		
 //		obtain_classroomId = save_classroomId;
