@@ -25,9 +25,13 @@ public class RepairRecordManageAction extends ActionSupport{
 	
 	
 	int execute_selectTeachBuilding = -1; //in
-//	int execut_selectClassroom;
+	int execute_selectClassroom = -1;//in
 	List<model.TeachBuilding> execute_teachBuildingList; //out
 	List<model.Classroom> execute_classroomList;//out
+	
+	List<Repertory> execute_devices;//out
+	List<RepairRecord> execute_repairRecords;//out
+
 	public String execute() throws Exception
 	{
 		Session s = model.Util.sessionFactory.openSession();
@@ -35,8 +39,22 @@ public class RepairRecordManageAction extends ActionSupport{
 		execute_classroomList = 
 				util.Util.getCriteriaWithOneEqualRestriction(s, model.Classroom.class, "teachbuilding.id", execute_selectTeachBuilding)
 				.addOrder(Order.asc("classroom_num")).list();
-				
-				
+		
+		if(execute_selectClassroom != -1)
+		{
+			Classroom classroom = 
+					util.Util.getUniqueResultWithOneEqualRestriction(s, model.Classroom.class, "id", execute_selectClassroom);
+			
+			execute_devices = 
+					util.Util.getListWithOneEqualRestriction(s, model.Repertory.class, "rtClassroom.id", execute_selectClassroom);
+			
+			Criteria c =  util.Util.getCriteriaWithOneEqualRestriction(s, RepairRecord.class, "classroomName", classroom.classroom_num);			
+			c = util.Util.addOneEqualRestriction(c, "teachingBuildingName", classroom.teachbuilding.build_name);		
+			c = c.addOrder(Order.desc("id"));
+			execute_repairRecords = c.list();
+
+		}
+		
 //				util.Util.getListWithOneEqualRestriction(s, model.Classroom.class, "teachbuilding.id", execute_selectTeachBuilding);
 		
 //		obtain();
@@ -46,35 +64,35 @@ public class RepairRecordManageAction extends ActionSupport{
 	
 	
 	
-	int obtain_classroomId = 250;//in
-	List<Repertory> obtain_devices;//out
-	List<RepairRecord> obtain_repairRecords;//out
-	String obtain_devicesAndrepairRecordsJsp;//out
-	//获取对应教室的设备列表和维修记录	
-	public String obtain()
-	{
-		
-		Session s = model.Util.sessionFactory.openSession();		
-		
-		
-		Classroom classroom = 
-				util.Util.getUniqueResultWithOneEqualRestriction(s, model.Classroom.class, "id", obtain_classroomId);
-		
-		obtain_devices = 
-				util.Util.getListWithOneEqualRestriction(s, model.Repertory.class, "rtClassroom.id", obtain_classroomId);
-		
-		
-		System.out.println(obtain_devices.size() + "-----------------------");
-		Criteria c =  util.Util.getCriteriaWithOneEqualRestriction(s, RepairRecord.class, "classroomName", classroom.classroom_num);			
-		c = util.Util.addOneEqualRestriction(c, "teachingBuildingName", classroom.teachbuilding.build_name);		
-		c = c.addOrder(Order.desc("id"));
-		obtain_repairRecords = c.list();
-		
-		obtain_devicesAndrepairRecordsJsp = util.Util.getJspOutput("/jsp/student/widgets/devicesAndRepairRecordsTable.jsp");
-		s.close();
-		return SUCCESS;
-	}
-	
+//	int obtain_classroomId = 250;//in
+//	List<Repertory> obtain_devices;//out
+//	List<RepairRecord> obtain_repairRecords;//out
+//	String obtain_devicesAndrepairRecordsJsp;//out
+//	//获取对应教室的设备列表和维修记录	
+//	public String obtain()
+//	{
+//		
+//		Session s = model.Util.sessionFactory.openSession();		
+//		
+//		
+//		Classroom classroom = 
+//				util.Util.getUniqueResultWithOneEqualRestriction(s, model.Classroom.class, "id", obtain_classroomId);
+//		
+//		obtain_devices = 
+//				util.Util.getListWithOneEqualRestriction(s, model.Repertory.class, "rtClassroom.id", obtain_classroomId);
+//		
+//		
+//		System.out.println(obtain_devices.size() + "-----------------------");
+//		Criteria c =  util.Util.getCriteriaWithOneEqualRestriction(s, RepairRecord.class, "classroomName", classroom.classroom_num);			
+//		c = util.Util.addOneEqualRestriction(c, "teachingBuildingName", classroom.teachbuilding.build_name);		
+//		c = c.addOrder(Order.desc("id"));
+//		obtain_repairRecords = c.list();
+//		
+//		obtain_devicesAndrepairRecordsJsp = util.Util.getJspOutput("/jsp/student/widgets/devicesAndRepairRecordsTable.jsp");
+//		s.close();
+//		return SUCCESS;
+//	}
+//	
 	
 	int save_classroomId;//in	
 	int save_deviceId;//in	
@@ -110,9 +128,9 @@ public class RepairRecordManageAction extends ActionSupport{
 		s.close();
 		
 		
-		obtain_classroomId = save_classroomId;
-		obtain();
-		save_devicesAndrepairRecordsJsp = obtain_devicesAndrepairRecordsJsp;
+//		obtain_classroomId = save_classroomId;
+//		obtain();
+//		save_devicesAndrepairRecordsJsp = obtain_devicesAndrepairRecordsJsp;
 		return SUCCESS;
 	}
 
@@ -142,66 +160,66 @@ public class RepairRecordManageAction extends ActionSupport{
 
 
 
-	public int getObtain_classroomId() {
-		return obtain_classroomId;
-	}
-
-
-
-
-
-	public void setObtain_classroomId(int obtain_classroomId) {
-		this.obtain_classroomId = obtain_classroomId;
-	}
-
-
-
-
-
-	public List<Repertory> getObtain_devices() {
-		return obtain_devices;
-	}
-
-
-
-
-
-	public void setObtain_devices(List<Repertory> obtain_devices) {
-		this.obtain_devices = obtain_devices;
-	}
-
-
-
-
-
-	public List<RepairRecord> getObtain_repairRecords() {
-		return obtain_repairRecords;
-	}
-
-
-
-
-
-	public void setObtain_repairRecords(List<RepairRecord> obtain_repairRecords) {
-		this.obtain_repairRecords = obtain_repairRecords;
-	}
-
-
-
-
-
-	public String getObtain_devicesAndrepairRecordsJsp() {
-		return obtain_devicesAndrepairRecordsJsp;
-	}
-
-
-
-
-
-	public void setObtain_devicesAndrepairRecordsJsp(String obtain_devicesAndrepairRecordsJsp) {
-		this.obtain_devicesAndrepairRecordsJsp = obtain_devicesAndrepairRecordsJsp;
-	}
-
+//	public int getObtain_classroomId() {
+//		return obtain_classroomId;
+//	}
+//
+//
+//
+//
+//
+//	public void setObtain_classroomId(int obtain_classroomId) {
+//		this.obtain_classroomId = obtain_classroomId;
+//	}
+//
+//
+//
+//
+//
+//	public List<Repertory> getObtain_devices() {
+//		return obtain_devices;
+//	}
+//
+//
+//
+//
+//
+//	public void setObtain_devices(List<Repertory> obtain_devices) {
+//		this.obtain_devices = obtain_devices;
+//	}
+//
+//
+//
+//
+//
+//	public List<RepairRecord> getObtain_repairRecords() {
+//		return obtain_repairRecords;
+//	}
+//
+//
+//
+//
+//
+//	public void setObtain_repairRecords(List<RepairRecord> obtain_repairRecords) {
+//		this.obtain_repairRecords = obtain_repairRecords;
+//	}
+//
+//
+//
+//
+//
+//	public String getObtain_devicesAndrepairRecordsJsp() {
+//		return obtain_devicesAndrepairRecordsJsp;
+//	}
+//
+//
+//
+//
+//
+//	public void setObtain_devicesAndrepairRecordsJsp(String obtain_devicesAndrepairRecordsJsp) {
+//		this.obtain_devicesAndrepairRecordsJsp = obtain_devicesAndrepairRecordsJsp;
+//	}
+//
 
 
 
@@ -256,6 +274,48 @@ public class RepairRecordManageAction extends ActionSupport{
 
 	public void setSave_devicesAndrepairRecordsJsp(String save_devicesAndrepairRecordsJsp) {
 		this.save_devicesAndrepairRecordsJsp = save_devicesAndrepairRecordsJsp;
+	}
+
+
+
+
+	public int getExecute_selectClassroom() {
+		return execute_selectClassroom;
+	}
+
+
+
+
+	public void setExecute_selectClassroom(int execute_selectClassroom) {
+		this.execute_selectClassroom = execute_selectClassroom;
+	}
+
+
+
+
+	public List<Repertory> getExecute_devices() {
+		return execute_devices;
+	}
+
+
+
+
+	public void setExecute_devices(List<Repertory> execute_devices) {
+		this.execute_devices = execute_devices;
+	}
+
+
+
+
+	public List<RepairRecord> getExecute_repairRecords() {
+		return execute_repairRecords;
+	}
+
+
+
+
+	public void setExecute_repairRecords(List<RepairRecord> execute_repairRecords) {
+		this.execute_repairRecords = execute_repairRecords;
 	}
 	
 	

@@ -2,6 +2,23 @@
 <layout:override name="main_content">
 
 
+<script>
+function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+var execute_selectTeachBuilding = getParameterByName('execute_selectTeachBuilding');
+var execute_selectClassroom = getParameterByName('execute_selectClassroom');
+</script>
+
 <div class="mycontent">
 
 
@@ -38,7 +55,15 @@
 							<tr>
 								<s:iterator  var="j" begin="0" end="@@min(execute_classroomList.size()-#i-1,5)" step="1">
 									<td>
-										<button class="btn btn-info" 
+										<button 
+											    <s:if test="execute_selectClassroom==execute_classroomList.get(#i+#j).id">
+											    	class="btn btn-success" 
+											    </s:if>
+											    <s:else>
+											    	class="btn btn-info" 
+											    </s:else>
+											    
+											    
 												classroomId=<s:property value="execute_classroomList.get(#i+#j).id"/>
 												>
 											<s:property value="execute_classroomList.get(#i+#j).classroom_num"/>
@@ -114,21 +139,32 @@ $(document).on("change", "#selectTeachBuilding", function(){
 })
 
 //用户点击时的相关信息：
-var classroomId;
+// var classroomId;
 var deviceId;
 $(document).on("click", "[classroomId]", function(){
 // 	alert($(this).attr("classroomId"));
 	classroomId = $(this).attr("classroomId");
 	
-	$.ajax({
-		url : 'repairRecordManage_obtain',
-		type : 'post',
-		dataType : 'json',
-		data : {"obtain_classroomId" : classroomId}, 
-		success : function(data){
-			$("#devicesAndRepairRecordsTableDiv").html(data.obtain_devicesAndrepairRecordsJsp)
-		}
-	})
+	selectTeachBuilding = getParameterByName("execute_selectTeachBuilding");
+	
+	
+	window.location.href = "repairRecordManage?" 
+			+"execute_selectTeachBuilding=" + selectTeachBuilding + "&"
+			+ "execute_selectClassroom=" + classroomId
+			;
+	
+	
+// 	window.location.href = window.location.href+"&execute_selectClassroom=" +  classroomId;
+	
+// 	$.ajax({
+// 		url : 'repairRecordManage_obtain',
+// 		type : 'post',
+// 		dataType : 'json',
+// 		data : {"obtain_classroomId" : classroomId}, 
+// 		success : function(data){
+// 			$("#devicesAndRepairRecordsTableDiv").html(data.obtain_devicesAndrepairRecordsJsp)
+// 		}
+// 	})
 })
 
 $(document).on("click", ".repairRecordInput", function(){
@@ -155,6 +191,9 @@ $(document).on("click", ".repairRecordInput", function(){
 
 $(document).on("click", "#submit_repair_record", function(){
 // 	alert("FFF")
+
+
+	classroomId = getParameterByName("execute_selectClassroom");
 	$.ajax({
 		url : 'repairRecordManage_save',
 		type : 'post',
@@ -165,9 +204,11 @@ $(document).on("click", "#submit_repair_record", function(){
 				"save_detail" : $("#repairdetail").val(),
 				}, 
 		success : function(data){
-			$("#devicesAndRepairRecordsTableDiv").html(data.save_devicesAndrepairRecordsJsp)
 			
-			$("#repairRrecordModal").modal("hide");
+			window.location.reload();
+// 			$("#devicesAndRepairRecordsTableDiv").html(data.save_devicesAndrepairRecordsJsp)
+			
+// 			$("#repairRrecordModal").modal("hide");
 		}
 	})
 

@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="col-lg-6">
 			<ul>
-			<s:iterator value="obtain_devices" var="device" >				
+			<s:iterator value="execute_devices" var="device" >				
 				<label class="control-label device-type-label"><s:property value="#device.rtType" />&nbsp;</label> 
 				<span>
 					<button type="button" class="btn btn-primary btn-sm repairRecordInput"
@@ -42,7 +42,7 @@
 	<div class="col-lg-6">
 	
 	
-		<s:if test="!obtain_repairRecords.isEmpty()">
+		<s:if test="!execute_repairRecords.isEmpty()">
 		
 			<label class="control-label">维修记录：</label>
 		
@@ -56,7 +56,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<s:iterator value="obtain_repairRecords" var="repairRecord" status="i">
+					<s:iterator value="execute_repairRecords" var="repairRecord" status="i">
 						<tr>
 							<td><s:property value="#repairRecord.repairmanFullName" /> </td>
 							<td><s:property value="#repairRecord.deviceType" /></td>
