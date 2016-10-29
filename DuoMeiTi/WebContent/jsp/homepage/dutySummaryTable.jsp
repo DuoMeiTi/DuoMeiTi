@@ -8,13 +8,20 @@
 
 	
 	<h3>值班表</h3>
-	<table class="table table-bordered"  style="table-layout:fixed;" >
+	
+	<table class="table table-bordered table-condensed"  
+			style="font-size:14px"
+	 >
+	
+<!-- 	<table class="table table-bordered table-condensed"   -->
+<!-- 			style="table-layout:fixed;" -->
+<!-- 	 > -->
 		<thead>
 			<tr >
-				<th colspan=1  style="width:100px!important;" > 值班时间 </th>
+				<th colspan=1   > 值班时间 </th>
 				<s:iterator var="i" begin = "0" end="@util.Util@dutyWeekList.size() - 1" step="1">				
 					<th colspan="<s:property value='dutyPlaceList.size()'/>" 					
-						style="width:<s:property value='dutyPlaceList.size()*60'/>;">					
+						>					
 						周<s:property value='@util.Util@dutyWeekList.get(#i)'/>
 					</th>
 				</s:iterator>
