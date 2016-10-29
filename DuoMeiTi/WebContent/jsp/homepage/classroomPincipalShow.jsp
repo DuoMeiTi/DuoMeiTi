@@ -8,87 +8,137 @@
 
 	
 <h3>教室负责人总表</h3>
-	
-<table class="table table-bordered table-condensed" 	
-style="table-layout:fixed;">
 
-	<thead>
-		<tr>
-			<th style="width:80px!important;">
-				负责人
-			</th>							
-			<th>
-				教室
-			</th>
+	<s:iterator value="classroomMap" >
+		
+		<h4>
+			<s:property value="key"/>
+		</h4>
+		<table class="table table-bordered table-condensed">
 			
-			<th style="width:80px!important;">
-				负责人
-			</th>							
-			<th>
-				教室
-			</th>
+			<tbody>
+			<s:iterator var="i" begin="0" end="value.size() - 1" step="10">
+				
+				<tr>
+					
+					<s:iterator var="j" begin="0" end="@@min(9, value.size() - 1 - #i + 1 - 1)" step="1">
+						<td> 
+							<s:property value="value.get(#i+#j).classroom_num"/>
+							<s:if test="value.get(#i+#j).principal != null">
+								<span class="label label-success">
+									<s:property value="value.get(#i+#j).principal.user.fullName"/>
+								</span>
+							</s:if>
+							
+							
+						</td>
+					</s:iterator>
+					
+				</tr>
+				
+<%-- 				 --%>
+					
+<%-- 				</s:iterator> --%>
+						
+			
+<!-- 				<tr> -->
+<!-- 					<td> -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+			</s:iterator>
+			</tbody>
+		</table>
+		
+	
+	</s:iterator>
+
+
+<!-- <table class="table table-bordered table-condensed" > -->
+<!-- </table> -->
+
+
+
+	
+<!-- <table class="table table-bordered table-condensed" 	 -->
+<!-- style="table-layout:fixed;"> -->
+
+<!-- 	<thead> -->
+<!-- 		<tr> -->
+<!-- 			<th style="width:80px!important;"> -->
+<!-- 				负责人 -->
+<!-- 			</th>							 -->
+<!-- 			<th> -->
+<!-- 				教室 -->
+<!-- 			</th> -->
+			
+<!-- 			<th style="width:80px!important;"> -->
+<!-- 				负责人 -->
+<!-- 			</th>							 -->
+<!-- 			<th> -->
+<!-- 				教室 -->
+<!-- 			</th> -->
 			
 
-		</tr>
+<!-- 		</tr> -->
 		
-	</thead>
+<!-- 	</thead> -->
 	
 	
-	<tbody>
+<!-- 	<tbody> -->
 		
-		<s:iterator var="i" begin="0" end = "classroomByPrinicpalList.size() - 1" step="2">
+<%-- 		<s:iterator var="i" begin="0" end = "classroomByPrinicpalList.size() - 1" step="2"> --%>
 		
-			<tr>
-				<td style="background-color:yellow;"> 
-					<s:property value="classroomByPrinicpalList.get(#i).get(0).principal.user.fullName"/>
-				</td>
+<!-- 			<tr> -->
+<!-- 				<td style="background-color:yellow;">  -->
+<%-- 					<s:property value="classroomByPrinicpalList.get(#i).get(0).principal.user.fullName"/> --%>
+<!-- 				</td> -->
 			
-				<td>
-					<table class="table table-bordered table-condensed" style="border-collapse: collapse;font-size:15px!important;">						
-						<tbody>								
-							<s:iterator var="j" begin="0" end="classroomByPrinicpalList.get(#i).size() - 1" step="4">
-								<tr>
-								 	<s:iterator var="k" begin="0" end="@@min(3, classroomByPrinicpalList.get(#i).size() - 1 - #j + 1 - 1)" step="1">
+<!-- 				<td> -->
+<!-- 					<table class="table table-bordered table-condensed" style="border-collapse: collapse;font-size:15px!important;">						 -->
+<!-- 						<tbody>								 -->
+<%-- 							<s:iterator var="j" begin="0" end="classroomByPrinicpalList.get(#i).size() - 1" step="4"> --%>
+<!-- 								<tr> -->
+<%-- 								 	<s:iterator var="k" begin="0" end="@@min(3, classroomByPrinicpalList.get(#i).size() - 1 - #j + 1 - 1)" step="1"> --%>
 								 		
-										<td >
-											<s:property value="classroomByPrinicpalList.get(#i).get(#j + #k).teachbuilding.build_name"/>
-											<s:property value="classroomByPrinicpalList.get(#i).get(#j + #k).classroom_num"/>
-										</td>
-									</s:iterator>
-								 </tr>
-							</s:iterator>
-						</tbody>
-					</table>
-				</td>
+<!-- 										<td > -->
+<%-- 											<s:property value="classroomByPrinicpalList.get(#i).get(#j + #k).teachbuilding.build_name"/> --%>
+<%-- 											<s:property value="classroomByPrinicpalList.get(#i).get(#j + #k).classroom_num"/> --%>
+<!-- 										</td> -->
+<%-- 									</s:iterator> --%>
+<!-- 								 </tr> -->
+<%-- 							</s:iterator> --%>
+<!-- 						</tbody> -->
+<!-- 					</table> -->
+<!-- 				</td> -->
 				
 				
 				
 				
-				<s:if test="#i+1<classroomByPrinicpalList.size()" >
-					<td style="background-color:yellow;">
-						<s:property value="classroomByPrinicpalList.get(#i + 1).get(0).principal.user.fullName"/>
-					</td>
+<%-- 				<s:if test="#i+1<classroomByPrinicpalList.size()" > --%>
+<!-- 					<td style="background-color:yellow;"> -->
+<%-- 						<s:property value="classroomByPrinicpalList.get(#i + 1).get(0).principal.user.fullName"/> --%>
+<!-- 					</td> -->
 				
 				
-					<td >
-						<table class="table table-bordered table-condensed" >						
-							<tbody>								
-								<s:iterator var="j" begin="0" end="classroomByPrinicpalList.get(#i + 1).size() - 1" step="4">
-									<tr>
-								 	<s:iterator var="k" begin="0" end="@@min(3, classroomByPrinicpalList.get(#i + 1).size() - 1 - #j + 1 - 1)" step="1">	
-											<td style="font-size:15px!important;">
+<!-- 					<td > -->
+<!-- 						<table class="table table-bordered table-condensed" >						 -->
+<!-- 							<tbody>								 -->
+<%-- 								<s:iterator var="j" begin="0" end="classroomByPrinicpalList.get(#i + 1).size() - 1" step="4"> --%>
+<!-- 									<tr> -->
+<%-- 								 	<s:iterator var="k" begin="0" end="@@min(3, classroomByPrinicpalList.get(#i + 1).size() - 1 - #j + 1 - 1)" step="1">	 --%>
+<!-- 											<td style="font-size:15px!important;"> -->
 
-												<s:property value="classroomByPrinicpalList.get(#i + 1).get(#j + #k).teachbuilding.build_name"/>
-												<s:property value="classroomByPrinicpalList.get(#i + 1).get(#j + #k).classroom_num"/>
-											</td>
+<%-- 												<s:property value="classroomByPrinicpalList.get(#i + 1).get(#j + #k).teachbuilding.build_name"/> --%>
+<%-- 												<s:property value="classroomByPrinicpalList.get(#i + 1).get(#j + #k).classroom_num"/> --%>
+<!-- 											</td> -->
 										
-									</s:iterator>
-									 </tr>
-								</s:iterator>
+<%-- 									</s:iterator> --%>
+<!-- 									 </tr> -->
+<%-- 								</s:iterator> --%>
 								
-							</tbody>
-						</table>
-					</td>
+<!-- 							</tbody> -->
+<!-- 						</table> -->
+<!-- 					</td> -->
 
 					
 				
@@ -99,18 +149,18 @@ style="table-layout:fixed;">
 				
 				
 				
-				</s:if>
+<%-- 				</s:if> --%>
 			
 
 
 
-			</tr>
+<!-- 			</tr> -->
 			
-		</s:iterator>
+<%-- 		</s:iterator> --%>
 			
 			
-		</tbody>
-</table>
+<!-- 		</tbody> -->
+<!-- </table> -->
 
 
 

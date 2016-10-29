@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -249,41 +250,27 @@ public class HomeAction extends PageGetBaseAction
 //	List<Classroom> classroomList;
 	ArrayList<ArrayList<Classroom> > classroomByPrinicpalList; 
 	
+	Map<String, ArrayList<Classroom>> classroomMap;
 	public String classroomPincipalShow() throws Exception
 	{
 		
 		Session s = model.Util.sessionFactory.openSession();
-		List<Classroom> classroomList = 
-				s.createCriteria(model.Classroom.class)
-				.addOrder(Order.desc("principal"))
-				.add(Restrictions.isNotNull("principal"))
-				.list();
+		List<Classroom> allClassroomList = s.createCriteria(model.Classroom.class)
+											.addOrder(Order.asc("classroom_num"))
+											.list();
 		
-		
-		classroomByPrinicpalList = new ArrayList<ArrayList<Classroom> >();
-		
-		for(int i = 0, j; i < classroomList.size(); i = j)
+		classroomMap = new TreeMap<String, ArrayList<Classroom>>();
+		for(Classroom c : allClassroomList)
 		{
-			for(j = i + 1; j < classroomList.size(); ++ j)
+			String teachBuildingName = c.teachbuilding.build_name;
+			if(!classroomMap.containsKey(teachBuildingName))
 			{
-				StudentProfile spi = classroomList.get(i).principal;
-				StudentProfile spj = classroomList.get(j).principal;
-				
-				if( (spi == null) ^ (spj == null) == true ||
-						(spi != null && spi.id != spj.id)
-
-						
-						)
-				break;
+				classroomMap.put(teachBuildingName, new ArrayList<Classroom>());
 			}
 			
-			ArrayList<Classroom> cntList = new ArrayList<Classroom>();
-			for(int k = i; k < j; ++ k)
-			{
-				cntList.add(classroomList.get(k));
-			}
-			classroomByPrinicpalList.add(cntList);
+			List<Classroom> cntClassroomList = classroomMap.get(teachBuildingName);
 			
+			cntClassroomList.add(c);
 		}
 		
 		
@@ -292,6 +279,46 @@ public class HomeAction extends PageGetBaseAction
 		
 		s.close();
 		return SUCCESS;
+//		Session s = model.Util.sessionFactory.openSession();
+//		List<Classroom> classroomList = 
+//				s.createCriteria(model.Classroom.class)
+//				.addOrder(Order.desc("principal"))
+//				.add(Restrictions.isNotNull("principal"))
+//				.list();
+//		
+//		
+//		classroomByPrinicpalList = new ArrayList<ArrayList<Classroom> >();
+//		
+//		for(int i = 0, j; i < classroomList.size(); i = j)
+//		{
+//			for(j = i + 1; j < classroomList.size(); ++ j)
+//			{
+//				StudentProfile spi = classroomList.get(i).principal;
+//				StudentProfile spj = classroomList.get(j).principal;
+//				
+//				if( (spi == null) ^ (spj == null) == true ||
+//						(spi != null && spi.id != spj.id)
+//
+//						
+//						)
+//				break;
+//			}
+//			
+//			ArrayList<Classroom> cntList = new ArrayList<Classroom>();
+//			for(int k = i; k < j; ++ k)
+//			{
+//				cntList.add(classroomList.get(k));
+//			}
+//			classroomByPrinicpalList.add(cntList);
+//			
+//		}
+//		
+//		
+//		
+//		
+//		
+//		s.close();
+//		return SUCCESS;
 	}
 	
 	
@@ -317,7 +344,12 @@ public class HomeAction extends PageGetBaseAction
 		this.classroomByPrinicpalList = classroomByPrinicpalList;
 	}
 
-
+	
+	
+	
+	
+	
+	
 
 //	public List<Classroom> getClassroomList() {
 //		return classroomList;
@@ -329,6 +361,18 @@ public class HomeAction extends PageGetBaseAction
 //		this.classroomList = classroomList;
 //	}
 //
+
+
+	public Map<String, ArrayList<Classroom>> getClassroomMap() {
+		return classroomMap;
+	}
+
+
+
+	public void setClassroomMap(Map<String, ArrayList<Classroom>> classroomMap) {
+		this.classroomMap = classroomMap;
+	}
+
 
 
 	public List getDutyStudentList() {
