@@ -11,7 +11,7 @@ public class TeachBuilding {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int build_id;
 	
-	@Column(length=20)
+	@Column(length=20, unique= true)
 	public String build_name;
 	
 //	@OneToMany(mappedBy="teachbuilding",fetch=FetchType.EAGER, cascade=CascadeType.ALL)

@@ -71,7 +71,17 @@
 			</result>
 		</action>
 <!-- 	选班管理 END-->		
+
+<!-- 		维修管理 -->
+		<action name="repairRecordManage" class="student.RepairRecordManageAction" >
+			<result>/jsp/student/repairRecordManage.jsp</result>		
+		</action>
 		
+		<action name="repairRecordManage_*" class="student.RepairRecordManageAction" method="{1}">		
+			<result  type="json">	
+			</result>
+		</action>
+<!-- 		维修管理END -->		
 		
 		
 		
@@ -105,10 +115,6 @@
 <!-- 				<param name="build_name">${build_name}</param> -->
 			</result>
 		</action>
-		
-		
-		
-		
 		
     </package>
     

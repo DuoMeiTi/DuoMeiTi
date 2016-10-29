@@ -101,10 +101,7 @@
 							</tr>
 						</s:iterator>
 					</table>
-
 			</div>
-			
-			
 		</div>
 		
 		

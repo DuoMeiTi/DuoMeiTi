@@ -29,6 +29,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import model.Classroom;
 import model.DutyPiece;
 import model.DutySchedule;
+import model.RepairRecord;
 import model.Repertory;
 import model.StudentProfile;
 import model.User;
@@ -647,13 +648,20 @@ public class Util
 //	
 	
 	
-	
+	public static <T> Criteria getCriteriaWithOneEqualRestriction(
+			org.hibernate.Session s, Class<T> classInfo, String propertyName, Object propertyValue)
+	{
+		Criteria c = s.createCriteria(classInfo);
+		return addOneEqualRestriction(c, propertyName, propertyValue);
+	}
 	public static <T> List<T> getListWithOneEqualRestriction(
 			org.hibernate.Session s, Class<T> classInfo, String propertyName, Object propertyValue) {
 		
-		Criteria c = s.createCriteria(classInfo);
 		
-		return addOneEqualRestriction(c, propertyName, propertyValue).list();
+		return getCriteriaWithOneEqualRestriction(s, classInfo, propertyName, propertyValue).list();
+//		Criteria c = s.createCriteria(classInfo);
+//		
+//		return addOneEqualRestriction(c, propertyName, propertyValue).list();
 //		if(propertyName.contains("."))
 //		{
 //			String [] splittedPropertyNameArray = propertyName.split("\\.");
@@ -815,6 +823,29 @@ public class Util
 	}
 
 	
+	
+	/**根据repairman,   classroom,   device,   detail 设置RepairRecord 的相关信息*/
+	
+	public static void setRepairRecord(RepairRecord repairRecord, 
+			User repairman, Classroom classroom, Repertory device, String detail)
+	{
+		repairRecord.setDeviceType(device.getRtType());
+		repairRecord.setDeviceNumber(device.getRtNumber());
+		repairRecord.setDeviceVersion(device.getRtVersion());
+		repairRecord.setDeviceFactorynum(device.getRtFactorynum());
+		repairRecord.setDeviceProdDate(device.getRtProdDate());
+		repairRecord.setDeviceApprDate(device.getRtApprDate());
+
+		repairRecord.setRepairdate(new Timestamp(new java.util.Date().getTime()));
+		repairRecord.setRepairdetail(detail);
+
+		repairRecord.setRepairmanFullName(repairman.getFullName());
+		repairRecord.setRepairmanPhoneNumber(repairman.getPhoneNumber());
+
+		repairRecord.setClassroomName(classroom.getClassroom_num());
+		repairRecord.setTeachingBuildingName(classroom.getTeachbuilding().getBuild_name());
+
+	}
 	
 	
 	

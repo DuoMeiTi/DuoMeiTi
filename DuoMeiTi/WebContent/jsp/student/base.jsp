@@ -6,6 +6,8 @@
 
 	<div class="menu-list">
 	    <a href="/student/dutyManage" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;选班</span></a>
+	    <a href="/student/repairRecordManage" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;维修记录管理</span></a>
+	    
 	    <a href="/student/classroom/" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;教室管理</span></a>
 	    <a href="/student/classroomDevice/rules" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;查看规章制度</span></a>
 	    <a href="/student/train" class="menu-button-middle"><span class="glyphicon glyphicon-blackboard">&nbsp;技术培训</span></a>
