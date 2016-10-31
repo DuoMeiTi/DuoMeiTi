@@ -25,6 +25,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.Repertory;
+import model.StudentProfile;
 
 /**教室设备批量导入*/
 public class ClassDeviceImportAction extends util.FileUploadBaseAction{
@@ -67,7 +68,113 @@ public class ClassDeviceImportAction extends util.FileUploadBaseAction{
 		return this.SUCCESS;
 	}	
 	
+	private static Classroom obtainClassoom(Session session, String teachBuildingName, Cell classroomCell)
+	{
+		if(classroomCell == null) return null;
+		String classroomNum = classroomCell.toString();
+		// 如果为空则跳过
+		if(classroomNum.isEmpty()) return null;
+
+
+		if(classroomNum.contains("."))
+		{
+			classroomNum = classroomNum.substring(0, classroomNum.indexOf('.'));
+		}
+
+		Criteria classroomCriteria =  util.Util.getCriteriaWithOneEqualRestriction(
+				session, model.Classroom.class, "teachbuilding.build_name", teachBuildingName);
+		classroomCriteria.add(Restrictions.like("classroom_num", classroomNum + "%"));
+		
+		List<Classroom> classrooms = classroomCriteria.list();
+		//有教室号前缀一致，跳过不予理睬
+		if(classrooms.size() != 1)
+		{
+			return null;
+		}		
+		Classroom classroom = classrooms.get(0);
+		return classroom;
+	}
+	// 返回值表示对应的当前的 教室负责人
+	private static StudentProfile saveClassroomPrincipal(
+			Session session, Classroom classroom, String principalFullName, StudentProfile previousPrincipal)
+	{
+		StudentProfile principal = null;
+		if(principalFullName.isEmpty())
+		{
+			principal = previousPrincipal;
+		}
+		else 
+		{
+			List<StudentProfile> principals = util.Util.getListWithOneEqualRestriction(
+					session, model.StudentProfile.class, "user.fullName", principalFullName);
+			if(principals.size() == 1)
+			{	
+				principal = principals.get(0);
+			}
+			
+			else if(principals.size() == 0)
+			{
+				System.out.println("无此学生");
+			}
+			else 
+			{
+				System.out.println("学生有重名");
+			}
+		}
+		classroom.principal = principal;
+		try
+		{
+			session.beginTransaction();
+			session.update(classroom);
+			session.getTransaction().commit();
+		} 
+		catch(Exception e)
+		{
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
+		
+		
+		return principal;
+	}
 	
+	// 表示是否存储成功
+	private static boolean saveClassroomDevice(Session session, Classroom classroom, String deviceName, String deviceInfo)
+	{
+		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
+		//表示此设备类型（主要设备还是耗材设备）未知
+		if(util.Util.judgeDeviceType(deviceName) == null)
+		{
+			System.out.println("==="+deviceName + "----");
+			return false;
+		}
+		
+								
+		Criteria deviceCriteria = util.Util.getCriteriaWithOneEqualRestriction(
+				session, model.Repertory.class, "rtClassroom.id", classroom.id);
+		util.Util.addOneEqualRestriction(deviceCriteria, "rtType", deviceName);
+
+		
+		if(!deviceCriteria.list().isEmpty())
+		{
+			System.out.println(classroom.classroom_num + ", " + deviceName + " 已经添加过");
+			return false;
+		}
+		
+		Repertory device = new Repertory();
+		device.rtType = deviceName;
+		
+		//先将设备的所有描述信息存入设备资产编号中，之后再做处理
+		device.rtNumber =  deviceInfo;		
+		session.beginTransaction();
+		session.save(device);
+		session.getTransaction().commit();
+		
+		util.Util.modifyDeviceStatus(session, device.rtId, user_id, util.Util.DeviceClassroomStatus, classroom.id);
+		return true;
+//		System.out.print(cell.toString() + " ");
+
+	}
 	
 	String importExcel_status;
 	public String importExcel() throws Exception 
@@ -78,200 +185,85 @@ public class ClassDeviceImportAction extends util.FileUploadBaseAction{
 		if(this.file == null)
 		{
 			return SUCCESS;
-		}
-		
-		System.out.println("SBSBSB****************");
-		
+		}		
 		try{ // try begin
 
 			InputStream stream = new FileInputStream (this.file);
 			
-			String fileType = fileFileName.substring(fileFileName.lastIndexOf(".") + 1, fileFileName.length());
-			System.out.println("gggggggggggg");
-			System.out.println(fileType);
-			System.out.println(this.fileContentType);
-			
-			
-			
+			String fileType = fileFileName.substring(fileFileName.lastIndexOf(".") + 1, fileFileName.length());			
 			Workbook workbook;
+			//目前只支持xls格式
 			if (fileType.equals("xls")) 
 			{
-				System.out.println("gggggggggggg333");
 				workbook = new HSSFWorkbook(stream);
 	        }    
-//	        else if (fileType.equals("xlsx")) 
-//	        {    
-//	        	System.out.println("gggggggggggg1111");
-//	        	try
-//	        	{
-//	        		System.out.println("gggggggggggg1111");
-//	        		workbook = new XSSFWorkbook(stream);
-//	        		System.out.println("ggggggggggggttttt");
-//	        	}
-//	        	catch(Exception e)
-//	        	{
-//	        		System.out.println("ggggggggggggttttt435345");
-//	        		e.printStackTrace();
-//	        		return ActionSupport.SUCCESS;
-//	        	}
-//	        	System.out.println("gggggggggggg888");
-//	        	
-//	        }    
 	        else 
-	        {    
-	
-	        	System.out.println("gggggggggggg2222");
+	        {
 //	            this.status = "1您输入的excel格式不正确";
 	            stream.close();
-	            return ActionSupport.SUCCESS;
+	            return SUCCESS;
 	        }    
 			
 			
-			System.out.println("SBSBSB****************++");
-			Session session = model.Util.sessionFactory.openSession();
-			int user_id = (int) ActionContext.getContext().getSession().get("user_id");
+			Session session = model.Util.sessionFactory.openSession();			
 			for(int sheetId = 0; sheetId < workbook.getNumberOfSheets(); ++ sheetId)
 			{
 				Sheet sheet = workbook.getSheetAt(sheetId);
-				
-				
-				String teachBuildingName = workbook.getSheetName(sheetId);
+				String teachBuildingName = workbook.getSheetName(sheetId);				
 				System.out.println(teachBuildingName);
 				Row firstRow = sheet.getRow(0);
+				
+				
+				StudentProfile previousPrincipal = null;
 				for(int rowId = 1; ; rowId++)
 				{	
-					
-					Row row = null;
-					
+					Row row = null;					
 					//探测接下来10行是否有数据，防止中间有空行，后边的数据没有检测到
 					for(int cot = 0; cot < 10; cot ++)
 					{
-						if(sheet.getRow(rowId) != null)
-						{
-							row = sheet.getRow(rowId);
-							break;
-						}
+						row = sheet.getRow(rowId);
+						if(row != null) break;
 						else rowId ++;
 					}
 					// 表示已经没有数据了
-					if(row == null)
-					{
-						break;
-					}
+					if(row == null) break;					
 					
-					// 第0列位教师号
-					Cell classroomCell = row.getCell(0);
-					//表示此行没有数据，继续探测下一行
-					if(classroomCell == null)
-					{
-						continue;
-					}
 					
-					String classroomNum = classroomCell.toString();
-					if(classroomNum.contains("."))
-					{
-						classroomNum = classroomNum.substring(0, classroomNum.indexOf('.'));
-					}
-					// 如果为空则跳过
-					if(classroomNum.isEmpty())
-					{
-						continue;
-					}
-
-					Criteria classroomCriteria =  util.Util.getCriteriaWithOneEqualRestriction(
-							session, model.Classroom.class, "teachbuilding.build_name", teachBuildingName);
-					classroomCriteria.add(Restrictions.like("classroom_num", classroomNum + "%"));
+//					 第0列是教室号					
+					Classroom classroom = obtainClassoom(session,  teachBuildingName, row.getCell(0));					
+					// 解析classroom 不成功, 跳过
+					if(classroom == null) continue;
 					
-					List<Classroom> classrooms = classroomCriteria.list();
-					//有教室号前缀一致，跳过不予理睬
-					if(classrooms.size() != 1)
-					{
-						continue;
-					}
 					
-					Classroom classroom = classrooms.get(0);
-					
-					System.out.print(classroom.classroom_num + " ");					
-					for(int colId = 1; ; colId++)
+					//遍历设备或者负责人
+					for(int colId = 1; colId < 20 ; colId++)
 					{
+						if(firstRow.getCell(colId) == null) continue;
+						
+						String firstRowCellValue = firstRow.getCell(colId).toString();
 						Cell cell = row.getCell(colId);
-						if(cell == null) break;
+						String cellValue="";
+						if(cell != null) cellValue = cell.toString();
 						
-						String deviceName = firstRow.getCell(colId).toString();
-						//表示此设备类型（主要设备还是耗材设备）未知
-						if(util.Util.judgeDeviceType(deviceName) == null)
+						if(firstRowCellValue.equals("负责人"))
 						{
-							System.out.println("==="+deviceName + "----");
-							continue;
+							previousPrincipal = saveClassroomPrincipal(session, classroom, cellValue, previousPrincipal);
 						}
-												
-						Criteria deviceCriteria = util.Util.getCriteriaWithOneEqualRestriction(
-								session, model.Repertory.class, "rtClassroom.id", classroom.id);
-						util.Util.addOneEqualRestriction(deviceCriteria, "rtType", deviceName);
 
-						
-						if(!deviceCriteria.list().isEmpty())
+						else// 表示这是个设备 
 						{
-							System.out.println(classroomNum + ", " + deviceName + "已经添加过");
-							continue;
+							saveClassroomDevice(session, classroom, firstRowCellValue, cellValue );
 						}
 						
-						Repertory device = new Repertory();
-						device.rtType = deviceName;
-						
-						//先将设备的所有描述信息存入设备资产编号中，之后再做处理
-						device.rtNumber =  cell.toString();						
-						session.beginTransaction();
-						session.save(device);
-						session.getTransaction().commit();
-						
-						util.Util.modifyDeviceStatus(session, device.rtId, user_id, util.Util.DeviceClassroomStatus, classroom.id);
-						System.out.print(cell.toString() + " ");
 					}
 					
 					System.out.println("");
-					
-					
 				}
-				System.out.println("");
-				System.out.println("");
+
 			}
 			
 			
 			
-//			Sheet rs= rwb.getSheetAt(0);
-//			int user_id = (int) ActionContext.getContext().getSession().get("user_id");
-//	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//	        
-//			
-//	        
-//	        
-//			int i;
-//	        for (i = 1; ; i++) 
-//	        {
-//	        	Row row = rs.getRow(i);
-//	        	if(row == null) 
-//	    		{
-//	//        		this.status = "0全部设备信息导入成功";
-//	        		break;
-//	    		}
-//	        	Repertory r = new Repertory();
-//	        	
-//	        	
-//	        	System.out.println("GGGG======");
-//	        	
-//
-//	
-//	          	session.beginTransaction();
-//	        	session.save(r);
-//	        	session.getTransaction().commit();        	
-//	        	int classroom_id = -1;        	
-//	        	if(r.rtClassroom != null) classroom_id = r.rtClassroom.id;
-//	    		util.Util.modifyDeviceStatus(session, r.rtId, user_id, r.rtDeviceStatus, classroom_id);	
-//	
-//	        }
-//	        
-//	        System.out.println("import END---------------");
 	        
 			session.close();
 			workbook.close();
