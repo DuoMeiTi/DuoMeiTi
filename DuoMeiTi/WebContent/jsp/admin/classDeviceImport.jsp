@@ -6,9 +6,15 @@
 
 <form method="post" action="" enctype="multipart/form-data">
 		<br/>
-		<div class="alert alert-danger" role="alert"  >
-
+		<div class="alert alert-danger" role="alert" id=""  style="">
+			上传到的文件格式为：第0列表示教室，其余列表示设备，每个格子表示设备的信息，先存到为设备的资产编号字段中。
 		</div>	
+		
+		<div class="alert alert-info" role="alert" id="pleaseWait"  style="display:none;">
+			请耐心等待,正在处理数据......
+		</div>
+		
+		
 
 		<output id="list"></output>
 
@@ -174,6 +180,7 @@
 		fd.append("file", file_list[0]);		
 // 		selectTeachBuilding = $("#selectTeachBuilding").val();
 // 		fd.append("upload_SelectTeachBuilding", selectTeachBuilding);
+		$("#pleaseWait").show();
 	    $.ajax({  
 	          url: "classDeviceImport_importExcel" ,  
 	          type: "POST",  
@@ -183,6 +190,9 @@
 	          contentType: false,
 	          processData: false,
 	          success: function(data) {
+	        	  alert("处理完成，上传成功");
+	        	  window.location.reload();
+	        	  
 	        	  
 	          },
 	     })	
