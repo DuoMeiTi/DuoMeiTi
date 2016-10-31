@@ -183,7 +183,7 @@
 		$("#pleaseWait").show();
 	    $.ajax({  
 	          url: "classDeviceImport_importExcel" ,  
-	          type: "POST",  
+	          type: "POST",
 	          data: fd,  
 	          async: true,
 	          cache: false,

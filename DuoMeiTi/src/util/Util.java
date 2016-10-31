@@ -348,7 +348,7 @@ public class Util
 	public static final List<String> DeviceList;
 	private static final String[] AllMainDevice = {
 			"计算机",
-			"投影机",
+			"投影仪",
 			"功放",
     		"中控",
     		"幕布",

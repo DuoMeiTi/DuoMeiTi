@@ -201,6 +201,7 @@ public class ClassDeviceImportAction extends util.FileUploadBaseAction{
 						//表示此设备类型（主要设备还是耗材设备）未知
 						if(util.Util.judgeDeviceType(deviceName) == null)
 						{
+							System.out.println("==="+deviceName + "----");
 							continue;
 						}
 												
