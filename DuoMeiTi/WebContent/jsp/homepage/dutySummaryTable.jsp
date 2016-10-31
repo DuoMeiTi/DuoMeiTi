@@ -6,11 +6,21 @@
 
 <div   class="table-responsive"> 
 
+
+<style type="text/css">
+</style>
+<!-- 	<style> -->
+<!-- 	</style> -->
 	
 	<h3>值班表</h3>
 	
-	<table class="table table-bordered table-condensed"  
-			style="font-size:14px"
+	<table class="table table-bordered table-condensed"
+			style="font-size:14px;
+			 
+			border:solid black; 
+			border-width: 4px 4px 4px 4px ;
+			
+				  "
 	 >
 	
 <!-- 	<table class="table table-bordered table-condensed"   -->
@@ -18,10 +28,16 @@
 <!-- 	 > -->
 		<thead>
 			<tr >
-				<th colspan=1   > 值班时间 </th>
+				<th colspan=1   style="border-right:solid black; 
+						border-right-width: 4px ;"> 值班时间 </th>
 				<s:iterator var="i" begin = "0" end="@util.Util@dutyWeekList.size() - 1" step="1">				
-					<th colspan="<s:property value='dutyPlaceList.size()'/>" 					
-						>					
+					<th colspan="<s:property value='dutyPlaceList.size()'/>"
+						style="
+									border-right:solid black; 
+									border-right-width: 4px ;
+								 "
+					
+					>
 						周<s:property value='@util.Util@dutyWeekList.get(#i)'/>
 					</th>
 				</s:iterator>
@@ -30,8 +46,12 @@
 
 		<tbody>
 		
-			<tr>
-				<td >
+			<tr
+				style="border-top:solid black; 
+						border-top-width: 4px ;"
+			>
+				<td style="border-right:solid black; 
+						border-right-width: 4px ;">
 				</td>
 				
 				<s:iterator var="j" begin = "0" end="7 - 1" step="1"> 
@@ -39,7 +59,12 @@
 					<s:iterator var="place" begin="0" end= "dutyPlaceList.size() - 1" step="1">
 						<td  
 							style="background-color:
-								<s:property value = '@util.Util@getDutySummaryTableColumnColor(#j *dutyPlaceList.size() + #place)'/>;"
+								<s:property value = '@util.Util@getDutySummaryTableColumnColor(#j *dutyPlaceList.size() + #place)'/>;
+								<s:if test='#place == dutyPlaceList.size() - 1'>
+									border-right:solid black; 
+									border-right-width: 4px ;
+								</s:if>
+								"
 						>
 							<b>
 								<s:property value="@util.Util@convertToMultiLine(dutyPlaceList.get(#place).placeName, 3)" 
@@ -54,10 +79,16 @@
 			
 		
 			<s:iterator var="i" begin = "0" end="@util.Util@dutyPeriodList.size() - 1" step="1">				
-			<tr>					
-				<td >
+			<tr
+				style="border-top:solid black; 
+						border-top-width: 4px ;"
+			>					
+				<td 
+					style="border-right:solid black; 
+						border-right-width: 4px ;"
+				
+				>
 					<s:property value="@util.Util@dutyPeriodList.get(#i)"/>
-	
 				</td>
 				
 				<s:iterator var="j" begin = "0" end="7 - 1" step="1">
@@ -66,7 +97,14 @@
 						
 						<td						
 							style="background-color:
-								<s:property value = '@util.Util@getDutySummaryTableColumnColor(#j *dutyPlaceList.size() + #place)'/>;"
+								<s:property value = '@util.Util@getDutySummaryTableColumnColor(#j *dutyPlaceList.size() + #place)'/>;
+								
+								<s:if test='#place == dutyPlaceList.size() - 1'>
+									border-right:solid black; 
+									border-right-width: 4px ;
+								</s:if>
+								 
+								"
 						
 						>							
 							<s:iterator var="k" begin="0" end="dutyShowList.get(#place).get(#i * 7 + #j).size() - 1" step="1">
