@@ -29,28 +29,43 @@
 				
 	 <div class="row">
 	 	<div class="col-md-4">
-			<select
-				 class="form-control" 
-				id="selectTeachBuilding"    >			
-				<option value=-1> 所有教学楼 </option>
-							
-				<s:set name="teachBuildingList" value="@util.Util@getAllTeachBuildingList()" >  </s:set>
+	 	
+			<s:set name="teachBuildingList" value="@util.Util@getAllTeachBuildingList()" >  </s:set>
 				
-				<s:iterator var = "i" begin="0" end="#teachBuildingList.size() - 1" step="1">	
-					<option  value= '<s:property value = "#teachBuildingList.get(#i).build_id"/>'
-						<s:if test="execute_selectTeachBuilding == #teachBuildingList.get(#i).build_id">
-								selected="selected"
-						</s:if> >					
+				<s:select list="#teachBuildingList" 
+						value="execute_selectTeachBuilding"
+						listKey="build_id"
+						listValue="build_name"
+						headerKey="-1"
+						headerValue="所有教学楼"
+						class="form-control"
+						id="selectTeachBuilding"
+						 >
+				</s:select>
+	 		
+	 	
+<!-- 			<select -->
+<!-- 				 class="form-control"  -->
+<!-- 				id="selectTeachBuilding"    >			 -->
+<!-- 				<option value=-1> 所有教学楼 </option> -->
+							
+				
+<%-- 				<s:iterator var = "i" begin="0" end="#teachBuildingList.size() - 1" step="1">	 --%>
+<%-- 					<option  value= '<s:property value = "#teachBuildingList.get(#i).build_id"/>' --%>
+<!-- 						<s:if test="execute_selectTeachBuilding == #teachBuildingList.get(#i).build_id"> -->
+<!-- 								selected="selected" -->
+<!-- 						</s:if> >					 -->
 						
-						<s:property value = "#teachBuildingList.get(#i).build_name"/>
-					</option>
-				</s:iterator>
-			</select>
+<%-- 						<s:property value = "#teachBuildingList.get(#i).build_name"/> --%>
+<!-- 					</option> -->
+<%-- 				</s:iterator> --%>
+				
+				
+<!-- 			</select> -->
 		</div>
 		
 		<s:if test="execute_selectTeachBuilding != -1">
 			<div class="col-md-4">
-
 				本教学楼一共有<s:property value="execute_classroomDeviceMap.size()"/>个教室
 			</div>
 		</s:if>
@@ -71,20 +86,28 @@
 			<s:iterator value="execute_classroomDeviceMap">
 				<tr>
 					<td>
-						<button class="btn btn-success">
+						<button type = "button" class="btn btn-primary btn-xs"    >
 							<s:property value="key"/>
-						</button>
+
 					</td>
-					<td>
+					<td style="  ;">
 					<s:iterator value="value" var="device">
 					
-						<span class="label label-success">							
-							<s:property value="#device.rtType"/>
+						<button type = "button" class="btn btn-success btn-xs"  style="margin-top:5px;" >							
 							
-						</span>					
-						<span class="label label-info">
+							<strong style="color:#E0E0E0			;">
+<!-- 								<span class="label label-primary"> -->
+									<s:property value="#device.rtType"/>
+<!-- 								</span> -->
+							</strong>
+							
+							<span class="glyphicon glyphicon-star"></span>
 							<s:property value="#device.rtNumber"/>
-						</span>
+							
+						</button>
+<!-- 						<span class="label label-info"> -->
+<%-- 							<s:property value="#device.rtNumber"/> --%>
+<!-- 						</span> -->
 							&nbsp;
 					</s:iterator>
 					</td>
