@@ -214,13 +214,13 @@
 					</div>
 		        	
 			        <div style="font-size:30%;">									
-						姓名：<s:property value="dutyStudentList.get(#i).user.fullName"/>
+						<s:property value="dutyStudentList.get(#i).user.fullName"/>
 					</div>
 					<div style="font-size:30%;">									
-						学号：<s:property value="dutyStudentList.get(#i).studentId"/>
+						<s:property value="dutyStudentList.get(#i).studentId"/>
 					</div>					
 					<div style="font-size:30%;">									
-						电话：<s:property value="dutyStudentList.get(#i).user.phoneNumber"/>
+						<s:property value="dutyStudentList.get(#i).user.phoneNumber"/>
 					</div>	        
 			        	
 			        	
