@@ -196,14 +196,22 @@
 
 <!-- 课表批量导入 -->
 		<action name="classScheduleImport" class="admin.batchimport.ClassScheduleAction" >
-			<result>
-				/jsp/admin/class_schedule_import.jsp
-			</result>
+			<result> /jsp/admin/class_schedule_import.jsp </result>
 		</action>
 		<action name="classScheduleImport_*" class="admin.batchimport.ClassScheduleAction" method="{1}">
 			<result name="success" type="json"></result>
 		</action>
 <!-- 课表批量导入 END-->		
+		
+		
+<!-- 教室设备批量导入 -->
+		<action name="classDeviceImport" class="admin.batchimport.ClassDeviceImportAction" >
+			<result> /jsp/admin/classDeviceImport.jsp </result>
+		</action>
+		<action name="classDeviceImport_*" class="admin.batchimport.ClassDeviceImportAction" method="{1}">
+			<result name="success" type="json"></result>
+		</action>
+<!-- 教室设备批量导入 END-->
 		
 		
 

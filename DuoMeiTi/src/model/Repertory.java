@@ -13,7 +13,7 @@ public class Repertory {
 	
 //	设备名称(设备类型)
 	@Column 
-	public String rtType;	
+	public String rtType;
 	
 //	资产编号
 	@Column 

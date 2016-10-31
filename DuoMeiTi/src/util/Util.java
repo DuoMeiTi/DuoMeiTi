@@ -346,14 +346,18 @@ public class Util
 // 设备类型
 	
 	public static final List<String> DeviceList;
-	private static final String[] AllMainDevice = {    	
+	private static final String[] AllMainDevice = {
+			"计算机",
+			"投影机",
+			"功放",
     		"中控",
-    		"功放",
-    		"投影机",
-    		"计算机主机",
-    		"显示器",
-    		"机柜",
     		"幕布",
+    		"音响",
+    		"控制台",    		
+    		
+    		
+    		"显示器",
+    		"机柜",    		
     		"麦克",
     		"数字处理器",
     };
@@ -627,10 +631,16 @@ public class Util
 		if(propertyName.contains("."))
 		{
 			String [] splittedPropertyNameArray = propertyName.split("\\.");
+			String cntAliasPropertyName ="";
 			for(int i = 0; i < splittedPropertyNameArray.length - 1; ++ i )
 			{
 				String splittedPropertyName = splittedPropertyNameArray[i];
-				c.createAlias(splittedPropertyName, splittedPropertyName);
+				
+				if(!cntAliasPropertyName.isEmpty()) cntAliasPropertyName += ".";
+				
+				cntAliasPropertyName +=  splittedPropertyName;
+				
+				c.createAlias(cntAliasPropertyName, splittedPropertyName);
 			}
 		}
 		return c.add(Restrictions.eq(propertyName, propertyValue));

@@ -11,6 +11,7 @@ encoding//WebContent/jsp/admin/admin_information.jsp=UTF-8
 encoding//WebContent/jsp/admin/base.jsp=UTF-8
 encoding//WebContent/jsp/admin/batchImport.jsp=UTF-8
 encoding//WebContent/jsp/admin/checkinrecord.jsp=UTF-8
+encoding//WebContent/jsp/admin/classDeviceImport.jsp=UTF-8
 encoding//WebContent/jsp/admin/class_schedule_import.jsp=UTF-8
 encoding//WebContent/jsp/admin/classroomManage.jsp=UTF-8
 encoding//WebContent/jsp/admin/classroomPrincipalImport.jsp=UTF-8

@@ -9,16 +9,20 @@
 		<div class="container-fluid nopadding">
     		<div class="row nomargin">
         
-        		<div class="col-lg-4 nopadding">
+        		<div class="col-lg-3 nopadding">
            			<a href="/admin/batchImport/classScheduleImport" class="navbar-button navbar-button-left">课表导入</a> 
         		</div>
         
-       			<div class="col-lg-4 nopadding" >
+       			<div class="col-lg-3 nopadding" >
            			<a href="/admin/batchImport/classroom_import" class="navbar-button">教室照片导入</a> 
         		</div>
         		
-        		<div class="col-lg-4 nopadding" >
+        		<div class="col-lg-3 nopadding" >
            			<a href="/admin/batchImport/classroomPrincipalImport" class="navbar-button">教室负责人导入</a> 
+        		</div>
+        		
+        		<div class="col-lg-3 nopadding" >
+           			<a href="/admin/batchImport/classDeviceImport" class="navbar-button">教室设备导入</a> 
         		</div>
     
     		</div>
