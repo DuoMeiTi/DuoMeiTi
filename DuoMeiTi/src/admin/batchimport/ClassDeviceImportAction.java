@@ -142,10 +142,18 @@ public class ClassDeviceImportAction extends util.FileUploadBaseAction{
 	private static boolean saveClassroomDevice(Session session, Classroom classroom, String deviceName, String deviceInfo)
 	{
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
+		deviceName = deviceName.trim();
+		deviceInfo = deviceInfo.trim();
+		
 		//表示此设备类型（主要设备还是耗材设备）未知
 		if(util.Util.judgeDeviceType(deviceName) == null)
 		{
 			System.out.println("==="+deviceName + "----");
+			return false;
+		}
+		
+		if(deviceInfo.isEmpty())
+		{
 			return false;
 		}
 		
@@ -250,7 +258,7 @@ public class ClassDeviceImportAction extends util.FileUploadBaseAction{
 							previousPrincipal = saveClassroomPrincipal(session, classroom, cellValue, previousPrincipal);
 						}
 
-						else// 表示这是个设备 
+						else // 表示这是个设备 
 						{
 							saveClassroomDevice(session, classroom, firstRowCellValue, cellValue );
 						}
