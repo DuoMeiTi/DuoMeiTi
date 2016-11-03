@@ -139,6 +139,8 @@ public class CheckinManageAction extends ActionSupport{
 			if(status.charAt(0) == '0')
 			{
 				int cntTime = makeCloseInDutyTime(now);
+				
+				System.out.println("+++++++++LZ:::" + cntTime);
 				List ds_list = (List)
 								s.createCriteria(model.DutySchedule.class)
 								.add(Restrictions.eq("student.id", student_id))

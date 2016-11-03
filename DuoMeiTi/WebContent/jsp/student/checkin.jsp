@@ -68,7 +68,8 @@
 
 function checkin(){
 	
-	
+// 	alert("FFF")
+	$("#addbutton").attr("disabled", "disabled");
 	$.ajax({
         url: '/student/checkinManage_checkin',
         type: 'post',
