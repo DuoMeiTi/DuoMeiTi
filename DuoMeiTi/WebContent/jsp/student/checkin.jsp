@@ -18,9 +18,9 @@
 					<s:property value="@util.Util@dutyPeriodEndList.get(#i)"/>
 				 只能在时间段
 				 
-				 	<s:property value="@util.Util@dutyPeriodBeginList.get(#i).minusHours(1)"/>
+				 	<s:property value="@util.Util@dutyCheckinPeriodBeginList.get(#i)"/>
 					~
-					<s:property value="@util.Util@dutyPeriodBeginList.get(#i)"/>
+					<s:property value="@util.Util@dutyCheckinPeriodEndList.get(#i)"/>
 				内签到
 				
 			</p>

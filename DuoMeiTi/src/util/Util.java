@@ -223,6 +223,10 @@ public class Util
 	public static final List<java.time.LocalTime> dutyPeriodBeginList;
 	public static final List<java.time.LocalTime> dutyPeriodEndList;
 	
+	//针对每个值班时间段的签到时间时段	
+	public static final List<java.time.LocalTime> dutyCheckinPeriodBeginList;
+	public static final List<java.time.LocalTime> dutyCheckinPeriodEndList;
+	
 	
 	public static int getWeekFromDutyPieceTime(int time)
 	{
@@ -249,17 +253,13 @@ public class Util
 		return day;
 		
 	}
-	
+
+	/**
+	 * 返回一个0~34 的一个数字, 一周有7天，一天有5个值班时间段
+	 */
 	public static int makeDutyTime(int week, int period)
 	{
 		return period * 7 + week;
-//		Calendar c = Calendar.getInstance();
-//		c.setTime(d);
-//		int day = c.get(Calendar.DAY_OF_WEEK);
-//		day -= 2;
-//		if(day == -1) day = 6;
-//		return day;
-		
 	}
 	
 	
@@ -289,8 +289,7 @@ public class Util
 		dutyPeriodBeginList.add(LocalTime.of(9, 50));
 		dutyPeriodBeginList.add(LocalTime.of(13, 15));
 		dutyPeriodBeginList.add(LocalTime.of(15, 20));
-		dutyPeriodBeginList.add(LocalTime.of(17, 45));
-		
+		dutyPeriodBeginList.add(LocalTime.of(17, 45));		
 		
 		dutyPeriodEndList = new ArrayList<java.time.LocalTime>();
 		dutyPeriodEndList.add(LocalTime.of(9, 20));
@@ -301,11 +300,29 @@ public class Util
 		
 		
 		
-		File savefile = new File(RootPath + RecordExportPath);
-        if (!savefile.getParentFile().exists())
-            savefile.getParentFile().mkdirs();
-        if (!savefile.exists())
-            savefile.mkdirs();
+		
+		dutyCheckinPeriodBeginList = new ArrayList<java.time.LocalTime>();
+		dutyCheckinPeriodEndList = new ArrayList<java.time.LocalTime>();
+		
+		dutyCheckinPeriodBeginList.add(LocalTime.of(6, 40));
+		dutyCheckinPeriodBeginList.add(LocalTime.of(8, 50));
+		dutyCheckinPeriodBeginList.add(LocalTime.of(12, 15));
+		dutyCheckinPeriodBeginList.add(LocalTime.of(14, 20));
+		dutyCheckinPeriodBeginList.add(LocalTime.of(16, 45));
+		
+		dutyCheckinPeriodEndList.add(LocalTime.of(7, 40));
+		dutyCheckinPeriodEndList.add(LocalTime.of(9, 50));
+		dutyCheckinPeriodEndList.add(LocalTime.of(13, 15));		
+		dutyCheckinPeriodEndList.add(LocalTime.of(15, 20));
+		dutyCheckinPeriodEndList.add(LocalTime.of(17, 45));
+		
+		
+		
+//		File savefile = new File(RootPath + RecordExportPath);
+//        if (!savefile.getParentFile().exists())
+//            savefile.getParentFile().mkdirs();
+//        if (!savefile.exists())
+//            savefile.mkdirs();
 
 		
 	}

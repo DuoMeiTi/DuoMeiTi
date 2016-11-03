@@ -42,19 +42,22 @@ public class CheckinManageAction extends ActionSupport{
 	List checkinRecordList;	
 	int currentPeriodId;
 	
+	
+	/**
+	 * 确定签到时间{@code now}对应哪个值班时间段，范围为0~4，对应5个值班时间段；
+	 * 返回-1表示没有对应的值班时间段
+	 */
 	public static int getCloseInDutyPeriodId(java.util.Date now)
 	{
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(now);
 		
+		java.time.LocalTime cnt = java.time.LocalTime.of(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
 		int period = -1;
-		for(int i = 0; i < util.Util.dutyPeriodBeginList.size(); i++)
-		{
-			java.time.LocalTime cnt = java.time.LocalTime.of(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
-			
-			java.time.LocalTime beg = util.Util.dutyPeriodBeginList.get(i).minusHours(1);
-			java.time.LocalTime end = util.Util.dutyPeriodBeginList.get(i);
-			
+		for(int i = 0; i < util.Util.dutyCheckinPeriodBeginList.size(); i++)
+		{			
+			java.time.LocalTime beg = util.Util.dutyCheckinPeriodBeginList.get(i);
+			java.time.LocalTime end = util.Util.dutyCheckinPeriodEndList.get(i);			
 			if(cnt.isAfter(beg) && cnt.isBefore(end)) 
 			{
 				period = i; break;
@@ -62,14 +65,16 @@ public class CheckinManageAction extends ActionSupport{
 		}
 		return period;
 	}
+	/**确定{@code now} 对应的Duty Piece Time. 0~34, 一共有35个Duty Piece Time. 
+	 * 如果没有对应的Duty Piece Time 返回-1
+	 * */
 	public static int makeCloseInDutyTime(java.util.Date now)
 	{		
 		int week = util.Util.getDayOfWeek(now);
 		int period = getCloseInDutyPeriodId(now);
 		
-		if(period == -1) return -1;		
+		if(period == -1) return -1;
 		return util.Util.makeDutyTime(week, period);
-
 	}
 	
 	private static boolean isSameDate(java.util.Date date1, java.util.Date date2) 
@@ -103,12 +108,7 @@ public class CheckinManageAction extends ActionSupport{
 				.add(Restrictions.eq("student.id", student_id))
 				.addOrder(Order.desc("id"))
 				.list();
-		
-		
-		
-//		util.Util.dutyPeriodBeginList.get(0).format(formatter)
-		
-		currentPeriodId = getCloseInDutyPeriodId(now);	
+		currentPeriodId = getCloseInDutyPeriodId(now);
 		
 		System.out.println("=========--------");
 		System.out.println(currentPeriodId);
@@ -132,8 +132,7 @@ public class CheckinManageAction extends ActionSupport{
 				{
 					// 已经签过了
 					status = "2值班时间段" + util.Util.dutyPeriodList.get(currentPeriodId) + "的已经签过了";
-//					status = "2当前时间段的选班已经签过了";
-				}				
+				}
 			}
 			
 			if(status.charAt(0) == '0')
