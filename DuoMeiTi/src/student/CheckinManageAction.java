@@ -65,7 +65,8 @@ public class CheckinManageAction extends ActionSupport{
 		}
 		return period;
 	}
-	/**确定{@code now} 对应的Duty Piece Time. 0~34, 一共有35个Duty Piece Time. 
+	/**
+	 * 确定值班签到签到时间{@code now}对应的Duty Piece Time. 0~34, 一共有35个Duty Piece Time. 
 	 * 如果没有对应的Duty Piece Time 返回-1
 	 * */
 	public static int makeCloseInDutyTime(java.util.Date now)
