@@ -39,8 +39,6 @@ import util.Util;
 
 
 public class CheckinManageAction extends ActionSupport{
-	List checkinRecordList;	
-	int currentPeriodId;
 	
 	
 	/**
@@ -95,26 +93,30 @@ public class CheckinManageAction extends ActionSupport{
 	                       .get(Calendar.DAY_OF_MONTH);
 
 	       return isSameDate;
-	 }
+	}
 	
-	String status;
-	public String execute() throws Exception	
+	/** 
+	 * 检查{@code now}是否可以签到.
+	 * 返回值分为标识码和相应信息
+	 * 标志码为0表示可以签到，其余表示不可以签到
+	 */
+	static String checkCanCheckin(Session s, java.util.Date now)
 	{
-		int student_id =(int) ActionContext.getContext().getSession().get("student_id" );
-		java.util.Date now = new java.util.Date();
-		Session s = model.Util.sessionFactory.openSession();
 		
-		checkinRecordList = 
+		int student_id =(int) ActionContext.getContext().getSession().get("student_id" );
+//		Session s = model.Util.sessionFactory.openSession();
+		
+		List checkinRecordList = 
 				s.createCriteria(CheckInRecord.class)
 				.add(Restrictions.eq("student.id", student_id))
 				.addOrder(Order.desc("id"))
 				.list();
-		currentPeriodId = getCloseInDutyPeriodId(now);
+		int currentPeriodId = getCloseInDutyPeriodId(now);
 		
 		System.out.println("=========--------");
 		System.out.println(currentPeriodId);
 		// 0 表示可以签到
-		status = "0";
+		String status = "0";
 		
 		
 		// 当前时间不能签到
@@ -164,10 +166,24 @@ public class CheckinManageAction extends ActionSupport{
 			}
 			
 		}
-
-
-		s.close();
-		 
+		return status;
+	}
+	
+	String status;
+	List checkinRecordList;
+	public String execute() throws Exception	
+	{
+		Session s = model.Util.sessionFactory.openSession();
+		status = checkCanCheckin(s, new java.util.Date());
+		
+		int student_id = (int) ActionContext.getContext().getSession().get("student_id" );
+		
+		checkinRecordList = 
+				s.createCriteria(CheckInRecord.class)
+				.add(Restrictions.eq("student.id", student_id))
+				.addOrder(Order.desc("id"))
+				.list();
+		s.close();		
 		return ActionSupport.SUCCESS;
 	}
 	
@@ -181,19 +197,22 @@ public class CheckinManageAction extends ActionSupport{
 		
 		
 		Session s = model.Util.sessionFactory.openSession();
-		s.beginTransaction();
+		
+		java.util.Date now = new java.util.Date();
+		
+		String status = checkCanCheckin(s, now);
+		if(status.charAt(0) != '0')
+		{
+			System.out.println("不可以签到");
+			return SUCCESS;
+		}
 		
 		CheckInRecord ci = new CheckInRecord();
-		ci.recordtime = new java.sql.Timestamp(new java.util.Date().getTime());
+		ci.recordtime = new java.sql.Timestamp(now.getTime());
 		ci.student = sp;
+		s.beginTransaction();
 		s.save(ci);
-		
 		s.getTransaction().commit();
-//		checkinRecordList = session
-//							.createCriteria(CheckInRecord.class)
-//							.add(Restrictions.eq("student.id", student_id))
-//							.addOrder(Order.desc("id"))
-//							.list();
 		s.close();
 		return SUCCESS;
 	}
@@ -206,13 +225,13 @@ public class CheckinManageAction extends ActionSupport{
 		this.checkinRecordList = checkinRecordList;
 	}
 
-	public int getCurrentPeriodId() {
-		return currentPeriodId;
-	}
-
-	public void setCurrentPeriodId(int currentPeriodId) {
-		this.currentPeriodId = currentPeriodId;
-	}
+//	public int getCurrentPeriodId() {
+//		return currentPeriodId;
+//	}
+//
+//	public void setCurrentPeriodId(int currentPeriodId) {
+//		this.currentPeriodId = currentPeriodId;
+//	}
 	public String getStatus() {
 		return status;
 	}
