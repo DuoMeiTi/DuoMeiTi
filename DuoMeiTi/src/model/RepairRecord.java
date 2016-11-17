@@ -45,16 +45,16 @@ public class RepairRecord {
 	
 	
 	
-		
-//	@ManyToOne
-//	@JoinColumn
-//	public User repairman;
-	
+	// 填写人学生信息，可以包括多个填写人 使用逗号,分割
+	// 学生的真实姓名列表
 	@Column
 	public String repairmanFullName;
-	
+	// 学生的电话号码列表
 	@Column
 	public String repairmanPhoneNumber;
+	// 学生的学号列表
+	@Column
+	public String repairmanStudentId;
 	
 	
 	
@@ -226,6 +226,14 @@ public class RepairRecord {
 
 	public void setDeviceApprDate(java.sql.Timestamp deviceApprDate) {
 		this.deviceApprDate = deviceApprDate;
+	}
+
+	public String getRepairmanStudentId() {
+		return repairmanStudentId;
+	}
+
+	public void setRepairmanStudentId(String repairmanStudentId) {
+		this.repairmanStudentId = repairmanStudentId;
 	}
 	
 	

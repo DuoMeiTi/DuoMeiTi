@@ -66,6 +66,8 @@
 			           
 			           <li class=""><a href="/dutySummaryTable">值班表</a></li>
 			           <li class=""><a href="/classroomPincipalShow">教室负责人</a></li>
+			           
+			           <li class=""><a href="/repairRecordManage">维修记录</a></li>
 
 			           <li class="">
 				           <s:if test="#session.containsKey('role')">

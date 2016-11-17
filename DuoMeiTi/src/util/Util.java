@@ -874,6 +874,46 @@ public class Util
 
 	}
 	
+	/**根据repairman,   classroom,   device,   detail 设置RepairRecord 的相关信息*/	
+	public static void setRepairRecord(RepairRecord repairRecord, 
+			List<StudentProfile> studentList, Classroom classroom, Repertory device, String detail)
+	{
+		repairRecord.setDeviceType(device.getRtType());
+		repairRecord.setDeviceNumber(device.getRtNumber());
+		repairRecord.setDeviceVersion(device.getRtVersion());
+		repairRecord.setDeviceFactorynum(device.getRtFactorynum());
+		repairRecord.setDeviceProdDate(device.getRtProdDate());
+		repairRecord.setDeviceApprDate(device.getRtApprDate());
+
+		repairRecord.setRepairdate(new Timestamp(new java.util.Date().getTime()));
+		repairRecord.setRepairdetail(detail);
+		
+		repairRecord.repairmanFullName = "";
+		repairRecord.repairmanPhoneNumber = "";
+		repairRecord.repairmanStudentId = "";
+						
+		for(int i = 0; i < studentList.size(); ++ i)
+		{
+			if(i > 0)
+			{
+				// 使用逗号分割：
+				repairRecord.repairmanFullName += ",";
+				repairRecord.repairmanPhoneNumber += ",";
+				repairRecord.repairmanStudentId += ",";
+			}
+			repairRecord.repairmanFullName  += studentList.get(i).getUser().getFullName();
+			repairRecord.repairmanPhoneNumber += studentList.get(i).getUser().getPhoneNumber();
+			repairRecord.repairmanStudentId += studentList.get(i).getStudentId();			
+		}
+
+		repairRecord.setClassroomName(classroom.getClassroom_num());
+		repairRecord.setTeachingBuildingName(classroom.getTeachbuilding().getBuild_name());
+
+	}
+
+			
+			
+	
 	
 	
 	

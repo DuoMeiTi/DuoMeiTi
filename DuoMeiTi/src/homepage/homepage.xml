@@ -65,6 +65,22 @@
         <action name="classroomPincipalShow" class="homepage.HomeAction" method="classroomPincipalShow">
 			<result>/jsp/homepage/classroomPincipalShow.jsp</result>			
     	</action>
+    	
+    	
+    	<action name="repairRecordManage" class="homepage.RepairRecordManageAction" >
+			<result>/jsp/homepage/repairRecordManage.jsp</result>
+    	</action>
+    	<action  name="repairRecordManage_*" class="homepage.RepairRecordManageAction"  method="{1}" >
+    		<result type="json"> </result>
+    	</action>
+        
+        
+        
+        
+        
+        
+        
+        
         
 
         
