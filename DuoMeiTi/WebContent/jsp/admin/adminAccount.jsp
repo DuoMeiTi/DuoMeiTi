@@ -24,7 +24,7 @@
 					<td class="col-lg-1.5"> <s:property value="#i.user.fullName"/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.user.sex"/>  </td>
 					<td class="col-lg-1"> <s:property value="#i.user.phoneNumber"/> </td>
-					<td class="col-lg-1.5"> <s:property value="#i.unitinfo"/> </td>
+					<td class="col-lg-1.5"> <s:property value="#i.unitInfo"/> </td>
 					<td class="col-lg-1.5"> <s:property value="#i.user.remark"/> </td>			
 					<td class="col-lg-1 ">
 						<button type="button" class="btn btn-primary btn-sm delete" id="delede-button">删除</button>	
