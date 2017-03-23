@@ -84,7 +84,7 @@ public class DutyManageAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String switchDutyChoose() throws Exception {
+	public synchronized String switchDutyChoose() throws Exception {
 
 		Session session = model.Util.sessionFactory.openSession();
 
@@ -103,7 +103,7 @@ public class DutyManageAction extends ActionSupport {
 	
 	String addDutyPlace_placeName; //in
 	String addDutyPlace_status; //out
-	public String addDutyPlace() throws Exception {
+	public  synchronized String addDutyPlace() throws Exception {
 
 		String newDutyPlace = addDutyPlace_placeName;
 		
@@ -151,7 +151,7 @@ public class DutyManageAction extends ActionSupport {
 
 	int deletedDutyPlaceId;
 
-	public String deleteDutyPlace() throws Exception {
+	public synchronized String deleteDutyPlace() throws Exception {
 
 		System.out.println(this.deletedDutyPlaceId);
 		int id = deletedDutyPlaceId;
@@ -203,7 +203,7 @@ public class DutyManageAction extends ActionSupport {
 
 	public int deleteDutySchedule_id;
 
-	public String deleteDutySchedule() throws Exception {
+	public synchronized String deleteDutySchedule() throws Exception {
 		int id = deleteDutySchedule_id;
 		System.out.println(id);
 
@@ -235,7 +235,7 @@ public class DutyManageAction extends ActionSupport {
 	List<DutySchedule> addDutySchedule_addedDutyScheduleList;
 	// 如果没有错误为空，否则有值
 	String addDutySchedule_status;
-	public String addDutySchedule() 
+	public synchronized String addDutySchedule() 
 			throws Exception 
 	{
 		int dutyPlaceId = addDutySchedule_dutyPlaceId;
@@ -325,7 +325,7 @@ public class DutyManageAction extends ActionSupport {
 	int updateDutyNumber_dutyNumber;
 	int updateDutyNumber_dutyPieceId;
 
-	public String updateDutyNumber() throws Exception {
+	public synchronized String updateDutyNumber() throws Exception {
 		int dutyNumber = updateDutyNumber_dutyNumber;
 		int dutyPieceId = updateDutyNumber_dutyPieceId;
 

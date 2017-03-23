@@ -77,7 +77,7 @@ public class DutyManageAction {
 	}
 	
 	/** TODO: make it better！ */
-	public String deleteSchedule() throws Exception {
+	public synchronized String deleteSchedule() throws Exception {
 		
 		Session session = model.Util.sessionFactory.openSession();
 		
@@ -129,7 +129,7 @@ public class DutyManageAction {
 	int addSchedule_studentId;
 	int addSchedule_dutyLeft;
 	/** TODO: make it better！ */
-	public String addSchedule() throws Exception {
+	public synchronized String addSchedule() throws Exception {
 		
 		Session session = model.Util.sessionFactory.openSession();
 		
