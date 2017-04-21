@@ -23,7 +23,30 @@
 								电话：<s:property value="contacts_list.get(#i+#j).user.phoneNumber"/>  
 							</div>
 							<div>
-								学院：<s:property value="contacts_list.get(#i+#j).college"/>  
+								学院：
+								
+								<s:set name="collgeName" value="contacts_list.get(#i+#j).college.substring(0, 2)" >  </s:set>
+								<s:if test = "#collgeName == '管理' ">
+									管经
+								</s:if>
+								<s:elseif test = "#collgeName == '电子' ">
+									电信
+								</s:elseif>
+								<s:elseif test = "#collgeName == '建设' ">
+									建工
+								</s:elseif>
+								<s:elseif test = "#collgeName == '建筑' ">
+									建艺
+								</s:elseif>
+								
+								
+								<s:else>
+									<s:property value =  "collgeName"/>
+								</s:else>
+													
+								
+																
+								
 							</div>
 							
 						</td>
