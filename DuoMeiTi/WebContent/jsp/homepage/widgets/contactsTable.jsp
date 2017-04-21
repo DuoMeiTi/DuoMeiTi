@@ -22,6 +22,10 @@
 							<div>
 								电话：<s:property value="contacts_list.get(#i+#j).user.phoneNumber"/>  
 							</div>
+							<div>
+								学院：<s:property value="contacts_list.get(#i+#j).college"/>  
+							</div>
+							
 						</td>
 					</s:iterator>
 				</tr>
