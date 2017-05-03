@@ -78,6 +78,8 @@ public class DutyManageAction {
 	
 	/** TODO: make it better！ */
 	public synchronized String deleteSchedule() throws Exception {
+		synchronized (this.getClass()) {
+			
 		
 		Session session = model.Util.sessionFactory.openSession();
 		
@@ -118,6 +120,7 @@ public class DutyManageAction {
 			
 		
 		session.close();
+		}
 		return ActionSupport.SUCCESS;
 	}
 
@@ -130,7 +133,8 @@ public class DutyManageAction {
 	int addSchedule_dutyLeft;
 	/** TODO: make it better！ */
 	public synchronized String addSchedule() throws Exception {
-		
+		synchronized (this.getClass()) {
+
 		Session session = model.Util.sessionFactory.openSession();
 		
 		if(!dutyChooseSwitchIsOpen(session))
@@ -193,6 +197,7 @@ public class DutyManageAction {
 			
 		
 		session.close();
+		}
 		return ActionSupport.SUCCESS;
 	}
 

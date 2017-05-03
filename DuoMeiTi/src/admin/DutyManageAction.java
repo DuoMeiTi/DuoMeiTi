@@ -104,6 +104,7 @@ public class DutyManageAction extends ActionSupport {
 	String addDutyPlace_placeName; //in
 	String addDutyPlace_status; //out
 	public  synchronized String addDutyPlace() throws Exception {
+		synchronized (this.getClass()) {
 
 		String newDutyPlace = addDutyPlace_placeName;
 		
@@ -144,7 +145,7 @@ public class DutyManageAction extends ActionSupport {
 		}
 		
 		
-
+		}
 
 		return SUCCESS;
 	}
@@ -152,6 +153,7 @@ public class DutyManageAction extends ActionSupport {
 	int deletedDutyPlaceId;
 
 	public synchronized String deleteDutyPlace() throws Exception {
+		synchronized (this.getClass()) {
 
 		System.out.println(this.deletedDutyPlaceId);
 		int id = deletedDutyPlaceId;
@@ -171,6 +173,7 @@ public class DutyManageAction extends ActionSupport {
 		session.delete(dp);
 		session.getTransaction().commit();
 		session.close();
+		}
 		return SUCCESS;
 	}
 
@@ -204,6 +207,8 @@ public class DutyManageAction extends ActionSupport {
 	public int deleteDutySchedule_id;
 
 	public synchronized String deleteDutySchedule() throws Exception {
+		synchronized (this.getClass()) {
+
 		int id = deleteDutySchedule_id;
 		System.out.println(id);
 
@@ -212,6 +217,7 @@ public class DutyManageAction extends ActionSupport {
 		util.Util.deleteDutySchedule(session, id);
 		session.getTransaction().commit();
 		session.close();
+		}
 
 		return SUCCESS;
 	}
@@ -238,6 +244,8 @@ public class DutyManageAction extends ActionSupport {
 	public synchronized String addDutySchedule() 
 			throws Exception 
 	{
+		synchronized (this.getClass()) {
+
 		int dutyPlaceId = addDutySchedule_dutyPlaceId;
 		int dutyPieceTime = addDutySchedule_dutyPieceTime;
 		String selectAddStudentType = addDutySchedule_selectAddStudentType;
@@ -315,6 +323,7 @@ public class DutyManageAction extends ActionSupport {
 		session.close();		
 		addDutySchedule_addedDutyScheduleList = addedDutyScheduleList;		
 		addDutySchedule_status = statusBuilder.toString();
+		}
 		return SUCCESS;
 	}
 	
@@ -326,6 +335,8 @@ public class DutyManageAction extends ActionSupport {
 	int updateDutyNumber_dutyPieceId;
 
 	public synchronized String updateDutyNumber() throws Exception {
+		synchronized (this.getClass()) {
+
 		int dutyNumber = updateDutyNumber_dutyNumber;
 		int dutyPieceId = updateDutyNumber_dutyPieceId;
 
@@ -351,6 +362,8 @@ public class DutyManageAction extends ActionSupport {
 		}
 
 		session.close();
+		}
+		
 		return SUCCESS;
 	}
 
