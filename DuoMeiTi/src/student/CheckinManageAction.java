@@ -189,6 +189,10 @@ public class CheckinManageAction extends ActionSupport{
 	
 	public String checkin() throws Exception
 	{
+		
+		synchronized (this.getClass()) {
+			
+			
 		System.out.println("SB(((((((");
 		int student_id =(int) ActionContext.getContext().getSession().get("student_id" );
 		StudentProfile sp = new StudentProfile();
@@ -214,7 +218,9 @@ public class CheckinManageAction extends ActionSupport{
 		s.save(ci);
 		s.getTransaction().commit();
 		s.close();
+		
 		return SUCCESS;
+		}
 	}
 
 	public List getCheckinRecordList() {
