@@ -17,6 +17,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.jasig.cas.client.authentication.AttributePrincipal;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -62,12 +63,15 @@ public class UserAction
 		{
 			return ActionSupport.SUCCESS;
 		}
+		
+		
+		
 		if(username == null || username == "")
 		{
 			this.status = "用户名不能为空";
 			return login_fail;
 		}
-
+		
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username", username));
 		List ul = q.list();		

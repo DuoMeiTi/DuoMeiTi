@@ -1,31 +1,13 @@
 package homepage;
 
-import java.io.File;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.Classroom;
@@ -113,10 +95,6 @@ public class HomeAction extends PageGetBaseAction
 		deviceReplaceList = HomepageInformation.obtainAllReplaceDeviceCriteria(s).setMaxResults(MaxRes).list();
 		
 
-		
-		
-		
-		
 		
 		//确定当前值班同学：
 		ArrayList<model.DutySchedule> allDutyList = 

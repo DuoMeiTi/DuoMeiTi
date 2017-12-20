@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <loginServer>https://sso.dlut.edu.cn/cas</loginServer>
+    <validateServer>https://sso.dlut.edu.cn/cas</validateServer>
+    <serverName>127.0.0.1:8085</serverName >
+    <notForceAuthUrls>
+        <url-pattern>\.js$</url-pattern>
+        <url-pattern>\.xsl$</url-pattern>
+        <url-pattern>\.xml$</url-pattern>
+        <url-pattern>\.gif$</url-pattern>
+        <url-pattern>\.jpg$</url-pattern>
+        <url-pattern>\.bmp$</url-pattern>
+        <url-pattern>\.css$</url-pattern>
+        <url-pattern>\.swf$</url-pattern>
+        <url-pattern>\.htm$</url-pattern>
+        <url-pattern>\.html$</url-pattern>
+    </notForceAuthUrls>
+</config>
