@@ -15,14 +15,14 @@ import model.ExamOption;
 import model.ExamTitle;
 import model.Training;
 
-public class TrainingAction extends ActionSupport{
+public class TrainingAction extends ActionSupport {
 	private int trId;
 	private String trContent;
 	private String trStatus;
-	
+
 	private List<ExamTitle> qtitle;
-	private List<List<ExamOption> > qoption = new ArrayList<List<ExamOption>>();
-	
+	private List<List<ExamOption>> qoption = new ArrayList<List<ExamOption>>();
+
 	private int emId;
 	private String emTitle;
 	private List optionList;
@@ -31,221 +31,172 @@ public class TrainingAction extends ActionSupport{
 	private String exam_table;
 
 	private String emTrue;
-	
-	public String execute() throws Exception
-	{
+
+	public String execute() throws Exception {
 		Session session = model.Util.sessionFactory.openSession();
-		//info
+		// info
 		List L = session.createCriteria(Training.class).list();
-		
-		if(L.size() == 0)
-		{
+
+		if (L.size() == 0) {
 			trContent = "";
 			Training tr = new Training();
 			tr.setTrContent("");
 			session.beginTransaction();
-			
-			
+
 			session.save(tr);
 			session.getTransaction().commit();
-		}
-		else 
-		trContent = ((Training)L.get(0)).getTrContent();
-		//exam
+		} else
+			trContent = ((Training) L.get(0)).getTrContent();
+		// exam
 		Criteria ctitle = session.createCriteria(ExamTitle.class);
 		qtitle = ctitle.list();
 		qoption.clear();
-		for(int i = 0; i < qtitle.size(); i++)
-		{
+		for (int i = 0; i < qtitle.size(); i++) {
 			Criteria coption = session.createCriteria(ExamOption.class)
-							  .add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()  ));
+					.add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()));
 			qoption.add(coption.list());
 		}
-//		Collections.reverse(qtitle);
-//		Collections.reverse(qoption);
+		// Collections.reverse(qtitle);
+		// Collections.reverse(qoption);
 		session.close();
 		return SUCCESS;
 	}
-	
-	
-	
-	
-	
-	
-	public String examEdit() throws Exception{		
+
+	public String examEdit() throws Exception {
 
 		Session session = model.Util.sessionFactory.openSession();
-		
+
 		Criteria qt = session.createCriteria(ExamTitle.class).add(Restrictions.eq("emId", emId));
-		
+
 		qtitle = qt.list();
-		if(qtitle.isEmpty())
-		{
+		if (qtitle.isEmpty()) {
 			this.trStatus = "0";
-		}
-		else
-		{
+		} else {
 			System.out.println("$$$$$$$$$$$$" + emId);
-			
+
 			session.beginTransaction();
-			
-			ExamTitle et = (ExamTitle)qtitle.get(0);
+
+			ExamTitle et = (ExamTitle) qtitle.get(0);
 			et.setEmTitle(emTitle);
 			session.update(et);
 			Criteria qo = session.createCriteria(ExamOption.class).add(Restrictions.eq("emTitle.emId", emId));
 			List<ExamOption> oldOptionList = qo.list();
-			
-			while(oldOptionList.size() > optionList.size()) 
-			{
+
+			while (oldOptionList.size() > optionList.size()) {
 				int last = oldOptionList.size() - 1;
-				
+
 				ExamOption cntEmOp = oldOptionList.get(last);
-				List<model.ExamStuOption> studentSelectOptionList =
-						(List<model.ExamStuOption>) 
-				session.createCriteria(model.ExamStuOption.class)
-						.add(Restrictions.eq("emoption.id", cntEmOp.emId))
+				List<model.ExamStuOption> studentSelectOptionList = (List<model.ExamStuOption>) session
+						.createCriteria(model.ExamStuOption.class).add(Restrictions.eq("emoption.id", cntEmOp.emId))
 						.list();
-				
-				for(model.ExamStuOption i: studentSelectOptionList)
+
+				for (model.ExamStuOption i : studentSelectOptionList)
 					session.delete(i);
-				
+
 				session.delete(oldOptionList.get(last));
-				oldOptionList.remove(last);	
+				oldOptionList.remove(last);
 			}
-			while(oldOptionList.size() < optionList.size()) 
-			{				
+			while (oldOptionList.size() < optionList.size()) {
 				ExamOption eo = new ExamOption();
 				eo.setEmTitle(qtitle.get(0));
 				oldOptionList.add(eo);
 				session.save(eo);
 			}
-			for(int i = 0; i < oldOptionList.size(); ++ i)
-			{
-				ExamOption oldeo = (ExamOption)oldOptionList.get(i);
-				
+			for (int i = 0; i < oldOptionList.size(); ++i) {
+				ExamOption oldeo = (ExamOption) oldOptionList.get(i);
+
 				oldeo.setEmCheck(checkList.get(i).toString());
 				oldeo.setEmOption(optionList.get(i).toString());
-				
+
 				session.update(oldeo);
 			}
-			
-//			optionList
-//			for(int i = 0; i < qoList.size(); i++)
-//			{
-//				session.delete(qoList.get(i));
-//			}
-//			session.delete(qtitle.get(0));
+
+			// optionList
+			// for(int i = 0; i < qoList.size(); i++)
+			// {
+			// session.delete(qoList.get(i));
+			// }
+			// session.delete(qtitle.get(0));
 			session.getTransaction().commit();
-				
+
 			Criteria ctitle = session.createCriteria(ExamTitle.class);
 			qtitle = ctitle.list();
 			qoption.clear();
-			for(int i = 0; i < qtitle.size(); i++)
-			{
+			for (int i = 0; i < qtitle.size(); i++) {
 				Criteria coption = session.createCriteria(ExamOption.class)
-								  .add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()  ));
+						.add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()));
 				qoption.add(coption.list());
 			}
-//			Collections.reverse(qtitle);
-//			Collections.reverse(qoption);
+			// Collections.reverse(qtitle);
+			// Collections.reverse(qoption);
 			exam_table = util.Util.getJspOutput("/jsp/admin/widgets/examTable.jsp");
 			this.trStatus = "1";
 		}
 		session.close();
-		
-		
+
 		System.out.println("FJFJJFJ*********");
 		return SUCCESS;
 
-
-	
-	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public String examInsert() throws Exception
-	{
+
+	public String examInsert() throws Exception {
 		System.out.println(emTitle + " | " + optionList + " | " + checkList + "|");
 		Session session = model.Util.sessionFactory.openSession();
 		session.beginTransaction();
-		
+
 		ExamTitle et = new ExamTitle();
 		et.setEmTitle(emTitle);
 		session.save(et);
-		
-		for(int i = 0; i < optionList.size(); i++)
-		{
+
+		for (int i = 0; i < optionList.size(); i++) {
 			ExamOption eo = new ExamOption();
 			eo.setEmTitle(et);
 			eo.setEmOption(optionList.get(i).toString());
 			eo.setEmCheck(checkList.get(i).toString());
-//			System.out.println("YES:INSERT");
-//			System.out.println(checkList.get(i).toString());
-//			System.out.println(checkList.get(i).getClass());
-			
-			
-			
+			// System.out.println("YES:INSERT");
+			// System.out.println(checkList.get(i).toString());
+			// System.out.println(checkList.get(i).getClass());
+
 			session.save(eo);
 		}
-		
+
 		session.getTransaction().commit();
-		
+
 		Criteria ctitle = session.createCriteria(ExamTitle.class);
 		qtitle = ctitle.list();
 		qoption.clear();
-		for(int i = 0; i < qtitle.size(); i++)
-		{
+		for (int i = 0; i < qtitle.size(); i++) {
 			Criteria coption = session.createCriteria(ExamOption.class)
-							  .add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()  ));
+					.add(Restrictions.eq("emTitle.emId", qtitle.get(i).getEmId()));
 			qoption.add(coption.list());
 		}
-//		Collections.reverse(qtitle);
-//		Collections.reverse(qoption);
-		
+		// Collections.reverse(qtitle);
+		// Collections.reverse(qoption);
+
 		session.close();
-//		this.execute();
+		// this.execute();
 		exam_table = util.Util.getJspOutput("/jsp/admin/widgets/examTable.jsp");
 		trStatus = "1";
 		return SUCCESS;
 	}
-	
-	public String examDelete() throws Exception
-	{
+
+	public String examDelete() throws Exception {
 		System.out.println("$$$$$$$$$$$$" + emId);
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria qt = session.createCriteria(ExamTitle.class).add(Restrictions.eq("emId", emId));
 		qtitle = qt.list();
 		System.out.println(qtitle);
-		if(qtitle.isEmpty())
-		{
+		if (qtitle.isEmpty()) {
 			this.trStatus = "0";
-		}
-		else
-		{
+		} else {
 			session.beginTransaction();
 			Criteria qo = session.createCriteria(ExamOption.class).add(Restrictions.eq("emTitle.emId", emId));
 			List<ExamOption> qoList = qo.list();
-			for(int i = 0; i < qoList.size(); i++)
-			{
-				List<model.ExamStuOption> studentSelectOptionList =
-						(List<model.ExamStuOption>) 
-						session.createCriteria(model.ExamStuOption.class)
-								.add(Restrictions.eq("emoption.id", qoList.get(i).emId))
-								.list();
-				for(model.ExamStuOption eso: studentSelectOptionList)
+			for (int i = 0; i < qoList.size(); i++) {
+				List<model.ExamStuOption> studentSelectOptionList = (List<model.ExamStuOption>) session
+						.createCriteria(model.ExamStuOption.class)
+						.add(Restrictions.eq("emoption.id", qoList.get(i).emId)).list();
+				for (model.ExamStuOption eso : studentSelectOptionList)
 					session.delete(eso);
 				session.delete(qoList.get(i));
 			}
@@ -256,16 +207,11 @@ public class TrainingAction extends ActionSupport{
 		session.close();
 		return SUCCESS;
 	}
-	
-	
-	
-	
-	
-	public String infoUpdate() throws Exception
-	{
+
+	public String infoUpdate() throws Exception {
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c = session.createCriteria(Training.class);
-		Training tr = (Training)c.uniqueResult();
+		Training tr = (Training) c.uniqueResult();
 		tr.setTrContent(trContent);
 		session.beginTransaction();
 		session.update(tr);
@@ -274,9 +220,8 @@ public class TrainingAction extends ActionSupport{
 		this.trStatus = "1";
 		return SUCCESS;
 	}
-	
-	public String infoInsert() throws Exception
-	{
+
+	public String infoInsert() throws Exception {
 		Training tr = new Training();
 		tr.setTrContent(trContent);
 		Session session = model.Util.sessionFactory.openSession();
@@ -284,7 +229,7 @@ public class TrainingAction extends ActionSupport{
 		session.save(tr);
 		session.getTransaction().commit();
 		session.close();
-		
+
 		this.trStatus = "1";
 		return SUCCESS;
 	}
@@ -385,28 +330,4 @@ public class TrainingAction extends ActionSupport{
 		this.emId = emId;
 	}
 
-	
-
-	
-	
-	
-	
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

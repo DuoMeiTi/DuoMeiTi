@@ -1,6 +1,5 @@
 package model;
 
-
 import java.util.Set;
 
 import javax.persistence.*;
@@ -10,28 +9,27 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Classroom {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
-	
+
 	@ManyToOne
 	@JoinColumn
 	@Fetch(FetchMode.SELECT)
 	public TeachBuilding teachbuilding;
-	
+
 	@Column
 	public String classroom_num;
-	
+
 	@ManyToOne
 	@JoinColumn
 	@Fetch(FetchMode.SELECT)
 	public StudentProfile principal;
-	
+
 	@Column
 	public String class_schedule_path;
-	
-	
+
 	public String getClass_schedule_path() {
 		return class_schedule_path;
 	}
@@ -72,6 +70,4 @@ public class Classroom {
 		this.principal = principal;
 	}
 
-	
-	
 }

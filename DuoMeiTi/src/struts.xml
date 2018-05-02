@@ -5,136 +5,103 @@
 
 <struts>
 
-    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="true" />
-    <constant name="struts.multipart.saveDir " value="d:/tmp" />
-    
-      
-    <constant name="struts.multipart.maxSize" value="1000000000000" /> 
-    
-    <constant name="struts.aciton.excludePattern" value="ws://*"></constant>
-    <constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
-	
-    
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.multipart.saveDir " value="d:/tmp" />
+	<constant name="struts.multipart.maxSize" value="1000000000000" />
+	<constant name="struts.aciton.excludePattern" value="ws://*"></constant>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
 
-     
-    <package name="Default" namespace="" extends="json-default">
-    
-    	<default-action-ref name="undefinedUrl"/>
-    	
-  	    <global-results>
-            <result name="not_login" type="redirect"> /not_login</result>
-            
-			<result name="getPage" type="json">
-				  <param name="ignoreHierarchy">false</param>
-			</result>            
-        </global-results>
-        <action name="undefinedUrl">
-        	<result> /jsp/homepage/undefinedUrl.jsp</result>
-        </action>        
-    </package>
-    
-      
-	<package name="AdminLoginInterceptor" abstract="true" extends="struts-default">	
-		<!-- 定义一个拦截器 -->  
-        <interceptors>  
-            <interceptor name="AdminLoginInterceptor" class="homepage.AdminLoginInterceptor">  
-            </interceptor>  
-            <!-- 拦截器栈 -->  
-            <interceptor-stack name="AdminLoginInterceptorStack">
-                <interceptor-ref name="defaultStack" />  
-                <interceptor-ref name="AdminLoginInterceptor" />  
-            </interceptor-stack>  
-        </interceptors>  
-        
+	<package name="Default" namespace="" extends="json-default">
+		<default-action-ref name="undefinedUrl" />
+		<global-results>
+			<result name="not_login" type="redirect"> /not_login</result>
+			<result name="getPage" type="json">				  
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</global-results>
+		<action name="undefinedUrl">
+			<result> /jsp/homepage/undefinedUrl.jsp</result>
+		</action>
+	</package>
+
+	<package name="AdminLoginInterceptor" abstract="true" extends="struts-default">
+		<!-- 定义一个拦截器 -->
+		<interceptors>
+			<interceptor name="AdminLoginInterceptor" class="homepage.AdminLoginInterceptor">
+			</interceptor>
+			<!-- 拦截器栈 -->
+			<interceptor-stack name="AdminLoginInterceptorStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="AdminLoginInterceptor" />
+			</interceptor-stack>
+		</interceptors>
 		<default-interceptor-ref name="AdminLoginInterceptorStack" />
 	</package>
-	
-	
-	<package name="StudentLoginInterceptor" abstract="true" extends="struts-default">	
-		<!-- 定义一个拦截器 -->  
-        <interceptors>  
-            <interceptor name="StudentLoginInterceptor" class="homepage.StudentLoginInterceptor">  
-            </interceptor>  
-            <!-- 拦截器栈 -->  
-            <interceptor-stack name="StudentLoginInterceptorStack">
-                <interceptor-ref name="defaultStack" />  
-                <interceptor-ref name="StudentLoginInterceptor" />  
-            </interceptor-stack>  
-        </interceptors>  
-        
+
+	<package name="StudentLoginInterceptor" abstract="true"
+		extends="struts-default">
+		<!-- 定义一个拦截器 -->
+		<interceptors>
+			<interceptor name="StudentLoginInterceptor" class="homepage.StudentLoginInterceptor">
+			</interceptor>
+			<!-- 拦截器栈 -->
+			<interceptor-stack name="StudentLoginInterceptorStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="StudentLoginInterceptor" />
+			</interceptor-stack>
+		</interceptors>
 		<default-interceptor-ref name="StudentLoginInterceptorStack" />
 	</package>
-	
-	
-	
-	
-	
+
 	<package name="AdminDefault" extends="Default, AdminLoginInterceptor">
 	</package>
 	
 	<package name="StudentDefault" extends="Default, StudentLoginInterceptor">
 	</package>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<package name="HomepageDefault" extends="Default">	
+
+	<package name="HomepageDefault" extends="Default">
 	</package>
-	
-	
-	
 
 	<package name="newClassroom" extends="Default">
-		
-		<action name="classroomManageNew" class="common.ClassroomManageAction" method="classroomList">
+		<action name="classroomManageNew" class="common.ClassroomManageAction"
+			method="classroomList">
 			<result>
-<!-- 				<param name="location">/jsp/admin/classroomManage.jsp</param> -->
+				<!-- <param name="location">/jsp/admin/classroomManage.jsp</param> -->
 				<param name="location">${classroomManageJsp}</param>
 			</result>
 		</action>
-		<action name="classroomManageNew_*" class="common.ClassroomManageAction" method="{1}">
-			<result type="json">
-			</result>
-		</action>		
-	</package>
-	
-	
-<!-- 	教室信息管理 json NEW -->
-	<package name="classroomInfomationNew" namespace="/common/classroomInfomationNew" extends="Default">
-		<action name="*" class="common.ClassroomInformationAction" method="{1}">
-			<result type="json"> </result>
-		</action>		
-	</package>
-<!-- 	教室信息里管理 NEW END-->	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<package name="emergencyPublish"  namespace="/"  extends="Default">
-		<action name="emergencyPublish_*" class="common.EmergencyPublishAction" method="{1}">
+		<action name="classroomManageNew_*" class="common.ClassroomManageAction"
+			method="{1}">
 			<result type="json">
 			</result>
 		</action>
 	</package>
-	
-	
-    
-    <include file="/admin/admin.xml"/>	
-    <include file="/homepage/homepage.xml"/>
-    <include file="/student/student.xml"/>
-<!--     <include file="/Message/message.xml"/> -->
-<!-- 	<include file="/checkin/checkin.xml"/> -->
-    <!-- Add packages here -->
+
+	<!-- 教室信息管理 json NEW -->
+	<package name="classroomInfomationNew" namespace="/common/classroomInfomationNew"
+		extends="Default">
+		<action name="*" class="common.ClassroomInformationAction"
+			method="{1}">
+			<result type="json">
+			</result>
+		</action>
+	</package>
+	<!-- 教室信息里管理 NEW END -->
+
+	<package name="emergencyPublish" namespace="/" extends="Default">
+		<action name="emergencyPublish_*" class="common.EmergencyPublishAction"
+			method="{1}">
+			<result type="json">
+			</result>
+		</action>
+	</package>
+
+	<include file="/admin/admin.xml" />
+	<include file="/homepage/homepage.xml" />
+	<include file="/student/student.xml" />
+	<!-- <include file="/Message/message.xml"/> -->
+	<!-- <include file="/checkin/checkin.xml"/> -->
+	<!-- Add packages here -->
 
 </struts>

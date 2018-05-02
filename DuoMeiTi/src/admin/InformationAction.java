@@ -19,12 +19,11 @@ import util.Const;
 import util.FileUploadBaseAction;
 
 public class InformationAction extends FileUploadBaseAction {
-	
 
 	private String collegeSelect[];
 	private String sexSelect[];
-	
-	public List<User>user_list;
+
+	public List<User> user_list;
 	private static User now_user;
 
 	private int user_id;
@@ -34,18 +33,10 @@ public class InformationAction extends FileUploadBaseAction {
 	private String remark;
 	private String sex;
 	private String username;
-	
-		
-	
-	public List<AdminProfile>admin_list;
+
+	public List<AdminProfile> admin_list;
 	private static AdminProfile now_admin;
 	private String unitInfo;
-
-	
-	
-	
-
-
 
 	public String[] getCollegeSelect() {
 		return collegeSelect;
@@ -159,35 +150,29 @@ public class InformationAction extends FileUploadBaseAction {
 		this.unitInfo = unitInfo;
 	}
 
-	
-	
-	
-	
-	
-	public String adminInformation() throws Exception
-	{
-		
-		
+	public String adminInformation() throws Exception {
+
 		System.out.println("adminInformation");
-		
-		sexSelect=Const.sexSelect;
+
+		sexSelect = Const.sexSelect;
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria c1 = session.createCriteria(User.class).add(Restrictions.eq("username",ActionContext.getContext().getSession().get("username"))); //hibernate session创建查询
+		Criteria c1 = session.createCriteria(User.class)
+				.add(Restrictions.eq("username", ActionContext.getContext().getSession().get("username"))); // hibernate
+																											// session创建查询
 
 		user_list = c1.list();
 		now_user = user_list.get(0);
-//		System.out.println("user_id" + now_user.getId());
-		
+		// System.out.println("user_id" + now_user.getId());
+
 		user_id = now_user.getId();
-		
-		Criteria c2 = session.createCriteria(AdminProfile.class).add(Restrictions.eq("user.id",user_id)); //hibernate session创建查询
-		admin_list = c2.list();	
+
+		Criteria c2 = session.createCriteria(AdminProfile.class).add(Restrictions.eq("user.id", user_id)); // hibernate
+																											// session创建查询
+		admin_list = c2.list();
 		now_admin = admin_list.get(0);
 		session.close();
-	
-		
-		
-		//从数据库读取当前用户的各个属性
+
+		// 从数据库读取当前用户的各个属性
 		fullName = now_user.getFullName();
 		phoneNumber = now_user.getPhoneNumber();
 		profilePhotoPath = now_user.getProfilePhotoPath();
@@ -196,38 +181,38 @@ public class InformationAction extends FileUploadBaseAction {
 		username = now_user.getUsername();
 		unitInfo = now_admin.getUnitInfo();
 		System.out.println(profilePhotoPath);
-//		System.out.println(username);
-//		System.out.println(fullName);
-//		System.out.println(phoneNumber);
-//		System.out.println(sex);
-//		System.out.println(unitInfo);
-//		System.out.println(remark);
+		// System.out.println(username);
+		// System.out.println(fullName);
+		// System.out.println(phoneNumber);
+		// System.out.println(sex);
+		// System.out.println(unitInfo);
+		// System.out.println(remark);
 
 		return ActionSupport.SUCCESS;
 
 	}
-	
-	public String adminInformationChange() throws Exception
-	{
-		
+
+	public String adminInformationChange() throws Exception {
+
 		System.out.println("AdminAction.adminInformationChange():");
-//		System.out.println("user_id" + now_user.getId());
-		if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
-        {
-			//System.out.println("path"+util.Util.RootPath + now_user.getProfilePhotoPath());
+		// System.out.println("user_id" + now_user.getId());
+		if (file != null)// file没接收到的原因可能是jsp页面里面的input file的属性名不是file
+		{
+			// System.out.println("path"+util.Util.RootPath +
+			// now_user.getProfilePhotoPath());
 			util.Util.deleteFile(util.Util.RootPath + now_user.getProfilePhotoPath());
-			//保存文件时文件名前面加上用户ID，防止文件重复
+			// 保存文件时文件名前面加上用户ID，防止文件重复
 			util.Util.saveFile(file, now_user.getId() + fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
 			String inserted_file_path = util.Util.ProfilePhotoPath + now_user.getId() + fileFileName;
-            now_user.setProfilePhotoPath(inserted_file_path);
-        }
-		
+			now_user.setProfilePhotoPath(inserted_file_path);
+		}
+
 		now_user.setFullName(fullName);
 		now_user.setPhoneNumber(phoneNumber);
 		now_user.setRemark(remark);
 		now_user.setSex(sex);
 		now_admin.setUnitInfo(unitInfo);
-		
+
 		Session session = model.Util.sessionFactory.openSession();
 		session.beginTransaction();
 		session.update(now_user);
@@ -235,12 +220,9 @@ public class InformationAction extends FileUploadBaseAction {
 		Transaction t = session.getTransaction();
 		t.commit();
 		session.close();
-		
-		
+
 		return ActionSupport.SUCCESS;
 
 	}
-	
-	
-	
+
 }

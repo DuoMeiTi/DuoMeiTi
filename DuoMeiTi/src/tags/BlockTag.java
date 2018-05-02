@@ -5,12 +5,12 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-public class BlockTag extends TagSupport{
+public class BlockTag extends TagSupport {
 
 	private static final long serialVersionUID = -8246166191638588615L;
-	
+
 	private String name;
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -29,22 +29,22 @@ public class BlockTag extends TagSupport{
 	@Override
 	public int doEndTag() throws JspException {
 		String overriedContent = getOverriedContent();
-		if(overriedContent == null) {
+		if (overriedContent == null) {
 			return EVAL_PAGE;
 		}
-		
+
 		try {
 			pageContext.getOut().write(overriedContent);
 		} catch (IOException e) {
-			throw new JspException("write overridedContent occer IOException,block name:"+name,e);
+			throw new JspException("write overridedContent occer IOException,block name:" + name, e);
 		}
 		return EVAL_PAGE;
 	}
-	
+
 	private String getOverriedContent() {
 		String varName = Utils.getOverrideVariableName(name);
-		
-//		System.out.println("test&&&:: " + name);
-		return (String)pageContext.getRequest().getAttribute(varName);
+
+		// System.out.println("test&&&:: " + name);
+		return (String) pageContext.getRequest().getAttribute(varName);
 	}
 }

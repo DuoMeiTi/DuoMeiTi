@@ -31,8 +31,6 @@ import model.StudentProfile;
 import model.TeachBuilding;
 import model.User;
 
-
-
 /*
  * 在紧急消息提醒中，分为两部分，一部分称为紧急消息(EmergencyInfo)，一部分称为紧急消息评论(EmergencyComment)
  * 但是在数据库中存储都叫EmergencyInfo
@@ -47,191 +45,147 @@ import model.User;
  * 
  */
 
-
 public class EmergencyPublishAction extends ActionSupport {
 
-	
-
-	
 	ArrayList<Boolean> notReadList;
-	
+
 	String emergencyCommentTable;
 	ArrayList<EmergencyInfo> emergencyCommentList;
 	int emergencyInfoId;
-	
 
-	
 	// 获取人员user_id， 针对紧急消息info_id（一定不可以是评论，要保证info_id必须是紧急消息，而不是评论）
-	// 所代表的列表中所阅读到的位置的记录，若没有则返回null	
-	synchronized  public static EmergencyInfoRead obtainLastEmergencyInfoRead(Session s, int user_id, int info_id)
-	{
-		return (EmergencyInfoRead)
-		s.createCriteria(model.EmergencyInfoRead.class)
-		.add(Restrictions.eq("user.id", user_id))
-		.createAlias("info", "info")
-		.add(Restrictions.or(Restrictions.eq("info.id", info_id), 
-							 Restrictions.eq("info.info.id", info_id)))
-		.uniqueResult();
+	// 所代表的列表中所阅读到的位置的记录，若没有则返回null
+	synchronized public static EmergencyInfoRead obtainLastEmergencyInfoRead(Session s, int user_id, int info_id) {
+		return (EmergencyInfoRead) s.createCriteria(model.EmergencyInfoRead.class)
+				.add(Restrictions.eq("user.id", user_id)).createAlias("info", "info")
+				.add(Restrictions.or(Restrictions.eq("info.id", info_id), Restrictions.eq("info.info.id", info_id)))
+				.uniqueResult();
 	}
-	
-	//修改人员user，对于紧急消息info的阅读到的位置到new_info
-	synchronized public static void  modifyEmergencyInfoRead(Session s, int user_id, int info_id , int new_info_id)  
-	{
+
+	// 修改人员user，对于紧急消息info的阅读到的位置到new_info
+	synchronized public static void modifyEmergencyInfoRead(Session s, int user_id, int info_id, int new_info_id) {
 		EmergencyInfo new_info = new EmergencyInfo();
 		new_info.id = new_info_id;
-		
+
 		EmergencyInfoRead lastRead = obtainLastEmergencyInfoRead(s, user_id, info_id);
-		if(lastRead == null)
-		{
+		if (lastRead == null) {
 			lastRead = new EmergencyInfoRead();
 			User user = new User();
 			user.id = user_id;
-			
+
 			lastRead.info = new_info;
-			lastRead.user = user;			
-		}
-		else
-		{
+			lastRead.user = user;
+		} else {
 			lastRead.info = new_info;
 		}
 		s.beginTransaction();
 		s.saveOrUpdate(lastRead);
-		
+
 		s.getTransaction().commit();
 	}
 
-	
 	// 刷新评论的Table
-	private void refreshEmergencyCommentTable(Session  s )
-	{
+	private void refreshEmergencyCommentTable(Session s) {
 		System.out.println("enter !!!done");
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
-		emergencyCommentList = (ArrayList<EmergencyInfo>)				
-				s.createCriteria(model.EmergencyInfo.class)
-				.add(Restrictions.eq("info.id", emergencyInfoId))
-				.addOrder(Order.asc("id"))
-				.list();
+		emergencyCommentList = (ArrayList<EmergencyInfo>) s.createCriteria(model.EmergencyInfo.class)
+				.add(Restrictions.eq("info.id", emergencyInfoId)).addOrder(Order.asc("id")).list();
 		System.out.println("enter !!!done2222222");
-		
+
 		EmergencyInfoRead lastRead = obtainLastEmergencyInfoRead(s, user_id, emergencyInfoId);
-		
+
 		notReadList = new ArrayList<Boolean>();
-		for(EmergencyInfo i: emergencyCommentList)
-		{
-			if(lastRead == null)
-			{
+		for (EmergencyInfo i : emergencyCommentList) {
+			if (lastRead == null) {
 				notReadList.add(true);
 				continue;
 			}
-			if(i.id > lastRead.info.id)
+			if (i.id > lastRead.info.id)
 				notReadList.add(true);
 			else
 				notReadList.add(false);
 		}
-		
-		System.out.println("done");
 
+		System.out.println("done");
 
 		emergencyCommentTable = util.Util.getJspOutput("/jsp/base/widgets/emergencyCommentTable.jsp");
 	}
-	
-	
+
 	String emergencyInfoTable;
 	ArrayList<EmergencyInfo> emergencyInfoList;
+
 	// 刷新紧急消息的Table
-	private void refreshEmergencyInfoTable( Session  s)
-	{
+	private void refreshEmergencyInfoTable(Session s) {
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
 		System.out.println("enter111111111");
 		// 获取所有的紧急消息
-		emergencyInfoList = (ArrayList<EmergencyInfo>)
-				s.createCriteria(model.EmergencyInfo.class)
-				.add(Restrictions.isNull("info"))
-				.addOrder(Order.desc("id"))
-				.list();
+		emergencyInfoList = (ArrayList<EmergencyInfo>) s.createCriteria(model.EmergencyInfo.class)
+				.add(Restrictions.isNull("info")).addOrder(Order.desc("id")).list();
 		System.out.println("enter2222");
 		notReadList = new ArrayList<Boolean>();
-		for(EmergencyInfo i: emergencyInfoList)
-		{
+		for (EmergencyInfo i : emergencyInfoList) {
 			System.out.println("enter4444");
 			System.out.println(user_id);
 			System.out.println(i.id);
 			EmergencyInfoRead tmp_read = null;
-			try
-			{
-				 tmp_read = obtainLastEmergencyInfoRead(s, user_id, i.id);
-			}
-			catch(Exception e)
-			{
+			try {
+				tmp_read = obtainLastEmergencyInfoRead(s, user_id, i.id);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 
 			System.out.println("enter55555");
-			if(tmp_read == null)
-			{
+			if (tmp_read == null) {
 				notReadList.add(true);
-			}
-			else 
+			} else
 				notReadList.add(false);
- 		}
- 		emergencyInfoTable = util.Util.getJspOutput("/jsp/base/widgets/emergencyInfoTable.jsp");
+		}
+		emergencyInfoTable = util.Util.getJspOutput("/jsp/base/widgets/emergencyInfoTable.jsp");
 
 	}
-	public String obtainEmergencyCommentTable() throws Exception
-	{
+
+	public String obtainEmergencyCommentTable() throws Exception {
 		Session s = model.Util.sessionFactory.openSession();
- 		
+
 		refreshEmergencyCommentTable(s);
 		clearNotReadListForEmergencyComment(s);
-		
-		
+
 		s.close();
 		return this.SUCCESS;
 	}
-	
-	
-	private void clearNotReadListForEmergencyInfo(Session s)
-	{
-		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
-//		emergencyInfoList
-//		notReadList;
 
-		for(int i = 0; i < emergencyInfoList.size(); ++ i)
-		{
-			if(notReadList.get(i))
-			{
+	private void clearNotReadListForEmergencyInfo(Session s) {
+		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
+		// emergencyInfoList
+		// notReadList;
+
+		for (int i = 0; i < emergencyInfoList.size(); ++i) {
+			if (notReadList.get(i)) {
 				EmergencyInfo em = emergencyInfoList.get(i);
 				modifyEmergencyInfoRead(s, user_id, em.id, em.id);
 			}
 		}
-				
+
 	}
-	private void clearNotReadListForEmergencyComment(Session s)
-	{
+
+	private void clearNotReadListForEmergencyComment(Session s) {
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
-//		emergencyInfoList
-//		notReadList;
-		for(int i = 0; i < emergencyCommentList.size(); ++ i)
-		{
-			if(notReadList.get(i))
-			{
+		// emergencyInfoList
+		// notReadList;
+		for (int i = 0; i < emergencyCommentList.size(); ++i) {
+			if (notReadList.get(i)) {
 				EmergencyInfo em = emergencyCommentList.get(i);
 				modifyEmergencyInfoRead(s, user_id, em.info.id, em.id);
 			}
 		}
 
 	}
-	
-	
-	
-	
-	public String obtainEmergencyInfoTable() throws Exception
-	{
+
+	public String obtainEmergencyInfoTable() throws Exception {
 		Session s = model.Util.sessionFactory.openSession();
-		
+
 		System.out.println("GGG");
-		
+
 		refreshEmergencyInfoTable(s);
 		System.out.println("GGG22222");
 		clearNotReadListForEmergencyInfo(s);
@@ -239,70 +193,46 @@ public class EmergencyPublishAction extends ActionSupport {
 		s.close();
 		return this.SUCCESS;
 	}
-	
-	/*计算是否有新的紧急消息, 新的紧急消息列表放入emergencyInfoList,
-	 *这里的未读紧急消息包含三种情况：
-	 *1, 未读的紧急消息
-	 *2, 由当前用户发布的已读紧急消息，但是含有当前用户未读的评论
-	 *3, 不是由当前用户发布的 已读的紧急消息，但是当前用户曾经评论过次紧急消息，并且现在有了新的当前用户未读的评论
+
+	/*
+	 * 计算是否有新的紧急消息, 新的紧急消息列表放入emergencyInfoList, 这里的未读紧急消息包含三种情况： 1, 未读的紧急消息 2,
+	 * 由当前用户发布的已读紧急消息，但是含有当前用户未读的评论 3, 不是由当前用户发布的
+	 * 已读的紧急消息，但是当前用户曾经评论过次紧急消息，并且现在有了新的当前用户未读的评论
 	 */
-	 
-	private void refreshNotReadEmergencyInfoTable(Session s) throws Exception
-	{
+
+	private void refreshNotReadEmergencyInfoTable(Session s) throws Exception {
 		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
-		User user =(User) 
-				s.createCriteria(model.User.class)
-					.add(Restrictions.eq("id", user_id))
-					.uniqueResult();
-		
-		ArrayList<EmergencyInfo> all_info = (ArrayList<EmergencyInfo >)
-											s.createCriteria(model.EmergencyInfo.class)
-											.add(Restrictions.isNull("info"))
-											.addOrder(Order.desc("id"))
-											.list();
-		
-		emergencyInfoList  =  new ArrayList<EmergencyInfo>();
+		User user = (User) s.createCriteria(model.User.class).add(Restrictions.eq("id", user_id)).uniqueResult();
+
+		ArrayList<EmergencyInfo> all_info = (ArrayList<EmergencyInfo>) s.createCriteria(model.EmergencyInfo.class)
+				.add(Restrictions.isNull("info")).addOrder(Order.desc("id")).list();
+
+		emergencyInfoList = new ArrayList<EmergencyInfo>();
 		notReadList = new ArrayList<Boolean>();
-		
-		for(EmergencyInfo i : all_info)
-		{
-			
+
+		for (EmergencyInfo i : all_info) {
+
 			EmergencyInfoRead lastRead = obtainLastEmergencyInfoRead(s, user_id, i.id);
 
 			// 这是一个当前用户未读的info
-			if(lastRead == null)
-			{
+			if (lastRead == null) {
 				emergencyInfoList.add(i);
 				notReadList.add(true);
 				continue;
 			}
 			System.out.println("HAHAHAH");
-			// 当前用户发布了这个info  或者   当前用户评论了当前info
-			if(i.user.id == user_id || s.createCriteria(model.EmergencyInfo.class)
-										.add(Restrictions.eq("user.id", user_id))										
-										.add(Restrictions.eq("info.id", i.id))										
-										.list()
-										.size() > 0  )
-			{
-				EmergencyInfo lastComment = 
-							(EmergencyInfo)
-							s.createCriteria(model.EmergencyInfo.class)							
-							.add(Restrictions.eq("info.id", i.id))
-							.addOrder(Order.desc("id"))
-							.setMaxResults(1)							
-							.uniqueResult() ;
-				
-				EmergencyInfoRead lastCommentRead =	
-						(EmergencyInfoRead)
-						s.createCriteria(model.EmergencyInfoRead.class)
-						.add(Restrictions.eq("user.id", user_id))
-						.createAlias("info", "main_info")
-						.add(Restrictions.eq("main_info.info.id", i.id))
+			// 当前用户发布了这个info 或者 当前用户评论了当前info
+			if (i.user.id == user_id || s.createCriteria(model.EmergencyInfo.class)
+					.add(Restrictions.eq("user.id", user_id)).add(Restrictions.eq("info.id", i.id)).list().size() > 0) {
+				EmergencyInfo lastComment = (EmergencyInfo) s.createCriteria(model.EmergencyInfo.class)
+						.add(Restrictions.eq("info.id", i.id)).addOrder(Order.desc("id")).setMaxResults(1)
 						.uniqueResult();
-				
-				if(lastComment != null && 
-		     		 (lastCommentRead == null || lastComment.id != lastCommentRead.info.id))
-				{
+
+				EmergencyInfoRead lastCommentRead = (EmergencyInfoRead) s.createCriteria(model.EmergencyInfoRead.class)
+						.add(Restrictions.eq("user.id", user_id)).createAlias("info", "main_info")
+						.add(Restrictions.eq("main_info.info.id", i.id)).uniqueResult();
+
+				if (lastComment != null && (lastCommentRead == null || lastComment.id != lastCommentRead.info.id)) {
 					System.out.println("ENTER");
 					emergencyInfoList.add(i);
 					notReadList.add(false);
@@ -312,149 +242,135 @@ public class EmergencyPublishAction extends ActionSupport {
 		}
 		emergencyInfoTable = util.Util.getJspOutput("/jsp/base/widgets/emergencyInfoTable.jsp");
 
-		
 	}
-	
-	public String obtainNotReadEmergencyInfoTable() throws Exception
-	{
-		
-		
+
+	public String obtainNotReadEmergencyInfoTable() throws Exception {
+
 		Session s = model.Util.sessionFactory.openSession();
-		
+
 		refreshNotReadEmergencyInfoTable(s);
 		clearNotReadListForEmergencyInfo(s);
 
 		s.close();
 		return this.SUCCESS;
 	}
-	
-	
-	
-	
-	String emergencyInfoContent;
-	public String addEmergencyInfo() throws Exception
-	{
-		
-		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
-		
-		
-		Session s = model.Util.sessionFactory.openSession();
-		
-		User user = (User) 
-				s.createCriteria(model.User.class)
-					.add(Restrictions.eq("id", user_id))
-					.uniqueResult();
 
-		
-		
-		
+	String emergencyInfoContent;
+
+	public String addEmergencyInfo() throws Exception {
+
+		int user_id = (int) ActionContext.getContext().getSession().get("user_id");
+
+		Session s = model.Util.sessionFactory.openSession();
+
+		User user = (User) s.createCriteria(model.User.class).add(Restrictions.eq("id", user_id)).uniqueResult();
+
 		EmergencyInfo em = new EmergencyInfo();
 		em.content = emergencyInfoContent;
-		em.date = new Timestamp(new java.util.Date().getTime());		 
+		em.date = new Timestamp(new java.util.Date().getTime());
 		em.user = user;
-		
-		if(emergencyInfoId > 0)	
-		{
+
+		if (emergencyInfoId > 0) {
 			EmergencyInfo main_em = new EmergencyInfo();
 			main_em.id = emergencyInfoId;
 			em.info = main_em;
-		}
-		else 
+		} else
 			em.info = null;
-			
+
 		s.beginTransaction();
 		s.save(em);
 		s.getTransaction().commit();
 		System.out.println("EM ID:::::::::::;");
 		System.out.println(em.id);
-		
+
 		// 添加评论
-		if(emergencyInfoId > 0)	
-		{
+		if (emergencyInfoId > 0) {
 			modifyEmergencyInfoRead(s, user_id, emergencyInfoId, em.id);
 			refreshEmergencyCommentTable(s);
-			
+
 			clearNotReadListForEmergencyComment(s);
-		}
-		else // 添加是紧急消息
+		} else // 添加是紧急消息
 		{
 			modifyEmergencyInfoRead(s, user_id, em.id, em.id);
-			
-			refreshEmergencyInfoTable(s);			
+
+			refreshEmergencyInfoTable(s);
 			clearNotReadListForEmergencyInfo(s);
 		}
-		
-		
+
 		s.close();
 		return this.SUCCESS;
 	}
-	
-	
-	
-	
-	
-	public String queryNewInfo() throws Exception
-	{
+
+	public String queryNewInfo() throws Exception {
 		Session s = model.Util.sessionFactory.openSession();
 		refreshNotReadEmergencyInfoTable(s);
 		s.close();
-		
-//		emergencyInfoList
-		
+
+		// emergencyInfoList
+
 		return this.SUCCESS;
 	}
+
 	public String getEmergencyCommentTable() {
 		return emergencyCommentTable;
 	}
+
 	public void setEmergencyCommentTable(String emergencyCommentTable) {
 		this.emergencyCommentTable = emergencyCommentTable;
 	}
+
 	public ArrayList<EmergencyInfo> getEmergencyCommentList() {
 		return emergencyCommentList;
 	}
+
 	public void setEmergencyCommentList(ArrayList<EmergencyInfo> emergencyCommentList) {
 		this.emergencyCommentList = emergencyCommentList;
 	}
+
 	public int getEmergencyInfoId() {
 		return emergencyInfoId;
 	}
+
 	public void setEmergencyInfoId(int emergencyInfoId) {
 		this.emergencyInfoId = emergencyInfoId;
 	}
+
 	public String getEmergencyInfoTable() {
 		return emergencyInfoTable;
 	}
+
 	public void setEmergencyInfoTable(String emergencyInfoTable) {
 		this.emergencyInfoTable = emergencyInfoTable;
 	}
+
 	public ArrayList<EmergencyInfo> getEmergencyInfoList() {
 		return emergencyInfoList;
 	}
+
 	public void setEmergencyInfoList(ArrayList<EmergencyInfo> emergencyInfoList) {
 		this.emergencyInfoList = emergencyInfoList;
 	}
+
 	public String getEmergencyInfoContent() {
 		return emergencyInfoContent;
 	}
+
 	public void setEmergencyInfoContent(String emergencyInfoContent) {
 		this.emergencyInfoContent = emergencyInfoContent;
 	}
-//	public int getEmergencyInfoInfoId() {
-//		return emergencyInfoInfoId;
-//	}
-//	public void setEmergencyInfoInfoId(int emergencyInfoInfoId) {
-//		this.emergencyInfoInfoId = emergencyInfoInfoId;
-//	}
+
+	// public int getEmergencyInfoInfoId() {
+	// return emergencyInfoInfoId;
+	// }
+	// public void setEmergencyInfoInfoId(int emergencyInfoInfoId) {
+	// this.emergencyInfoInfoId = emergencyInfoInfoId;
+	// }
 	public ArrayList<Boolean> getNotReadList() {
 		return notReadList;
 	}
+
 	public void setNotReadList(ArrayList<Boolean> notReadList) {
 		this.notReadList = notReadList;
 	}
-
-	
-
-	
-
 
 }

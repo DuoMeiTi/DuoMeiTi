@@ -1,8 +1,5 @@
 package model;
 
-
-
-
 import javax.persistence.*;
 import model.DutyPiece;
 import model.StudentProfile;
@@ -12,24 +9,11 @@ public class DutyPlace {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
-	
-	//地点名称
+
+	// 地点名称
 	@Column(unique = true)
 	public String placeName;
 
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -45,18 +29,5 @@ public class DutyPlace {
 	public void setPlaceName(String placeName) {
 		this.placeName = placeName;
 	}
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

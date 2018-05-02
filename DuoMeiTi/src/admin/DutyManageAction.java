@@ -52,7 +52,7 @@ public class DutyManageAction extends ActionSupport {
 	}
 
 	List dutyPlaceList;
-//	String newDutyPlace = "";
+	// String newDutyPlace = "";
 	boolean dutyChooseSwitchIsOpen;
 
 	public boolean getDutyChooseSwitchIsOpen() {
@@ -64,7 +64,7 @@ public class DutyManageAction extends ActionSupport {
 	}
 
 	public String execute() throws Exception {
-//		System.out.println("GGGG");
+		// System.out.println("GGGG");
 		// if(ServletActionContext.getRequest().getMethod().equalsIgnoreCase("get"))
 		// {
 		// return ActionSupport.SUCCESS;
@@ -73,7 +73,7 @@ public class DutyManageAction extends ActionSupport {
 
 		dutyPlaceList = session.createCriteria(model.DutyPlace.class).list();
 
-//		System.out.println(this.newDutyPlace);
+		// System.out.println(this.newDutyPlace);
 
 		model.DutyChooseSwitch dutyChooseSwitch = (model.DutyChooseSwitch) session
 				.createCriteria(model.DutyChooseSwitch.class).list().get(0);
@@ -100,51 +100,47 @@ public class DutyManageAction extends ActionSupport {
 
 	}
 
-	
-	String addDutyPlace_placeName; //in
-	String addDutyPlace_status; //out
-	public  synchronized String addDutyPlace() throws Exception {
+	String addDutyPlace_placeName; // in
+	String addDutyPlace_status; // out
+
+	public synchronized String addDutyPlace() throws Exception {
 		synchronized (this.getClass()) {
 
-		String newDutyPlace = addDutyPlace_placeName;
-		
-		if (newDutyPlace.isEmpty()) {
-			addDutyPlace_status = "输入的新值班地点名称为空";
-			return SUCCESS;
-		}
-			
-		
-		Session session = model.Util.sessionFactory.openSession();
-		boolean isExist = util.Util.isExistWithOneEqualRestriction(session, DutyPlace.class, "placeName",  newDutyPlace);
-		
-		if(isExist)
-		{
-			addDutyPlace_status = "输入的新值班地点已经存在";
-		}
-		else
-		{
-			model.DutyPlace dp = new model.DutyPlace();
-			dp.setPlaceName(newDutyPlace);
-			session.beginTransaction();
-			session.save(dp);
+			String newDutyPlace = addDutyPlace_placeName;
 
-			for (int i = 0; i < model.DutyPiece.TimeNumber; ++i) {
-				DutyPiece dt = new DutyPiece();
-				dt.setNumberOfDuty(4); // 当前时间段的值班个数容纳总量
-				dt.setDutyLeft(4); // 当前时间段的值班个数的剩余量
-				dt.setDutyPlace(dp);
-				dt.setTime(i);
-				session.save(dt);
+			if (newDutyPlace.isEmpty()) {
+				addDutyPlace_status = "输入的新值班地点名称为空";
+				return SUCCESS;
 			}
 
-			session.getTransaction().commit();
-			session.close();
-			
-			addDutyPlace_status ="";
+			Session session = model.Util.sessionFactory.openSession();
+			boolean isExist = util.Util.isExistWithOneEqualRestriction(session, DutyPlace.class, "placeName",
+					newDutyPlace);
 
-		}
-		
-		
+			if (isExist) {
+				addDutyPlace_status = "输入的新值班地点已经存在";
+			} else {
+				model.DutyPlace dp = new model.DutyPlace();
+				dp.setPlaceName(newDutyPlace);
+				session.beginTransaction();
+				session.save(dp);
+
+				for (int i = 0; i < model.DutyPiece.TimeNumber; ++i) {
+					DutyPiece dt = new DutyPiece();
+					dt.setNumberOfDuty(4); // 当前时间段的值班个数容纳总量
+					dt.setDutyLeft(4); // 当前时间段的值班个数的剩余量
+					dt.setDutyPlace(dp);
+					dt.setTime(i);
+					session.save(dt);
+				}
+
+				session.getTransaction().commit();
+				session.close();
+
+				addDutyPlace_status = "";
+
+			}
+
 		}
 
 		return SUCCESS;
@@ -155,24 +151,24 @@ public class DutyManageAction extends ActionSupport {
 	public synchronized String deleteDutyPlace() throws Exception {
 		synchronized (this.getClass()) {
 
-		System.out.println(this.deletedDutyPlaceId);
-		int id = deletedDutyPlaceId;
+			System.out.println(this.deletedDutyPlaceId);
+			int id = deletedDutyPlaceId;
 
-		Session session = model.Util.sessionFactory.openSession();
-		session.beginTransaction();
-		DutyPlace dp = (DutyPlace) session.createCriteria(model.DutyPlace.class).add(Restrictions.eq("id", id))
-				.uniqueResult();
+			Session session = model.Util.sessionFactory.openSession();
+			session.beginTransaction();
+			DutyPlace dp = (DutyPlace) session.createCriteria(model.DutyPlace.class).add(Restrictions.eq("id", id))
+					.uniqueResult();
 
-		List<DutyPiece> dutyTimeList = (List<DutyPiece>) session.createCriteria(model.DutyPiece.class)
-				.add(Restrictions.eq("dutyPlace.id", id)).list();
+			List<DutyPiece> dutyTimeList = (List<DutyPiece>) session.createCriteria(model.DutyPiece.class)
+					.add(Restrictions.eq("dutyPlace.id", id)).list();
 
-		for (model.DutyPiece dt : dutyTimeList) {
-			session.delete(dt);
-		}
+			for (model.DutyPiece dt : dutyTimeList) {
+				session.delete(dt);
+			}
 
-		session.delete(dp);
-		session.getTransaction().commit();
-		session.close();
+			session.delete(dp);
+			session.getTransaction().commit();
+			session.close();
 		}
 		return SUCCESS;
 	}
@@ -209,161 +205,152 @@ public class DutyManageAction extends ActionSupport {
 	public synchronized String deleteDutySchedule() throws Exception {
 		synchronized (this.getClass()) {
 
-		int id = deleteDutySchedule_id;
-		System.out.println(id);
+			int id = deleteDutySchedule_id;
+			System.out.println(id);
 
-		Session session = model.Util.sessionFactory.openSession();
-		session.beginTransaction();
-		util.Util.deleteDutySchedule(session, id);
-		session.getTransaction().commit();
-		session.close();
+			Session session = model.Util.sessionFactory.openSession();
+			session.beginTransaction();
+			util.Util.deleteDutySchedule(session, id);
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		return SUCCESS;
 	}
 
-//	public static void addDutySchedule(Session session, int studentDatabaseId, int dutyPieceId) {
-//
-//	}
+	// public static void addDutySchedule(Session session, int
+	// studentDatabaseId, int dutyPieceId) {
+	//
+	// }
 
-	
-	
-	
-	
-	
-	// 指明{@code addDutySchedule_studentFullNameOrStudentIdListString} 是学生姓名还是学生学号
+	// 指明{@code addDutySchedule_studentFullNameOrStudentIdListString}
+	// 是学生姓名还是学生学号
 	String addDutySchedule_selectAddStudentType;
 	// 学生的姓名或者学号的列表字符串，按照空格分隔
 	String addDutySchedule_studentFullNameOrStudentIdListString;
 	int addDutySchedule_dutyPlaceId;
 	int addDutySchedule_dutyPieceTime;
-	
+
 	List<DutySchedule> addDutySchedule_addedDutyScheduleList;
 	// 如果没有错误为空，否则有值
 	String addDutySchedule_status;
-	public synchronized String addDutySchedule() 
-			throws Exception 
-	{
+
+	public synchronized String addDutySchedule() throws Exception {
 		synchronized (this.getClass()) {
 
-		int dutyPlaceId = addDutySchedule_dutyPlaceId;
-		int dutyPieceTime = addDutySchedule_dutyPieceTime;
-		String selectAddStudentType = addDutySchedule_selectAddStudentType;
-		String studentFullNameOrStudentIdListString = addDutySchedule_studentFullNameOrStudentIdListString;	
+			int dutyPlaceId = addDutySchedule_dutyPlaceId;
+			int dutyPieceTime = addDutySchedule_dutyPieceTime;
+			String selectAddStudentType = addDutySchedule_selectAddStudentType;
+			String studentFullNameOrStudentIdListString = addDutySchedule_studentFullNameOrStudentIdListString;
 
-		Session session = model.Util.sessionFactory.openSession();
+			Session session = model.Util.sessionFactory.openSession();
 
-		// 查询出对应的DutyPiece
-		DutyPiece dp = (DutyPiece) session.createCriteria(model.DutyPiece.class)
-				.add(Restrictions.eq("dutyPlace.id", dutyPlaceId)).add(Restrictions.eq("time", dutyPieceTime))
-				.uniqueResult();
+			// 查询出对应的DutyPiece
+			DutyPiece dp = (DutyPiece) session.createCriteria(model.DutyPiece.class)
+					.add(Restrictions.eq("dutyPlace.id", dutyPlaceId)).add(Restrictions.eq("time", dutyPieceTime))
+					.uniqueResult();
 
-		StringBuilder statusBuilder = new StringBuilder();
-		List<DutySchedule> addedDutyScheduleList = new ArrayList<DutySchedule>();
-		if (dp == null) {
-			statusBuilder.append("值班地点与值班时间段无法找到，所有在职学生均无法选择值班时间段;\n");
-		} else {
-			for (String fullNameOrId : studentFullNameOrStudentIdListString.split(" +")) {
-				fullNameOrId = fullNameOrId.trim();
-				
-				// 忽略原来的字符串是空串的
-				if(fullNameOrId.isEmpty()) {
-					continue;
-				}
-				
+			StringBuilder statusBuilder = new StringBuilder();
+			List<DutySchedule> addedDutyScheduleList = new ArrayList<DutySchedule>();
+			if (dp == null) {
+				statusBuilder.append("值班地点与值班时间段无法找到，所有在职学生均无法选择值班时间段;\n");
+			} else {
+				for (String fullNameOrId : studentFullNameOrStudentIdListString.split(" +")) {
+					fullNameOrId = fullNameOrId.trim();
 
-				Criteria studentCriteria = session.createCriteria(model.StudentProfile.class);
-				if (selectAddStudentType.equals("studentFullName")) {
-					studentCriteria.createAlias("user", "user").add(Restrictions.eq("user.fullName", fullNameOrId));
-				} else {
-					studentCriteria.add(Restrictions.eq("studentId", fullNameOrId));
-				}
-
-				List<StudentProfile> studentList = studentCriteria.list();
-				if (studentList.size() == 0) {
-					statusBuilder.append(fullNameOrId +" 不存在，无法添加;\n");
-					continue;
-				} else if (studentList.size() > 1) {
-					statusBuilder.append(fullNameOrId +" 有重名，无法添加;\n");
-					continue;
-				}
-
-				StudentProfile sp = studentList.get(0);
-
-				DutySchedule ds = (DutySchedule) session.createCriteria(model.DutySchedule.class)
-						.add(Restrictions.eq("dutyPiece.id", dp.getId()))
-						.add(Restrictions.eq("student.id", sp.getId()))
-						.uniqueResult();
-
-				if (ds != null) {
-					statusBuilder.append(fullNameOrId + "已经选择了此值班时间段， 无法添加;\n");
-				} else if (dp.getDutyLeft() == 0) {
-					statusBuilder.append("此时间段超出最大容纳的人数," + fullNameOrId + "无法添加;\n");
-				} else {
-					ds = new DutySchedule();
-					ds.setDutyPiece(dp);
-					ds.setStudent(sp);
-					dp.dutyLeft--;
-					
-					try {
-						session.beginTransaction();
-						session.save(ds);
-						session.update(dp);
-						session.getTransaction().commit();
-						addedDutyScheduleList.add(ds);
-					} catch(Exception e) {
-						session.getTransaction().rollback();
-						e.printStackTrace();
-						statusBuilder.append("数据库发生错误，" + fullNameOrId + " 添加不成功;\n");
+					// 忽略原来的字符串是空串的
+					if (fullNameOrId.isEmpty()) {
+						continue;
 					}
-					
+
+					Criteria studentCriteria = session.createCriteria(model.StudentProfile.class);
+					if (selectAddStudentType.equals("studentFullName")) {
+						studentCriteria.createAlias("user", "user").add(Restrictions.eq("user.fullName", fullNameOrId));
+					} else {
+						studentCriteria.add(Restrictions.eq("studentId", fullNameOrId));
+					}
+
+					List<StudentProfile> studentList = studentCriteria.list();
+					if (studentList.size() == 0) {
+						statusBuilder.append(fullNameOrId + " 不存在，无法添加;\n");
+						continue;
+					} else if (studentList.size() > 1) {
+						statusBuilder.append(fullNameOrId + " 有重名，无法添加;\n");
+						continue;
+					}
+
+					StudentProfile sp = studentList.get(0);
+
+					DutySchedule ds = (DutySchedule) session.createCriteria(model.DutySchedule.class)
+							.add(Restrictions.eq("dutyPiece.id", dp.getId()))
+							.add(Restrictions.eq("student.id", sp.getId())).uniqueResult();
+
+					if (ds != null) {
+						statusBuilder.append(fullNameOrId + "已经选择了此值班时间段， 无法添加;\n");
+					} else if (dp.getDutyLeft() == 0) {
+						statusBuilder.append("此时间段超出最大容纳的人数," + fullNameOrId + "无法添加;\n");
+					} else {
+						ds = new DutySchedule();
+						ds.setDutyPiece(dp);
+						ds.setStudent(sp);
+						dp.dutyLeft--;
+
+						try {
+							session.beginTransaction();
+							session.save(ds);
+							session.update(dp);
+							session.getTransaction().commit();
+							addedDutyScheduleList.add(ds);
+						} catch (Exception e) {
+							session.getTransaction().rollback();
+							e.printStackTrace();
+							statusBuilder.append("数据库发生错误，" + fullNameOrId + " 添加不成功;\n");
+						}
+
+					}
 				}
 			}
-		}
-		session.close();		
-		addDutySchedule_addedDutyScheduleList = addedDutyScheduleList;		
-		addDutySchedule_status = statusBuilder.toString();
+			session.close();
+			addDutySchedule_addedDutyScheduleList = addedDutyScheduleList;
+			addDutySchedule_status = statusBuilder.toString();
 		}
 		return SUCCESS;
 	}
-	
-	
-	
-	
-	String status; 
+
+	String status;
 	int updateDutyNumber_dutyNumber;
 	int updateDutyNumber_dutyPieceId;
 
 	public synchronized String updateDutyNumber() throws Exception {
 		synchronized (this.getClass()) {
 
-		int dutyNumber = updateDutyNumber_dutyNumber;
-		int dutyPieceId = updateDutyNumber_dutyPieceId;
+			int dutyNumber = updateDutyNumber_dutyNumber;
+			int dutyPieceId = updateDutyNumber_dutyPieceId;
 
-		Session session = model.Util.sessionFactory.openSession();
-		DutyPiece dp = (DutyPiece) session.createCriteria(model.DutyPiece.class).add(Restrictions.eq("id", dutyPieceId))
-				.uniqueResult();
+			Session session = model.Util.sessionFactory.openSession();
+			DutyPiece dp = (DutyPiece) session.createCriteria(model.DutyPiece.class)
+					.add(Restrictions.eq("id", dutyPieceId)).uniqueResult();
 
-		if (dp != null) {
-			int cntDuty = dp.getNumberOfDuty() - dp.getDutyLeft();
-			if (cntDuty <= dutyNumber) {
-				dp.setNumberOfDuty(dutyNumber);
-				dp.setDutyLeft(dutyNumber - cntDuty);
-				session.beginTransaction();
-				session.update(dp);
-				session.getTransaction().commit();
-				this.status = "0更新成功";
+			if (dp != null) {
+				int cntDuty = dp.getNumberOfDuty() - dp.getDutyLeft();
+				if (cntDuty <= dutyNumber) {
+					dp.setNumberOfDuty(dutyNumber);
+					dp.setDutyLeft(dutyNumber - cntDuty);
+					session.beginTransaction();
+					session.update(dp);
+					session.getTransaction().commit();
+					this.status = "0更新成功";
+				} else {
+					this.status = "2错误：新的值班容量小于当前已有的值班数";
+				}
+
 			} else {
-				this.status = "2错误：新的值班容量小于当前已有的值班数";
+				this.status = "1未找到对应的选班管理单元";
 			}
 
-		} else {
-			this.status = "1未找到对应的选班管理单元";
+			session.close();
 		}
 
-		session.close();
-		}
-		
 		return SUCCESS;
 	}
 
@@ -375,13 +362,13 @@ public class DutyManageAction extends ActionSupport {
 		this.dutyPlaceList = dutyPlaceList;
 	}
 
-//	public String getNewDutyPlace() {
-//		return newDutyPlace;
-//	}
-//
-//	public void setNewDutyPlace(String newDutyPlace) {
-//		this.newDutyPlace = newDutyPlace;
-//	}
+	// public String getNewDutyPlace() {
+	// return newDutyPlace;
+	// }
+	//
+	// public void setNewDutyPlace(String newDutyPlace) {
+	// this.newDutyPlace = newDutyPlace;
+	// }
 
 	public int getDeletedDutyPlaceId() {
 		return deletedDutyPlaceId;
@@ -463,25 +450,29 @@ public class DutyManageAction extends ActionSupport {
 		this.addDutySchedule_dutyPieceTime = addDutySchedule_dutyPieceTime;
 	}
 
-//	public int getAddDutySchedule_addeddutyScheduleId() {
-//		return addDutySchedule_addeddutyScheduleId;
-//	}
-//
-//	public void setAddDutySchedule_addeddutyScheduleId(int addDutySchedule_addeddutyScheduleId) {
-//		this.addDutySchedule_addeddutyScheduleId = addDutySchedule_addeddutyScheduleId;
-//	}
-	
+	// public int getAddDutySchedule_addeddutyScheduleId() {
+	// return addDutySchedule_addeddutyScheduleId;
+	// }
+	//
+	// public void setAddDutySchedule_addeddutyScheduleId(int
+	// addDutySchedule_addeddutyScheduleId) {
+	// this.addDutySchedule_addeddutyScheduleId =
+	// addDutySchedule_addeddutyScheduleId;
+	// }
+
 	public String getStatus() {
 		return status;
 	}
 
-//	public List<Integer> getAddDutySchedule_addedDutyScheduleIdList() {
-//		return addDutySchedule_addedDutyScheduleIdList;
-//	}
-//
-//	public void setAddDutySchedule_addedDutyScheduleIdList(List<Integer> addDutySchedule_addedDutyScheduleIdList) {
-//		this.addDutySchedule_addedDutyScheduleIdList = addDutySchedule_addedDutyScheduleIdList;
-//	}
+	// public List<Integer> getAddDutySchedule_addedDutyScheduleIdList() {
+	// return addDutySchedule_addedDutyScheduleIdList;
+	// }
+	//
+	// public void setAddDutySchedule_addedDutyScheduleIdList(List<Integer>
+	// addDutySchedule_addedDutyScheduleIdList) {
+	// this.addDutySchedule_addedDutyScheduleIdList =
+	// addDutySchedule_addedDutyScheduleIdList;
+	// }
 
 	public List<DutySchedule> getAddDutySchedule_addedDutyScheduleList() {
 		return addDutySchedule_addedDutyScheduleList;
@@ -543,6 +534,5 @@ public class DutyManageAction extends ActionSupport {
 	public void setAddDutyPlace_status(String addDutyPlace_status) {
 		this.addDutyPlace_status = addDutyPlace_status;
 	}
-	
-	
+
 }

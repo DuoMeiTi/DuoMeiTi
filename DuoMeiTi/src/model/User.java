@@ -1,55 +1,40 @@
 package model;
 
-
 import org.hibernate.cfg.*;
 
 import javax.persistence.*;
 
-
-
 @Entity
-public class User 
-{
-	
-	@Id 
-	@GeneratedValue(strategy=GenerationType.AUTO) 
+public class User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
-	
-	@Column(length=50, unique=true)
+
+	@Column(length = 50, unique = true)
 	public String username;
-	
-	@Column(length=50)
+
+	@Column(length = 50)
 	public String password;
-    
-    @Column(length=50)
-    public String fullName;
 
-	@Column(length=10)
-    public String sex;
+	@Column(length = 50)
+	public String fullName;
 
-    @Column(length = 100)
-    public String profilePhotoPath;
-    
-    @Column(length=20)
-    public String phoneNumber;
-    
-    @Column(length=1000)
-    public String remark;
-    
-	public String toString()
-	{
+	@Column(length = 10)
+	public String sex;
+
+	@Column(length = 100)
+	public String profilePhotoPath;
+
+	@Column(length = 20)
+	public String phoneNumber;
+
+	@Column(length = 1000)
+	public String remark;
+
+	public String toString() {
 		return this.username + ", " + this.password + "," + this.id;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	public int getId() {
 		return id;
@@ -114,15 +99,5 @@ public class User
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	
-
-
-	
-	
-	
-	
-	
-
-    
 
 }

@@ -14,15 +14,15 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class ExamOption {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int emId;
-	
+
 	@Column(length = 500)
 	public String emOption;
-	
+
 	@Column(length = 30)
-	public String emCheck;//选项是否正确
-	
+	public String emCheck;// 选项是否正确
+
 	@ManyToOne
 	@JoinColumn
 	@Fetch(FetchMode.SELECT)
@@ -60,8 +60,4 @@ public class ExamOption {
 		this.emCheck = emCheck;
 	}
 
-	
-	
-	
-	
 }

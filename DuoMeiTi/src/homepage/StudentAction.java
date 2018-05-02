@@ -27,24 +27,22 @@ import util.Const;
 
 public class StudentAction extends FileUploadBaseAction {
 
-
 	public String studentRegister() throws Exception {
-		
-		
+
 		Session s = model.Util.sessionFactory.openSession();
-		
-		
-//		StudentProfile test = (StudentProfile)s.createCriteria(model.StudentProfile.class).createAlias("user", "user")
-//		.add(Restrictions.eq("user.id", 11)).uniqueResult();
-//		
-//		System.out.println(test.id);
-//		System.out.println(test.studentId);
-//		System.out.println(test.user.id);
-//		System.out.println(test.user.fullName);
-//		System.out.println(test.user.username);
-//		
-		
-		
+
+		// StudentProfile test =
+		// (StudentProfile)s.createCriteria(model.StudentProfile.class).createAlias("user",
+		// "user")
+		// .add(Restrictions.eq("user.id", 11)).uniqueResult();
+		//
+		// System.out.println(test.id);
+		// System.out.println(test.studentId);
+		// System.out.println(test.user.id);
+		// System.out.println(test.user.fullName);
+		// System.out.println(test.user.username);
+		//
+
 		s.close();
 		return ActionSupport.SUCCESS;
 	}
@@ -52,7 +50,7 @@ public class StudentAction extends FileUploadBaseAction {
 	// /*
 	// * 判断学号是否重复，如果重复，返回true
 	// */
-	
+
 	public static boolean isRepeat(Session session, String searchID) {
 		Criteria q2 = session.createCriteria(StudentProfile.class).add(Restrictions.eq("studentId", searchID));
 		List u2 = q2.list();
@@ -69,8 +67,8 @@ public class StudentAction extends FileUploadBaseAction {
 
 	public String studentRegisterSave() throws Exception {
 
-		String[] studentProfileList = { "studentId", "idCard", "college", "bankCard", 
-				"user.username", "user.password", "user.fullName", "user.sex", "user.phoneNumber" };
+		String[] studentProfileList = { "studentId", "idCard", "college", "bankCard", "user.username", "user.password",
+				"user.fullName", "user.sex", "user.phoneNumber" };
 
 		if (!save_passwordAgain.equals(save_newStudentProfile.user.password)) {
 			save_status = "密码不一致";
@@ -92,18 +90,16 @@ public class StudentAction extends FileUploadBaseAction {
 			util.Util.setUserProfilePhoto(newStudentProfile.user, file, fileFileName);
 
 		newStudentProfile.entryTime = new java.sql.Date(new java.util.Date().getTime());
-		
-		
-		try
-		{
+
+		try {
 			session.beginTransaction();
-			session.save(newStudentProfile.user);// 因为user是外键，所以commit StudentProfile之前需要先save user；
+			session.save(newStudentProfile.user);// 因为user是外键，所以commit
+													// StudentProfile之前需要先save
+													// user；
 			session.save(newStudentProfile);
 			session.getTransaction().commit();
 			save_status = "";
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 			save_status = "数据库错误";

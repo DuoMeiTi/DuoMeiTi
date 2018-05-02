@@ -7,16 +7,17 @@ import javax.persistence.*;
 @Entity
 public class TeachBuilding {
 	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int build_id;
-	
-	@Column(length=20, unique= true)
+
+	@Column(length = 20, unique = true)
 	public String build_name;
-	
-//	@OneToMany(mappedBy="teachbuilding",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-//	public Set<Classroom> classrooms;
-	
+
+	// @OneToMany(mappedBy="teachbuilding",fetch=FetchType.EAGER,
+	// cascade=CascadeType.ALL)
+	// public Set<Classroom> classrooms;
+
 	public int getBuild_id() {
 		return build_id;
 	}
@@ -33,12 +34,12 @@ public class TeachBuilding {
 		this.build_name = build_name;
 	}
 
-//	public Set<Classroom> getClassrooms() {
-//		return classrooms;
-//	}
-//
-//	public void setClassrooms(Set<Classroom> classrooms) {
-//		this.classrooms = classrooms;
-//	}
-	
+	// public Set<Classroom> getClassrooms() {
+	// return classrooms;
+	// }
+	//
+	// public void setClassrooms(Set<Classroom> classrooms) {
+	// this.classrooms = classrooms;
+	// }
+
 }

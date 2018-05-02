@@ -20,14 +20,10 @@ public class EmergencyInfoRead {
 	@ManyToOne
 	@JoinColumn
 	public User user;
-	
+
 	@ManyToOne
 	@JoinColumn
 	public EmergencyInfo info;
-	
-	
-	
-	
 
 	public int getId() {
 		return id;
@@ -52,11 +48,5 @@ public class EmergencyInfoRead {
 	public void setInfo(EmergencyInfo info) {
 		this.info = info;
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }

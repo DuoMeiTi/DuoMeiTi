@@ -24,11 +24,11 @@ import util.FileUploadBaseAction;
 public class AdminAction extends FileUploadBaseAction {
 	private String sexSelect[];// 性别
 	private String sex;
-	
-//	private File image;
-//	private String imageFileName; //文件名称
-//    private String imageContentType; //文件类型
-    
+
+	// private File image;
+	// private String imageFileName; //文件名称
+	// private String imageContentType; //文件类型
+
 	private String username;
 	private String password;
 	private String fullName;
@@ -118,88 +118,85 @@ public class AdminAction extends FileUploadBaseAction {
 		this.sex = sex;
 	}
 
-	
 	public String adminRegister() {
-		
+
 		sexSelect = Const.sexSelect;
 		return ActionSupport.SUCCESS;
 	}
 
 	public String adminRegisterSave() throws Exception {
-//		System.out.println("SDLKFJLSDJFSKDJFK*&&&&&&&&&&&&&&&&&&");
-//		if (username == null || password == null) {
-//			this.register_status = "1";
-//			return ActionSupport.SUCCESS;
-//		}
-//		if (username.equals("") || password.equals("")) {
-//			this.register_status = "1";
-//			return ActionSupport.SUCCESS;
-//		}
-//		System.out.println("AdminAction.adminRegisterSave()333");
-		 Session session = model.Util.sessionFactory.openSession();
+		// System.out.println("SDLKFJLSDJFSKDJFK*&&&&&&&&&&&&&&&&&&");
+		// if (username == null || password == null) {
+		// this.register_status = "1";
+		// return ActionSupport.SUCCESS;
+		// }
+		// if (username.equals("") || password.equals("")) {
+		// this.register_status = "1";
+		// return ActionSupport.SUCCESS;
+		// }
+		// System.out.println("AdminAction.adminRegisterSave()333");
+		Session session = model.Util.sessionFactory.openSession();
 
-		 		 Criteria q =
-		 session.createCriteria(User.class).add(Restrictions.eq("username",
-		 username));
-		 		 //user.id
-		 List ul = q.list();
-		 if(!ul.isEmpty())
-		 {
-			 System.out.println("err");
-			 this.register_status = "2";//用户名注册重复
-			 return ActionSupport.SUCCESS;
-			 
-			 
-		 
-		 }
-//		 
-//		 User user0 = (User)ul.get(0);
-//		 
-//		 session.createCriteria(AdminProfile.class).add(Restrictions.eq("user.id",user0.getId()));
-//		 System.out.println("1");
-//		 List ul = q.list();
-//		 System.out.println("2");
-//		 if(!ul.isEmpty())
-//		 {
-//			 System.out.println("AdminAction.adminRegisterSave()1");
-//		 this.register_status = "2";//用户名注册重复
-//		 }
-		 else
-		{
+		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username", username));
+		// user.id
+		List ul = q.list();
+		if (!ul.isEmpty()) {
+			System.out.println("err");
+			this.register_status = "2";// 用户名注册重复
+			return ActionSupport.SUCCESS;
+
+		}
+		//
+		// User user0 = (User)ul.get(0);
+		//
+		// session.createCriteria(AdminProfile.class).add(Restrictions.eq("user.id",user0.getId()));
+		// System.out.println("1");
+		// List ul = q.list();
+		// System.out.println("2");
+		// if(!ul.isEmpty())
+		// {
+		// System.out.println("AdminAction.adminRegisterSave()1");
+		// this.register_status = "2";//用户名注册重复
+		// }
+		else {
 			System.out.println("AdminAction.adminRegisterSave()2");
 			User um = new User();
 			um.setUsername(username);
 			um.setPassword(password);
 			um.setFullName(fullName);
 			um.setPhoneNumber(phoneNumber);
-//			um.setProfilePhotoPath(profilePhotoPath);
+			// um.setProfilePhotoPath(profilePhotoPath);
 			um.setRemark(remark);
 			um.setSex(sex);
-			
-			if (file != null)//file没接收到的原因可能是jsp页面里面的input file的属性名不是file 
-	        {
+
+			if (file != null)// file没接收到的原因可能是jsp页面里面的input file的属性名不是file
+			{
 				util.Util.saveFile(file, fileFileName, util.Util.RootPath + util.Util.ProfilePhotoPath);
-				String inserted_file_path = util.Util.ProfilePhotoPath + username+fileFileName;
+				String inserted_file_path = util.Util.ProfilePhotoPath + username + fileFileName;
 				um.setProfilePhotoPath(inserted_file_path);
-//				System.out.println("***"+imageFileName+imageContentType);
-//	            File savefile = new File(new File(util.Util.RootPath + util.Util.FileUploadPath), imageFileName);
-//	            if (!savefile.getParentFile().exists())
-//	                savefile.getParentFile().mkdirs();
-//	            
-//	            System.out.println("saved****::" + savefile.getAbsolutePath());
-//	            FileUtils.copyFile(image, savefile);//将image复制到目标文件夹savefile
-//	            
-//	            EgFilePathSave file_path = new EgFilePathSave();
-//	            
-//	            file_path.setFilePath(util.Util.FileUploadPath + imageFileName);
-////	            session.beginTransaction();
-////	            session.save(file_path);
-////	            session.getTransaction().commit();
-//	            um.setProfilePhotoPath(util.Util.FileUploadPath + imageFileName);
-	        
-	        }
-			
-			session.save(um);//因为user是外键，所以在commit aProfile之前需要先save user；
+				// System.out.println("***"+imageFileName+imageContentType);
+				// File savefile = new File(new File(util.Util.RootPath +
+				// util.Util.FileUploadPath), imageFileName);
+				// if (!savefile.getParentFile().exists())
+				// savefile.getParentFile().mkdirs();
+				//
+				// System.out.println("saved****::" +
+				// savefile.getAbsolutePath());
+				// FileUtils.copyFile(image, savefile);//将image复制到目标文件夹savefile
+				//
+				// EgFilePathSave file_path = new EgFilePathSave();
+				//
+				// file_path.setFilePath(util.Util.FileUploadPath +
+				// imageFileName);
+				//// session.beginTransaction();
+				//// session.save(file_path);
+				//// session.getTransaction().commit();
+				// um.setProfilePhotoPath(util.Util.FileUploadPath +
+				// imageFileName);
+
+			}
+
+			session.save(um);// 因为user是外键，所以在commit aProfile之前需要先save user；
 
 			AdminProfile aProfile = new AdminProfile();
 			aProfile.setUser(um);

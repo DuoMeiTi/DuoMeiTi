@@ -14,20 +14,19 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class ExamStuOption {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int esId;
-	
+
 	@ManyToOne
 	@JoinColumn
 	@Fetch(FetchMode.SELECT)
 	public StudentProfile stuPro;
-	
+
 	@ManyToOne
 	@JoinColumn
 	@Fetch(FetchMode.SELECT)
 	public ExamOption emoption;
-	
-	
+
 	// 弃用！
 	@Column
 	int esNums;
@@ -63,6 +62,5 @@ public class ExamStuOption {
 	public void setEsNums(int esNums) {
 		this.esNums = esNums;
 	}
-	
-	
+
 }

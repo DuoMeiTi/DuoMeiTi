@@ -32,16 +32,8 @@
 	</package>
 <!-- end	新classroom -->
 	
-	
-	
-	
-	
-	
-
     <package name="homepage" namespace="/" extends="HomepageDefault">
-  	
-
-    	
+	
        	<action name="" class="homepage.HomeAction">
         	<result>/jsp/homepage/new_home.jsp</result>
         </action>
@@ -49,10 +41,6 @@
         <action name="building_information" class="homepage.BuildingInformationAction">
         	<result>/jsp/homepage/building_information.jsp</result>
         </action>
-
-        
-        
-        
 
         <action name="ResourceFile" class="homepage.HomeAction" method="resourceFile">
 			<result>/jsp/homepage/ResourceFile.jsp</result>			
@@ -73,18 +61,7 @@
     	<action  name="repairRecordManage_*" class="homepage.RepairRecordManageAction"  method="{1}" >
     		<result type="json"> </result>
     	</action>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-      
+         
     	<action name="not_login">
             <result> /jsp/homepage/not_login.jsp </result>
         </action>
@@ -92,14 +69,7 @@
         <action name="logout" class="homepage.UserAction" method="logout">
             <result type="redirect"> / </result>
         </action>
-        
-                        
-
-        
-        
-        
-        
-        
+           
         <!--常见问题首页显示action-->
         <action name="CommonProRecord" class="homepage.CommonProRecord" method="showRecord">
         	<result> /jsp/homepage/CommonProRecord.jsp</result>
@@ -109,19 +79,14 @@
         <action name="contacts" class="homepage.ContactsAction" method="wrContacts">
         	<result> /jsp/homepage/contacts.jsp</result>
         </action>
-        
-
-        
-        
-        
+       
 <!-- 登录 -->
         <action name="login" class="homepage.UserAction" method="login">
         	<result> /jsp/homepage/login.jsp </result>
         	
             <result name="login_fail" type="redirect">
                 /login_fail
-            </result>
-            
+            </result>           
             
             <result name="admin_login_success" type="redirect">
             	/admin/
@@ -132,9 +97,7 @@
             </result>
             
         </action>
-        
-
-        
+              
         <action name="login_fail">
             <result> /jsp/homepage/login_fail.jsp </result>
         </action>
@@ -191,5 +154,4 @@
     
     </package>
     
-
 </struts>

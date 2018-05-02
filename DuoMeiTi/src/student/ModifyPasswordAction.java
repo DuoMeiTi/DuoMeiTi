@@ -1,4 +1,5 @@
 package student;
+
 import java.util.*;
 
 import org.hibernate.Criteria;
@@ -13,15 +14,15 @@ import model.Repertory;
 import model.User;
 import util.Const;
 
-public class ModifyPasswordAction extends ActionSupport{
+public class ModifyPasswordAction extends ActionSupport {
 	public String oldPsw;
 	public String newPsw;
 	public List<User> user_list;
-	private static User now_user; //当前用户
-	private String username;      //当前用户名
-	public String nowPsw;         //当前用户的密码
-	public String status;         //比较结果
-	
+	private static User now_user; // 当前用户
+	private String username; // 当前用户名
+	public String nowPsw; // 当前用户的密码
+	public String status; // 比较结果
+
 	public String getUsername() {
 		return username;
 	}
@@ -29,7 +30,7 @@ public class ModifyPasswordAction extends ActionSupport{
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	public String getOldPsw() {
 		return oldPsw;
 	}
@@ -81,22 +82,22 @@ public class ModifyPasswordAction extends ActionSupport{
 	public String execute() throws Exception {
 		System.out.println("建立Criteria查询");
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria c = session.createCriteria(User.class).add(Restrictions.eq("username",ActionContext.getContext().getSession().get("username")));
+		Criteria c = session.createCriteria(User.class)
+				.add(Restrictions.eq("username", ActionContext.getContext().getSession().get("username")));
 		user_list = c.list();
 		now_user = user_list.get(0);
 		session.close();
 		nowPsw = now_user.getPassword();
 		return ActionSupport.SUCCESS;
 	}
-	
-	public String updatePsw(){
+
+	public String updatePsw() {
 		System.out.println("更新密码");
-		if(now_user.getPassword().equals(oldPsw)){
+		if (now_user.getPassword().equals(oldPsw)) {
 			System.out.println("111");
 			now_user.setPassword(newPsw);
 			status = "原密码输入正确";
-		}
-		else{
+		} else {
 			status = "原密码输入错误";
 			return SUCCESS;
 		}
@@ -107,9 +108,8 @@ public class ModifyPasswordAction extends ActionSupport{
 		t.commit();
 		session.close();
 		status = "修改成功";
-		
+
 		return SUCCESS;
 	}
-	
 
 }

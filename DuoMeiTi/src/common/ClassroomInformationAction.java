@@ -31,41 +31,34 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ClassroomInformationAction extends FileUploadBaseAction {
-	
-	
-	static
-	{
-//		Session session = model.Util.sessionFactory.openSession();
-//
-//		List<CheckRecord> checkRecordList = session.createCriteria(model.CheckRecord.class).list();
-//		
-//		for(CheckRecord cr : checkRecordList)
-//		{
-//			if(cr.getCheckman() != null)
-//			{
-//				cr.setCheckmanFullName(cr.getCheckman().getFullName());
-//				cr.setCheckmanPhoneNumber(cr.getCheckman().getPhoneNumber());
-//				
-//				cr.setCheckman(null);
-//			}
-//			
-//			if(cr.getClassroom() != null)
-//			{
-//				
-//			}
-//		}
-//			   
-//		
-//		
-//		
-//		session.close();
+
+	static {
+		// Session session = model.Util.sessionFactory.openSession();
+		//
+		// List<CheckRecord> checkRecordList =
+		// session.createCriteria(model.CheckRecord.class).list();
+		//
+		// for(CheckRecord cr : checkRecordList)
+		// {
+		// if(cr.getCheckman() != null)
+		// {
+		// cr.setCheckmanFullName(cr.getCheckman().getFullName());
+		// cr.setCheckmanPhoneNumber(cr.getCheckman().getPhoneNumber());
+		//
+		// cr.setCheckman(null);
+		// }
+		//
+		// if(cr.getClassroom() != null)
+		// {
+		//
+		// }
+		// }
+		//
+		//
+		//
+		//
+		// session.close();
 	}
-	
-	
-	
-	
-	
-	
 
 	public String remark;
 	public int classroomId;
@@ -264,31 +257,28 @@ public class ClassroomInformationAction extends FileUploadBaseAction {
 			RepairRecord repairrecord = new RepairRecord();
 
 			// repairrecord.setDevice(device);
-//			repairrecord.setDeviceType(device.getRtType());
-//			repairrecord.setDeviceNumber(device.getRtNumber());
-//			repairrecord.setDeviceVersion(device.getRtVersion());
-//			repairrecord.setDeviceFactorynum(device.getRtFactorynum());
-//			repairrecord.setDeviceProdDate(device.getRtProdDate());
-//			repairrecord.setDeviceApprDate(device.getRtApprDate());
-//
-//			repairrecord.setRepairdate(new Timestamp(new java.util.Date().getTime()));
-//			repairrecord.setRepairdetail(repairdetail);
-//
-//			repairrecord.setRepairmanFullName(repairman.getFullName());
-//			repairrecord.setRepairmanPhoneNumber(repairman.getPhoneNumber());
-//
+			// repairrecord.setDeviceType(device.getRtType());
+			// repairrecord.setDeviceNumber(device.getRtNumber());
+			// repairrecord.setDeviceVersion(device.getRtVersion());
+			// repairrecord.setDeviceFactorynum(device.getRtFactorynum());
+			// repairrecord.setDeviceProdDate(device.getRtProdDate());
+			// repairrecord.setDeviceApprDate(device.getRtApprDate());
+			//
+			// repairrecord.setRepairdate(new Timestamp(new
+			// java.util.Date().getTime()));
+			// repairrecord.setRepairdetail(repairdetail);
+			//
+			// repairrecord.setRepairmanFullName(repairman.getFullName());
+			// repairrecord.setRepairmanPhoneNumber(repairman.getPhoneNumber());
+			//
 			Classroom classroom = (Classroom) session.createCriteria(model.Classroom.class)
 					.add(Restrictions.eq("id", classroomId)).uniqueResult();
-//
-//			repairrecord.setClassroomName(classroom.getClassroom_num());
-//			repairrecord.setTeachingBuildingName(classroom.getTeachbuilding().getBuild_name());
+			//
+			// repairrecord.setClassroomName(classroom.getClassroom_num());
+			// repairrecord.setTeachingBuildingName(classroom.getTeachbuilding().getBuild_name());
 
-			
 			util.Util.setRepairRecord(repairrecord, repairman, classroom, device, repairdetail);
-			
-			
-			
-			
+
 			session.beginTransaction();
 			session.save(repairrecord);
 			session.getTransaction().commit();

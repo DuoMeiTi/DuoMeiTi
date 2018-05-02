@@ -10,34 +10,27 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
 //如果当info 为空时表示这个一条紧急消息， 否者表示针对某个紧急消息的评论
 @Entity
 public class EmergencyInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
-	
+
 	@Column
-	public String content;	
-	
+	public String content;
+
 	@ManyToOne
 	@JoinColumn
 	public User user;
-	
+
 	@Column
 	public Timestamp date;
-	
+
 	@ManyToOne
 	@JoinColumn
 	public EmergencyInfo info;
 
-	
-	
-	
-	
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -77,17 +70,5 @@ public class EmergencyInfo {
 	public void setInfo(EmergencyInfo info) {
 		this.info = info;
 	}
-	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
