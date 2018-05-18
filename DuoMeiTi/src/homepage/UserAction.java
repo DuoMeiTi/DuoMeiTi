@@ -1,20 +1,15 @@
 package homepage;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.FlushModeType;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.catalina.connector.Request;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.Criteria;
-import org.hibernate.FlushMode;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.jasig.cas.client.authentication.AttributePrincipal;
 
@@ -27,7 +22,6 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import model.User;
 import model.StudentProfile;
-import util.Util;
 
 public class UserAction {
 	public String username;
@@ -43,20 +37,45 @@ public class UserAction {
 	 * status 0: OK 1: username 或者password 为空 2: username 重复
 	 */
 
-	public String login() throws Exception {
+	public String login() throws Exception {	
+		
 		final String login_fail = "login_fail";
-
-		this.status = "默认！！！";
-		if (ServletActionContext.getRequest().getMethod().equalsIgnoreCase("get")) {
-			return ActionSupport.SUCCESS;
+		final String login_user_not_exist = "login_user_not_exist";
+		
+		//=========step1 先进行sso中心的用户名和密码认证 ============
+		AttributePrincipal principal = (AttributePrincipal)ServletActionContext.getRequest().getUserPrincipal();
+		String userId = null;
+		if (principal != null) { //sso登录成功
+			userId = principal.getName();
+			System.out.println("[SSO LOGIN] " + userId);
+			//Map attributes = principal.getAttributes();
+	  		//System.out.println(attributes);
+		} else {
+			return login_fail;//如果认证失败，则直接失败；
 		}
-
+		
+		//==============step2 判断sso认证后的用户名是否是本系统里面的用户，如果不是直接失败，否则则判断是否通过审批，否则告诉其审批未完成============		
+		Session session = model.Util.sessionFactory.openSession();
+		//查询数据库，判断该用户是否存在
+		StudentProfile sPofile = util.Util.getStudentByStudentId(session, userId);
+		User user = null;
+		if (sPofile == null || (user = sPofile.getUser()) == null) {
+			this.status = "用户不存在本系统";
+			return login_user_not_exist;
+		} else if (sPofile.getIsPassed() == model.StudentProfile.Unhandled || sPofile.getIsPassed() == model.StudentProfile.NotPassed){
+			this.status = "审核未通过或者未处理，请联系管理员。";
+			return login_fail;
+		} else {//登录成功
+			username = user.getUsername();
+			password = user.getPassword();
+		}
+		
 		if (username == null || username == "") {
 			this.status = "用户名不能为空";
 			return login_fail;
 		}
-
-		Session session = model.Util.sessionFactory.openSession();
+		
+		//以下便是未进行sso统一认证之前的登录逻辑
 		Criteria q = session.createCriteria(User.class).add(Restrictions.eq("username", username));
 		List ul = q.list();
 
@@ -126,6 +145,7 @@ public class UserAction {
 		ActionContext.getContext().getSession().remove("fullName");
 		ActionContext.getContext().getSession().remove("role");
 		ActionContext.getContext().getSession().remove("user_id");
+		ServletActionContext.getRequest().logout();
 		return ActionSupport.SUCCESS;
 	}
 

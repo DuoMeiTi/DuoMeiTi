@@ -1,19 +1,15 @@
 package homepage;
 
-import java.util.Map;
-
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.opensymphony.xwork2.Action;
 
 public class AdminLoginInterceptor extends AbstractInterceptor {
 
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		final String not_login = "not_login";
-
 		String role = (String) invocation.getInvocationContext().getSession().get("role");
+		System.out.println("::::");
 		if (role == null)
 			return not_login;
 		System.out.println("ROLE:::::::::" + role);

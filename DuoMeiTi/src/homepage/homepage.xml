@@ -4,154 +4,165 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+	<!-- 新classroom -->
+	<package name="newHomepageClassroom" namespace="/classroom"
+		extends="HomepageDefault,newClassroom">
 
-<!-- 	<package name="classroom_json234" namespace="/homepage/classroom_json" extends="HomepageDefault"> -->
-<!-- 		<action name="classroom_search2" class="homepage.ClassroomInformationAction" method="classroom_search"> -->
-<!-- 			<result type="json"> -->
-<!-- 				<param name="includeProperties"> -->
-<!-- 					search_classroom_id, status, classroominfo_html,  -->
-<!-- 					classrooms\[\d+\]\.id, classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity, classrooms\[\d+\]\.principal_name, classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys -->
-<!-- 				</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-		
-<!-- 	</package> -->
-	
-	
-<!-- 	新classroom -->
-	<package name="newHomepageClassroom" namespace="/classroom" extends="HomepageDefault,newClassroom">
-		
-        <action name="classroom_detail" class="homepage.ClassroomDetailAction">
+		<action name="classroom_detail" class="homepage.ClassroomDetailAction">
 			<result>
 				<param name="location">/jsp/homepage/classroom_detail.jsp</param>
 				<param name="classroomselectIndex">${classroomId}</param>
 				<param name="build_name">${build_name}</param>
 			</result>
 		</action>
-		
+
 	</package>
-<!-- end	新classroom -->
-	
-    <package name="homepage" namespace="/" extends="HomepageDefault">
-	
-       	<action name="" class="homepage.HomeAction">
-        	<result>/jsp/homepage/new_home.jsp</result>
-        </action>
-        
-        <action name="building_information" class="homepage.BuildingInformationAction">
-        	<result>/jsp/homepage/building_information.jsp</result>
-        </action>
+	<!-- end 新classroom -->
 
-        <action name="ResourceFile" class="homepage.HomeAction" method="resourceFile">
-			<result>/jsp/homepage/ResourceFile.jsp</result>			
-    	</action>	
-        <action name="dutySummaryTable" class="homepage.HomeAction" method="dutyShow">
-			<result>/jsp/homepage/dutySummaryTable.jsp</result>			
-    	</action>
-    	
-        
-        <action name="classroomPincipalShow" class="homepage.HomeAction" method="classroomPincipalShow">
-			<result>/jsp/homepage/classroomPincipalShow.jsp</result>			
-    	</action>
-    	
-    	
-    	<action name="repairRecordManage" class="homepage.RepairRecordManageAction" >
+	<package name="homepage" namespace="/" extends="HomepageDefault">
+
+		<action name="" class="homepage.HomeAction">
+			<result>/jsp/homepage/new_home.jsp</result>
+		</action>
+
+		<action name="building_information" class="homepage.BuildingInformationAction">
+			<result>/jsp/homepage/building_information.jsp</result>
+		</action>
+
+		<action name="ResourceFile" class="homepage.HomeAction" method="resourceFile">
+			<result>/jsp/homepage/ResourceFile.jsp</result>
+		</action>
+		<action name="dutySummaryTable" class="homepage.HomeAction"
+			method="dutyShow">
+			<result>/jsp/homepage/dutySummaryTable.jsp</result>
+		</action>
+
+
+		<action name="classroomPincipalShow" class="homepage.HomeAction"
+			method="classroomPincipalShow">
+			<result>/jsp/homepage/classroomPincipalShow.jsp</result>
+		</action>
+
+
+		<action name="repairRecordManage" class="homepage.RepairRecordManageAction">
 			<result>/jsp/homepage/repairRecordManage.jsp</result>
-    	</action>
-    	<action  name="repairRecordManage_*" class="homepage.RepairRecordManageAction"  method="{1}" >
-    		<result type="json"> </result>
-    	</action>
-         
-    	<action name="not_login">
-            <result> /jsp/homepage/not_login.jsp </result>
-        </action>
-        
-        <action name="logout" class="homepage.UserAction" method="logout">
-            <result type="redirect"> / </result>
-        </action>
-           
-        <!--常见问题首页显示action-->
-        <action name="CommonProRecord" class="homepage.CommonProRecord" method="showRecord">
-        	<result> /jsp/homepage/CommonProRecord.jsp</result>
-        </action>
-        
-        <!-- 通讯录action-->
-        <action name="contacts" class="homepage.ContactsAction" method="wrContacts">
-        	<result> /jsp/homepage/contacts.jsp</result>
-        </action>
-       
-<!-- 登录 -->
-        <action name="login" class="homepage.UserAction" method="login">
-        	<result> /jsp/homepage/login.jsp </result>
-        	
-            <result name="login_fail" type="redirect">
-                /login_fail
-            </result>           
-            
-            <result name="admin_login_success" type="redirect">
-            	/admin/
-            </result>
-            
-            <result name="student_login_success" type="redirect">
-            	/student/
-            </result>
-            
-        </action>
-              
-        <action name="login_fail">
-            <result> /jsp/homepage/login_fail.jsp </result>
-        </action>
-        
-        
-        <action name="student_register" class="homepage.StudentAction" method="studentRegister">
-        	<result>
-        		/jsp/homepage/student_register.jsp
-        	</result>
-        </action>
-        
-        <action name="student_register_save" class="homepage.StudentAction" method="studentRegisterSave">
-            <result name="success" type="json">
-            </result> 
-        </action>
-<!-- 登录 END-->
+		</action>
+		<action name="repairRecordManage_*" class="homepage.RepairRecordManageAction"
+			method="{1}">
+			<result type="json">
+			</result>
+		</action>
 
-</package>
+		<action name="not_login">
+			<result> /jsp/homepage/not_login.jsp </result>
+		</action>
 
-<!--     <package name="classroom_json" namespace="/homepage/classroom_json" extends="HomepageDefault"> -->
-    	
-<!--     	<action name="classroom_search" class="homepage.ClassroomInformationAction" method="classroom_search"> -->
-<!--     		<result type="json"> -->
-<!-- 				<param name="includeProperties"> -->
-<!-- 					status, classroominfo_html,  -->
-<!-- 					classrooms\[\d+\]\.id, classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity, classrooms\[\d+\]\.principal_name, classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys -->
-<!-- 				</param> -->
-<!-- 			</result> -->
-<!--     	</action> -->
-    	
-<!--     </package> -->
-    
-    <package name="more_information" namespace="/home" extends="HomepageDefault">
-    
-    	<action name="more_announcement" class="homepage.HomepageInformation" method="MoreAnnouncement">
-    		<result>/jsp/homepage/more_announcement.jsp</result>
-    	</action>
-    	
-    	<action name="more_classroom" class="homepage.HomepageInformation" method="MoreCheckClassroom">
-    		<result>/jsp/homepage/more_classroom.jsp</result>
-    	</action>
-    	
-    	<action name="more_equipment_maintenance" class="homepage.HomepageInformation" method="MoreEquipmentMaintenance">
-    		<result>/jsp/homepage/more_equipment_maintenance.jsp</result>
-    	</action>
-    	
-    	<action name="more_equipment_replacement" class="homepage.HomepageInformation" method="MoreEquipmentReplacement">
-    		<result>/jsp/homepage/more_equipment_replacement.jsp</result>
-    	</action>
-    	
-    	<action name="more_notCheckClassroomStudent" class="homepage.HomepageInformation" method="notCheckClassroomStudent">
-    		<result>/jsp/homepage/more_notCheckClassroomStudent.jsp</result>
-    	</action>
-    
-    </package>
-    
+		<action name="logout" class="homepage.UserAction" method="logout">
+			<result type="redirect"> https://sso.dlut.edu.cn/cas/logout?service=http://127.0.0.1/ </result>
+		</action>
+
+		<!--常见问题首页显示action -->
+		<action name="CommonProRecord" class="homepage.CommonProRecord"
+			method="showRecord">
+			<result> /jsp/homepage/CommonProRecord.jsp</result>
+		</action>
+
+		<!-- 通讯录action -->
+		<action name="contacts" class="homepage.ContactsAction" method="wrContacts">
+			<result> /jsp/homepage/contacts.jsp</result>
+		</action>
+
+		<!-- 登录 -->
+		<action name="login" class="homepage.UserAction" method="login">
+			<result> /jsp/homepage/login.jsp </result>
+
+			<result name="login_fail" type="redirect">
+				/login_fail
+			</result>
+
+			<result name="admin_login_success" type="redirect">
+				/admin/
+			</result>
+
+			<result name="student_login_success" type="redirect">
+				/student/
+			</result>
+			
+			<result name="login_user_not_exist" type="redirect">
+				/jsp/homepage/login_user_not_exist.jsp
+			</result>
+		</action>
+		
+		<action name="login_fail">
+			<result> /jsp/homepage/login_fail.jsp </result>
+		</action>
+		
+		<!-- admin login -->
+		
+		<action name="admin_login" class="homepage.AdminLoginAction" method="login">
+			<result name="success"> 
+				/jsp/admin/login.jsp 
+			</result>
+
+			<result name="admin_login_fail" type="redirect">
+				/admin_login_fail
+			</result>
+
+			<result name="admin_login_success" type="redirect">
+				/admin/
+			</result>
+		</action>
+
+		<action name="admin_login_fail">
+			<result> /jsp/admin/login_fail.jsp </result>
+		</action>
+		
+		<!--  -->
+		
+
+		<action name="student_register" class="homepage.StudentAction"
+			method="studentRegister">
+			<result>
+				/jsp/homepage/student_register.jsp
+			</result>
+		</action>
+
+		<action name="student_register_save" class="homepage.StudentAction"
+			method="studentRegisterSave">
+			<result name="success" type="json">
+			</result>
+		</action>
+		<!-- 登录 END -->
+
+	</package>
+
+	<package name="more_information" namespace="/home" extends="HomepageDefault">
+
+		<action name="more_announcement" class="homepage.HomepageInformation"
+			method="MoreAnnouncement">
+			<result>/jsp/homepage/more_announcement.jsp</result>
+		</action>
+
+		<action name="more_classroom" class="homepage.HomepageInformation"
+			method="MoreCheckClassroom">
+			<result>/jsp/homepage/more_classroom.jsp</result>
+		</action>
+
+		<action name="more_equipment_maintenance" class="homepage.HomepageInformation"
+			method="MoreEquipmentMaintenance">
+			<result>/jsp/homepage/more_equipment_maintenance.jsp</result>
+		</action>
+
+		<action name="more_equipment_replacement" class="homepage.HomepageInformation"
+			method="MoreEquipmentReplacement">
+			<result>/jsp/homepage/more_equipment_replacement.jsp</result>
+		</action>
+
+		<action name="more_notCheckClassroomStudent" class="homepage.HomepageInformation"
+			method="notCheckClassroomStudent">
+			<result>/jsp/homepage/more_notCheckClassroomStudent.jsp</result>
+		</action>
+
+	</package>
+
 </struts>

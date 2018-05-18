@@ -4,264 +4,278 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-
-
-	<package name="admin" namespace="/admin" extends="AdminDefault">	
-		
-		<action name="" >
+	<package name="admin" namespace="/admin" extends="AdminDefault">
+		<action name="">
 			<result name="success" type="redirect">
-				/admin/classroom/teachBuildingAction 
+				/admin/classroom/teachBuildingAction
 			</result>
 		</action>
 
-
-<!-- 维修记录管理 -->
+		<!-- 维修记录管理 -->
 		<action name="repairRecord" class="admin.RepairRecordAction">
 			<result>
 				/jsp/admin/repairRecord.jsp
-			</result>			
+			</result>
 		</action>
-		
-		<action name="repairRecord_*" class="admin.RepairRecordAction" method="{1}">
-			
+
+		<action name="repairRecord_*" class="admin.RepairRecordAction"
+			method="{1}">
+
 			<result name="success" type="json">
-				<param name="includeProperties">*</param>    
-			</result>			
+				<param name="includeProperties">*</param>
+			</result>
 		</action>
-		
-<!-- 维修记录管理 END-->
 
+		<!-- 维修记录管理 END -->
 
-<!-- 签到管理checkinManage -->
+		<!-- 签到管理checkinManage -->
 		<action name="checkinManage" class="admin.CheckinManageAction">
 			<result>
 				/jsp/admin/checkinrecord.jsp
-			</result>			
+			</result>
 		</action>
-		
-		<action name="checkinManage_*" class="admin.CheckinManageAction" method="{1}">
-			
+
+		<action name="checkinManage_*" class="admin.CheckinManageAction"
+			method="{1}">
+
 			<result name="success" type="json">
-				<param name="includeProperties">*</param>    
-			</result>			
+				<param name="includeProperties">*</param>
+			</result>
 		</action>
-		
-<!-- 签到管理checkin END-->
 
+		<!-- 签到管理checkin END -->
 
-
-		
 		<action name="student_manage">
 			<result>
 				/jsp/admin/student_manage.jsp
 			</result>
 		</action>
-		
-		<action name="user_information" class="admin.InformationAction" method="adminInformation">
+
+		<action name="user_information" class="admin.InformationAction"
+			method="adminInformation">
 			<result name="success">
 				/jsp/admin/admin_information.jsp
 			</result>
 		</action>
-		
-		<action name="admin_information_change" class="admin.InformationAction" method="adminInformationChange">
-           <result name="success" type="json">
-            	<param name="includeProperties">username,fullName,phoneNumber,sex,unitInfo,remark</param>           
-            </result>           
-        </action>
-		
-<!-- 		设备管理 -->
+
+		<action name="admin_information_change" class="admin.InformationAction"
+			method="adminInformationChange">
+			<result name="success" type="json">
+				<param name="includeProperties">username,fullName,phoneNumber,sex,unitInfo,remark</param>
+			</result>
+		</action>
+
+		<!-- 设备管理 -->
 		<action name="repertory" class="admin.RepertoryAction">
 			<result name="success">
 				/jsp/admin/repertory.jsp
 			</result>
 		</action>
-		
-		<action name="repertory_*" class="admin.RepertoryAction" method="{1}">
+
+		<action name="repertory_*" class="admin.RepertoryAction"
+			method="{1}">
 			<result name="success" type="json">
 
 			</result>
 		</action>
-		
-<!-- 		设备管理 END-->		
-		
-		 
-<!-- 修改密码 -->
+
+		<!-- 设备管理 END -->
+
+
+		<!-- 修改密码 -->
 		<action name="modifypassword" class="admin.ModifyPasswordAction">
 			<result name="success">
 				/jsp/admin/modify_password.jsp
 			</result>
 		</action>
-		
-		<action name="modify_password" class="admin.ModifyPasswordAction" method="modifyPassword">
+
+		<action name="modify_password" class="admin.ModifyPasswordAction"
+			method="modifyPassword">
 			<result name="success" type="json">
 			</result>
 		</action>
 
 
 
-<!-- 管理员账号管理 Action -->
-		<action name="adminaccount" class="admin.AdminAccountAction" method="initallAdminProfilelist">
+		<!-- 管理员账号管理 Action -->
+		<action name="adminaccount" class="admin.AdminAccountAction"
+			method="initallAdminProfilelist">
 			<result>/jsp/admin/adminAccount.jsp</result>
 		</action>
-		  
-		<action name="addNewAdminProfile" class="admin.AdminAccountAction" method="addNewAdminProfile">
+
+		<action name="addNewAdminProfile" class="admin.AdminAccountAction"
+			method="addNewAdminProfile">
 			<result name="success" type="json">
 				<param name="includeProperties">result</param>
-			</result>  
+			</result>
 		</action>
-		<action name="deleteAdminProfile" class="admin.AdminAccountAction" method="deleteAdminProfile">
+		<action name="deleteAdminProfile" class="admin.AdminAccountAction"
+			method="deleteAdminProfile">
 			<result name="success" type="json">
 				<param name="includeProperties">result</param>
-			</result>   
+			</result>
 			<result name="error" type="json">
 				<param name="includeProperties">result</param>
-			</result>  
+			</result>
 		</action>
-		
-<!-- 		批量导入 -->
-<!-- 		<action name="batchImportSchedule" class="admin.BatchImportAction" > -->
-<!-- 			<result>/jsp/admin/batchImport.jsp</result> -->
-<!-- 		</action> -->
-		
-<!-- 		<action name="batchImport_*" class="admin.BatchImportAction" method="{1}"> -->
-<!-- 			<result name="success" type="json"></result> -->
-<!-- 		</action> -->
-		
-<!-- 		end 批量导入 -->
-		
+
+		<!-- 批量导入 -->
+		<!-- <action name="batchImportSchedule" class="admin.BatchImportAction" 
+			> -->
+		<!-- <result>/jsp/admin/batchImport.jsp</result> -->
+		<!-- </action> -->
+
+		<!-- <action name="batchImport_*" class="admin.BatchImportAction" method="{1}"> -->
+		<!-- <result name="success" type="json"></result> -->
+		<!-- </action> -->
+
+		<!-- end 批量导入 -->
+
 	</package>
-	
-	
-<!-- 	新classroom,注意，多继承时， AdminDefault应该放在后面 -->
-	<package name="newAdminClassroom" namespace="/admin/classroom" extends="newClassroom, AdminDefault">
-		
+
+
+	<!-- 新classroom,注意，多继承时， AdminDefault应该放在后面 -->
+	<package name="newAdminClassroom" namespace="/admin/classroom"
+		extends="newClassroom, AdminDefault">
+
 	</package>
-<!-- end	新classroom -->
+	<!-- end 新classroom -->
 
 
 
 
-		       
-	
+
+
 	<!-- 教室设备管理 -->
-	<package name="classroomDevice" namespace="/admin/classroomDevice" extends="AdminDefault">
-<!-- 		<action name="maintainRecords" class="admin.TeachBuildingAction"> -->
-<!-- 			<result> -->
-<!-- 				/jsp/admin/maintainRecords.jsp -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-		
-<!-- 		<action name="*_action" class="action.RepairAction" method="{1}"> -->
-<!-- 			<result name="query_repair"> -->
-<!-- 				/jsp/admin/record_query.jsp -->
-<!-- 			</result> -->
-<!-- 			<result type="json" name="adddevice"> -->
-<!-- 				<param name="includeProperties">ret</param> -->
-<!-- 			</result> -->
-<!-- 			<result name="alternative"> -->
-<!-- 				/jsp/admin/alternative.jsp -->
-<!-- 			</result> -->
-<!-- 			<result name="move2alter" type="redirect"> -->
-<!-- 				../classroom/classroom_detail.action?classroomId=${classroom_id} -->
-<!-- 			</result> -->
-<!-- 			<result name="addalter" type="redirect"> -->
-<!-- 				../classroom/classroom_detail.action?classroomId=${classroom_id} -->
-<!-- 			</result> -->
-<!-- 			<result name="delalter" type="redirectAction"> -->
-<!-- 				alter_action?classroomid=${classroom_id} -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-		
+	<package name="classroomDevice" namespace="/admin/classroomDevice"
+		extends="AdminDefault">
+		<!-- <action name="maintainRecords" class="admin.TeachBuildingAction"> -->
+		<!-- <result> -->
+		<!-- /jsp/admin/maintainRecords.jsp -->
+		<!-- </result> -->
+		<!-- </action> -->
+
+		<!-- <action name="*_action" class="action.RepairAction" method="{1}"> -->
+		<!-- <result name="query_repair"> -->
+		<!-- /jsp/admin/record_query.jsp -->
+		<!-- </result> -->
+		<!-- <result type="json" name="adddevice"> -->
+		<!-- <param name="includeProperties">ret</param> -->
+		<!-- </result> -->
+		<!-- <result name="alternative"> -->
+		<!-- /jsp/admin/alternative.jsp -->
+		<!-- </result> -->
+		<!-- <result name="move2alter" type="redirect"> -->
+		<!-- ../classroom/classroom_detail.action?classroomId=${classroom_id} -->
+		<!-- </result> -->
+		<!-- <result name="addalter" type="redirect"> -->
+		<!-- ../classroom/classroom_detail.action?classroomId=${classroom_id} -->
+		<!-- </result> -->
+		<!-- <result name="delalter" type="redirectAction"> -->
+		<!-- alter_action?classroomid=${classroom_id} -->
+		<!-- </result> -->
+		<!-- </action> -->
+
 		<action name="equipmentQueryAndEdit">
 			<result>
 				/jsp/admin/equipmentQueryAndEdit.jsp
 			</result>
 		</action>
-	
+
 	</package>
-	
-<!--    批量导入 -->
-	<package name="batchImport" namespace="/admin/batchImport" extends="AdminDefault">
-		
+
+	<!-- 批量导入 -->
+	<package name="batchImport" namespace="/admin/batchImport"
+		extends="AdminDefault">
+
 		<action name="">
 			<result name="success" type="redirect">classScheduleImport</result>
 		</action>
-		
-<!-- 		<action name="class_schedule_import" class="admin.BatchImportAction" method="upload"> -->
-<!-- 			<result> -->
-<!-- 				/jsp/admin/class_schedule_import.jsp -->
-<!-- 			</result> -->
-<!-- 		</action> -->
+
+		<!-- <action name="class_schedule_import" class="admin.BatchImportAction" 
+			method="upload"> -->
+		<!-- <result> -->
+		<!-- /jsp/admin/class_schedule_import.jsp -->
+		<!-- </result> -->
+		<!-- </action> -->
 
 
-<!-- 课表批量导入 -->
-		<action name="classScheduleImport" class="admin.batchimport.ClassScheduleAction" >
+		<!-- 课表批量导入 -->
+		<action name="classScheduleImport" class="admin.batchimport.ClassScheduleAction">
 			<result> /jsp/admin/class_schedule_import.jsp </result>
 		</action>
-		<action name="classScheduleImport_*" class="admin.batchimport.ClassScheduleAction" method="{1}">
+		<action name="classScheduleImport_*" class="admin.batchimport.ClassScheduleAction"
+			method="{1}">
 			<result name="success" type="json"></result>
 		</action>
-<!-- 课表批量导入 END-->		
-		
-		
-<!-- 教室设备批量导入 -->
-		<action name="classDeviceImport" class="admin.batchimport.ClassDeviceImportAction" >
+		<!-- 课表批量导入 END -->
+
+
+		<!-- 教室设备批量导入 -->
+		<action name="classDeviceImport" class="admin.batchimport.ClassDeviceImportAction">
 			<result> /jsp/admin/classDeviceImport.jsp </result>
 		</action>
-		<action name="classDeviceImport_*" class="admin.batchimport.ClassDeviceImportAction" method="{1}">
+		<action name="classDeviceImport_*" class="admin.batchimport.ClassDeviceImportAction"
+			method="{1}">
 			<result name="success" type="json"></result>
 		</action>
-<!-- 教室设备批量导入 END-->
-		
-		
+		<!-- 教室设备批量导入 END -->
 
 
-		
-		<action name="classroom_import" class="admin.BatchImportAction" method="classroom">
+
+
+
+		<action name="classroom_import" class="admin.BatchImportAction"
+			method="classroom">
 			<result>
 				/jsp/admin/classroom_import.jsp
 			</result>
 		</action>
-		
-		<action name="classroomPrincipalImport" class="admin.BatchImportAction" method="classroomPrincipalShow">
+
+		<action name="classroomPrincipalImport" class="admin.BatchImportAction"
+			method="classroomPrincipalShow">
 			<result>
 				/jsp/admin/classroomPrincipalImport.jsp
 			</result>
 		</action>
-<!-- 		principal -->
-		
-		<action name="batchImport_*" class="admin.BatchImportAction" method="{1}">
+		<!-- principal -->
+
+		<action name="batchImport_*" class="admin.BatchImportAction"
+			method="{1}">
 			<result name="success" type="json">
 				<param name="includeProperties">*</param>
 			</result>
 		</action>
-		
-	</package>	
-<!-- 		end 批量导入 -->
-	
-	
-	
-<!-- 	用户注册请求 -->
-	<package name="user_request" namespace="/admin/user_request" extends="AdminDefault">
-		
-		<action name="" >
+
+	</package>
+	<!-- end 批量导入 -->
+
+
+
+	<!-- 用户注册请求 -->
+	<package name="user_request" namespace="/admin/user_request"
+		extends="AdminDefault">
+
+		<action name="">
 			<result name="success" type="redirect">untreated</result>
 		</action>
-		
+
 		<action name="untreated" class="admin.RequestAction" method="studentRequest">
 			<result>
 				/jsp/admin/untreated.jsp
 			</result>
 
 		</action>
-		
-		<action name="request_ensure" class="admin.RequestAction" method="studentRequestEnsure">
+
+		<action name="request_ensure" class="admin.RequestAction"
+			method="studentRequestEnsure">
 			<result name="success" type="json">
 				<param name="includeProperties">strValue,userid</param>
 			</result>
 		</action>
-		
-		<action name="request_change" class="admin.RequestAction" method="studentRequestChange">
+
+		<action name="request_change" class="admin.RequestAction"
+			method="studentRequestChange">
 			<result name="success" type="json">
 				<param name="includeProperties">strValue,userid</param>
 			</result>
@@ -275,344 +289,350 @@
 		</action>
 
 	</package>
-<!-- 	end用户注册请求 -->
+	<!-- end用户注册请求 -->
 
 
 
 
-<!-- 学生管理 -->
-	<package name="student_manage" namespace="/admin/student_manage" extends="AdminDefault">
-		
-		<action name="" >
+	<!-- 学生管理 -->
+	<package name="student_manage" namespace="/admin/student_manage"
+		extends="AdminDefault">
+
+		<action name="">
 			<result name="success" type="redirect">student_information</result>
 		</action>
-		
-		
-		
-		
+
+
+
+
 		<!-- 规章制度 -->
-		<action name="rule_show" class="admin.StudentManageAction" method="showRules">
-			<result name="success" >
+		<action name="rule_show" class="admin.StudentManageAction"
+			method="showRules">
+			<result name="success">
 				/jsp/admin/student_manage/student_manage_rules.jsp
 			</result>
 		</action>
-		<action name="ruleEdit" class="admin.StudentManageAction" method="editRules">
+		<action name="ruleEdit" class="admin.StudentManageAction"
+			method="editRules">
 			<result name="success" type="json">
-			
+
 			</result>
 		</action>
-		
+
 		<!-- 技术培训 -->
 		<action name="training" class="admin.TrainingAction">
 			<result name="success">
 				/jsp/admin/student_manage/training.jsp
 			</result>
 		</action>
-		
+
 		<action name="training_*" class="admin.TrainingAction" method="{1}">
 			<result name="success" type="json"></result>
-		</action> 
-		
-		
-		
-		
-<!-- 学生信息 -->
-		<action name="student_information" class="admin.StudentManageAction" method="studentInformation">
+		</action>
+
+
+
+
+		<!-- 学生信息 -->
+		<action name="student_information" class="admin.StudentManageAction"
+			method="studentInformation">
 			<result>
 				/jsp/admin/student_manage/student_information.jsp
 			</result>
 		</action>
-<!-- 学生信息操作！！ -->
-		<action name="student_information_*" class="admin.StudentManageAction" method="{1}">
+		<!-- 学生信息操作！！ -->
+		<action name="student_information_*" class="admin.StudentManageAction"
+			method="{1}">
 			<result name="success" type="json">
-<!--             	<param name="includeProperties">isException,fullName,studentId,college,phoneNumber</param>            -->
-           </result>       
-        </action>
-		
-        
-        
-        
-        
-        
-        
-<!-- 学生值班管理 begin -->
-
-
-	<action name="duty_manage" class="admin.DutyManageAction" >
-        	<result>/jsp/admin/student_manage/dutyManage.jsp</result>
-     </action>        
-     
-     <action name="duty_manage_*" class="admin.DutyManageAction" method="{1}">
-       	<result type="json">
-       		<param name="includeProperties">*</param>
-       	</result>
-      </action>
-<!-- 学生值班管理 END -->     
+				<!-- <param name="includeProperties">isException,fullName,studentId,college,phoneNumber</param> -->
+			</result>
+		</action>
 
 
 
-               
-       	<!-- 搜索学生 -->
-       	<action name="searchByFullNameOrStudentId" class="admin.StudentManageAction" method="searchByFullNameOrStudentId">
-       		<result type="json">
-<!--        			<param name="includeProperties"> -->
-<!--        				searchResult\[\d+\]\.id, -->
-<!--        				searchResult\[\d+\]\.studentName, -->
-<!--        				searchResult\[\d+\]\.studentId, -->
-<!--        			</param> -->
-       		</result>
-       	</action>
-       	
 
-       	
-       
-        
-	</package>  
-	<!-- student_manage package end-->
-	
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<package name="classroom_json" namespace="/admin/classroom_json" extends="AdminDefault">
-	
-	
-<!-- 		<action name="classroom_search" class="admin.ClassroomManageAction" method="classroom_search"> -->
-<!-- 			<result type="json"> -->
-<!-- 				<param name="includeProperties"> -->
-<!-- 					search_classroom_id, status, classroominfo_html,  -->
-<!-- 					classrooms\[\d+\]\.id, classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity, classrooms\[\d+\]\.principal_name, classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys -->
-<!-- 				</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
+
+
+		<!-- 学生值班管理 begin -->
+
+
+		<action name="duty_manage" class="admin.DutyManageAction">
+			<result>/jsp/admin/student_manage/dutyManage.jsp</result>
+		</action>
+
+		<action name="duty_manage_*" class="admin.DutyManageAction"
+			method="{1}">
+			<result type="json">
+				<param name="includeProperties">*</param>
+			</result>
+		</action>
+		<!-- 学生值班管理 END -->
+
+
+
+
+		<!-- 搜索学生 -->
+		<action name="searchByFullNameOrStudentId" class="admin.StudentManageAction"
+			method="searchByFullNameOrStudentId">
+			<result type="json">
+				<!-- <param name="includeProperties"> -->
+				<!-- searchResult\[\d+\]\.id, -->
+				<!-- searchResult\[\d+\]\.studentName, -->
+				<!-- searchResult\[\d+\]\.studentId, -->
+				<!-- </param> -->
+			</result>
+		</action>
+
+
+
+
+
+	</package>
+	<!-- student_manage package end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<package name="classroom_json" namespace="/admin/classroom_json"
+		extends="AdminDefault">
+
+
+		<!-- <action name="classroom_search" class="admin.ClassroomManageAction" 
+			method="classroom_search"> -->
+		<!-- <result type="json"> -->
+		<!-- <param name="includeProperties"> -->
+		<!-- search_classroom_id, status, classroominfo_html, -->
+		<!-- classrooms\[\d+\]\.id, classrooms\[\d+\]\.classroom_num, classrooms\[\d+\]\.capacity, 
+			classrooms\[\d+\]\.principal_name, classrooms\[\d+\]\.principal_stuId, classrooms\[\d+\]\.repertorys -->
+		<!-- </param> -->
+		<!-- </result> -->
+		<!-- </action> -->
 
 		<!-- 检查记录 -->
-<!-- 		<action name="checkrecord_save" class="admin.ClassroomDetailAction" method="checkrecordsave"> -->
-<!-- 			<result type="json"> -->
-<!-- 				<param name="includeProperties">savestatus,checkrecord_jsp</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
+		<!-- <action name="checkrecord_save" class="admin.ClassroomDetailAction" 
+			method="checkrecordsave"> -->
+		<!-- <result type="json"> -->
+		<!-- <param name="includeProperties">savestatus,checkrecord_jsp</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
 		<!-- 维修记录 -->
-<!-- 		<action name="repairrecord_save" class="admin.ClassroomDetailAction" method="repairrecordsave"> -->
-<!-- 			<result type="json"> -->
-<!-- 				<param name="includeProperties">savestatus,repairrecord_jsp</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
+		<!-- <action name="repairrecord_save" class="admin.ClassroomDetailAction" 
+			method="repairrecordsave"> -->
+		<!-- <result type="json"> -->
+		<!-- <param name="includeProperties">savestatus,repairrecord_jsp</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
 		<!-- 移入维修move2repair -->
-<!-- 		<action name="move2repair" class="admin.ClassroomDetailAction" method="move2repair"> -->
-<!-- 			<result type="json"> -->
-<!-- 				<param name="includeProperties">savestatus,device_jsp</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-		
+		<!-- <action name="move2repair" class="admin.ClassroomDetailAction" method="move2repair"> -->
+		<!-- <result type="json"> -->
+		<!-- <param name="includeProperties">savestatus,device_jsp</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
+
 		<!-- 移入报废move2bad -->
-<!-- 		<action name="move2bad" class="admin.ClassroomDetailAction" method="move2bad"> -->
-<!-- 			<result type="json"> -->
-<!-- 				<param name="includeProperties">savestatus,device_jsp</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-		
+		<!-- <action name="move2bad" class="admin.ClassroomDetailAction" method="move2bad"> -->
+		<!-- <result type="json"> -->
+		<!-- <param name="includeProperties">savestatus,device_jsp</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
+
 		<!-- 备用设备 -->
-<!-- 		<action name="alterdevice" class="admin.ClassroomDetailAction" method="alterdevice"> -->
-<!-- 			<result type="json"> -->
-<!-- 				<param name="includeProperties">device_jsp,alterdevice_jsp</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-		
+		<!-- <action name="alterdevice" class="admin.ClassroomDetailAction" method="alterdevice"> -->
+		<!-- <result type="json"> -->
+		<!-- <param name="includeProperties">device_jsp,alterdevice_jsp</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
+
 		<!-- 加入教室 -->
-<!-- 		<action name="move2class" class="admin.ClassroomDetailAction" method="move2class"> -->
-<!-- 			<result type="json"> -->
-<!-- 				<param name="includeProperties">device_jsp,alterdevice_jsp</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-		
-		<!-- 加入教室 按照资产编号-->
-<!-- 		<action name="move2classByRtNumber" class="admin.ClassroomDetailAction" method="move2classByRtNumber"> -->
-<!-- 			<result type="json"> -->
-<!-- 				<param name="includeProperties">*</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-		
-		
-		
-		
-		
-		
-		
-		
-		
-<!-- 		<action name="queryStuNameByStuId" class="admin.ClassroomManageAction" method="queryStuNameByStuId"> -->
-<!-- 			<result type="json"> -->
-<!-- 				<param name="includeProperties">queryResult</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-<!-- 		<action name="addClassroom" class="admin.ClassroomManageAction" method="addClassroom"> -->
-<!-- 			<result type="json"> -->
-<!-- 				<param name="includeProperties">add_status</param> -->
-<!-- 			</result> -->
-<!-- 		</action> -->
-		<action name="addTeachBuilding" class="admin.TeachBuildingAction" method="addTeachBuilding">
+		<!-- <action name="move2class" class="admin.ClassroomDetailAction" method="move2class"> -->
+		<!-- <result type="json"> -->
+		<!-- <param name="includeProperties">device_jsp,alterdevice_jsp</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
+
+		<!-- 加入教室 按照资产编号 -->
+		<!-- <action name="move2classByRtNumber" class="admin.ClassroomDetailAction" 
+			method="move2classByRtNumber"> -->
+		<!-- <result type="json"> -->
+		<!-- <param name="includeProperties">*</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
+
+
+
+
+
+
+
+
+
+		<!-- <action name="queryStuNameByStuId" class="admin.ClassroomManageAction" 
+			method="queryStuNameByStuId"> -->
+		<!-- <result type="json"> -->
+		<!-- <param name="includeProperties">queryResult</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
+		<!-- <action name="addClassroom" class="admin.ClassroomManageAction" method="addClassroom"> -->
+		<!-- <result type="json"> -->
+		<!-- <param name="includeProperties">add_status</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
+		<action name="addTeachBuilding" class="admin.TeachBuildingAction"
+			method="addTeachBuilding">
 			<result type="json">
 				<param name="includeProperties">add_status</param>
 			</result>
 		</action>
 	</package>
-	
-	
-	
-	
-	
+
+
+
+
+
 	<!-- 教室管理 -->
 	<package name="classroom" namespace="/admin/classroom" extends="AdminDefault">
 		<action name="">
 			<result type="redirect">teachBuildingAction</result>
 		</action>
-		
+
 		<action name="teachBuildingAction" class="admin.TeachBuildingAction">
 			<result>
-				/jsp/admin/teachbuilding.jsp				
+				/jsp/admin/teachbuilding.jsp
 			</result>
 		</action>
-		
-		<action name="build_delete" class="admin.TeachBuildingAction" method="BuildingDelete">
+
+		<action name="build_delete" class="admin.TeachBuildingAction"
+			method="BuildingDelete">
 			<result name="success" type="json">
 				<param name="includeProperties">*
 				</param>
 			</result>
 		</action>
-		
 
-		
+
+
 
 		<action name="classroom_detail" class="admin.ClassroomDetailAction">
 			<result>
 				<param name="location">/jsp/admin/classroom_detail.jsp</param>
-				<param name="classroomId">${classroomId}</param>				
+				<param name="classroomId">${classroomId}</param>
 
 			</result>
 		</action>
-		
-		
+
+
 		<!-- 上传照片 -->
-        <action name="picture_upload" class="admin.ClassroomDetailAction" method="PictureUpload">
-            <result name="success" type="json">
-            <param name="includeProperties"></param>
-			</result>        
-        </action>
-        
-        <!-- 删除照片 -->
-        <action name="picture_delete" class="admin.ClassroomDetailAction" method="PictureDelete">
-            <result name="success" type="json">
-            <param name="includeProperties"></param>
-			</result>        
-        </action>
-        
-        <!-- 上传课表 -->
-        <action name="schedule_upload" class="admin.ClassroomDetailAction" method="ScheduleUpload">
-            <result name="success" type="json">
-            <param name="includeProperties"></param>
-			</result>        
-        </action>
-		
-		
-	</package>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<package name="HomepageModify" namespace="/admin/HomepageModify" extends="AdminDefault">
-	
-		<action name="" >
-			<result name="success" type="redirect"> /admin/HomepageModify/notice</result>
+		<action name="picture_upload" class="admin.ClassroomDetailAction"
+			method="PictureUpload">
+			<result name="success" type="json">
+				<param name="includeProperties"></param>
+			</result>
 		</action>
-		
-		<action name="resourceFileManage"  class="admin.ResourceFileUploadAction">
+
+		<!-- 删除照片 -->
+		<action name="picture_delete" class="admin.ClassroomDetailAction"
+			method="PictureDelete">
+			<result name="success" type="json">
+				<param name="includeProperties"></param>
+			</result>
+		</action>
+
+		<!-- 上传课表 -->
+		<action name="schedule_upload" class="admin.ClassroomDetailAction"
+			method="ScheduleUpload">
+			<result name="success" type="json">
+				<param name="includeProperties"></param>
+			</result>
+		</action>
+
+
+	</package>
+
+	<package name="HomepageModify" namespace="/admin/HomepageModify"
+		extends="AdminDefault">
+
+		<action name="">
+			<result name="success" type="redirect"> /admin/HomepageModify/notice
+			</result>
+		</action>
+
+		<action name="resourceFileManage" class="admin.ResourceFileUploadAction">
 			<result>
 				/jsp/admin/HomepageModify/resourceFileManage.jsp
-			</result>			
+			</result>
 		</action>
-		<action name="FileUploadInsert"  class="admin.ResourceFileUploadAction" method ="insert">
-			<result type="json">				
-			</result>			
+		<action name="FileUploadInsert" class="admin.ResourceFileUploadAction"
+			method="insert">
+			<result type="json">
+			</result>
 		</action>
-		
-		<action name="FileUploadDelete" class="admin.ResourceFileUploadAction" method="delete">
+
+		<action name="FileUploadDelete" class="admin.ResourceFileUploadAction"
+			method="delete">
 			<result type="json">
 				<param name="includeProperties">filePath</param>
 			</result>
 		</action>
-		
-<!--常见问题的action设置  -->		
-        <action name="CommonProblem" class = "admin.CommonProblemAction">
+
+		<!--常见问题的action设置 -->
+		<action name="CommonProblem" class="admin.CommonProblemAction">
 			<result name="success">
 				/jsp/admin/HomepageModify/CommonProblem.jsp
 			</result>
 		</action>
-		<action name="CommonProblem_*"  class="admin.CommonProblemAction" method ="{1}">
-			<result type="json">				
-			</result>			
+		<action name="CommonProblem_*" class="admin.CommonProblemAction"
+			method="{1}">
+			<result type="json">
+			</result>
 		</action>
-	
-<!--公告的action设置  -->
-		
+
+		<!--公告的action设置 -->
+
 		<action name="notice" class="admin.NoticeAction" method="resourceFile">
 			<result name="success">
-			/jsp/admin/HomepageModify/noticePage.jsp
+				/jsp/admin/HomepageModify/noticePage.jsp
 			</result>
-		</action> 
-        <action name="notice_*" class="admin.NoticeAction" method="{1}">
-       		 <result name="success" type="json"> </result> 
-        </action>
-        
-        
-<!--         一些全局设置，目前包括：本学期的第一周设置 -->
-        <action name="globalSetting" class="admin.GlobalSettingAction">
-       		 <result name="success">
-					/jsp/admin/HomepageModify/globalSetting.jsp
+		</action>
+		<action name="notice_*" class="admin.NoticeAction" method="{1}">
+			<result name="success" type="json">
 			</result>
-        </action>
-        
-        <action name="globalSetting_*" class="admin.GlobalSettingAction" method="{1}">
-       		 <result name="success" type="json">				
-          	 </result> 
-        </action>
-        
-<!--         一些全局设置END -->
-        
-        
-        
-    </package>
-    
-    
-    
-    
+		</action>
+
+
+		<!-- 一些全局设置，目前包括：本学期的第一周设置 -->
+		<action name="globalSetting" class="admin.GlobalSettingAction">
+			<result name="success">
+				/jsp/admin/HomepageModify/globalSetting.jsp
+			</result>
+		</action>
+
+		<action name="globalSetting_*" class="admin.GlobalSettingAction"
+			method="{1}">
+			<result name="success" type="json">
+			</result>
+		</action>
+
+		<!-- 一些全局设置END -->
+
+
+
+	</package>
+
+
+
+
 </struts>
 
 

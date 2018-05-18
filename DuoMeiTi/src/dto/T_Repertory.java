@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import model.Repertory;
 
 public class T_Repertory extends Repertory {
-
+	
 	public String rtProdDateString;
 	public String rtApprDateString;
 

@@ -2,7 +2,7 @@
 <config>
     <loginServer>https://sso.dlut.edu.cn/cas</loginServer>
     <validateServer>https://sso.dlut.edu.cn/cas</validateServer>
-    <serverName>127.0.0.1:8085</serverName >
+    <serverName>http://202.118.73.42</serverName >
     <notForceAuthUrls>
         <url-pattern>\.js$</url-pattern>
         <url-pattern>\.xsl$</url-pattern>
