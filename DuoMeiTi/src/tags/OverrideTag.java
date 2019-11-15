@@ -4,11 +4,11 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-public class OverrideTag extends BodyTagSupport{
+public class OverrideTag extends BodyTagSupport {
 	private static final long serialVersionUID = -8379959647039117369L;
-	
+
 	private String name;
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -20,11 +20,11 @@ public class OverrideTag extends BodyTagSupport{
 
 	@Override
 	public int doEndTag() throws JspException {
-		if(isOverrided()) {
+		if (isOverrided()) {
 			return EVAL_PAGE;
 		}
 		BodyContent b = getBodyContent();
-//		System.out.println("Override.content:"+b.getString());
+		// System.out.println("Override.content:"+b.getString());
 		String varName = Utils.getOverrideVariableName(name);
 
 		pageContext.getRequest().setAttribute(varName, b.getString());
@@ -35,5 +35,5 @@ public class OverrideTag extends BodyTagSupport{
 		String varName = Utils.getOverrideVariableName(name);
 		return pageContext.getRequest().getAttribute(varName) != null;
 	}
-	
+
 }

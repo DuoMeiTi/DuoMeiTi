@@ -8,43 +8,37 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class RepairRecord {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
-	
-//	@ManyToOne
-//	@JoinColumn
-//	public Repertory device;
-	
+
+	// @ManyToOne
+	// @JoinColumn
+	// public Repertory device;
+
 	// 此维修记录相关的设备信息：
 	// 设备类型
-	@Column 
+	@Column
 	public String deviceType;
-	// 设备资产编号	
+	// 设备资产编号
 	@Column
 	public String deviceNumber;
-	
+
 	// 设备型号
 	@Column
 	public String deviceVersion;
-	
-	//	出厂编号
-	@Column 
+
+	// 出厂编号
+	@Column
 	public String deviceFactorynum;
-	
-	//	出厂日期
+
+	// 出厂日期
 	@Column
 	public java.sql.Timestamp deviceProdDate;
-	
-	//	审批日期
+
+	// 审批日期
 	@Column
 	public java.sql.Timestamp deviceApprDate;
 
-	
-	
-	
-	
-	
-	
 	// 填写人学生信息，可以包括多个填写人 使用逗号,分割
 	// 学生的真实姓名列表
 	@Column
@@ -55,58 +49,30 @@ public class RepairRecord {
 	// 学生的学号列表
 	@Column
 	public String repairmanStudentId;
-	
-	
-	
-	
-	
-	
+
 	@Column
 	public String repairdetail;
-	
-	
-	
+
 	@Column
 	public java.sql.Timestamp repairdate;
-	
-	
-//	@ManyToOne
-//	@JoinColumn
-//	public model.Classroom classroom = null;
-	
+
+	// @ManyToOne
+	// @JoinColumn
+	// public model.Classroom classroom = null;
+
 	@Column
 	public String classroomName;
-	
-	@Column
-	public String teachingBuildingName; 
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	public model.Classroom getClassroom() {
-//		return classroom;
-//	}
-//
-//	public void setClassroom(model.Classroom classroom) {
-//		this.classroom = classroom;
-//	}
+	@Column
+	public String teachingBuildingName;
+
+	// public model.Classroom getClassroom() {
+	// return classroom;
+	// }
+	//
+	// public void setClassroom(model.Classroom classroom) {
+	// this.classroom = classroom;
+	// }
 
 	public java.sql.Timestamp getRepairdate() {
 		return repairdate;
@@ -124,21 +90,21 @@ public class RepairRecord {
 		this.id = id;
 	}
 
-//	public Repertory getDevice() {
-//		return device;
-//	}
-//
-//	public void setDevice(Repertory device) {
-//		this.device = device;
-//	}
+	// public Repertory getDevice() {
+	// return device;
+	// }
+	//
+	// public void setDevice(Repertory device) {
+	// this.device = device;
+	// }
 
-//	public User getRepairman() {
-//		return repairman;
-//	}
-//
-//	public void setRepairman(User repairman) {
-//		this.repairman = repairman;
-//	}
+	// public User getRepairman() {
+	// return repairman;
+	// }
+	//
+	// public void setRepairman(User repairman) {
+	// this.repairman = repairman;
+	// }
 
 	public String getRepairdetail() {
 		return repairdetail;
@@ -235,15 +201,12 @@ public class RepairRecord {
 	public void setRepairmanStudentId(String repairmanStudentId) {
 		this.repairmanStudentId = repairmanStudentId;
 	}
-	
-	
 
-	
+	// @Override
+	// public String toString() {
+	// return "RepairRecord [id=" + id + ", device=" + device + ", repairman=" +
+	// repairman + ", repairdetail="
+	// + repairdetail + ", repairdate=" + repairdate + "]";
+	// }
 
-//	@Override
-//	public String toString() {
-//		return "RepairRecord [id=" + id + ", device=" + device + ", repairman=" + repairman + ", repairdetail="
-//				+ repairdetail + ", repairdate=" + repairdate + "]";
-//	}
-	
 }

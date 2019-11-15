@@ -17,13 +17,12 @@ public class RoomPicture {
 
 	@Column
 	public String remark;
-    
-    @Column
-    public String path;
-	
-    @Column
-    public int class_id;
-	
+
+	@Column
+	public String path;
+
+	@Column
+	public int class_id;
 
 	public int getId() {
 		return id;
@@ -57,7 +56,6 @@ public class RoomPicture {
 		this.path = path;
 	}
 
-	
 	public int getClass_id() {
 		return class_id;
 	}
@@ -66,12 +64,8 @@ public class RoomPicture {
 		this.class_id = class_id;
 	}
 
-	public String toString()
-	{
-		return this.remark + ", " + this.path ;
+	public String toString() {
+		return this.remark + ", " + this.path;
 	}
-	
-	
-	
-	
+
 }

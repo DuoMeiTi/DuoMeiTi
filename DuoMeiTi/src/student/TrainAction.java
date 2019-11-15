@@ -9,18 +9,17 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import model.Training;
 
-public class TrainAction extends ActionSupport{
-	
+public class TrainAction extends ActionSupport {
+
 	private String trContent;
-	
-	public String execute() throws Exception
-	{
+
+	public String execute() throws Exception {
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria c = session.createCriteria(Training.class);
-		String temp ="";
+		String temp = "";
 		List L = c.list();
-		if(L.size() != 0)
-			temp = ((Training)L.get(0)).getTrContent();
+		if (L.size() != 0)
+			temp = ((Training) L.get(0)).getTrContent();
 		temp = temp.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 		temp = temp.replace(" ", "&nbsp;");
 		trContent = temp.replace("\n", "<br/>");
@@ -29,9 +28,6 @@ public class TrainAction extends ActionSupport{
 		return SUCCESS;
 	}
 
-	
-	
-	
 	public String getTrContent() {
 		return trContent;
 	}

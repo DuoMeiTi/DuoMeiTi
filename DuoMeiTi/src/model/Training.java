@@ -9,10 +9,10 @@ import javax.persistence.Id;
 @Entity
 public class Training {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int trId;
-	
-	@Column(length=1000)
+
+	@Column(length = 1000)
 	public String trContent;
 
 	public int getTrId() {
@@ -30,6 +30,5 @@ public class Training {
 	public void setTrContent(String trContent) {
 		this.trContent = trContent;
 	}
-	
-	
+
 }

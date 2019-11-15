@@ -14,14 +14,14 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class ExamStuScore {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
-	
+
 	@ManyToOne
 	@JoinColumn
 	@Fetch(FetchMode.SELECT)
 	public StudentProfile stuPro;
-	
+
 	@Column
 	public int score;
 
@@ -48,6 +48,5 @@ public class ExamStuScore {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	
-	
+
 }

@@ -9,12 +9,11 @@ import javax.persistence.Id;
 @Entity
 public class ExamTitle {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int emId;
-	
+
 	@Column(length = 500)
 	public String emTitle;
-	
 
 	public int getEmId() {
 		return emId;
@@ -31,6 +30,5 @@ public class ExamTitle {
 	public void setEmTitle(String emTitle) {
 		this.emTitle = emTitle;
 	}
-	
-	
+
 }

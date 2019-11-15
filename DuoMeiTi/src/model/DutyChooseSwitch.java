@@ -1,18 +1,14 @@
 package model;
 
-
-
-
 import javax.persistence.*;
 
 @Entity
 public class DutyChooseSwitch {
 
-
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
-	
+
 	@Column
 	public boolean isOpen;
 
@@ -31,7 +27,5 @@ public class DutyChooseSwitch {
 	public void setIsOpen(boolean isOpen) {
 		this.isOpen = isOpen;
 	}
-	
 
 }
-

@@ -50,5 +50,4 @@ public class Commonproblem {
 		this.time = time;
 	}
 
-
 }

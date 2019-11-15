@@ -69,74 +69,70 @@ public class StudentManageAction extends ActionSupport {
 	private String textShow;// 规章制度的内容，显示给jsp页面的内容
 	private Date time;// 规章制度的修改时间
 
-	
-//	public static Criteria getRegisterPassedStudentProfileCriteria(Session s)
-//	{
-//		return s.createCriteria(StudentProfile.class).add(Restrictions.eq("isPassed", model.StudentProfile.Passed));
-//	}
-//	
-//	// 根据key和value查询满足条件的学生列表，排除了注册未通过的学生
-//	public static List<StudentProfile> getRegisterPassedStudentProfileList(Session s, String queryKey, Object queryValue)
-//	{
-//		Criteria c = getRegisterPassedStudentProfileCriteria( s);
-//		return util.Util.addOneEqualRestriction(c, queryKey, queryValue).list();
-//	}
-	
-	
+	// public static Criteria getRegisterPassedStudentProfileCriteria(Session s)
+	// {
+	// return
+	// s.createCriteria(StudentProfile.class).add(Restrictions.eq("isPassed",
+	// model.StudentProfile.Passed));
+	// }
+	//
+	// // 根据key和value查询满足条件的学生列表，排除了注册未通过的学生
+	// public static List<StudentProfile>
+	// getRegisterPassedStudentProfileList(Session s, String queryKey, Object
+	// queryValue)
+	// {
+	// Criteria c = getRegisterPassedStudentProfileCriteria( s);
+	// return util.Util.addOneEqualRestriction(c, queryKey, queryValue).list();
+	// }
+
 	String query_key; // in
 	String query_value; // in
 	List<StudentProfile> query_studentProfileList; // out
-	/**for ajax 传输，只获取注册通过的学生*/
+
+	/** for ajax 传输，只获取注册通过的学生 */
 	public String query() throws Exception {
 		Session s = model.Util.sessionFactory.openSession();
 		query_studentProfileList = util.Util.getRegisterPassedStudentProfileList(s, query_key, query_value);
 		s.close();
 		return SUCCESS;
 	}
-	
+
 	String queryUniqueStudent_key; // in
 	String queryUniqueStudent_value; // in
-	StudentProfile queryUniqueStudent_student; //out
-	String queryUniqueStudent_status; //out
-	/** 如果有超过一个或者没有，则queryUniqueStudent_status为有相应提示信息，否则为空*/
-	public String queryUniqueStudent() throws Exception 
-	{
+	StudentProfile queryUniqueStudent_student; // out
+	String queryUniqueStudent_status; // out
+
+	/** 如果有超过一个或者没有，则queryUniqueStudent_status为有相应提示信息，否则为空 */
+	public String queryUniqueStudent() throws Exception {
 		Session s = model.Util.sessionFactory.openSession();
-		List<StudentProfile> tmp = util.Util.getRegisterPassedStudentProfileList(s, queryUniqueStudent_key, queryUniqueStudent_value);
-				
+		List<StudentProfile> tmp = util.Util.getRegisterPassedStudentProfileList(s, queryUniqueStudent_key,
+				queryUniqueStudent_value);
+
 		queryUniqueStudent_student = null;
-		if(tmp.size() == 1)
-		{
+		if (tmp.size() == 1) {
 			queryUniqueStudent_student = tmp.get(0);
 			queryUniqueStudent_status = "";
-		}
-		else if(tmp.isEmpty())
-		{
+		} else if (tmp.isEmpty()) {
 			queryUniqueStudent_status = "无此学生";
-		}
-		else 
-		{
+		} else {
 			queryUniqueStudent_status = "超过一个学生";
-		}		
-				
+		}
+
 		s.close();
 		return SUCCESS;
 	}
-	
-	
-	
-	
+
 	// 排除注册未通过学生,通过学号查询
 	public static List<StudentProfile> searchStudentByStudentNumber(Session s, String studentId) {
-		return  util.Util.getRegisterPassedStudentProfileCriteria( s)
+		return util.Util.getRegisterPassedStudentProfileCriteria(s)
 
-		.add(Restrictions.eq("studentId", studentId)).list();
+				.add(Restrictions.eq("studentId", studentId)).list();
 	}
 
 	// 排除注册未通过学生
 	public static List<StudentProfile> searchStudentByFullname(Session s, String fullName) {
-		return util.Util.getRegisterPassedStudentProfileCriteria( s)
-				.createAlias("user", "user").add(Restrictions.eq("user.fullName", fullName)).list();
+		return util.Util.getRegisterPassedStudentProfileCriteria(s).createAlias("user", "user")
+				.add(Restrictions.eq("user.fullName", fullName)).list();
 	}
 
 	public String watchScore() throws Exception {
@@ -149,7 +145,6 @@ public class StudentManageAction extends ActionSupport {
 
 		return SUCCESS;
 	}
-
 
 	// 仅仅为了界面搜索使用
 	public String search() throws Exception {
@@ -178,10 +173,12 @@ public class StudentManageAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-//	public static StudentProfile getStudentById(Session s, int id) {
-//		return (StudentProfile) s.createCriteria(model.StudentProfile.class).add(Restrictions.eq("id", id))
-//				.uniqueResult();
-//	}
+	// public static StudentProfile getStudentById(Session s, int id) {
+	// return (StudentProfile)
+	// s.createCriteria(model.StudentProfile.class).add(Restrictions.eq("id",
+	// id))
+	// .uniqueResult();
+	// }
 
 	public String save() throws Exception {
 		Session session = model.Util.sessionFactory.openSession();
@@ -189,7 +186,6 @@ public class StudentManageAction extends ActionSupport {
 
 			System.out.println("saveStudentInformation():");
 
-			
 			StudentProfile edit_student = util.Util.getStudentByDatabaseId(session, studentDatabaseId);
 
 			System.out.println(edit_student == null);
@@ -214,7 +210,7 @@ public class StudentManageAction extends ActionSupport {
 			edit_user.setFullName(fullName);
 			edit_user.setPhoneNumber(phoneNumber);
 			edit_user.setSex(sex);
-			
+
 			edit_student.setStudentId(studentId);
 			edit_student.setCollege(college);
 			edit_student.setIsUpgradePrivilege(isUpgradePrivilege);
@@ -223,16 +219,14 @@ public class StudentManageAction extends ActionSupport {
 
 			session.update(edit_user);
 			session.update(edit_student);
-			
-			session.getTransaction().commit();
 
-			
+			session.getTransaction().commit();
 
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			e.printStackTrace();
 		}
-		
+
 		session.close();
 		isRepeat = "修改成功";
 		return SUCCESS;
@@ -378,8 +372,8 @@ public class StudentManageAction extends ActionSupport {
 
 			Session session = model.Util.sessionFactory.openSession();
 
-			Criteria q = util.Util.getRegisterPassedStudentProfileCriteria( session).addOrder(Order.desc("id"))
-			.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)));
+			Criteria q = util.Util.getRegisterPassedStudentProfileCriteria(session).addOrder(Order.desc("id")).add(
+					Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)));
 
 			student_list = q.list();
 			studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
@@ -401,8 +395,8 @@ public class StudentManageAction extends ActionSupport {
 
 			Session session = model.Util.sessionFactory.openSession();
 
-			Criteria q = util.Util.getRegisterPassedStudentProfileCriteria( session).addOrder(Order.desc("id"))
-			.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent));
+			Criteria q = util.Util.getRegisterPassedStudentProfileCriteria(session).addOrder(Order.desc("id"))
+					.add(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent));
 
 			student_list = q.list();
 			studenttable_jsp = util.Util.getJspOutput("/jsp/admin/student_manage/studenttable.jsp");
@@ -424,11 +418,11 @@ public class StudentManageAction extends ActionSupport {
 
 		Session session = model.Util.sessionFactory.openSession();
 
-		Criteria q =  util.Util.getRegisterPassedStudentProfileCriteria( session).addOrder(Order.desc("id"))
+		Criteria q = util.Util.getRegisterPassedStudentProfileCriteria(session).addOrder(Order.desc("id"))
 				// .add(Restrictions.eq("isUpgradePrivilege",
 				// model.StudentProfile.DepartureStudent))
 
-		.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)))
+				.add(Restrictions.not(Restrictions.eq("isUpgradePrivilege", model.StudentProfile.DepartureStudent)))
 
 		;
 
@@ -750,6 +744,5 @@ public class StudentManageAction extends ActionSupport {
 	public void setQueryUniqueStudent_status(String queryUniqueStudent_status) {
 		this.queryUniqueStudent_status = queryUniqueStudent_status;
 	}
-	
-	
+
 }

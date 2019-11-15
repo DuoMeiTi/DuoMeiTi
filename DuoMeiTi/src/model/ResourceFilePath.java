@@ -6,18 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
-public class ResourceFilePath 
-{
-	@Id 
-	@GeneratedValue(strategy=GenerationType.AUTO) 
+public class ResourceFilePath {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
-	
+
 	@Column(length = 500)
 	public String filePath;
 
-	
 	public int getId() {
 		return id;
 	}

@@ -10,63 +10,44 @@ import model.TeachBuilding;
 
 @Entity
 public class DutyPiece {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
-	
-//	//教学楼
-//	@ManyToOne
-//    @JoinColumn
-//    public TeachBuilding teachBuilding;
-	
-	
-	//值班地点
+
+	// //教学楼
+	// @ManyToOne
+	// @JoinColumn
+	// public TeachBuilding teachBuilding;
+
+	// 值班地点
 	@ManyToOne
-    @JoinColumn
-    public model.DutyPlace dutyPlace;
+	@JoinColumn
+	public model.DutyPlace dutyPlace;
 
-	
-	
-	
-
-	//表示time字段可能取值的个数为35个，范围是0-34
+	// 表示time字段可能取值的个数为35个，范围是0-34
 	public final static int TimeNumber = 35;
-	
-	//时间段, 0-6 表示周一到周七，  0-4 表示5个时间段， time%7得到周数，time/7 表示 时间段,
-	//总共有35个值，范围是0-34;
+
+	// 时间段, 0-6 表示周一到周七， 0-4 表示5个时间段， time%7得到周数，time/7 表示 时间段,
+	// 总共有35个值，范围是0-34;
 	@Column
 	public int time;
-	
-	//值班人数
+
+	// 值班人数
 	@Column
 	public int numberOfDuty;
-	
-	//剩余
+
+	// 剩余
 	@Column
 	public int dutyLeft;
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	public TeachBuilding getTeachBuilding() {
-//		return teachBuilding;
-//	}
-//
-//	public void setTeachBuilding(TeachBuilding teachBuilding) {
-//		this.teachBuilding = teachBuilding;
-//	}
+	// public TeachBuilding getTeachBuilding() {
+	// return teachBuilding;
+	// }
+	//
+	// public void setTeachBuilding(TeachBuilding teachBuilding) {
+	// this.teachBuilding = teachBuilding;
+	// }
 
 	public model.DutyPlace getDutyPlace() {
 		return dutyPlace;
@@ -83,8 +64,6 @@ public class DutyPiece {
 	public void setDutyLeft(int dutyLeft) {
 		this.dutyLeft = dutyLeft;
 	}
-
-	
 
 	public int getTime() {
 		return time;
@@ -109,5 +88,5 @@ public class DutyPiece {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 }

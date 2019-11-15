@@ -8,76 +8,60 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class Repertory {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int rtId;
-	
-//	设备名称(设备类型)
-	@Column 
+
+	// 设备名称(设备类型)
+	@Column
 	public String rtType;
-	
-//	资产编号
-	@Column 
-	public String rtNumber;	
-	
-//	型号
-	@Column 
+
+	// 资产编号
+	@Column
+	public String rtNumber;
+
+	// 型号
+	@Column
 	public String rtVersion;
 
-//	出厂编号
-	@Column 
-	public String rtFactorynum;
-	
-//	出厂日期
+	// 出厂编号
 	@Column
-	public java.sql.Timestamp rtProdDate;	
-	
-//	审批日期
+	public String rtFactorynum;
+
+	// 出厂日期
+	@Column
+	public java.sql.Timestamp rtProdDate;
+
+	// 审批日期
 	@Column
 	public java.sql.Timestamp rtApprDate;
 
-	
-	
-	
-////	应该尽量弃用此字段
-//	@Column
-//	public String rtDevice;
-	
-	
-	
-	
-	
-//	设备状态
+	//// 应该尽量弃用此字段
+	// @Column
+	// public String rtDevice;
+
+	// 设备状态
 	@Column
 	public String rtDeviceStatus;
-	
 
-//	仅仅当rtDeviceStatus == 教室时此值才有意义，否则为null	
+	// 仅仅当rtDeviceStatus == 教室时此值才有意义，否则为null
 	@ManyToOne
 	@JoinColumn
 	public Classroom rtClassroom;
 
-
-	
-//	过滤网更换时间长度, 只有投影仪设备拥有此属性
+	// 过滤网更换时间长度, 只有投影仪设备拥有此属性
 	@Column
 	public int rtFilterCleanPeriod;
-//	频点 ， 只有  麦克 设备拥有此属性
+	// 频点 ， 只有 麦克 设备拥有此属性
 	@Column
 	public String rtFreqPoint;
-	
-	
-	
-//	被替换的时间长度, 只有灯泡需要此属性
+
+	// 被替换的时间长度, 只有灯泡需要此属性
 	@Column
 	public int rtReplacePeriod;
-//	被替换的时间点
+	// 被替换的时间点
 	@Column
 	public java.sql.Timestamp rtDeadlineDate;
-	
-	
-	
-	
-	
+
 	public int getRtId() {
 		return rtId;
 	}
@@ -134,13 +118,13 @@ public class Repertory {
 		this.rtFactorynum = rtFactorynum;
 	}
 
-//	public String getRtDevice() {
-//		return rtDevice;
-//	}
-//
-//	public void setRtDevice(String rtDevice) {
-//		this.rtDevice = rtDevice;
-//	}
+	// public String getRtDevice() {
+	// return rtDevice;
+	// }
+	//
+	// public void setRtDevice(String rtDevice) {
+	// this.rtDevice = rtDevice;
+	// }
 
 	public java.sql.Timestamp getRtProdDate() {
 		return rtProdDate;
@@ -193,6 +177,5 @@ public class Repertory {
 	public String toString() {
 		return this.rtType + "," + this.rtNumber + "|";
 	}
-	
-	
+
 }

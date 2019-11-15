@@ -82,7 +82,15 @@
 				            			
 			               </s:if>
 			               <s:else>
-			            		<a href="/login">登录</a>
+				                 <li class="dropdown">
+						             <a href="/login" class="dropdown-toggle" data-toggle="dropdown">用户登录
+						               <b class="caret"></b>
+						             </a>						         
+						             <ul class="dropdown-menu home_menu" role="menu">
+						               <li><a href="/login">学生登录</a></li>
+						               <li><a href="/admin_login">管理员登录</a></li>			               
+						             </ul>
+				           		</li>
 			               </s:else>
 			           
 					   </li>

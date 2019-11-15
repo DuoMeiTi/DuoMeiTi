@@ -10,25 +10,21 @@ public class DutySchedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
-	
-	//学生
+
+	// 学生
 	@ManyToOne
 	@JoinColumn
 	public StudentProfile student;
-	
-	//学生选的值班时间地点
+
+	// 学生选的值班时间地点
 	@ManyToOne
 	@JoinColumn
 	public DutyPiece dutyPiece;
-	
-	
-//	//学生选的值班时间地点
-//	@ManyToOne
-//	@JoinColumn
-//	public model.DutyPlace dutyPlace;
-	
-	
-	
+
+	// //学生选的值班时间地点
+	// @ManyToOne
+	// @JoinColumn
+	// public model.DutyPlace dutyPlace;
 
 	public int getId() {
 		return id;
@@ -53,8 +49,5 @@ public class DutySchedule {
 	public void setDutyPiece(DutyPiece dutyPiece) {
 		this.dutyPiece = dutyPiece;
 	}
-
-	
-	
 
 }

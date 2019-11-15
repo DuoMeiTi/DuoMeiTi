@@ -20,10 +20,10 @@ import model.Util;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class AdminAccountAction extends ActionSupport{
+public class AdminAccountAction extends ActionSupport {
 
 	/**
-	 *该Action用于处理管理员用户的添加和删除
+	 * 该Action用于处理管理员用户的添加和删除
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<AdminProfile> allAdminProfilelist;
@@ -32,7 +32,7 @@ public class AdminAccountAction extends ActionSupport{
 	private String username;
 	private String password;
 	private String fullName;
-	private String sex; 
+	private String sex;
 	private String profilePhotoPath;
 	private String phoneNumber;
 	private String remark;
@@ -40,8 +40,8 @@ public class AdminAccountAction extends ActionSupport{
 	private String password2;
 	private User user;
 	private AdminProfile edit_admin;
-	private String result="success";
-	
+	private String result = "success";
+
 	public String getRmID() {
 		return rmID;
 	}
@@ -77,6 +77,7 @@ public class AdminAccountAction extends ActionSupport{
 	public void setPassword2(String password2) {
 		this.password2 = password2;
 	}
+
 	public String getUnitInfo() {
 		return unitInfo;
 	}
@@ -93,123 +94,111 @@ public class AdminAccountAction extends ActionSupport{
 		this.user = user;
 	}
 
-	public String initallAdminProfilelist()
-	{
+	public String initallAdminProfilelist() {
 		Session session = Util.sessionFactory.openSession();
 		Criteria criteria = session.createCriteria(AdminProfile.class);
 		allAdminProfilelist = criteria.list();
-		System.out.println("initalallAdminProfilelist "+allAdminProfilelist.size());
-		if(allAdminProfilelist==null||allAdminProfilelist.isEmpty())
-		{
+		System.out.println("initalallAdminProfilelist " + allAdminProfilelist.size());
+		if (allAdminProfilelist == null || allAdminProfilelist.isEmpty()) {
 			System.out.println("allAdminProfilelist is Empty");
-		}
-		else
-		{
-			for(AdminProfile admin:allAdminProfilelist)
-			{
-				System.out.println("fullName: "+admin.user.fullName);
+		} else {
+			for (AdminProfile admin : allAdminProfilelist) {
+				System.out.println("fullName: " + admin.user.fullName);
 			}
 		}
 		session.close();
 		return SUCCESS;
 	}
-	
-	public String deleteAdminProfile(){
-		int deleteid=(int) ServletActionContext.getContext().getSession().get("user_id");
+
+	public String deleteAdminProfile() {
+		int deleteid = (int) ServletActionContext.getContext().getSession().get("user_id");
 		javax.servlet.http.HttpServletResponse response = ServletActionContext.getResponse();
-		
-		System.out.println("deleteAdminProfile "+"rmID "+rmID);
-		id=Integer.valueOf(rmID).intValue();
-		if(deleteid==this.id)
-		{
-			result="error";
+
+		System.out.println("deleteAdminProfile " + "rmID " + rmID);
+		id = Integer.valueOf(rmID).intValue();
+		if (deleteid == this.id) {
+			result = "error";
 			return ERROR;
 		}
-		Session session =Util.sessionFactory.openSession();
+		Session session = Util.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		try{
-			
-			Criteria criteriaadmin = session.createCriteria(AdminProfile.class).add(Restrictions.eq("id",id ));
+		try {
+
+			Criteria criteriaadmin = session.createCriteria(AdminProfile.class).add(Restrictions.eq("id", id));
 			List<AdminProfile> listadmin = criteriaadmin.list();
-			for(AdminProfile ap:listadmin)
-			{
+			for (AdminProfile ap : listadmin) {
 				session.delete(ap);
-				Criteria criteriauser = session.createCriteria(User.class).add(Restrictions.eq("id",ap.user.id ));
+				Criteria criteriauser = session.createCriteria(User.class).add(Restrictions.eq("id", ap.user.id));
 				List<User> listuser = criteriauser.list();
-				for(User user:listuser)
-				{
+				for (User user : listuser) {
 					session.delete(user);
 				}
 			}
 			tx.commit();
-			result="success";
-		}catch(HibernateException e)
-		{
+			result = "success";
+		} catch (HibernateException e) {
 			tx.rollback();
 			return ERROR;
-		}finally{
+		} finally {
 			session.close();
 		}
 		return SUCCESS;
 	}
-	public String getAdminAccountinfo()
-	{
-		for(AdminProfile admin : allAdminProfilelist){
-			if(admin.getId()==Integer.parseInt(rmID)){
+
+	public String getAdminAccountinfo() {
+		for (AdminProfile admin : allAdminProfilelist) {
+			if (admin.getId() == Integer.parseInt(rmID)) {
 				edit_admin = admin;
 				break;
 			}
 		}
-		//查找对应的user
-		if(allAdminProfilelist==null||allAdminProfilelist.isEmpty())
-		{
+		// 查找对应的user
+		if (allAdminProfilelist == null || allAdminProfilelist.isEmpty()) {
 			initallAdminProfilelist();
 		}
 		return SUCCESS;
 	}
-	
-	public String addNewAdminProfile()
-	{
+
+	public String addNewAdminProfile() {
 		System.out.println("hehe");
-		Session session =Util.sessionFactory.openSession();
+		Session session = Util.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		System.out.println("fullname: "+fullName+"  "+"password: "+password+" username "+username);
-		try{
+		System.out.println("fullname: " + fullName + "  " + "password: " + password + " username " + username);
+		try {
 			Criteria criteria = session.createCriteria(AdminProfile.class);
-			Criteria criteriauser = session.createCriteria(User.class).add(Restrictions.eq("username",username));
-			if(criteriauser.list().size()>0){
-				result="用户已存在";
+			Criteria criteriauser = session.createCriteria(User.class).add(Restrictions.eq("username", username));
+			if (criteriauser.list().size() > 0) {
+				result = "用户已存在";
 				return ERROR;
 			}
 			AdminProfile adminaccount = new AdminProfile();
-			adminaccount.id=id;
-			adminaccount.unitInfo=unitInfo;
+			adminaccount.id = id;
+			adminaccount.unitInfo = unitInfo;
 			User user = new User();
-			user.fullName=fullName;
-			user.id=id;
-			user.password=password;
-			user.phoneNumber=phoneNumber;
-			user.profilePhotoPath=profilePhotoPath;
-			user.remark=remark;
-			user.sex=sex;
-			user.username=username;
-			adminaccount.user=user;
+			user.fullName = fullName;
+			user.id = id;
+			user.password = password;
+			user.phoneNumber = phoneNumber;
+			user.profilePhotoPath = profilePhotoPath;
+			user.remark = remark;
+			user.sex = sex;
+			user.username = username;
+			adminaccount.user = user;
 			session.save(user);
 			session.save(adminaccount);
 			tx.commit();
-			result="success";
+			result = "success";
 			System.out.println("end");
-		}catch(HibernateException e)
-		{
+		} catch (HibernateException e) {
 			System.out.println("AdminAccount 64 addNewAdminProfile Exception");
 			tx.rollback();
-			result="error";
-		}finally{
+			result = "error";
+		} finally {
 			session.close();
 		}
 		return ActionSupport.SUCCESS;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -282,11 +271,9 @@ public class AdminAccountAction extends ActionSupport{
 		return allAdminProfilelist;
 	}
 
-	
-	
-	
-//	public void setallAdminProfilelist(List<AdminProfile> allAdminProfilelist) {
-//		this.allAdminProfilelist = allAdminProfilelist;
-//	}
+	// public void setallAdminProfilelist(List<AdminProfile>
+	// allAdminProfilelist) {
+	// this.allAdminProfilelist = allAdminProfilelist;
+	// }
 
 }

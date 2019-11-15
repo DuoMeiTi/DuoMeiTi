@@ -23,25 +23,22 @@ import util.Const;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class TeachBuildingAction extends ActionSupport {
-	
+
 	private List<TeachBuilding> builds;
-	
+
 	private String device[];
 	private String mainDevice[];
 	private String costDevice[];
 	public List<Classroom> classroom_list;
 	public List<TeachBuilding> building_list;
-	
+
 	public String add_status;
-	
+
 	public String build_name;
 	private String strValue;
 	public int status;
 	public int buildId;
-	
-	
-	
-	
+
 	public List<TeachBuilding> getBuilding_list() {
 		return building_list;
 	}
@@ -84,80 +81,71 @@ public class TeachBuildingAction extends ActionSupport {
 
 	public String execute() {
 		Session session = model.Util.sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(TeachBuilding.class)
-				.setFetchMode("classrooms", FetchMode.SELECT)
-				;
+		Criteria criteria = session.createCriteria(TeachBuilding.class).setFetchMode("classrooms", FetchMode.SELECT);
 		builds = criteria.list();
-		for(TeachBuilding b : builds) System.out.println(b.getBuild_name());
-		
-		
-		//******************修改库存设备类型为外键
-/*		repo_types=new ArrayList<String>();
-		String hql="select r.rtType from Repertory r";
-		Query query = session.createQuery(hql);
-		
-		@SuppressWarnings("unchecked")
-		List<String> tmp_repo_types= query.list();
-		for(String s:tmp_repo_types)
-		{
-			//System.out.println(s);
-			if(!repo_types.contains(s))
-				repo_types.add(s);
-		}*/
+		for (TeachBuilding b : builds)
+			System.out.println(b.getBuild_name());
+
+		// ******************修改库存设备类型为外键
+		/*
+		 * repo_types=new ArrayList<String>(); String hql=
+		 * "select r.rtType from Repertory r"; Query query =
+		 * session.createQuery(hql);
+		 * 
+		 * @SuppressWarnings("unchecked") List<String> tmp_repo_types=
+		 * query.list(); for(String s:tmp_repo_types) { //System.out.println(s);
+		 * if(!repo_types.contains(s)) repo_types.add(s); }
+		 */
 		device = Const.device;
 		mainDevice = Const.mainDevice;
 		costDevice = Const.costDevice;
-		//******************修改库存设备类型为外键
+		// ******************修改库存设备类型为外键
 
 		session.close();
 		return SUCCESS;
 	}
-	
+
 	public String addTeachBuilding() {
 		Session session = model.Util.sessionFactory.openSession();
 		Criteria build_criteria = session.createCriteria(TeachBuilding.class);
 		build_criteria.add(Restrictions.eq("build_name", build_name));
 		List<TeachBuilding> buildings = build_criteria.list();
-		if(buildings.size() > 0) {
+		if (buildings.size() > 0) {
 			add_status = "exist";
-		}
-		else {
+		} else {
 			TeachBuilding build = new TeachBuilding();
 			build.setBuild_name(build_name);
-			
+
 			session.beginTransaction();
 			session.save(build);
 			session.getTransaction().commit();
-			
+
 			add_status = "ok";
 		}
 		session.close();
 		return SUCCESS;
 	}
-	
-	
-	
-	public String BuildingDelete() throws Exception{
-		
+
+	public String BuildingDelete() throws Exception {
+
 		Session session = model.Util.sessionFactory.openSession();
 		System.out.println("BuildingDelete:");
-//		Transaction trans = 
+		// Transaction trans =
 		session.beginTransaction();
 		Criteria q = session.createCriteria(Classroom.class);
 		q = q.createCriteria("teachbuilding");
-		q.add(Restrictions.eq("build_id",buildId));
-		
+		q.add(Restrictions.eq("build_id", buildId));
+
 		classroom_list = q.list();
 		System.out.println(classroom_list);
-		
+
 		if (classroom_list.isEmpty()) {
 			status = 0;
-		}
-		else {
+		} else {
 			status = 1;
 			return ActionSupport.SUCCESS;
 		}
-		try{
+		try {
 			Criteria b = session.createCriteria(TeachBuilding.class);
 			b.add(Restrictions.eq("build_id", buildId));
 			List L = b.list();
@@ -165,26 +153,22 @@ public class TeachBuildingAction extends ActionSupport {
 			System.out.println(L.get(0));
 			session.delete(L.get(0));
 			session.getTransaction().commit();
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-            session.getTransaction().rollback();
-            System.out.println("删除失败");
-		}finally{
+			session.getTransaction().rollback();
+			System.out.println("删除失败");
+		} finally {
 			session.close();
 		}
 		System.out.println(status);
-		
-		return ActionSupport.SUCCESS;
-		
-		
-	}
-	
 
-	
+		return ActionSupport.SUCCESS;
+
+	}
+
 	public List<TeachBuilding> getBuilds() {
 		return builds;
 	}
-
 
 	public void setBuilds(List<TeachBuilding> builds) {
 		this.builds = builds;
@@ -206,13 +190,12 @@ public class TeachBuildingAction extends ActionSupport {
 		this.build_name = build_name;
 	}
 
-/*	public List<String> getRepo_types() {
-		return repo_types;
-	}
-
-	public void setRepo_types(List<String> repo_types) {
-		this.repo_types = repo_types;
-	}*/
+	/*
+	 * public List<String> getRepo_types() { return repo_types; }
+	 * 
+	 * public void setRepo_types(List<String> repo_types) { this.repo_types =
+	 * repo_types; }
+	 */
 	public String[] getDevice() {
 		return device;
 	}
@@ -237,6 +220,4 @@ public class TeachBuildingAction extends ActionSupport {
 		this.costDevice = costDevice;
 	}
 
-	
-	
 }
